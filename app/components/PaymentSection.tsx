@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 
 type Currency = "USD" | "GBP" | "EUR" | "AUD" | "CAD" | "AED";
 
@@ -44,7 +45,11 @@ const retainerPlans = [
   },
 ];
 
-export default function PaymentSection() {
+function PaymentSectionInner() {
+  const searchParams = useSearchParams();
+  const planParam = searchParams.get("plan");
+  const modeParam = searchParams.get("mode");
+  const invParam = searchParams.get("inv");
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>("USD");
   const [paymentMode, setPaymentMode] = useState<"retainer" | "invoice">("retainer");
   const [selectedPlanId, setSelectedPlanId] = useState<string>("scale");
@@ -56,6 +61,20 @@ export default function PaymentSection() {
   const [paymentMethod, setPaymentMethod] = useState<"stripe" | "wire" | "wise" | "paypal">("stripe");
   const [status, setStatus] = useState<"idle" | "processing" | "success">("idle");
   const [transactionId, setTransactionId] = useState<string>("");
+
+  useEffect(() => {
+    if (planParam && ["starter", "scale", "enterprise"].includes(planParam.toLowerCase())) {
+      setSelectedPlanId(planParam.toLowerCase());
+      setPaymentMode("retainer");
+    }
+    if (modeParam === "invoice") {
+      setPaymentMode("invoice");
+    }
+    if (invParam) {
+      setInvoiceNumber(invParam);
+      setPaymentMode("invoice");
+    }
+  }, [planParam, modeParam, invParam]);
 
   const curr = currencies[selectedCurrency];
 
@@ -557,5 +576,14 @@ export default function PaymentSection() {
 
       </div>
     </section>
+  );
+}
+
+
+export default function PaymentSection() {
+  return (
+    <Suspense fallback={<div className="py-24 text-center text-sm font-semibold text-gray-500">Loading Secure Payment Gateway...</div>}>
+      <PaymentSectionInner />
+    </Suspense>
   );
 }

@@ -7,10 +7,10 @@ export default function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Floating Action Menu popup */}
       {isOpen && (
-        <div className="mb-3 w-80 bg-white rounded-3xl shadow-2xl border border-[#d97706]/30 p-5 animate-fadeIn text-left">
+        <div className="mb-3 w-80 sm:w-84 max-w-[calc(100vw-3rem)] bg-white rounded-3xl shadow-2xl border border-[#d97706]/35 p-5 animate-fadeIn text-left origin-bottom-right">
           <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-3">
             <div className="flex items-center gap-2.5">
               <div className="relative">

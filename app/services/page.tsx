@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import PaymentSection from "../components/PaymentSection";
 
 const serviceList = [
   {
@@ -125,6 +124,7 @@ const serviceList = [
 
 const packages = [
   {
+    id: "starter",
     name: "Starter Growth",
     price: "$899",
     period: "/month",
@@ -140,6 +140,7 @@ const packages = [
     popular: false,
   },
   {
+    id: "scale",
     name: "Scale Accelerator",
     price: "$1,899",
     period: "/month",
@@ -156,6 +157,7 @@ const packages = [
     popular: true,
   },
   {
+    id: "enterprise",
     name: "Enterprise Domination",
     price: "$3,499",
     period: "/month",
@@ -227,13 +229,13 @@ export default function ServicesPage() {
             <span>Request Custom Proposal</span>
             <span>→</span>
           </Link>
-          <button
-            onClick={() => scrollToPayment("All Plans")}
+          <Link
+            href="/pay"
             className="inline-flex items-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
           >
-            <span>View Pricing &amp; Pay</span>
+            <span>Client Payment Portal</span>
             <span className="text-[#d97706]">💳</span>
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -348,24 +350,55 @@ export default function ServicesPage() {
                   </ul>
                 </div>
 
-                <button
-                  onClick={() => scrollToPayment(pkg.name)}
-                  className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                <Link
+                  href={`/pay?plan=${pkg.id}`}
+                  className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all cursor-pointer block ${
                     pkg.popular
                       ? "bg-[#091427] hover:bg-[#0f213d] text-white shadow-md shadow-[#091427]/20"
                       : "bg-amber-50 hover:bg-amber-100 text-[#091427] border border-amber-200/80"
                   }`}
                 >
-                  Get Started → Pay in Portal
-                </button>
+                  Choose ${pkg.name} &amp; Settle →
+                </Link>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Global Payment & Invoicing Section */}
-      <PaymentSection />
+      {/* Dedicated Client Payment & Invoicing Gateway Teaser */}
+      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] rounded-3xl p-8 md:p-12 border border-[#d97706]/35 shadow-2xl text-white flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="max-w-2xl text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#d97706] text-xs font-bold mb-3 border border-[#d97706]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b] animate-ping" />
+              <span>🔒 256-Bit SSL Bank-Grade Escrow Settlement</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+              Ready to Authorize a Retainer or Settle an Invoice?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Our dedicated global client payment portal supports domestic settlements in USD ($), GBP (£), EUR (€), AUD (A$), and AED (د.إ) via Stripe, Bank Wire/SWIFT, Wise, and PayPal with zero foreign transaction fees.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
+            <Link
+              href="/pay"
+              className="inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-[#d97706]/30 transition-all text-center whitespace-nowrap cursor-pointer"
+            >
+              <span>Open Payment Portal</span>
+              <span>💳 →</span>
+            </Link>
+            <Link
+              href="/pay?mode=invoice"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-6 py-4 rounded-2xl text-xs sm:text-sm transition-all text-center whitespace-nowrap cursor-pointer"
+            >
+              <span>Pay Custom Invoice #</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Bottom CTA */}
       <section className="relative py-16 px-6 md:px-12 z-10 text-center">
@@ -449,15 +482,12 @@ export default function ServicesPage() {
               >
                 Book Discovery Call for This Service →
               </Link>
-              <button
-                onClick={() => {
-                  setActiveModalService(null);
-                  scrollToPayment(activeModalService.title);
-                }}
-                className="px-5 py-3.5 rounded-2xl text-xs font-semibold bg-amber-50 text-[#091427] hover:bg-amber-100 border border-amber-200/80 transition-colors cursor-pointer"
+              <Link
+                href="/pay"
+                className="px-5 py-3.5 rounded-2xl text-xs font-semibold bg-amber-50 text-[#091427] hover:bg-amber-100 border border-amber-200/80 transition-colors cursor-pointer text-center"
               >
-                Go to Payment 💳
-              </button>
+                Go to Payment Portal 💳
+              </Link>
             </div>
           </div>
         </div>
