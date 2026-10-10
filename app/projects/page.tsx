@@ -137,7 +137,7 @@ export default function ProjectsPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#10b981]" />
           <span>Proven Client Case Studies</span>
         </div>
@@ -170,7 +170,7 @@ export default function ProjectsPage() {
                     {study.visual}
                   </div>
                   <div className="bg-white/95 px-3.5 py-1.5 rounded-xl shadow-sm text-center">
-                    <span className="text-base font-black text-[#0d5c4d] block leading-none">
+                    <span className="text-base font-black text-[#061c14] block leading-none">
                       {study.stat}
                     </span>
                     <span className="text-[10px] text-gray-500 font-semibold">{study.statLabel}</span>
@@ -182,7 +182,7 @@ export default function ProjectsPage() {
                   {study.badge}
                 </span>
 
-                <h2 className="text-xl font-bold text-[#0f172a] mt-3 mb-1 group-hover:text-[#0d5c4d] transition-colors">
+                <h2 className="text-xl font-bold text-[#0f172a] mt-3 mb-1 group-hover:text-[#061c14] transition-colors">
                   {study.title}
                 </h2>
                 <p className="text-xs text-gray-500 font-medium mb-3">{study.client}</p>
@@ -214,7 +214,7 @@ export default function ProjectsPage() {
 
                 <Link
                   href="/contact"
-                  className="w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-[#0d5c4d] bg-emerald-50 hover:bg-emerald-100 py-2.5 rounded-xl transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-[#061c14] bg-emerald-50 hover:bg-emerald-100 py-2.5 rounded-xl transition-colors"
                 >
                   <span>Discuss Similar Project</span>
                   <span>→</span>
@@ -236,7 +236,7 @@ export default function ProjectsPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#08483b] shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0a2e21] shadow-md transition-all"
           >
             <span>Book Your Free Growth Audit</span>
             <span>→</span>

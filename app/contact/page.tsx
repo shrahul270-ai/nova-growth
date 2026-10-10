@@ -34,7 +34,7 @@ export default function ContactPage() {
       {/* Main Contact Section */}
       <section className="relative pt-16 pb-24 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
             <span>Global Client Inquiries Welcome</span>
           </div>
@@ -113,7 +113,7 @@ export default function ContactPage() {
 
             {/* Direct Contact Card */}
             <div className="bg-emerald-50/70 rounded-3xl p-6 border border-emerald-100 flex flex-col gap-3 text-xs">
-              <span className="font-bold text-[#0d5c4d] uppercase tracking-wider text-[11px]">
+              <span className="font-bold text-[#061c14] uppercase tracking-wider text-[11px]">
                 Direct Contacts
               </span>
               <div className="flex items-center justify-between text-gray-700 py-1 border-b border-emerald-100/70">
@@ -146,7 +146,7 @@ export default function ContactPage() {
                   </p>
                   <button
                     onClick={() => setFormState("idle")}
-                    className="bg-[#0d5c4d] text-white text-xs font-bold px-6 py-2.5 rounded-full hover:bg-[#08483b] transition-all cursor-pointer"
+                    className="bg-[#061c14] text-white text-xs font-bold px-6 py-2.5 rounded-full hover:bg-[#0a2e21] transition-all cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>
@@ -269,7 +269,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={formState === "submitting"}
-                    className="w-full bg-[#0d5c4d] hover:bg-[#08483b] text-white font-bold py-4 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-900/20 cursor-pointer"
+                    className="w-full bg-[#061c14] hover:bg-[#0a2e21] text-white font-bold py-4 rounded-xl text-xs sm:text-sm transition-all shadow-md shadow-emerald-900/20 cursor-pointer"
                   >
                     {formState === "submitting" ? "Sending Request..." : "Request Growth Audit & Proposal →"}
                   </button>

@@ -41,19 +41,19 @@ export default function SeoAuditWidget() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-3xl border border-emerald-100 shadow-xl p-6 sm:p-10 relative overflow-hidden text-left">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-3xl border border-[#c5a880]/30 shadow-xl p-6 sm:p-10 relative overflow-hidden text-left">
       {/* Background accents */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50 rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#f4efe6] rounded-full blur-3xl -z-10 opacity-70 pointer-events-none" />
 
       {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-3 border border-emerald-200">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f4efe6] text-[#061c14] text-xs font-bold mb-3 border border-[#c5a880]/40">
           <span>⚡ Instant Global Performance Checker</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-black text-[#061c14] tracking-tight">
           Audit Your Website&apos;s SEO &amp; Speed in 30 Seconds
         </h2>
-        <p className="text-xs sm:text-sm text-[#64748b] mt-2">
+        <p className="text-xs sm:text-sm text-[#526058] mt-2">
           Discover why your site isn&apos;t ranking on Google and what technical fixes will drive immediate international traffic.
         </p>
       </div>
@@ -69,12 +69,12 @@ export default function SeoAuditWidget() {
               placeholder="e.g. yourcompany.com"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#061c14] focus:ring-1 focus:ring-[#061c14]"
             />
           </div>
           <button
             type="submit"
-            className="bg-[#0d5c4d] hover:bg-[#08483b] text-white font-bold px-7 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md transition-all cursor-pointer whitespace-nowrap"
+            className="bg-[#061c14] hover:bg-[#0a2e21] text-white border border-[#c5a880]/40 font-bold px-7 py-3.5 rounded-2xl text-xs sm:text-sm shadow-md transition-all cursor-pointer whitespace-nowrap"
           >
             Run Free Audit →
           </button>
@@ -84,7 +84,7 @@ export default function SeoAuditWidget() {
       {/* STAGE 2: LIVE SCANNING SIMULATION */}
       {stage === "scanning" && (
         <div className="py-8 text-center max-w-md mx-auto">
-          <div className="w-14 h-14 rounded-full border-4 border-emerald-100 border-t-[#0d5c4d] animate-spin mx-auto mb-5" />
+          <div className="w-14 h-14 rounded-full border-4 border-emerald-100 border-t-[#061c14] animate-spin mx-auto mb-5" />
           <h4 className="text-sm font-bold text-[#0f172a] mb-1">
             Auditing {url.replace(/^https?:\/\//, "")}
           </h4>
@@ -166,7 +166,7 @@ export default function SeoAuditWidget() {
               />
               <button
                 type="submit"
-                className="bg-[#0d5c4d] hover:bg-[#08483b] text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
+                className="bg-[#061c14] hover:bg-[#0a2e21] text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-colors cursor-pointer"
               >
                 Send Me The Audit →
               </button>
@@ -191,7 +191,7 @@ export default function SeoAuditWidget() {
               setUrl("");
               setEmail("");
             }}
-            className="text-xs font-bold text-[#0d5c4d] hover:underline cursor-pointer"
+            className="text-xs font-bold text-[#061c14] hover:underline cursor-pointer"
           >
             Audit another domain ↺
           </button>

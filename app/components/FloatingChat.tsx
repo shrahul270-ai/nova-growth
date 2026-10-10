@@ -83,7 +83,7 @@ export default function FloatingChat() {
       {/* Floating Main Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2.5 bg-[#0d5c4d] hover:bg-[#08483b] text-white px-5 py-3.5 rounded-full shadow-2xl shadow-emerald-900/30 transition-all hover:scale-105 cursor-pointer font-bold text-xs"
+        className="flex items-center gap-2.5 bg-[#061c14] hover:bg-[#0a2e21] text-white border border-[#c5a880]/50 px-5 py-3.5 rounded-full shadow-2xl shadow-[#061c14]/40 transition-all hover:scale-105 cursor-pointer font-bold text-xs"
         aria-label="Open support options"
       >
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />

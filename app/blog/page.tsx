@@ -93,7 +93,7 @@ export default function BlogPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#10b981]" />
           <span>Nova Growth Insights</span>
         </div>
@@ -117,7 +117,7 @@ export default function BlogPage() {
               <span className="text-xs text-gray-400 font-medium">{featuredPost.readTime}</span>
               <span className="text-xs text-gray-400 font-medium">• {featuredPost.date}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight leading-snug mb-4 hover:text-[#0d5c4d] transition-colors cursor-pointer">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight leading-snug mb-4 hover:text-[#061c14] transition-colors cursor-pointer">
               {featuredPost.title}
             </h2>
             <p className="text-sm text-[#475569] leading-relaxed mb-6">
@@ -158,7 +158,7 @@ export default function BlogPage() {
                   <span className="text-[11px] text-gray-400 font-medium">{post.readTime}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-[#0f172a] tracking-tight mb-2.5 hover:text-[#0d5c4d] transition-colors cursor-pointer leading-snug">
+                <h3 className="text-lg font-bold text-[#0f172a] tracking-tight mb-2.5 hover:text-[#061c14] transition-colors cursor-pointer leading-snug">
                   {post.title}
                 </h3>
                 <p className="text-xs text-[#64748b] leading-relaxed mb-6">
@@ -180,7 +180,7 @@ export default function BlogPage() {
       {/* Newsletter Signup */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-4xl mx-auto text-center">
         <div className="bg-white rounded-3xl p-8 md:p-12 border border-emerald-100 shadow-sm">
-          <span className="text-xs font-bold text-[#0d5c4d] uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#061c14] uppercase tracking-wider">
             Stay Ahead of Google Updates
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-2 mb-3">
@@ -205,7 +205,7 @@ export default function BlogPage() {
             />
             <button
               type="submit"
-              className="bg-[#0d5c4d] hover:bg-[#08483b] text-white text-xs font-bold px-6 py-3 rounded-full transition-colors cursor-pointer"
+              className="bg-[#061c14] hover:bg-[#0a2e21] text-white text-xs font-bold px-6 py-3 rounded-full transition-colors cursor-pointer"
             >
               Subscribe Free
             </button>

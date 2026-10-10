@@ -68,7 +68,7 @@ export default function AboutPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-16 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#10b981]" />
           <span>Our Story &amp; Mission</span>
         </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-100 text-center">
-              <span className="text-3xl font-black text-[#0d5c4d] block">150+</span>
+              <span className="text-3xl font-black text-[#061c14] block">150+</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Global Clients</span>
               <span className="text-[10px] text-gray-500">Across 10+ countries</span>
             </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
       {/* Core Pillars */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold text-[#0d5c4d] uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#061c14] uppercase tracking-wider">
             Our Core Principles
           </span>
           <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-2">
@@ -156,7 +156,7 @@ export default function AboutPage() {
       {/* Leadership Team */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold text-[#0d5c4d] uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#061c14] uppercase tracking-wider">
             Leadership
           </span>
           <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-2">
@@ -192,7 +192,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#08483b] shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0a2e21] shadow-md transition-all"
           >
             <span>Talk to Our Strategists</span>
             <span>→</span>

@@ -169,7 +169,7 @@ export default function ServicesPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-16 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#10b981]" />
           <span>Full-Funnel Growth Services</span>
         </div>
@@ -183,7 +183,7 @@ export default function ServicesPage() {
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] hover:bg-[#08483b] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#0d5c4d]/25 transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#061c14]/25 transition-all"
           >
             <span>Request Custom Proposal</span>
             <span>→</span>
@@ -234,7 +234,7 @@ export default function ServicesPage() {
               <div className="pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
                 <Link
                   href="/contact"
-                  className="text-xs font-bold text-[#0d5c4d] hover:underline flex items-center gap-1.5"
+                  className="text-xs font-bold text-[#061c14] hover:underline flex items-center gap-1.5"
                 >
                   <span>Book this service</span>
                   <span>→</span>
@@ -250,7 +250,7 @@ export default function ServicesPage() {
       <section className="relative py-20 px-6 md:px-12 z-10 bg-white/60 border-y border-emerald-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-[#0d5c4d] uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#061c14] uppercase tracking-wider">
               Transparent Global Pricing
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight mt-2 mb-3">
@@ -267,12 +267,12 @@ export default function ServicesPage() {
                 key={idx}
                 className={`rounded-3xl p-8 relative flex flex-col justify-between transition-all ${
                   pkg.popular
-                    ? "bg-white border-2 border-[#0d5c4d] shadow-xl scale-[1.02]"
+                    ? "bg-white border-2 border-[#061c14] shadow-xl scale-[1.02]"
                     : "bg-white border border-gray-100 shadow-xs"
                 }`}
               >
                 {pkg.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#0d5c4d] text-white text-[11px] font-bold px-4 py-1 rounded-full tracking-wide">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#061c14] text-white text-[11px] font-bold px-4 py-1 rounded-full tracking-wide">
                     MOST POPULAR
                   </div>
                 )}
@@ -301,8 +301,8 @@ export default function ServicesPage() {
                   href="/contact"
                   className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all ${
                     pkg.popular
-                      ? "bg-[#0d5c4d] hover:bg-[#08483b] text-white shadow-md shadow-emerald-900/20"
-                      : "bg-emerald-50 hover:bg-emerald-100 text-[#0d5c4d]"
+                      ? "bg-[#061c14] hover:bg-[#0a2e21] text-white shadow-md shadow-emerald-900/20"
+                      : "bg-emerald-50 hover:bg-emerald-100 text-[#061c14]"
                   }`}
                 >
                   Get Started →
@@ -324,7 +324,7 @@ export default function ServicesPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#08483b] shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0a2e21] shadow-md transition-all"
           >
             <span>Book a Free 30-Min Strategy Call</span>
             <span>→</span>

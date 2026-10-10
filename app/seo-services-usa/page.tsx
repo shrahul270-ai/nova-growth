@@ -40,7 +40,7 @@ export default function SeoServicesUsaPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#0d5c4d] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
           <span>🇺🇸 Specialized for United States Businesses</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
@@ -53,7 +53,7 @@ export default function SeoServicesUsaPage() {
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] hover:bg-[#08483b] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all"
           >
             <span>Book US Strategy Call (EST / PST)</span>
             <span>→</span>
@@ -115,7 +115,7 @@ export default function SeoServicesUsaPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#0d5c4d] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#08483b] transition-all"
+            className="inline-flex items-center gap-2 bg-[#061c14] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0a2e21] transition-all"
           >
             <span>Request US Proposal →</span>
           </Link>
