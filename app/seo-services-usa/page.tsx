@@ -106,16 +106,16 @@ export default function SeoServicesUsaPage() {
 
       {/* CTA */}
       <section className="py-16 px-6 md:px-12 text-center max-w-4xl mx-auto">
-        <div className="bg-gradient-to-r from-emerald-100/70 via-teal-100/60 to-purple-100/50 p-10 rounded-3xl border border-emerald-100 shadow-sm">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] mb-3">
+        <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
             Ready to Accelerate Your US Search Footprint?
           </h2>
-          <p className="text-sm text-[#475569] max-w-xl mx-auto mb-6">
+          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
             Get a tailored proposal and competitive teardown for your target US market.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0f213d] transition-all"
+            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Request US Proposal →</span>
           </Link>

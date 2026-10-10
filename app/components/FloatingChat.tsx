@@ -10,18 +10,18 @@ export default function FloatingChat() {
     <div className="fixed bottom-6 right-6 z-50">
       {/* Floating Action Menu popup */}
       {isOpen && (
-        <div className="mb-3 w-80 bg-white rounded-3xl shadow-2xl border border-emerald-100 p-5 animate-fadeIn text-left">
+        <div className="mb-3 w-80 bg-white rounded-3xl shadow-2xl border border-[#d97706]/30 p-5 animate-fadeIn text-left">
           <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-3">
             <div className="flex items-center gap-2.5">
               <div className="relative">
-                <div className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
+                <div className="w-9 h-9 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/40 flex items-center justify-center font-bold text-xs">
                   NG
                 </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#d97706] border-2 border-white" />
               </div>
               <div>
-                <span className="text-xs font-bold text-[#0f172a] block">Nova Growth Team</span>
-                <span className="text-[10px] text-emerald-600 font-semibold">● Online for Global Clients</span>
+                <span className="text-xs font-bold text-[#091427] block">Nova Growth Team</span>
+                <span className="text-[10px] text-[#d97706] font-semibold">● Online for Global Clients</span>
               </div>
             </div>
             <button
@@ -32,7 +32,7 @@ export default function FloatingChat() {
             </button>
           </div>
 
-          <p className="text-xs text-[#64748b] leading-relaxed mb-4">
+          <p className="text-xs text-[#54647c] leading-relaxed mb-4">
             Hi! Need quick answers or a custom quote for your website or SEO campaign?
           </p>
 
@@ -42,12 +42,12 @@ export default function FloatingChat() {
               href="https://wa.me/18005556682?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100/80 transition-colors border border-emerald-100 text-xs font-semibold text-emerald-900"
+              className="flex items-center gap-3 p-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100/80 transition-colors border border-amber-200/80 text-xs font-semibold text-[#091427]"
             >
               <span className="text-lg">💬</span>
               <div className="flex flex-col">
                 <span className="font-bold">Chat on WhatsApp</span>
-                <span className="text-[10px] text-emerald-700 font-normal">Instant reply (under 5 mins)</span>
+                <span className="text-[10px] text-[#d97706] font-medium">Instant reply (under 5 mins)</span>
               </div>
             </a>
 
@@ -55,7 +55,7 @@ export default function FloatingChat() {
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-slate-800"
+              className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >
               <span className="text-lg">📅</span>
               <div className="flex flex-col">
@@ -68,7 +68,7 @@ export default function FloatingChat() {
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-slate-800"
+              className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >
               <span className="text-lg">✉️</span>
               <div className="flex flex-col">

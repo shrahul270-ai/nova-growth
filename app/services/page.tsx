@@ -202,10 +202,10 @@ export default function ServicesPage() {
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-3">
-                    <span className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl font-bold">
+                    <span className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl font-bold">
                       {service.icon}
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50/80 px-3 py-1 rounded-full border border-emerald-100">
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
                       {service.badge}
                     </span>
                   </div>
@@ -213,7 +213,7 @@ export default function ServicesPage() {
                 </div>
 
                 <h2 className="text-2xl font-bold text-[#0f172a] mb-2">{service.title}</h2>
-                <p className="text-sm font-medium text-emerald-700 mb-3">{service.tagline}</p>
+                <p className="text-sm font-medium text-[#d97706] mb-3">{service.tagline}</p>
                 <p className="text-sm text-[#64748b] leading-relaxed mb-6">{service.description}</p>
 
                 <div className="border-t border-gray-100 pt-5">
@@ -223,7 +223,7 @@ export default function ServicesPage() {
                   <ul className="space-y-2">
                     {service.deliverables.map((item, idx) => (
                       <li key={idx} className="flex items-start gap-2.5 text-xs text-gray-700 font-medium">
-                        <span className="text-emerald-600 font-bold">✓</span>
+                        <span className="text-[#d97706] font-bold">✓</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -247,7 +247,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Pricing Packages in USD */}
-      <section className="relative py-20 px-6 md:px-12 z-10 bg-white/60 border-y border-emerald-50">
+      <section className="relative py-20 px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
@@ -288,7 +288,7 @@ export default function ServicesPage() {
                   <ul className="space-y-3 mb-8">
                     {pkg.features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-center gap-2.5 text-xs text-gray-700">
-                        <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-[10px] shrink-0">
+                        <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-[10px] shrink-0">
                           ✓
                         </span>
                         <span>{feat}</span>
@@ -302,7 +302,7 @@ export default function ServicesPage() {
                   className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all ${
                     pkg.popular
                       ? "bg-[#091427] hover:bg-[#0f213d] text-white shadow-md shadow-[#091427]/20"
-                      : "bg-emerald-50 hover:bg-emerald-100 text-[#091427]"
+                      : "bg-amber-50 hover:bg-amber-100 text-[#091427] border border-amber-200/80"
                   }`}
                 >
                   Get Started →
@@ -315,16 +315,16 @@ export default function ServicesPage() {
 
       {/* Bottom CTA */}
       <section className="relative py-16 px-6 md:px-12 z-10 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-100/70 via-teal-100/60 to-purple-100/50 p-10 rounded-3xl border border-emerald-100 shadow-sm">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] mb-3">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
             Need a Tailored Strategy for Your Niche?
           </h2>
-          <p className="text-sm text-[#475569] max-w-xl mx-auto mb-6">
+          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
             We build custom hybrid packages combining Next.js development, content authority, and international SEO.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0f213d] shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Book a Free 30-Min Strategy Call</span>
             <span>→</span>

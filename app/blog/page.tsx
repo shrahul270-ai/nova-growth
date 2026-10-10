@@ -111,7 +111,7 @@ export default function BlogPage() {
         <div className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm card-hover grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7">
             <div className="flex items-center gap-3 mb-4">
-              <span className="bg-emerald-50 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200">
+              <span className="bg-amber-50 text-amber-800 text-xs font-bold px-3 py-1 rounded-full border border-amber-200/80">
                 {featuredPost.category}
               </span>
               <span className="text-xs text-gray-400 font-medium">{featuredPost.readTime}</span>
@@ -124,7 +124,7 @@ export default function BlogPage() {
               {featuredPost.excerpt}
             </p>
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-bold text-xs flex items-center justify-center">
                 NG
               </div>
               <div className="text-xs">
@@ -134,10 +134,10 @@ export default function BlogPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-gradient-to-tr from-emerald-100 via-teal-50 to-indigo-100 rounded-2xl h-64 flex flex-col items-center justify-center p-6 border border-emerald-100 text-center">
+          <div className="lg:col-span-5 bg-gradient-to-tr from-amber-50 via-slate-50 to-blue-50/50 rounded-2xl h-64 flex flex-col items-center justify-center p-6 border border-amber-200/60 text-center">
             <span className="text-5xl mb-3">📈</span>
             <span className="text-sm font-bold text-slate-800">Organic Growth Blueprint</span>
-            <span className="text-xs text-emerald-700 font-semibold mt-1">E-Commerce &amp; B2B Focus</span>
+            <span className="text-xs text-[#d97706] font-semibold mt-1">E-Commerce &amp; B2B Focus</span>
           </div>
         </div>
       </section>
@@ -152,7 +152,7 @@ export default function BlogPage() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                  <span className="bg-amber-50 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-amber-200/60">
                     {post.category}
                   </span>
                   <span className="text-[11px] text-gray-400 font-medium">{post.readTime}</span>
@@ -168,7 +168,7 @@ export default function BlogPage() {
 
               <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
                 <span className="text-gray-500 font-medium">{post.author}</span>
-                <span className="text-emerald-700 font-bold hover:underline cursor-pointer">
+                <span className="text-[#d97706] font-bold hover:underline cursor-pointer">
                   Read article →
                 </span>
               </div>
@@ -179,7 +179,7 @@ export default function BlogPage() {
 
       {/* Newsletter Signup */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-4xl mx-auto text-center">
-        <div className="bg-white rounded-3xl p-8 md:p-12 border border-emerald-100 shadow-sm">
+        <div className="bg-white rounded-3xl p-8 md:p-12 border border-amber-200/60 shadow-sm">
           <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
             Stay Ahead of Google Updates
           </span>

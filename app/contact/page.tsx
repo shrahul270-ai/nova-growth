@@ -62,7 +62,7 @@ export default function ContactPage() {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-sm font-bold shrink-0">
                     ⚡
                   </div>
                   <div>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#1e40af] border border-blue-200/60 flex items-center justify-center text-sm font-bold shrink-0">
                     🌍
                   </div>
                   <div>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-sm font-bold shrink-0">
                     🔒
                   </div>
                   <div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm font-bold shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-slate-100 text-[#091427] border border-slate-200 flex items-center justify-center text-sm font-bold shrink-0">
                     💬
                   </div>
                   <div>
@@ -112,15 +112,15 @@ export default function ContactPage() {
             </div>
 
             {/* Direct Contact Card */}
-            <div className="bg-emerald-50/70 rounded-3xl p-6 border border-emerald-100 flex flex-col gap-3 text-xs">
+            <div className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 flex flex-col gap-3 text-xs">
               <span className="font-bold text-[#091427] uppercase tracking-wider text-[11px]">
                 Direct Contacts
               </span>
-              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-emerald-100/70">
+              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-amber-200/50">
                 <span>Inquiries Email:</span>
                 <span className="font-semibold text-[#0f172a]">hello@novagrowth.agency</span>
               </div>
-              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-emerald-100/70">
+              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-amber-200/50">
                 <span>Global Support:</span>
                 <span className="font-semibold text-[#0f172a]">+1 (800) 555-NOVA</span>
               </div>
@@ -137,7 +137,7 @@ export default function ContactPage() {
             <div className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-xl">
               {formState === "success" ? (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center text-2xl mx-auto mb-4">
                     ✓
                   </div>
                   <h3 className="text-2xl font-black text-[#0f172a]">Proposal Request Received!</h3>

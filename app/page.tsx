@@ -289,8 +289,8 @@ export default function Home() {
               </div>
 
               {/* Floating Stat Card (Right Bottom) */}
-              <div className="absolute bottom-2 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-emerald-100 p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3.5 hover:scale-105 transition-transform">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+              <div className="absolute bottom-2 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3.5 hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center shrink-0">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
@@ -357,10 +357,10 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center text-lg">
                       🔍
                     </div>
-                    <span className="text-gray-400 group-hover:text-emerald-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
@@ -383,15 +383,15 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-bold font-mono">
+                    <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-sm font-bold font-mono">
                       &lt;/&gt;
                     </div>
-                    <span className="text-gray-400 group-hover:text-indigo-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       Website Development
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -409,15 +409,15 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-lg">
+                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
                       📄
                     </div>
-                    <span className="text-gray-400 group-hover:text-amber-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-amber-600 transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       Content Writing
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -435,15 +435,15 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-lg">
+                    <div className="w-11 h-11 rounded-full bg-blue-50 text-[#1e40af] border border-blue-200/60 flex items-center justify-center text-lg">
                       ✉️
                     </div>
-                    <span className="text-gray-400 group-hover:text-rose-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-rose-600 transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       Email Marketing
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -461,15 +461,15 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center text-lg">
+                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
                       🔗
                     </div>
-                    <span className="text-gray-400 group-hover:text-purple-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-purple-600 transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       Off Page Backlink Building
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -487,15 +487,15 @@ export default function Home() {
                   className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-lg">
+                    <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-lg">
                       ⚙️
                     </div>
-                    <span className="text-gray-400 group-hover:text-teal-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
                       ↗
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-teal-600 transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       Website Maintenance
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -515,7 +515,7 @@ export default function Home() {
         </section>
 
         {/* 4. ABOUT NOVA GROWTH / TRUSTED PARTNER */}
-        <section id="about" className="relative py-20 px-6 md:px-12 z-10 bg-white/40 border-y border-emerald-50">
+        <section id="about" className="relative py-20 px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Left Column: Angled Laptop & Floating Analytics */}
@@ -535,14 +535,14 @@ export default function Home() {
               </div>
 
               {/* Floating Metric 1 */}
-              <div className="absolute top-8 left-2 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-emerald-100 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 animate-float-gentle">
-                <span className="text-emerald-600 font-bold text-xs">↗ 15%</span>
+              <div className="absolute top-8 left-2 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 animate-float-gentle">
+                <span className="text-[#d97706] font-bold text-xs">↗ 15%</span>
                 <span className="text-[11px] text-[#64748b] font-medium">Conversions</span>
               </div>
 
               {/* Floating Metric 2 */}
-              <div className="absolute bottom-16 left-0 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-emerald-100 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2">
-                <span className="text-teal-600 font-bold text-xs">↗ 20%</span>
+              <div className="absolute bottom-16 left-0 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2">
+                <span className="text-[#d97706] font-bold text-xs">↗ 20%</span>
                 <span className="text-[11px] text-[#64748b] font-medium">Click Through Rate</span>
               </div>
 
@@ -555,7 +555,7 @@ export default function Home() {
                 <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
                   <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                      <div className="w-3 h-3 rounded-full bg-[#d97706]" />
                       <span className="text-xs font-bold text-slate-800">Organic Growth Report</span>
                     </div>
                     <span className="text-[10px] text-slate-500 font-medium">Live Analytics</span>
@@ -563,17 +563,17 @@ export default function Home() {
 
                   {/* Chart bars & lines visual */}
                   <div className="grid grid-cols-6 gap-2 items-end h-24 mb-3 px-2">
-                    <div className="bg-emerald-200 rounded-t h-[35%]" />
-                    <div className="bg-emerald-300 rounded-t h-[50%]" />
-                    <div className="bg-emerald-400 rounded-t h-[65%]" />
-                    <div className="bg-emerald-500 rounded-t h-[80%]" />
-                    <div className="bg-emerald-600 rounded-t h-[95%]" />
+                    <div className="bg-amber-200 rounded-t h-[35%]" />
+                    <div className="bg-amber-300 rounded-t h-[50%]" />
+                    <div className="bg-amber-400 rounded-t h-[65%]" />
+                    <div className="bg-amber-500 rounded-t h-[80%]" />
+                    <div className="bg-[#d97706] rounded-t h-[95%]" />
                     <div className="bg-[#091427] rounded-t h-[100%]" />
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
                     <span>Target: +150%</span>
-                    <span className="text-emerald-700 font-bold">Achieved: +300%</span>
+                    <span className="text-[#d97706] font-bold">Achieved: +300%</span>
                   </div>
                 </div>
 
@@ -582,8 +582,8 @@ export default function Home() {
               </div>
 
               {/* Floating Highlight Badge: +245% Organic Traffic */}
-              <div className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-emerald-200 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+              <div className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-amber-200/80 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center font-bold text-xs">
                   📈
                 </div>
                 <div className="flex flex-col text-left">
@@ -613,7 +613,7 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                 
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
                     👥
                   </div>
                   <div>
@@ -623,7 +623,7 @@ export default function Home() {
                 </div>
 
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg shrink-0">
                     📊
                   </div>
                   <div>
@@ -633,7 +633,7 @@ export default function Home() {
                 </div>
 
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
                     📋
                   </div>
                   <div>
@@ -661,36 +661,36 @@ export default function Home() {
         {/* 5. STATS BAR: OUR IMPACT IN NUMBERS */}
         <section className="relative py-10 px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-emerald-50/90 via-teal-50/80 to-purple-50/70 border border-emerald-100/90 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/35 rounded-3xl p-6 md:p-8 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
               
               {/* Badge text with hand-drawn arrow */}
               <div className="flex items-center gap-3 shrink-0">
-                <span className="text-lg md:text-xl font-extrabold text-[#0f172a] tracking-tight">
+                <span className="text-lg md:text-xl font-extrabold text-white tracking-tight">
                   Our Impact in Numbers
                 </span>
-                <span className="handwriting text-2xl text-emerald-700">⤹</span>
+                <span className="handwriting text-2xl text-[#d97706]">⤹</span>
               </div>
 
               {/* 4 Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight">150+</div>
-                  <div className="text-xs font-semibold text-[#64748b] mt-0.5">Happy Clients</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">150+</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Happy Clients</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight">300+</div>
-                  <div className="text-xs font-semibold text-[#64748b] mt-0.5">Projects Completed</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">300+</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Projects Completed</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight">98%</div>
-                  <div className="text-xs font-semibold text-[#64748b] mt-0.5">Client Satisfaction</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">98%</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Client Satisfaction</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight">10+</div>
-                  <div className="text-xs font-semibold text-[#64748b] mt-0.5">Countries Served</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">10+</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Countries Served</div>
                 </div>
               </div>
 
@@ -741,7 +741,7 @@ export default function Home() {
                   <div className="w-40 h-44 bg-white rounded-xl shadow-md border border-gray-200 p-2 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform">
                     <span className="text-3xl mb-1">👗</span>
                     <span className="text-xs font-bold text-slate-800">Luxe Fashion US</span>
-                    <span className="text-[10px] text-emerald-600 font-semibold mt-1">+340% Sales</span>
+                    <span className="text-[10px] text-[#d97706] font-semibold mt-1">+340% Sales</span>
                   </div>
                 </div>
 
@@ -752,7 +752,7 @@ export default function Home() {
                     </h3>
                     <p className="text-[13px] text-[#64748b]">Web Development + SEO</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -760,15 +760,15 @@ export default function Home() {
 
               {/* Project 2: Fitness App */}
               <div className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between">
-                <div className="relative bg-gradient-to-tr from-purple-50 to-indigo-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-purple-100/50">
+                <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
                     Mobile App
                   </div>
                   {/* Visual mockup representation */}
-                  <div className="w-28 h-44 bg-slate-900 rounded-2xl shadow-md border-2 border-slate-700 p-2 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform">
+                  <div className="w-28 h-44 bg-slate-950 rounded-2xl shadow-md border-2 border-[#d97706]/40 p-2 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform">
                     <span className="text-3xl mb-1">⚡</span>
-                    <span className="text-xs font-bold text-purple-300">PulseFit Pro</span>
-                    <span className="text-[9px] text-emerald-400 font-medium mt-1">50K+ Downloads</span>
+                    <span className="text-xs font-bold text-[#f59e0b]">PulseFit Pro</span>
+                    <span className="text-[9px] text-amber-200 font-medium mt-1">50K+ Downloads</span>
                   </div>
                 </div>
 
@@ -779,7 +779,7 @@ export default function Home() {
                     </h3>
                     <p className="text-[13px] text-[#64748b]">UI/UX Design + Development</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-purple-50 text-purple-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-slate-100 text-[#091427] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -787,7 +787,7 @@ export default function Home() {
 
               {/* Project 3: Local Business Growth */}
               <div className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between">
-                <div className="relative bg-gradient-to-tr from-teal-50 to-emerald-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-emerald-100/50">
+                <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
                     SEO
                   </div>
@@ -795,11 +795,11 @@ export default function Home() {
                   <div className="w-44 h-36 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col justify-center text-left group-hover:scale-105 transition-transform">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-bold text-slate-800">Apex Dental UK</span>
-                      <span className="text-emerald-600 text-xs font-bold">#1 Google</span>
+                      <span className="text-[#d97706] text-xs font-bold">#1 Google</span>
                     </div>
                     <span className="text-[10px] text-slate-500">Local Area Map Rankings</span>
-                    <div className="w-full bg-emerald-100 h-2 rounded-full mt-2 overflow-hidden">
-                      <div className="bg-emerald-500 h-full w-[85%]" />
+                    <div className="w-full bg-amber-100 h-2 rounded-full mt-2 overflow-hidden">
+                      <div className="bg-[#d97706] h-full w-[85%]" />
                     </div>
                   </div>
                 </div>
@@ -811,7 +811,7 @@ export default function Home() {
                     </h3>
                     <p className="text-[13px] text-[#64748b]">SEO + Content Marketing</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -823,7 +823,7 @@ export default function Home() {
         </section>
 
         {/* 7. HOW WE WORK (PROCESS SECTION) */}
-        <section className="relative py-20 px-6 md:px-12 z-10 bg-white/50 border-t border-emerald-50">
+        <section className="relative py-20 px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
           <div className="max-w-7xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-16">
@@ -843,14 +843,14 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
               
               {/* Step 1 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-emerald-300 transition-colors">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg mb-4">
                     🔍
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[17px] font-bold text-[#0f172a]">01 Discover</span>
-                    <span className="text-emerald-500 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
                   </div>
                   <p className="text-[13px] text-[#64748b] leading-relaxed">
                     Understanding your goals and target audience.
@@ -859,14 +859,14 @@ export default function Home() {
               </div>
 
               {/* Step 2 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-teal-300 transition-colors">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg mb-4">
                     📋
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[17px] font-bold text-[#0f172a]">02 Strategize</span>
-                    <span className="text-teal-500 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
                   </div>
                   <p className="text-[13px] text-[#64748b] leading-relaxed">
                     Creating a custom plan for your growth.
@@ -875,14 +875,14 @@ export default function Home() {
               </div>
 
               {/* Step 3 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-purple-300 transition-colors">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-lg mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg mb-4">
                     💻
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[17px] font-bold text-[#0f172a]">03 Execute</span>
-                    <span className="text-purple-500 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
                   </div>
                   <p className="text-[13px] text-[#64748b] leading-relaxed">
                     Bringing the plan to life with expertise.
@@ -891,9 +891,9 @@ export default function Home() {
               </div>
 
               {/* Step 4 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-emerald-300 transition-colors">
+              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-lg mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg mb-4">
                     🎯
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
@@ -931,7 +931,7 @@ export default function Home() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full border border-emerald-100">
+                  <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
                     +340% Revenue
                   </span>
                 </div>
@@ -941,7 +941,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-black text-xs flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
                   DH
                 </div>
                 <div>
@@ -956,7 +956,7 @@ export default function Home() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full border border-teal-100">
+                  <span className="text-[10px] font-bold bg-slate-100 text-[#091427] px-2.5 py-1 rounded-full border border-slate-200">
                     #1 Google Map Pack
                   </span>
                 </div>
@@ -966,7 +966,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-teal-100 text-teal-800 font-black text-xs flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
                   OT
                 </div>
                 <div>
@@ -981,7 +981,7 @@ export default function Home() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-purple-50 text-purple-700 px-2.5 py-1 rounded-full border border-purple-100">
+                  <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
                     98 PageSpeed
                   </span>
                 </div>
@@ -991,7 +991,7 @@ export default function Home() {
               </div>
 
               <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-800 font-black text-xs flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
                   CM
                 </div>
                 <div>
@@ -1007,9 +1007,9 @@ export default function Home() {
         {/* 8. BOTTOM CALL-TO-ACTION BANNER */}
         <section id="contact" className="relative py-16 px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden border border-emerald-100/80 shadow-xl"
+            <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden border border-[#d97706]/40 shadow-2xl"
                  style={{
-                   background: "linear-gradient(115deg, #f0f7ff 0%, #fef3c7 50%, #eff6ff 100%)"
+                   background: "linear-gradient(135deg, #091427 0%, #0f213d 50%, #1e293b 100%)"
                  }}
             >
               
@@ -1017,19 +1017,19 @@ export default function Home() {
                 
                 {/* Left side text */}
                 <div className="lg:col-span-5 text-left">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0f172a] tracking-tight leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
                     Ready to Take Your Business to the Next Level?
                   </h2>
                 </div>
 
                 {/* Middle CTA & description */}
                 <div className="lg:col-span-4 flex flex-col items-start gap-4">
-                  <p className="text-[14px] text-[#475569] leading-relaxed">
+                  <p className="text-[14px] text-slate-300 leading-relaxed">
                     Get a free consultation and discover how Nova Growth can help you achieve your digital marketing goals.
                   </p>
                   <button
                     onClick={() => setContactOpen(true)}
-                    className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all hover:gap-3 cursor-pointer"
+                    className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-xl shadow-[#d97706]/30 transition-all hover:gap-3 cursor-pointer"
                   >
                     <span>Book a Free Consultation</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1041,13 +1041,13 @@ export default function Home() {
                 {/* Right side handwritten note & 3D orb */}
                 <div className="lg:col-span-3 flex items-center justify-center lg:justify-end gap-3">
                   <div className="flex flex-col items-end">
-                    <span className="handwriting text-2xl font-bold text-[#334155] -rotate-6">
+                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
                       Your Growth
                     </span>
-                    <span className="handwriting text-2xl font-bold text-[#334155] -rotate-6">
+                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
                       Starts Here
                     </span>
-                    <svg className="w-8 h-8 text-[#64748b] -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg className="w-8 h-8 text-[#d97706] -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -1083,8 +1083,8 @@ export default function Home() {
                 ✕
               </button>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
                 Global Client Inquiry
               </div>
 
@@ -1096,10 +1096,10 @@ export default function Home() {
               </p>
 
               {formStatus === "success" ? (
-                <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-2xl text-center">
+                <div className="bg-amber-50 border border-amber-200 text-[#091427] p-6 rounded-2xl text-center">
                   <div className="text-4xl mb-2">🎉</div>
                   <h4 className="text-lg font-bold">Thank you! Request Received</h4>
-                  <p className="text-xs text-emerald-700 mt-1">Our strategist will review your website and reach out via email shortly.</p>
+                  <p className="text-xs text-[#54647c] mt-1">Our strategist will review your website and reach out via email shortly.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">

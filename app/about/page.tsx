@@ -85,7 +85,7 @@ export default function AboutPage() {
       <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl p-8 md:p-14 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
               Our Purpose
             </span>
             <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-4 mb-4">
@@ -100,23 +100,23 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-100 text-center">
+            <div className="bg-amber-50/80 p-6 rounded-2xl border border-amber-200/70 text-center">
               <span className="text-3xl font-black text-[#091427] block">150+</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Global Clients</span>
               <span className="text-[10px] text-gray-500">Across 10+ countries</span>
             </div>
-            <div className="bg-teal-50/70 p-6 rounded-2xl border border-teal-100 text-center">
-              <span className="text-3xl font-black text-teal-800 block">300+</span>
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center">
+              <span className="text-3xl font-black text-[#091427] block">300+</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Projects Delivered</span>
               <span className="text-[10px] text-gray-500">On time &amp; on spec</span>
             </div>
-            <div className="bg-purple-50/70 p-6 rounded-2xl border border-purple-100 text-center">
-              <span className="text-3xl font-black text-purple-800 block">98%</span>
+            <div className="bg-blue-50/70 p-6 rounded-2xl border border-blue-200/60 text-center">
+              <span className="text-3xl font-black text-[#1e40af] block">98%</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Client Retention</span>
               <span className="text-[10px] text-gray-500">Year-over-year</span>
             </div>
-            <div className="bg-amber-50/70 p-6 rounded-2xl border border-amber-100 text-center">
-              <span className="text-3xl font-black text-amber-800 block">300%</span>
+            <div className="bg-amber-50 p-6 rounded-2xl border border-amber-200 text-center">
+              <span className="text-3xl font-black text-[#d97706] block">300%</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Average Organic ROI</span>
               <span className="text-[10px] text-gray-500">For our partners</span>
             </div>
@@ -142,7 +142,7 @@ export default function AboutPage() {
               className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl mb-4">
                   {pillar.icon}
                 </div>
                 <h3 className="text-lg font-bold text-[#0f172a] mb-2">{pillar.title}</h3>
@@ -170,11 +170,11 @@ export default function AboutPage() {
               key={idx}
               className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs card-hover text-center"
             >
-              <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-3xl mx-auto mb-4">
+              <div className="w-20 h-20 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-3xl mx-auto mb-4">
                 {member.avatar}
               </div>
               <h3 className="text-lg font-bold text-[#0f172a]">{member.name}</h3>
-              <span className="text-xs font-bold text-emerald-700 block mb-2">{member.role}</span>
+              <span className="text-xs font-bold text-[#d97706] block mb-2">{member.role}</span>
               <p className="text-xs text-[#64748b] leading-relaxed">{member.bio}</p>
             </div>
           ))}
@@ -183,16 +183,16 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="relative py-16 px-6 md:px-12 z-10 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-emerald-100/70 via-teal-100/60 to-purple-100/50 p-10 rounded-3xl border border-emerald-100 shadow-sm">
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] mb-3">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
+          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
             Ready to Accelerate Your Brand?
           </h2>
-          <p className="text-sm text-[#475569] max-w-xl mx-auto mb-6">
+          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
             Schedule a conversation with our growth team and discover how we can help you capture international market share.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] text-white text-xs font-bold px-7 py-3.5 rounded-full hover:bg-[#0f213d] shadow-md transition-all"
+            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Talk to Our Strategists</span>
             <span>→</span>
