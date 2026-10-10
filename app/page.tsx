@@ -135,7 +135,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden selection:bg-[#059669] selection:text-white">
+      <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden selection:bg-[#d97706] selection:text-white">
         {/* Soft Organic Iridescent Background Shapes */}
         <div className="curved-ribbon-left" aria-hidden="true" />
         <div className="curved-ribbon-right" aria-hidden="true" />
@@ -152,15 +152,15 @@ export default function Home() {
             {/* Hero Left Content */}
             <div className="lg:col-span-7 flex flex-col items-start text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-[12.5px] font-semibold text-[#061c14] mb-6 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-6 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
                 <span>Global Digital Marketing Agency</span>
               </div>
 
               {/* Main Headline */}
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] font-black tracking-tight text-[#0f172a] leading-[1.08] mb-6">
                 Grow Smarter. <br />
-                <span className="text-gradient-emerald">Go Further.</span>
+                <span className="text-gradient-navy-gold">Go Further.</span>
               </h1>
 
               {/* Subheading */}
@@ -172,17 +172,17 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-4 mb-12">
                 <button
                   onClick={() => setContactOpen(true)}
-                  className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white border border-[#c5a880]/40 text-[14.5px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#061c14]/30 transition-all hover:scale-[1.02] cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-[14.5px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/30 transition-all hover:scale-[1.02] cursor-pointer"
                 >
                   <span>Let&apos;s Grow Your Business</span>
-                  <svg className="w-4 h-4 text-[#c5a880]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#d97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
 
                 <a
                   href="#services"
-                  className="inline-flex items-center justify-center text-[14.5px] font-semibold text-[#061c14] px-6 py-3.5 rounded-full border border-[#c5a880]/40 bg-white/80 hover:bg-white hover:border-[#c5a880] backdrop-blur-xs transition-all shadow-xs"
+                  className="inline-flex items-center justify-center text-[14.5px] font-semibold text-[#091427] px-6 py-3.5 rounded-full border border-[#d97706]/40 bg-white/80 hover:bg-white hover:border-[#d97706] backdrop-blur-xs transition-all shadow-xs"
                 >
                   Explore Our Services
                 </a>
@@ -190,32 +190,32 @@ export default function Home() {
 
               {/* 3 Trust Badges */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl">
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#c5a880]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#f4efe6] text-[#061c14] flex items-center justify-center text-sm font-bold shrink-0 border border-[#c5a880]/30">
+                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
+                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
                     📈
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#061c14] leading-tight">More Traffic</span>
+                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">More Traffic</span>
                     <span className="text-[11px] text-[#526058]">Higher Rankings</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#c5a880]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#f4efe6] text-[#061c14] flex items-center justify-center text-sm font-bold shrink-0 border border-[#c5a880]/30">
+                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
+                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
                     👥
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#061c14] leading-tight">Better Engagement</span>
+                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">Better Engagement</span>
                     <span className="text-[11px] text-[#526058]">Real Customers</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#c5a880]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#f4efe6] text-[#061c14] flex items-center justify-center text-sm font-bold shrink-0 border border-[#c5a880]/30">
+                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
+                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
                     🚀
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#061c14] leading-tight">Business Growth</span>
+                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">Business Growth</span>
                     <span className="text-[11px] text-[#526058]">Long Term Success</span>
                   </div>
                 </div>
@@ -227,13 +227,13 @@ export default function Home() {
               
               {/* Handwritten Floating Annotation (Top Right) */}
               <div className="absolute top-2 right-4 md:right-8 z-20 flex flex-col items-center">
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#061c14] -rotate-6 tracking-wide">
+                <span className="handwriting text-2xl md:text-3xl font-bold text-[#091427] -rotate-6 tracking-wide">
                   Your Growth
                 </span>
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#b89758] -rotate-6 tracking-wide">
+                <span className="handwriting text-2xl md:text-3xl font-bold text-[#d97706] -rotate-6 tracking-wide">
                   Our Strategy
                 </span>
-                <svg className="w-10 h-10 text-[#b89758] -rotate-12 mt-1" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg className="w-10 h-10 text-[#d97706] -rotate-12 mt-1" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
@@ -242,21 +242,21 @@ export default function Home() {
               <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] flex items-center justify-center animate-float-slow">
                 
                 {/* Iridescent Glow Rings */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#059669]/20 via-[#c5a880]/25 to-[#061c14]/20 blur-3xl animate-pulse-glow" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#1d4ed8]/20 via-[#d97706]/25 to-[#091427]/20 blur-3xl animate-pulse-glow" />
 
                 {/* Outer Metallic Torus Ring (Brushed Champagne Gold) */}
-                <div className="absolute w-[290px] h-[290px] sm:w-[350px] sm:h-[350px] rounded-full border-[10px] sm:border-[14px] border-transparent bg-gradient-to-tr from-[#c5a880]/50 via-[#fdfbf7] to-[#b89758]/70 shadow-2xl opacity-95 transform rotate-12"
+                <div className="absolute w-[290px] h-[290px] sm:w-[350px] sm:h-[350px] rounded-full border-[10px] sm:border-[14px] border-transparent bg-gradient-to-tr from-[#d97706]/50 via-[#f8fafd] to-[#b45309]/70 shadow-2xl opacity-95 transform rotate-12"
                      style={{
                        backgroundClip: "padding-box",
-                       boxShadow: "inset 0 0 25px rgba(245,237,216,0.95), 0 20px 45px rgba(6,28,20,0.18)"
+                       boxShadow: "inset 0 0 25px rgba(254,243,199,0.95), 0 20px 45px rgba(9,20,39,0.2)"
                      }}
                 />
 
                 {/* Main 3D Sphere Glass Body (Deep Emerald Jewel) */}
-                <div className="relative w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#c5a880]/40"
+                <div className="relative w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#d97706]/40"
                      style={{
-                       background: "radial-gradient(circle at 35% 30%, rgba(253, 251, 247, 0.95) 0%, rgba(5, 150, 105, 0.75) 35%, rgba(6, 28, 20, 0.95) 80%, rgba(3, 14, 10, 1) 100%)",
-                       boxShadow: "inset -15px -15px 40px rgba(3, 14, 10, 0.9), inset 15px 15px 30px rgba(253, 251, 247, 0.8), 0 25px 50px rgba(6, 28, 20, 0.35)"
+                       background: "radial-gradient(circle at 35% 30%, rgba(248, 250, 253, 0.95) 0%, rgba(30, 64, 175, 0.75) 35%, rgba(9, 20, 39, 0.95) 80%, rgba(5, 11, 22, 1) 100%)",
+                       boxShadow: "inset -15px -15px 40px rgba(5, 11, 22, 0.9), inset 15px 15px 30px rgba(248, 250, 253, 0.8), 0 25px 50px rgba(9, 20, 39, 0.35)"
                      }}
                 >
                   {/* Glass highlight reflections */}
@@ -264,7 +264,7 @@ export default function Home() {
 
                   {/* Upward Luminous Arrow inside sphere */}
                   <div className="relative z-10 flex flex-col items-center">
-                    <svg className="w-24 h-24 sm:w-28 sm:h-28 text-[#fdfbf7] filter drop-shadow-[0_8px_16px_rgba(197,168,128,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="w-24 h-24 sm:w-28 sm:h-28 text-[#fdfbf7] filter drop-shadow-[0_8px_16px_rgba(217,119,6,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="7" y1="17" x2="17" y2="7" />
                       <polyline points="7 7 17 7 17 17" />
                     </svg>
@@ -273,17 +273,17 @@ export default function Home() {
 
                 {/* Floating Satellite Glass Spheres */}
                 {/* Champagne Amber orb */}
-                <div className="absolute -bottom-2 -left-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#c5a880]/60 animate-float-gentle"
+                <div className="absolute -bottom-2 -left-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#d97706]/60 animate-float-gentle"
                      style={{
-                       background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(197,168,128,0.85) 45%, rgba(138,103,45,0.95) 100%)",
-                       boxShadow: "0 10px 25px rgba(184, 151, 88, 0.35)"
+                       background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(245,158,11,0.85) 45%, rgba(180,83,9,0.95) 100%)",
+                       boxShadow: "0 10px 25px rgba(217, 119, 6, 0.35)"
                      }}
                 />
                 {/* Royal Forest orb */}
-                <div className="absolute top-4 -left-4 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-md border border-emerald-300/40 animate-pulse-glow"
+                <div className="absolute top-4 -left-4 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-md border border-blue-300/40 animate-pulse-glow"
                      style={{
-                       background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(5,150,105,0.8) 50%, rgba(6,28,20,0.95) 100%)",
-                       boxShadow: "0 8px 20px rgba(6, 28, 20, 0.3)"
+                       background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(30,64,175,0.8) 50%, rgba(9,20,39,0.95) 100%)",
+                       boxShadow: "0 8px 20px rgba(9, 20, 39, 0.3)"
                      }}
                 />
               </div>
@@ -317,14 +317,14 @@ export default function Home() {
               
               {/* Left Column Description */}
               <div className="lg:col-span-4 flex flex-col items-start sticky top-28">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[12.5px] font-semibold text-[#061c14] mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
+                  <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                   <span>Our Services</span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
                   Digital Solutions <br />
-                  for <span className="text-gradient-emerald">Real Growth</span>
+                  for <span className="text-gradient-navy-gold">Real Growth</span>
                 </h2>
 
                 <p className="text-[15px] text-[#475569] leading-relaxed mb-8">
@@ -336,7 +336,7 @@ export default function Home() {
                     setSelectedService("All Services");
                     setContactOpen(true);
                   }}
-                  className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white text-[14px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#061c14]/20 transition-all hover:gap-3 cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all hover:gap-3 cursor-pointer"
                 >
                   <span>View All Services</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -365,7 +365,7 @@ export default function Home() {
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#061c14] transition-colors">
+                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
                       SEO Optimization
                     </h3>
                     <p className="text-[13.5px] text-[#64748b] leading-relaxed">
@@ -568,7 +568,7 @@ export default function Home() {
                     <div className="bg-emerald-400 rounded-t h-[65%]" />
                     <div className="bg-emerald-500 rounded-t h-[80%]" />
                     <div className="bg-emerald-600 rounded-t h-[95%]" />
-                    <div className="bg-[#061c14] rounded-t h-[100%]" />
+                    <div className="bg-[#091427] rounded-t h-[100%]" />
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
@@ -595,14 +595,14 @@ export default function Home() {
 
             {/* Right Column: About Content */}
             <div className="lg:col-span-6 flex flex-col items-start text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[12.5px] font-semibold text-[#061c14] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                 <span>About Nova Growth</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
                 Your Trusted Partner <br />
-                in <span className="text-gradient-emerald">Digital Success</span>
+                in <span className="text-gradient-navy-gold">Digital Success</span>
               </h2>
 
               <p className="text-[15.5px] text-[#475569] leading-relaxed mb-8">
@@ -705,8 +705,8 @@ export default function Home() {
             {/* Top row with heading & button */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
               <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[12.5px] font-semibold text-[#061c14] mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
+                  <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                   <span>Our Work</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
@@ -719,7 +719,7 @@ export default function Home() {
 
               <button
                 onClick={() => setContactOpen(true)}
-                className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white text-[13.5px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#061c14]/20 transition-all self-start md:self-auto cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[13.5px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all self-start md:self-auto cursor-pointer"
               >
                 <span>View All Projects</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -747,12 +747,12 @@ export default function Home() {
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#061c14] transition-colors">
+                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
                       Fashion Brand Website
                     </h3>
                     <p className="text-[13px] text-[#64748b]">Web Development + SEO</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-[#061c14] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -774,12 +774,12 @@ export default function Home() {
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#061c14] transition-colors">
+                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
                       Fitness App
                     </h3>
                     <p className="text-[13px] text-[#64748b]">UI/UX Design + Development</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-purple-50 text-purple-700 flex items-center justify-center group-hover:bg-[#061c14] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-purple-50 text-purple-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -806,12 +806,12 @@ export default function Home() {
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#061c14] transition-colors">
+                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
                       Local Business Growth
                     </h3>
                     <p className="text-[13px] text-[#64748b]">SEO + Content Marketing</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center group-hover:bg-[#061c14] group-hover:text-white transition-colors">
+                  <div className="w-9 h-9 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
                     ↗
                   </div>
                 </div>
@@ -827,8 +827,8 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[12.5px] font-semibold text-[#061c14] mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                 <span>Our Process</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
@@ -913,7 +913,7 @@ export default function Home() {
         {/* CLIENT TESTIMONIALS & REVIEWS SECTION */}
         <section className="relative py-20 px-6 md:px-12 z-10 max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
               <span>⭐️ 4.9/5 Rating on Clutch &amp; Google Reviews</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
@@ -1009,7 +1009,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden border border-emerald-100/80 shadow-xl"
                  style={{
-                   background: "linear-gradient(115deg, #e6f9f0 0%, #e0f2fe 45%, #ede9fe 100%)"
+                   background: "linear-gradient(115deg, #f0f7ff 0%, #fef3c7 50%, #eff6ff 100%)"
                  }}
             >
               
@@ -1029,7 +1029,7 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => setContactOpen(true)}
-                    className="inline-flex items-center gap-2 bg-[#061c14] hover:bg-[#0a2e21] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#061c14]/25 transition-all hover:gap-3 cursor-pointer"
+                    className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all hover:gap-3 cursor-pointer"
                   >
                     <span>Book a Free Consultation</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1055,8 +1055,8 @@ export default function Home() {
                   {/* Iridescent glass orb accent */}
                   <div className="w-20 h-20 rounded-full shadow-xl border border-white/80 animate-float-slow shrink-0"
                        style={{
-                         background: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.95), rgba(167,243,208,0.7) 45%, rgba(139,92,246,0.65) 85%, rgba(6,95,70,0.9) 100%)",
-                         boxShadow: "0 15px 30px rgba(5,150,105,0.25)"
+                         background: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.95), rgba(251,191,36,0.7) 45%, rgba(30,64,175,0.65) 85%, rgba(9,20,39,0.9) 100%)",
+                         boxShadow: "0 15px 30px rgba(217,119,6,0.25)"
                        }}
                   />
                 </div>
@@ -1109,7 +1109,7 @@ export default function Home() {
                       required
                       type="text"
                       placeholder="e.g. John Miller"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1119,7 +1119,7 @@ export default function Home() {
                       required
                       type="email"
                       placeholder="name@company.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1128,7 +1128,7 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="https://yourwebsite.com or Startup niche"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1137,7 +1137,7 @@ export default function Home() {
                     <select
                       value={selectedService}
                       onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none bg-white"
                     >
                       <option value="All Services">All Services / Full Growth Plan</option>
                       <option value="SEO Optimization">SEO Optimization (High Intent)</option>
@@ -1152,7 +1152,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={formStatus === "submitting"}
-                    className="w-full bg-[#061c14] hover:bg-[#0a2e21] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-emerald-900/20 mt-2 cursor-pointer"
+                    className="w-full bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-[#091427]/20 mt-2 cursor-pointer"
                   >
                     {formStatus === "submitting" ? "Sending Request..." : "Book Free Strategy Call →"}
                   </button>

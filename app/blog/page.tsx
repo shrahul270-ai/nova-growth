@@ -93,13 +93,13 @@ export default function BlogPage() {
 
       {/* Hero Header */}
       <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-[#061c14] mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+          <span className="w-2 h-2 rounded-full bg-[#d97706]" />
           <span>Nova Growth Insights</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
           Insights for <br />
-          <span className="text-gradient-emerald">High-Growth Companies</span>
+          <span className="text-gradient-navy-gold">High-Growth Companies</span>
         </h1>
         <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-6">
           Actionable tactics on international SEO, Next.js web architecture, and organic customer acquisition strategies that work in today&apos;s Google ecosystem.
@@ -117,7 +117,7 @@ export default function BlogPage() {
               <span className="text-xs text-gray-400 font-medium">{featuredPost.readTime}</span>
               <span className="text-xs text-gray-400 font-medium">• {featuredPost.date}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight leading-snug mb-4 hover:text-[#061c14] transition-colors cursor-pointer">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight leading-snug mb-4 hover:text-[#091427] transition-colors cursor-pointer">
               {featuredPost.title}
             </h2>
             <p className="text-sm text-[#475569] leading-relaxed mb-6">
@@ -158,7 +158,7 @@ export default function BlogPage() {
                   <span className="text-[11px] text-gray-400 font-medium">{post.readTime}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-[#0f172a] tracking-tight mb-2.5 hover:text-[#061c14] transition-colors cursor-pointer leading-snug">
+                <h3 className="text-lg font-bold text-[#0f172a] tracking-tight mb-2.5 hover:text-[#091427] transition-colors cursor-pointer leading-snug">
                   {post.title}
                 </h3>
                 <p className="text-xs text-[#64748b] leading-relaxed mb-6">
@@ -180,7 +180,7 @@ export default function BlogPage() {
       {/* Newsletter Signup */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-4xl mx-auto text-center">
         <div className="bg-white rounded-3xl p-8 md:p-12 border border-emerald-100 shadow-sm">
-          <span className="text-xs font-bold text-[#061c14] uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
             Stay Ahead of Google Updates
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-2 mb-3">
@@ -201,11 +201,11 @@ export default function BlogPage() {
               required
               type="email"
               placeholder="Enter your business email"
-              className="flex-1 px-4 py-3 rounded-full border border-gray-200 text-xs outline-none focus:border-emerald-500"
+              className="flex-1 px-4 py-3 rounded-full border border-gray-200 text-xs outline-none focus:border-[#d97706]"
             />
             <button
               type="submit"
-              className="bg-[#061c14] hover:bg-[#0a2e21] text-white text-xs font-bold px-6 py-3 rounded-full transition-colors cursor-pointer"
+              className="bg-[#091427] hover:bg-[#0f213d] text-white text-xs font-bold px-6 py-3 rounded-full transition-colors cursor-pointer"
             >
               Subscribe Free
             </button>

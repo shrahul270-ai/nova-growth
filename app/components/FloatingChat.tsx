@@ -83,12 +83,12 @@ export default function FloatingChat() {
       {/* Floating Main Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2.5 bg-[#061c14] hover:bg-[#0a2e21] text-white border border-[#c5a880]/50 px-5 py-3.5 rounded-full shadow-2xl shadow-[#061c14]/40 transition-all hover:scale-105 cursor-pointer font-bold text-xs"
+        className="flex items-center gap-2.5 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/60 px-5 py-3.5 rounded-full shadow-2xl shadow-[#091427]/40 transition-all hover:scale-105 cursor-pointer font-bold text-xs"
         aria-label="Open support options"
       >
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+        <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
         <span>Talk to an Expert</span>
-        <svg className="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 ml-0.5 text-[#f59e0b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
       </button>

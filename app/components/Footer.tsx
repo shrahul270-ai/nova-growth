@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative py-12 px-6 md:px-12 z-10 border-t border-[#c5a880]/20 bg-[#faf9f5]">
+    <footer className="relative py-12 px-6 md:px-12 z-10 border-t border-[#d97706]/20 bg-[#f8fafd]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#061c14] via-[#059669] to-[#c5a880] flex items-center justify-center border border-[#c5a880]/30 shadow-xs">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center border border-[#d97706]/40 shadow-xs">
             <svg
               className="w-5 h-5 text-white"
               viewBox="0 0 24 24"
@@ -21,33 +21,33 @@ export default function Footer() {
             </svg>
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-[15px] font-extrabold text-[#061c14] leading-none">
+            <span className="text-[15px] font-extrabold text-[#091427] leading-none">
               NOVA GROWTH
             </span>
-            <span className="text-[9px] font-semibold text-[#738278] uppercase tracking-wider">
+            <span className="text-[9px] font-semibold text-[#64748b] uppercase tracking-wider">
               Digital Marketing Agency
             </span>
           </div>
         </Link>
 
         {/* Nav links */}
-        <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-7 text-[13.5px] font-semibold text-[#526058]">
-          <Link href="/" className="hover:text-[#061c14] transition-colors">
+        <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-7 text-[13.5px] font-semibold text-[#54647c]">
+          <Link href="/" className="hover:text-[#d97706] transition-colors">
             Home
           </Link>
-          <Link href="/about" className="hover:text-[#061c14] transition-colors">
+          <Link href="/about" className="hover:text-[#d97706] transition-colors">
             About
           </Link>
-          <Link href="/services" className="hover:text-[#061c14] transition-colors">
+          <Link href="/services" className="hover:text-[#d97706] transition-colors">
             Services
           </Link>
-          <Link href="/projects" className="hover:text-[#061c14] transition-colors">
+          <Link href="/projects" className="hover:text-[#d97706] transition-colors">
             Projects
           </Link>
-          <Link href="/blog" className="hover:text-[#061c14] transition-colors">
+          <Link href="/blog" className="hover:text-[#d97706] transition-colors">
             Blog
           </Link>
-          <Link href="/contact" className="hover:text-[#061c14] transition-colors">
+          <Link href="/contact" className="hover:text-[#d97706] transition-colors">
             Contact
           </Link>
         </div>
@@ -60,7 +60,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#061c14] transition-colors"
+              className="hover:text-[#091427] transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ export default function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#061c14] transition-colors"
+              className="hover:text-[#091427] transition-colors"
               aria-label="Instagram"
             >
               <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@ export default function Footer() {
               href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#061c14] transition-colors"
+              className="hover:text-[#091427] transition-colors"
               aria-label="X Twitter"
             >
               <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@ export default function Footer() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#061c14] transition-colors"
+              className="hover:text-[#091427] transition-colors"
               aria-label="Facebook"
             >
               <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24">

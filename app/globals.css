@@ -3,16 +3,17 @@
 :root {
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-handwriting: 'Caveat', cursive;
-  --bg-main: #faf9f5;
-  --text-main: #09120e;
-  --text-muted: #536259;
-  --brand-primary: #061c14;
-  --brand-primary-hover: #092a1f;
-  --brand-emerald: #059669;
-  --brand-accent: #10b981;
-  --brand-gold: #c5a880;
+  --bg-main: #f8fafd;
+  --text-main: #091427;
+  --text-muted: #54647c;
+  --brand-primary: #091427;
+  --brand-primary-hover: #0f213d;
+  --brand-navy: #091427;
+  --brand-gold: #d97706;
+  --brand-gold-hover: #b45309;
+  --brand-gold-glow: rgba(217, 119, 6, 0.25);
   --card-bg: #ffffff;
-  --card-border: rgba(197, 168, 128, 0.22);
+  --card-border: rgba(217, 119, 6, 0.22);
 }
 
 * {
@@ -37,22 +38,22 @@ body {
   font-family: var(--font-handwriting);
 }
 
-/* Glassmorphism & Luxury Ambient Atmosphere */
+/* Glassmorphism & Luxury Ambient Navy & Gold */
 .glass-header {
-  background: rgba(250, 249, 245, 0.92);
+  background: rgba(248, 250, 253, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(197, 168, 128, 0.18);
+  border-bottom: 1px solid rgba(217, 119, 6, 0.18);
 }
 
-/* Sophisticated British Royal Green & Champagne Ambient Glows */
+/* Midnight Imperial Navy & Liquid Gold Ambient Glows */
 .curved-ribbon-left {
   position: absolute;
   top: 0;
   left: -80px;
   width: 380px;
   height: 560px;
-  background: radial-gradient(circle, rgba(197, 168, 128, 0.14) 0%, rgba(6, 28, 20, 0.06) 60%, transparent 80%);
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.12) 0%, rgba(9, 20, 39, 0.06) 60%, transparent 80%);
   filter: blur(55px);
   border-radius: 50%;
   pointer-events: none;
@@ -65,7 +66,7 @@ body {
   right: -90px;
   width: 460px;
   height: 620px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(197, 168, 128, 0.12) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.1) 0%, rgba(217, 119, 6, 0.14) 50%, transparent 75%);
   filter: blur(65px);
   border-radius: 50%;
   pointer-events: none;
@@ -78,7 +79,7 @@ body {
   left: -70px;
   width: 380px;
   height: 480px;
-  background: radial-gradient(circle, rgba(197, 168, 128, 0.15) 0%, rgba(6, 28, 20, 0.05) 70%, transparent 85%);
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.14) 0%, rgba(9, 20, 39, 0.05) 70%, transparent 85%);
   filter: blur(60px);
   border-radius: 50%;
   pointer-events: none;
@@ -91,22 +92,23 @@ body {
   right: -50px;
   width: 480px;
   height: 400px;
-  background: radial-gradient(circle, rgba(197, 168, 128, 0.16) 0%, rgba(5, 150, 105, 0.08) 60%, transparent 80%);
+  background: radial-gradient(circle, rgba(217, 119, 6, 0.15) 0%, rgba(29, 78, 216, 0.07) 60%, transparent 80%);
   filter: blur(65px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
 }
 
-/* Luxury Text Gradients: Deep Forest Green to Brushed Champagne Gold */
-.text-gradient-emerald {
-  background: linear-gradient(135deg, #062b1e 0%, #059669 45%, #b89758 100%);
+/* Luxury Text Gradients: Deep Imperial Navy to Sapphire to Liquid Gold */
+.text-gradient-emerald,
+.text-gradient-navy-gold {
+  background: linear-gradient(135deg, #091427 0%, #1e40af 45%, #d97706 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #b89758 0%, #d4af37 50%, #8c6d33 100%);
+  background: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #d97706 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -114,17 +116,17 @@ body {
 /* Luxury Card Styling & Smooth Elevation */
 .card-hover {
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 24px -2px rgba(6, 28, 20, 0.04), 0 2px 6px -1px rgba(197, 168, 128, 0.06);
-  border: 1px solid rgba(197, 168, 128, 0.22);
+  box-shadow: 0 4px 24px -2px rgba(9, 20, 39, 0.04), 0 2px 6px -1px rgba(217, 119, 6, 0.06);
+  border: 1px solid rgba(217, 119, 6, 0.22);
 }
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 36px -4px rgba(6, 28, 20, 0.08), 0 8px 16px -2px rgba(197, 168, 128, 0.12);
-  border-color: rgba(197, 168, 128, 0.55);
+  box-shadow: 0 20px 36px -4px rgba(9, 20, 39, 0.09), 0 8px 16px -2px rgba(217, 119, 6, 0.14);
+  border-color: rgba(217, 119, 6, 0.55);
 }
 
-/* Subtle Bespoke Animations */
+/* Bespoke Animations */
 @keyframes floatSlow {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
