@@ -44,6 +44,9 @@ export default function Footer() {
           <Link href="/projects" className="hover:text-[#d97706] transition-colors">
             Projects
           </Link>
+          <Link href="/pay" className="hover:text-[#d97706] transition-colors">
+            Pay Invoice
+          </Link>
           <Link href="/blog" className="hover:text-[#d97706] transition-colors">
             Blog
           </Link>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import PaymentSection from "../components/PaymentSection";
 
 export const metadata: Metadata = {
   title: "Services | High-ROI Digital Marketing & SEO",
@@ -312,6 +313,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* Global Payment & Invoicing Section */}
+      <PaymentSection />
 
       {/* Bottom CTA */}
       <section className="relative py-16 px-6 md:px-12 z-10 text-center">

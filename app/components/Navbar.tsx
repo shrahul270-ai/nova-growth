@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 interface NavbarProps {
-  activePage?: "home" | "about" | "services" | "projects" | "blog" | "contact";
+  activePage?: "home" | "about" | "services" | "projects" | "blog" | "contact" | "pay";
 }
 
 export default function Navbar({ activePage = "home" }: NavbarProps) {
@@ -15,6 +15,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     { name: "About", href: "/about", key: "about" },
     { name: "Services", href: "/services", key: "services" },
     { name: "Projects", href: "/projects", key: "projects" },
+    { name: "Pay", href: "/pay", key: "pay" },
     { name: "Blog", href: "/blog", key: "blog" },
     { name: "Contact", href: "/contact", key: "contact" },
   ];
