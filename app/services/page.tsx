@@ -1,15 +1,10 @@
-import React from "react";
-import type { Metadata } from "next";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PaymentSection from "../components/PaymentSection";
-
-export const metadata: Metadata = {
-  title: "Services | High-ROI Digital Marketing & SEO",
-  description:
-    "Explore our full suite of digital solutions: High-Intent SEO, Next.js Web Development, Content Marketing, Link Building, and Maintenance for global businesses.",
-};
 
 const serviceList = [
   {
@@ -27,6 +22,9 @@ const serviceList = [
       "Schema markup, rich snippet & metadata optimization",
       "Bi-weekly ranking reports & live Data Studio dashboard",
     ],
+    timeline: "Ongoing Retainer (3 - 6 Months)",
+    idealClients: "B2B SaaS, E-Commerce, High-Ticket Professional Services",
+    startingFrom: "$899 / mo"
   },
   {
     id: "web-dev",
@@ -43,6 +41,9 @@ const serviceList = [
       "Headless CMS integration (Sanity, Strapi, WordPress)",
       "Cross-browser testing & international accessibility (WCAG)",
     ],
+    timeline: "3 to 6 Weeks Turnaround",
+    idealClients: "Modern Tech Startups, Venture-backed Brands, Rebranding Firms",
+    startingFrom: "$2,400 One-time"
   },
   {
     id: "content",
@@ -59,6 +60,9 @@ const serviceList = [
       "Case studies & customer success stories",
       "Search-optimized lead magnets & whitepapers",
     ],
+    timeline: "Weekly / Monthly Deliveries",
+    idealClients: "Enterprise Blogs, FinTech, Legal, HealthTech",
+    startingFrom: "$600 / mo"
   },
   {
     id: "email",
@@ -75,6 +79,9 @@ const serviceList = [
       "Deliverability & spam-score optimization",
       "Monthly campaign analytics & revenue attribution",
     ],
+    timeline: "2 Weeks Setup + Ongoing Optimization",
+    idealClients: "D2C Brands, Subscription Platforms, Course Creators",
+    startingFrom: "$750 / mo"
   },
   {
     id: "backlinks",
@@ -91,6 +98,9 @@ const serviceList = [
       "Digital PR outreach & resource page placements",
       "Full transparent backlink reports with live URLs",
     ],
+    timeline: "Monthly Editorial Cycles",
+    idealClients: "Competitive Niches, Software Brands, Global Aggregators",
+    startingFrom: "$950 / mo"
   },
   {
     id: "maintenance",
@@ -107,6 +117,9 @@ const serviceList = [
       "On-demand monthly developer hours for new updates",
       "Time-zone aligned emergency support",
     ],
+    timeline: "24/7 Continuous Upkeep",
+    idealClients: "Any Business Requiring 99.99% Uptime",
+    startingFrom: "$350 / mo"
   },
 ];
 
@@ -161,10 +174,35 @@ const packages = [
 ];
 
 export default function ServicesPage() {
+  const [activeModalService, setActiveModalService] = useState<typeof serviceList[0] | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  const scrollToPayment = (planName: string) => {
+    showToast(`💼 Plan "${planName}" selected. Scrolling to Payment Portal...`);
+    const el = document.getElementById("payment");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+          <span>{toast}</span>
+          <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+        </div>
+      )}
 
       <Navbar activePage="services" />
 
@@ -181,14 +219,21 @@ export default function ServicesPage() {
         <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
           From high-ranking international SEO and fast Next.js development to high-converting content and ethical link building, we offer end-to-end services built for overseas scaling.
         </p>
-        <div className="flex justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all"
+            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
           >
             <span>Request Custom Proposal</span>
             <span>→</span>
           </Link>
+          <button
+            onClick={() => scrollToPayment("All Plans")}
+            className="inline-flex items-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
+          >
+            <span>View Pricing &amp; Pay</span>
+            <span className="text-[#d97706]">💳</span>
+          </button>
         </div>
       </section>
 
@@ -198,22 +243,28 @@ export default function ServicesPage() {
           {serviceList.map((service) => (
             <div
               key={service.id}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs card-hover flex flex-col justify-between"
+              onClick={() => {
+                setActiveModalService(service);
+                showToast(`📋 Opened scope overview for ${service.title}`);
+              }}
+              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs card-hover flex flex-col justify-between cursor-pointer group"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
                   <div className="flex items-center gap-3">
-                    <span className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl font-bold">
+                    <span className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
                       {service.icon}
                     </span>
                     <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
                       {service.badge}
                     </span>
                   </div>
-                  <span className="text-gray-400 font-bold text-lg">↗</span>
+                  <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all font-bold text-lg">
+                    ↗
+                  </span>
                 </div>
 
-                <h2 className="text-2xl font-bold text-[#0f172a] mb-2">{service.title}</h2>
+                <h2 className="text-2xl font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors mb-2">{service.title}</h2>
                 <p className="text-sm font-medium text-[#d97706] mb-3">{service.tagline}</p>
                 <p className="text-sm text-[#64748b] leading-relaxed mb-6">{service.description}</p>
 
@@ -233,14 +284,13 @@ export default function ServicesPage() {
               </div>
 
               <div className="pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
-                <Link
-                  href="/contact"
-                  className="text-xs font-bold text-[#091427] hover:underline flex items-center gap-1.5"
-                >
-                  <span>Book this service</span>
+                <span className="text-xs font-bold text-[#091427] group-hover:text-[#d97706] flex items-center gap-1.5 transition-colors">
+                  <span>View full scope &amp; deliverables</span>
                   <span>→</span>
-                </Link>
-                <span className="text-[11px] text-gray-400">Custom Retainers Available</span>
+                </span>
+                <span className="text-[11px] font-semibold text-[#d97706] bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/60">
+                  From {service.startingFrom}
+                </span>
               </div>
             </div>
           ))}
@@ -258,7 +308,7 @@ export default function ServicesPage() {
               Simple Monthly Retainers
             </h2>
             <p className="text-sm text-[#64748b]">
-              No hidden fees, no long-term lockups. Cancel or upgrade anytime.
+              No hidden fees, no long-term lockups. Cancel or upgrade anytime with multi-currency settlement.
             </p>
           </div>
 
@@ -298,16 +348,16 @@ export default function ServicesPage() {
                   </ul>
                 </div>
 
-                <Link
-                  href="/contact"
-                  className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all ${
+                <button
+                  onClick={() => scrollToPayment(pkg.name)}
+                  className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                     pkg.popular
                       ? "bg-[#091427] hover:bg-[#0f213d] text-white shadow-md shadow-[#091427]/20"
                       : "bg-amber-50 hover:bg-amber-100 text-[#091427] border border-amber-200/80"
                   }`}
                 >
-                  Get Started →
-                </Link>
+                  Get Started → Pay in Portal
+                </button>
               </div>
             ))}
           </div>
@@ -328,13 +378,90 @@ export default function ServicesPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
+            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
           >
             <span>Book a Free 30-Min Strategy Call</span>
             <span>→</span>
           </Link>
         </div>
       </section>
+
+      {/* Interactive Service Detail Scope Modal */}
+      {activeModalService && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setActiveModalService(null)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-lg font-bold">
+                {activeModalService.icon}
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
+                {activeModalService.badge}
+              </span>
+            </div>
+
+            <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
+              {activeModalService.title}
+            </h3>
+            <p className="text-xs text-[#d97706] font-semibold mb-4">{activeModalService.tagline}</p>
+
+            <p className="text-xs text-[#54647c] leading-relaxed mb-5">
+              {activeModalService.description}
+            </p>
+
+            <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5 space-y-2 text-xs">
+              <div className="flex justify-between">
+                <span className="text-gray-500 font-semibold">Typical Timeline:</span>
+                <span className="font-bold text-[#091427]">{activeModalService.timeline}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500 font-semibold">Ideal For:</span>
+                <span className="font-bold text-[#091427]">{activeModalService.idealClients}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500 font-semibold">Investment Tier:</span>
+                <span className="font-bold text-[#d97706]">{activeModalService.startingFrom}</span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Detailed Deliverables Checklist:</h4>
+              <ul className="space-y-1.5 text-xs text-[#54647c]">
+                {activeModalService.deliverables.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-[#d97706] font-bold">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+              <Link
+                href="/contact"
+                className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
+              >
+                Book Discovery Call for This Service →
+              </Link>
+              <button
+                onClick={() => {
+                  setActiveModalService(null);
+                  scrollToPayment(activeModalService.title);
+                }}
+                className="px-5 py-3.5 rounded-2xl text-xs font-semibold bg-amber-50 text-[#091427] hover:bg-amber-100 border border-amber-200/80 transition-colors cursor-pointer"
+              >
+                Go to Payment 💳
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

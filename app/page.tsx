@@ -10,6 +10,25 @@ export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [selectedService, setSelectedService] = useState<string>("All Services");
+  const [toast, setToast] = useState<string | null>(null);
+  const [activeBadge, setActiveBadge] = useState<string | null>(null);
+  const [activeProcessStep, setActiveProcessStep] = useState<number>(0);
+  const [activeProjectModal, setActiveProjectModal] = useState<{
+    title: string;
+    category: string;
+    metric: string;
+    client: string;
+    description: string;
+    deliverables: string[];
+    timeline: string;
+    impact: string;
+  } | null>(null);
+  const [reviewFilter, setReviewFilter] = useState<"all" | "usa" | "uk">("all");
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -136,6 +155,14 @@ export default function Home() {
       />
 
       <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden selection:bg-[#d97706] selection:text-white">
+        {/* Floating Interactive Toast Notification */}
+        {toast && (
+          <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+            <span>{toast}</span>
+            <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+          </div>
+        )}
         {/* Soft Organic Iridescent Background Shapes */}
         <div className="curved-ribbon-left" aria-hidden="true" />
         <div className="curved-ribbon-right" aria-hidden="true" />
@@ -188,37 +215,111 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* 3 Trust Badges */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl">
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                    📈
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">More Traffic</span>
-                    <span className="text-[11px] text-[#526058]">Higher Rankings</span>
-                  </div>
+              {/* 3 Interactive Trust Badges */}
+              <div className="w-full max-w-xl">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
+                  <button
+                    onClick={() => {
+                      const next = activeBadge === 'traffic' ? null : 'traffic';
+                      setActiveBadge(next);
+                      if (next) showToast('📈 Displaying Traffic Growth Strategy');
+                    }}
+                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
+                      activeBadge === 'traffic'
+                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
+                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
+                      📈
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'traffic' ? 'text-white' : 'text-[#091427]'}`}>More Traffic</span>
+                      <span className={`text-[11px] ${activeBadge === 'traffic' ? 'text-amber-300' : 'text-[#526058]'}`}>Higher Rankings ▾</span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      const next = activeBadge === 'engagement' ? null : 'engagement';
+                      setActiveBadge(next);
+                      if (next) showToast('👥 Displaying Engagement & CRO Framework');
+                    }}
+                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
+                      activeBadge === 'engagement'
+                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
+                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
+                      👥
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'engagement' ? 'text-white' : 'text-[#091427]'}`}>Better Engagement</span>
+                      <span className={`text-[11px] ${activeBadge === 'engagement' ? 'text-amber-300' : 'text-[#526058]'}`}>Real Customers ▾</span>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      const next = activeBadge === 'growth' ? null : 'growth';
+                      setActiveBadge(next);
+                      if (next) showToast('🚀 Displaying Business Growth Methodology');
+                    }}
+                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
+                      activeBadge === 'growth'
+                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
+                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
+                    }`}
+                  >
+                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
+                      🚀
+                    </div>
+                    <div className="flex flex-col text-left">
+                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'growth' ? 'text-white' : 'text-[#091427]'}`}>Business Growth</span>
+                      <span className={`text-[11px] ${activeBadge === 'growth' ? 'text-amber-300' : 'text-[#526058]'}`}>Long Term Success ▾</span>
+                    </div>
+                  </button>
                 </div>
 
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                    👥
+                {/* Expandable Badge Detail Container */}
+                {activeBadge && (
+                  <div className="mt-3 bg-white p-4 rounded-2xl border border-[#d97706]/30 shadow-lg text-left text-xs animate-fadeIn">
+                    {activeBadge === 'traffic' && (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-bold text-[#091427]">📈 Targeted Commercial Search Growth</span>
+                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">US &amp; UK Focus</span>
+                        </div>
+                        <p className="text-[#54647c] leading-relaxed">
+                          We bypass vanity keywords and target high-intent commercial clusters where international buyers have high purchasing intent. Sites begin indexing rank gains within 30 to 60 days.
+                        </p>
+                      </div>
+                    )}
+                    {activeBadge === 'engagement' && (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-bold text-[#091427]">👥 CRO &amp; Core Web Vitals Optimization</span>
+                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">&lt; 0.8s Loading</span>
+                        </div>
+                        <p className="text-[#54647c] leading-relaxed">
+                          Sub-second load times on Next.js drop average bounce rates from 55% to under 28%, keeping high-value overseas visitors browsing and booking consultations.
+                        </p>
+                      </div>
+                    )}
+                    {activeBadge === 'growth' && (
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-bold text-[#091427]">🚀 Compounding Organic Pipeline</span>
+                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">3.4x Ad Spend ROI</span>
+                        </div>
+                        <p className="text-[#54647c] leading-relaxed">
+                          Unlike Facebook or Google ads that vanish when your budget stops, our high-DA organic authority and ranking content continue generating free inbound leads 24/7/365.
+                        </p>
+                      </div>
+                    )}
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">Better Engagement</span>
-                    <span className="text-[11px] text-[#526058]">Real Customers</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-[#d97706]/25 px-3.5 py-2.5 rounded-2xl shadow-xs">
-                  <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                    🚀
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-[12.5px] font-bold text-[#091427] leading-tight">Business Growth</span>
-                    <span className="text-[11px] text-[#526058]">Long Term Success</span>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -728,16 +829,35 @@ export default function Home() {
               </button>
             </div>
 
-            {/* 3 Project Showcase Cards */}
+            {/* 3 Interactive Project Showcase Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               
               {/* Project 1: Fashion Brand Website */}
-              <div className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between">
+              <div
+                onClick={() => {
+                  setActiveProjectModal({
+                    title: "Luxe Fashion US - Headless E-Commerce & SEO",
+                    category: "E-Commerce & International SEO",
+                    metric: "+340% Organic Revenue",
+                    client: "Luxe Fashion Apparel (Los Angeles, USA 🇺🇸)",
+                    description: "Replatformed from slow monolithic WordPress to headless Next.js App Router with Shopify backend, cutting TTFB to 120ms and securing #1 rankings for high-intent apparel keywords.",
+                    deliverables: [
+                      "Headless Next.js storefront architecture",
+                      "Sub-second Core Web Vitals (99/100 Mobile Speed)",
+                      "Schema Product & Offer JSON-LD configuration",
+                      "Automated currency & geo-targeted international routing"
+                    ],
+                    timeline: "10 Weeks Deployment",
+                    impact: "$1.4M ARR incremental organic pipeline in 6 months."
+                  });
+                  showToast('👗 Opened Luxe Fashion US Case Study');
+                }}
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+              >
                 <div className="relative bg-gradient-to-tr from-rose-50 to-amber-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-rose-100/50">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
                     E-Commerce Website
                   </div>
-                  {/* Visual mockup representation */}
                   <div className="w-40 h-44 bg-white rounded-xl shadow-md border border-gray-200 p-2 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform">
                     <span className="text-3xl mb-1">👗</span>
                     <span className="text-xs font-bold text-slate-800">Luxe Fashion US</span>
@@ -759,12 +879,31 @@ export default function Home() {
               </div>
 
               {/* Project 2: Fitness App */}
-              <div className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between">
+              <div
+                onClick={() => {
+                  setActiveProjectModal({
+                    title: "PulseFit Pro - High-Growth Mobile SaaS",
+                    category: "Mobile App & SaaS CRO",
+                    metric: "50,000+ Active Subscriptions",
+                    client: "PulseFit Fitness Tech (London, UK 🇬🇧)",
+                    description: "Built the conversion landing architecture and app store SEO (ASO) driving 50k+ app installs across Europe and the US with an organic CAC 60% lower than industry average.",
+                    deliverables: [
+                      "Full-funnel web-to-app onboarding journey",
+                      "High-converting micro-interactions & Lottie animations",
+                      "Interactive membership tier checkout simulator",
+                      "Global multi-currency checkout & Apple Pay setup"
+                    ],
+                    timeline: "6 Weeks Build & Launch",
+                    impact: "Featured in App Store top 10 fitness category."
+                  });
+                  showToast('⚡ Opened PulseFit Pro Case Study');
+                }}
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+              >
                 <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
                     Mobile App
                   </div>
-                  {/* Visual mockup representation */}
                   <div className="w-28 h-44 bg-slate-950 rounded-2xl shadow-md border-2 border-[#d97706]/40 p-2 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform">
                     <span className="text-3xl mb-1">⚡</span>
                     <span className="text-xs font-bold text-[#f59e0b]">PulseFit Pro</span>
@@ -786,12 +925,31 @@ export default function Home() {
               </div>
 
               {/* Project 3: Local Business Growth */}
-              <div className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between">
+              <div
+                onClick={() => {
+                  setActiveProjectModal({
+                    title: "Apex Dental UK - Local London Map Pack Dominance",
+                    category: "Local SEO & High-Ticket Inbound Leads",
+                    metric: "#1 Rank across 18 London Boroughs",
+                    client: "Apex Dental Group (London, UK 🇬🇧)",
+                    description: "Engineered programmatic localized geo-landing pages and ethical high-DA digital PR citations, lifting private patient consultation calls by 280% in 90 days.",
+                    deliverables: [
+                      "Google Business Profile (GBP) multi-location optimization",
+                      "25+ Tier-1 UK Medical & Local directory citations",
+                      "Programmatic localized neighborhood routing",
+                      "Automated review collection & reputation funnel"
+                    ],
+                    timeline: "Ongoing Retainer (Month 4)",
+                    impact: "280% increase in high-ticket patient bookings."
+                  });
+                  showToast('🦷 Opened Apex Dental UK Case Study');
+                }}
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+              >
                 <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
                     SEO
                   </div>
-                  {/* Visual mockup representation */}
                   <div className="w-44 h-36 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col justify-center text-left group-hover:scale-105 transition-transform">
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-bold text-slate-800">Apex Dental UK</span>
@@ -839,72 +997,231 @@ export default function Home() {
               </p>
             </div>
 
-            {/* 4 Process Steps in Horizontal Flow */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {/* 4 Interactive Process Steps in Horizontal Flow */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative mb-8">
               
               {/* Step 1 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
+              <div
+                onClick={() => {
+                  setActiveProcessStep(0);
+                  showToast('🔍 Step 1: Discover & Competitive Audit activated');
+                }}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                  activeProcessStep === 0
+                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
+                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
+                }`}
+              >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg mb-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
+                    activeProcessStep === 0 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-amber-50 text-[#d97706]'
+                  }`}>
                     🔍
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[17px] font-bold text-[#0f172a]">01 Discover</span>
-                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className={`text-[17px] font-bold ${activeProcessStep === 0 ? 'text-white' : 'text-[#0f172a]'}`}>01 Discover</span>
+                    <span className="text-[#d97706] font-bold">→</span>
                   </div>
-                  <p className="text-[13px] text-[#64748b] leading-relaxed">
-                    Understanding your goals and target audience.
+                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 0 ? 'text-slate-300' : 'text-[#64748b]'}`}>
+                    Deep Technical audit &amp; international competitor gap mapping.
                   </p>
                 </div>
               </div>
 
               {/* Step 2 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
+              <div
+                onClick={() => {
+                  setActiveProcessStep(1);
+                  showToast('📋 Step 2: Strategize & Roadmap activated');
+                }}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                  activeProcessStep === 1
+                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
+                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
+                }`}
+              >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg mb-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
+                    activeProcessStep === 1 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-slate-100 text-[#091427]'
+                  }`}>
                     📋
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[17px] font-bold text-[#0f172a]">02 Strategize</span>
-                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className={`text-[17px] font-bold ${activeProcessStep === 1 ? 'text-white' : 'text-[#0f172a]'}`}>02 Strategize</span>
+                    <span className="text-[#d97706] font-bold">→</span>
                   </div>
-                  <p className="text-[13px] text-[#64748b] leading-relaxed">
-                    Creating a custom plan for your growth.
+                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 1 ? 'text-slate-300' : 'text-[#64748b]'}`}>
+                    Creating a custom low-competition keyword &amp; UX roadmap.
                   </p>
                 </div>
               </div>
 
               {/* Step 3 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
+              <div
+                onClick={() => {
+                  setActiveProcessStep(2);
+                  showToast('💻 Step 3: Execute & Code Optimization activated');
+                }}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                  activeProcessStep === 2
+                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
+                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
+                }`}
+              >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg mb-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
+                    activeProcessStep === 2 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-amber-50 text-[#d97706]'
+                  }`}>
                     💻
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[17px] font-bold text-[#0f172a]">03 Execute</span>
-                    <span className="text-[#d97706] font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    <span className={`text-[17px] font-bold ${activeProcessStep === 2 ? 'text-white' : 'text-[#0f172a]'}`}>03 Execute</span>
+                    <span className="text-[#d97706] font-bold">→</span>
                   </div>
-                  <p className="text-[13px] text-[#64748b] leading-relaxed">
-                    Bringing the plan to life with expertise.
+                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 2 ? 'text-slate-300' : 'text-[#64748b]'}`}>
+                    Next.js speed rebuild, schema deployment &amp; editorial link building.
                   </p>
                 </div>
               </div>
 
               {/* Step 4 */}
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-xs flex flex-col justify-between relative group hover:border-[#d97706]/50 transition-colors">
+              <div
+                onClick={() => {
+                  setActiveProcessStep(3);
+                  showToast('🎯 Step 4: Continuous Optimization activated');
+                }}
+                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
+                  activeProcessStep === 3
+                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
+                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
+                }`}
+              >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg mb-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
+                    activeProcessStep === 3 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-slate-100 text-[#091427]'
+                  }`}>
                     🎯
                   </div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[17px] font-bold text-[#0f172a]">04 Optimize</span>
+                    <span className={`text-[17px] font-bold ${activeProcessStep === 3 ? 'text-white' : 'text-[#0f172a]'}`}>04 Optimize</span>
                   </div>
-                  <p className="text-[13px] text-[#64748b] leading-relaxed">
-                    Tracking, improving and scaling results.
+                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 3 ? 'text-slate-300' : 'text-[#64748b]'}`}>
+                    Bi-weekly ranking syncs, live Looker dashboards &amp; CRO testing.
                   </p>
                 </div>
               </div>
 
+            </div>
+
+            {/* Interactive Step Detailed Workbench */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 border border-[#d97706]/30 shadow-lg text-left animate-fadeIn">
+              {activeProcessStep === 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Technical &amp; Competitor Diagnosis</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      We crawl your entire website with enterprise tooling to spot crawl traps, canonical conflicts, schema errors, and slow assets.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Days 1 - 7 (Week 1)</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Comprehensive 15-page diagnostic report delivered via Notion + Loom video walkthrough for your leadership team.
+                    </p>
+                  </div>
+                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
+                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Team Allocation:</span>
+                    <ul className="text-xs space-y-1.5 text-[#54647c]">
+                      <li>✓ Lead Technical SEO Architect</li>
+                      <li>✓ Senior Next.js Frontend Engineer</li>
+                      <li>✓ Slack Channel Standup Access</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {activeProcessStep === 1 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">The 90-Day Organic Roadmap</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Commercial keyword clustering based on buyer intent in North America and Europe, plus UX conversion wireframing.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Days 8 - 14 (Week 2)</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Complete keyword matrix with search volumes, difficulty scores, and targeted page mapping approved by client.
+                    </p>
+                  </div>
+                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
+                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Strategic Outputs:</span>
+                    <ul className="text-xs space-y-1.5 text-[#54647c]">
+                      <li>✓ Content Calendar (3 Months)</li>
+                      <li>✓ Digital PR Target Publications</li>
+                      <li>✓ High-Intent Geo-Landing Blueprints</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {activeProcessStep === 2 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Engineering &amp; Content Sprint</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Live code deployment on Next.js, image optimization, schema injection, and high-DA editorial guest placements.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Weeks 3 to 8</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Staging review links provided for approval before zero-downtime production deployment.
+                    </p>
+                  </div>
+                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
+                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Quality Guarantees:</span>
+                    <ul className="text-xs space-y-1.5 text-[#54647c]">
+                      <li>✓ 95+ Google PageSpeed Score</li>
+                      <li>✓ 100% White-Hat Editorial Links</li>
+                      <li>✓ Strict Git Version Control</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {activeProcessStep === 3 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Revenue Scaling &amp; Tracking</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Continuous SERP position tracking, conversion rate A/B tests, and algorithmic protection for Google search updates.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
+                    <h4 className="text-base font-bold text-[#091427] mb-2">Month 3 Onward (Compounding)</h4>
+                    <p className="text-xs text-[#54647c] leading-relaxed">
+                      Real-time interactive Google Looker Studio dashboard accessible 24/7 with zero waiting for monthly reports.
+                    </p>
+                  </div>
+                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
+                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Reporting Cadence:</span>
+                    <ul className="text-xs space-y-1.5 text-[#54647c]">
+                      <li>✓ Weekly Slack Metric Digest</li>
+                      <li>✓ Bi-Weekly Zoom Growth Call</li>
+                      <li>✓ 24/7 Live Data Studio Access</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
 
           </div>
@@ -927,79 +1244,85 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Review 1 */}
-            <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                    +340% Revenue
-                  </span>
-                </div>
-                <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                  &ldquo;Nova Growth completely transformed our organic pipeline. In 4 months, our US search traffic grew by 340%, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                  DH
-                </div>
+            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
+              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
                 <div>
-                  <h4 className="text-xs font-bold text-[#0f172a]">David Henderson</h4>
-                  <p className="text-[11px] text-[#64748b]">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex text-amber-400 text-sm">★★★★★</div>
+                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
+                      +340% Revenue
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
+                    &ldquo;Nova Growth completely transformed our organic pipeline. In 4 months, our US search traffic grew by 340%, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
+                    DH
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#0f172a]">David Henderson</h4>
+                    <p className="text-[11px] text-[#64748b]">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Review 2 */}
-            <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-slate-100 text-[#091427] px-2.5 py-1 rounded-full border border-slate-200">
-                    #1 Google Map Pack
-                  </span>
-                </div>
-                <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                  &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                  OT
-                </div>
+            {(reviewFilter === 'all' || reviewFilter === 'uk') && (
+              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
                 <div>
-                  <h4 className="text-xs font-bold text-[#0f172a]">Oliver Thorne</h4>
-                  <p className="text-[11px] text-[#64748b]">Marketing Director, Apex Dental Group (London, UK 🇬🇧)</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex text-amber-400 text-sm">★★★★★</div>
+                    <span className="text-[10px] font-bold bg-slate-100 text-[#091427] px-2.5 py-1 rounded-full border border-slate-200">
+                      #1 Google Map Pack
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
+                    &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
+                    OT
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#0f172a]">Oliver Thorne</h4>
+                    <p className="text-[11px] text-[#64748b]">Marketing Director, Apex Dental Group (London, UK 🇬🇧)</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Review 3 */}
-            <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400 text-sm">★★★★★</div>
-                  <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                    98 PageSpeed
-                  </span>
-                </div>
-                <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                  &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                  CM
-                </div>
+            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
+              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
                 <div>
-                  <h4 className="text-xs font-bold text-[#0f172a]">Chloe Martinez</h4>
-                  <p className="text-[11px] text-[#64748b]">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex text-amber-400 text-sm">★★★★★</div>
+                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
+                      98 PageSpeed
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
+                    &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
+                    CM
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-[#0f172a]">Chloe Martinez</h4>
+                    <p className="text-[11px] text-[#64748b]">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
           </div>
         </section>
@@ -1070,7 +1393,75 @@ export default function Home() {
         {/* 9. FOOTER */}
         <Footer />
 
-        {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
+        {/* INTERACTIVE CASE STUDY DEEP DIVE MODAL */}
+        {activeProjectModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
+              <button
+                onClick={() => setActiveProjectModal(null)}
+                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
+              >
+                ✕
+              </button>
+
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold mb-3 border border-amber-200/80">
+                <span className="text-[#d97706]">🏆</span>
+                <span>{activeProjectModal.category}</span>
+              </div>
+
+              <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
+                {activeProjectModal.title}
+              </h3>
+              <p className="text-xs text-[#d97706] font-bold mb-4">{activeProjectModal.client}</p>
+
+              <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5">
+                <div className="text-[11px] font-semibold text-gray-500 uppercase">Primary Milestone Result:</div>
+                <div className="text-xl font-black text-[#091427] mt-0.5">{activeProjectModal.metric}</div>
+                <div className="text-xs text-[#54647c] mt-1">{activeProjectModal.impact}</div>
+              </div>
+
+              <div className="space-y-4 text-xs text-[#54647c] mb-6">
+                <div>
+                  <h4 className="font-bold text-[#091427] mb-1">Challenge &amp; Architecture:</h4>
+                  <p className="leading-relaxed">{activeProjectModal.description}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-[#091427] mb-1.5">Executed Deliverables:</h4>
+                  <ul className="space-y-1.5">
+                    {activeProjectModal.deliverables.map((d, dIdx) => (
+                      <li key={dIdx} className="flex items-center gap-2 text-[#0f172a] font-medium">
+                        <span className="text-[#d97706] font-bold">✓</span>
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+                <button
+                  onClick={() => {
+                    setSelectedService(activeProjectModal.category);
+                    setActiveProjectModal(null);
+                    setContactOpen(true);
+                  }}
+                  className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
+                >
+                  Request Similar Strategy for Your Site →
+                </button>
+                <button
+                  onClick={() => setActiveProjectModal(null)}
+                  className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+                {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
         {contactOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
             <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative">

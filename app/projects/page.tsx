@@ -1,22 +1,18 @@
-import React from "react";
-import type { Metadata } from "next";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-export const metadata: Metadata = {
-  title: "Projects & Case Studies | Proven Growth Results",
-  description:
-    "Explore our featured projects and client case studies across E-Commerce, Mobile Apps, Local Business SEO, and SaaS Web Development.",
-};
-
 const caseStudies = [
   {
     id: "fashion-brand",
+    categoryGroup: "ecommerce",
     category: "E-Commerce Website",
     badge: "Web Development + SEO",
     title: "Fashion Brand Website",
-    client: "Luxe Fashion Inc. (Los Angeles, USA)",
+    client: "Luxe Fashion Inc. (Los Angeles, USA 🇺🇸)",
     stat: "+340%",
     statLabel: "Organic Revenue Increase",
     description:
@@ -29,13 +25,21 @@ const caseStudies = [
     tech: ["Next.js", "Shopify Storefront API", "Tailwind CSS", "Klaviyo"],
     visual: "👗",
     bgGradient: "from-rose-50 to-amber-50",
+    fullDeliverables: [
+      "Custom headless Next.js frontend with sub-second page transitions",
+      "Shopify Storefront GraphQL integration with live inventory sync",
+      "Automated collection schema structured data & rich snippets",
+      "Klaviyo abandoned checkout automated email marketing flows"
+    ],
+    resultsSummary: "Organic revenue reached $1.4M in 6 months, overtaking paid acquisition channels."
   },
   {
     id: "fitness-app",
+    categoryGroup: "mobile",
     category: "Mobile App",
     badge: "UI/UX Design + Development",
     title: "PulseFit Pro Mobile App",
-    client: "Pulse Technologies (Austin, USA)",
+    client: "Pulse Technologies (Austin, USA 🇺🇸)",
     stat: "50,000+",
     statLabel: "Active Downloads",
     description:
@@ -47,14 +51,22 @@ const caseStudies = [
     ],
     tech: ["React Native", "TypeScript", "Node.js", "Firebase"],
     visual: "⚡",
-    bgGradient: "from-purple-50 to-indigo-50",
+    bgGradient: "from-slate-900 to-[#091427]",
+    fullDeliverables: [
+      "Cross-platform iOS and Android production release",
+      "Micro-animations and tactile haptic feedback design",
+      "Multi-currency in-app subscription billing via Stripe",
+      "App Store & Google Play organic ASO keyword optimization"
+    ],
+    resultsSummary: "Achieved Top 10 Fitness ranking across the US and UK app stores."
   },
   {
     id: "local-growth",
+    categoryGroup: "seo",
     category: "SEO",
     badge: "Local SEO + Content Marketing",
     title: "Local Business Growth",
-    client: "Apex Health & Dental Group (London, UK)",
+    client: "Apex Health & Dental Group (London, UK 🇬🇧)",
     stat: "#1 Rank",
     statLabel: "On High-Intent Google Maps",
     description:
@@ -67,13 +79,21 @@ const caseStudies = [
     tech: ["Local Schema", "GBP Optimization", "Content Clusters", "Ahrefs"],
     visual: "📍",
     bgGradient: "from-amber-50 to-slate-50",
+    fullDeliverables: [
+      "Google Business Profile multi-location audit and citation cleanup",
+      "Hyper-local neighborhood page routing across Central & Greater London",
+      "Local schema injection with review markup",
+      "Automated SMS review generation funnel for verified patients"
+    ],
+    resultsSummary: "Private patient consultation bookings jumped by 280% in the first 90 days."
   },
   {
     id: "saas-pipeline",
+    categoryGroup: "saas",
     category: "B2B SaaS",
     badge: "Technical SEO + CRO",
     title: "CloudSync SaaS Growth",
-    client: "CloudSync Technologies (San Francisco, USA)",
+    client: "CloudSync Technologies (San Francisco, USA 🇺🇸)",
     stat: "+420%",
     statLabel: "Qualified Demo Bookings",
     description:
@@ -86,13 +106,21 @@ const caseStudies = [
     tech: ["Next.js App Router", "Sanity CMS", "Programmatic SEO", "Vercel"],
     visual: "☁️",
     bgGradient: "from-blue-50/50 to-amber-50/50",
+    fullDeliverables: [
+      "Programmatic SEO directory indexing 450+ tool integrations",
+      "Core Web Vitals remediation bringing LCP down to 1.1s",
+      "High-authority editorial link outreach on DA 60+ tech publications",
+      "Full-funnel Looker Studio attribution tracking"
+    ],
+    resultsSummary: "Demo pipeline generated over $180,000 monthly recurring revenue organically."
   },
   {
     id: "dubai-real-estate",
+    categoryGroup: "ecommerce",
     category: "Real Estate Portal",
     badge: "Web Design + Paid Strategy",
     title: "Horizon Luxury Properties",
-    client: "Horizon Real Estate (Dubai, UAE)",
+    client: "Horizon Real Estate (Dubai, UAE 🇦🇪)",
     stat: "$18.5M",
     statLabel: "Property Sales Inquiries",
     description:
@@ -105,13 +133,21 @@ const caseStudies = [
     tech: ["React", "Tailwind CSS", "Mapbox", "Meta Ads"],
     visual: "🏢",
     bgGradient: "from-amber-50/80 to-slate-50",
+    fullDeliverables: [
+      "Multilingual Arabic & English high-speed property catalog",
+      "Interactive 3D virtual tour embed with lazy loading",
+      "Direct WhatsApp lead qualification integration",
+      "Ultra-targeted Google search ads targeting UK and European investors"
+    ],
+    resultsSummary: "Facilitated over $18.5M in verified off-plan property sales inquiries."
   },
   {
     id: "fintech-app",
+    categoryGroup: "saas",
     category: "Fintech Platform",
     badge: "Product Design & Web App",
     title: "VenturePay Global",
-    client: "VenturePay Financial (Toronto, Canada)",
+    client: "VenturePay Financial (Toronto, Canada 🇨🇦)",
     stat: "100K+",
     statLabel: "Monthly Active Users",
     description:
@@ -123,15 +159,44 @@ const caseStudies = [
     ],
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
     visual: "💳",
-    bgGradient: "from-violet-50 to-purple-50",
+    bgGradient: "from-slate-900 to-[#091427]",
+    fullDeliverables: [
+      "Bank-grade SSL encrypted user onboarding and KYC flow",
+      "Live exchange rate calculation widget with interbank feed",
+      "Security compliance validation (SOC2 & PCI-DSS standards)",
+      "High-intent keyword positioning for 'cross-border remit' queries"
+    ],
+    resultsSummary: "Organic search share surpassed 54% of all new user onboarding."
   },
 ];
 
 export default function ProjectsPage() {
+  const [filter, setFilter] = useState<string>("all");
+  const [activeStudy, setActiveStudy] = useState<typeof caseStudies[0] | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  const filteredStudies = filter === "all"
+    ? caseStudies
+    : caseStudies.filter((s) => s.categoryGroup === filter);
+
   return (
     <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+          <span>{toast}</span>
+          <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+        </div>
+      )}
 
       <Navbar activePage="projects" />
 
@@ -139,24 +204,54 @@ export default function ProjectsPage() {
       <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-          <span>Proven Client Case Studies</span>
+          <span>Verified Client Outcomes</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Real Results for <br />
-          <span className="text-gradient-navy-gold">Ambitious Global Brands</span>
+          Case Studies &amp; <br />
+          <span className="text-gradient-navy-gold">Measurable Client Results</span>
         </h1>
         <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
-          Browse our recent client collaborations across the US, UK, Canada, and UAE. From e-commerce scaling to top-ranking SEO campaigns, we turn business goals into measurable revenue.
+          Explore how our high-intent SEO, modern Next.js development, and data-driven marketing deliver compounding revenue across global markets.
         </p>
+
+        {/* Interactive Category Filter Pills */}
+        <div className="inline-flex flex-wrap justify-center p-1.5 bg-white rounded-2xl border border-gray-200/80 shadow-xs gap-1 max-w-2xl mx-auto">
+          {[
+            { id: "all", label: "All Projects (6)" },
+            { id: "ecommerce", label: "E-Commerce & Portals (2)" },
+            { id: "saas", label: "B2B SaaS & Fintech (2)" },
+            { id: "seo", label: "Local SEO & Clinics (1)" },
+            { id: "mobile", label: "Mobile Apps (1)" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => {
+                setFilter(tab.id);
+                showToast(`Filter: ${tab.label} selected`);
+              }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                filter === tab.id
+                  ? "bg-[#091427] text-white shadow-sm"
+                  : "text-[#54647c] hover:text-[#091427] hover:bg-gray-50"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </section>
 
       {/* Case Studies Grid */}
       <section className="relative py-8 px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {caseStudies.map((study) => (
+          {filteredStudies.map((study) => (
             <div
               key={study.id}
-              className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs card-hover flex flex-col justify-between group"
+              onClick={() => {
+                setActiveStudy(study);
+                showToast(`Opened full breakdown for ${study.title}`);
+              }}
+              className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs card-hover flex flex-col justify-between group cursor-pointer animate-fadeIn"
             >
               <div>
                 {/* Visual Header Mockup */}
@@ -199,7 +294,7 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              {/* Tech Stack Chips & Link */}
+              {/* Tech Stack Chips & Action */}
               <div>
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {study.tech.map((t, tIdx) => (
@@ -212,13 +307,13 @@ export default function ProjectsPage() {
                   ))}
                 </div>
 
-                <Link
-                  href="/contact"
-                  className="w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-[#091427] bg-amber-50 hover:bg-amber-100 border border-amber-200/80 py-2.5 rounded-xl transition-colors"
+                <button
+                  type="button"
+                  className="w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-[#091427] bg-amber-50 hover:bg-amber-100 border border-amber-200/80 py-2.5 rounded-xl transition-colors cursor-pointer"
                 >
-                  <span>Discuss Similar Project</span>
-                  <span>→</span>
-                </Link>
+                  <span>View Case Study Deep Dive</span>
+                  <span>↗</span>
+                </button>
               </div>
             </div>
           ))}
@@ -236,7 +331,7 @@ export default function ProjectsPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
+            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
           >
             <span>Book Your Free Growth Audit</span>
             <span>→</span>
@@ -244,7 +339,86 @@ export default function ProjectsPage() {
         </div>
       </section>
 
+      {/* Interactive Case Study Detail Modal */}
+      {activeStudy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setActiveStudy(null)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold mb-3 border border-amber-200/80">
+              <span className="text-[#d97706]">🏆</span>
+              <span>{studyCategoryBadge(activeStudy.category)}</span>
+            </div>
+
+            <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
+              {activeStudy.title}
+            </h3>
+            <p className="text-xs text-[#d97706] font-bold mb-4">{activeStudy.client}</p>
+
+            <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5">
+              <div className="text-[11px] font-semibold text-gray-500 uppercase">Primary Growth Stat:</div>
+              <div className="text-2xl font-black text-[#091427] mt-0.5">{activeStudy.stat} {activeStudy.statLabel}</div>
+              <div className="text-xs text-[#54647c] mt-1">{activeStudy.resultsSummary}</div>
+            </div>
+
+            <div className="space-y-4 text-xs text-[#54647c] mb-6">
+              <div>
+                <h4 className="font-bold text-[#091427] mb-1">The Strategy &amp; Problem:</h4>
+                <p className="leading-relaxed">{activeStudy.description}</p>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-[#091427] mb-2">Executed Deliverables:</h4>
+                <ul className="space-y-1.5">
+                  {activeStudy.fullDeliverables.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-[#0f172a]">
+                      <span className="text-[#d97706] font-bold">✓</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-[#091427] mb-2">Deployed Architecture:</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeStudy.tech.map((t, idx) => (
+                    <span key={idx} className="bg-slate-100 text-[#091427] px-2.5 py-1 rounded-lg font-mono text-[11px] font-semibold">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+              <Link
+                href="/contact"
+                className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
+              >
+                Start Similar Project With Nova Growth →
+              </Link>
+              <button
+                onClick={() => setActiveStudy(null)}
+                className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );
+}
+
+function studyCategoryBadge(cat: string) {
+  return cat;
 }

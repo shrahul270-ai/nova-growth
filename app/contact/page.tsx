@@ -6,6 +6,20 @@ import Footer from "../components/Footer";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const [toast, setToast] = useState<string | null>(null);
+  const [copiedItem, setCopiedItem] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedItem(label);
+    showToast(`📋 Copied ${label} to clipboard!`);
+    setTimeout(() => setCopiedItem(null), 2500);
+  };
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,6 +44,13 @@ export default function ContactPage() {
       <div className="curved-ribbon-right" aria-hidden="true" />
 
       <Navbar activePage="contact" />
+      {toast && (
+        <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+          <span>{toast}</span>
+          <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+        </div>
+      )}
 
       {/* Main Contact Section */}
       <section className="relative pt-16 pb-24 px-6 md:px-12 z-10 max-w-7xl mx-auto">
@@ -111,22 +132,56 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Direct Contact Card */}
+            {/* Direct Contact Card with Working Action Buttons */}
             <div className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 flex flex-col gap-3 text-xs">
-              <span className="font-bold text-[#091427] uppercase tracking-wider text-[11px]">
-                Direct Contacts
-              </span>
-              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-amber-200/50">
-                <span>Inquiries Email:</span>
-                <span className="font-semibold text-[#0f172a]">hello@novagrowth.agency</span>
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-[#091427] uppercase tracking-wider text-[11px]">
+                  Direct Contacts
+                </span>
+                <span className="text-[10px] text-[#d97706] font-bold">● Instant Support</span>
               </div>
-              <div className="flex items-center justify-between text-gray-700 py-1 border-b border-amber-200/50">
-                <span>Global Support:</span>
-                <span className="font-semibold text-[#0f172a]">+1 (800) 555-NOVA</span>
+
+              <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
+                <div>
+                  <span className="block text-gray-500 text-[10px]">Inquiries Email:</span>
+                  <span className="font-semibold text-[#0f172a]">hello@novagrowth.agency</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard('hello@novagrowth.agency', 'Email')}
+                  className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
+                >
+                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy 📋'}
+                </button>
               </div>
+
+              <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
+                <div>
+                  <span className="block text-gray-500 text-[10px]">Direct Phone / Toll-Free:</span>
+                  <span className="font-semibold text-[#0f172a]">+1 (800) 555-6682</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard('+18005556682', 'Phone')}
+                  className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
+                >
+                  {copiedItem === 'Phone' ? '✓ Copied' : 'Copy 📋'}
+                </button>
+              </div>
+
               <div className="flex items-center justify-between text-gray-700 py-1">
-                <span>Headquarters:</span>
-                <span className="font-semibold text-[#0f172a]">Global Remote First</span>
+                <div>
+                  <span className="block text-gray-500 text-[10px]">Global HQ:</span>
+                  <span className="font-semibold text-[#0f172a]">New York &amp; London Hubs</span>
+                </div>
+                <a
+                  href="https://wa.me/18005556682?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 bg-[#091427] text-white rounded-lg text-[10px] font-bold hover:bg-[#0f213d] transition-colors"
+                >
+                  WhatsApp 💬
+                </a>
               </div>
             </div>
 
