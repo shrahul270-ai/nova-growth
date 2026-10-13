@@ -9,9 +9,9 @@ export default function ContactPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  // Apna real email aur WhatsApp number yahan set karein
+  // Aapki Direct Contact Details
   const agencyEmail = "rahulswami@gmail.com"; 
-  const whatsappNumber = "+919876543210"; // Apna 10 digit number country code ke saath dalein
+  const whatsappNumber = "+919876543210"; // Agar number badalna ho toh yahan change karein
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -39,7 +39,6 @@ export default function ContactPage() {
     e.preventDefault();
     setFormState("submitting");
 
-    // Bina kisi external API ke smooth 1 second submission
     setTimeout(() => {
       setFormState("success");
     }, 1000);
@@ -139,7 +138,7 @@ export default function ContactPage() {
               {/* Direct Mail */}
               <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
                 <div>
-                  <span className="block text-gray-500 text-[10px]">Official Email:</span>
+                  <span className="block text-gray-500 text-[10px]">Inquiries Email:</span>
                   <a href={`mailto:${agencyEmail}`} className="font-semibold text-[#0f172a] hover:underline">
                     {agencyEmail}
                   </a>
@@ -156,7 +155,7 @@ export default function ContactPage() {
                     onClick={() => copyToClipboard(agencyEmail, 'Email')}
                     className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
                   >
-                    {copiedItem === 'Email' ? '✓' : 'Copy'}
+                    {copiedItem === 'Email' ? '✓' : 'Copy 📋'}
                   </button>
                 </div>
               </div>
@@ -167,14 +166,23 @@ export default function ContactPage() {
                   <span className="block text-gray-500 text-[10px]">Direct WhatsApp:</span>
                   <span className="font-semibold text-[#0f172a]">{whatsappNumber}</span>
                 </div>
-                <a
-                  href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-xs"
-                >
-                  Chat on WhatsApp 💬
-                </a>
+                <div className="flex gap-1.5">
+                  <a
+                    href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-xs"
+                  >
+                    WhatsApp 💬
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(whatsappNumber, 'Phone')}
+                    className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
+                  >
+                    {copiedItem === 'Phone' ? '✓' : 'Copy 📋'}
+                  </button>
+                </div>
               </div>
             </div>
 
