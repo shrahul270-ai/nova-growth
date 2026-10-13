@@ -1,18 +1,28 @@
-export const metadata = {
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://nova-growth-six.vercel.app"),
   title: "Nova Growth | Global SEO & Digital Marketing Agency",
   description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building.",
+  verification: {
+    google: "eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
-export default function RootLayout({ children }: { children: any }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU"
-        />
-      </head>
-      <body>{children}</body>
+      <body className="bg-[#0a0a0f] text-white antialiased">
+        {children}
+      </body>
     </html>
   );
 }
