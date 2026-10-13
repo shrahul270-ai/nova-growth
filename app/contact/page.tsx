@@ -31,14 +31,36 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormState("submitting");
-    setTimeout(() => {
-      setFormState("success");
-    }, 1000);
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setFormState("submitting");
 
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "your-real-key-here", // web3forms se mili key yahan paste karein
+        subject: `New Lead from Nova Growth: ${formData.name}`,
+        ...formData,
+      }),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      setFormState("success");
+    } else {
+      alert("Submission failed, please try again.");
+      setFormState("idle");
+    }
+  } catch (error) {
+    console.error("Error submitting form", error);
+    setFormState("idle");
+  }
+};
   return (
     <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
       <div className="curved-ribbon-left" aria-hidden="true" />
