@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import FloatingConnect from "./components/FloatingConnect";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nova-growth-six.vercel.app"),
@@ -22,6 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-[#0a0a0f] text-white antialiased">
         {children}
+        {/* Sabhi pages par 3D animated connect popup */}
+        <FloatingConnect />
       </body>
     </html>
   );
