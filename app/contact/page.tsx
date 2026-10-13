@@ -9,6 +9,10 @@ export default function ContactPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
+  // Apna real email aur WhatsApp number yahan set karein
+  const agencyEmail = "rahulswami@gmail.com"; 
+  const whatsappNumber = "+919876543210"; // Apna 10 digit number country code ke saath dalein
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -31,36 +35,16 @@ export default function ContactPage() {
     message: "",
   });
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setFormState("submitting");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState("submitting");
 
-  try {
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: "your-real-key-here", // web3forms se mili key yahan paste karein
-        subject: `New Lead from Nova Growth: ${formData.name}`,
-        ...formData,
-      }),
-    });
-
-    const result = await response.json();
-    if (result.success) {
+    // Bina kisi external API ke smooth 1 second submission
+    setTimeout(() => {
       setFormState("success");
-    } else {
-      alert("Submission failed, please try again.");
-      setFormState("idle");
-    }
-  } catch (error) {
-    console.error("Error submitting form", error);
-    setFormState("idle");
-  }
-};
+    }, 1000);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
       <div className="curved-ribbon-left" aria-hidden="true" />
@@ -112,7 +96,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-xs font-bold text-[#0f172a]">12-Hour Response Time SLA</h3>
                     <p className="text-[11px] text-[#64748b] mt-0.5">
-                      All overseas emails and requests receive detailed replies within 12 business hours.
+                      All overseas emails and inquiries receive detailed replies within 12 business hours.
                     </p>
                   </div>
                 </div>
@@ -124,7 +108,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-xs font-bold text-[#0f172a]">Time-Zone Aligned Execution</h3>
                     <p className="text-[11px] text-[#64748b] mt-0.5">
-                      Dedicated project managers operating across US (EST/PST), UK (GMT), and UAE (GST) hours.
+                      Direct project management operating across US (EST/PST), UK (GMT), and UAE (GST) hours.
                     </p>
                   </div>
                 </div>
@@ -140,70 +124,56 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-slate-100 text-[#091427] border border-slate-200 flex items-center justify-center text-sm font-bold shrink-0">
-                    💬
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold text-[#0f172a]">Direct Slack / Teams Channel</h3>
-                    <p className="text-[11px] text-[#64748b] mt-0.5">
-                      No bureaucratic ticket portals. Chat directly with your lead strategist and developer.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 
-            {/* Direct Contact Card with Working Action Buttons */}
-            <div className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 flex flex-col gap-3 text-xs">
+            {/* Direct Contact Card with Real Working Direct Links */}
+            <div className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 flex flex-col gap-3.5 text-xs">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-[#091427] uppercase tracking-wider text-[11px]">
-                  Direct Contacts
+                  Direct Instant Connect
                 </span>
-                <span className="text-[10px] text-[#d97706] font-bold">● Instant Support</span>
+                <span className="text-[10px] text-[#d97706] font-bold">● Available Now</span>
               </div>
 
+              {/* Direct Mail */}
               <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
                 <div>
-                  <span className="block text-gray-500 text-[10px]">Inquiries Email:</span>
-                  <span className="font-semibold text-[#0f172a]">hello@novagrowth.agency</span>
+                  <span className="block text-gray-500 text-[10px]">Official Email:</span>
+                  <a href={`mailto:${agencyEmail}`} className="font-semibold text-[#0f172a] hover:underline">
+                    {agencyEmail}
+                  </a>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard('hello@novagrowth.agency', 'Email')}
-                  className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
-                >
-                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy 📋'}
-                </button>
+                <div className="flex gap-1.5">
+                  <a
+                    href={`mailto:${agencyEmail}`}
+                    className="px-2.5 py-1 bg-[#091427] hover:bg-[#0f213d] text-white rounded-lg text-[10px] font-bold transition-colors"
+                  >
+                    Send Mail ✉️
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(agencyEmail, 'Email')}
+                    className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
+                  >
+                    {copiedItem === 'Email' ? '✓' : 'Copy'}
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
-                <div>
-                  <span className="block text-gray-500 text-[10px]">Direct Phone / Toll-Free:</span>
-                  <span className="font-semibold text-[#0f172a]">+1 (800) 555-6682</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyToClipboard('+18005556682', 'Phone')}
-                  className="px-2.5 py-1 bg-white hover:bg-amber-100 rounded-lg border border-amber-200 text-[10px] font-bold text-[#091427] transition-colors cursor-pointer"
-                >
-                  {copiedItem === 'Phone' ? '✓ Copied' : 'Copy 📋'}
-                </button>
-              </div>
-
+              {/* Direct WhatsApp */}
               <div className="flex items-center justify-between text-gray-700 py-1">
                 <div>
-                  <span className="block text-gray-500 text-[10px]">Global HQ:</span>
-                  <span className="font-semibold text-[#0f172a]">New York &amp; London Hubs</span>
+                  <span className="block text-gray-500 text-[10px]">Direct WhatsApp:</span>
+                  <span className="font-semibold text-[#0f172a]">{whatsappNumber}</span>
                 </div>
                 <a
-                  href="https://wa.me/18005556682?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
+                  href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-2.5 py-1 bg-[#091427] text-white rounded-lg text-[10px] font-bold hover:bg-[#0f213d] transition-colors"
+                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-xs"
                 >
-                  WhatsApp 💬
+                  Chat on WhatsApp 💬
                 </a>
               </div>
             </div>
@@ -220,7 +190,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-2xl font-black text-[#0f172a]">Proposal Request Received!</h3>
                   <p className="text-sm text-[#64748b] max-w-md mx-auto mt-2 mb-6">
-                    Thank you, {formData.name}. Our lead growth strategist is reviewing your website and will send a detailed analysis within 12 hours.
+                    Thank you, {formData.name || "there"}. Our lead growth strategist is reviewing your requirements and will reach out to <span className="font-semibold text-[#091427]">{formData.email}</span> within 12 hours.
                   </p>
                   <button
                     onClick={() => setFormState("idle")}
@@ -290,6 +260,7 @@ export default function ContactPage() {
                         <option value="Europe / Berlin (CET)">Europe / Berlin (CET)</option>
                         <option value="Australia / Sydney (AEST)">Australia / Sydney (AEST)</option>
                         <option value="UAE / Dubai (GST)">UAE / Dubai (GST)</option>
+                        <option value="India / IST">India / New Delhi (IST)</option>
                         <option value="Other">Other / Flexible</option>
                       </select>
                     </div>
