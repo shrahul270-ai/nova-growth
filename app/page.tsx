@@ -13,26 +13,15 @@ export default function Home() {
   const [toast, setToast] = useState<string | null>(null);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
   const [activeProcessStep, setActiveProcessStep] = useState<number>(0);
-  const [activeProjectModal, setActiveProjectModal] = useState<{
-    title: string;
-    category: string;
-    metric: string;
-    client: string;
-    description: string;
-    deliverables: string[];
-    timeline: string;
-    impact: string;
-  } | null>(null);
   const [reviewFilter, setReviewFilter] = useState<"all" | "usa" | "uk">("all");
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setContactOpen(false);
-        setActiveProjectModal(null);
       }
     };
-    if (contactOpen || activeProjectModal) {
+    if (contactOpen) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     }
@@ -40,7 +29,7 @@ export default function Home() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [contactOpen, activeProjectModal]);
+  }, [contactOpen]);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -788,26 +777,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               
               {/* Project 1: Fashion Brand Website */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "Luxe Fashion US - Headless E-Commerce & SEO",
-                    category: "E-Commerce & International SEO",
-                    metric: "+340% Organic Revenue",
-                    client: "Luxe Fashion Apparel (Los Angeles, USA 🇺🇸)",
-                    description: "Replatformed from slow monolithic WordPress to headless Next.js App Router with Shopify backend, cutting TTFB to 120ms and securing #1 rankings for high-intent apparel keywords.",
-                    deliverables: [
-                      "Headless Next.js storefront architecture",
-                      "Sub-second Core Web Vitals (99/100 Mobile Speed)",
-                      "Schema Product & Offer JSON-LD configuration",
-                      "Automated currency & geo-targeted international routing"
-                    ],
-                    timeline: "10 Weeks Deployment",
-                    impact: "$1.4M ARR incremental organic pipeline in 6 months."
-                  });
-                  showToast('👗 Opened Luxe Fashion US Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
+              <Link
+                href="/projects/fashion-brand"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
               >
                 <div className="relative bg-gradient-to-tr from-rose-50 to-amber-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-rose-100/50">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
@@ -831,29 +803,12 @@ export default function Home() {
                     ↗
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* Project 2: Fitness App */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "PulseFit Pro - High-Growth Mobile SaaS",
-                    category: "Mobile App & SaaS CRO",
-                    metric: "50,000+ Active Subscriptions",
-                    client: "PulseFit Fitness Tech (London, UK 🇬🇧)",
-                    description: "Built the conversion landing architecture and app store SEO (ASO) driving 50k+ app installs across Europe and the US with an organic CAC 60% lower than industry average.",
-                    deliverables: [
-                      "Full-funnel web-to-app onboarding journey",
-                      "High-converting micro-interactions & Lottie animations",
-                      "Interactive membership tier checkout simulator",
-                      "Global multi-currency checkout & Apple Pay setup"
-                    ],
-                    timeline: "6 Weeks Build & Launch",
-                    impact: "Featured in App Store top 10 fitness category."
-                  });
-                  showToast('⚡ Opened PulseFit Pro Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
+              <Link
+                href="/projects/fitness-app"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
               >
                 <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
@@ -877,29 +832,12 @@ export default function Home() {
                     ↗
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* Project 3: Local Business Growth */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "Apex Dental UK - Local London Map Pack Dominance",
-                    category: "Local SEO & High-Ticket Inbound Leads",
-                    metric: "#1 Rank across 18 London Boroughs",
-                    client: "Apex Dental Group (London, UK 🇬🇧)",
-                    description: "Engineered programmatic localized geo-landing pages and ethical high-DA digital PR citations, lifting private patient consultation calls by 280% in 90 days.",
-                    deliverables: [
-                      "Google Business Profile (GBP) multi-location optimization",
-                      "25+ Tier-1 UK Medical & Local directory citations",
-                      "Programmatic localized neighborhood routing",
-                      "Automated review collection & reputation funnel"
-                    ],
-                    timeline: "Ongoing Retainer (Month 4)",
-                    impact: "280% increase in high-ticket patient bookings."
-                  });
-                  showToast('🦷 Opened Apex Dental UK Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
+              <Link
+                href="/projects/local-growth"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
               >
                 <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
@@ -928,7 +866,7 @@ export default function Home() {
                     ↗
                   </div>
                 </div>
-              </div>
+              </Link>
 
             </div>
 
@@ -1347,83 +1285,6 @@ export default function Home() {
 
         {/* 9. FOOTER */}
         <Footer />
-
-        {/* INTERACTIVE CASE STUDY DEEP DIVE MODAL */}
-        {activeProjectModal && (
-          <div
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setActiveProjectModal(null);
-            }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
-          >
-            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[85vh] overflow-y-auto my-auto">
-              {/* Sticky Header with Prominent Close Button */}
-              <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold border border-amber-200/80">
-                  <span className="text-[#d97706]">🏆</span>
-                  <span>{activeProjectModal.category}</span>
-                </div>
-                <button
-                  onClick={() => setActiveProjectModal(null)}
-                  aria-label="Close modal"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200"
-                >
-                  <span className="text-sm">✕</span>
-                  <span>Close</span>
-                </button>
-              </div>
-
-              <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
-                {activeProjectModal.title}
-              </h3>
-              <p className="text-xs text-[#d97706] font-bold mb-4">{activeProjectModal.client}</p>
-
-              <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5">
-                <div className="text-[11px] font-semibold text-gray-500 uppercase">Primary Milestone Result:</div>
-                <div className="text-xl font-black text-[#091427] mt-0.5">{activeProjectModal.metric}</div>
-                <div className="text-xs text-[#54647c] mt-1">{activeProjectModal.impact}</div>
-              </div>
-
-              <div className="space-y-4 text-xs text-[#54647c] mb-6">
-                <div>
-                  <h4 className="font-bold text-[#091427] mb-1">Challenge &amp; Architecture:</h4>
-                  <p className="leading-relaxed">{activeProjectModal.description}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-[#091427] mb-1.5">Executed Deliverables:</h4>
-                  <ul className="space-y-1.5">
-                    {activeProjectModal.deliverables.map((d, dIdx) => (
-                      <li key={dIdx} className="flex items-center gap-2 text-[#0f172a] font-medium">
-                        <span className="text-[#d97706] font-bold">✓</span>
-                        <span>{d}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-                <button
-                  onClick={() => {
-                    setSelectedService(activeProjectModal.category);
-                    setActiveProjectModal(null);
-                    setContactOpen(true);
-                  }}
-                  className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
-                >
-                  Request Similar Strategy for Your Site →
-                </button>
-                <button
-                  onClick={() => setActiveProjectModal(null)}
-                  className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
-                >
-                  ✕ Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
         {contactOpen && (

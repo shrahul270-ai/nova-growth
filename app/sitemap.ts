@@ -20,5 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog/google-maps-local-seo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/blog/shopify-email-automation`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/blog/ai-search-overviews`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/projects/fashion-brand`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/projects/fitness-app`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/projects/local-growth`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/projects/saas-pipeline`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/projects/dubai-real-estate`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/projects/fintech-app`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
   ];
 }
