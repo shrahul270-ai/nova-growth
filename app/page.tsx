@@ -432,18 +432,15 @@ export default function Home() {
                   From SEO to web development, we offer end-to-end digital marketing services to help your business reach new heights.
                 </p>
 
-                <button
-                  onClick={() => {
-                    setSelectedService("All Services");
-                    setContactOpen(true);
-                  }}
-                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all hover:gap-3 cursor-pointer"
+                <Link
+                  href="/services"
+                  className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-6 py-3 rounded-full transition-all hover:gap-3 cursor-pointer"
                 >
                   <span>View All Services</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
-                </button>
+                </Link>
               </div>
 
               {/* Right Column: 6 Cards in 2x3 Grid */}
@@ -455,7 +452,7 @@ export default function Home() {
                     setSelectedService("SEO Optimization");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center text-lg">
@@ -481,7 +478,7 @@ export default function Home() {
                     setSelectedService("Website Development");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-sm font-bold font-mono">
@@ -507,7 +504,7 @@ export default function Home() {
                     setSelectedService("Content Writing");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
@@ -533,7 +530,7 @@ export default function Home() {
                     setSelectedService("Email Marketing");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-blue-50 text-[#1e40af] border border-blue-200/60 flex items-center justify-center text-lg">
@@ -559,7 +556,7 @@ export default function Home() {
                     setSelectedService("Off Page Backlink Building");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
@@ -585,7 +582,7 @@ export default function Home() {
                     setSelectedService("Website Maintenance");
                     setContactOpen(true);
                   }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
+                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-3d cursor-pointer relative flex flex-col justify-between min-h-[175px]"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-lg">
@@ -818,15 +815,15 @@ export default function Home() {
                 </p>
               </div>
 
-              <button
-                onClick={() => setContactOpen(true)}
-                className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[13.5px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all self-start md:self-auto cursor-pointer"
+              <Link
+                href="/projects"
+                className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[13.5px] font-bold px-6 py-3 rounded-full transition-all self-start md:self-auto cursor-pointer"
               >
                 <span>View All Projects</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </button>
+              </Link>
             </div>
 
             {/* 3 Interactive Project Showcase Cards */}
@@ -852,7 +849,7 @@ export default function Home() {
                   });
                   showToast('👗 Opened Luxe Fashion US Case Study');
                 }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
               >
                 <div className="relative bg-gradient-to-tr from-rose-50 to-amber-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-rose-100/50">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
@@ -898,7 +895,7 @@ export default function Home() {
                   });
                   showToast('⚡ Opened PulseFit Pro Case Study');
                 }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
               >
                 <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
@@ -944,7 +941,7 @@ export default function Home() {
                   });
                   showToast('🦷 Opened Apex Dental UK Case Study');
                 }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
+                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer"
               >
                 <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">

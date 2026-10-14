@@ -139,7 +139,7 @@ export default function AboutPage() {
           {pillars.map((pillar, idx) => (
             <div
               key={idx}
-              className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between"
+              className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs card-3d flex flex-col justify-between"
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl mb-4">
@@ -168,7 +168,7 @@ export default function AboutPage() {
           {team.map((member, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs card-hover text-center"
+              className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs card-3d text-center"
             >
               <div className="w-20 h-20 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-3xl mx-auto mb-4">
                 {member.avatar}

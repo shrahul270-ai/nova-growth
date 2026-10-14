@@ -251,7 +251,7 @@ export default function ProjectsPage() {
                 setActiveStudy(study);
                 showToast(`Opened full breakdown for ${study.title}`);
               }}
-              className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs card-hover flex flex-col justify-between group cursor-pointer animate-fadeIn"
+              className="bg-white rounded-3xl border border-gray-100 p-6 shadow-xs card-3d flex flex-col justify-between group cursor-pointer animate-fadeIn"
             >
               <div>
                 {/* Visual Header Mockup */}

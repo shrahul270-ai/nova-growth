@@ -200,9 +200,25 @@ export default function ContactPage() {
                   <p className="text-sm text-[#64748b] max-w-md mx-auto mt-2 mb-6">
                     Thank you, {formData.name || "there"}. Our lead growth strategist is reviewing your requirements and will reach out to <span className="font-semibold text-[#091427]">{formData.email}</span> within 12 hours.
                   </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-6">
+                    <a
+                      href={`https://wa.me/${whatsappNumber}?text=Hi%20Nova%20Growth,%20I%20just%20submitted%20a%20project%20inquiry.%20Name:%20${encodeURIComponent(formData.name)},%20Email:%20${encodeURIComponent(formData.email)},%20Service:%20${encodeURIComponent(formData.service)},%20Budget:%20${encodeURIComponent(formData.budget)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-3d inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"
+                    >
+                      <span>Send to WhatsApp 💬</span>
+                    </a>
+                    <a
+                      href={`mailto:${agencyEmail}?subject=New%20Inquiry%20from%20${encodeURIComponent(formData.name)}&body=Name:%20${encodeURIComponent(formData.name)}%0AEmail:%20${encodeURIComponent(formData.email)}%0AService:%20${encodeURIComponent(formData.service)}%0ABudget:%20${encodeURIComponent(formData.budget)}%0AMessage:%20${encodeURIComponent(formData.message)}`}
+                      className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"
+                    >
+                      <span>Send to Email ✉️</span>
+                    </a>
+                  </div>
                   <button
                     onClick={() => setFormState("idle")}
-                    className="bg-[#091427] text-white text-xs font-bold px-6 py-2.5 rounded-full hover:bg-[#0f213d] transition-all cursor-pointer"
+                    className="text-xs font-semibold text-gray-500 hover:text-[#091427] underline transition-colors cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>

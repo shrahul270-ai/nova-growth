@@ -224,16 +224,23 @@ export default function ServicesPage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
+            className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
           >
             <span>Request Custom Proposal</span>
             <span>→</span>
           </Link>
           <Link
+            href="/guest-posting"
+            className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
+          >
+            <span>Guest Posting Inventory (DR 50-90+)</span>
+            <span>⚡</span>
+          </Link>
+          <Link
             href="/pay"
             className="inline-flex items-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
           >
-            <span>Client Payment Portal</span>
+            <span>Payment Portal</span>
             <span className="text-[#d97706]">💳</span>
           </Link>
         </div>
@@ -249,7 +256,7 @@ export default function ServicesPage() {
                 setActiveModalService(service);
                 showToast(`📋 Opened scope overview for ${service.title}`);
               }}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs card-hover flex flex-col justify-between cursor-pointer group"
+              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs card-3d flex flex-col justify-between cursor-pointer group"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
