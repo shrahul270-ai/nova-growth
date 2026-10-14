@@ -167,3 +167,82 @@ body {
 .animate-pulse-glow {
   animation: pulseGlow 6s ease-in-out infinite;
 }
+
+/* 3D Depth & Elevation Utilities (Maintaining Brand Colors) */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.card-3d {
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  transform-style: preserve-3d;
+  box-shadow: 
+    0 4px 12px -2px rgba(9, 20, 39, 0.05),
+    0 10px 24px -4px rgba(9, 20, 39, 0.08),
+    0 0 0 1px rgba(217, 119, 6, 0.18),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 
+    0 20px 35px -5px rgba(9, 20, 39, 0.12),
+    0 30px 60px -10px rgba(217, 119, 6, 0.22),
+    0 0 0 1.5px rgba(217, 119, 6, 0.6),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.95);
+}
+
+.btn-3d {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 4px 0 0 #050b14,
+    0 8px 18px rgba(9, 20, 39, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 0 #050b14,
+    0 12px 24px rgba(217, 119, 6, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-3d:active {
+  transform: translateY(3px);
+  box-shadow: 
+    0 1px 0 0 #050b14,
+    0 4px 10px rgba(9, 20, 39, 0.2);
+}
+
+.btn-gold-3d {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 4px 0 0 #92400e,
+    0 8px 20px rgba(217, 119, 6, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.btn-gold-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 0 0 #92400e,
+    0 14px 28px rgba(217, 119, 6, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.btn-gold-3d:active {
+  transform: translateY(3px);
+  box-shadow: 
+    0 1px 0 0 #92400e,
+    0 4px 10px rgba(217, 119, 6, 0.3);
+}
+
+.badge-3d {
+  box-shadow: 
+    0 3px 10px rgba(217, 119, 6, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}

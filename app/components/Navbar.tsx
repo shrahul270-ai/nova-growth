@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 interface NavbarProps {
-  activePage?: "home" | "about" | "services" | "projects" | "blog" | "contact" | "pay";
+  activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
 }
 
 export default function Navbar({ activePage = "home" }: NavbarProps) {
@@ -14,6 +14,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     { name: "Home", href: "/", key: "home" },
     { name: "About", href: "/about", key: "about" },
     { name: "Services", href: "/services", key: "services" },
+    { name: "Guest Posting", href: "/guest-posting", key: "guest-posting" },
     { name: "Projects", href: "/projects", key: "projects" },
     { name: "Pay", href: "/pay", key: "pay" },
     { name: "Blog", href: "/blog", key: "blog" },
@@ -78,7 +79,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         <div className="flex items-center gap-3">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-[13.5px] font-semibold px-5 py-2.5 rounded-full shadow-sm shadow-[#091427]/25 transition-all hover:gap-3 cursor-pointer"
+            className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-[13.5px] font-semibold px-5 py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer"
             aria-label="Contact Nova Growth Agency"
           >
             <span>Let&apos;s Talk</span>

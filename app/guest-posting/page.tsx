@@ -24,7 +24,7 @@ export default function GuestPostingPage() {
 
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
-      <Navbar activePage="services" />
+      <Navbar activePage="guest-posting" />
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 px-6 md:px-12 max-w-7xl mx-auto text-center">
