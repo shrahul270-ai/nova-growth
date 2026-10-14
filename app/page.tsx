@@ -173,170 +173,106 @@ export default function Home() {
         <Navbar activePage="home" />
 
         {/* 2. HERO SECTION */}
-        <section id="home" className="relative pt-12 pb-20 md:pt-20 md:pb-32 px-6 md:px-12 z-10">
+        <section id="home" className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
             {/* Hero Left Content */}
             <div className="lg:col-span-7 flex flex-col items-start text-left">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-6 shadow-xs">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50/90 border border-[#d97706]/40 text-xs font-bold text-[#091427] mb-6 shadow-xs badge-3d">
                 <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                <span>Global Digital Marketing Agency</span>
+                <span>🌍 Premier Growth Agency for US, UK &amp; Global Brands</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] font-black tracking-tight text-[#0f172a] leading-[1.08] mb-6">
-                Grow Smarter. <br />
-                <span className="text-gradient-navy-gold">Go Further.</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-black tracking-tight text-[#0f172a] leading-[1.08] mb-6">
+                Scale Your Organic Revenue <br />
+                <span className="text-gradient-navy-gold">Across Global Markets.</span>
               </h1>
 
               {/* Subheading */}
-              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-9 font-normal">
-                We help businesses strengthen their online presence through strategic SEO, modern website development, content marketing and performance-focused digital solutions.
+              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-8 font-normal">
+                We help overseas founders and marketing teams dominate Google search through high-intent SEO, modern Next.js development, and real DR 50–90+ editorial backlinks that compound pipeline 24/7.
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 mb-12">
+              <div className="flex flex-wrap items-center gap-4 mb-10">
                 <button
                   onClick={() => setContactOpen(true)}
-                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-[14.5px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/30 transition-all hover:scale-[1.02] cursor-pointer"
+                  className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full transition-all cursor-pointer"
                 >
-                  <span>Let&apos;s Grow Your Business</span>
+                  <span>Book Strategy Call (EST / GMT)</span>
                   <svg className="w-4 h-4 text-[#d97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
 
+                <Link
+                  href="/guest-posting"
+                  className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-sm font-bold px-6 py-3.5 rounded-full transition-all cursor-pointer"
+                >
+                  <span>Explore Guest Posts (DR 50+)</span>
+                  <span>⚡</span>
+                </Link>
+
                 <a
                   href="#services"
-                  className="inline-flex items-center justify-center text-[14.5px] font-semibold text-[#091427] px-6 py-3.5 rounded-full border border-[#d97706]/40 bg-white/80 hover:bg-white hover:border-[#d97706] backdrop-blur-xs transition-all shadow-xs"
+                  className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold text-[#091427] px-5 py-3 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-all shadow-xs"
                 >
-                  Explore Our Services
+                  View All Services ↓
                 </a>
               </div>
 
-              {/* 3 Interactive Trust Badges */}
-              <div className="w-full max-w-xl">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'traffic' ? null : 'traffic';
-                      setActiveBadge(next);
-                      if (next) showToast('📈 Displaying Traffic Growth Strategy');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'traffic'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      📈
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'traffic' ? 'text-white' : 'text-[#091427]'}`}>More Traffic</span>
-                      <span className={`text-[11px] ${activeBadge === 'traffic' ? 'text-amber-300' : 'text-[#526058]'}`}>Higher Rankings ▾</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'engagement' ? null : 'engagement';
-                      setActiveBadge(next);
-                      if (next) showToast('👥 Displaying Engagement & CRO Framework');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'engagement'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      👥
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'engagement' ? 'text-white' : 'text-[#091427]'}`}>Better Engagement</span>
-                      <span className={`text-[11px] ${activeBadge === 'engagement' ? 'text-amber-300' : 'text-[#526058]'}`}>Real Customers ▾</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'growth' ? null : 'growth';
-                      setActiveBadge(next);
-                      if (next) showToast('🚀 Displaying Business Growth Methodology');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'growth'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      🚀
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'growth' ? 'text-white' : 'text-[#091427]'}`}>Business Growth</span>
-                      <span className={`text-[11px] ${activeBadge === 'growth' ? 'text-amber-300' : 'text-[#526058]'}`}>Long Term Success ▾</span>
-                    </div>
-                  </button>
+              {/* International Client Footprint Strip */}
+              <div className="w-full max-w-xl p-4 rounded-2xl bg-white/80 border border-gray-200/80 shadow-xs backdrop-blur-sm">
+                <div className="flex items-center justify-between text-xs font-bold text-[#091427] mb-2">
+                  <span>Trusted by Overseas Clients:</span>
+                  <span className="text-[#d97706] font-semibold text-[11px]">Timezone Aligned (EST • GMT)</span>
                 </div>
-
-                {/* Expandable Badge Detail Container */}
-                {activeBadge && (
-                  <div className="mt-3 bg-white p-4 rounded-2xl border border-[#d97706]/30 shadow-lg text-left text-xs animate-fadeIn">
-                    {activeBadge === 'traffic' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">📈 Targeted Commercial Search Growth</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">US &amp; UK Focus</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          We bypass vanity keywords and target high-intent commercial clusters where international buyers have high purchasing intent. Sites begin indexing rank gains within 30 to 60 days.
-                        </p>
-                      </div>
-                    )}
-                    {activeBadge === 'engagement' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">👥 CRO &amp; Core Web Vitals Optimization</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">&lt; 0.8s Loading</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          Sub-second load times on Next.js drop average bounce rates from 55% to under 28%, keeping high-value overseas visitors browsing and booking consultations.
-                        </p>
-                      </div>
-                    )}
-                    {activeBadge === 'growth' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">🚀 Compounding Organic Pipeline</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">3.4x Ad Spend ROI</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          Unlike Facebook or Google ads that vanish when your budget stops, our high-DA organic authority and ranking content continue generating free inbound leads 24/7/365.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-gray-700">
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                    <span>🇺🇸</span><span>United States</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                    <span>🇬🇧</span><span>United Kingdom</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                    <span>🇨🇦</span><span>Canada</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                    <span>🇦🇺</span><span>Australia</span>
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                    <span>🇦🇪</span><span>UAE</span>
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Hero Right Visual: 3D Holographic Sphere & Accents */}
-            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[420px] md:min-h-[500px]">
+            {/* Hero Right Visual: 3D Holographic Growth Hub */}
+            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[460px] md:min-h-[540px] perspective-1000">
               
-              {/* Handwritten Floating Annotation (Top Right) */}
-              <div className="absolute top-2 right-4 md:right-8 z-20 flex flex-col items-center">
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#091427] -rotate-6 tracking-wide">
-                  Your Growth
-                </span>
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#d97706] -rotate-6 tracking-wide">
-                  Our Strategy
-                </span>
-                <svg className="w-10 h-10 text-[#d97706] -rotate-12 mt-1" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              {/* Floating 3D Badge 1: US Traffic (Top Left) */}
+              <div className="absolute -top-4 -left-4 sm:left-0 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-3.5 rounded-2xl shadow-xl card-3d animate-float-slow text-left max-w-[210px]">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase">US Google Traffic</span>
+                  <span className="text-xs">📈</span>
+                </div>
+                <div className="text-xl font-black text-[#0f172a] leading-tight">+340% Lift</div>
+                <div className="text-[10px] text-[#d97706] font-bold mt-0.5">#1 Organic Rank</div>
+                <div className="w-full bg-amber-100 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div className="bg-[#d97706] h-full w-[85%]" />
+                </div>
+              </div>
+
+              {/* Floating 3D Badge 2: Core Web Vitals (Top Right) */}
+              <div className="absolute top-8 -right-2 sm:right-2 z-30 bg-[#091427] text-white border border-[#d97706]/40 p-3.5 rounded-2xl shadow-xl card-3d animate-float-gentle text-left">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[10px] font-bold text-slate-300 uppercase">Core Web Vitals</span>
+                </div>
+                <div className="text-lg font-black text-white">99/100 Passed</div>
+                <span className="text-[10px] text-emerald-400 font-semibold block mt-0.5">&lt; 0.8s Next.js TTFB</span>
               </div>
 
               {/* 3D Glassmorphic Crystal Centerpiece */}
@@ -353,7 +289,7 @@ export default function Home() {
                      }}
                 />
 
-                {/* Main 3D Sphere Glass Body (Deep Emerald Jewel) */}
+                {/* Main 3D Sphere Glass Body */}
                 <div className="relative w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#d97706]/40"
                      style={{
                        background: "radial-gradient(circle at 35% 30%, rgba(248, 250, 253, 0.95) 0%, rgba(30, 64, 175, 0.75) 35%, rgba(9, 20, 39, 0.95) 80%, rgba(5, 11, 22, 1) 100%)",
@@ -373,14 +309,12 @@ export default function Home() {
                 </div>
 
                 {/* Floating Satellite Glass Spheres */}
-                {/* Champagne Amber orb */}
                 <div className="absolute -bottom-2 -left-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#d97706]/60 animate-float-gentle"
                      style={{
                        background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(245,158,11,0.85) 45%, rgba(180,83,9,0.95) 100%)",
                        boxShadow: "0 10px 25px rgba(217, 119, 6, 0.35)"
                      }}
                 />
-                {/* Royal Forest orb */}
                 <div className="absolute top-4 -left-4 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-md border border-blue-300/40 animate-pulse-glow"
                      style={{
                        background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(30,64,175,0.8) 50%, rgba(9,20,39,0.95) 100%)",
@@ -389,8 +323,15 @@ export default function Home() {
                 />
               </div>
 
-              {/* Floating Stat Card (Right Bottom) */}
-              <div className="absolute bottom-2 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3.5 hover:scale-105 transition-transform">
+              {/* Floating 3D Badge 3: DR 86+ Editorial Backlink (Bottom Left) */}
+              <div className="absolute -bottom-2 left-2 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-3 rounded-2xl shadow-xl card-3d text-left">
+                <span className="text-[10px] font-bold text-gray-500 uppercase block">Editorial Link Building</span>
+                <span className="text-sm font-black text-[#091427]">DR 86+ High-DA Verified</span>
+                <span className="text-[10px] text-emerald-600 font-bold block">✓ 100% Do-Follow Indexed</span>
+              </div>
+
+              {/* Floating 3D Badge 4: Client ROI (Bottom Right) */}
+              <div className="absolute bottom-4 right-2 sm:right-6 z-30 bg-white/95 backdrop-blur-md border border-amber-200/80 p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3.5 hover:scale-105 transition-transform card-3d">
                 <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center shrink-0">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -401,7 +342,7 @@ export default function Home() {
                     300%
                   </span>
                   <span className="text-[11px] font-medium text-[#64748b] mt-1 leading-tight">
-                    Average Growth <br /> for Our Clients
+                    Average Organic ROI <br /> for Overseas Clients
                   </span>
                 </div>
               </div>
