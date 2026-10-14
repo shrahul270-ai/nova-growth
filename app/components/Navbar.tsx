@@ -24,16 +24,16 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
   return (
     <>
       {/* 3D Global Timezone & Presence Ribbon */}
-      <div className="bg-[#091427] text-white text-[11px] font-medium py-1.5 px-6 border-b border-[#d97706]/30 shadow-xs relative z-50">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-[#091427] text-white text-[10.5px] sm:text-[11px] font-medium py-1.5 px-4 sm:px-6 border-b border-[#d97706]/30 shadow-xs relative z-50">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-1.5 gap-x-4">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-slate-300">
-              Global Support Active • <span className="text-[#f59e0b] font-bold">EST (New York)</span> • <span className="text-[#f59e0b] font-bold">GMT (London)</span> • <span className="text-[#f59e0b] font-bold">AEST (Sydney)</span>
+              Global Support Active • <span className="text-[#f59e0b] font-bold">EST</span> • <span className="text-[#f59e0b] font-bold">GMT</span> • <span className="text-[#f59e0b] font-bold">AEST</span>
             </span>
           </div>
-          <div className="hidden sm:flex items-center gap-4 text-slate-300">
-            <span>✨ Zero PBNs • 100% White-Hat Editorial SEO</span>
+          <div className="flex items-center gap-3 text-slate-300">
+            <span>✨ White-Hat SEO</span>
             <Link href="/pay" className="text-amber-400 hover:underline font-semibold flex items-center gap-1">
               <span>Client Portal</span>
               <span>💳</span>
@@ -43,15 +43,15 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       </div>
 
       {/* 3D Glassmorphic Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#d97706]/20 px-6 py-3.5 md:px-12 transition-all shadow-[0_4px_20px_-2px_rgba(9,20,39,0.06)]">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#d97706]/20 px-4 sm:px-6 md:px-12 py-3 sm:py-3.5 transition-all shadow-[0_4px_20px_-2px_rgba(9,20,39,0.06)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           
           {/* 3D Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-md shadow-[#091427]/30 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-md shadow-[#091427]/30 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               <svg
-                className="w-6 h-6 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                className="w-5 h-5 sm:w-6 sm:h-6 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -63,10 +63,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </svg>
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-[17px] font-black tracking-tight text-[#091427] leading-none">
+              <span className="text-[15px] sm:text-[17px] font-black tracking-tight text-[#091427] leading-none">
                 NOVA GROWTH
               </span>
-              <span className="text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-1">
+              <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-0.5 sm:mt-1">
                 Digital Marketing Agency
               </span>
             </div>
@@ -104,23 +104,23 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </nav>
 
           {/* 3D Action CTAs & Mobile Toggle */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/guest-posting"
-              className="hidden sm:inline-flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-[#091427] border border-[#d97706]/40 text-xs font-bold px-3.5 py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1 sm:gap-1.5 bg-amber-50 hover:bg-amber-100 text-[#091427] border border-[#d97706]/40 text-[11px] sm:text-xs font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs"
             >
               <span className="text-[#d97706]">🔗</span>
-              <span>DR 50+ Links</span>
+              <span>DR 50+</span>
             </Link>
 
             <Link
               href="/contact"
-              className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-5 py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer shadow-sm"
+              className="btn-3d inline-flex items-center gap-1.5 sm:gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer shadow-sm"
               aria-label="Contact Nova Growth Agency"
             >
               <span>Let&apos;s Talk</span>
               <svg
-                className="w-4 h-4 text-[#d97706]"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#d97706]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -188,6 +188,17 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 )}
               </Link>
             ))}
+
+            <div className="pt-2 border-t border-gray-100 flex flex-col gap-2 mt-1">
+              <Link
+                href="/pay"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-50 text-[#091427] border border-amber-200"
+              >
+                <span>Client Payment Portal</span>
+                <span>💳</span>
+              </Link>
+            </div>
           </div>
         )}
       </header>
