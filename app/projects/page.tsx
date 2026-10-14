@@ -175,6 +175,22 @@ export default function ProjectsPage() {
   const [activeStudy, setActiveStudy] = useState<typeof caseStudies[0] | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveStudy(null);
+      }
+    };
+    if (activeStudy) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [activeStudy]);
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -341,18 +357,27 @@ export default function ProjectsPage() {
 
       {/* Interactive Case Study Detail Modal */}
       {activeStudy && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setActiveStudy(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-            >
-              ✕
-            </button>
-
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold mb-3 border border-amber-200/80">
-              <span className="text-[#d97706]">🏆</span>
-              <span>{studyCategoryBadge(activeStudy.category)}</span>
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setActiveStudy(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+        >
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[85vh] overflow-y-auto my-auto">
+            {/* Sticky Header with Prominent Close Button */}
+            <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold border border-amber-200/80">
+                <span className="text-[#d97706]">🏆</span>
+                <span>{studyCategoryBadge(activeStudy.category)}</span>
+              </div>
+              <button
+                onClick={() => setActiveStudy(null)}
+                aria-label="Close modal"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200"
+              >
+                <span className="text-sm">✕</span>
+                <span>Close</span>
+              </button>
             </div>
 
             <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
@@ -404,10 +429,11 @@ export default function ProjectsPage() {
                 Start Similar Project With Nova Growth →
               </Link>
               <button
+                type="button"
                 onClick={() => setActiveStudy(null)}
-                className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 border border-gray-200 transition-colors cursor-pointer"
               >
-                Close
+                ✕ Close Window
               </button>
             </div>
           </div>

@@ -25,6 +25,23 @@ export default function Home() {
   } | null>(null);
   const [reviewFilter, setReviewFilter] = useState<"all" | "usa" | "uk">("all");
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setContactOpen(false);
+        setActiveProjectModal(null);
+      }
+    };
+    if (contactOpen || activeProjectModal) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [contactOpen, activeProjectModal]);
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -1333,18 +1350,27 @@ export default function Home() {
 
         {/* INTERACTIVE CASE STUDY DEEP DIVE MODAL */}
         {activeProjectModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
-              <button
-                onClick={() => setActiveProjectModal(null)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold mb-3 border border-amber-200/80">
-                <span className="text-[#d97706]">🏆</span>
-                <span>{activeProjectModal.category}</span>
+          <div
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setActiveProjectModal(null);
+            }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+          >
+            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[85vh] overflow-y-auto my-auto">
+              {/* Sticky Header with Prominent Close Button */}
+              <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold border border-amber-200/80">
+                  <span className="text-[#d97706]">🏆</span>
+                  <span>{activeProjectModal.category}</span>
+                </div>
+                <button
+                  onClick={() => setActiveProjectModal(null)}
+                  aria-label="Close modal"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200"
+                >
+                  <span className="text-sm">✕</span>
+                  <span>Close</span>
+                </button>
               </div>
 
               <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
@@ -1392,35 +1418,43 @@ export default function Home() {
                   onClick={() => setActiveProjectModal(null)}
                   className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
                 >
-                  Close
+                  ✕ Close Window
                 </button>
               </div>
             </div>
           </div>
         )}
 
-                {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
+        {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
         {contactOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative">
+          <div
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setContactOpen(false);
+            }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+          >
+            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative max-h-[85vh] overflow-y-auto my-auto">
               
-              {/* Close Button */}
-              <button
-                onClick={() => setContactOpen(false)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
-                Global Client Inquiry
+              {/* Sticky Top Header with Clear Close Button */}
+              <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
+                  <span>Global Client Inquiry</span>
+                </div>
+                <button
+                  onClick={() => setContactOpen(false)}
+                  aria-label="Close modal"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200 shadow-xs"
+                >
+                  <span className="text-sm">✕</span>
+                  <span>Close</span>
+                </button>
               </div>
 
               <h3 className="text-2xl font-black text-[#0f172a] tracking-tight">
                 Get Your Free Growth Strategy
               </h3>
-              <p className="text-sm text-[#64748b] mt-1 mb-6">
+              <p className="text-xs sm:text-sm text-[#64748b] mt-1 mb-5">
                 Tell us about your business goals. We review client inquiries and reply within 12 hours.
               </p>
 
@@ -1428,10 +1462,19 @@ export default function Home() {
                 <div className="bg-amber-50 border border-amber-200 text-[#091427] p-6 rounded-2xl text-center">
                   <div className="text-4xl mb-2">🎉</div>
                   <h4 className="text-lg font-bold">Thank you! Request Received</h4>
-                  <p className="text-xs text-[#54647c] mt-1">Our strategist will review your website and reach out via email shortly.</p>
+                  <p className="text-xs text-[#54647c] mt-1 mb-4">Our strategist will review your website and reach out via email shortly.</p>
+                  <button
+                    onClick={() => {
+                      setContactOpen(false);
+                      setFormStatus("idle");
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-[#091427] text-white text-xs font-bold hover:bg-[#0f213d] transition-colors"
+                  >
+                    Done &amp; Close Window
+                  </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 text-left">
                   <div>
                     <label className="text-xs font-bold text-gray-700 block mb-1">Your Name</label>
                     <input
@@ -1478,13 +1521,22 @@ export default function Home() {
                     </select>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={formStatus === "submitting"}
-                    className="w-full bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-[#091427]/20 mt-2 cursor-pointer"
-                  >
-                    {formStatus === "submitting" ? "Sending Request..." : "Book Free Strategy Call →"}
-                  </button>
+                  <div className="pt-2 flex flex-col gap-2">
+                    <button
+                      type="submit"
+                      disabled={formStatus === "submitting"}
+                      className="w-full bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-[#091427]/20 cursor-pointer"
+                    >
+                      {formStatus === "submitting" ? "Sending Request..." : "Book Free Strategy Call →"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setContactOpen(false)}
+                      className="w-full py-2.5 text-center text-xs font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer"
+                    >
+                      ✕ Cancel / Keep Browsing
+                    </button>
+                  </div>
                 </form>
               )}
 

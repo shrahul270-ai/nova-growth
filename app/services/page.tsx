@@ -179,6 +179,22 @@ export default function ServicesPage() {
   const [activeModalService, setActiveModalService] = useState<typeof serviceList[0] | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveModalService(null);
+      }
+    };
+    if (activeModalService) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [activeModalService]);
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
@@ -428,22 +444,31 @@ export default function ServicesPage() {
 
       {/* Interactive Service Detail Scope Modal */}
       {activeModalService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setActiveModalService(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-            >
-              ✕
-            </button>
-
-            <div className="flex items-center gap-3 mb-3">
-              <span className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-lg font-bold">
-                {activeModalService.icon}
-              </span>
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
-                {activeModalService.badge}
-              </span>
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setActiveModalService(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+        >
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[85vh] overflow-y-auto my-auto">
+            {/* Sticky Header with Prominent Close Button */}
+            <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
+              <div className="flex items-center gap-2">
+                <span className="w-8 h-8 rounded-lg bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-sm font-bold">
+                  {activeModalService.icon}
+                </span>
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
+                  {activeModalService.badge}
+                </span>
+              </div>
+              <button
+                onClick={() => setActiveModalService(null)}
+                aria-label="Close modal"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200"
+              >
+                <span className="text-sm">✕</span>
+                <span>Close</span>
+              </button>
             </div>
 
             <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
@@ -489,12 +514,13 @@ export default function ServicesPage() {
               >
                 Book Discovery Call for This Service →
               </Link>
-              <Link
-                href="/pay"
-                className="px-5 py-3.5 rounded-2xl text-xs font-semibold bg-amber-50 text-[#091427] hover:bg-amber-100 border border-amber-200/80 transition-colors cursor-pointer text-center"
+              <button
+                type="button"
+                onClick={() => setActiveModalService(null)}
+                className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 border border-gray-200 transition-colors cursor-pointer text-center"
               >
-                Go to Payment Portal 💳
-              </Link>
+                ✕ Close Window
+              </button>
             </div>
           </div>
         </div>
