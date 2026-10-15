@@ -6,7 +6,7 @@ export default function FloatingConnect() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Aapki contact details
-  const whatsappNumber = "917733905848"; // Country code ke saath bina '+' ke
+  const whatsappNumber = "919694953370"; // Country code ke saath bina '+' ke
   const agencyEmail = "shrahul270@gmail.com";
   const meetOrCalendlyUrl = "https://calendly.com"; // Ya Google Meet link
 

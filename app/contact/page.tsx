@@ -11,7 +11,7 @@ export default function ContactPage() {
 
   // Aapki Direct Contact Details
   const agencyEmail = "shrahul270@gmail.com"; 
-  const whatsappNumber = "+91 77339 05848"; // Agar number badalna ho toh yahan change karein
+  const whatsappNumber = "+91 96949 53370"; // Agar number badalna ho toh yahan change karein
 
   const showToast = (msg: string) => {
     setToast(msg);

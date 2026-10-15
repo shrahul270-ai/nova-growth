@@ -39,7 +39,7 @@ export default function FloatingChat() {
           <div className="flex flex-col gap-2">
             {/* WhatsApp direct chat */}
             <a
-              href="https://wa.me/917733905848?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
+              href="https://wa.me/919694953370?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100/80 transition-colors border border-amber-200/80 text-xs font-semibold text-[#091427]"
