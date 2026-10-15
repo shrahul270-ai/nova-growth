@@ -1,7 +1,29 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-15T17:09:55.864Z",
+  "lastUpdated": "2026-10-15T17:25:25.956Z",
   "leads": [
+    {
+      "type": "contact_form",
+      "name": "Dimple Dimple",
+      "email": "dd965220@gmail.com",
+      "phone": "8000417058",
+      "website": "https://www.ncsasports.org/",
+      "timezone": "Other",
+      "service": "High-Intent SEO Optimization",
+      "budget": "$1,000 - $2,500 / month",
+      "message": "gf,guwejgfbnbvnbdksfjksbbagjhsn",
+      "sourceUrl": "/contact",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "notes": "",
+      "id": "lead_mv9t7l4x_grg6xf",
+      "collection": "leads",
+      "status": "new",
+      "createdAt": "2026-10-15T17:25:20.961Z",
+      "updatedAt": "2026-10-15T17:25:20.961Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
     {
       "type": "whatsapp_click",
       "name": "Dimple Dimple",
@@ -84,6 +106,28 @@
   ],
   "interactions": [
     {
+      "type": "email_click",
+      "action": "email",
+      "title": "Inquiry Sent via Gmail Web",
+      "name": "",
+      "phone": "",
+      "email": "dd965220@gmail.com",
+      "details": "Client: Dimple Dimple | Service: High-Intent SEO Optimization",
+      "clientIdentifier": "dd965220@gmail.com",
+      "sourcePage": "/contact",
+      "targetUrl": "",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "notes": "",
+      "id": "intr_mv9t7ozo_b3vh5k",
+      "collection": "interactions",
+      "status": "new",
+      "createdAt": "2026-10-15T17:25:25.955Z",
+      "updatedAt": "2026-10-15T17:25:25.955Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
       "type": "whatsapp_click",
       "action": "whatsapp",
       "title": "WhatsApp Inquiry from Dimple Dimple",
@@ -122,6 +166,22 @@
   "audits": [],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mv9t7ozo_ducq37",
+      "timestamp": "2026-10-15T17:25:25.956Z",
+      "action": "create",
+      "collection": "interactions",
+      "recordId": "intr_mv9t7ozo_b3vh5k",
+      "summary": "Client interaction recorded: Inquiry Sent via Gmail Web (email)"
+    },
+    {
+      "id": "log_mv9t7l4x_0s0lbn",
+      "timestamp": "2026-10-15T17:25:20.961Z",
+      "action": "create",
+      "collection": "leads",
+      "recordId": "lead_mv9t7l4x_grg6xf",
+      "summary": "New inquiry received from Dimple Dimple"
+    },
     {
       "id": "log_mv9snrbn_4ug68q",
       "timestamp": "2026-10-15T17:09:55.859Z",

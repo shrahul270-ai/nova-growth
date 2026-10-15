@@ -43,11 +43,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       </div>
 
       {/* 3D Glassmorphic Header */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#d97706]/20 px-4 sm:px-6 md:px-12 py-3 sm:py-3.5 transition-all shadow-[0_4px_20px_-2px_rgba(9,20,39,0.06)]">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-[#d97706]/20 px-4 sm:px-6 lg:px-6 xl:px-10 2xl:px-12 py-3 sm:py-3.5 transition-all shadow-[0_4px_20px_-2px_rgba(9,20,39,0.06)]">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 lg:gap-4 xl:gap-8">
           
           {/* 3D Logo */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-md shadow-[#091427]/30 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden">
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
               <svg
@@ -63,18 +63,18 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </svg>
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-[15px] sm:text-[17px] font-black tracking-tight text-[#091427] leading-none">
+              <span className="text-[15px] sm:text-[17px] font-black tracking-tight text-[#091427] leading-none whitespace-nowrap">
                 NOVA GROWTH
               </span>
-              <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-0.5 sm:mt-1">
+              <span className="text-[8.5px] sm:text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-0.5 sm:mt-1 whitespace-nowrap">
                 Digital Marketing Agency
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Always in 1 clean single row on any screen / profile */}
           <nav
-            className="hidden lg:flex items-center gap-7 text-[13.5px] font-semibold text-[#54647c]"
+            className="hidden lg:flex items-center gap-3 xl:gap-5 2xl:gap-7 text-[13px] xl:text-[13.5px] font-semibold text-[#54647c] whitespace-nowrap"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => {
@@ -83,15 +83,15 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 <Link
                   key={link.key}
                   href={link.href}
-                  className={`relative py-1 transition-all flex items-center gap-1.5 ${
+                  className={`relative py-1 transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? "text-[#091427] font-bold"
                       : "hover:text-[#091427] hover:-translate-y-0.5"
                   }`}
                 >
-                  <span>{link.name}</span>
+                  <span className="whitespace-nowrap">{link.name}</span>
                   {link.badge && (
-                    <span className="text-[9px] font-black bg-amber-500/15 text-amber-900 border border-amber-500/30 px-1.5 py-0.2 rounded-md">
+                    <span className="text-[9px] font-black bg-amber-500/15 text-amber-900 border border-amber-500/30 px-1.5 py-0.5 rounded-md whitespace-nowrap shrink-0">
                       {link.badge}
                     </span>
                   )}
@@ -104,10 +104,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </nav>
 
           {/* 3D Action CTAs & Mobile Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
             <Link
               href="/guest-posting"
-              className="inline-flex items-center gap-1 sm:gap-1.5 bg-amber-50 hover:bg-amber-100 text-[#091427] border border-[#d97706]/40 text-[11px] sm:text-xs font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs"
+              className="hidden xl:inline-flex items-center gap-1 sm:gap-1.5 bg-amber-50 hover:bg-amber-100 text-[#091427] border border-[#d97706]/40 text-[11px] sm:text-xs font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
             >
               <span className="text-[#d97706]">🔗</span>
               <span>DR 50+</span>
@@ -115,7 +115,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
             <Link
               href="/contact"
-              className="btn-3d inline-flex items-center gap-1.5 sm:gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer shadow-sm"
+              className="btn-3d inline-flex items-center gap-1.5 sm:gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer shadow-sm whitespace-nowrap shrink-0"
               aria-label="Contact Nova Growth Agency"
             >
               <span>Let&apos;s Talk</span>
