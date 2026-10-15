@@ -708,8 +708,14 @@ export default function AdminDatabasePage() {
                   </thead>
                   <tbody className="divide-y divide-gray-800/60 text-gray-300">
                     {records.map((item) => {
-                      const cleanPhone = getCleanPhone(item.phone || item.clientIdentifier);
-                      const emailAddress = item.email || item.clientEmail || item.emailSubmitted;
+                      // Extract phone from phone, clientIdentifier, or details
+                      const phoneCandidate = item.phone || item.clientIdentifier || (typeof item.details === "string" && /[0-9]{7,}/.test(item.details) ? item.details : "");
+                      const cleanPhone = getCleanPhone(phoneCandidate);
+                      
+                      // Extract email from email, clientEmail, emailSubmitted, or details
+                      const emailAddress = item.email || item.clientEmail || item.emailSubmitted || (typeof item.details === "string" && item.details.includes("@") ? item.details : "");
+
+                      const clientDisplayName = item.name || (item.action === "whatsapp" ? "WhatsApp Visitor" : item.action === "video_call" ? "Video Call Inquirer" : item.domain || item.clientName || item.title || "Client Inquirer");
 
                       return (
                         <tr key={item.id} className="hover:bg-gray-900/40 transition-colors">
@@ -727,7 +733,12 @@ export default function AdminDatabasePage() {
                           <td className="py-3.5 px-4 align-top">
                             {/* Client Name */}
                             <div className="font-black text-white text-sm mb-1.5 flex items-center gap-2">
-                              <span>{item.name || item.domain || item.clientName || item.title || "Anonymous Client"}</span>
+                              <span>{clientDisplayName}</span>
+                              {item.action === "whatsapp" && (
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-bold border border-emerald-800">
+                                  WhatsApp
+                                </span>
+                              )}
                             </div>
 
                             {/* Gmail / Email with Quick Actions */}
@@ -755,11 +766,11 @@ export default function AdminDatabasePage() {
                             )}
 
                             {/* Phone / WhatsApp Number with 1-Click WhatsApp & Call */}
-                            {item.phone || item.clientIdentifier ? (
+                            {phoneCandidate ? (
                               <div className="flex flex-wrap items-center gap-1.5 mt-1">
                                 <span className="font-bold text-emerald-400 text-xs flex items-center gap-1 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-md">
                                   <span>📞</span>
-                                  <span>{item.phone || item.clientIdentifier}</span>
+                                  <span>{phoneCandidate}</span>
                                 </span>
 
                                 {cleanPhone && (
@@ -775,7 +786,7 @@ export default function AdminDatabasePage() {
                                 )}
 
                                 <a
-                                  href={`tel:${item.phone || item.clientIdentifier}`}
+                                  href={`tel:${cleanPhone || phoneCandidate}`}
                                   className="px-2 py-0.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
                                   title="Direct Phone Call"
                                 >
@@ -784,7 +795,7 @@ export default function AdminDatabasePage() {
 
                                 <button
                                   type="button"
-                                  onClick={() => copyToClipboard(item.phone || item.clientIdentifier || "", "Phone")}
+                                  onClick={() => copyToClipboard(phoneCandidate, "Phone")}
                                   className="text-[10px] text-gray-500 hover:text-white px-1.5 py-0.5 rounded bg-gray-800/80 cursor-pointer"
                                   title="Copy Phone"
                                 >
@@ -794,6 +805,7 @@ export default function AdminDatabasePage() {
                             ) : (
                               <div className="text-gray-500 text-[11px]">📞 Phone: —</div>
                             )}
+
 
                             {/* Website link if provided */}
                             {item.website && (
