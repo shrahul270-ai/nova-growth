@@ -48,7 +48,7 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Database View State
-  const [activeTab, setActiveTab] = useState<"leads" | "interactions" | "audits" | "payments" | "trash" | "logs">("leads");
+  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "trash" | "logs">("all");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
@@ -159,6 +159,32 @@ export default function AdminDatabasePage() {
         combined.sort((a, b) => {
           const tA = new Date(a.deletedAt || a.createdAt).getTime();
           const tB = new Date(b.deletedAt || b.createdAt).getTime();
+          return sortOrder === "desc" ? tB - tA : tA - tB;
+        });
+
+        setRecords(combined);
+        setLoading(false);
+        return;
+      }
+
+      if (activeTab === "all") {
+        const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
+        const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
+        const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
+        const payRes = await fetch(`/api/db/payments?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
+
+        const [lData, iData, aData, pData] = await Promise.all([res.json(), intRes.json(), audRes.json(), payRes.json()]);
+
+        const combined: BaseItem[] = [
+          ...(lData.records || []),
+          ...(iData.records || []),
+          ...(aData.records || []),
+          ...(pData.records || []),
+        ];
+
+        combined.sort((a, b) => {
+          const tA = new Date(a.createdAt || 0).getTime();
+          const tB = new Date(b.createdAt || 0).getTime();
           return sortOrder === "desc" ? tB - tA : tA - tB;
         });
 
@@ -533,6 +559,17 @@ export default function AdminDatabasePage() {
           
           {/* Main Navigation Tabs */}
           <div className="flex flex-wrap items-center gap-1.5 w-full lg:w-auto">
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                activeTab === "all"
+                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
+                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
+              }`}
+            >
+              🌟 All Activities ({stats?.totalActive || 0})
+            </button>
+
             <button
               onClick={() => setActiveTab("leads")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
