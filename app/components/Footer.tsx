@@ -56,10 +56,8 @@ export default function Footer() {
           <Link href="/contact" className="hover:text-[#d97706] transition-colors">
             Contact
           </Link>
-          <Link href="/admin" className="text-amber-600 hover:text-amber-700 font-bold transition-colors">
-            Database Hub ⚡
-          </Link>
         </div>
+
 
 
         {/* Social icons & copyright */}

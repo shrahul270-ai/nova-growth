@@ -13,6 +13,9 @@ interface BaseItem {
   deletedAt?: string | null;
   status: string;
   notes?: string;
+  phone?: string;
+  email?: string;
+  name?: string;
   [key: string]: any;
 }
 
@@ -37,10 +40,18 @@ interface StatsData {
 }
 
 export default function AdminDatabasePage() {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecked, setAuthChecked] = useState<boolean>(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  // Database View State
   const [activeTab, setActiveTab] = useState<"leads" | "interactions" | "audits" | "payments" | "trash" | "logs">("leads");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc"); // desc = Newest first, asc = Oldest first
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
   const [records, setRecords] = useState<BaseItem[]>([]);
   const [stats, setStats] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,6 +59,50 @@ export default function AdminDatabasePage() {
   const [selectedRecord, setSelectedRecord] = useState<BaseItem | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
   const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
+
+  // Fixed Admin Credentials
+  const FIXED_ADMIN_EMAILS = ["admin@novagrowth.agency", "shrahul270@gmail.com"];
+  const FIXED_ADMIN_PASSWORD = "NovaAdmin@2025";
+
+  // Check login on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("nova_admin_session");
+      if (stored === "authenticated") {
+        setIsAuthenticated(true);
+      }
+    } catch {}
+    setAuthChecked(true);
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+
+    const emailTrimmed = loginEmail.trim().toLowerCase();
+    const isEmailValid = FIXED_ADMIN_EMAILS.some((em) => em.toLowerCase() === emailTrimmed);
+    const isPasswordValid = loginPassword === FIXED_ADMIN_PASSWORD;
+
+    if (isEmailValid && isPasswordValid) {
+      setIsAuthenticated(true);
+      try {
+        localStorage.setItem("nova_admin_session", "authenticated");
+      } catch {}
+      showToast("✓ Welcome! Successfully logged in to Database Hub.");
+    } else {
+      setLoginError("Invalid Email or Password. Please check your credentials.");
+    }
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("nova_admin_session");
+    } catch {}
+    setIsAuthenticated(false);
+    setLoginEmail("");
+    setLoginPassword("");
+    showToast("Logged out successfully.");
+  };
 
   // Form for Manual Entry
   const [manualForm, setManualForm] = useState({
@@ -66,6 +121,7 @@ export default function AdminDatabasePage() {
 
   // Fetch Database Stats
   const loadStats = useCallback(async () => {
+    if (!isAuthenticated) return;
     try {
       const res = await fetch("/api/db/stats");
       const data = await res.json();
@@ -75,17 +131,17 @@ export default function AdminDatabasePage() {
     } catch (err) {
       console.error("Error loading stats:", err);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   // Fetch Current Records
   const loadRecords = useCallback(async () => {
+    if (!isAuthenticated) return;
     setLoading(true);
     try {
       let endpoint = "/api/db/leads";
       const isTrash = activeTab === "trash";
 
       if (isTrash) {
-        // Query across all collections for deleted items
         const res = await fetch(`/api/db/leads?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
         const intRes = await fetch(`/api/db/interactions?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
         const audRes = await fetch(`/api/db/audits?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
@@ -128,12 +184,14 @@ export default function AdminDatabasePage() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab, search, statusFilter, sortOrder]);
+  }, [isAuthenticated, activeTab, search, statusFilter, sortOrder]);
 
   useEffect(() => {
-    loadStats();
-    loadRecords();
-  }, [loadStats, loadRecords]);
+    if (isAuthenticated) {
+      loadStats();
+      loadRecords();
+    }
+  }, [isAuthenticated, loadStats, loadRecords]);
 
   // Update Status
   const handleUpdateStatus = async (item: BaseItem, newStatus: string) => {
@@ -178,13 +236,13 @@ export default function AdminDatabasePage() {
 
   // Soft Delete (Move to Trash)
   const handleSoftDelete = async (item: BaseItem) => {
-    if (!confirm(`Move this item (${item.id}) to Trash? You can restore it later.`)) return;
+    if (!confirm(`Move record (${item.id}) to Trash? You can restore it later.`)) return;
     try {
       const endpoint = `/api/db/${item.collection}?id=${item.id}&permanent=false`;
       const res = await fetch(endpoint, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
-        showToast("🗑️ Moved to Trash (Safely archived)");
+        showToast("🗑️ Moved to Trash (Safely preserved)");
         loadRecords();
         loadStats();
       }
@@ -203,7 +261,7 @@ export default function AdminDatabasePage() {
       });
       const data = await res.json();
       if (data.success) {
-        showToast("✓ Item restored back to active database!");
+        showToast("✓ Record restored back to active database!");
         loadRecords();
         loadStats();
       }
@@ -249,7 +307,7 @@ export default function AdminDatabasePage() {
       });
       const data = await res.json();
       if (data.success) {
-        showToast("✓ Manual client record created successfully!");
+        showToast("✓ Client record created successfully!");
         setIsNewEntryOpen(false);
         setManualForm({
           name: "",
@@ -267,7 +325,11 @@ export default function AdminDatabasePage() {
     }
   };
 
-  // Format Date Helper
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    showToast(`📋 Copied ${label} to clipboard!`);
+  };
+
   const formatDate = (isoString?: string) => {
     if (!isoString) return "N/A";
     const d = new Date(isoString);
@@ -280,6 +342,87 @@ export default function AdminDatabasePage() {
     });
   };
 
+  // Clean phone number for WhatsApp link
+  const getCleanPhone = (phone?: string) => {
+    if (!phone) return "";
+    return phone.replace(/[^0-9]/g, "");
+  };
+
+  // IF NOT AUTHENTICATED -> SHOW SECURE LOGIN GATE
+  if (authChecked && !isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#070b14] text-white flex items-center justify-center p-6 selection:bg-amber-500 selection:text-black">
+        <div className="w-full max-w-md bg-[#0b1220] border border-gray-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
+          {/* Top Glow Accent */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Logo Badge */}
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center font-black text-xl shadow-lg mx-auto mb-4">
+            🔒
+          </div>
+
+          <h2 className="text-2xl font-black text-white tracking-tight mb-1">
+            Owner Database Portal
+          </h2>
+          <p className="text-xs text-gray-400 mb-6">
+            Confidential agency database. Sign in with your registered admin credentials to view and manage clients.
+          </p>
+
+          {loginError && (
+            <div className="p-3 mb-5 rounded-xl bg-rose-950/80 border border-rose-800/80 text-rose-300 text-xs font-semibold">
+              ⚠️ {loginError}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
+            <div>
+              <label className="text-xs font-bold text-gray-300 block mb-1.5">
+                Admin Email (Registered Gmail)
+              </label>
+              <input
+                required
+                type="email"
+                placeholder="admin@novagrowth.agency"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-xs outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-gray-300 block mb-1.5">
+                Admin Security Password
+              </label>
+              <input
+                required
+                type="password"
+                placeholder="••••••••••••"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-xs outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold py-3.5 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/20 cursor-pointer mt-2"
+            >
+              Sign In to Database Hub →
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-gray-800 text-[11px] text-gray-500 flex items-center justify-between">
+            <span>🛡️ 256-Bit Encrypted Admin Gate</span>
+            <Link href="/" className="text-amber-400 hover:underline">
+              ← Return to Site
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // IF AUTHENTICATED -> SHOW COMPLETE DATABASE DASHBOARD
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       {/* Toast Notification */}
@@ -291,16 +434,16 @@ export default function AdminDatabasePage() {
       )}
 
       {/* Top Navbar */}
-      <header className="border-b border-gray-800 bg-[#091427]/80 backdrop-blur-md sticky top-0 z-40">
+      <header className="border-b border-gray-800 bg-[#091427]/90 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center font-black text-sm shadow-md">
                 NG
               </div>
               <div>
                 <span className="text-base font-black tracking-tight text-white block">Nova Growth</span>
-                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Database Hub</span>
+                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Private Owner Database Hub</span>
               </div>
             </Link>
           </div>
@@ -332,12 +475,15 @@ export default function AdminDatabasePage() {
               <span>JSON Backup</span>
             </a>
 
-            <Link
-              href="/"
-              className="text-gray-400 hover:text-white px-3 py-2 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors"
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="bg-rose-950/80 hover:bg-rose-900 text-rose-300 hover:text-white border border-rose-800/80 font-bold px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+              title="Logout from admin database"
             >
-              ← Back to Site
-            </Link>
+              <span>🚪</span>
+              <span>Logout</span>
+            </button>
           </div>
         </div>
       </header>
@@ -395,7 +541,7 @@ export default function AdminDatabasePage() {
                   : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
               }`}
             >
-              📋 Leads &amp; Forms ({stats?.breakdown.leads.active || 0})
+              📋 Leads &amp; Clients ({stats?.breakdown.leads.active || 0})
             </button>
 
             <button
@@ -460,7 +606,7 @@ export default function AdminDatabasePage() {
             <div className="relative flex-1 sm:w-64">
               <input
                 type="text"
-                placeholder="Search by name, email, website..."
+                placeholder="Search by name, email, phone, website..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 bg-gray-900/90 border border-gray-700 rounded-xl text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
@@ -553,148 +699,220 @@ export default function AdminDatabasePage() {
                   <thead className="bg-[#091427] text-gray-400 font-bold uppercase text-[10px] tracking-wider border-b border-gray-800">
                     <tr>
                       <th className="py-3.5 px-4">Date / Time</th>
-                      <th className="py-3.5 px-4">Client / Identifier</th>
-                      <th className="py-3.5 px-4">Type / Service</th>
+                      <th className="py-3.5 px-4 min-w-[240px]">Client Contact (Gmail &amp; Phone)</th>
+                      <th className="py-3.5 px-4">Service / Type</th>
                       <th className="py-3.5 px-4">Details / Message</th>
                       <th className="py-3.5 px-4">Status</th>
                       <th className="py-3.5 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-800/60 text-gray-300">
-                    {records.map((item) => (
-                      <tr key={item.id} className="hover:bg-gray-900/40 transition-colors">
-                        {/* Date */}
-                        <td className="py-3.5 px-4 whitespace-nowrap font-mono text-[11px] text-gray-400">
-                          <div>{formatDate(item.createdAt)}</div>
-                          {item.isDeleted && (
-                            <span className="text-[10px] text-rose-400 font-bold">
-                              Deleted: {formatDate(item.deletedAt || "")}
+                    {records.map((item) => {
+                      const cleanPhone = getCleanPhone(item.phone || item.clientIdentifier);
+                      const emailAddress = item.email || item.clientEmail || item.emailSubmitted;
+
+                      return (
+                        <tr key={item.id} className="hover:bg-gray-900/40 transition-colors">
+                          {/* Date */}
+                          <td className="py-3.5 px-4 whitespace-nowrap font-mono text-[11px] text-gray-400 align-top">
+                            <div>{formatDate(item.createdAt)}</div>
+                            {item.isDeleted && (
+                              <span className="text-[10px] text-rose-400 font-bold block mt-1">
+                                Deleted: {formatDate(item.deletedAt || "")}
+                              </span>
+                            )}
+                          </td>
+
+                          {/* Client Contact Info (PROMINENT GMAIL & PHONE) */}
+                          <td className="py-3.5 px-4 align-top">
+                            {/* Client Name */}
+                            <div className="font-black text-white text-sm mb-1.5 flex items-center gap-2">
+                              <span>{item.name || item.domain || item.clientName || item.title || "Anonymous Client"}</span>
+                            </div>
+
+                            {/* Gmail / Email with Quick Actions */}
+                            {emailAddress ? (
+                              <div className="flex items-center gap-1.5 mb-1.5">
+                                <span className="text-gray-400 text-xs">✉️</span>
+                                <a
+                                  href={`mailto:${emailAddress}`}
+                                  className="font-bold text-amber-400 hover:underline text-xs"
+                                  title="Send email"
+                                >
+                                  {emailAddress}
+                                </a>
+                                <button
+                                  type="button"
+                                  onClick={() => copyToClipboard(emailAddress, "Email")}
+                                  className="text-[10px] text-gray-500 hover:text-white px-1.5 py-0.5 rounded bg-gray-800/80 cursor-pointer"
+                                  title="Copy Email"
+                                >
+                                  📋
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="text-gray-500 text-[11px] mb-1">✉️ Email: —</div>
+                            )}
+
+                            {/* Phone / WhatsApp Number with 1-Click WhatsApp & Call */}
+                            {item.phone || item.clientIdentifier ? (
+                              <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                                <span className="font-bold text-emerald-400 text-xs flex items-center gap-1 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-md">
+                                  <span>📞</span>
+                                  <span>{item.phone || item.clientIdentifier}</span>
+                                </span>
+
+                                {cleanPhone && (
+                                  <a
+                                    href={`https://wa.me/${cleanPhone}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
+                                    title="Open WhatsApp chat with client"
+                                  >
+                                    <span>💬 WhatsApp</span>
+                                  </a>
+                                )}
+
+                                <a
+                                  href={`tel:${item.phone || item.clientIdentifier}`}
+                                  className="px-2 py-0.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
+                                  title="Direct Phone Call"
+                                >
+                                  <span>Call</span>
+                                </a>
+
+                                <button
+                                  type="button"
+                                  onClick={() => copyToClipboard(item.phone || item.clientIdentifier || "", "Phone")}
+                                  className="text-[10px] text-gray-500 hover:text-white px-1.5 py-0.5 rounded bg-gray-800/80 cursor-pointer"
+                                  title="Copy Phone"
+                                >
+                                  📋
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="text-gray-500 text-[11px]">📞 Phone: —</div>
+                            )}
+
+                            {/* Website link if provided */}
+                            {item.website && (
+                              <div className="mt-1.5">
+                                <a
+                                  href={item.website.startsWith("http") ? item.website : `https://${item.website}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="text-blue-400 hover:underline text-[11px] flex items-center gap-1 truncate max-w-[220px]"
+                                >
+                                  <span>🌐</span>
+                                  <span>{item.website}</span>
+                                </a>
+                              </div>
+                            )}
+                          </td>
+
+                          {/* Type / Service */}
+                          <td className="py-3.5 px-4 align-top">
+                            <span className="px-2 py-0.5 rounded-md bg-gray-800 border border-gray-700 text-gray-300 text-[10px] font-bold uppercase inline-block mb-1">
+                              {item.type || item.collection}
                             </span>
-                          )}
-                        </td>
-
-                        {/* Client / Identifier */}
-                        <td className="py-3.5 px-4">
-                          <div className="font-bold text-white text-[13px]">
-                            {item.name || item.domain || item.clientName || item.title || "Anonymous"}
-                          </div>
-                          <div className="text-gray-400 text-[11px]">
-                            {item.email || item.clientEmail || item.clientIdentifier || item.url || "—"}
-                          </div>
-                          {item.phone && <div className="text-amber-400 text-[10px]">📞 {item.phone}</div>}
-                          {item.website && (
-                            <a
-                              href={item.website.startsWith("http") ? item.website : `https://${item.website}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-blue-400 hover:underline text-[10px] block truncate max-w-[200px]"
-                            >
-                              🌐 {item.website}
-                            </a>
-                          )}
-                        </td>
-
-                        {/* Type / Service */}
-                        <td className="py-3.5 px-4">
-                          <span className="px-2 py-0.5 rounded-md bg-gray-800 border border-gray-700 text-gray-300 text-[10px] font-bold uppercase inline-block mb-1">
-                            {item.type || item.collection}
-                          </span>
-                          <div className="text-gray-400 text-[11px] font-semibold">
-                            {item.service || item.planName || item.action || item.scores?.rankingTier || "—"}
-                          </div>
-                          {item.budget && <div className="text-emerald-400 text-[10px]">💰 {item.budget}</div>}
-                          {item.amount && (
-                            <div className="text-emerald-400 font-bold text-xs">
-                              {item.currency} {item.amount}
+                            <div className="text-gray-300 text-[11.5px] font-semibold">
+                              {item.service || item.planName || item.action || item.scores?.rankingTier || "—"}
                             </div>
-                          )}
-                        </td>
+                            {item.budget && <div className="text-emerald-400 text-[10.5px] mt-0.5">💰 {item.budget}</div>}
+                            {item.amount && (
+                              <div className="text-emerald-400 font-bold text-xs mt-0.5">
+                                {item.currency} {item.amount}
+                              </div>
+                            )}
+                          </td>
 
-                        {/* Details / Message */}
-                        <td className="py-3.5 px-4 max-w-xs">
-                          <p className="line-clamp-2 text-gray-300 text-[11.5px]">
-                            {item.message || item.details || item.notes || (item.scores ? `Rank: ${item.scores.rankingPosition} (${item.scores.rankingTier})` : "—")}
-                          </p>
-                          {item.notes && (
-                            <div className="text-[10px] text-amber-300/80 mt-1 italic">
-                              📝 Note: {item.notes}
-                            </div>
-                          )}
-                        </td>
+                          {/* Details / Message */}
+                          <td className="py-3.5 px-4 max-w-xs align-top">
+                            <p className="line-clamp-3 text-gray-300 text-[11.5px] leading-relaxed">
+                              {item.message || item.details || item.notes || (item.scores ? `Rank: ${item.scores.rankingPosition} (${item.scores.rankingTier})` : "—")}
+                            </p>
+                            {item.notes && (
+                              <div className="text-[10.5px] text-amber-300/90 mt-1.5 italic bg-amber-950/30 border border-amber-900/40 p-1.5 rounded-lg">
+                                📝 Admin Note: {item.notes}
+                              </div>
+                            )}
+                          </td>
 
-                        {/* Status */}
-                        <td className="py-3.5 px-4 whitespace-nowrap">
-                          {item.isDeleted ? (
-                            <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-rose-950 text-rose-400 border border-rose-800/60">
-                              🗑️ Deleted
-                            </span>
-                          ) : (
-                            <select
-                              value={item.status || "new"}
-                              onChange={(e) => handleUpdateStatus(item, e.target.value)}
-                              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border cursor-pointer focus:outline-none ${
-                                item.status === "completed"
-                                  ? "bg-emerald-950/80 text-emerald-400 border-emerald-800"
-                                  : item.status === "in_progress"
-                                  ? "bg-blue-950/80 text-blue-400 border-blue-800"
-                                  : item.status === "contacted"
-                                  ? "bg-amber-950/80 text-amber-400 border-amber-800"
-                                  : "bg-gray-900 text-gray-300 border-gray-700"
-                              }`}
-                            >
-                              <option value="new">🟡 New</option>
-                              <option value="contacted">🟠 Contacted</option>
-                              <option value="in_progress">🔵 In Progress</option>
-                              <option value="completed">🟢 Completed</option>
-                              <option value="closed">⚪ Closed</option>
-                            </select>
-                          )}
-                        </td>
+                          {/* Status */}
+                          <td className="py-3.5 px-4 whitespace-nowrap align-top">
+                            {item.isDeleted ? (
+                              <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-rose-950 text-rose-400 border border-rose-800/60">
+                                🗑️ Deleted
+                              </span>
+                            ) : (
+                              <select
+                                value={item.status || "new"}
+                                onChange={(e) => handleUpdateStatus(item, e.target.value)}
+                                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border cursor-pointer focus:outline-none ${
+                                  item.status === "completed"
+                                    ? "bg-emerald-950/80 text-emerald-400 border-emerald-800"
+                                    : item.status === "in_progress"
+                                    ? "bg-blue-950/80 text-blue-400 border-blue-800"
+                                    : item.status === "contacted"
+                                    ? "bg-amber-950/80 text-amber-400 border-amber-800"
+                                    : "bg-gray-900 text-gray-300 border-gray-700"
+                                }`}
+                              >
+                                <option value="new">🟡 New</option>
+                                <option value="contacted">🟠 Contacted</option>
+                                <option value="in_progress">🔵 In Progress</option>
+                                <option value="completed">🟢 Completed</option>
+                                <option value="closed">⚪ Closed</option>
+                              </select>
+                            )}
+                          </td>
 
-                        {/* Actions */}
-                        <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                          {item.isDeleted ? (
-                            <div className="flex items-center justify-end gap-2">
-                              <button
-                                onClick={() => handleRestore(item)}
-                                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                title="Restore item back to active database"
-                              >
-                                ↺ Restore
-                              </button>
-                              <button
-                                onClick={() => handlePermanentDelete(item)}
-                                className="px-2.5 py-1.5 bg-rose-900/60 hover:bg-rose-800 text-rose-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                title="Delete forever"
-                              >
-                                ✕ Purge
-                              </button>
-                            </div>
-                          ) : (
-                            <div className="flex items-center justify-end gap-2">
-                              <button
-                                onClick={() => {
-                                  setSelectedRecord(item);
-                                  setEditingNotes(item.notes || "");
-                                }}
-                                className="px-2.5 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                title="Add/Edit admin notes"
-                              >
-                                📝 Notes
-                              </button>
+                          {/* Actions */}
+                          <td className="py-3.5 px-4 text-right whitespace-nowrap align-top">
+                            {item.isDeleted ? (
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => handleRestore(item)}
+                                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                  title="Restore record back to active database"
+                                >
+                                  ↺ Restore
+                                </button>
+                                <button
+                                  onClick={() => handlePermanentDelete(item)}
+                                  className="px-2.5 py-1.5 bg-rose-900/60 hover:bg-rose-800 text-rose-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                  title="Delete forever"
+                                >
+                                  ✕ Purge
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => {
+                                    setSelectedRecord(item);
+                                    setEditingNotes(item.notes || "");
+                                  }}
+                                  className="px-2.5 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                  title="Add/Edit internal admin notes"
+                                >
+                                  📝 Notes
+                                </button>
 
-                              <button
-                                onClick={() => handleSoftDelete(item)}
-                                className="px-2.5 py-1.5 bg-gray-900 hover:bg-rose-950/60 text-gray-400 hover:text-rose-400 border border-gray-800 hover:border-rose-800 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                title="Move to trash (Soft Delete)"
-                              >
-                                🗑️
-                              </button>
-                            </div>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                                <button
+                                  onClick={() => handleSoftDelete(item)}
+                                  className="px-2.5 py-1.5 bg-gray-900 hover:bg-rose-950/60 text-gray-400 hover:text-rose-400 border border-gray-800 hover:border-rose-800 rounded-lg text-xs font-bold transition-colors cursor-pointer"
+                                  title="Move to trash (Soft Delete)"
+                                >
+                                  🗑️
+                                </button>
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -707,17 +925,17 @@ export default function AdminDatabasePage() {
       {selectedRecord && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-md w-full p-6 text-left shadow-2xl">
-            <h4 className="text-base font-bold text-white mb-2">
+            <h4 className="text-base font-bold text-white mb-1">
               Add Notes for {selectedRecord.name || selectedRecord.domain || selectedRecord.id}
             </h4>
             <p className="text-xs text-gray-400 mb-4">
-              Add internal client follow-up notes, call logs, or meeting decisions.
+              Add internal client follow-up notes, call summary, or project decisions.
             </p>
             <textarea
               rows={4}
               value={editingNotes}
               onChange={(e) => setEditingNotes(e.target.value)}
-              placeholder="e.g. Talked on phone, scheduled zoom meeting for Friday 3 PM..."
+              placeholder="e.g. Spoke to client on phone, agreed on $3,500 SEO package..."
               className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white focus:border-amber-400 outline-none resize-none mb-4"
             />
             <div className="flex items-center justify-end gap-2 text-xs">
@@ -745,7 +963,7 @@ export default function AdminDatabasePage() {
             <div className="flex items-center justify-between pb-3 border-b border-gray-800 mb-5">
               <h4 className="text-lg font-black text-white flex items-center gap-2">
                 <span>➕</span>
-                <span>Add Client / Work Record Manually</span>
+                <span>Add Client Record Manually</span>
               </h4>
               <button
                 onClick={() => setIsNewEntryOpen(false)}
@@ -770,8 +988,9 @@ export default function AdminDatabasePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-bold text-gray-300 block mb-1">Email Address</label>
+                  <label className="font-bold text-gray-300 block mb-1">Client Email (Gmail) *</label>
                   <input
+                    required
                     type="email"
                     placeholder="david@company.com"
                     value={manualForm.email}
@@ -780,9 +999,10 @@ export default function AdminDatabasePage() {
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-gray-300 block mb-1">Phone / WhatsApp</label>
+                  <label className="font-bold text-gray-300 block mb-1">Phone / WhatsApp Number *</label>
                   <input
-                    type="text"
+                    required
+                    type="tel"
                     placeholder="+1 555-0192"
                     value={manualForm.phone}
                     onChange={(e) => setManualForm({ ...manualForm, phone: e.target.value })}

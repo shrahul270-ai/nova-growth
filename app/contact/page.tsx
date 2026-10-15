@@ -35,6 +35,7 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     website: "",
     timezone: "US / Eastern (EST)",
     service: "Full-Funnel Organic Growth",
@@ -54,6 +55,7 @@ export default function ContactPage() {
           type: "contact_form",
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
           website: formData.website,
           timezone: formData.timezone,
           service: formData.service,
@@ -62,6 +64,7 @@ export default function ContactPage() {
           sourceUrl: "/contact",
         }),
       });
+
 
       if (!res.ok) throw new Error("Failed to submit inquiry");
       setFormState("success");
@@ -267,7 +270,7 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <div>
                       <label className="text-xs font-bold text-gray-700 block mb-1.5">
                         Your Full Name *
@@ -284,7 +287,7 @@ export default function ContactPage() {
 
                     <div>
                       <label className="text-xs font-bold text-gray-700 block mb-1.5">
-                        Corporate / Work Email *
+                        Corporate / Work Email (Gmail) *
                       </label>
                       <input
                         required
@@ -295,7 +298,22 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                       />
                     </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-gray-700 block mb-1.5">
+                        Phone / WhatsApp Number *
+                      </label>
+                      <input
+                        required
+                        type="tel"
+                        placeholder="+1 (555) 000-0000"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                      />
+                    </div>
                   </div>
+
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>

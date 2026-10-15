@@ -33,6 +33,7 @@ export default function Home() {
 
   const [modalName, setModalName] = useState("");
   const [modalEmail, setModalEmail] = useState("");
+  const [modalPhone, setModalPhone] = useState("");
   const [modalWebsite, setModalWebsite] = useState("");
 
   const showToast = (msg: string) => {
@@ -52,6 +53,7 @@ export default function Home() {
           type: "consultation_modal",
           name: modalName || "Strategy Call Inquirer",
           email: modalEmail,
+          phone: modalPhone,
           website: modalWebsite,
           service: selectedService,
           sourceUrl: "/",
@@ -65,6 +67,7 @@ export default function Home() {
         setFormStatus("idle");
         setModalName("");
         setModalEmail("");
+        setModalPhone("");
         setModalWebsite("");
       }, 2000);
     } catch (err) {
@@ -76,6 +79,7 @@ export default function Home() {
       }, 2000);
     }
   };
+
 
 
   const jsonLd = {
@@ -1379,13 +1383,25 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Business Email (Overseas / Company Email)</label>
+                    <label className="text-xs font-bold text-gray-700 block mb-1">Corporate / Work Email (Gmail) *</label>
                     <input
                       required
                       type="email"
                       placeholder="name@company.com"
                       value={modalEmail}
                       onChange={(e) => setModalEmail(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-gray-700 block mb-1">Phone / WhatsApp Number *</label>
+                    <input
+                      required
+                      type="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={modalPhone}
+                      onChange={(e) => setModalPhone(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
@@ -1400,6 +1416,7 @@ export default function Home() {
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
+
 
 
                   <div>
