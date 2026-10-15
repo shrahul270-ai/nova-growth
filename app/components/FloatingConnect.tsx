@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { trackInteraction } from "@/lib/tracker";
 
 export default function FloatingConnect() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,13 @@ export default function FloatingConnect() {
             {/* 1. WhatsApp Button */}
             <a
               href={`https://wa.me/${whatsappNumber}?text=Hi%20Nova%20Growth,%20I%20want%20to%20discuss%20a%20project.`}
+              onClick={() => {
+                trackInteraction({
+                  action: "whatsapp",
+                  title: "Floating Concierge WhatsApp Clicked",
+                  details: `WhatsApp Number: +${whatsappNumber}`,
+                });
+              }}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between p-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 hover:border-emerald-500/50 transition-all text-xs font-semibold text-emerald-400"
@@ -52,6 +60,14 @@ export default function FloatingConnect() {
             {/* 2. Video Calling / Strategy Session */}
             <a
               href={meetOrCalendlyUrl}
+              onClick={() => {
+                trackInteraction({
+                  action: "video_call",
+                  title: "Floating Concierge Video Call Clicked",
+                  details: "Calendly / Google Meet Link",
+                  targetUrl: meetOrCalendlyUrl,
+                });
+              }}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between p-3 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 hover:border-amber-500/50 transition-all text-xs font-semibold text-amber-400"
@@ -69,6 +85,13 @@ export default function FloatingConnect() {
             {/* 3. Direct Email */}
             <a
               href={`mailto:${agencyEmail}`}
+              onClick={() => {
+                trackInteraction({
+                  action: "email",
+                  title: "Floating Concierge Direct Email Clicked",
+                  details: agencyEmail,
+                });
+              }}
               className="group flex items-center justify-between p-3 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-blue-400"
             >
               <div className="flex items-center gap-3">
@@ -81,6 +104,7 @@ export default function FloatingConnect() {
               <span className="text-xs group-hover:translate-x-1 transition-transform">→</span>
             </a>
           </div>
+
 
           <div className="mt-3 text-center text-[10px] text-gray-500">
             ⚡ 100% Confidential • Time-Zone Aligned

@@ -31,22 +31,52 @@ export default function Home() {
     };
   }, [contactOpen]);
 
+  const [modalName, setModalName] = useState("");
+  const [modalEmail, setModalEmail] = useState("");
+  const [modalWebsite, setModalWebsite] = useState("");
+
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("submitting");
-    setTimeout(() => {
+
+    try {
+      await fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "consultation_modal",
+          name: modalName || "Strategy Call Inquirer",
+          email: modalEmail,
+          website: modalWebsite,
+          service: selectedService,
+          sourceUrl: "/",
+          message: `Consultation requested for ${selectedService}`,
+        }),
+      });
+      setFormStatus("success");
+      showToast("💾 Strategy call request saved to database!");
+      setTimeout(() => {
+        setContactOpen(false);
+        setFormStatus("idle");
+        setModalName("");
+        setModalEmail("");
+        setModalWebsite("");
+      }, 2000);
+    } catch (err) {
+      console.error("Consultation submit error:", err);
       setFormStatus("success");
       setTimeout(() => {
         setContactOpen(false);
         setFormStatus("idle");
       }, 2000);
-    }, 900);
+    }
   };
+
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -1342,6 +1372,8 @@ export default function Home() {
                       required
                       type="text"
                       placeholder="e.g. John Miller"
+                      value={modalName}
+                      onChange={(e) => setModalName(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
@@ -1352,6 +1384,8 @@ export default function Home() {
                       required
                       type="email"
                       placeholder="name@company.com"
+                      value={modalEmail}
+                      onChange={(e) => setModalEmail(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
@@ -1361,9 +1395,12 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="https://yourwebsite.com or Startup niche"
+                      value={modalWebsite}
+                      onChange={(e) => setModalWebsite(e.target.value)}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
+
 
                   <div>
                     <label className="text-xs font-bold text-gray-700 block mb-1">Target Service</label>

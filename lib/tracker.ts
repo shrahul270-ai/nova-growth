@@ -1,0 +1,38 @@
+// Client-side helper to record interactions into the database in the background
+
+export interface TrackInteractionInput {
+  action: "whatsapp" | "video_call" | "phone" | "email" | "other";
+  title: string;
+  details?: string;
+  clientIdentifier?: string;
+  sourcePage?: string;
+  targetUrl?: string;
+}
+
+export function trackInteraction(input: TrackInteractionInput): void {
+  try {
+    const payload = {
+      type: `${input.action}_click`,
+      action: input.action,
+      title: input.title,
+      details: input.details || "",
+      clientIdentifier: input.clientIdentifier || "",
+      sourcePage: input.sourcePage || (typeof window !== "undefined" ? window.location.pathname : "/"),
+      targetUrl: input.targetUrl || "",
+    };
+
+    if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+      const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+      navigator.sendBeacon("/api/db/interactions", blob);
+    } else {
+      fetch("/api/db/interactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch((err) => console.warn("Failed to record interaction:", err));
+    }
+  } catch (err) {
+    console.warn("trackInteraction error:", err);
+  }
+}

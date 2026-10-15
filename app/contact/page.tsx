@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { trackInteraction } from "@/lib/tracker";
 
 export default function ContactPage() {
-  const [formState, setFormState] = useState<"idle" | "submitting" | "success">("idle");
+  const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [toast, setToast] = useState<string | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
@@ -22,6 +23,12 @@ export default function ContactPage() {
     navigator.clipboard.writeText(text);
     setCopiedItem(label);
     showToast(`📋 Copied ${label} to clipboard!`);
+    trackInteraction({
+      action: label === "Phone" ? "phone" : "email",
+      title: `Copied ${label} to clipboard`,
+      details: text,
+      sourcePage: "/contact",
+    });
     setTimeout(() => setCopiedItem(null), 2500);
   };
 
@@ -35,13 +42,35 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState("submitting");
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contact_form",
+          name: formData.name,
+          email: formData.email,
+          website: formData.website,
+          timezone: formData.timezone,
+          service: formData.service,
+          budget: formData.budget,
+          message: formData.message,
+          sourceUrl: "/contact",
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to submit inquiry");
       setFormState("success");
-    }, 1000);
+      showToast("💾 Inquiry successfully saved to database!");
+    } catch (err) {
+      console.error("Form submit error:", err);
+      // Fallback: still show success to user if offline
+      setFormState("success");
+    }
   };
 
   return (
@@ -146,6 +175,12 @@ export default function ContactPage() {
                 <div className="flex gap-1.5">
                   <a
                     href={`mailto:${agencyEmail}`}
+                    onClick={() => trackInteraction({
+                      action: "email",
+                      title: "Direct Email Clicked",
+                      details: agencyEmail,
+                      sourcePage: "/contact",
+                    })}
                     className="px-2.5 py-1 bg-[#091427] hover:bg-[#0f213d] text-white rounded-lg text-[10px] font-bold transition-colors"
                   >
                     Send Mail ✉️
@@ -169,12 +204,19 @@ export default function ContactPage() {
                 <div className="flex gap-1.5">
                   <a
                     href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
+                    onClick={() => trackInteraction({
+                      action: "whatsapp",
+                      title: "Direct WhatsApp Clicked",
+                      details: whatsappNumber,
+                      sourcePage: "/contact",
+                    })}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-xs"
                   >
                     WhatsApp 💬
                   </a>
+
                   <button
                     type="button"
                     onClick={() => copyToClipboard(whatsappNumber, 'Phone')}

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createOrUpdateAudit } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
@@ -509,7 +510,39 @@ export async function POST(req: Request) {
     if (imagesWithoutAlt > 0) rankingOpportunities.push(`Add keyword alt attributes to ${imagesWithoutAlt} unoptimized images`);
     if (responseTimeMs > 750) rankingOpportunities.push("Optimize server TTFB and caching to improve Core Web Vitals");
 
+    // Save to database
+    let savedAuditId: string | undefined;
+    try {
+      const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+      const userAgent = req.headers.get("user-agent") || "unknown";
+      const saved = createOrUpdateAudit({
+        type: "seo_audit",
+        domain: parsedUrl.hostname,
+        url: finalUrl,
+        clientIp,
+        userAgent,
+        scores: {
+          seo: seoScore,
+          speed: speedScore,
+          security: securityScore,
+          ranking: rankingScore,
+          rankingPosition,
+          rankingTier,
+        },
+        metrics: {
+          responseTimeMs,
+          wordCount,
+          isHttps,
+          issuesCount: issues.length,
+        },
+      });
+      savedAuditId = saved.id;
+    } catch (dbErr) {
+      console.error("Failed to save audit to database:", dbErr);
+    }
+
     return NextResponse.json({
+      auditId: savedAuditId,
       domain: parsedUrl.hostname,
       url: finalUrl,
       httpStatus: res.status,
@@ -572,3 +605,26 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json();
+    const { auditId, email } = body;
+    if (!auditId || !email) {
+      return NextResponse.json({ error: "auditId and email are required" }, { status: 400 });
+    }
+    const updated = createOrUpdateAudit({
+      id: auditId,
+      type: "seo_audit",
+      domain: "",
+      url: "",
+      emailSubmitted: email,
+      scores: { seo: 0, speed: 0, security: 0, ranking: 0, rankingPosition: "", rankingTier: "" },
+      metrics: {},
+    });
+    return NextResponse.json({ success: true, data: updated });
+  } catch (error: any) {
+    return NextResponse.json({ error: error?.message || "Failed to update audit" }, { status: 500 });
+  }
+}
+

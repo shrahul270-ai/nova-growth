@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 interface AuditResult {
+  auditId?: string;
   domain: string;
   url: string;
   httpStatus: number;
@@ -151,12 +152,24 @@ export default function SeoAuditWidget() {
     setTimeout(() => scrollToTop(), 50);
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    if (auditData?.auditId) {
+      try {
+        await fetch("/api/audit", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ auditId: auditData.auditId, email }),
+        });
+      } catch (err) {
+        console.warn("Could not save email to audit record:", err);
+      }
+    }
     setStage("success");
     setTimeout(() => scrollToTop(), 50);
   };
+
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return "text-emerald-700 bg-emerald-50/80 border-emerald-200";

@@ -91,15 +91,39 @@ function PaymentSectionInner() {
     return Math.round(val * curr.rate).toLocaleString();
   };
 
-  const handlePaymentSubmit = (e: React.FormEvent) => {
+  const handlePaymentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("processing");
-    setTimeout(() => {
-      const randomTrx = "NOVA-" + Math.floor(100000 + Math.random() * 900000);
-      setTransactionId(randomTrx);
-      setStatus("success");
-    }, 1200);
+    const randomTrx = "NOVA-" + Math.floor(100000 + Math.random() * 900000);
+    const plan = retainerPlans.find((p) => p.id === selectedPlanId);
+
+    try {
+      await fetch("/api/db/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          transactionId: randomTrx,
+          clientName: clientName || "Anonymous Client",
+          clientEmail,
+          companyName,
+          planId: selectedPlanId,
+          planName: paymentMode === "retainer" ? (plan?.name || "Retainer Plan") : "Custom Invoice",
+          mode: paymentMode,
+          invoiceNumber: paymentMode === "invoice" ? invoiceNumber : undefined,
+          currency: selectedCurrency,
+          amount: getSettlementAmount(),
+          paymentMethod,
+          paymentStatus: "paid",
+        }),
+      });
+    } catch (err) {
+      console.warn("Payment recording failed:", err);
+    }
+
+    setTransactionId(randomTrx);
+    setStatus("success");
   };
+
 
   return (
     <section id="payment" className="relative py-20 px-6 md:px-12 z-10">
