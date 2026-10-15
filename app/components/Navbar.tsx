@@ -72,9 +72,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Desktop Navigation - Always in 1 clean single row on any screen / profile */}
+          {/* Desktop Navigation - Always in 1 clean single row on all desktop screens */}
           <nav
-            className="hidden lg:flex items-center gap-3 xl:gap-5 2xl:gap-7 text-[13px] xl:text-[13.5px] font-semibold text-[#54647c] whitespace-nowrap"
+            className="hidden lg:flex items-center gap-2.5 lg:gap-3.5 xl:gap-5.5 2xl:gap-7 text-[12.5px] lg:text-[13px] xl:text-[13.5px] font-semibold text-[#54647c] whitespace-nowrap"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => {
@@ -103,19 +103,33 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* 3D Action CTAs & Mobile Toggle */}
-          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
+          {/* 3D Action CTAs - Matching screenshot exactly */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* DR 50+ Ticket Pill Button - Always visible on desktop */}
             <Link
               href="/guest-posting"
-              className="hidden xl:inline-flex items-center gap-1 sm:gap-1.5 bg-amber-50 hover:bg-amber-100 text-[#091427] border border-[#d97706]/40 text-[11px] sm:text-xs font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-1.5 bg-amber-50/90 hover:bg-amber-100 text-[#091427] border border-amber-300/80 text-[11px] sm:text-xs font-bold px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-all hover:scale-102 cursor-pointer shadow-xs whitespace-nowrap shrink-0"
+              title="High DR 50+ Guest Posting"
             >
-              <span className="text-[#d97706]">🔗</span>
+              <svg
+                className="w-3.5 h-3.5 text-gray-800"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                <line x1="7" y1="7" x2="7.01" y2="7" />
+              </svg>
               <span>DR 50+</span>
             </Link>
 
+            {/* Let's Talk CTA Button */}
             <Link
               href="/contact"
-              className="btn-3d inline-flex items-center gap-1.5 sm:gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all hover:gap-3 cursor-pointer shadow-sm whitespace-nowrap shrink-0"
+              className="btn-3d inline-flex items-center gap-1.5 sm:gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/50 text-xs sm:text-[13px] font-bold px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full transition-all hover:gap-2.5 cursor-pointer shadow-sm whitespace-nowrap shrink-0"
               aria-label="Contact Nova Growth Agency"
             >
               <span>Let&apos;s Talk</span>
