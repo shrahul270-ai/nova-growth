@@ -708,17 +708,40 @@ export default function AdminDatabasePage() {
                   </thead>
                   <tbody className="divide-y divide-gray-800/60 text-gray-300">
                     {records.map((item) => {
-                      // Extract phone from phone, clientIdentifier, or details
-                      const phoneCandidate = item.phone || item.clientIdentifier || (typeof item.details === "string" && /[0-9]{7,}/.test(item.details) ? item.details : "");
+                      // Robust extraction of phone even with spaces or +
+                      const extractPhone = (record: BaseItem): string => {
+                        if (record.phone && String(record.phone).trim()) return String(record.phone).trim();
+                        if (record.clientIdentifier && /[0-9]/.test(record.clientIdentifier)) return String(record.clientIdentifier).trim();
+                        if (record.details) {
+                          const raw = String(record.details);
+                          const digits = raw.replace(/[^0-9]/g, "");
+                          if (digits.length >= 7) return raw.trim();
+                        }
+                        return "";
+                      };
+
+                      // Robust extraction of email
+                      const extractEmail = (record: BaseItem): string => {
+                        if (record.email && String(record.email).trim()) return String(record.email).trim();
+                        if (record.clientEmail && String(record.clientEmail).trim()) return String(record.clientEmail).trim();
+                        if (record.emailSubmitted && String(record.emailSubmitted).trim()) return String(record.emailSubmitted).trim();
+                        if (record.clientIdentifier && record.clientIdentifier.includes("@")) return String(record.clientIdentifier).trim();
+                        if (record.details && String(record.details).includes("@")) {
+                          const match = String(record.details).match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+                          if (match) return match[0];
+                        }
+                        return "";
+                      };
+
+                      const phoneCandidate = extractPhone(item);
                       const cleanPhone = getCleanPhone(phoneCandidate);
-                      
-                      // Extract email from email, clientEmail, emailSubmitted, or details
-                      const emailAddress = item.email || item.clientEmail || item.emailSubmitted || (typeof item.details === "string" && item.details.includes("@") ? item.details : "");
+                      const emailAddress = extractEmail(item);
 
                       const clientDisplayName = item.name || (item.action === "whatsapp" ? "WhatsApp Visitor" : item.action === "video_call" ? "Video Call Inquirer" : item.domain || item.clientName || item.title || "Client Inquirer");
 
                       return (
                         <tr key={item.id} className="hover:bg-gray-900/40 transition-colors">
+
                           {/* Date */}
                           <td className="py-3.5 px-4 whitespace-nowrap font-mono text-[11px] text-gray-400 align-top">
                             <div>{formatDate(item.createdAt)}</div>

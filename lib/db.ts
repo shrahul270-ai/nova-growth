@@ -46,12 +46,16 @@ export interface InteractionRecord extends BaseRecord {
   collection: "interactions";
   action: "whatsapp" | "video_call" | "phone" | "email" | "other";
   title: string;
+  name?: string;
+  phone?: string;
+  email?: string;
   details?: string;
   clientIdentifier?: string; // e.g. Phone number or email if known
   sourcePage?: string;
   targetUrl?: string;
   status: RecordStatus;
 }
+
 
 export interface AuditRecord extends BaseRecord {
   collection: "audits";
@@ -264,8 +268,29 @@ export function createInteraction(
 ): InteractionRecord {
   const db = readDatabase();
   const now = new Date().toISOString();
+
+  // Auto-detect phone from details or clientIdentifier
+  let phone = input.phone || "";
+  if (!phone && input.clientIdentifier && /[0-9]{7,}/.test(input.clientIdentifier.replace(/[^0-9]/g, ""))) {
+    phone = input.clientIdentifier;
+  }
+  if (!phone && input.details && /[0-9]{7,}/.test(input.details.replace(/[^0-9]/g, ""))) {
+    phone = input.details;
+  }
+
+  // Auto-detect email from details or clientIdentifier
+  let email = input.email || "";
+  if (!email && input.clientIdentifier && input.clientIdentifier.includes("@")) {
+    email = input.clientIdentifier;
+  }
+  if (!email && input.details && input.details.includes("@")) {
+    email = input.details;
+  }
+
   const record: InteractionRecord = {
     ...input,
+    phone: phone || input.phone,
+    email: email || input.email,
     id: generateId("intr"),
     collection: "interactions",
     status: input.status || "new",
@@ -276,6 +301,7 @@ export function createInteraction(
   };
 
   db.interactions.unshift(record);
+
   logActivity(
     db, 
     "create", 

@@ -41,6 +41,9 @@ export async function POST(req: NextRequest) {
       type: body.type || "whatsapp_click",
       action: body.action || "whatsapp",
       title: body.title || "Client Click / Interaction",
+      name: body.name || "",
+      phone: body.phone || "",
+      email: body.email || "",
       details: body.details || "",
       clientIdentifier: body.clientIdentifier || "",
       sourcePage: body.sourcePage || "/",
@@ -49,6 +52,7 @@ export async function POST(req: NextRequest) {
       userAgent,
       notes: body.notes || "",
     });
+
 
     return NextResponse.json({
       success: true,

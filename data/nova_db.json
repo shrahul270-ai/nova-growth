@@ -22,12 +22,15 @@
       "collection": "interactions",
       "action": "whatsapp",
       "title": "Direct WhatsApp Clicked",
+      "name": "WhatsApp Visitor",
+      "phone": "+91 96949 53370",
       "details": "+91 96949 53370",
       "status": "new",
       "createdAt": "2026-10-15T15:27:46.068Z",
       "updatedAt": "2026-10-15T15:27:46.068Z",
       "isDeleted": false
     }
+
   ],
   "audits": [],
   "payments": [],
