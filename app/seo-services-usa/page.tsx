@@ -39,7 +39,21 @@ export default function SeoServicesUsaPage() {
       <Navbar activePage="services" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+        {/* Top Back Navigation */}
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-[#d97706] transition-colors group bg-white border border-gray-200 px-3.5 py-1.5 rounded-full shadow-2xs"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform font-black">←</span>
+            <span>Back to Home</span>
+          </Link>
+          <div className="text-[11px] text-gray-400">
+            <Link href="/" className="hover:underline">Home</Link> / <Link href="/services" className="hover:underline">Services</Link> / <span className="text-[#091427] font-semibold">SEO Services USA</span>
+          </div>
+        </div>
+
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span>🇺🇸 Specialized for United States Businesses</span>
         </div>
