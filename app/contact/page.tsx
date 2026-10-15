@@ -177,14 +177,16 @@ export default function ContactPage() {
                 </div>
                 <div className="flex gap-1.5">
                   <a
-                    href={`mailto:${agencyEmail}`}
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("New Agency Inquiry - Nova Growth")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => trackInteraction({
                       action: "email",
-                      title: "Direct Email Clicked",
+                      title: "Direct Gmail Clicked",
                       details: agencyEmail,
                       sourcePage: "/contact",
                     })}
-                    className="px-2.5 py-1 bg-[#091427] hover:bg-[#0f213d] text-white rounded-lg text-[10px] font-bold transition-colors"
+                    className="px-2.5 py-1 bg-[#091427] hover:bg-[#0f213d] text-white rounded-lg text-[10px] font-bold transition-colors cursor-pointer"
                   >
                     Send Mail ✉️
                   </a>
@@ -245,7 +247,8 @@ export default function ContactPage() {
                   <p className="text-sm text-[#64748b] max-w-md mx-auto mt-2 mb-6">
                     Thank you, {formData.name || "there"}. Our lead growth strategist is reviewing your requirements and will reach out to <span className="font-semibold text-[#091427]">{formData.email}</span> within 12 hours.
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-6">
+                  <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-4">
+                    {/* 1. WhatsApp Button */}
                     <a
                       href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20just%20submitted%20a%20project%20inquiry.%20Name:%20${encodeURIComponent(formData.name)},%20Email:%20${encodeURIComponent(formData.email)},%20Service:%20${encodeURIComponent(formData.service)},%20Budget:%20${encodeURIComponent(formData.budget)}`}
                       target="_blank"
@@ -254,12 +257,51 @@ export default function ContactPage() {
                     >
                       <span>Send to WhatsApp 💬</span>
                     </a>
+
+                    {/* 2. Direct Gmail Web (Opens in new tab guaranteed) */}
                     <a
-                      href={`mailto:${agencyEmail}?subject=New%20Inquiry%20from%20${encodeURIComponent(formData.name)}&body=Name:%20${encodeURIComponent(formData.name)}%0AEmail:%20${encodeURIComponent(formData.email)}%0AService:%20${encodeURIComponent(formData.service)}%0ABudget:%20${encodeURIComponent(formData.budget)}%0AMessage:%20${encodeURIComponent(formData.message)}`}
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Nova Growth Team,\n\nI have submitted an inquiry on your website:\n\nName: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\nPhone: ${formData.phone || "N/A"}\nWebsite: ${formData.website || "N/A"}\nService: ${formData.service || "N/A"}\nBudget: ${formData.budget || "N/A"}\n\nMessage:\n${formData.message || "Looking forward to your proposal."}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackInteraction({
+                        action: "email",
+                        title: "Inquiry Sent via Gmail Web",
+                        clientIdentifier: formData.email || formData.phone,
+                        details: `Client: ${formData.name} | Service: ${formData.service}`,
+                        sourcePage: "/contact",
+                      })}
                       className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"
                     >
-                      <span>Send to Email ✉️</span>
+                      <span>Send via Gmail ✉️</span>
                     </a>
+
+                    {/* 3. Default Desktop Mail (Outlook / Apple Mail) */}
+                    <a
+                      href={`mailto:${agencyEmail}?subject=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Nova Growth Team,\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nBudget: ${formData.budget}\nMessage: ${formData.message}`)}`}
+                      onClick={() => trackInteraction({
+                        action: "email",
+                        title: "Inquiry Sent via Desktop Mail",
+                        clientIdentifier: formData.email || formData.phone,
+                        details: `Client: ${formData.name}`,
+                        sourcePage: "/contact",
+                      })}
+                      className="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-[#091427] text-xs font-bold px-4 py-2.5 rounded-full border border-gray-300 transition-all cursor-pointer"
+                      title="Open in Outlook / Windows Mail"
+                    >
+                      <span>Desktop Mail 💻</span>
+                    </a>
+                  </div>
+
+                  {/* 4. Direct Email Copy Helper */}
+                  <div className="flex items-center justify-center gap-2 text-xs text-gray-500 mb-6">
+                    <span>Direct Agency Email: <strong className="text-[#091427] font-bold">{agencyEmail}</strong></span>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(agencyEmail, 'Email')}
+                      className="px-2 py-0.5 rounded bg-amber-100 hover:bg-amber-200 text-[#091427] font-bold text-[11px] transition-colors cursor-pointer"
+                    >
+                      {copiedItem === 'Email' ? '✓ Copied!' : 'Copy 📋'}
+                    </button>
                   </div>
                   <button
                     onClick={() => setFormState("idle")}

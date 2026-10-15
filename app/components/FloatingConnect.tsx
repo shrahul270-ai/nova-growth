@@ -168,7 +168,9 @@ export default function FloatingConnect() {
 
               {/* 3. Direct Email */}
               <a
-                href={`mailto:${agencyEmail}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("Direct Agency Inquiry - Nova Growth")}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => {
                   trackInteraction({
                     action: "email",
@@ -176,7 +178,7 @@ export default function FloatingConnect() {
                     details: agencyEmail,
                   });
                 }}
-                className="group flex items-center justify-between p-3 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-blue-400"
+                className="group flex items-center justify-between p-3 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/50 transition-all text-xs font-semibold text-blue-400 cursor-pointer"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-xl group-hover:scale-110 transition-transform">✉️</span>

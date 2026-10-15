@@ -1,7 +1,73 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-15T15:27:46.053Z",
+  "lastUpdated": "2026-10-15T17:09:54.682Z",
   "leads": [
+    {
+      "type": "whatsapp_click",
+      "name": "Dimple Dimple",
+      "email": "dd965220@gmail.com",
+      "phone": "8000417058",
+      "website": "",
+      "timezone": "US / Eastern (EST)",
+      "service": "Website Maintenance & Speed",
+      "budget": "",
+      "message": "Client initiated WhatsApp chat regarding Website Maintenance & Speed. Phone: 8000417058",
+      "sourceUrl": "/admin",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "notes": "",
+      "id": "lead_mv9snqex_r44mni",
+      "collection": "leads",
+      "status": "new",
+      "createdAt": "2026-10-15T17:09:54.681Z",
+      "updatedAt": "2026-10-15T17:09:54.681Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": "lead_dimple_02",
+      "collection": "leads",
+      "type": "contact_form",
+      "name": "Dimple Dimple",
+      "email": "dd965220@gmail.com",
+      "phone": "+91 96949 53370",
+      "website": "https://barl.co.uk/",
+      "timezone": "Australia / Sydney (AEST)",
+      "service": "Website Development (Next.js)",
+      "budget": "One-Time Web Dev ($3,000+)",
+      "message": "hello i am dimple i want a website to build and run my new business cn you send me details thanks you",
+      "sourceUrl": "/contact",
+      "clientIp": "127.0.0.1",
+      "userAgent": "Mozilla/5.0",
+      "notes": "Direct client inquiry via Contact Form",
+      "status": "new",
+      "createdAt": "2026-10-15T16:54:00.000Z",
+      "updatedAt": "2026-10-15T16:54:00.000Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
+      "id": "lead_dimple_01",
+      "collection": "leads",
+      "type": "contact_form",
+      "name": "Dimple Dimple",
+      "email": "dd965220@gmail.com",
+      "phone": "+91 96949 53370",
+      "website": "https://www.refreshrenovations.co.uk/",
+      "timezone": "US / Eastern (EST)",
+      "service": "Website Development (Next.js)",
+      "budget": "One-Time Web Dev ($3,000+)",
+      "message": "hello i am dimple i want to make a website with fully backend can you give your web developmnt detaiils",
+      "sourceUrl": "/contact",
+      "clientIp": "127.0.0.1",
+      "userAgent": "Mozilla/5.0",
+      "notes": "Initial inquiry submitted during day",
+      "status": "new",
+      "createdAt": "2026-10-15T14:30:00.000Z",
+      "updatedAt": "2026-10-15T14:30:00.000Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
     {
       "id": "lead_test_01",
       "collection": "leads",
@@ -30,11 +96,26 @@
       "updatedAt": "2026-10-15T15:27:46.068Z",
       "isDeleted": false
     }
-
   ],
   "audits": [],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mv9snqex_no0dxf",
+      "timestamp": "2026-10-15T17:09:54.681Z",
+      "action": "create",
+      "collection": "leads",
+      "recordId": "lead_mv9snqex_r44mni",
+      "summary": "New inquiry received from Dimple Dimple"
+    },
+    {
+      "id": "log_mv9sbp6m_y4vorp",
+      "timestamp": "2026-10-15T17:00:33.214Z",
+      "action": "create",
+      "collection": "leads",
+      "recordId": "lead_mv9sbp6m_5c4c8f",
+      "summary": "New inquiry received from Dimple Dimple"
+    },
     {
       "id": "log_test_01",
       "timestamp": "2026-10-15T15:27:46.068Z",
