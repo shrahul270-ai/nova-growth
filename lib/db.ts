@@ -1,5 +1,47 @@
 import fs from "fs";
 import path from "path";
+import { supabase, isSupabaseConfigured } from "./supabase";
+
+// Supabase background sync helpers
+async function pushToSupabase(collection: string, record: any) {
+  if (!isSupabaseConfigured || !supabase) return;
+  try {
+    const { error } = await supabase.from(collection).upsert(record);
+    if (error) console.error(`[Supabase Error] Push to ${collection}:`, error.message);
+  } catch (err) {
+    console.error(`[Supabase Exception] ${collection}:`, err);
+  }
+}
+
+async function updateInSupabase(collection: string, id: string, updates: Record<string, unknown>) {
+  if (!isSupabaseConfigured || !supabase) return;
+  try {
+    const { error } = await supabase.from(collection).update(updates).eq("id", id);
+    if (error) console.error(`[Supabase Error] Update in ${collection}:`, error.message);
+  } catch (err) {
+    console.error(`[Supabase Exception] ${collection}:`, err);
+  }
+}
+
+async function deleteFromSupabase(collection: string, id: string) {
+  if (!isSupabaseConfigured || !supabase) return;
+  try {
+    const { error } = await supabase.from(collection).delete().eq("id", id);
+    if (error) console.error(`[Supabase Error] Delete from ${collection}:`, error.message);
+  } catch (err) {
+    console.error(`[Supabase Exception] ${collection}:`, err);
+  }
+}
+
+async function logToSupabase(log: ActivityLog) {
+  if (!isSupabaseConfigured || !supabase) return;
+  try {
+    const { error } = await supabase.from("activity_logs").insert(log);
+    if (error) console.error("[Supabase Error] Activity log:", error.message);
+  } catch (err) {
+    console.error("[Supabase Exception] Activity log:", err);
+  }
+}
 
 // Types for all database records
 export type RecordType = 
@@ -223,6 +265,7 @@ export function logActivity(
   if (db.activityLogs.length > 1000) {
     db.activityLogs = db.activityLogs.slice(0, 1000);
   }
+  logToSupabase(log);
 }
 
 // ==========================================
@@ -257,6 +300,7 @@ export function createLead(
     `New inquiry received from ${record.name || record.email || "Unknown"}`
   );
   writeDatabase(db);
+  pushToSupabase("leads", record);
   return record;
 }
 
@@ -310,6 +354,7 @@ export function createInteraction(
     `Client interaction recorded: ${record.title} (${record.action})`
   );
   writeDatabase(db);
+  pushToSupabase("interactions", record);
   return record;
 }
 
@@ -340,6 +385,7 @@ export function createOrUpdateAudit(
         `Audit record updated for ${input.domain}`
       );
       writeDatabase(db);
+      pushToSupabase("audits", db.audits[existingIndex]);
       return db.audits[existingIndex];
     }
   }
@@ -364,6 +410,7 @@ export function createOrUpdateAudit(
     `SEO Audit performed for domain ${record.domain}`
   );
   writeDatabase(db);
+  pushToSupabase("audits", record);
   return record;
 }
 
@@ -395,6 +442,7 @@ export function createPayment(
     `Payment checkout recorded: ${record.currency} ${record.amount} by ${record.clientName || record.clientEmail}`
   );
   writeDatabase(db);
+  pushToSupabase("payments", record);
   return record;
 }
 
@@ -426,6 +474,7 @@ export function updateRecord(
     updates
   );
   writeDatabase(db);
+  updateInSupabase(collection, id, updates);
   return list[idx];
 }
 
@@ -451,7 +500,13 @@ export function softDeleteRecord(
     id,
     `Record ${id} moved to Trash (Soft Deleted)`
   );
-  return writeDatabase(db);
+  const ok = writeDatabase(db);
+  updateInSupabase(collection, id, {
+    isDeleted: true,
+    deletedAt: list[idx].deletedAt,
+    updatedAt: list[idx].updatedAt,
+  });
+  return ok;
 }
 
 // 7. Restore from Trash (Recovers deleted data!)
@@ -476,7 +531,13 @@ export function restoreRecord(
     id,
     `Record ${id} restored from Trash back to Active`
   );
-  return writeDatabase(db);
+  const ok = writeDatabase(db);
+  updateInSupabase(collection, id, {
+    isDeleted: false,
+    deletedAt: null,
+    updatedAt: list[idx].updatedAt,
+  });
+  return ok;
 }
 
 // 8. Permanent Delete (Purge from database only if user explicitly wants)
@@ -499,7 +560,101 @@ export function permanentDeleteRecord(
     id,
     `Record ${id} permanently deleted from ${collection}`
   );
-  return writeDatabase(db);
+  const ok = writeDatabase(db);
+  deleteFromSupabase(collection, id);
+  return ok;
+}
+
+// Global throttle for Supabase sync
+let lastSupabaseFetchTime = 0;
+
+export async function ensureSupabaseSync(force: boolean = false): Promise<void> {
+  if (!isSupabaseConfigured || !supabase) return;
+  const now = Date.now();
+  if (!force && now - lastSupabaseFetchTime < 10000) return;
+  lastSupabaseFetchTime = now;
+
+  try {
+    const [leadsRes, intRes, audRes, payRes] = await Promise.all([
+      supabase.from("leads").select("*"),
+      supabase.from("interactions").select("*"),
+      supabase.from("audits").select("*"),
+      supabase.from("payments").select("*"),
+    ]);
+
+    const db = readDatabase();
+    let changed = false;
+
+    if (leadsRes.data && Array.isArray(leadsRes.data)) {
+      const existingMap = new Map(db.leads.map((l) => [l.id, l]));
+      for (const item of leadsRes.data as LeadRecord[]) {
+        if (!existingMap.has(item.id)) {
+          db.leads.push(item);
+          changed = true;
+        } else {
+          const existing = existingMap.get(item.id)!;
+          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
+            Object.assign(existing, item);
+            changed = true;
+          }
+        }
+      }
+    }
+
+    if (intRes.data && Array.isArray(intRes.data)) {
+      const existingMap = new Map(db.interactions.map((i) => [i.id, i]));
+      for (const item of intRes.data as InteractionRecord[]) {
+        if (!existingMap.has(item.id)) {
+          db.interactions.push(item);
+          changed = true;
+        } else {
+          const existing = existingMap.get(item.id)!;
+          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
+            Object.assign(existing, item);
+            changed = true;
+          }
+        }
+      }
+    }
+
+    if (audRes.data && Array.isArray(audRes.data)) {
+      const existingMap = new Map(db.audits.map((a) => [a.id, a]));
+      for (const item of audRes.data as AuditRecord[]) {
+        if (!existingMap.has(item.id)) {
+          db.audits.push(item);
+          changed = true;
+        } else {
+          const existing = existingMap.get(item.id)!;
+          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
+            Object.assign(existing, item);
+            changed = true;
+          }
+        }
+      }
+    }
+
+    if (payRes.data && Array.isArray(payRes.data)) {
+      const existingMap = new Map(db.payments.map((p) => [p.id, p]));
+      for (const item of payRes.data as PaymentRecord[]) {
+        if (!existingMap.has(item.id)) {
+          db.payments.push(item);
+          changed = true;
+        } else {
+          const existing = existingMap.get(item.id)!;
+          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
+            Object.assign(existing, item);
+            changed = true;
+          }
+        }
+      }
+    }
+
+    if (changed) {
+      writeDatabase(db);
+    }
+  } catch (err) {
+    console.warn("Supabase sync warning:", err);
+  }
 }
 
 // 9. Query & Filter Records (From Newest to Oldest or Oldest to Newest)

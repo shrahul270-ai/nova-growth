@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createInteraction, queryRecords, softDeleteRecord, permanentDeleteRecord, updateRecord, RecordStatus } from "@/lib/db";
+import { createInteraction, queryRecords, softDeleteRecord, permanentDeleteRecord, updateRecord, RecordStatus, ensureSupabaseSync } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const sortOrder = (searchParams.get("sortOrder") as "desc" | "asc") || "desc";

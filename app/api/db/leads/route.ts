@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createLead, queryRecords, updateRecord, softDeleteRecord, permanentDeleteRecord, RecordStatus } from "@/lib/db";
+import { createLead, queryRecords, updateRecord, softDeleteRecord, permanentDeleteRecord, RecordStatus, ensureSupabaseSync } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const status = searchParams.get("status") || "all";

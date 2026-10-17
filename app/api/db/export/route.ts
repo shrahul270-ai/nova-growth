@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readDatabase } from "@/lib/db";
+import { readDatabase, ensureSupabaseSync } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const format = searchParams.get("format") || "json";
     const collection = searchParams.get("collection") || "all";

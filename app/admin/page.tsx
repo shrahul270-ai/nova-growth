@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import ClientProfileView from "./ClientProfileView";
 
 interface BaseItem {
   id: string;
@@ -48,7 +49,8 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Database View State
-  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "trash" | "logs">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "trash" | "logs">("all");
+  const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
@@ -167,7 +169,7 @@ export default function AdminDatabasePage() {
         return;
       }
 
-      if (activeTab === "all") {
+      if (activeTab === "all" || activeTab === "client_profile") {
         const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
@@ -501,6 +503,18 @@ export default function AdminDatabasePage() {
               <span>JSON Backup</span>
             </a>
 
+            {/* Supabase Cloud DB Link */}
+            <a
+              href="https://supabase.com/dashboard/project/kcabtdbzqczvzbzkdyjd/editor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-white border border-emerald-700/80 font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/10 cursor-pointer"
+              title="Open Supabase Cloud Database Table Editor"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Supabase Cloud DB ↗</span>
+            </a>
+
             {/* Logout Button */}
             <button
               onClick={handleLogout}
@@ -615,6 +629,18 @@ export default function AdminDatabasePage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("client_profile")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "client_profile"
+                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
+                  : "bg-amber-950/40 text-amber-300 hover:text-white border border-amber-800/60"
+              }`}
+            >
+              <span>👤</span>
+              <span>Client 360° Dossier</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("trash")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === "trash"
@@ -661,7 +687,7 @@ export default function AdminDatabasePage() {
             </button>
 
             {/* Status Filter */}
-            {activeTab !== "trash" && activeTab !== "logs" && (
+            {activeTab !== "trash" && activeTab !== "logs" && activeTab !== "client_profile" && (
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
@@ -679,7 +705,15 @@ export default function AdminDatabasePage() {
         </div>
 
         {/* MAIN DATA TABLE VIEW */}
-        {activeTab === "logs" ? (
+        {activeTab === "client_profile" ? (
+          <ClientProfileView
+            records={records}
+            initialQuery={selectedClientForProfile}
+            formatDate={formatDate}
+            copyToClipboard={copyToClipboard}
+            onRefreshData={loadRecords}
+          />
+        ) : activeTab === "logs" ? (
           /* AUDIT TRAIL LOGS VIEW */
           <div className="bg-[#0b1220] rounded-2xl border border-gray-800 p-6">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -879,6 +913,24 @@ export default function AdminDatabasePage() {
                                   <span>🌐</span>
                                   <span>{item.website}</span>
                                 </a>
+                              </div>
+                            )}
+
+                            {/* Quick Client 360° Jump */}
+                            {(item.email || phoneCandidate || item.name) && (
+                              <div className="mt-2">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedClientForProfile(item.email || phoneCandidate || item.name || "");
+                                    setActiveTab("client_profile");
+                                  }}
+                                  className="px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+                                  title="Open full 360° Dossier for this client"
+                                >
+                                  <span>👤</span>
+                                  <span>Client 360° Dossier</span>
+                                </button>
                               </div>
                             )}
                           </td>
