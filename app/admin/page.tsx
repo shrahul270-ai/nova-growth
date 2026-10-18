@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import ClientProfileView from "./ClientProfileView";
+import AnalyticsDashboardView from "./AnalyticsDashboardView";
 
 interface BaseItem {
   id: string;
@@ -49,7 +50,7 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Database View State
-  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "trash" | "logs">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "analytics" | "trash" | "logs">("all");
   const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -641,6 +642,18 @@ export default function AdminDatabasePage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("analytics")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "analytics"
+                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
+                  : "bg-blue-950/40 text-blue-300 hover:text-white border border-blue-800/60"
+              }`}
+            >
+              <span>📊</span>
+              <span>Data Analytics</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("trash")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 activeTab === "trash"
@@ -713,6 +726,8 @@ export default function AdminDatabasePage() {
             copyToClipboard={copyToClipboard}
             onRefreshData={loadRecords}
           />
+        ) : activeTab === "analytics" ? (
+          <AnalyticsDashboardView stats={stats} />
         ) : activeTab === "logs" ? (
           /* AUDIT TRAIL LOGS VIEW */
           <div className="bg-[#0b1220] rounded-2xl border border-gray-800 p-6">

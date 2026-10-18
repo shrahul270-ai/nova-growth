@@ -9,8 +9,18 @@ export interface TrackInteractionInput {
   targetUrl?: string;
 }
 
+import { trackAnalyticsEvent } from "./analytics";
+
 export function trackInteraction(input: TrackInteractionInput): void {
   try {
+    // 1. Send event to Google Analytics 4
+    trackAnalyticsEvent(
+      `${input.action}_click`,
+      "conversion",
+      input.title || input.details || input.action
+    );
+
+    // 2. Persist to internal database
     const payload = {
       type: `${input.action}_click`,
       action: input.action,
