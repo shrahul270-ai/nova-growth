@@ -234,6 +234,20 @@ export default function Footer() {
                   <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">↗</span>
                 </a>
               </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(new Event("open-cookie-settings"));
+                    }
+                  }}
+                  className="hover:text-[#2563eb] transition-colors text-left cursor-pointer flex items-center gap-1.5"
+                >
+                  <span>Cookie Preferences</span>
+                  <span className="text-[11px] text-amber-500">🍪</span>
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -419,9 +433,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright notice */}
-        <div className="mt-6 text-center text-xs text-gray-400">
-          &copy; 2026 Nova Growth. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
+        {/* Copyright notice & Privacy / Cookies */}
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-100 pt-4">
+          <span>&copy; 2026 Nova Growth. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.</span>
+          <div className="flex items-center gap-3 text-[11px]">
+            <Link href="/about" className="hover:text-gray-600 transition-colors">
+              Privacy &amp; Terms
+            </Link>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new Event("open-cookie-settings"));
+                }
+              }}
+              className="hover:text-blue-600 transition-colors cursor-pointer font-medium"
+            >
+              🍪 Cookie Settings
+            </button>
+          </div>
         </div>
       </div>
     </footer>

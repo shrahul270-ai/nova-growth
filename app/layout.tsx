@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import FloatingConnect from "./components/FloatingConnect";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import CookieConsent from "./components/CookieConsent";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nova-growth-six.vercel.app"),
@@ -81,6 +82,8 @@ export default function RootLayout({
         {children}
         {/* Sabhi pages par 3D animated connect popup */}
         <FloatingConnect />
+        {/* GDPR/CCPA Compliant Cookie Consent Banner */}
+        <CookieConsent />
       </body>
     </html>
   );
