@@ -1,32 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import GuestPostMarketplace from "../components/GuestPostMarketplace";
 
 export default function GuestPostingPage() {
-  const [selectedNiche, setSelectedNiche] = useState("All");
-
-  const niches = ["All", "SaaS & Tech", "Finance & Crypto", "E-Commerce", "Health & Wellness", "B2B Marketing"];
-
-  const inventorySamples = [
-    { name: "TechBeacon / Venture Pulse", dr: 82, traffic: "320k/mo", niche: "SaaS & Tech", tat: "3 Days" },
-    { name: "Finance Wire Global", dr: 78, traffic: "180k/mo", niche: "Finance & Crypto", tat: "4 Days" },
-    { name: "Retail Insider Journal", dr: 74, traffic: "240k/mo", niche: "E-Commerce", tat: "2 Days" },
-    { name: "SaaS Growth Chronicle", dr: 86, traffic: "510k/mo", niche: "SaaS & Tech", tat: "5 Days" },
-    { name: "HealthTech Daily", dr: 71, traffic: "95k/mo", niche: "Health & Wellness", tat: "3 Days" },
-    { name: "B2B Strategy Quarterly", dr: 80, traffic: "210k/mo", niche: "B2B Marketing", tat: "4 Days" },
-  ];
-
-  const filteredInventory = selectedNiche === "All" 
-    ? inventorySamples 
-    : inventorySamples.filter(item => item.niche === selectedNiche);
-
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
 
-      {/* Hero Section */}
+      {/* 1. Hero Section */}
       <section className="relative pt-20 pb-16 px-6 md:px-12 max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-6 badge-3d">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
@@ -63,56 +47,8 @@ export default function GuestPostingPage() {
         </div>
       </section>
 
-      {/* Live Sample Inventory Section */}
-      <section className="py-16 px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold">Sample Outreach Inventory</h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-2">Filter publication niches to preview domain quality</p>
-
-          {/* Filter Pills */}
-          <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {niches.map((niche) => (
-              <button
-                key={niche}
-                onClick={() => setSelectedNiche(niche)}
-                className={`px-4 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  selectedNiche === niche
-                    ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                    : "bg-[#0b1220] text-gray-400 hover:text-white border border-gray-800"
-                }`}
-              >
-                {niche}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Inventory Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredInventory.map((item, idx) => (
-            <div key={idx} className="p-6 rounded-2xl bg-[#0b1220] border border-gray-800 hover:border-amber-500/40 transition-all flex flex-col justify-between card-3d">
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">{item.niche}</span>
-                  <span className="text-[10px] text-gray-500">TAT: {item.tat}</span>
-                </div>
-                <h3 className="text-base font-bold text-white mb-4">{item.name}</h3>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 pt-4 border-t border-gray-800/80 text-xs">
-                <div>
-                  <span className="text-gray-500 block text-[10px]">Ahrefs DR:</span>
-                  <span className="font-bold text-emerald-400 text-sm">{item.dr}+</span>
-                </div>
-                <div>
-                  <span className="text-gray-500 block text-[10px]">Organic Traffic:</span>
-                  <span className="font-bold text-white text-sm">{item.traffic}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 2. Advanced 40,000+ Publisher Inventory & Filtering Marketplace Section */}
+      <GuestPostMarketplace />
 
       {/* Packages / Pricing Tier */}
       <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
