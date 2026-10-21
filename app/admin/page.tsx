@@ -487,12 +487,13 @@ export default function AdminDatabasePage() {
             </button>
 
             <a
-              href={`/api/db/export?format=csv&collection=${activeTab === "trash" || activeTab === "logs" ? "all" : activeTab}`}
+              href={`/api/db/export?format=excel&collection=${activeTab === "trash" || activeTab === "logs" ? "all" : activeTab}`}
               download
               className="bg-gray-800 hover:bg-gray-700 text-white font-bold px-3.5 py-2 rounded-xl border border-gray-700 transition-colors flex items-center gap-1.5 cursor-pointer"
+              title="Export database records to Excel (CSV format)"
             >
-              <span>📥</span>
-              <span>Export CSV</span>
+              <span>📊</span>
+              <span>Export Excel</span>
             </a>
 
             <a

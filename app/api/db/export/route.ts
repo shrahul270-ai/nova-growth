@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readDatabase, ensureSupabaseSync } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   try {
     await ensureSupabaseSync();
@@ -10,14 +12,14 @@ export async function GET(req: NextRequest) {
 
     const db = readDatabase();
 
-    if (format === "csv") {
+    if (format === "csv" || format === "excel") {
       let records: any[] = [];
       if (collection === "leads" || collection === "all") records.push(...db.leads);
       if (collection === "interactions" || collection === "all") records.push(...db.interactions);
       if (collection === "audits" || collection === "all") records.push(...db.audits);
       if (collection === "payments" || collection === "all") records.push(...db.payments);
 
-      // Convert to flat CSV
+      // Convert to flat CSV/Excel-compatible format
       const headers = ["ID", "Collection", "Type", "Status", "IsDeleted", "Created At", "Name/Title/Domain", "Email/Details", "Amount/Score"];
       const rows = records.map((r) => {
         const id = r.id || "";
@@ -43,7 +45,8 @@ export async function GET(req: NextRequest) {
         ].join(",");
       });
 
-      const csvContent = [headers.join(","), ...rows].join("\n");
+      // Add UTF-8 BOM so Microsoft Excel correctly displays all characters & symbols
+      const csvContent = "\uFEFF" + [headers.join(","), ...rows].join("\n");
 
       return new NextResponse(csvContent, {
         headers: {
