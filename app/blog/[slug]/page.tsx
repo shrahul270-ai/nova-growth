@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <Navbar activePage="blog" />
 
       {/* Main Article Container */}
-      <main className="relative pt-12 pb-24 px-6 md:px-12 z-10 max-w-5xl mx-auto">
+      <main className="relative pt-8 pb-16 sm:pt-12 sm:pb-24 px-4 sm:px-6 md:px-12 z-10 max-w-5xl mx-auto">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-[#64748b] mb-8 font-medium">
           <Link href="/" className="hover:text-[#091427] transition-colors">Home</Link>
@@ -140,7 +140,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </header>
 
         {/* Article Body Sections */}
-        <article className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-100 shadow-sm card-3d text-left mb-12">
+        <article className="bg-white rounded-3xl p-5 sm:p-8 md:p-12 border border-gray-100 shadow-sm card-3d text-left mb-12">
           <div className="space-y-10 text-[#334155] leading-relaxed">
             {post.sections.map((section, idx) => (
               <section key={idx} className="space-y-4">

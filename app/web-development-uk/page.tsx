@@ -38,21 +38,21 @@ export default function WebDevelopmentUkPage() {
       <Navbar activePage="services" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span>🇬🇧 Tailored for UK Businesses &amp; Scaleups</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Bespoke Next.js &amp; E-Commerce <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Bespoke Next.js &amp; E-Commerce <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">Web Development UK</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           We craft lightning-fast web applications and e-commerce stores designed to convert British consumers. Built with Next.js, TypeScript, and modern headless architectures.
         </p>
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all"
+            className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all w-full sm:w-auto"
           >
             <span>Discuss Your UK Project (GMT Hours)</span>
             <span>→</span>
@@ -61,7 +61,7 @@ export default function WebDevelopmentUkPage() {
       </section>
 
       {/* UK Benefits Grid */}
-      <section className="py-12 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="py-10 sm:py-12 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover">
             <span className="text-3xl mb-3 block">⚡</span>

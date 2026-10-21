@@ -39,7 +39,7 @@ export default function SeoServicesUsaPage() {
       <Navbar activePage="services" />
 
       {/* Hero Header */}
-      <section className="relative pt-10 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         {/* Top Back Navigation */}
         <div className="flex items-center justify-between mb-6">
           <Link
@@ -57,17 +57,17 @@ export default function SeoServicesUsaPage() {
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span>🇺🇸 Specialized for United States Businesses</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          High-Intent SEO Services for <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          High-Intent SEO Services for <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">US Brands &amp; Startups</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           Tired of paying $10,000/mo to bloated US agencies with zero organic pipeline? We deliver high-velocity technical SEO, commercial keyword clustering, and editorial backlinks tailored for the American market.
         </p>
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all"
+            className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all w-full sm:w-auto"
           >
             <span>Book US Strategy Call (EST / PST)</span>
             <span>→</span>
@@ -76,7 +76,7 @@ export default function SeoServicesUsaPage() {
       </section>
 
       {/* Instant Audit Widget section */}
-      <section className="px-6 md:px-12 py-6 max-w-7xl mx-auto">
+      <section className="px-4 sm:px-6 md:px-12 py-6 max-w-7xl mx-auto">
         <SeoAuditWidget />
       </section>
 

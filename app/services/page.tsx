@@ -225,36 +225,36 @@ export default function ServicesPage() {
       <Navbar activePage="services" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-16 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#d97706]" />
           <span>Full-Funnel Growth Services</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Digital Solutions Designed for <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Digital Solutions Designed for <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">Measurable Growth</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           From high-ranking international SEO and fast Next.js development to high-converting content and ethical link building, we offer end-to-end services built for overseas scaling.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-4">
           <Link
             href="/contact"
-            className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
+            className="btn-3d inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
           >
             <span>Request Custom Proposal</span>
             <span>→</span>
           </Link>
           <Link
             href="/guest-posting"
-            className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
+            className="btn-gold-3d inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs sm:text-sm font-bold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
           >
-            <span>Guest Posting Inventory (DR 50-90+)</span>
+            <span>Guest Posting (DR 50-90+)</span>
             <span>⚡</span>
           </Link>
           <Link
             href="/pay"
-            className="inline-flex items-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-xs sm:text-sm font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
           >
             <span>Payment Portal</span>
             <span className="text-[#d97706]">💳</span>
@@ -263,8 +263,8 @@ export default function ServicesPage() {
       </section>
 
       {/* Detailed Services Grid */}
-      <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {serviceList.map((service) => (
             <div
               key={service.id}
@@ -272,7 +272,7 @@ export default function ServicesPage() {
                 setActiveModalService(service);
                 showToast(`📋 Opened scope overview for ${service.title}`);
               }}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs card-3d flex flex-col justify-between cursor-pointer group"
+              className="bg-white rounded-3xl p-5 sm:p-8 border border-gray-100 shadow-xs card-3d flex flex-col justify-between cursor-pointer group"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
@@ -323,9 +323,9 @@ export default function ServicesPage() {
       </section>
 
       {/* Pricing Packages in USD */}
-      <section className="relative py-20 px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
+      <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
             <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
               Transparent Global Pricing
             </span>
@@ -337,7 +337,7 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {packages.map((pkg, idx) => (
               <div
                 key={idx}

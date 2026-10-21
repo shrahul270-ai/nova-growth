@@ -83,7 +83,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <Navbar activePage="projects" />
 
       {/* Breadcrumb Navigation */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-10">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-8 sm:pt-10">
         <nav className="flex items-center gap-2 text-xs font-semibold text-gray-500">
           <Link href="/" className="hover:text-[#091427] transition-colors">
             Home
@@ -98,7 +98,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </div>
 
       {/* Case Study Hero */}
-      <article className="relative z-10 max-w-5xl mx-auto px-6 pt-8 pb-16">
+      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
         
         {/* Badges Bar */}
         <div className="flex flex-wrap items-center gap-3 mb-6">

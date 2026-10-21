@@ -223,7 +223,7 @@ export default function SeoAuditWidget() {
               placeholder="e.g. yourcompany.com or https://example.com"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all bg-white"
+              className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all bg-white"
             />
           </div>
           <button
@@ -315,7 +315,7 @@ export default function SeoAuditWidget() {
           {/* Domain Title Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-gray-100 gap-3">
             <div>
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                   Live Audit Verified
                 </span>
@@ -512,7 +512,7 @@ export default function SeoAuditWidget() {
                     Live Google Search Result Preview
                   </span>
                   <div className="bg-[#f8f9fa] p-3.5 rounded-xl border border-gray-100 max-w-xl">
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
                       <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center text-[9px] font-bold text-blue-600">
                         G
                       </div>

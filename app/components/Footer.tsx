@@ -37,18 +37,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#ffffff] text-[#334155] border-t border-gray-200/90 font-sans z-10">
-      {/* Floating Free AI Audit Right Tab (Quick conversion) */}
+    <footer className="relative bg-[#ffffff] text-[#334155] border-t border-gray-200/90 font-sans z-10 overflow-hidden">
+      {/* Floating Free AI Audit Right Tab (Quick conversion on Desktop/Tablet, hidden on mobile to prevent blocking touches) */}
       <Link
         href="/audit"
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-gradient-to-b from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white py-3.5 px-2 rounded-l-xl shadow-2xl flex items-center gap-1.5 transition-all text-xs font-black tracking-wider uppercase [writing-mode:vertical-rl] rotate-180 hover:px-2.5 cursor-pointer border-l border-t border-b border-blue-400/30"
+        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-gradient-to-b from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white py-3.5 px-2 rounded-l-xl shadow-2xl items-center gap-1.5 transition-all text-xs font-black tracking-wider uppercase [writing-mode:vertical-rl] rotate-180 hover:px-2.5 cursor-pointer border-l border-t border-b border-blue-400/30"
         title="Analyze your website speed, ranking & SEO score for free"
       >
         <span className="rotate-90 text-amber-300 text-sm">✦</span>
         <span>FREE AI AUDIT</span>
       </Link>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-14 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-12 sm:pt-14 pb-10">
         {/* Main 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
           

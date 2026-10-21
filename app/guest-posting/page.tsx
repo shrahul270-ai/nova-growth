@@ -11,38 +11,38 @@ export default function GuestPostingPage() {
       <Navbar activePage="guest-posting" />
 
       {/* 1. Hero Section */}
-      <section className="relative pt-20 pb-16 px-6 md:px-12 max-w-7xl mx-auto text-center">
+      <section className="relative pt-10 pb-12 sm:pt-20 sm:pb-16 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-6 badge-3d">
           <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
           Curated White-Hat Editorial Links
         </div>
-        <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-[1.1] mb-6">
-          Authority Guest Posts on <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Authority Guest Posts on <br className="hidden sm:inline" />
           <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">
             Real DR 50–90+ Publications
           </span>
         </h1>
-        <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
           Zero PBNs. Zero spam farms. Pure in-content editorial backlinks that drive topical authority, pass link juice, and survive every Google core update.
         </p>
 
         {/* Feature Pill Highlights */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-          <div className="p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-lg">100%</div>
-            <div className="text-xs text-gray-400">Do-Follow Guaranteed</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto text-left">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+            <div className="text-amber-400 font-bold text-base sm:text-lg">100%</div>
+            <div className="text-[11px] sm:text-xs text-gray-400">Do-Follow Guaranteed</div>
           </div>
-          <div className="p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-lg">DR 50–90+</div>
-            <div className="text-xs text-gray-400">Ahrefs Verified Authority</div>
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+            <div className="text-amber-400 font-bold text-base sm:text-lg">DR 50–90+</div>
+            <div className="text-[11px] sm:text-xs text-gray-400">Ahrefs Verified Authority</div>
           </div>
-          <div className="p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-lg">Real Traffic</div>
-            <div className="text-xs text-gray-400">Minimum 10k+ Monthly Visits</div>
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+            <div className="text-amber-400 font-bold text-base sm:text-lg">Real Traffic</div>
+            <div className="text-[11px] sm:text-xs text-gray-400">Minimum 10k+ Monthly Visits</div>
           </div>
-          <div className="p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-lg">Editorial Native</div>
-            <div className="text-xs text-gray-400">Handwritten by Native Writers</div>
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+            <div className="text-amber-400 font-bold text-base sm:text-lg">Editorial Native</div>
+            <div className="text-[11px] sm:text-xs text-gray-400">Handwritten by Native Writers</div>
           </div>
         </div>
       </section>
@@ -51,7 +51,7 @@ export default function GuestPostingPage() {
       <GuestPostMarketplace />
 
       {/* Packages / Pricing Tier */}
-      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-black">Transparent Link Building Tiers</h2>
           <p className="text-xs sm:text-sm text-gray-400 mt-2">All tiers include professional content drafting, manual outreach, and placement guarantee</p>

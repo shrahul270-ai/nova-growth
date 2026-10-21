@@ -23,6 +23,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 body {
@@ -31,7 +34,35 @@ body {
   color: var(--text-main);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .curved-ribbon-left,
+  .curved-ribbon-right,
+  .curved-ribbon-mid-left,
+  .curved-ribbon-bottom {
+    max-width: 100vw;
+    width: 260px !important;
+    height: 320px !important;
+    opacity: 0.6;
+    overflow: hidden;
+  }
+  .curved-ribbon-left {
+    left: -40px !important;
+  }
+  .curved-ribbon-right {
+    right: -40px !important;
+  }
+  .curved-ribbon-mid-left {
+    left: -40px !important;
+  }
+  .curved-ribbon-bottom {
+    right: -30px !important;
+  }
 }
 
 .handwriting {

@@ -67,56 +67,56 @@ export default function AboutPage() {
       <Navbar activePage="about" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-16 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#d97706]" />
           <span>Our Story &amp; Mission</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Shaping the Future of <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Shaping the Future of <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">Global Digital Growth</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           Nova Growth is a modern digital marketing and engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
         </p>
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl p-8 md:p-14 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-14 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
               Our Purpose
             </span>
-            <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-4 mb-4">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-4 mb-4">
               We help businesses win in the world&apos;s most competitive search markets.
             </h2>
-            <p className="text-sm text-[#475569] leading-relaxed mb-4">
+            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed mb-4">
               Founded on the principle that digital marketing should be measurable, ethical, and high-ROI, Nova Growth combines deep engineering discipline with creative storytelling.
             </p>
-            <p className="text-sm text-[#475569] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
               We partner with forward-thinking founders and marketing teams who demand real business outcomes — qualified pipeline, organic revenue, and long-term brand equity — not vanity impressions.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-amber-50/80 p-6 rounded-2xl border border-amber-200/70 text-center">
-              <span className="text-3xl font-black text-[#091427] block">150+</span>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="bg-amber-50/80 p-4 sm:p-6 rounded-2xl border border-amber-200/70 text-center">
+              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">150+</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Global Clients</span>
               <span className="text-[10px] text-gray-500">Across 10+ countries</span>
             </div>
-            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center">
-              <span className="text-3xl font-black text-[#091427] block">300+</span>
+            <div className="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 text-center">
+              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">300+</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Projects Delivered</span>
               <span className="text-[10px] text-gray-500">On time &amp; on spec</span>
             </div>
-            <div className="bg-blue-50/70 p-6 rounded-2xl border border-blue-200/60 text-center">
-              <span className="text-3xl font-black text-[#1e40af] block">98%</span>
+            <div className="bg-blue-50/70 p-4 sm:p-6 rounded-2xl border border-blue-200/60 text-center">
+              <span className="text-2xl sm:text-3xl font-black text-[#1e40af] block">98%</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Client Retention</span>
               <span className="text-[10px] text-gray-500">Year-over-year</span>
             </div>
-            <div className="bg-amber-50 p-6 rounded-2xl border border-amber-200 text-center">
-              <span className="text-3xl font-black text-[#d97706] block">300%</span>
+            <div className="bg-amber-50 p-4 sm:p-6 rounded-2xl border border-amber-200 text-center">
+              <span className="text-2xl sm:text-3xl font-black text-[#d97706] block">300%</span>
               <span className="text-xs font-bold text-gray-700 mt-1 block">Average Organic ROI</span>
               <span className="text-[10px] text-gray-500">For our partners</span>
             </div>
@@ -125,7 +125,7 @@ export default function AboutPage() {
       </section>
 
       {/* Core Pillars */}
-      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
             Our Core Principles
@@ -154,17 +154,17 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Team */}
-      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
             Leadership
           </span>
-          <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-2">
             Meet the Strategists Behind Nova Growth
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {team.map((member, idx) => (
             <div
               key={idx}
@@ -182,8 +182,8 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-16 px-6 md:px-12 z-10 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
+      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 text-center">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-6 sm:p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
           <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
             Ready to Accelerate Your Brand?
           </h2>

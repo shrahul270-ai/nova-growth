@@ -104,10 +104,10 @@ export default function FloatingConnect() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end select-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end select-none">
       {/* Pop-up Modal */}
       {isOpen && (
-        <div className="mb-4 w-80 sm:w-88 bg-[#091427]/98 backdrop-blur-xl border border-amber-500/40 rounded-3xl p-5 shadow-2xl shadow-black/90 animate-in fade-in slide-in-from-bottom-5 duration-300 text-white">
+        <div className="mb-3 w-[calc(100vw-2rem)] sm:w-88 max-w-sm bg-[#091427]/98 backdrop-blur-xl border border-amber-500/40 rounded-3xl p-4 sm:p-5 shadow-2xl shadow-black/90 animate-in fade-in slide-in-from-bottom-5 duration-300 text-white">
           
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-gray-800">
@@ -207,7 +207,7 @@ export default function FloatingConnect() {
                   placeholder="e.g. Rahul Sharma"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 
@@ -219,7 +219,7 @@ export default function FloatingConnect() {
                   placeholder="+91 98765 43210"
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 
@@ -230,7 +230,7 @@ export default function FloatingConnect() {
                   placeholder="name@gmail.com"
                   value={clientEmail}
                   onChange={(e) => setClientEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 
@@ -239,7 +239,7 @@ export default function FloatingConnect() {
                 <select
                   value={clientTopic}
                   onChange={(e) => setClientTopic(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 >
                   <option value="High-Intent SEO Growth">High-Intent SEO Growth</option>
                   <option value="Next.js Website Development">Next.js Website Development</option>
@@ -287,7 +287,7 @@ export default function FloatingConnect() {
                   placeholder="e.g. Sarah Vance"
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 
@@ -299,7 +299,7 @@ export default function FloatingConnect() {
                   placeholder="sarah@company.com"
                   value={clientEmail}
                   onChange={(e) => setClientEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 
@@ -311,7 +311,7 @@ export default function FloatingConnect() {
                   placeholder="+1 (555) 0192"
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-base sm:text-xs text-white outline-none focus:border-amber-400"
                 />
               </div>
 

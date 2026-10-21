@@ -213,33 +213,33 @@ export default function Home() {
         <Navbar activePage="home" />
 
         {/* 2. HERO SECTION */}
-        <section id="home" className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <section id="home" className="relative pt-6 pb-14 sm:pt-10 sm:pb-20 md:pt-16 md:pb-28 px-4 sm:px-6 md:px-12 z-10">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             
             {/* Hero Left Content */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left">
+            <div className="lg:col-span-7 flex flex-col items-start text-left w-full">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50/90 border border-[#d97706]/40 text-xs font-bold text-[#091427] mb-6 shadow-xs badge-3d">
-                <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                <span>🌍 Premier Growth Agency for US, UK &amp; Global Brands</span>
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-amber-50/90 border border-[#d97706]/40 text-[11px] sm:text-xs font-bold text-[#091427] mb-4 sm:mb-6 shadow-xs badge-3d max-w-full">
+                <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse shrink-0" />
+                <span className="truncate">🌍 Premier Growth Agency for US, UK &amp; Global Brands</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-black tracking-tight text-[#0f172a] leading-[1.08] mb-6">
-                Scale Your Organic Revenue <br />
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[62px] font-black tracking-tight text-[#0f172a] leading-[1.1] mb-5 sm:mb-6">
+                Scale Your Organic Revenue <br className="hidden sm:inline" />
                 <span className="text-gradient-navy-gold">Across Global Markets.</span>
               </h1>
 
               {/* Subheading */}
-              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-8 font-normal">
+              <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-6 sm:mb-8 font-normal">
                 We help overseas founders and marketing teams dominate Google search through high-intent SEO, modern Next.js development, and real DR 50–90+ editorial backlinks that compound pipeline 24/7.
               </p>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 mb-10">
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 w-full sm:w-auto">
                 <button
                   onClick={() => setContactOpen(true)}
-                  className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-sm font-bold px-7 py-3.5 rounded-full transition-all cursor-pointer"
+                  className="btn-3d inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-xs sm:text-sm font-bold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full transition-all cursor-pointer w-full sm:w-auto"
                 >
                   <span>Book Strategy Call (EST / GMT)</span>
                   <svg className="w-4 h-4 text-[#d97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,7 +249,7 @@ export default function Home() {
 
                 <Link
                   href="/guest-posting"
-                  className="btn-gold-3d inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-sm font-bold px-6 py-3.5 rounded-full transition-all cursor-pointer"
+                  className="btn-gold-3d inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs sm:text-sm font-bold px-5 sm:px-6 py-3 sm:py-3.5 rounded-full transition-all cursor-pointer w-full sm:w-auto"
                 >
                   <span>Explore Guest Posts (DR 50+)</span>
                   <span>⚡</span>
@@ -257,32 +257,32 @@ export default function Home() {
 
                 <a
                   href="#services"
-                  className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold text-[#091427] px-5 py-3 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-all shadow-xs"
+                  className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold text-[#091427] px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-all shadow-xs w-full sm:w-auto"
                 >
                   View All Services ↓
                 </a>
               </div>
 
               {/* International Client Footprint Strip */}
-              <div className="w-full max-w-xl p-4 rounded-2xl bg-white/80 border border-gray-200/80 shadow-xs backdrop-blur-sm">
-                <div className="flex items-center justify-between text-xs font-bold text-[#091427] mb-2">
+              <div className="w-full max-w-xl p-3.5 sm:p-4 rounded-2xl bg-white/80 border border-gray-200/80 shadow-xs backdrop-blur-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-bold text-[#091427] mb-2 gap-1">
                   <span>Trusted by Overseas Clients:</span>
-                  <span className="text-[#d97706] font-semibold text-[11px]">Timezone Aligned (EST • GMT)</span>
+                  <span className="text-[#d97706] font-semibold text-[10.5px] sm:text-[11px]">Timezone Aligned (EST • GMT)</span>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-gray-700">
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-semibold text-gray-700">
+                  <span className="px-2 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
                     <span>🇺🇸</span><span>United States</span>
                   </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                  <span className="px-2 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
                     <span>🇬🇧</span><span>United Kingdom</span>
                   </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                  <span className="px-2 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
                     <span>🇨🇦</span><span>Canada</span>
                   </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                  <span className="px-2 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
                     <span>🇦🇺</span><span>Australia</span>
                   </span>
-                  <span className="px-2.5 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
+                  <span className="px-2 py-1 rounded-lg bg-slate-100 border border-gray-200 flex items-center gap-1.5">
                     <span>🇦🇪</span><span>UAE</span>
                   </span>
                 </div>
@@ -290,39 +290,39 @@ export default function Home() {
             </div>
 
             {/* Hero Right Visual: 3D Holographic Growth Hub */}
-            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[420px] sm:min-h-[480px] md:min-h-[540px] perspective-1000 w-full max-w-md mx-auto">
+            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[360px] sm:min-h-[480px] md:min-h-[540px] perspective-1000 w-full max-w-[330px] sm:max-w-md mx-auto my-3 sm:my-0">
               
               {/* Floating 3D Badge 1: US Traffic (Top Left) */}
-              <div className="absolute top-0 left-0 sm:-top-4 sm:left-0 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-2.5 sm:p-3.5 rounded-2xl shadow-xl card-3d animate-float-slow text-left max-w-[155px] sm:max-w-[210px]">
+              <div className="absolute top-0 left-0 sm:-top-4 sm:left-0 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-2 sm:p-3.5 rounded-2xl shadow-xl card-3d animate-float-slow text-left max-w-[130px] sm:max-w-[210px]">
                 <div className="flex items-center justify-between mb-0.5 sm:mb-1">
-                  <span className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase">US Google Traffic</span>
+                  <span className="text-[8.5px] sm:text-[10px] font-bold text-gray-500 uppercase">US Traffic</span>
                   <span className="text-xs">📈</span>
                 </div>
-                <div className="text-base sm:text-xl font-black text-[#0f172a] leading-tight">+340% Lift</div>
-                <div className="text-[9px] sm:text-[10px] text-[#d97706] font-bold mt-0.5">#1 Organic Rank</div>
-                <div className="w-full bg-amber-100 h-1 sm:h-1.5 rounded-full mt-1.5 sm:mt-2 overflow-hidden">
+                <div className="text-sm sm:text-xl font-black text-[#0f172a] leading-tight">+340% Lift</div>
+                <div className="text-[8.5px] sm:text-[10px] text-[#d97706] font-bold mt-0.5">#1 Organic Rank</div>
+                <div className="w-full bg-amber-100 h-1 sm:h-1.5 rounded-full mt-1 sm:mt-2 overflow-hidden">
                   <div className="bg-[#d97706] h-full w-[85%]" />
                 </div>
               </div>
 
               {/* Floating 3D Badge 2: Core Web Vitals (Top Right) */}
-              <div className="absolute top-4 right-0 sm:top-8 sm:right-2 z-30 bg-[#091427] text-white border border-[#d97706]/40 p-2.5 sm:p-3.5 rounded-2xl shadow-xl card-3d animate-float-gentle text-left max-w-[145px] sm:max-w-none">
-                <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[9px] sm:text-[10px] font-bold text-slate-300 uppercase">Core Web Vitals</span>
+              <div className="absolute top-2 right-0 sm:top-8 sm:right-2 z-30 bg-[#091427] text-white border border-[#d97706]/40 p-2 sm:p-3.5 rounded-2xl shadow-xl card-3d animate-float-gentle text-left max-w-[130px] sm:max-w-none">
+                <div className="flex items-center gap-1 sm:gap-2 mb-0.5 sm:mb-1">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <span className="text-[8.5px] sm:text-[10px] font-bold text-slate-300 uppercase">Core Vitals</span>
                 </div>
-                <div className="text-sm sm:text-lg font-black text-white">99/100 Passed</div>
-                <span className="text-[9px] sm:text-[10px] text-emerald-400 font-semibold block mt-0.5">&lt; 0.8s Next.js TTFB</span>
+                <div className="text-xs sm:text-lg font-black text-white">99/100 Passed</div>
+                <span className="text-[8px] sm:text-[10px] text-emerald-400 font-semibold block mt-0.5">&lt; 0.8s Next.js</span>
               </div>
 
               {/* 3D Glassmorphic Crystal Centerpiece */}
-              <div className="relative w-[230px] h-[230px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center animate-float-slow">
+              <div className="relative w-[190px] h-[190px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center animate-float-slow">
                 
                 {/* Iridescent Glow Rings */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#1d4ed8]/20 via-[#d97706]/25 to-[#091427]/20 blur-3xl animate-pulse-glow" />
 
                 {/* Outer Metallic Torus Ring (Brushed Champagne Gold) */}
-                <div className="absolute w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] rounded-full border-[8px] sm:border-[12px] md:border-[14px] border-transparent bg-gradient-to-tr from-[#d97706]/50 via-[#f8fafd] to-[#b45309]/70 shadow-2xl opacity-95 transform rotate-12"
+                <div className="absolute w-[180px] h-[180px] sm:w-[300px] sm:h-[300px] md:w-[350px] md:h-[350px] rounded-full border-[6px] sm:border-[12px] md:border-[14px] border-transparent bg-gradient-to-tr from-[#d97706]/50 via-[#f8fafd] to-[#b45309]/70 shadow-2xl opacity-95 transform rotate-12"
                      style={{
                        backgroundClip: "padding-box",
                        boxShadow: "inset 0 0 25px rgba(254,243,199,0.95), 0 20px 45px rgba(9,20,39,0.2)"
@@ -330,7 +330,7 @@ export default function Home() {
                 />
 
                 {/* Main 3D Sphere Glass Body */}
-                <div className="relative w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#d97706]/40"
+                <div className="relative w-[130px] h-[130px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#d97706]/40"
                      style={{
                        background: "radial-gradient(circle at 35% 30%, rgba(248, 250, 253, 0.95) 0%, rgba(30, 64, 175, 0.75) 35%, rgba(9, 20, 39, 0.95) 80%, rgba(5, 11, 22, 1) 100%)",
                        boxShadow: "inset -15px -15px 40px rgba(5, 11, 22, 0.9), inset 15px 15px 30px rgba(248, 250, 253, 0.8), 0 25px 50px rgba(9, 20, 39, 0.35)"
@@ -341,7 +341,7 @@ export default function Home() {
 
                   {/* Upward Luminous Arrow inside sphere */}
                   <div className="relative z-10 flex flex-col items-center">
-                    <svg className="w-18 h-18 sm:w-24 sm:h-24 md:w-28 md:h-28 text-[#fdfbf7] filter drop-shadow-[0_8px_16px_rgba(217,119,6,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="w-12 h-12 sm:w-24 sm:h-24 md:w-28 md:h-28 text-[#fdfbf7] filter drop-shadow-[0_8px_16px_rgba(217,119,6,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <line x1="7" y1="17" x2="17" y2="7" />
                       <polyline points="7 7 17 7 17 17" />
                     </svg>
@@ -349,13 +349,13 @@ export default function Home() {
                 </div>
 
                 {/* Floating Satellite Glass Spheres */}
-                <div className="absolute -bottom-2 -left-3 sm:-left-6 w-11 h-11 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#d97706]/60 animate-float-gentle"
+                <div className="absolute -bottom-1 -left-1 sm:-left-6 w-8 h-8 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#d97706]/60 animate-float-gentle"
                      style={{
                        background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(245,158,11,0.85) 45%, rgba(180,83,9,0.95) 100%)",
                        boxShadow: "0 10px 25px rgba(217, 119, 6, 0.35)"
                      }}
                 />
-                <div className="absolute top-4 -left-2 sm:-left-4 w-8 h-8 sm:w-11 sm:h-11 rounded-full shadow-md border border-blue-300/40 animate-pulse-glow"
+                <div className="absolute top-2 -left-1 sm:-left-4 w-6 h-6 sm:w-11 sm:h-11 rounded-full shadow-md border border-blue-300/40 animate-pulse-glow"
                      style={{
                        background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(30,64,175,0.8) 50%, rgba(9,20,39,0.95) 100%)",
                        boxShadow: "0 8px 20px rgba(9, 20, 39, 0.3)"
@@ -364,25 +364,25 @@ export default function Home() {
               </div>
 
               {/* Floating 3D Badge 3: DR 86+ Editorial Backlink (Bottom Left) */}
-              <div className="absolute -bottom-3 left-0 sm:-bottom-2 sm:left-2 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-2.5 sm:p-3 rounded-2xl shadow-xl card-3d text-left max-w-[155px] sm:max-w-none">
-                <span className="text-[8.5px] sm:text-[10px] font-bold text-gray-500 uppercase block">Editorial Link Building</span>
-                <span className="text-xs sm:text-sm font-black text-[#091427] block">DR 86+ Verified</span>
-                <span className="text-[8.5px] sm:text-[10px] text-emerald-600 font-bold block">✓ Do-Follow Links</span>
+              <div className="absolute -bottom-2 left-0 sm:-bottom-2 sm:left-2 z-30 bg-white/95 backdrop-blur-md border border-[#d97706]/40 p-2 sm:p-3 rounded-2xl shadow-xl card-3d text-left max-w-[125px] sm:max-w-none">
+                <span className="text-[8px] sm:text-[10px] font-bold text-gray-500 uppercase block">Editorial Links</span>
+                <span className="text-[11px] sm:text-sm font-black text-[#091427] block">DR 86+ Verified</span>
+                <span className="text-[8px] sm:text-[10px] text-emerald-600 font-bold block">✓ Do-Follow</span>
               </div>
 
               {/* Floating 3D Badge 4: Client ROI (Bottom Right) */}
-              <div className="absolute bottom-0 right-0 sm:bottom-4 sm:right-6 z-30 bg-white/95 backdrop-blur-md border border-amber-200/80 p-2.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-2.5 sm:gap-3.5 hover:scale-105 transition-transform card-3d max-w-[160px] sm:max-w-none">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute bottom-0 right-0 sm:bottom-4 sm:right-6 z-30 bg-white/95 backdrop-blur-md border border-amber-200/80 p-2 sm:p-4 rounded-2xl shadow-xl flex items-center gap-2 sm:gap-3.5 hover:scale-105 transition-transform card-3d max-w-[130px] sm:max-w-none">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center shrink-0">
+                  <svg className="w-3.5 h-3.5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-lg sm:text-2xl font-black text-[#0f172a] leading-none">
+                  <span className="text-base sm:text-2xl font-black text-[#0f172a] leading-none">
                     300%
                   </span>
-                  <span className="text-[9.5px] sm:text-[11px] font-medium text-[#64748b] mt-0.5 sm:mt-1 leading-tight">
-                    Average ROI <br className="hidden sm:block" /> for Clients
+                  <span className="text-[8.5px] sm:text-[11px] font-medium text-[#64748b] mt-0.5 sm:mt-1 leading-tight">
+                    Average ROI
                   </span>
                 </div>
               </div>
@@ -393,12 +393,12 @@ export default function Home() {
         </section>
 
         {/* 3. DIGITAL SOLUTIONS FOR REAL GROWTH (SERVICES SECTION) */}
-        <section id="services" className="relative py-20 px-6 md:px-12 z-10">
+        <section id="services" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
               
               {/* Left Column Description */}
-              <div className="lg:col-span-4 flex flex-col items-start sticky top-28">
+              <div className="lg:col-span-4 flex flex-col items-start static lg:sticky lg:top-28">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
                   <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                   <span>Our Services</span>
@@ -589,19 +589,19 @@ export default function Home() {
         </section>
 
         {/* INTERACTIVE INSTANT SEO AUDIT SECTION */}
-        <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
           <SeoAuditWidget />
         </section>
 
         {/* 4. ABOUT NOVA GROWTH / TRUSTED PARTNER */}
-        <section id="about" className="relative py-20 px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section id="about" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Column: Angled Laptop & Floating Analytics */}
-            <div className="lg:col-span-6 relative flex items-center justify-center">
+            <div className="lg:col-span-6 relative flex items-center justify-center my-4 sm:my-0">
               
               {/* Handwritten Note Top */}
-              <div className="absolute -top-7 left-3 sm:left-12 z-20 flex flex-col items-center">
+              <div className="absolute -top-7 left-2 sm:left-12 z-20 flex flex-col items-center">
                 <span className="handwriting text-xl sm:text-2xl font-bold text-[#334155] -rotate-3">
                   Your Success
                 </span>
@@ -614,24 +614,24 @@ export default function Home() {
               </div>
 
               {/* Floating Metric 1 */}
-              <div className="absolute top-8 left-2 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 animate-float-gentle">
-                <span className="text-[#d97706] font-bold text-xs">↗ 15%</span>
-                <span className="text-[11px] text-[#64748b] font-medium">Conversions</span>
+              <div className="absolute top-6 left-1 sm:top-8 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 animate-float-gentle text-xs">
+                <span className="text-[#d97706] font-bold text-[11px] sm:text-xs">↗ 15%</span>
+                <span className="text-[10px] sm:text-[11px] text-[#64748b] font-medium">Conversions</span>
               </div>
 
               {/* Floating Metric 2 */}
-              <div className="absolute bottom-16 left-0 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2">
-                <span className="text-[#d97706] font-bold text-xs">↗ 20%</span>
-                <span className="text-[11px] text-[#64748b] font-medium">Click Through Rate</span>
+              <div className="absolute bottom-12 left-1 sm:bottom-16 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs">
+                <span className="text-[#d97706] font-bold text-[11px] sm:text-xs">↗ 20%</span>
+                <span className="text-[10px] sm:text-[11px] text-[#64748b] font-medium">Click Through Rate</span>
               </div>
 
               {/* Laptop Body Mockup */}
-              <div className="relative w-full max-w-[480px] bg-slate-900 rounded-t-2xl p-3 shadow-2xl border-4 border-slate-700/80">
+              <div className="relative w-full max-w-[480px] bg-slate-900 rounded-t-2xl p-2.5 sm:p-3 shadow-2xl border-4 border-slate-700/80">
                 {/* Screen bezel & top camera dot */}
                 <div className="w-2 h-2 rounded-full bg-slate-600 mx-auto mb-2" />
                 
                 {/* Screen Dashboard Preview */}
-                <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+                <div className="bg-slate-50 rounded-lg p-3 sm:p-4 border border-slate-200">
                   <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-3">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-[#d97706]" />
@@ -641,7 +641,7 @@ export default function Home() {
                   </div>
 
                   {/* Chart bars & lines visual */}
-                  <div className="grid grid-cols-6 gap-2 items-end h-24 mb-3 px-2">
+                  <div className="grid grid-cols-6 gap-2 items-end h-20 sm:h-24 mb-3 px-2">
                     <div className="bg-amber-200 rounded-t h-[35%]" />
                     <div className="bg-amber-300 rounded-t h-[50%]" />
                     <div className="bg-amber-400 rounded-t h-[65%]" />
@@ -650,24 +650,24 @@ export default function Home() {
                     <div className="bg-[#091427] rounded-t h-[100%]" />
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
+                  <div className="flex items-center justify-between text-[10.5px] sm:text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
                     <span>Target: +150%</span>
                     <span className="text-[#d97706] font-bold">Achieved: +300%</span>
                   </div>
                 </div>
 
                 {/* Laptop Base */}
-                <div className="w-[110%] -ml-[5%] h-3 bg-slate-800 rounded-b-xl mt-1 shadow-md" />
+                <div className="w-full sm:w-[104%] sm:-ml-[2%] h-3 bg-slate-800 rounded-b-xl mt-1 shadow-md" />
               </div>
 
               {/* Floating Highlight Badge: +245% Organic Traffic */}
-              <div className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-amber-200/80 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center font-bold text-xs">
+              <div className="absolute -bottom-3 right-2 sm:-bottom-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-amber-200/80 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl shadow-xl flex items-center gap-2 sm:gap-2.5">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center font-bold text-xs shrink-0">
                   📈
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-extrabold text-[#0f172a] leading-none">+245%</span>
-                  <span className="text-[10.5px] font-medium text-[#64748b]">Organic Traffic</span>
+                  <span className="text-xs sm:text-sm font-extrabold text-[#0f172a] leading-none">+245%</span>
+                  <span className="text-[9.5px] sm:text-[10.5px] font-medium text-[#64748b]">Organic Traffic</span>
                 </div>
               </div>
             </div>
@@ -738,9 +738,9 @@ export default function Home() {
         </section>
 
         {/* 5. STATS BAR: OUR IMPACT IN NUMBERS */}
-        <section className="relative py-10 px-6 md:px-12 z-10">
+        <section className="relative py-8 sm:py-10 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/35 rounded-3xl p-6 md:p-8 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
+            <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/35 rounded-3xl p-5 sm:p-8 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 text-white">
               
               {/* Badge text with hand-drawn arrow */}
               <div className="flex items-center gap-3 shrink-0">
@@ -751,7 +751,7 @@ export default function Home() {
               </div>
 
               {/* 4 Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
                 <div>
                   <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">150+</div>
                   <div className="text-xs font-semibold text-slate-300 mt-0.5">Happy Clients</div>
@@ -778,11 +778,11 @@ export default function Home() {
         </section>
 
         {/* 6. RECENT PROJECTS SECTION */}
-        <section id="projects" className="relative py-20 px-6 md:px-12 z-10">
+        <section id="projects" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
             
             {/* Top row with heading & button */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-6">
               <div className="max-w-xl">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
                   <span className="w-2 h-2 rounded-full bg-[#d97706]" />
@@ -908,10 +908,10 @@ export default function Home() {
         </section>
 
         {/* 7. HOW WE WORK (PROCESS SECTION) */}
-        <section className="relative py-20 px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
+        <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
           <div className="max-w-7xl mx-auto">
             
-            <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                 <span>Our Process</span>
@@ -925,7 +925,7 @@ export default function Home() {
             </div>
 
             {/* 4 Interactive Process Steps in Horizontal Flow */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative mb-8">
               
               {/* Step 1 */}
               <div
@@ -1041,7 +1041,7 @@ export default function Home() {
             </div>
 
             {/* Interactive Step Detailed Workbench */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-[#d97706]/30 shadow-lg text-left animate-fadeIn">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-[#d97706]/30 shadow-lg text-left animate-fadeIn">
               {activeProcessStep === 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
@@ -1155,8 +1155,8 @@ export default function Home() {
         </section>
 
         {/* CLIENT TESTIMONIALS & REVIEWS SECTION */}
-        <section className="relative py-20 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+        <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
               <span>⭐️ 4.9/5 Rating on Clutch &amp; Google Reviews</span>
             </div>
@@ -1255,9 +1255,9 @@ export default function Home() {
         </section>
 
         {/* 8. BOTTOM CALL-TO-ACTION BANNER */}
-        <section id="contact" className="relative py-16 px-6 md:px-12 z-10">
+        <section id="contact" className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden border border-[#d97706]/40 shadow-2xl"
+            <div className="relative rounded-3xl p-6 sm:p-8 md:p-12 overflow-hidden border border-[#d97706]/40 shadow-2xl"
                  style={{
                    background: "linear-gradient(135deg, #091427 0%, #0f213d 50%, #1e293b 100%)"
                  }}
@@ -1303,7 +1303,7 @@ export default function Home() {
                   </div>
 
                   {/* Iridescent glass orb accent */}
-                  <div className="w-20 h-20 rounded-full shadow-xl border border-white/80 animate-float-slow shrink-0"
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-xl border border-white/80 animate-float-slow shrink-0"
                        style={{
                          background: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.95), rgba(251,191,36,0.7) 45%, rgba(30,64,175,0.65) 85%, rgba(9,20,39,0.9) 100%)",
                          boxShadow: "0 15px 30px rgba(217,119,6,0.25)"
@@ -1326,12 +1326,12 @@ export default function Home() {
             onClick={(e) => {
               if (e.target === e.currentTarget) setContactOpen(false);
             }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
           >
-            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative max-h-[85vh] overflow-y-auto my-auto">
+            <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-gray-100 relative max-h-[90vh] overflow-y-auto my-auto">
               
               {/* Sticky Top Header with Clear Close Button */}
-              <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
+              <div className="sticky -top-5 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
                   <span>Global Client Inquiry</span>
@@ -1378,7 +1378,7 @@ export default function Home() {
                       placeholder="e.g. John Miller"
                       value={modalName}
                       onChange={(e) => setModalName(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1390,7 +1390,7 @@ export default function Home() {
                       placeholder="name@company.com"
                       value={modalEmail}
                       onChange={(e) => setModalEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1402,7 +1402,7 @@ export default function Home() {
                       placeholder="+1 (555) 000-0000"
                       value={modalPhone}
                       onChange={(e) => setModalPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
 
@@ -1413,18 +1413,16 @@ export default function Home() {
                       placeholder="https://yourwebsite.com or Startup niche"
                       value={modalWebsite}
                       onChange={(e) => setModalWebsite(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                     />
                   </div>
-
-
 
                   <div>
                     <label className="text-xs font-bold text-gray-700 block mb-1">Target Service</label>
                     <select
                       value={selectedService}
                       onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none bg-white"
                     >
                       <option value="All Services">All Services / Full Growth Plan</option>
                       <option value="SEO Optimization">SEO Optimization (High Intent)</option>

@@ -54,16 +54,16 @@ export default function BlogPage() {
       <Navbar activePage="blog" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4 badge-3d">
           <span className="w-2 h-2 rounded-full bg-[#d97706]" />
           <span>Growth Marketing Insights &amp; SEO Strategy</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Actionable Guides for <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Actionable Guides for <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">Global Search Dominance</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           Data-backed playbooks, Core Web Vitals engineering, and high-DA link acquisition strategies curated for ambitious international brands.
         </p>
 
@@ -76,7 +76,7 @@ export default function BlogPage() {
               placeholder="Search articles (e.g. Next.js, SEO, Backlinks)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] bg-white shadow-xs"
+              className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] bg-white shadow-xs"
             />
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function BlogPage() {
                 setFilter(cat.id);
                 showToast(`Filtered by ${cat.label}`);
               }}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filter === cat.id
                   ? "bg-[#091427] text-white shadow-sm shadow-[#091427]/30"
                   : "bg-white text-gray-600 hover:text-[#091427] border border-gray-200/80 hover:bg-gray-50"
@@ -110,10 +110,10 @@ export default function BlogPage() {
 
       {/* Featured Article */}
       {featuredPost && (
-        <section className="relative py-6 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <section className="relative py-6 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
           <Link
             href={`/blog/${featuredPost.id}`}
-            className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm card-3d grid grid-cols-1 lg:grid-cols-12 gap-8 items-center cursor-pointer group block"
+            className="bg-white rounded-3xl p-5 sm:p-8 md:p-12 border border-gray-100 shadow-sm card-3d grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center cursor-pointer group block"
           >
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-4">
@@ -164,7 +164,7 @@ export default function BlogPage() {
       )}
 
       {/* Article Grid */}
-      <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {regularPosts.map((post) => (
             <Link

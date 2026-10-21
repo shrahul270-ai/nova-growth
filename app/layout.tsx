@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import FloatingConnect from "./components/FloatingConnect";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#091427",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nova-growth-six.vercel.app"),
@@ -70,14 +77,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden max-w-full">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="bg-[#0a0a0f] text-white antialiased">
+      <body className="bg-[#0a0a0f] text-white antialiased overflow-x-hidden max-w-full w-full">
         <GoogleAnalytics />
         {children}
         {/* Sabhi pages par 3D animated connect popup */}

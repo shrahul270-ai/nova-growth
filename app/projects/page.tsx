@@ -36,16 +36,16 @@ export default function ProjectsPage() {
       <Navbar activePage="projects" />
 
       {/* Hero Header */}
-      <section className="relative pt-16 pb-12 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
+      <section className="relative pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
           <span className="w-2 h-2 rounded-full bg-[#d97706]" />
           <span>Verified Client Outcomes</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          Case Studies &amp; <br />
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+          Case Studies &amp; <br className="hidden sm:inline" />
           <span className="text-gradient-navy-gold">Measurable Client Results</span>
         </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
           Explore how our high-intent SEO, modern Next.js development, and data-driven marketing deliver compounding revenue across global markets.
         </p>
 
@@ -53,9 +53,9 @@ export default function ProjectsPage() {
         <div className="inline-flex flex-wrap justify-center p-1.5 bg-white rounded-2xl border border-gray-200/80 shadow-xs gap-1 max-w-2xl mx-auto">
           {[
             { id: "all", label: "All Projects (6)" },
-            { id: "ecommerce", label: "E-Commerce & Portals (2)" },
-            { id: "saas", label: "B2B SaaS & Fintech (2)" },
-            { id: "seo", label: "Local SEO & Clinics (1)" },
+            { id: "ecommerce", label: "E-Commerce (2)" },
+            { id: "saas", label: "B2B SaaS (2)" },
+            { id: "seo", label: "Local SEO (1)" },
             { id: "mobile", label: "Mobile Apps (1)" },
           ].map((tab) => (
             <button
@@ -64,7 +64,7 @@ export default function ProjectsPage() {
                 setFilter(tab.id);
                 showToast(`Filter: ${tab.label} selected`);
               }}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filter === tab.id
                   ? "bg-[#091427] text-white shadow-sm"
                   : "text-[#54647c] hover:text-[#091427] hover:bg-gray-50"
@@ -77,7 +77,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Case Studies Grid */}
-      <section className="relative py-8 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section className="relative py-6 sm:py-8 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredStudies.map((study) => (
             <Link

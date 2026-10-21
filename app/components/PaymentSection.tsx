@@ -126,11 +126,11 @@ function PaymentSectionInner() {
 
 
   return (
-    <section id="payment" className="relative py-20 px-6 md:px-12 z-10">
+    <section id="payment" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
             <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
             <span>Bank-Grade Escrow &amp; Client Settlement</span>
@@ -145,13 +145,13 @@ function PaymentSectionInner() {
         </div>
 
         {/* Currency & Mode Switcher Bar */}
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 sm:mb-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
           
           {/* Mode Toggle Tabs */}
-          <div className="inline-flex p-1.5 bg-[#f8fafd] rounded-2xl border border-gray-200/70 w-full md:w-auto">
+          <div className="inline-flex flex-col sm:flex-row p-1.5 bg-[#f8fafd] rounded-2xl border border-gray-200/70 w-full md:w-auto gap-1">
             <button
               onClick={() => setPaymentMode("retainer")}
-              className={`flex-1 md:flex-initial px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex-1 md:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 paymentMode === "retainer"
                   ? "bg-[#091427] text-white shadow-md shadow-[#091427]/25"
                   : "text-[#54647c] hover:text-[#091427]"
@@ -161,7 +161,7 @@ function PaymentSectionInner() {
             </button>
             <button
               onClick={() => setPaymentMode("invoice")}
-              className={`flex-1 md:flex-initial px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex-1 md:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 paymentMode === "invoice"
                   ? "bg-[#091427] text-white shadow-md shadow-[#091427]/25"
                   : "text-[#54647c] hover:text-[#091427]"
@@ -172,7 +172,7 @@ function PaymentSectionInner() {
           </div>
 
           {/* Currency Dropdown Selector */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-end">
+          <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-between sm:justify-end">
             <span className="text-xs font-bold text-[#091427] uppercase tracking-wider whitespace-nowrap">
               Billing Currency:
             </span>
@@ -180,7 +180,7 @@ function PaymentSectionInner() {
               value={selectedCurrency}
               onChange={(e) => setSelectedCurrency(e.target.value as Currency)}
               aria-label="Billing Currency"
-              className="bg-amber-50/70 border border-amber-200 text-[#091427] font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-[#d97706] cursor-pointer"
+              className="bg-amber-50/70 border border-amber-200 text-[#091427] font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-[#d97706] cursor-pointer"
             >
               <option value="USD">🇺🇸 USD ($)</option>
               <option value="GBP">🇬🇧 GBP (£)</option>
@@ -272,15 +272,15 @@ function PaymentSectionInner() {
                           <div
                             key={plan.id}
                             onClick={() => setSelectedPlanId(plan.id)}
-                            className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between ${
+                            className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
                               isSelected
                                 ? "border-[#091427] bg-[#f8fafd] shadow-sm"
                                 : "border-gray-100 hover:border-gray-300 bg-white"
                             }`}
                           >
-                            <div className="flex items-center gap-3.5">
+                            <div className="flex items-start sm:items-center gap-3">
                               <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 ${
                                   isSelected
                                     ? "border-[#d97706] bg-[#d97706]"
                                     : "border-gray-300"
@@ -289,7 +289,7 @@ function PaymentSectionInner() {
                                 {isSelected && <span className="w-2 h-2 rounded-full bg-white" />}
                               </div>
                               <div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 flex-wrap">
                                   <h4 className="text-sm font-bold text-[#0f172a]">{plan.name}</h4>
                                   {plan.popular && (
                                     <span className="text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200/80 px-2 py-0.5 rounded-full">
@@ -297,15 +297,15 @@ function PaymentSectionInner() {
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-[11px] text-[#64748b]">{plan.tagline}</p>
+                                <p className="text-[11px] text-[#64748b] mt-0.5">{plan.tagline}</p>
                               </div>
                             </div>
-                            <div className="text-right">
+                            <div className="text-left sm:text-right pl-8 sm:pl-0">
                               <span className="text-base font-black text-[#091427]">
                                 {curr.symbol}
                                 {calculatePrice(plan.usdPrice)}
                               </span>
-                              <span className="text-[10px] text-gray-400 block">/month</span>
+                              <span className="text-[10px] text-gray-400 block sm:inline sm:ml-1">/month</span>
                             </div>
                           </div>
                         );
@@ -328,7 +328,7 @@ function PaymentSectionInner() {
                           placeholder="e.g. INV-2025-042"
                           value={invoiceNumber}
                           onChange={(e) => setInvoiceNumber(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706]"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706]"
                         />
                       </div>
                       <div>
@@ -342,7 +342,7 @@ function PaymentSectionInner() {
                           step="10"
                           value={customAmount}
                           onChange={(e) => setCustomAmount(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706]"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706]"
                         />
                       </div>
                     </div>
@@ -368,7 +368,7 @@ function PaymentSectionInner() {
                         placeholder="e.g. John Henderson"
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706]"
                       />
                     </div>
                     <div>
@@ -381,7 +381,7 @@ function PaymentSectionInner() {
                         placeholder="john@yourcompany.com"
                         value={clientEmail}
                         onChange={(e) => setClientEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706]"
                       />
                     </div>
                     <div className="sm:col-span-2">
@@ -393,7 +393,7 @@ function PaymentSectionInner() {
                         placeholder="e.g. Apex Digital Ltd. / CloudSync Inc."
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm outline-none focus:border-[#d97706]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706]"
                       />
                     </div>
                   </div>

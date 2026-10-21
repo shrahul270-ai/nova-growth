@@ -91,27 +91,27 @@ export default function ContactPage() {
       )}
 
       {/* Main Contact Section */}
-      <section className="relative pt-16 pb-24 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+      <section className="relative pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
             <span>Global Client Inquiries Welcome</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-            Let&apos;s Build Something <br />
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            Let&apos;s Build Something <br className="hidden sm:inline" />
             <span className="text-gradient-navy-gold">Extraordinary Together</span>
           </h1>
-          <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto font-normal">
             Whether you need international SEO dominance, modern Next.js development, or full-service growth marketing, we&apos;re here to help you scale.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column: Direct Info & Trust Badges */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xs">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xs">
               <h2 className="text-xl font-bold text-[#0f172a] mb-3">
                 Why Global Brands Choose Nova Growth
               </h2>
@@ -159,7 +159,7 @@ export default function ContactPage() {
             </div>
 
             {/* Direct Contact Card with Real Working Direct Links */}
-            <div className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 flex flex-col gap-3.5 text-xs">
+            <div className="bg-amber-50/70 rounded-3xl p-5 sm:p-6 border border-amber-200/60 flex flex-col gap-3.5 text-xs">
               <div className="flex items-center justify-between">
                 <span className="font-bold text-[#091427] uppercase tracking-wider text-[11px]">
                   Direct Instant Connect
@@ -168,14 +168,14 @@ export default function ContactPage() {
               </div>
 
               {/* Direct Mail */}
-              <div className="flex items-center justify-between text-gray-700 py-1.5 border-b border-amber-200/50">
-                <div>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-700 py-2 border-b border-amber-200/50 gap-2 sm:gap-0">
+                <div className="min-w-0">
                   <span className="block text-gray-500 text-[10px]">Inquiries Email:</span>
-                  <a href={`mailto:${agencyEmail}`} className="font-semibold text-[#0f172a] hover:underline">
+                  <a href={`mailto:${agencyEmail}`} className="font-semibold text-[#0f172a] hover:underline break-all">
                     {agencyEmail}
                   </a>
                 </div>
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 shrink-0">
                   <a
                     href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("New Agency Inquiry - Nova Growth")}`}
                     target="_blank"
@@ -201,12 +201,12 @@ export default function ContactPage() {
               </div>
 
               {/* Direct WhatsApp */}
-              <div className="flex items-center justify-between text-gray-700 py-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-700 py-1.5 gap-2 sm:gap-0">
                 <div>
                   <span className="block text-gray-500 text-[10px]">Direct WhatsApp:</span>
                   <span className="font-semibold text-[#0f172a]">{whatsappNumber}</span>
                 </div>
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 shrink-0">
                   <a
                     href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
                     onClick={() => trackInteraction({
@@ -323,7 +323,7 @@ export default function ContactPage() {
                         placeholder="e.g. Sarah Jenkins"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                       />
                     </div>
 
@@ -337,7 +337,7 @@ export default function ContactPage() {
                         placeholder="sarah@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                       />
                     </div>
 
@@ -351,7 +351,7 @@ export default function ContactPage() {
                         placeholder="+1 (555) 000-0000"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                       />
                     </div>
                   </div>
@@ -367,7 +367,7 @@ export default function ContactPage() {
                         placeholder="https://company.com"
                         value={formData.website}
                         onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-base sm:text-xs focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
                       />
                     </div>
 
