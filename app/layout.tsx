@@ -1,8 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import FloatingConnect from "./components/FloatingConnect";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -77,7 +85,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="overflow-x-hidden max-w-full">
+    <html lang="en" className={`${plusJakarta.variable} overflow-x-hidden max-w-full`}>
       <head>
         <script
           type="application/ld+json"

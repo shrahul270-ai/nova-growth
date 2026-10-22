@@ -83,6 +83,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 <Link
                   key={link.key}
                   href={link.href}
+                  prefetch={false}
                   className={`relative py-1 transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? "text-[#091427] font-bold"
@@ -187,6 +188,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               <Link
                 key={link.key}
                 href={link.href}
+                prefetch={false}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold ${
                   activePage === link.key

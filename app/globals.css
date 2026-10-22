@@ -77,7 +77,7 @@ body {
   border-bottom: 1px solid rgba(217, 119, 6, 0.18);
 }
 
-/* Midnight Imperial Navy & Liquid Gold Ambient Glows */
+/* Midnight Imperial Navy & Liquid Gold Ambient Glows (GPU Accelerated) */
 .curved-ribbon-left {
   position: absolute;
   top: 0;
@@ -85,10 +85,12 @@ body {
   width: 380px;
   height: 560px;
   background: radial-gradient(circle, rgba(217, 119, 6, 0.12) 0%, rgba(9, 20, 39, 0.06) 60%, transparent 80%);
-  filter: blur(55px);
+  filter: blur(40px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .curved-ribbon-right {
@@ -98,10 +100,12 @@ body {
   width: 460px;
   height: 620px;
   background: radial-gradient(circle, rgba(29, 78, 216, 0.1) 0%, rgba(217, 119, 6, 0.14) 50%, transparent 75%);
-  filter: blur(65px);
+  filter: blur(45px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .curved-ribbon-mid-left {
@@ -111,10 +115,12 @@ body {
   width: 380px;
   height: 480px;
   background: radial-gradient(circle, rgba(217, 119, 6, 0.14) 0%, rgba(9, 20, 39, 0.05) 70%, transparent 85%);
-  filter: blur(60px);
+  filter: blur(40px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .curved-ribbon-bottom {
@@ -124,10 +130,12 @@ body {
   width: 480px;
   height: 400px;
   background: radial-gradient(circle, rgba(217, 119, 6, 0.15) 0%, rgba(29, 78, 216, 0.07) 60%, transparent 80%);
-  filter: blur(65px);
+  filter: blur(45px);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Luxury Text Gradients: Deep Imperial Navy to Sapphire to Liquid Gold */
