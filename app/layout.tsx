@@ -46,7 +46,7 @@ const structuredData = {
       url: "https://nova-growth-six.vercel.app",
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+919694953370",
+        telephone: "+918000417058",
         contactType: "customer support",
         email: "shrahul270@gmail.com",
         availableLanguage: ["English", "Hindi"],
@@ -65,7 +65,7 @@ const structuredData = {
       "@type": "ProfessionalService",
       name: "Nova Growth Agency",
       url: "https://nova-growth-six.vercel.app",
-      telephone: "+919694953370",
+      telephone: "+918000417058",
       priceRange: "$$$",
     },
   ],

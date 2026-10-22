@@ -15,7 +15,7 @@ export default function FloatingConnect() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Agency contact details
-  const whatsappNumber = "919694953370";
+  const whatsappNumber = "918000417058";
   const agencyEmail = "shrahul270@gmail.com";
   const meetOrCalendlyUrl = "https://calendly.com";
 

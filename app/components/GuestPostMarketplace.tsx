@@ -955,7 +955,7 @@ export default function GuestPostMarketplace() {
 
             <div className="space-y-2 pt-2">
               <a
-                href={`https://wa.me/919694953370?text=${encodeURIComponent(
+                href={`https://wa.me/918000417058?text=${encodeURIComponent(
                   `Hi Nova Growth! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`
                 )}`}
                 target="_blank"

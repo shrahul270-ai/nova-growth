@@ -112,12 +112,12 @@ export default function Footer() {
                 <li className="flex items-center gap-2.5">
                   <span className="text-[#2563eb] text-sm shrink-0">💬</span>
                   <a
-                    href="https://wa.me/919694953370"
+                    href="https://wa.me/918000417058"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-[#2563eb] transition-colors font-medium"
                   >
-                    +91 96949 53370 (WhatsApp &amp; Direct)
+                    +91 80004 17058 (WhatsApp &amp; Direct)
                   </a>
                 </li>
                 {/* Global Delivery Hub */}
@@ -375,7 +375,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center gap-2">
             {/* WhatsApp */}
             <a
-              href="https://wa.me/919694953370"
+              href="https://wa.me/918000417058"
               target="_blank"
               rel="noopener noreferrer"
               className="w-7 h-7 rounded-full border border-gray-300 hover:border-[#25d366] hover:bg-[#25d366] hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs"
