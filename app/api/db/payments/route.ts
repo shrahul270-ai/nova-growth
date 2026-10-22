@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
     const userAgent = req.headers.get("user-agent") || "unknown";
 
-    const payment = createPayment({
+    const payment = await createPayment({
       type: "payment_checkout",
       transactionId: body.transactionId || `NOVA-${Math.floor(100000 + Math.random() * 900000)}`,
       clientName: body.clientName || "Anonymous Client",
@@ -85,7 +85,7 @@ export async function PATCH(req: NextRequest) {
     if (notes !== undefined) updates.notes = notes;
     if (paymentStatus) updates.paymentStatus = paymentStatus;
 
-    const updated = updateRecord("payments", id, updates);
+    const updated = await updateRecord("payments", id, updates);
 
     if (!updated) {
       return NextResponse.json({ success: false, error: "Payment record not found" }, { status: 404 });
@@ -109,8 +109,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     const success = permanent 
-      ? permanentDeleteRecord("payments", id)
-      : softDeleteRecord("payments", id);
+      ? await permanentDeleteRecord("payments", id)
+      : await softDeleteRecord("payments", id);
 
     if (!success) {
       return NextResponse.json({ success: false, error: "Payment record not found" }, { status: 404 });

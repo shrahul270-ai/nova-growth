@@ -346,8 +346,10 @@ export default function AdminDatabasePage() {
           message: "",
           notes: "Manual entry by agency admin",
         });
-        loadRecords();
-        loadStats();
+        await loadRecords();
+        await loadStats();
+      } else {
+        showToast(`❌ Error: ${data.error || "Failed to create record"}`);
       }
     } catch {
       showToast("❌ Failed to create record");

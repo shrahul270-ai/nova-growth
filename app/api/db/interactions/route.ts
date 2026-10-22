@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
     const userAgent = req.headers.get("user-agent") || "unknown";
 
-    const interaction = createInteraction({
+    const interaction = await createInteraction({
       type: body.type || "whatsapp_click",
       action: body.action || "whatsapp",
       title: body.title || "Client Click / Interaction",
@@ -82,7 +82,7 @@ export async function PATCH(req: NextRequest) {
     if (status) updates.status = status as RecordStatus;
     if (notes !== undefined) updates.notes = notes;
 
-    const updated = updateRecord("interactions", id, updates);
+    const updated = await updateRecord("interactions", id, updates);
 
     if (!updated) {
       return NextResponse.json({ success: false, error: "Record not found" }, { status: 404 });
@@ -106,8 +106,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     const success = permanent 
-      ? permanentDeleteRecord("interactions", id)
-      : softDeleteRecord("interactions", id);
+      ? await permanentDeleteRecord("interactions", id)
+      : await softDeleteRecord("interactions", id);
 
     if (!success) {
       return NextResponse.json({ success: false, error: "Record not found" }, { status: 404 });

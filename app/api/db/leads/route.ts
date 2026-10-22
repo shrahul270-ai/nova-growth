@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newLead = createLead({
+    const newLead = await createLead({
       type: body.type || "contact_form",
       name: body.name || "Anonymous Client",
       email: body.email || "",
@@ -90,7 +90,7 @@ export async function PATCH(req: NextRequest) {
     if (status) updates.status = status as RecordStatus;
     if (notes !== undefined) updates.notes = notes;
 
-    const updated = updateRecord("leads", id, updates);
+    const updated = await updateRecord("leads", id, updates);
 
     if (!updated) {
       return NextResponse.json({ success: false, error: "Lead not found" }, { status: 404 });
@@ -114,8 +114,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     const success = permanent 
-      ? permanentDeleteRecord("leads", id)
-      : softDeleteRecord("leads", id);
+      ? await permanentDeleteRecord("leads", id)
+      : await softDeleteRecord("leads", id);
 
     if (!success) {
       return NextResponse.json({ success: false, error: "Lead not found" }, { status: 404 });

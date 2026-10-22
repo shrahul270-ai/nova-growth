@@ -2,44 +2,64 @@ import fs from "fs";
 import path from "path";
 import { supabase, isSupabaseConfigured } from "./supabase";
 
-// Supabase background sync helpers
-async function pushToSupabase(collection: string, record: any) {
-  if (!isSupabaseConfigured || !supabase) return;
+// Supabase background sync helpers (Properly awaited)
+async function pushToSupabase(collection: string, record: any): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
   try {
     const { error } = await supabase.from(collection).upsert(record);
-    if (error) console.error(`[Supabase Error] Push to ${collection}:`, error.message);
+    if (error) {
+      console.error(`[Supabase Error] Push to ${collection}:`, error.message);
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error(`[Supabase Exception] ${collection}:`, err);
+    return false;
   }
 }
 
-async function updateInSupabase(collection: string, id: string, updates: Record<string, unknown>) {
-  if (!isSupabaseConfigured || !supabase) return;
+async function updateInSupabase(collection: string, id: string, updates: Record<string, unknown>): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
   try {
     const { error } = await supabase.from(collection).update(updates).eq("id", id);
-    if (error) console.error(`[Supabase Error] Update in ${collection}:`, error.message);
+    if (error) {
+      console.error(`[Supabase Error] Update in ${collection}:`, error.message);
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error(`[Supabase Exception] ${collection}:`, err);
+    return false;
   }
 }
 
-async function deleteFromSupabase(collection: string, id: string) {
-  if (!isSupabaseConfigured || !supabase) return;
+async function deleteFromSupabase(collection: string, id: string): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
   try {
     const { error } = await supabase.from(collection).delete().eq("id", id);
-    if (error) console.error(`[Supabase Error] Delete from ${collection}:`, error.message);
+    if (error) {
+      console.error(`[Supabase Error] Delete from ${collection}:`, error.message);
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error(`[Supabase Exception] ${collection}:`, err);
+    return false;
   }
 }
 
-async function logToSupabase(log: ActivityLog) {
-  if (!isSupabaseConfigured || !supabase) return;
+async function logToSupabase(log: ActivityLog): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
   try {
     const { error } = await supabase.from("activity_logs").insert(log);
-    if (error) console.error("[Supabase Error] Activity log:", error.message);
+    if (error) {
+      console.error("[Supabase Error] Activity log:", error.message);
+      return false;
+    }
+    return true;
   } catch (err) {
     console.error("[Supabase Exception] Activity log:", err);
+    return false;
   }
 }
 
@@ -97,7 +117,6 @@ export interface InteractionRecord extends BaseRecord {
   targetUrl?: string;
   status: RecordStatus;
 }
-
 
 export interface AuditRecord extends BaseRecord {
   collection: "audits";
@@ -173,7 +192,10 @@ const initialDatabase: DatabaseSchema = {
   activityLogs: [],
 };
 
-// Helper: Ensure Data Directory and File exist
+// In-Memory Database Cache (critical for serverless / Vercel where disk is read-only)
+let memoryDb: DatabaseSchema | null = null;
+
+// Helper: Ensure Data Directory and File exist safely
 function ensureDatabase(): void {
   try {
     if (!fs.existsSync(DATA_DIR)) {
@@ -182,55 +204,74 @@ function ensureDatabase(): void {
     if (!fs.existsSync(DB_FILE)) {
       fs.writeFileSync(DB_FILE, JSON.stringify(initialDatabase, null, 2), "utf-8");
     }
-  } catch (err) {
-    console.error("Error initializing Nova Growth database:", err);
+  } catch {
+    // In read-only serverless runtimes, fs operations may fail silently
   }
 }
 
-// Helper: Read Database safely
+// Helper: Read Database safely (prefers in-memory cache, falls back to disk file)
 export function readDatabase(): DatabaseSchema {
+  if (memoryDb) {
+    return memoryDb;
+  }
+
   ensureDatabase();
   try {
-    const raw = fs.readFileSync(DB_FILE, "utf-8");
-    const data = JSON.parse(raw) as DatabaseSchema;
-    // Guarantee all arrays exist
-    return {
-      version: data.version || "1.0.0",
-      lastUpdated: data.lastUpdated || new Date().toISOString(),
-      leads: Array.isArray(data.leads) ? data.leads : [],
-      interactions: Array.isArray(data.interactions) ? data.interactions : [],
-      audits: Array.isArray(data.audits) ? data.audits : [],
-      payments: Array.isArray(data.payments) ? data.payments : [],
-      activityLogs: Array.isArray(data.activityLogs) ? data.activityLogs : [],
-    };
-  } catch (err) {
-    console.error("Error reading database, restoring backup if available:", err);
-    if (fs.existsSync(BACKUP_FILE)) {
-      try {
-        const backupRaw = fs.readFileSync(BACKUP_FILE, "utf-8");
-        return JSON.parse(backupRaw) as DatabaseSchema;
-      } catch (backupErr) {
-        console.error("Backup also unreadable:", backupErr);
-      }
+    if (fs.existsSync(DB_FILE)) {
+      const raw = fs.readFileSync(DB_FILE, "utf-8");
+      const data = JSON.parse(raw) as DatabaseSchema;
+      memoryDb = {
+        version: data.version || "1.0.0",
+        lastUpdated: data.lastUpdated || new Date().toISOString(),
+        leads: Array.isArray(data.leads) ? data.leads : [],
+        interactions: Array.isArray(data.interactions) ? data.interactions : [],
+        audits: Array.isArray(data.audits) ? data.audits : [],
+        payments: Array.isArray(data.payments) ? data.payments : [],
+        activityLogs: Array.isArray(data.activityLogs) ? data.activityLogs : [],
+      };
+      return memoryDb;
     }
-    return initialDatabase;
+  } catch (err) {
+    console.warn("Could not read DB_FILE, attempting backup:", err);
+    try {
+      if (fs.existsSync(BACKUP_FILE)) {
+        const backupRaw = fs.readFileSync(BACKUP_FILE, "utf-8");
+        const bData = JSON.parse(backupRaw) as DatabaseSchema;
+        memoryDb = {
+          version: bData.version || "1.0.0",
+          lastUpdated: bData.lastUpdated || new Date().toISOString(),
+          leads: Array.isArray(bData.leads) ? bData.leads : [],
+          interactions: Array.isArray(bData.interactions) ? bData.interactions : [],
+          audits: Array.isArray(bData.audits) ? bData.audits : [],
+          payments: Array.isArray(bData.payments) ? bData.payments : [],
+          activityLogs: Array.isArray(bData.activityLogs) ? bData.activityLogs : [],
+        };
+        return memoryDb;
+      }
+    } catch {}
   }
+
+  memoryDb = JSON.parse(JSON.stringify(initialDatabase));
+  return memoryDb!;
 }
 
-// Helper: Write Database safely with atomic-like backup
+// Helper: Write Database safely with atomic-like backup & in-memory sync
 export function writeDatabase(data: DatabaseSchema): boolean {
-  ensureDatabase();
+  memoryDb = data;
+  data.lastUpdated = new Date().toISOString();
+
   try {
-    data.lastUpdated = new Date().toISOString();
+    ensureDatabase();
     const serialized = JSON.stringify(data, null, 2);
-    // Write backup first if main file exists
     if (fs.existsSync(DB_FILE)) {
-      fs.copyFileSync(DB_FILE, BACKUP_FILE);
+      try {
+        fs.copyFileSync(DB_FILE, BACKUP_FILE);
+      } catch {}
     }
     fs.writeFileSync(DB_FILE, serialized, "utf-8");
     return true;
   } catch (err) {
-    console.error("Error writing to database:", err);
+    // Read-only filesystem on Vercel / serverless - memoryDb is still updated
     return false;
   }
 }
@@ -243,14 +284,14 @@ export function generateId(prefix: string = "rec"): string {
 }
 
 // Helper: Log Activity
-export function logActivity(
+export async function logActivity(
   db: DatabaseSchema,
   action: ActivityLog["action"],
   collection: string,
   recordId: string,
   summary: string,
   metadata?: Record<string, unknown>
-): void {
+): Promise<void> {
   const log: ActivityLog = {
     id: generateId("log"),
     timestamp: new Date().toISOString(),
@@ -261,23 +302,22 @@ export function logActivity(
     metadata,
   };
   db.activityLogs.unshift(log); // newest first
-  // Keep last 1000 logs
   if (db.activityLogs.length > 1000) {
     db.activityLogs = db.activityLogs.slice(0, 1000);
   }
-  logToSupabase(log);
+  await logToSupabase(log);
 }
 
 // ==========================================
-// CRUD OPERATIONS
+// CRUD OPERATIONS (Asynchronous & Persistent)
 // ==========================================
 
 // 1. Create Lead
-export function createLead(
+export async function createLead(
   input: Omit<LeadRecord, "id" | "collection" | "createdAt" | "updatedAt" | "isDeleted" | "status"> & {
     status?: RecordStatus;
   }
-): LeadRecord {
+): Promise<LeadRecord> {
   const db = readDatabase();
   const now = new Date().toISOString();
   const record: LeadRecord = {
@@ -292,7 +332,7 @@ export function createLead(
   };
 
   db.leads.unshift(record); // newest first
-  logActivity(
+  await logActivity(
     db, 
     "create", 
     "leads", 
@@ -300,16 +340,16 @@ export function createLead(
     `New inquiry received from ${record.name || record.email || "Unknown"}`
   );
   writeDatabase(db);
-  pushToSupabase("leads", record);
+  await pushToSupabase("leads", record);
   return record;
 }
 
 // 2. Create Interaction (Calling, WhatsApp, Meeting, Direct Click)
-export function createInteraction(
+export async function createInteraction(
   input: Omit<InteractionRecord, "id" | "collection" | "createdAt" | "updatedAt" | "isDeleted" | "status"> & {
     status?: RecordStatus;
   }
-): InteractionRecord {
+): Promise<InteractionRecord> {
   const db = readDatabase();
   const now = new Date().toISOString();
 
@@ -346,7 +386,7 @@ export function createInteraction(
 
   db.interactions.unshift(record);
 
-  logActivity(
+  await logActivity(
     db, 
     "create", 
     "interactions", 
@@ -354,21 +394,20 @@ export function createInteraction(
     `Client interaction recorded: ${record.title} (${record.action})`
   );
   writeDatabase(db);
-  pushToSupabase("interactions", record);
+  await pushToSupabase("interactions", record);
   return record;
 }
 
 // 3. Create or Update SEO Audit Record
-export function createOrUpdateAudit(
+export async function createOrUpdateAudit(
   input: Omit<AuditRecord, "id" | "collection" | "createdAt" | "updatedAt" | "isDeleted" | "status"> & {
     id?: string;
     status?: RecordStatus;
   }
-): AuditRecord {
+): Promise<AuditRecord> {
   const db = readDatabase();
   const now = new Date().toISOString();
 
-  // If ID given or domain already audited recently and update requested
   if (input.id) {
     const existingIndex = db.audits.findIndex((a) => a.id === input.id);
     if (existingIndex !== -1) {
@@ -377,7 +416,7 @@ export function createOrUpdateAudit(
         ...input,
         updatedAt: now,
       };
-      logActivity(
+      await logActivity(
         db,
         "update",
         "audits",
@@ -385,7 +424,7 @@ export function createOrUpdateAudit(
         `Audit record updated for ${input.domain}`
       );
       writeDatabase(db);
-      pushToSupabase("audits", db.audits[existingIndex]);
+      await pushToSupabase("audits", db.audits[existingIndex]);
       return db.audits[existingIndex];
     }
   }
@@ -402,7 +441,7 @@ export function createOrUpdateAudit(
   };
 
   db.audits.unshift(record);
-  logActivity(
+  await logActivity(
     db,
     "create",
     "audits",
@@ -410,16 +449,16 @@ export function createOrUpdateAudit(
     `SEO Audit performed for domain ${record.domain}`
   );
   writeDatabase(db);
-  pushToSupabase("audits", record);
+  await pushToSupabase("audits", record);
   return record;
 }
 
 // 4. Create Payment / Retainer Checkout Record
-export function createPayment(
+export async function createPayment(
   input: Omit<PaymentRecord, "id" | "collection" | "createdAt" | "updatedAt" | "isDeleted" | "status"> & {
     status?: RecordStatus;
   }
-): PaymentRecord {
+): Promise<PaymentRecord> {
   const db = readDatabase();
   const now = new Date().toISOString();
   const record: PaymentRecord = {
@@ -434,7 +473,7 @@ export function createPayment(
   };
 
   db.payments.unshift(record);
-  logActivity(
+  await logActivity(
     db,
     "create",
     "payments",
@@ -442,16 +481,16 @@ export function createPayment(
     `Payment checkout recorded: ${record.currency} ${record.amount} by ${record.clientName || record.clientEmail}`
   );
   writeDatabase(db);
-  pushToSupabase("payments", record);
+  await pushToSupabase("payments", record);
   return record;
 }
 
 // 5. Update any record
-export function updateRecord(
+export async function updateRecord(
   collection: "leads" | "interactions" | "audits" | "payments",
   id: string,
   updates: Record<string, unknown>
-): BaseRecord | null {
+): Promise<BaseRecord | null> {
   const db = readDatabase();
   const now = new Date().toISOString();
   const list = db[collection] as unknown as BaseRecord[];
@@ -465,7 +504,7 @@ export function updateRecord(
     updatedAt: now,
   };
 
-  logActivity(
+  await logActivity(
     db,
     "update",
     collection,
@@ -474,15 +513,15 @@ export function updateRecord(
     updates
   );
   writeDatabase(db);
-  updateInSupabase(collection, id, updates);
+  await updateInSupabase(collection, id, updates);
   return list[idx];
 }
 
 // 6. Soft Delete (Moves to Trash, keeps all data safe!)
-export function softDeleteRecord(
+export async function softDeleteRecord(
   collection: "leads" | "interactions" | "audits" | "payments",
   id: string
-): boolean {
+): Promise<boolean> {
   const db = readDatabase();
   const list = db[collection] as unknown as BaseRecord[];
   const idx = list.findIndex((item) => item.id === id);
@@ -493,7 +532,7 @@ export function softDeleteRecord(
   list[idx].deletedAt = new Date().toISOString();
   list[idx].updatedAt = new Date().toISOString();
 
-  logActivity(
+  await logActivity(
     db,
     "soft_delete",
     collection,
@@ -501,7 +540,7 @@ export function softDeleteRecord(
     `Record ${id} moved to Trash (Soft Deleted)`
   );
   const ok = writeDatabase(db);
-  updateInSupabase(collection, id, {
+  await updateInSupabase(collection, id, {
     isDeleted: true,
     deletedAt: list[idx].deletedAt,
     updatedAt: list[idx].updatedAt,
@@ -510,10 +549,10 @@ export function softDeleteRecord(
 }
 
 // 7. Restore from Trash (Recovers deleted data!)
-export function restoreRecord(
+export async function restoreRecord(
   collection: "leads" | "interactions" | "audits" | "payments",
   id: string
-): boolean {
+): Promise<boolean> {
   const db = readDatabase();
   const list = db[collection] as unknown as BaseRecord[];
   const idx = list.findIndex((item) => item.id === id);
@@ -524,7 +563,7 @@ export function restoreRecord(
   list[idx].deletedAt = null;
   list[idx].updatedAt = new Date().toISOString();
 
-  logActivity(
+  await logActivity(
     db,
     "restore",
     collection,
@@ -532,7 +571,7 @@ export function restoreRecord(
     `Record ${id} restored from Trash back to Active`
   );
   const ok = writeDatabase(db);
-  updateInSupabase(collection, id, {
+  await updateInSupabase(collection, id, {
     isDeleted: false,
     deletedAt: null,
     updatedAt: list[idx].updatedAt,
@@ -541,19 +580,19 @@ export function restoreRecord(
 }
 
 // 8. Permanent Delete (Purge from database only if user explicitly wants)
-export function permanentDeleteRecord(
+export async function permanentDeleteRecord(
   collection: "leads" | "interactions" | "audits" | "payments",
   id: string
-): boolean {
+): Promise<boolean> {
   const db = readDatabase();
   const list = db[collection] as unknown as BaseRecord[];
   const idx = list.findIndex((item) => item.id === id);
 
   if (idx === -1) return false;
 
-  const [removed] = list.splice(idx, 1);
+  list.splice(idx, 1);
 
-  logActivity(
+  await logActivity(
     db,
     "permanent_delete",
     collection,
@@ -561,100 +600,77 @@ export function permanentDeleteRecord(
     `Record ${id} permanently deleted from ${collection}`
   );
   const ok = writeDatabase(db);
-  deleteFromSupabase(collection, id);
+  await deleteFromSupabase(collection, id);
   return ok;
 }
 
-// Global throttle for Supabase sync
+// Global throttle and concurrent promise lock for Supabase sync
 let lastSupabaseFetchTime = 0;
+let ongoingSyncPromise: Promise<void> | null = null;
 
 export async function ensureSupabaseSync(force: boolean = false): Promise<void> {
   if (!isSupabaseConfigured || !supabase) return;
+
+  if (ongoingSyncPromise) {
+    await ongoingSyncPromise;
+    return;
+  }
+
   const now = Date.now();
-  if (!force && now - lastSupabaseFetchTime < 10000) return;
+  if (!force && now - lastSupabaseFetchTime < 3000) return;
   lastSupabaseFetchTime = now;
 
-  try {
-    const [leadsRes, intRes, audRes, payRes] = await Promise.all([
-      supabase.from("leads").select("*"),
-      supabase.from("interactions").select("*"),
-      supabase.from("audits").select("*"),
-      supabase.from("payments").select("*"),
-    ]);
+  ongoingSyncPromise = (async () => {
+    try {
+      const [leadsRes, intRes, audRes, payRes] = await Promise.all([
+        supabase.from("leads").select("*"),
+        supabase.from("interactions").select("*"),
+        supabase.from("audits").select("*"),
+        supabase.from("payments").select("*"),
+      ]);
 
-    const db = readDatabase();
-    let changed = false;
+      const db = readDatabase();
+      let changed = false;
 
-    if (leadsRes.data && Array.isArray(leadsRes.data)) {
-      const existingMap = new Map(db.leads.map((l) => [l.id, l]));
-      for (const item of leadsRes.data as LeadRecord[]) {
-        if (!existingMap.has(item.id)) {
-          db.leads.push(item);
-          changed = true;
-        } else {
-          const existing = existingMap.get(item.id)!;
-          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
-            Object.assign(existing, item);
+      const syncCollection = <T extends BaseRecord>(
+        supaItems: T[] | null,
+        localItems: T[]
+      ) => {
+        if (!supaItems || !Array.isArray(supaItems)) return;
+        const localMap = new Map(localItems.map((item) => [item.id, item]));
+
+        for (const item of supaItems) {
+          if (!localMap.has(item.id)) {
+            localItems.unshift(item);
             changed = true;
+          } else {
+            const existing = localMap.get(item.id)!;
+            const supaTime = new Date(item.updatedAt || item.createdAt || 0).getTime();
+            const localTime = new Date(existing.updatedAt || existing.createdAt || 0).getTime();
+            if (supaTime >= localTime) {
+              Object.assign(existing, item);
+              changed = true;
+            }
           }
         }
-      }
-    }
+      };
 
-    if (intRes.data && Array.isArray(intRes.data)) {
-      const existingMap = new Map(db.interactions.map((i) => [i.id, i]));
-      for (const item of intRes.data as InteractionRecord[]) {
-        if (!existingMap.has(item.id)) {
-          db.interactions.push(item);
-          changed = true;
-        } else {
-          const existing = existingMap.get(item.id)!;
-          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
-            Object.assign(existing, item);
-            changed = true;
-          }
-        }
-      }
-    }
+      syncCollection(leadsRes.data as LeadRecord[], db.leads);
+      syncCollection(intRes.data as InteractionRecord[], db.interactions);
+      syncCollection(audRes.data as AuditRecord[], db.audits);
+      syncCollection(payRes.data as PaymentRecord[], db.payments);
 
-    if (audRes.data && Array.isArray(audRes.data)) {
-      const existingMap = new Map(db.audits.map((a) => [a.id, a]));
-      for (const item of audRes.data as AuditRecord[]) {
-        if (!existingMap.has(item.id)) {
-          db.audits.push(item);
-          changed = true;
-        } else {
-          const existing = existingMap.get(item.id)!;
-          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
-            Object.assign(existing, item);
-            changed = true;
-          }
-        }
+      if (changed) {
+        writeDatabase(db);
       }
+    } catch (err) {
+      console.warn("Supabase sync warning:", err);
+    } finally {
+      ongoingSyncPromise = null;
     }
+  })();
 
-    if (payRes.data && Array.isArray(payRes.data)) {
-      const existingMap = new Map(db.payments.map((p) => [p.id, p]));
-      for (const item of payRes.data as PaymentRecord[]) {
-        if (!existingMap.has(item.id)) {
-          db.payments.push(item);
-          changed = true;
-        } else {
-          const existing = existingMap.get(item.id)!;
-          if (new Date(item.updatedAt || item.createdAt).getTime() > new Date(existing.updatedAt || existing.createdAt).getTime()) {
-            Object.assign(existing, item);
-            changed = true;
-          }
-        }
-      }
-    }
-
-    if (changed) {
-      writeDatabase(db);
-    }
-  } catch (err) {
-    console.warn("Supabase sync warning:", err);
-  }
+  await ongoingSyncPromise;
 }
 
 // 9. Query & Filter Records (From Newest to Oldest or Oldest to Newest)

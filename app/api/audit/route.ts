@@ -515,7 +515,7 @@ export async function POST(req: Request) {
     try {
       const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
       const userAgent = req.headers.get("user-agent") || "unknown";
-      const saved = createOrUpdateAudit({
+      const saved = await createOrUpdateAudit({
         type: "seo_audit",
         domain: parsedUrl.hostname,
         url: finalUrl,
@@ -613,7 +613,7 @@ export async function PATCH(req: Request) {
     if (!auditId || !email) {
       return NextResponse.json({ error: "auditId and email are required" }, { status: 400 });
     }
-    const updated = createOrUpdateAudit({
+    const updated = await createOrUpdateAudit({
       id: auditId,
       type: "seo_audit",
       domain: "",

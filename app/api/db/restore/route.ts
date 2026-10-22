@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const success = restoreRecord(collection, id);
+    const success = await restoreRecord(collection, id);
 
     if (!success) {
       return NextResponse.json(

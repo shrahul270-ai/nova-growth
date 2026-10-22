@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest) {
     if (notes !== undefined) updates.notes = notes;
     if (emailSubmitted) updates.emailSubmitted = emailSubmitted;
 
-    const updated = updateRecord("audits", id, updates);
+    const updated = await updateRecord("audits", id, updates);
 
     if (!updated) {
       return NextResponse.json({ success: false, error: "Audit record not found" }, { status: 404 });
@@ -69,8 +69,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     const success = permanent 
-      ? permanentDeleteRecord("audits", id)
-      : softDeleteRecord("audits", id);
+      ? await permanentDeleteRecord("audits", id)
+      : await softDeleteRecord("audits", id);
 
     if (!success) {
       return NextResponse.json({ success: false, error: "Audit record not found" }, { status: 404 });
