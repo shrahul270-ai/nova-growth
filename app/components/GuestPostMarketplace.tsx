@@ -636,25 +636,6 @@ const initialPublishers: PublisherSite[] = [
 
 const BULK_SEARCH_LIMIT = 60;
 
-// Curated high-frequency categories for quick interactive pill navigation
-const FEATURED_PILLS = [
-  "All Categories",
-  "SaaS & Tech",
-  "AI & Machine Learning",
-  "Casino",
-  "Finance & Investment",
-  "Cryptocurrency & Blockchain",
-  "E-Commerce & Retail",
-  "Digital Marketing & SEO",
-  "Health & Medical",
-  "Home & Real Estate",
-  "Gaming & Esports",
-  "Travel & Hospitality",
-  "Automotive",
-  "Fashion & Beauty",
-  "Education",
-];
-
 export default function GuestPostMarketplace() {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState("");
@@ -984,37 +965,7 @@ export default function GuestPostMarketplace() {
         {/* Subtle Ambient Glowing Line Top */}
         <div className="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
 
-        {/* 1. UNIQUE HORIZONTAL CATEGORY PILLS BAR (Quick Category Discovery) */}
-        <div className="mb-4 pb-3 border-b border-gray-800/80">
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-              <span>⚡</span> Trending Categories
-            </span>
-            <span className="text-[10px] text-gray-500">Scroll horizontally or use search</span>
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin no-scrollbar">
-            {FEATURED_PILLS.map((pill) => {
-              const isActive = selectedCategory === pill;
-              return (
-                <button
-                  key={pill}
-                  type="button"
-                  onClick={() => setSelectedCategory(pill)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
-                    isActive
-                      ? "bg-gradient-to-r from-amber-500 to-amber-600 text-black font-extrabold shadow-md shadow-amber-500/20 scale-102"
-                      : "bg-[#070b14]/90 text-gray-400 hover:text-white hover:border-gray-600 border border-gray-800/90"
-                  }`}
-                >
-                  {pill}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 2. Top Search & Primary Action Row */}
+        {/* Top Search & Primary Action Row */}
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5 pb-3.5 border-b border-gray-800/80">
           {/* Main Keyword / Domain Search Input */}
           <div className="relative flex-1">
