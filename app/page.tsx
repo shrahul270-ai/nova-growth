@@ -393,9 +393,9 @@ export default function Home() {
         </section>
 
         {/* 3. DIGITAL SOLUTIONS FOR REAL GROWTH (SERVICES SECTION) */}
-        <section id="services" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
+        <section id="services" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
               
               {/* Left Column Description */}
               <div className="lg:col-span-4 flex flex-col items-start static lg:sticky lg:top-28">
@@ -594,8 +594,8 @@ export default function Home() {
         </section>
 
         {/* 4. ABOUT NOVA GROWTH / TRUSTED PARTNER */}
-        <section id="about" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <section id="about" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             
             {/* Left Column: Angled Laptop & Floating Analytics */}
             <div className="lg:col-span-6 relative flex items-center justify-center my-4 sm:my-0">
@@ -778,11 +778,11 @@ export default function Home() {
         </section>
 
         {/* 6. RECENT PROJECTS SECTION */}
-        <section id="projects" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
+        <section id="projects" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
             
             {/* Top row with heading & button */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-4">
               <div className="max-w-xl">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
                   <span className="w-2 h-2 rounded-full bg-[#d97706]" />
@@ -908,10 +908,10 @@ export default function Home() {
         </section>
 
         {/* 7. HOW WE WORK (PROCESS SECTION) */}
-        <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
+        <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
           <div className="max-w-7xl mx-auto">
             
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+            <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#d97706]" />
                 <span>Our Process</span>
@@ -1155,8 +1155,8 @@ export default function Home() {
         </section>
 
         {/* CLIENT TESTIMONIALS & REVIEWS SECTION */}
-        <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+        <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
               <span>⭐️ 4.9/5 Rating on Clutch &amp; Google Reviews</span>
             </div>

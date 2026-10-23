@@ -81,8 +81,8 @@ export default function SeoServicesUsaPage() {
       </section>
 
       {/* Why US Founders choose Nova Growth */}
-      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+      <section className="py-10 sm:py-14 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <h2 className="text-3xl font-black text-[#0f172a] tracking-tight">
             Built for How US Customers Search
           </h2>

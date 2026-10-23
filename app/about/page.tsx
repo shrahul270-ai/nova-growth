@@ -82,8 +82,8 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-14 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <section className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
               Our Purpose

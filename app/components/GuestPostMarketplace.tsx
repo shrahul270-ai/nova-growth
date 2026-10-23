@@ -25,7 +25,7 @@ export interface PublisherSite {
   sampleUrl?: string;
 }
 
-// Initial high-quality starter inventory populated across all requested categories
+// Initial high-quality starter inventory populated across all requested categories & foreign countries
 const initialPublishers: PublisherSite[] = [
   {
     id: "pub-01",
@@ -156,8 +156,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "cryptoledger-daily.com",
     niche: "Cryptocurrency & Blockchain",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Singapore",
+    countryFlag: "🇸🇬",
     dr: 79,
     da: 73,
     ahrefsTraffic: "220,000+",
@@ -208,8 +208,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "realtyinsight-journal.com",
     niche: "Home & Real Estate",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "UAE",
+    countryFlag: "🇦🇪",
     dr: 74,
     da: 69,
     ahrefsTraffic: "160,000+",
@@ -242,8 +242,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "gamersarena-hub.gg",
     niche: "Gaming & Esports",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Japan",
+    countryFlag: "🇯🇵",
     dr: 82,
     da: 76,
     ahrefsTraffic: "580,000+",
@@ -277,8 +277,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "globetrekker-travels.com",
     niche: "Travels",
     language: "English",
-    country: "UK",
-    countryFlag: "🇬🇧",
+    country: "Spain",
+    countryFlag: "🇪🇸",
     dr: 73,
     da: 69,
     ahrefsTraffic: "140,000+",
@@ -311,8 +311,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "agrigrowth-trends.org",
     niche: "Agriculture",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Netherlands",
+    countryFlag: "🇳🇱",
     dr: 68,
     da: 64,
     ahrefsTraffic: "85,000+",
@@ -380,8 +380,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "gourmetbites-culinary.com",
     niche: "Food & Beverage",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Italy",
+    countryFlag: "🇮🇹",
     dr: 76,
     da: 71,
     ahrefsTraffic: "180,000+",
@@ -414,8 +414,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "jurislex-legal.com",
     niche: "Legal & Law",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Switzerland",
+    countryFlag: "🇨🇭",
     dr: 83,
     da: 78,
     ahrefsTraffic: "260,000+",
@@ -431,8 +431,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "sciencediscovery-daily.org",
     niche: "Science & Research",
     language: "English",
-    country: "UK",
-    countryFlag: "🇬🇧",
+    country: "Sweden",
+    countryFlag: "🇸🇪",
     dr: 87,
     da: 82,
     ahrefsTraffic: "610,000+",
@@ -448,8 +448,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "ecohaven-sustainable.org",
     niche: "Environment & Sustainability",
     language: "English",
-    country: "Canada",
-    countryFlag: "🇨🇦",
+    country: "Norway",
+    countryFlag: "🇳🇴",
     dr: 74,
     da: 70,
     ahrefsTraffic: "135,000+",
@@ -465,8 +465,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "familymatters-parenting.com",
     niche: "Family & Parenting",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Denmark",
+    countryFlag: "🇩🇰",
     dr: 72,
     da: 67,
     ahrefsTraffic: "115,000+",
@@ -482,8 +482,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "furryfriends-petcare.com",
     niche: "Pets & Animals",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "Ireland",
+    countryFlag: "🇮🇪",
     dr: 70,
     da: 65,
     ahrefsTraffic: "98,000+",
@@ -516,8 +516,8 @@ const initialPublishers: PublisherSite[] = [
     domain: "creativecanvas-art.com",
     niche: "Art, Design & Photography",
     language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
+    country: "France",
+    countryFlag: "🇫🇷",
     dr: 73,
     da: 68,
     ahrefsTraffic: "130,000+",
@@ -600,17 +600,17 @@ const initialPublishers: PublisherSite[] = [
   },
   {
     id: "pub-34",
-    domain: "rankbooster-marketing.io",
-    niche: "Digital Marketing",
-    language: "English",
-    country: "USA",
-    countryFlag: "🇺🇸",
-    dr: 78,
-    da: 73,
-    ahrefsTraffic: "210,000+",
-    semrushTraffic: "240,000+",
+    domain: "latinamerica-trends.br",
+    niche: "Business & Startup",
+    language: "Portuguese",
+    country: "Brazil",
+    countryFlag: "🇧🇷",
+    dr: 76,
+    da: 72,
+    ahrefsTraffic: "230,000+",
+    semrushTraffic: "260,000+",
     linkType: "DoFollow",
-    price: 290,
+    price: 260,
     tatDays: 2,
     indexable: true,
     sponsoredTag: false,
@@ -636,6 +636,25 @@ const initialPublishers: PublisherSite[] = [
 
 const BULK_SEARCH_LIMIT = 60;
 
+// Curated high-frequency categories for quick interactive pill navigation
+const FEATURED_PILLS = [
+  "All Categories",
+  "SaaS & Tech",
+  "AI & Machine Learning",
+  "Casino",
+  "Finance & Investment",
+  "Cryptocurrency & Blockchain",
+  "E-Commerce & Retail",
+  "Digital Marketing & SEO",
+  "Health & Medical",
+  "Home & Real Estate",
+  "Gaming & Esports",
+  "Travel & Hospitality",
+  "Automotive",
+  "Fashion & Beauty",
+  "Education",
+];
+
 export default function GuestPostMarketplace() {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState("");
@@ -644,14 +663,13 @@ export default function GuestPostMarketplace() {
   const [selectedLinkType, setSelectedLinkType] = useState("All Link Types");
   const [selectedCountry, setSelectedCountry] = useState("All Countries");
 
-  // Numerical ranges
+  // Numerical ranges (TAT removed per instruction)
   const [minDa, setMinDa] = useState<string>("");
   const [maxDa, setMaxDa] = useState<string>("");
   const [minDr, setMinDr] = useState<string>("");
   const [maxDr, setMaxDr] = useState<string>("");
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
-  const [maxTat, setMaxTat] = useState<string>("");
 
   // Quick preset filters
   const [quickFilter, setQuickFilter] = useState<"all" | "top_selling" | "newly_added" | "high_dr">("all");
@@ -705,20 +723,48 @@ export default function GuestPostMarketplace() {
     "Casino",
   ];
 
+  // Comprehensive international & foreign countries worldwide
   const countries = [
     "All Countries",
-    "USA",
-    "UK",
+    "United States (USA)",
+    "United Kingdom (UK)",
     "Canada",
     "Australia",
     "Germany",
     "France",
-    "India",
-    "Singapore",
-    "UAE",
+    "Netherlands",
+    "Switzerland",
+    "Sweden",
+    "Norway",
+    "Denmark",
+    "Ireland",
     "Spain",
     "Italy",
-    "Netherlands",
+    "Singapore",
+    "United Arab Emirates (UAE)",
+    "Saudi Arabia",
+    "Japan",
+    "South Korea",
+    "New Zealand",
+    "Brazil",
+    "Mexico",
+    "South Africa",
+    "Poland",
+    "Austria",
+    "Belgium",
+    "Portugal",
+    "Finland",
+    "Israel",
+    "Turkey",
+    "Argentina",
+    "Chile",
+    "Colombia",
+    "Malaysia",
+    "Thailand",
+    "Indonesia",
+    "Philippines",
+    "India",
+    "Global / International",
   ];
 
   const languages = [
@@ -731,6 +777,7 @@ export default function GuestPostMarketplace() {
     "Portuguese",
     "Hindi",
     "Arabic",
+    "Japanese",
   ];
 
   const linkTypes = ["All Link Types", "DoFollow", "NoFollow", "Contextual"];
@@ -802,13 +849,20 @@ export default function GuestPostMarketplace() {
         return false;
       }
 
-      // 7. Country
+      // 7. Country (flexible foreign country matching)
       if (
         selectedCountry !== "All Countries" &&
-        selectedCountry !== "All" &&
-        site.country !== selectedCountry
+        selectedCountry !== "All"
       ) {
-        return false;
+        const sel = selectedCountry.toLowerCase();
+        const c = site.country.toLowerCase();
+        const isMatch =
+          sel.includes(c) ||
+          c.includes(sel) ||
+          (c === "usa" && sel.includes("united states")) ||
+          (c === "uk" && sel.includes("united kingdom")) ||
+          (c === "uae" && sel.includes("united arab emirates"));
+        if (!isMatch) return false;
       }
 
       // 8. DA bounds
@@ -822,9 +876,6 @@ export default function GuestPostMarketplace() {
       // 10. Price bounds
       if (minPrice && site.price < Number(minPrice)) return false;
       if (maxPrice && site.price > Number(maxPrice)) return false;
-
-      // 11. TAT
-      if (maxTat && site.tatDays > Number(maxTat)) return false;
 
       return true;
     });
@@ -842,7 +893,6 @@ export default function GuestPostMarketplace() {
     maxDr,
     minPrice,
     maxPrice,
-    maxTat,
   ]);
 
   const handleResetFilters = () => {
@@ -859,7 +909,6 @@ export default function GuestPostMarketplace() {
     setMaxDr("");
     setMinPrice("");
     setMaxPrice("");
-    setMaxTat("");
     setQuickFilter("all");
   };
 
@@ -872,17 +921,47 @@ export default function GuestPostMarketplace() {
     setIsBulkSearchOpen(false);
   };
 
+  // Active filter count for badge
+  const activeFiltersCount = useMemo(() => {
+    let count = 0;
+    if (searchQuery) count++;
+    if (selectedCategory !== "All Categories") count++;
+    if (selectedCountry !== "All Countries") count++;
+    if (selectedLinkType !== "All Link Types") count++;
+    if (selectedLanguage !== "All Languages") count++;
+    if (minDr || maxDr) count++;
+    if (minDa || maxDa) count++;
+    if (minPrice || maxPrice) count++;
+    if (bulkSearchTerms.length > 0) count++;
+    if (quickFilter !== "all") count++;
+    return count;
+  }, [
+    searchQuery,
+    selectedCategory,
+    selectedCountry,
+    selectedLinkType,
+    selectedLanguage,
+    minDr,
+    maxDr,
+    minDa,
+    maxDa,
+    minPrice,
+    maxPrice,
+    bulkSearchTerms,
+    quickFilter,
+  ]);
+
   return (
-    <section id="marketplace" className="py-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
+    <section id="marketplace" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
       
-      {/* SECTION HEADER WITH STATS */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      {/* SECTION HEADER WITH STATS (Tightened Gaps) */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-5">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-400 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-400 mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             Live Marketplace Inventory
           </div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight flex items-center gap-3">
             <span>40,000+ Verified Publisher Websites</span>
           </h2>
           <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-2xl">
@@ -892,18 +971,51 @@ export default function GuestPostMarketplace() {
         </div>
 
         {/* Live inventory badge */}
-        <div className="flex items-center gap-2 text-xs bg-[#0b1220] border border-gray-800 py-2 px-4 rounded-xl shadow-xs self-start md:self-auto">
+        <div className="flex items-center gap-2 text-xs bg-[#0b1220] border border-gray-800 py-1.5 px-3.5 rounded-xl shadow-xs self-start md:self-auto">
           <span className="text-gray-400">Showing:</span>
           <span className="font-extrabold text-amber-400">{filteredSites.length}</span>
           <span className="text-gray-500">of 40,000+ Active Sites</span>
         </div>
       </div>
 
-      {/* FILTER CONTROL PANEL */}
-      <div className="bg-[#0b1220]/90 border border-gray-800/90 rounded-2xl p-5 shadow-2xl backdrop-blur-xl mb-8 relative">
+      {/* DISTINCTIVE BESPOKE CATEGORY & FILTER CONTAINER */}
+      <div className="relative rounded-3xl bg-gradient-to-b from-[#0d1629]/95 via-[#09101f]/95 to-[#060a14]/95 border border-amber-500/20 p-4 sm:p-5 shadow-[0_0_50px_-12px_rgba(245,158,11,0.08)] backdrop-blur-2xl mb-6">
         
-        {/* Top Search & Primary Action Row */}
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 pb-5 border-b border-gray-800/80">
+        {/* Subtle Ambient Glowing Line Top */}
+        <div className="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
+
+        {/* 1. UNIQUE HORIZONTAL CATEGORY PILLS BAR (Quick Category Discovery) */}
+        <div className="mb-4 pb-3 border-b border-gray-800/80">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+              <span>⚡</span> Trending Categories
+            </span>
+            <span className="text-[10px] text-gray-500">Scroll horizontally or use search</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin no-scrollbar">
+            {FEATURED_PILLS.map((pill) => {
+              const isActive = selectedCategory === pill;
+              return (
+                <button
+                  key={pill}
+                  type="button"
+                  onClick={() => setSelectedCategory(pill)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
+                    isActive
+                      ? "bg-gradient-to-r from-amber-500 to-amber-600 text-black font-extrabold shadow-md shadow-amber-500/20 scale-102"
+                      : "bg-[#070b14]/90 text-gray-400 hover:text-white hover:border-gray-600 border border-gray-800/90"
+                  }`}
+                >
+                  {pill}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 2. Top Search & Primary Action Row */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5 pb-3.5 border-b border-gray-800/80">
           {/* Main Keyword / Domain Search Input */}
           <div className="relative flex-1">
             <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
@@ -912,7 +1024,7 @@ export default function GuestPostMarketplace() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search from 40,000+ websites by domain, niche or keyword..."
-              className="w-full bg-[#070b14] border border-gray-700/80 rounded-xl pl-10 pr-4 py-2.5 text-base sm:text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className="w-full bg-[#070b14] border border-gray-700/80 rounded-xl pl-10 pr-4 py-2 text-base sm:text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
             />
             {searchQuery && (
               <button
@@ -930,20 +1042,22 @@ export default function GuestPostMarketplace() {
             <button
               type="button"
               onClick={() => setIsBulkSearchOpen(true)}
-              className="px-3.5 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs border border-gray-700 transition-colors flex items-center gap-1.5 cursor-pointer relative"
+              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-bold text-xs border border-amber-500/30 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
               title="Bulk check multiple domains (up to 60)"
             >
               <span>📋</span>
               <span>Bulk Search</span>
               {bulkSearchTerms.length > 0 && (
-                <span className="w-2 h-2 rounded-full bg-amber-400" />
+                <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-black text-[9px] font-black">
+                  {bulkSearchTerms.length}
+                </span>
               )}
             </button>
 
             <button
               type="button"
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-              className={`px-3.5 py-2.5 rounded-xl font-bold text-xs border transition-colors flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl font-bold text-xs border transition-colors flex items-center gap-1.5 cursor-pointer ${
                 showAdvancedFilters
                   ? "bg-blue-600/20 border-blue-500/50 text-blue-300"
                   : "bg-gray-800 hover:bg-gray-700 border-gray-700 text-gray-300"
@@ -951,12 +1065,15 @@ export default function GuestPostMarketplace() {
             >
               <span>⚙</span>
               <span>{showAdvancedFilters ? "Hide Filters" : "Filter Options"}</span>
+              {activeFiltersCount > 0 && (
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              )}
             </button>
 
             <button
               type="button"
               onClick={handleResetFilters}
-              className="px-3.5 py-2.5 rounded-xl bg-gray-800/80 hover:bg-red-950/40 text-gray-400 hover:text-red-300 font-semibold text-xs border border-gray-800 transition-colors cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-gray-800/80 hover:bg-red-950/40 text-gray-400 hover:text-red-300 font-semibold text-xs border border-gray-800 transition-colors cursor-pointer"
             >
               Reset Filters
             </button>
@@ -965,7 +1082,7 @@ export default function GuestPostMarketplace() {
 
         {/* BULK SEARCH ACTIVE CHIP INDICATOR */}
         {bulkSearchTerms.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 py-2 px-3 my-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-2 py-1.5 px-3 my-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs">
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="font-bold text-amber-400 flex items-center gap-1">
                 <span>📋</span> Bulk Search Active ({bulkSearchTerms.length} / {BULK_SEARCH_LIMIT} domains):
@@ -994,56 +1111,52 @@ export default function GuestPostMarketplace() {
           </div>
         )}
 
-        {/* EXPANDABLE MULTI-CRITERIA FILTERS GRID */}
+        {/* EXPANDABLE MULTI-CRITERIA FILTERS GRID (Tightened Spacing & Clean Modern Card Layout) */}
         {showAdvancedFilters && (
-          <div className="pt-5 space-y-4">
+          <div className="pt-3.5 space-y-3">
             
-            {/* Row 1: Searchable Dropdown Selectors */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs">
+            {/* Row 1: Direct Typeable Searchable Comboboxes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2.5 text-xs">
               
-              {/* Category / Niche with Search */}
+              {/* Category / Niche (Directly typeable in box) */}
               <SearchableSelect
                 label="Category / Niche"
                 value={selectedCategory}
                 options={categories}
                 onChange={setSelectedCategory}
                 placeholder="All Categories"
-                searchPlaceholder="Search category..."
               />
 
-              {/* Target Country with Search */}
+              {/* Target Country (Comprehensive Foreign Countries) */}
               <SearchableSelect
                 label="Target Country"
                 value={selectedCountry}
                 options={countries}
                 onChange={setSelectedCountry}
                 placeholder="All Countries"
-                searchPlaceholder="Search country..."
               />
 
-              {/* Link Attribute with Search */}
+              {/* Link Attribute */}
               <SearchableSelect
                 label="Link Attribute"
                 value={selectedLinkType}
                 options={linkTypes}
                 onChange={setSelectedLinkType}
                 placeholder="All Link Types"
-                searchPlaceholder="Search link type..."
               />
 
-              {/* Language with Search */}
+              {/* Language */}
               <SearchableSelect
                 label="Language"
                 value={selectedLanguage}
                 options={languages}
                 onChange={setSelectedLanguage}
                 placeholder="All Languages"
-                searchPlaceholder="Search language..."
               />
             </div>
 
-            {/* Row 2: Metric Ranges (Ahrefs DR, Moz DA, Price, TAT) */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs pt-1">
+            {/* Row 2: Metric Ranges (Ahrefs DR, Moz DA, Price - TAT REMOVED per user instruction) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs pt-0.5">
               {/* DR Min / Max */}
               <div>
                 <label className="block text-gray-400 text-[11px] font-semibold mb-1">
@@ -1115,24 +1228,10 @@ export default function GuestPostMarketplace() {
                   />
                 </div>
               </div>
-
-              {/* Turnaround Time (Days) */}
-              <div>
-                <label className="block text-gray-400 text-[11px] font-semibold mb-1">
-                  Max TAT (Days)
-                </label>
-                <input
-                  type="number"
-                  placeholder="e.g. 3 Days"
-                  value={maxTat}
-                  onChange={(e) => setMaxTat(e.target.value)}
-                  className="w-full bg-[#070b14] border border-gray-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                />
-              </div>
             </div>
 
             {/* Quick Segment Filter Badges */}
-            <div className="pt-3 flex flex-wrap items-center gap-2 border-t border-gray-800/60">
+            <div className="pt-2.5 flex flex-wrap items-center gap-2 border-t border-gray-800/60">
               <span className="text-[11px] text-gray-400 font-bold mr-1">Quick Filters:</span>
               
               <button
@@ -1189,7 +1288,7 @@ export default function GuestPostMarketplace() {
 
       </div>
 
-      {/* PUBLISHER INVENTORY TABLE */}
+      {/* PUBLISHER INVENTORY TABLE (Clean layout without TAT column) */}
       <div className="bg-[#0b1220] border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs whitespace-nowrap">
@@ -1202,7 +1301,6 @@ export default function GuestPostMarketplace() {
                 <th scope="col" className="py-3 px-3">Monthly Traffic</th>
                 <th scope="col" className="py-3 px-3">Target Geo</th>
                 <th scope="col" className="py-3 px-3">Link Type</th>
-                <th scope="col" className="py-3 px-3">Turnaround</th>
                 <th scope="col" className="py-3 px-3">Placement Price</th>
                 <th scope="col" className="py-3 px-4 text-right">Action</th>
               </tr>
@@ -1276,11 +1374,6 @@ export default function GuestPostMarketplace() {
                       </span>
                     </td>
 
-                    {/* Turnaround Time */}
-                    <td className="py-3.5 px-3 text-gray-400 font-medium">
-                      {site.tatDays} Days
-                    </td>
-
                     {/* Price */}
                     <td className="py-3.5 px-3">
                       <span className="font-black text-amber-400 text-sm">
@@ -1302,7 +1395,7 @@ export default function GuestPostMarketplace() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={10} className="py-12 text-center text-gray-500">
+                  <td colSpan={9} className="py-10 text-center text-gray-500">
                     <div className="text-3xl mb-2">🔍</div>
                     <p className="font-semibold text-white">No websites matched your exact filter criteria</p>
                     <p className="text-xs text-gray-400 mt-1">Try resetting filters or searching with different terms</p>
@@ -1321,7 +1414,7 @@ export default function GuestPostMarketplace() {
         </div>
 
         {/* Footer Bar of Table: Bulk Inquiries & Pagination note */}
-        <div className="p-4 bg-[#070b14] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+        <div className="p-3.5 bg-[#070b14] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
           <div>
             Showing <strong className="text-white">{filteredSites.length}</strong> publishers matching your criteria.
           </div>
@@ -1340,7 +1433,7 @@ export default function GuestPostMarketplace() {
       {/* BULK SEARCH MODAL (Limit 60 domains) */}
       {isBulkSearchOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-lg w-full p-5 space-y-3.5 shadow-2xl">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <span>📋</span> Bulk Domain Inventory Search
@@ -1358,7 +1451,7 @@ export default function GuestPostMarketplace() {
               <p className="text-xs text-gray-400 leading-relaxed">
                 Paste up to <strong className="text-amber-400 font-bold">{BULK_SEARCH_LIMIT} domains or keywords</strong> (one per line or comma-separated) to check availability in Nova Growth&apos;s database.
               </p>
-              <div className="flex items-center justify-between text-[11px] pt-1">
+              <div className="flex items-center justify-between text-[11px] pt-0.5">
                 <span className="text-gray-400">Limit: Max {BULK_SEARCH_LIMIT} domains</span>
                 <span
                   className={`font-mono font-bold ${
@@ -1375,7 +1468,7 @@ export default function GuestPostMarketplace() {
             </div>
 
             <textarea
-              rows={7}
+              rows={6}
               value={bulkInput}
               onChange={(e) => setBulkInput(e.target.value)}
               placeholder={`techbeacon-daily.com\nventurepulse-media.io\nhighroller-casino-insider.com\nAI & Machine Learning\nDoFollow`}
@@ -1395,7 +1488,7 @@ export default function GuestPostMarketplace() {
               </div>
             )}
 
-            <div className="flex items-center justify-between pt-2">
+            <div className="flex items-center justify-between pt-1">
               {bulkInput && (
                 <button
                   type="button"
@@ -1434,7 +1527,7 @@ export default function GuestPostMarketplace() {
       {/* ORDER / PLACEMENT INQUIRY MODAL */}
       {selectedSiteForOrder && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-md w-full p-5 space-y-3.5 shadow-2xl">
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Placement Booking</span>
@@ -1459,8 +1552,8 @@ export default function GuestPostMarketplace() {
                 <span className="font-bold text-white">{selectedSiteForOrder.ahrefsTraffic}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Turnaround Time:</span>
-                <span className="font-bold text-white">{selectedSiteForOrder.tatDays} Days</span>
+                <span className="text-gray-400">Link Attribute:</span>
+                <span className="font-bold text-emerald-400">✓ {selectedSiteForOrder.linkType}</span>
               </div>
               <div className="flex justify-between border-t border-gray-800 pt-2">
                 <span className="text-gray-300 font-bold">Editorial Placement Fee:</span>
@@ -1472,7 +1565,7 @@ export default function GuestPostMarketplace() {
               Includes native 1,000+ word content drafting, do-follow in-content link injection, and permanent placement guarantee.
             </p>
 
-            <div className="space-y-2 pt-2">
+            <div className="space-y-2 pt-1">
               <a
                 href={`https://wa.me/918000417058?text=${encodeURIComponent(
                   `Hi Nova Growth! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`

@@ -323,9 +323,9 @@ export default function ServicesPage() {
       </section>
 
       {/* Pricing Packages in USD */}
-      <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
+      <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
               Transparent Global Pricing
             </span>

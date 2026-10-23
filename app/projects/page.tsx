@@ -150,7 +150,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="relative py-20 px-6 md:px-12 z-10 text-center">
+      <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 text-center">
         <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
           <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
             Want to See Similar Growth for Your Business?
