@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { trackInteraction } from "@/lib/tracker";
 
 export default function FloatingConnect() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Hide FloatingConnect completely on admin pages
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   // Agency contact details
   const whatsappNumber = "918000417058";

@@ -1,17 +1,54 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export default function CookieConsent() {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analyticsEnabled, setAnalyticsEnabled] = useState(true);
   const [marketingEnabled, setMarketingEnabled] = useState(true);
 
+  // Helper to read consent from localStorage or document.cookie
+  const getStoredConsent = (): string | null => {
+    try {
+      const val = localStorage.getItem("nova_growth_cookie_consent");
+      if (val) return val;
+    } catch {}
+    try {
+      if (typeof document !== "undefined") {
+        const match = document.cookie.match(/nova_growth_cookie_consent=([^;]+)/);
+        if (match) return match[1];
+      }
+    } catch {}
+    return null;
+  };
+
+  // Helper to save consent in both localStorage and 1-year persistent cookie
+  const saveConsent = (status: "accepted" | "declined" | "custom", analytics: boolean, marketing: boolean) => {
+    try {
+      localStorage.setItem("nova_growth_cookie_consent", status);
+      localStorage.setItem("nova_growth_cookie_analytics", analytics ? "true" : "false");
+      localStorage.setItem("nova_growth_cookie_marketing", marketing ? "true" : "false");
+    } catch {}
+    try {
+      if (typeof document !== "undefined") {
+        const oneYearSeconds = 365 * 24 * 60 * 60;
+        document.cookie = `nova_growth_cookie_consent=${status}; max-age=${oneYearSeconds}; path=/; SameSite=Lax`;
+        document.cookie = `nova_growth_cookie_analytics=${analytics ? "true" : "false"}; max-age=${oneYearSeconds}; path=/; SameSite=Lax`;
+        document.cookie = `nova_growth_cookie_marketing=${marketing ? "true" : "false"}; max-age=${oneYearSeconds}; path=/; SameSite=Lax`;
+      }
+    } catch {}
+  };
+
   useEffect(() => {
+    // Never show on admin workspace
+    if (pathname?.startsWith("/admin")) return;
+
     // Check if user has already made a choice
-    const savedConsent = localStorage.getItem("nova_growth_cookie_consent");
+    const savedConsent = getStoredConsent();
     if (!savedConsent) {
       // Delay slightly for smooth appearance
       const timer = setTimeout(() => {
@@ -19,7 +56,7 @@ export default function CookieConsent() {
       }, 1200);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [pathname]);
 
   // Listen for custom trigger to re-open cookie preferences from footer
   useEffect(() => {
@@ -33,28 +70,23 @@ export default function CookieConsent() {
   }, []);
 
   const handleAcceptAll = () => {
-    localStorage.setItem("nova_growth_cookie_consent", "accepted");
-    localStorage.setItem("nova_growth_cookie_analytics", "true");
-    localStorage.setItem("nova_growth_cookie_marketing", "true");
+    saveConsent("accepted", true, true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem("nova_growth_cookie_consent", "declined");
-    localStorage.setItem("nova_growth_cookie_analytics", "false");
-    localStorage.setItem("nova_growth_cookie_marketing", "false");
+    saveConsent("declined", false, false);
     setIsVisible(false);
   };
 
   const handleSavePreferences = () => {
-    localStorage.setItem("nova_growth_cookie_consent", "custom");
-    localStorage.setItem("nova_growth_cookie_analytics", analyticsEnabled ? "true" : "false");
-    localStorage.setItem("nova_growth_cookie_marketing", marketingEnabled ? "true" : "false");
+    saveConsent("custom", analyticsEnabled, marketingEnabled);
     setIsVisible(false);
     setShowPreferences(false);
   };
 
-  if (!isVisible) return null;
+  // Completely hidden on admin pages or once dismissed
+  if (pathname?.startsWith("/admin") || !isVisible) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-50 transition-all duration-300">
