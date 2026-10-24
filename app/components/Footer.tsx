@@ -371,8 +371,8 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Social Icons (Circular Buttons matching image style) */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Social Icons (Shifted left away from floating connect button) */}
+          <div className="flex flex-wrap items-center gap-2 mr-0 sm:mr-24 lg:mr-32">
             {/* WhatsApp */}
             <a
               href="https://wa.me/918000417058"
@@ -434,7 +434,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright notice & Privacy / Cookies */}
-        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-100 pt-4">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-100 pt-4 sm:pr-24 lg:pr-32">
           <span>&copy; 2026 Nova Growth. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.</span>
           <div className="flex items-center gap-3 text-[11px]">
             <Link href="/about" className="hover:text-gray-600 transition-colors">

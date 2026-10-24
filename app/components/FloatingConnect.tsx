@@ -10,7 +10,6 @@ export default function FloatingConnect() {
   // Agency contact details
   const whatsappNumber = "918000417058";
   const agencyEmail = "shrahul270@gmail.com";
-  const meetOrCalendlyUrl = "https://calendly.com";
 
   // Close on outside click
   useEffect(() => {
@@ -36,16 +35,6 @@ export default function FloatingConnect() {
     });
   };
 
-  const handleBookCallClick = () => {
-    setIsOpen(false);
-    trackInteraction({
-      action: "video_call",
-      title: "Book Video Call Clicked",
-      details: `Target: ${meetOrCalendlyUrl}`,
-      targetUrl: meetOrCalendlyUrl,
-    });
-  };
-
   const handleEmailClick = () => {
     setIsOpen(false);
     trackInteraction({
@@ -63,29 +52,7 @@ export default function FloatingConnect() {
       ref={containerRef}
       className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 select-none flex items-center justify-center"
     >
-      {/* 1. Book Video Call Button (Top) */}
-      <a
-        href={meetOrCalendlyUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleBookCallClick}
-        aria-label="Book Video Call"
-        className={`${buttonBase} bg-[#1a73e8] shadow-lg shadow-[#1a73e8]/40 border-2 border-white/30 ${
-          isOpen
-            ? "bottom-20 right-1 sm:bottom-22 sm:right-2 opacity-100 scale-100 pointer-events-auto delay-100"
-            : "bottom-1 right-1 opacity-0 scale-0 pointer-events-none"
-        }`}
-      >
-        {/* Tooltip */}
-        <span className="absolute right-15 sm:right-16 whitespace-nowrap bg-[#091427]/95 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-white/10">
-          Book Video Call
-        </span>
-        <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
-          <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
-        </svg>
-      </a>
-
-      {/* 2. WhatsApp Button (Diagonal Up-Left) */}
+      {/* 1. WhatsApp Button (Top) */}
       <a
         href={`https://wa.me/${whatsappNumber}?text=Hi%20Nova%20Growth,%20I%20want%20to%20discuss%20a%20project.`}
         target="_blank"
@@ -94,7 +61,7 @@ export default function FloatingConnect() {
         aria-label="Chat on WhatsApp"
         className={`${buttonBase} bg-[#25D366] shadow-lg shadow-[#25D366]/40 border-2 border-white/30 ${
           isOpen
-            ? "bottom-15 right-15 sm:bottom-17 sm:right-17 opacity-100 scale-100 pointer-events-auto delay-75"
+            ? "bottom-18 right-1 sm:bottom-20 sm:right-1.5 opacity-100 scale-100 pointer-events-auto delay-75"
             : "bottom-1 right-1 opacity-0 scale-0 pointer-events-none"
         }`}
       >
@@ -107,7 +74,7 @@ export default function FloatingConnect() {
         </svg>
       </a>
 
-      {/* 3. Send Quick Email Button (Horizontal Left) */}
+      {/* 2. Send Quick Email Button (Left) */}
       <a
         href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("Direct Agency Inquiry - Nova Growth")}`}
         target="_blank"
@@ -116,7 +83,7 @@ export default function FloatingConnect() {
         aria-label="Send Quick Email"
         className={`${buttonBase} bg-[#EA4335] shadow-lg shadow-[#EA4335]/40 border-2 border-white/30 ${
           isOpen
-            ? "bottom-1 right-20 sm:bottom-2 sm:right-22 opacity-100 scale-100 pointer-events-auto delay-0"
+            ? "bottom-1 right-18 sm:bottom-1.5 sm:right-20 opacity-100 scale-100 pointer-events-auto delay-0"
             : "bottom-1 right-1 opacity-0 scale-0 pointer-events-none"
         }`}
       >
@@ -129,7 +96,7 @@ export default function FloatingConnect() {
         </svg>
       </a>
 
-      {/* 3D Floating Action "Connect" Button (Same as requested) */}
+      {/* 3D Floating Action "Connect" Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -148,7 +115,9 @@ export default function FloatingConnect() {
         ) : (
           <div className="flex flex-col items-center justify-center">
             <span className="text-xl drop-shadow-md">⚡</span>
-            <span className="text-[9px] font-extrabold tracking-tighter uppercase -mt-0.5">Connect</span>
+            <span className="text-[9px] font-black tracking-wider uppercase text-[#091427] -mt-0.5">
+              Connect
+            </span>
           </div>
         )}
       </button>
