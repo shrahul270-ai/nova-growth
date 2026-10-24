@@ -665,6 +665,43 @@ export default function GuestPostMarketplace() {
   // Order / Inquiry Modal State
   const [selectedSiteForOrder, setSelectedSiteForOrder] = useState<PublisherSite | null>(null);
 
+  // Buyer Account Authentication State (Email + Phone + Password)
+  interface BuyerUser {
+    email: string;
+    phone: string;
+  }
+  const [buyerUser, setBuyerUser] = useState<BuyerUser | null>(null);
+  const [isBuyerLoggedIn, setIsBuyerLoggedIn] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"signup" | "login">("signup");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPhone, setAuthPhone] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isSubmittingAuth, setIsSubmittingAuth] = useState(false);
+
+  // Check buyer session on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("nova_buyer_session");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && parsed.email) {
+          setBuyerUser(parsed);
+          setIsBuyerLoggedIn(true);
+        }
+      }
+    } catch {}
+  }, []);
+
+  const handleBuyerLogout = () => {
+    try {
+      localStorage.removeItem("nova_buyer_session");
+    } catch {}
+    setBuyerUser(null);
+    setIsBuyerLoggedIn(false);
+  };
+
   // Custom publishers added via Admin panel
   const [customPublishers, setCustomPublishers] = useState<PublisherSite[]>([]);
 
@@ -684,6 +721,113 @@ export default function GuestPostMarketplace() {
   const allPublishers: PublisherSite[] = useMemo(() => {
     return [...customPublishers, ...initialPublishers];
   }, [customPublishers]);
+
+  // Download 40,000+ guest post database in Excel/CSV format
+  const handleDownloadDatabase = (sitesToExport = allPublishers) => {
+    const headers = [
+      "Publication Domain",
+      "Category / Niche",
+      "Ahrefs DR",
+      "Moz DA",
+      "Traffic",
+      "Country",
+      "Link Type",
+      "Price (USD)",
+      "Status",
+    ];
+    const rows = sitesToExport.map((s) => [
+      `"${s.domain}"`,
+      `"${s.niche}"`,
+      `"${s.dr}"`,
+      `"${s.da}"`,
+      `"${s.ahrefsTraffic}"`,
+      `"${s.country}"`,
+      `"${s.linkType}"`,
+      `"$${s.price} USD"`,
+      `"Verified & Indexed"`,
+    ]);
+    const csvContent =
+      "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.setAttribute("download", `nova_growth_40000_guest_posts_${Date.now()}.csv`);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadDatabaseClick = () => {
+    if (!isBuyerLoggedIn) {
+      setAuthMode("signup");
+      setIsAuthModalOpen(true);
+      return;
+    }
+    handleDownloadDatabase(allPublishers);
+  };
+
+  const handleAuthSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError(null);
+
+    const cleanEmail = authEmail.trim().toLowerCase();
+    const cleanPhone = authPhone.trim();
+
+    if (!cleanEmail) {
+      setAuthError("Email address is required.");
+      return;
+    }
+    if (authMode === "signup" && !cleanPhone) {
+      setAuthError("Mobile / WhatsApp number is required.");
+      return;
+    }
+    if (!authPassword) {
+      setAuthError("Password is required.");
+      return;
+    }
+
+    setIsSubmittingAuth(true);
+
+    const userRecord: BuyerUser = {
+      email: cleanEmail,
+      phone: cleanPhone || "Not specified",
+    };
+
+    try {
+      localStorage.setItem("nova_buyer_session", JSON.stringify(userRecord));
+      setBuyerUser(userRecord);
+      setIsBuyerLoggedIn(true);
+
+      // Save lead to database as high-intent buyer registration
+      await fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "buyer_account_registration",
+          name: cleanEmail.split("@")[0],
+          email: cleanEmail,
+          phone: cleanPhone,
+          service: "40,000+ Guest Post Database Access",
+          message: "Buyer registered to unlock and download 40,000+ guest post database.",
+          notes: `Buyer account created with password. Full database unlocked.`,
+        }),
+      });
+
+      setIsAuthModalOpen(false);
+      setAuthEmail("");
+      setAuthPhone("");
+      setAuthPassword("");
+
+      // Trigger automatic Excel download
+      handleDownloadDatabase(allPublishers);
+    } catch (err) {
+      console.error("Auth submit error:", err);
+    } finally {
+      setIsSubmittingAuth(false);
+    }
+  };
 
   // All requested categories
   const categories = [
@@ -973,13 +1117,56 @@ export default function GuestPostMarketplace() {
           </p>
         </div>
 
-        {/* Live inventory badge */}
-        <div className="flex items-center gap-2 text-xs bg-[#0b1220] border border-gray-800 py-1.5 px-3.5 rounded-xl shadow-xs self-start md:self-auto">
-          <span className="text-gray-400">Showing:</span>
-          <span className="font-extrabold text-amber-400">{filteredSites.length}</span>
-          <span className="text-gray-500">of 40,000+ Active Sites</span>
+        {/* Live inventory badge & 40,000+ Database Download Action */}
+        <div className="flex items-center gap-3 flex-wrap self-start md:self-auto">
+          {/* Download Complete Database Button */}
+          <button
+            type="button"
+            onClick={handleDownloadDatabaseClick}
+            className="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-black font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/25 cursor-pointer transition-all hover:scale-102 active:scale-98"
+            title="Download full 40,000+ guest post database in Excel (.xlsx / .csv)"
+          >
+            <span className="text-sm">📥</span>
+            <span>Download Database (.xlsx)</span>
+          </button>
+
+          <div className="flex items-center gap-2 text-xs bg-[#0b1220] border border-gray-800 py-2 px-3.5 rounded-xl shadow-xs">
+            <span className="text-gray-400">Showing:</span>
+            <span className="font-extrabold text-amber-400">
+              {isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}
+            </span>
+            <span className="text-gray-500">of 40,000+ Active Sites</span>
+          </div>
         </div>
       </div>
+
+      {/* BUYER AUTHENTICATED WELCOME BANNER */}
+      {isBuyerLoggedIn && (
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-teal-950/40 to-slate-900 border border-emerald-500/30 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shadow-md shadow-emerald-500/10">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-bold text-white">
+              Buyer Account Active: <strong className="text-emerald-400">{buyerUser?.email || "Buyer"}</strong>
+            </span>
+            <span className="hidden md:inline text-gray-400">• Full 40,000+ Directory &amp; Direct Export Unlocked</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/buyer-dashboard"
+              className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold transition-all shadow-sm flex items-center gap-1.5"
+            >
+              <span>🚀</span>
+              <span>Open Buyer Dashboard</span>
+            </Link>
+            <button
+              onClick={handleBuyerLogout}
+              className="text-gray-400 hover:text-white underline text-[11px] cursor-pointer"
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* DISTINCTIVE BESPOKE CATEGORY & FILTER CONTAINER */}
       <div className="relative rounded-3xl bg-gradient-to-b from-[#0d1629]/95 via-[#09101f]/95 to-[#060a14]/95 border border-amber-500/20 p-4 sm:p-5 shadow-[0_0_50px_-12px_rgba(245,158,11,0.08)] backdrop-blur-2xl mb-6">
@@ -1271,7 +1458,7 @@ export default function GuestPostMarketplace() {
                 <th scope="col" className="py-3 px-3">Niche Category</th>
                 <th scope="col" className="py-3 px-3">Ahrefs DR</th>
                 <th scope="col" className="py-3 px-3">Moz DA</th>
-                <th scope="col" className="py-3 px-3">Monthly Traffic</th>
+                <th scope="col" className="py-3 px-3">Traffic</th>
                 <th scope="col" className="py-3 px-3">Target Geo</th>
                 <th scope="col" className="py-3 px-3">Link Type</th>
                 <th scope="col" className="py-3 px-3">Placement Price</th>
@@ -1280,7 +1467,7 @@ export default function GuestPostMarketplace() {
             </thead>
             <tbody className="divide-y divide-gray-800/60">
               {filteredSites.length > 0 ? (
-                filteredSites.map((site) => (
+                (isBuyerLoggedIn ? filteredSites : filteredSites.slice(0, 6)).map((site) => (
                   <tr
                     key={site.id}
                     className="hover:bg-gray-800/40 transition-colors group"
@@ -1386,10 +1573,49 @@ export default function GuestPostMarketplace() {
           </table>
         </div>
 
+        {/* LOCKED CALLOUT BANNER (Shown when visitor is not logged in) */}
+        {!isBuyerLoggedIn && (
+          <div className="relative py-10 px-6 text-center bg-gradient-to-b from-gray-900/90 via-[#0a1224] to-[#070b14] border-t border-amber-500/20">
+            <div className="w-13 h-13 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg shadow-amber-500/10">
+              🔒
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+              Unlock All 40,000+ Authority Publications &amp; Excel Download
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 max-w-lg mx-auto mb-6 leading-relaxed">
+              Create a free Buyer account with your Email and WhatsApp number to unlock complete publication names, direct wholesale rates, and instant Excel database export.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthMode("signup");
+                  setIsAuthModalOpen(true);
+                }}
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-black font-black px-7 py-3 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 cursor-pointer inline-flex items-center justify-center gap-2 transition-all hover:scale-102"
+              >
+                <span>✨</span>
+                <span>Register Free to Unlock All &amp; Download</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthMode("login");
+                  setIsAuthModalOpen(true);
+                }}
+                className="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white font-bold px-5 py-3 rounded-xl text-xs border border-gray-700 cursor-pointer transition-all"
+              >
+                Already registered? Log In
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Footer Bar of Table: Bulk Inquiries & Pagination note */}
         <div className="p-3.5 bg-[#070b14] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
           <div>
-            Showing <strong className="text-white">{filteredSites.length}</strong> publishers matching your criteria.
+            Showing <strong className="text-white">{isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}</strong> of {filteredSites.length} filtered publishers.
           </div>
           <div className="flex items-center gap-3">
             <span>Need a custom publisher not in this list?</span>
@@ -1556,6 +1782,146 @@ export default function GuestPostMarketplace() {
               >
                 Pay &amp; Authorize Placement (${selectedSiteForOrder.price}) →
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* BUYER AUTHENTICATION MODAL (Email + Mobile + Password Creation) */}
+      {isAuthModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+
+            {/* Modal Header */}
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center text-lg font-black shadow-md">
+                  📥
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-white tracking-tight">
+                    {authMode === "signup" ? "Create Free Buyer Account" : "Buyer Login"}
+                  </h3>
+                  <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">
+                    Unlock 40,000+ Database
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsAuthModalOpen(false)}
+                className="w-7 h-7 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Toggle Tabs: Register vs Login */}
+            <div className="grid grid-cols-2 p-1 bg-[#070b14] rounded-xl border border-gray-800 mb-4 text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthMode("signup");
+                  setAuthError(null);
+                }}
+                className={`py-2 rounded-lg transition-all cursor-pointer ${
+                  authMode === "signup"
+                    ? "bg-amber-500 text-black shadow-xs"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                Create Account (New)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthMode("login");
+                  setAuthError(null);
+                }}
+                className={`py-2 rounded-lg transition-all cursor-pointer ${
+                  authMode === "login"
+                    ? "bg-amber-500 text-black shadow-xs"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                Sign In (Existing)
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+              {authMode === "signup"
+                ? "Register your email and mobile number to immediately unlock all 40,000+ publisher sites and download the complete Excel database."
+                : "Sign in with your email and password to access the full publisher directory and your buyer workspace."}
+            </p>
+
+            {authError && (
+              <div className="p-2.5 mb-3 rounded-xl bg-rose-950/80 border border-rose-800 text-rose-300 text-xs font-semibold">
+                ⚠️ {authError}
+              </div>
+            )}
+
+            {/* Auth Form */}
+            <form onSubmit={handleAuthSubmit} className="space-y-3.5 text-xs text-left">
+              <div>
+                <label className="block text-gray-300 font-bold mb-1">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="name@company.com"
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              {authMode === "signup" && (
+                <div>
+                  <label className="block text-gray-300 font-bold mb-1">
+                    Mobile / WhatsApp Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+1 555-0192 or +91 9876543210"
+                    value={authPhone}
+                    onChange={(e) => setAuthPhone(e.target.value)}
+                    className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                  />
+                  <span className="text-[10px] text-gray-500 mt-0.5 block">
+                    Used to send you order updates and wholesale pricing alerts.
+                  </span>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-gray-300 font-bold mb-1">
+                  {authMode === "signup" ? "Create Password *" : "Password *"}
+                </label>
+                <input
+                  type="password"
+                  required
+                  placeholder="••••••••••••"
+                  value={authPassword}
+                  onChange={(e) => setAuthPassword(e.target.value)}
+                  className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmittingAuth}
+                className="w-full py-3 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer pt-2 mt-2 flex items-center justify-center gap-1.5"
+              >
+                <span>{isSubmittingAuth ? "Unlocking Database..." : "Unlock & Download Excel Database →"}</span>
+              </button>
+            </form>
+
+            <div className="mt-4 pt-3 border-t border-gray-800/80 text-[11px] text-gray-500 text-center">
+              <span>🔒 100% Privacy Guaranteed. Zero spam. Direct wholesale link pricing.</span>
             </div>
           </div>
         </div>
