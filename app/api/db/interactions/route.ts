@@ -1,14 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createInteraction, queryRecords, softDeleteRecord, permanentDeleteRecord, updateRecord, RecordStatus, ensureSupabaseSync } from "@/lib/db";
+import {
+  createInteraction,
+  queryRecords,
+  softDeleteRecord,
+  permanentDeleteRecord,
+  updateRecord,
+  RecordStatus,
+  ensureSupabaseSync,
+} from "@/lib/db";
+import {
+  verifyAdminRequest,
+  checkSubmissionRateLimit,
+  sanitizeInput,
+} from "@/lib/security";
 
 export async function GET(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const sortOrder = (searchParams.get("sortOrder") as "desc" | "asc") || "desc";
     const showDeletedParam = searchParams.get("showDeleted");
-    const showDeleted = showDeletedParam === "true" ? true : showDeletedParam === "all" ? undefined : false;
+    const showDeleted =
+      showDeletedParam === "true" ? true : showDeletedParam === "all" ? undefined : false;
     const limit = parseInt(searchParams.get("limit") || "100", 10);
     const offset = parseInt(searchParams.get("offset") || "0", 10);
 
@@ -33,37 +55,45 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-
-    const clientIp = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+    const clientIp =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "unknown";
     const userAgent = req.headers.get("user-agent") || "unknown";
 
+    if (!checkSubmissionRateLimit(clientIp)) {
+      return NextResponse.json(
+        { success: false, error: "Rate limit exceeded" },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json();
+
     const interaction = await createInteraction({
-      type: body.type || "whatsapp_click",
-      action: body.action || "whatsapp",
-      title: body.title || "Client Click / Interaction",
-      name: body.name || "",
-      phone: body.phone || "",
-      email: body.email || "",
-      details: body.details || "",
-      clientIdentifier: body.clientIdentifier || "",
-      sourcePage: body.sourcePage || "/",
-      targetUrl: body.targetUrl || "",
+      type: sanitizeInput(body.type || "whatsapp_click"),
+      action: sanitizeInput(body.action || "whatsapp"),
+      title: sanitizeInput(body.title || "Client Click / Interaction"),
+      name: sanitizeInput(body.name || ""),
+      phone: sanitizeInput(body.phone || ""),
+      email: sanitizeInput(body.email || ""),
+      details: sanitizeInput(body.details || ""),
+      clientIdentifier: sanitizeInput(body.clientIdentifier || ""),
+      sourcePage: sanitizeInput(body.sourcePage || "/"),
       clientIp,
       userAgent,
-      notes: body.notes || "",
+      notes: sanitizeInput(body.notes || ""),
     });
-
 
     return NextResponse.json({
       success: true,
-      message: "Interaction tracked and stored in database",
+      message: "Interaction tracked successfully",
       data: interaction,
     });
   } catch (error) {
-    console.error("Error recording interaction:", error);
+    console.error("Error saving interaction:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to record interaction" },
+      { success: false, error: "Failed to save interaction" },
       { status: 500 }
     );
   }
@@ -71,6 +101,14 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { id, status, notes } = body;
 
@@ -80,12 +118,12 @@ export async function PATCH(req: NextRequest) {
 
     const updates: Record<string, unknown> = {};
     if (status) updates.status = status as RecordStatus;
-    if (notes !== undefined) updates.notes = notes;
+    if (notes !== undefined) updates.notes = sanitizeInput(notes);
 
     const updated = await updateRecord("interactions", id, updates);
 
     if (!updated) {
-      return NextResponse.json({ success: false, error: "Record not found" }, { status: 404 });
+      return NextResponse.json({ success: false, error: "Interaction not found" }, { status: 404 });
     }
 
     return NextResponse.json({ success: true, data: updated });
@@ -97,6 +135,14 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     const permanent = searchParams.get("permanent") === "true";
@@ -105,12 +151,12 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Record ID is required" }, { status: 400 });
     }
 
-    const success = permanent 
+    const success = permanent
       ? await permanentDeleteRecord("interactions", id)
       : await softDeleteRecord("interactions", id);
 
     if (!success) {
-      return NextResponse.json({ success: false, error: "Record not found" }, { status: 404 });
+      return NextResponse.json({ success: false, error: "Interaction not found" }, { status: 404 });
     }
 
     return NextResponse.json({

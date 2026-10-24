@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { restoreRecord } from "@/lib/db";
+import { verifyAdminRequest } from "@/lib/security";
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { collection, id } = body;
 

@@ -50,6 +50,7 @@ export default function AdminDatabasePage() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Active View State (Vefogix Sidebar Selection)
   const [activeTab, setActiveTab] = useState<
@@ -89,48 +90,65 @@ export default function AdminDatabasePage() {
   const [isGuestPostMenuOpen, setIsGuestPostMenuOpen] = useState(true);
   const [isCrmMenuOpen, setIsCrmMenuOpen] = useState(true);
 
-  // Fixed Admin Credentials
-  const FIXED_ADMIN_EMAILS = ["admin@novagrowth.agency", "shrahul270@gmail.com"];
-  const FIXED_ADMIN_PASSWORD = "NovaAdmin@2025";
-
-  // Check login on mount
+  // Verify server-side session cookie on mount
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("nova_admin_session");
-      if (stored === "authenticated") {
-        setIsAuthenticated(true);
+    const checkServerSession = async () => {
+      try {
+        const res = await fetch("/api/admin/verify");
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      } finally {
+        setAuthChecked(true);
       }
-    } catch {}
-    setAuthChecked(true);
+    };
+    checkServerSession();
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Secure Server-Side Login with Brute-Force Rate Limiting
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError(null);
+    setIsLoggingIn(true);
 
-    const emailTrimmed = loginEmail.trim().toLowerCase();
-    const isEmailValid = FIXED_ADMIN_EMAILS.some((em) => em.toLowerCase() === emailTrimmed);
-    const isPasswordValid = loginPassword === FIXED_ADMIN_PASSWORD;
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
 
-    if (isEmailValid && isPasswordValid) {
-      setIsAuthenticated(true);
-      try {
-        localStorage.setItem("nova_admin_session", "authenticated");
-      } catch {}
-      showToast("✓ Welcome! Successfully logged in to Admin & Buyer Workspace.");
-    } else {
-      setLoginError("Invalid Email or Password. Please check your credentials.");
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        showToast("✓ Security verified! Logged in to Admin Workspace.");
+        setLoginEmail("");
+        setLoginPassword("");
+      } else {
+        setLoginError(data.error || "Invalid Email or Password. Access denied.");
+      }
+    } catch {
+      setLoginError("Network security error. Please check your connection.");
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
-  const handleLogout = () => {
+  // Secure Server-Side Logout (Destroys HTTP-only session cookie)
+  const handleLogout = async () => {
     try {
-      localStorage.removeItem("nova_admin_session");
+      await fetch("/api/admin/logout", { method: "POST" });
     } catch {}
     setIsAuthenticated(false);
     setLoginEmail("");
     setLoginPassword("");
-    showToast("Logged out successfully.");
+    showToast("Logged out securely.");
   };
 
   // Form for Manual Entry
@@ -528,9 +546,14 @@ export default function AdminDatabasePage() {
 
             <button
               type="submit"
-              className="w-full py-3 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-indigo-500/20 cursor-pointer mt-2"
+              disabled={isLoggingIn}
+              className={`w-full py-3 text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-indigo-500/20 cursor-pointer mt-2 ${
+                isLoggingIn
+                  ? "bg-indigo-400 cursor-not-allowed opacity-75"
+                  : "bg-[#4a3aff] hover:bg-[#3d2ee0]"
+              }`}
             >
-              Sign In to Admin Workspace →
+              {isLoggingIn ? "Verifying Credentials..." : "Sign In to Admin Workspace →"}
             </button>
           </form>
 

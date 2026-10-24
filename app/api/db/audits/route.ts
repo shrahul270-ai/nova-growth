@@ -1,14 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { queryRecords, softDeleteRecord, permanentDeleteRecord, updateRecord, RecordStatus, ensureSupabaseSync } from "@/lib/db";
+import {
+  queryRecords,
+  softDeleteRecord,
+  permanentDeleteRecord,
+  updateRecord,
+  RecordStatus,
+  ensureSupabaseSync,
+} from "@/lib/db";
+import { verifyAdminRequest, sanitizeInput } from "@/lib/security";
 
 export async function GET(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const sortOrder = (searchParams.get("sortOrder") as "desc" | "asc") || "desc";
     const showDeletedParam = searchParams.get("showDeleted");
-    const showDeleted = showDeletedParam === "true" ? true : showDeletedParam === "all" ? undefined : false;
+    const showDeleted =
+      showDeletedParam === "true" ? true : showDeletedParam === "all" ? undefined : false;
     const limit = parseInt(searchParams.get("limit") || "100", 10);
     const offset = parseInt(searchParams.get("offset") || "0", 10);
 
@@ -33,6 +50,14 @@ export async function GET(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { id, status, notes, emailSubmitted } = body;
 
@@ -42,8 +67,8 @@ export async function PATCH(req: NextRequest) {
 
     const updates: Record<string, unknown> = {};
     if (status) updates.status = status as RecordStatus;
-    if (notes !== undefined) updates.notes = notes;
-    if (emailSubmitted) updates.emailSubmitted = emailSubmitted;
+    if (notes !== undefined) updates.notes = sanitizeInput(notes);
+    if (emailSubmitted) updates.emailSubmitted = sanitizeInput(emailSubmitted);
 
     const updated = await updateRecord("audits", id, updates);
 
@@ -60,6 +85,14 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     const permanent = searchParams.get("permanent") === "true";
@@ -68,7 +101,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Record ID is required" }, { status: 400 });
     }
 
-    const success = permanent 
+    const success = permanent
       ? await permanentDeleteRecord("audits", id)
       : await softDeleteRecord("audits", id);
 

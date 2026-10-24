@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readDatabase, ensureSupabaseSync } from "@/lib/db";
+import { verifyAdminRequest } from "@/lib/security";
 
 export async function GET(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     await ensureSupabaseSync();
     const { searchParams } = new URL(req.url);
     const format = searchParams.get("format") || "json";
@@ -18,7 +27,17 @@ export async function GET(req: NextRequest) {
       if (collection === "payments" || collection === "all") records.push(...db.payments);
 
       // Convert to flat CSV/Excel-compatible format
-      const headers = ["ID", "Collection", "Type", "Status", "IsDeleted", "Created At", "Name/Title/Domain", "Email/Details", "Amount/Score"];
+      const headers = [
+        "ID",
+        "Collection",
+        "Type",
+        "Status",
+        "IsDeleted",
+        "Created At",
+        "Name/Title/Domain",
+        "Email/Details",
+        "Amount/Score",
+      ];
       const rows = records.map((r) => {
         const id = r.id || "";
         const col = r.collection || "";
@@ -28,7 +47,11 @@ export async function GET(req: NextRequest) {
         const date = r.createdAt || "";
         const primary = r.name || r.title || r.domain || r.clientName || "";
         const secondary = r.email || r.details || r.clientEmail || "";
-        const value = r.amount ? `${r.currency || "USD"} ${r.amount}` : (r.scores?.ranking ? `Score: ${r.scores.ranking}` : "");
+        const value = r.amount
+          ? `${r.currency || "USD"} ${r.amount}`
+          : r.scores?.ranking
+          ? `Score: ${r.scores.ranking}`
+          : "";
 
         return [
           `"${id}"`,

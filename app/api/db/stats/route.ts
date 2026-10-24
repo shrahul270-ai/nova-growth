@@ -1,8 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getDatabaseStats, ensureSupabaseSync } from "@/lib/db";
+import { verifyAdminRequest } from "@/lib/security";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required" },
+        { status: 401 }
+      );
+    }
+
     await ensureSupabaseSync();
     const stats = getDatabaseStats();
     return NextResponse.json({ success: true, ...stats });
