@@ -5,6 +5,7 @@ import Link from "next/link";
 import ClientProfileView from "./ClientProfileView";
 import AnalyticsDashboardView from "./AnalyticsDashboardView";
 import PublisherSitesManager from "./PublisherSitesManager";
+import { PublisherSite } from "../data/publishersData";
 
 interface BaseItem {
   id: string;
@@ -50,8 +51,29 @@ export default function AdminDatabasePage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
 
-  // Database View State
-  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "analytics" | "publishers" | "trash" | "logs">("all");
+  // Active View State (Vefogix Sidebar Selection)
+  const [activeTab, setActiveTab] = useState<
+    | "dashboard"
+    | "publishers_all"
+    | "publishers_premium"
+    | "publishers_iplay"
+    | "publishers_trusted"
+    | "publishers_verified"
+    | "publishers_forbidden"
+    | "publishers_link_insertion"
+    | "publishers_top_selling"
+    | "publishers_favorites"
+    | "publishers_blacklisted"
+    | "leads"
+    | "interactions"
+    | "audits"
+    | "payments"
+    | "client_profile"
+    | "analytics"
+    | "trash"
+    | "logs"
+  >("dashboard");
+
   const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -64,6 +86,8 @@ export default function AdminDatabasePage() {
   const [editingNotes, setEditingNotes] = useState("");
   const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
   const [isAddPublisherModalOpen, setIsAddPublisherModalOpen] = useState(false);
+  const [isGuestPostMenuOpen, setIsGuestPostMenuOpen] = useState(true);
+  const [isCrmMenuOpen, setIsCrmMenuOpen] = useState(true);
 
   // Fixed Admin Credentials
   const FIXED_ADMIN_EMAILS = ["admin@novagrowth.agency", "shrahul270@gmail.com"];
@@ -93,7 +117,7 @@ export default function AdminDatabasePage() {
       try {
         localStorage.setItem("nova_admin_session", "authenticated");
       } catch {}
-      showToast("✓ Welcome! Successfully logged in to Database Hub.");
+      showToast("✓ Welcome! Successfully logged in to Admin & Buyer Workspace.");
     } else {
       setLoginError("Invalid Email or Password. Please check your credentials.");
     }
@@ -138,9 +162,11 @@ export default function AdminDatabasePage() {
     }
   }, [isAuthenticated]);
 
-  // Fetch Current Records
+  // Fetch Current Records (when on CRM tabs)
+  const isPublisherTab = activeTab === "dashboard" || activeTab.startsWith("publishers_");
+
   const loadRecords = useCallback(async () => {
-    if (!isAuthenticated || activeTab === "publishers") return;
+    if (!isAuthenticated || isPublisherTab) return;
     setLoading(true);
     try {
       let endpoint = "/api/db/leads";
@@ -172,7 +198,7 @@ export default function AdminDatabasePage() {
         return;
       }
 
-      if (activeTab === "all" || activeTab === "client_profile") {
+      if (activeTab === "client_profile") {
         const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
@@ -215,7 +241,7 @@ export default function AdminDatabasePage() {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, activeTab, search, statusFilter, sortOrder]);
+  }, [isAuthenticated, activeTab, isPublisherTab, search, statusFilter, sortOrder]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -288,22 +314,22 @@ export default function AdminDatabasePage() {
       const res = await fetch("/api/db/restore", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ collection: item.collection, id: item.id }),
+        body: JSON.stringify({ id: item.id, collection: item.collection }),
       });
       const data = await res.json();
       if (data.success) {
-        showToast("✓ Record restored back to active database!");
+        showToast("✓ Restored successfully");
         loadRecords();
         loadStats();
       }
     } catch {
-      showToast("❌ Failed to restore item");
+      showToast("❌ Failed to restore");
     }
   };
 
   // Permanent Delete
   const handlePermanentDelete = async (item: BaseItem) => {
-    if (!confirm(`⚠️ PERMANENTLY delete record ${item.id}? This cannot be undone.`)) return;
+    if (!confirm(`⚠️ PERMANENTLY delete record (${item.id})? This CANNOT be undone!`)) return;
     try {
       const endpoint = `/api/db/${item.collection}?id=${item.id}&permanent=true`;
       const res = await fetch(endpoint, { method: "DELETE" });
@@ -314,11 +340,11 @@ export default function AdminDatabasePage() {
         loadStats();
       }
     } catch {
-      showToast("❌ Failed to delete record");
+      showToast("❌ Failed to delete");
     }
   };
 
-  // Handle Manual Entry Submit
+  // Submit Manual Record
   const handleManualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -326,19 +352,14 @@ export default function AdminDatabasePage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "custom_work",
-          name: manualForm.name,
-          email: manualForm.email,
-          phone: manualForm.phone,
-          service: manualForm.service,
-          message: manualForm.message,
-          notes: manualForm.notes,
-          sourceUrl: "/admin (Manual)",
+          ...manualForm,
+          type: "manual_entry",
+          status: "new",
         }),
       });
       const data = await res.json();
       if (data.success) {
-        showToast("✓ Client record created successfully!");
+        showToast("✓ Client record successfully saved to database!");
         setIsNewEntryOpen(false);
         setManualForm({
           name: "",
@@ -348,25 +369,25 @@ export default function AdminDatabasePage() {
           message: "",
           notes: "Manual entry by agency admin",
         });
-        await loadRecords();
-        await loadStats();
+        loadRecords();
+        loadStats();
       } else {
-        showToast(`❌ Error: ${data.error || "Failed to create record"}`);
+        showToast(`❌ Error: ${data.error || "Failed to save"}`);
       }
     } catch {
-      showToast("❌ Failed to create record");
+      showToast("❌ Network error saving client entry");
     }
   };
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
-    showToast(`📋 Copied ${label} to clipboard!`);
+    showToast(`✓ Copied ${label} to clipboard`);
   };
 
   const formatDate = (isoString?: string) => {
-    if (!isoString) return "N/A";
+    if (!isoString) return "—";
     const d = new Date(isoString);
-    return d.toLocaleString("en-US", {
+    return d.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -375,13 +396,12 @@ export default function AdminDatabasePage() {
     });
   };
 
-  // Clean phone number for WhatsApp link
   const getCleanPhone = (phone?: string) => {
     if (!phone) return "";
     return phone.replace(/[^0-9]/g, "");
   };
 
-  // Real-time partitioned stats calculations (Total vs New)
+  // Partitioned Stats: Total vs New (as drawn in red lines on user's Image 1)
   const partitionedStats = useMemo(() => {
     const isToday = (dateStr: string) => {
       if (!dateStr) return false;
@@ -441,73 +461,83 @@ export default function AdminDatabasePage() {
     };
   }, [stats]);
 
+  // Map activeTab to PublisherSitesManager preset
+  const publisherPreset = useMemo(() => {
+    if (activeTab === "publishers_premium") return "premium";
+    if (activeTab === "publishers_iplay") return "iplay";
+    if (activeTab === "publishers_trusted") return "trusted";
+    if (activeTab === "publishers_verified") return "verified";
+    if (activeTab === "publishers_forbidden") return "forbidden";
+    if (activeTab === "publishers_link_insertion") return "link_insertion";
+    if (activeTab === "publishers_top_selling") return "top_selling";
+    if (activeTab === "publishers_favorites") return "favorites";
+    if (activeTab === "publishers_blacklisted") return "blacklisted";
+    return "all";
+  }, [activeTab]);
+
   // IF NOT AUTHENTICATED -> SHOW SECURE LOGIN GATE
   if (authChecked && !isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#070b14] text-white flex items-center justify-center p-6 selection:bg-amber-500 selection:text-black">
-        <div className="w-full max-w-md bg-[#0b1220] border border-gray-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
-          {/* Top Glow Accent */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Logo Badge */}
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center font-black text-xl shadow-lg mx-auto mb-4">
+      <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex items-center justify-center p-6 selection:bg-blue-600 selection:text-white">
+        <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 shadow-xl relative overflow-hidden text-center">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-xl shadow-lg mx-auto mb-4">
             🔒
           </div>
 
-          <h2 className="text-2xl font-black text-white tracking-tight mb-1">
-            Owner Database Portal
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-1">
+            Owner &amp; Admin Workspace
           </h2>
-          <p className="text-xs text-gray-400 mb-6">
-            Confidential agency database. Sign in with your registered admin credentials to view and manage clients.
+          <p className="text-xs text-slate-500 mb-6 font-medium">
+            Sign in with registered admin credentials to manage marketplace websites, buyer orders, and leads.
           </p>
 
           {loginError && (
-            <div className="p-3 mb-5 rounded-xl bg-rose-950/80 border border-rose-800/80 text-rose-300 text-xs font-semibold">
+            <div className="p-3 mb-5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
               ⚠️ {loginError}
             </div>
           )}
 
           <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
             <div>
-              <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                Admin Email (Registered Gmail)
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Admin Email Address
               </label>
               <input
-                required
                 type="email"
-                placeholder="admin@novagrowth.agency"
+                required
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-xs outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+                placeholder="admin@novagrowth.agency"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                Admin Security Password
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Password
               </label>
               <input
-                required
                 type="password"
-                placeholder="••••••••••••"
+                required
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-gray-900 border border-gray-700 text-white text-xs outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+                placeholder="••••••••••••"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:outline-none"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold py-3.5 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-amber-500/20 cursor-pointer mt-2"
+              className="w-full py-3 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-indigo-500/20 cursor-pointer mt-2"
             >
-              Sign In to Database Hub →
+              Sign In to Admin Workspace →
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-gray-800 text-[11px] text-gray-500 flex items-center justify-between">
-            <span>🛡️ 256-Bit Encrypted Admin Gate</span>
-            <Link href="/" className="text-amber-400 hover:underline">
-              ← Return to Site
+          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Agency Owner Portal</span>
+            <Link href="/" className="text-blue-600 font-bold hover:underline">
+              ← Return to Main Site
             </Link>
           </div>
         </div>
@@ -515,755 +545,996 @@ export default function AdminDatabasePage() {
     );
   }
 
-  // IF AUTHENTICATED -> SHOW COMPLETE DATABASE DASHBOARD
   return (
-    <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
-      {/* Toast Notification */}
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+      {/* TOAST ALERT NOTIFICATION */}
       {toast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#0b1220] border border-amber-500/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-          <span>{toast}</span>
+        <div className="fixed top-5 right-5 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 animate-in fade-in slide-in-from-top-4 duration-200">
+          {toast}
         </div>
       )}
 
-      {/* Top Navbar */}
-      <header className="border-b border-gray-800 bg-[#091427]/90 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
+      {/* TOP TICKER BAR (From Vefogix screenshot: Rank 67.7K, Traffic 28K, L 0, LD 73.7K) */}
+      <div className="bg-[#0b1220] text-slate-300 text-[11px] font-mono py-1.5 px-6 border-b border-slate-800 flex items-center justify-between">
+        <div className="flex items-center gap-5">
+          <span className="flex items-center gap-1.5 text-blue-400 font-bold">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span>SQ</span>
+          </span>
+          <span>Rank <strong className="text-white">67.7K</strong></span>
+          <span>Traffic <strong className="text-white">280K+</strong></span>
+          <span>L <strong className="text-white">0</strong></span>
+          <span>LD <strong className="text-white">73.7K</strong></span>
+        </div>
+        <div className="hidden sm:flex items-center gap-4 text-slate-400">
+          <span>Live Sync: Active</span>
+          <span className="text-emerald-400 font-bold">● Vefogix Workspace Mode</span>
+        </div>
+      </div>
+
+      {/* MAIN HEADER NAVBAR */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-6 py-3">
+        <div className="flex items-center justify-between gap-4">
+          {/* Logo & Dropdown menus */}
+          <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center font-black text-sm shadow-md">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-base shadow-sm">
                 NG
               </div>
-              <div>
-                <span className="text-base font-black tracking-tight text-white block">Nova Growth</span>
-                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Private Owner Database Hub</span>
+              <div className="leading-tight">
+                <span className="text-base font-black text-slate-900 tracking-tight block">
+                  Nova Growth
+                </span>
+                <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">
+                  Admin &amp; Buyer Hub
+                </span>
               </div>
             </Link>
+
+            <nav className="hidden md:flex items-center gap-4 text-xs font-bold text-slate-600">
+              <button
+                onClick={() => setActiveTab("dashboard")}
+                className="hover:text-blue-600 flex items-center gap-1 cursor-pointer"
+              >
+                <span>Tools</span>
+                <span className="text-[10px]">⌵</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("publishers_all")}
+                className="hover:text-blue-600 flex items-center gap-1 cursor-pointer"
+              >
+                <span>Marketplace</span>
+                <span className="text-[10px]">⌵</span>
+              </button>
+              <Link href="/guest-posting" className="hover:text-blue-600" target="_blank">
+                Live Storefront ↗
+              </Link>
+            </nav>
           </div>
 
-          <div className="flex items-center gap-3 text-xs">
-            {/* Add Website Option for Admin Marketplace */}
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2.5 text-xs">
             <button
-              onClick={() => {
-                setActiveTab("publishers");
-                setIsAddPublisherModalOpen(true);
-              }}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-emerald-600/25 cursor-pointer"
-              title="Add a new publisher website to marketplace inventory"
+              onClick={() => setIsAddPublisherModalOpen(true)}
+              className="bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-bold px-3.5 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
             >
-              <span>🌐</span>
-              <span>+ Add Website</span>
+              <span>+</span>
+              <span>Add Website</span>
             </button>
 
             <button
               onClick={() => setIsNewEntryOpen(true)}
-              className="bg-amber-500 hover:bg-amber-400 text-black font-extrabold px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>+</span>
-              <span>New Client Entry</span>
+              <span>New Lead</span>
             </button>
 
             <a
-              href={`/api/db/export?format=excel&collection=${activeTab === "trash" || activeTab === "logs" ? "all" : activeTab}`}
+              href={`/api/db/export?format=excel&collection=all`}
               download
-              className="bg-gray-800 hover:bg-gray-700 text-white font-bold px-3.5 py-2 rounded-xl border border-gray-700 transition-colors flex items-center gap-1.5 cursor-pointer"
-              title="Export database records to Excel (CSV format)"
+              className="hidden lg:flex bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl transition-colors items-center gap-1"
+              title="Export database to Excel"
             >
-              <span>📊</span>
-              <span>Export Excel</span>
+              <span>📊 Excel</span>
             </a>
 
-            <a
-              href="/api/db/export?format=json&collection=all"
-              download
-              className="bg-gray-800 hover:bg-gray-700 text-white font-bold px-3.5 py-2 rounded-xl border border-gray-700 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>💾</span>
-              <span>JSON Backup</span>
-            </a>
-
-            {/* Supabase Cloud DB Link */}
-            <a
-              href="https://supabase.com/dashboard/project/kcabtdbzqczvzbzkdyjd/editor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 hover:text-white border border-emerald-700/80 font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-emerald-500/10 cursor-pointer"
-              title="Open Supabase Cloud Database Table Editor"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Supabase Cloud DB ↗</span>
-            </a>
-
-            {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="bg-rose-950/80 hover:bg-rose-900 text-rose-300 hover:text-white border border-rose-800/80 font-bold px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
-              title="Logout from admin database"
+              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1"
+              title="Logout from admin session"
             >
               <span>🚪</span>
-              <span>Logout</span>
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* STATS OVERVIEW CARDS (PARTITIONED INTO TOTAL & NEW) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-8">
-          {/* Card 1: Active Leads */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Active Leads</span>
-              <span className="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded font-mono font-bold">LEADS</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-amber-400">{partitionedStats.leads.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-emerald-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-emerald-400">+{partitionedStats.leads.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Form Submissions</span>
-          </div>
+      {/* DUAL SIDEBAR + MAIN WORKSPACE BODY */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* 1. LEFT SLIM ICON RAIL (Exactly like Vefogix screenshot) */}
+        <aside className="w-14 bg-white border-r border-slate-200 flex flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
+          <button
+            onClick={() => setIsGuestPostMenuOpen(!isGuestPostMenuOpen)}
+            className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-800 text-xs font-bold transition-colors cursor-pointer"
+            title="Toggle Sidebar"
+          >
+            «
+          </button>
 
-          {/* Card 2: WhatsApp Clicks */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">WhatsApp Clicks</span>
-              <span className="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-mono font-bold">CHAT</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-emerald-400">{partitionedStats.whatsapp.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-emerald-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-emerald-400">+{partitionedStats.whatsapp.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Direct Inquiries</span>
-          </div>
+          {/* Folder */}
+          <button
+            onClick={() => setActiveTab("dashboard")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="Projects & Workspaces"
+          >
+            📁
+          </button>
 
-          {/* Card 3: Calls & Meets */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Calls &amp; Meets</span>
-              <span className="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 py-0.5 rounded font-mono font-bold">MEETS</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-blue-400">{partitionedStats.calls.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-blue-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-blue-400">+{partitionedStats.calls.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Video / Phone</span>
-          </div>
+          {/* Document / Publisher Sheets (Highlighted active icon from screenshot) */}
+          <button
+            onClick={() => setActiveTab("publishers_all")}
+            className="p-2 rounded-xl bg-blue-50 text-blue-600 border-l-4 border-blue-600 transition-colors cursor-pointer text-base shadow-xs"
+            title="Guest Post Marketplace"
+          >
+            📄
+          </button>
 
-          {/* Card 4: SEO Audits */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">SEO Audits</span>
-              <span className="text-[9px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-1.5 py-0.5 rounded font-mono font-bold">TOOL</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-purple-400">{partitionedStats.audits.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-purple-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-purple-400">+{partitionedStats.audits.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Domains Tested</span>
-          </div>
+          {/* Chat / Messages */}
+          <button
+            onClick={() => setActiveTab("interactions")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="WhatsApp & Inquiries"
+          >
+            💬
+          </button>
 
-          {/* Card 5: Payments */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Payments</span>
-              <span className="text-[9px] bg-teal-500/10 text-teal-400 border border-teal-500/20 px-1.5 py-0.5 rounded font-mono font-bold">REV</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-teal-400">{partitionedStats.payments.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-teal-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-teal-400">+{partitionedStats.payments.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Checkouts & Retainers</span>
-          </div>
+          {/* Cart / Orders */}
+          <button
+            onClick={() => setActiveTab("payments")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="Orders & Payments"
+          >
+            🛒
+          </button>
 
-          {/* Card 6: In Trash */}
-          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-rose-900/40 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] text-rose-400 font-bold uppercase tracking-wider">In Trash</span>
-              <span className="text-[9px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-1.5 py-0.5 rounded font-mono font-bold">RECOVER</span>
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
-              <div className="pr-2">
-                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
-                <span className="text-xl sm:text-2xl font-black text-rose-500">{partitionedStats.trash.total}</span>
-              </div>
-              <div className="pl-3">
-                <span className="text-[10px] text-rose-400 uppercase font-semibold block leading-tight">New</span>
-                <span className="text-xl sm:text-2xl font-black text-rose-400">+{partitionedStats.trash.new}</span>
-              </div>
-            </div>
-            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Recoverable Records</span>
-          </div>
-        </div>
+          {/* Gift / Promotions */}
+          <button
+            onClick={() => setActiveTab("publishers_top_selling")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="Top Selling & Promotions"
+          >
+            🎁
+          </button>
 
-        {/* CONTROLS BAR: Tabs, Search, Sort & Status Filters */}
-        <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800 mb-6 flex flex-col lg:flex-row items-center justify-between gap-4">
-          
-          {/* Main Navigation Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 w-full lg:w-auto">
-            <button
-              onClick={() => setActiveTab("all")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "all"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              🌟 All Activities ({stats?.totalActive || 0})
-            </button>
+          {/* Office / Building */}
+          <button
+            onClick={() => setActiveTab("leads")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="CRM Leads & Clients"
+          >
+            🏢
+          </button>
 
-            <button
-              onClick={() => setActiveTab("leads")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "leads"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              📋 Leads &amp; Clients ({stats?.breakdown.leads.active || 0})
-            </button>
+          {/* Tools / Settings */}
+          <button
+            onClick={() => setActiveTab("analytics")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            title="Data Analytics"
+          >
+            🔧
+          </button>
 
-            <button
-              onClick={() => setActiveTab("interactions")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "interactions"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              💬 Calls &amp; Messages ({stats?.breakdown.interactions.active || 0})
-            </button>
+          {/* Support / Help */}
+          <button
+            onClick={() => showToast("Support channel: admin@novagrowth.agency")}
+            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base mt-auto"
+            title="Customer Support"
+          >
+            🎧
+          </button>
+        </aside>
 
-            <button
-              onClick={() => setActiveTab("audits")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "audits"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              🔍 Audits ({stats?.breakdown.audits.active || 0})
-            </button>
-
-            <button
-              onClick={() => setActiveTab("payments")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "payments"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              💳 Payments ({stats?.breakdown.payments.active || 0})
-            </button>
-
-            <button
-              onClick={() => setActiveTab("client_profile")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeTab === "client_profile"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-amber-950/40 text-amber-300 hover:text-white border border-amber-800/60"
-              }`}
-            >
-              <span>👤</span>
-              <span>Client 360° Dossier</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab("analytics")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeTab === "analytics"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-blue-950/40 text-blue-300 hover:text-white border border-blue-800/60"
-              }`}
-            >
-              <span>📊</span>
-              <span>Data Analytics</span>
-            </button>
-
-            {/* Vefogix-style Guest Posting Marketplace Publishers Tab */}
-            <button
-              onClick={() => setActiveTab("publishers")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeTab === "publishers"
-                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
-                  : "bg-teal-950/40 text-teal-300 hover:text-white border border-teal-800/60"
-              }`}
-            >
-              <span>🌐</span>
-              <span>Publisher Sites</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab("trash")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "trash"
-                  ? "bg-rose-600 text-white shadow-md shadow-rose-600/30"
-                  : "bg-gray-900/60 text-rose-400 hover:text-white border border-rose-900/50"
-              }`}
-            >
-              🗑️ Trash / Deleted ({stats?.totalDeleted || 0})
-            </button>
-
-            <button
-              onClick={() => setActiveTab("logs")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeTab === "logs"
-                  ? "bg-amber-500 text-black"
-                  : "bg-gray-900/60 text-gray-400 hover:text-white border border-gray-800"
-              }`}
-            >
-              📜 Audit Trail
-            </button>
-          </div>
-
-          {/* Search & Sort Filters (for CRM & activity records) */}
-          {activeTab !== "publishers" && (
-            <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
-              {/* Search Input */}
-              <div className="relative flex-1 sm:w-64">
-                <input
-                  type="text"
-                  placeholder="Search by name, email, phone, website..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 bg-gray-900/90 border border-gray-700 rounded-xl text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-                />
-                <span className="absolute left-3 top-2.5 text-gray-500 text-xs">🔍</span>
-              </div>
-
-              {/* Sort Order: New to Old / Old to New */}
+        {/* 2. EXPANDED SIDEBAR MENU (Pixel-accurate match to Vefogix screenshot) */}
+        <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto">
+          <div className="p-3.5 space-y-4">
+            {/* GUEST POST SITES ACCORDION */}
+            <div>
               <button
-                onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
-                className="px-3 py-2 bg-gray-900 border border-gray-700 hover:border-gray-600 rounded-xl text-xs font-bold text-gray-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1"
-                title="Toggle date sort"
+                onClick={() => setIsGuestPostMenuOpen(!isGuestPostMenuOpen)}
+                className="w-full flex items-center justify-between text-xs font-bold text-slate-700 hover:text-blue-600 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
               >
-                <span>{sortOrder === "desc" ? "⬇️ Newest First" : "⬆️ Oldest First"}</span>
+                <span className="flex items-center gap-2">
+                  <span>📑</span>
+                  <span>Guest Post Sites</span>
+                </span>
+                <span className="text-[10px] text-slate-400">
+                  {isGuestPostMenuOpen ? "▼" : "▶"}
+                </span>
               </button>
 
-              {/* Status Filter */}
-              {activeTab !== "trash" && activeTab !== "logs" && activeTab !== "client_profile" && (
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-gray-300 font-bold focus:outline-none cursor-pointer"
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="new">New</option>
-                  <option value="contacted">Contacted</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="completed">Completed</option>
-                  <option value="closed">Closed</option>
-                </select>
+              {isGuestPostMenuOpen && (
+                <div className="mt-1 space-y-1 pl-1 text-xs">
+                  {/* Dashboard */}
+                  <button
+                    onClick={() => setActiveTab("dashboard")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
+                      activeTab === "dashboard"
+                        ? "bg-[#ebf3ff] text-[#2563eb] shadow-xs"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>⏱️</span>
+                      <span>Dashboard</span>
+                    </span>
+                    <span className="text-xs">›</span>
+                  </button>
+
+                  {/* All Publisher Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_all")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_all"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>📄</span>
+                      <span>All Publisher Sites</span>
+                    </span>
+                  </button>
+
+                  {/* 👑 Premium Sites (Warm yellow pill badge from screenshot) */}
+                  <button
+                    onClick={() => setActiveTab("publishers_premium")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
+                      activeTab === "publishers_premium"
+                        ? "bg-[#fef3c7] text-[#92400e] border border-amber-300"
+                        : "bg-[#fffbeb] text-[#b45309] border border-[#fde68a] hover:bg-[#fef3c7]"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>👑</span>
+                      <span>Premium Sites</span>
+                    </span>
+                  </button>
+
+                  {/* 🎮 iPlay Sites (Warm orange pill badge from screenshot) */}
+                  <button
+                    onClick={() => setActiveTab("publishers_iplay")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
+                      activeTab === "publishers_iplay"
+                        ? "bg-[#ffedd5] text-[#9a3412] border border-orange-300"
+                        : "bg-[#fff7ed] text-[#c2410c] border border-[#fed7aa] hover:bg-[#ffedd5]"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🎮</span>
+                      <span>iPlay Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Trusted Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_trusted")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_trusted"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🛡️</span>
+                      <span>Trusted Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Verified Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_verified")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_verified"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>✅</span>
+                      <span>Verified Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Forbidden Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_forbidden")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_forbidden"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🚫</span>
+                      <span>Forbidden Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Link Insertion Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_link_insertion")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_link_insertion"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🔗</span>
+                      <span>Link Insertion Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Top Selling */}
+                  <button
+                    onClick={() => setActiveTab("publishers_top_selling")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_top_selling"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🏷️</span>
+                      <span>Top Selling</span>
+                    </span>
+                  </button>
+
+                  {/* Favourite Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_favorites")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_favorites"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🤍</span>
+                      <span>Favourite Sites</span>
+                    </span>
+                  </button>
+
+                  {/* Blacklisted Sites */}
+                  <button
+                    onClick={() => setActiveTab("publishers_blacklisted")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "publishers_blacklisted"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>⛔</span>
+                      <span>Blacklisted Sites</span>
+                    </span>
+                  </button>
+                </div>
               )}
             </div>
-          )}
-        </div>
 
-        {/* MAIN DATA TABLE / PUBLISHER VIEW */}
-        {activeTab === "publishers" ? (
-          <PublisherSitesManager
-            onNotify={showToast}
-            isAddModalOpen={isAddPublisherModalOpen}
-            setIsAddModalOpen={setIsAddPublisherModalOpen}
-          />
-        ) : activeTab === "client_profile" ? (
-          <ClientProfileView
-            records={records}
-            initialQuery={selectedClientForProfile}
-            formatDate={formatDate}
-            copyToClipboard={copyToClipboard}
-            onRefreshData={loadRecords}
-          />
-        ) : activeTab === "analytics" ? (
-          <AnalyticsDashboardView stats={stats} />
-        ) : activeTab === "logs" ? (
-          /* AUDIT TRAIL LOGS VIEW */
-          <div className="bg-[#0b1220] rounded-2xl border border-gray-800 p-6">
-            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <span>📜</span>
-              <span>Complete System Activity &amp; Audit Log</span>
-            </h3>
-            <p className="text-xs text-gray-400 mb-6">
-              Every creation, status update, soft delete, and restore is permanently logged chronologically with timestamps.
-            </p>
+            {/* AGENCY CRM & DATABASE ACCORDION */}
+            <div>
+              <button
+                onClick={() => setIsCrmMenuOpen(!isCrmMenuOpen)}
+                className="w-full flex items-center justify-between text-xs font-bold text-slate-700 hover:text-blue-600 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
+              >
+                <span className="flex items-center gap-2">
+                  <span>🏢</span>
+                  <span>CRM &amp; Inquiries</span>
+                </span>
+                <span className="text-[10px] text-slate-400">
+                  {isCrmMenuOpen ? "▼" : "▶"}
+                </span>
+              </button>
 
-            <div className="space-y-3">
-              {(stats?.recentActivities || []).map((log) => (
-                <div key={log.id} className="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800/80 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
-                        log.action === "create"
-                          ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
-                          : log.action === "soft_delete"
-                          ? "bg-rose-950 text-rose-400 border border-rose-800/60"
-                          : log.action === "restore"
-                          ? "bg-blue-950 text-blue-400 border border-blue-800/60"
-                          : "bg-amber-950 text-amber-400 border border-amber-800/60"
-                      }`}
-                    >
-                      {log.action}
+              {isCrmMenuOpen && (
+                <div className="mt-1 space-y-1 pl-1 text-xs">
+                  <button
+                    onClick={() => setActiveTab("leads")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "leads"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>📋</span>
+                      <span>Leads &amp; Clients</span>
                     </span>
-                    <span className="font-semibold text-gray-200">{log.summary}</span>
-                  </div>
-                  <span className="text-[11px] text-gray-500 font-mono">{formatDate(log.timestamp)}</span>
+                    <span className="text-[11px] font-bold text-slate-400">
+                      {partitionedStats.leads.total}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("interactions")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "interactions"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>💬</span>
+                      <span>WhatsApp &amp; Calls</span>
+                    </span>
+                    <span className="text-[11px] font-bold text-emerald-600">
+                      {partitionedStats.whatsapp.total}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("audits")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "audits"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🔍</span>
+                      <span>SEO Audits</span>
+                    </span>
+                    <span className="text-[11px] font-bold text-purple-600">
+                      {partitionedStats.audits.total}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("payments")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "payments"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>💳</span>
+                      <span>Orders &amp; Payments</span>
+                    </span>
+                    <span className="text-[11px] font-bold text-blue-600">
+                      {partitionedStats.payments.total}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("client_profile")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "client_profile"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>👤</span>
+                      <span>Client 360° Dossier</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("analytics")}
+                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "analytics"
+                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>📊</span>
+                      <span>Data Analytics</span>
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab("trash")}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                      activeTab === "trash"
+                        ? "bg-rose-50 text-rose-700 font-bold"
+                        : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🗑️</span>
+                      <span>Trash Bin</span>
+                    </span>
+                    <span className="text-[11px] font-bold text-rose-600">
+                      {partitionedStats.trash.total}
+                    </span>
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
           </div>
-        ) : (
-          /* STANDARD RECORDS TABLE */
-          <div className="bg-[#0b1220] rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
-            {loading ? (
-              <div className="py-20 text-center text-gray-400 text-xs font-semibold">
-                <div className="w-8 h-8 rounded-full border-2 border-amber-400 border-t-transparent animate-spin mx-auto mb-3" />
-                Loading database records...
+
+          {/* BOTTOM SPONSORED PROMO BOX (From Vefogix screenshot) */}
+          <div className="p-3 m-3 bg-blue-50/50 border border-blue-100 rounded-2xl">
+            <div className="flex items-center justify-between mb-2">
+              <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold text-[9px] uppercase tracking-wider">
+                SPONSORED
+              </span>
+              <span className="text-slate-400 text-xs">↗</span>
+            </div>
+            <p className="text-xs font-bold text-slate-800 leading-snug mb-1">
+              Professional SEO Website Content Writing Services
+            </p>
+            <div className="flex items-center gap-1 text-[11px] text-amber-500 font-bold mb-3">
+              <span>★ 5.0</span>
+              <span className="text-slate-400 font-normal">(23)</span>
+            </div>
+            <button
+              onClick={() => setIsAddPublisherModalOpen(true)}
+              className="w-full py-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+            >
+              + Add New Website
+            </button>
+          </div>
+        </aside>
+
+        {/* 3. MAIN WORKSPACE CONTENT */}
+        <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
+          {/* Breadcrumb & Top Label (From Vefogix screenshot: green bar + BUYER WORKSPACE) */}
+          <div className="mb-6">
+            <div className="w-9 h-1 bg-emerald-500 rounded-full mb-1.5" />
+            <span className="text-xs font-black text-blue-600 uppercase tracking-widest block mb-1">
+              BUYER &amp; ADMIN WORKSPACE
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              {activeTab === "dashboard"
+                ? "Buyer & Admin Dashboard"
+                : activeTab.startsWith("publishers_")
+                ? "Guest Post Marketplace Directory"
+                : "Agency Database & Inquiries"}
+            </h1>
+            <p className="text-xs text-slate-500 mt-1 font-medium">
+              Welcome back, Administrator. Real-time marketplace control and CRM pipeline.
+            </p>
+          </div>
+
+          {/* PARTITIONED STAT OVERVIEW CARDS (Total | New as requested by user in Image 1) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-8">
+            {/* Card 1: Total Orders / Inquiries */}
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
+                Total Orders
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-slate-900">
+                    {partitionedStats.payments.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-blue-600 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-blue-600">
+                    +{partitionedStats.payments.new}
+                  </span>
+                </div>
               </div>
-            ) : records.length === 0 ? (
-              <div className="py-20 text-center text-gray-400 text-xs">
-                <div className="text-3xl mb-2">📭</div>
-                <p className="font-bold text-gray-300">No records found</p>
-                <p className="text-gray-500 mt-1">
-                  {search ? "No matching records found for your search query." : "As clients interact with your website, their data will appear here in real-time."}
-                </p>
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Client Checkouts
+              </span>
+            </div>
+
+            {/* Card 2: Active Leads */}
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
+                Active Leads
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-amber-500">
+                    {partitionedStats.leads.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-emerald-600 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
+                    +{partitionedStats.leads.new}
+                  </span>
+                </div>
               </div>
-            ) : (
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Form Submissions
+              </span>
+            </div>
+
+            {/* Card 3: WhatsApp Inquiries */}
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
+                WhatsApp Clicks
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
+                    {partitionedStats.whatsapp.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-emerald-600 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
+                    +{partitionedStats.whatsapp.new}
+                  </span>
+                </div>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Direct Chat
+              </span>
+            </div>
+
+            {/* Card 4: Calls & Meets */}
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
+                Calls &amp; Meets
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-indigo-600">
+                    {partitionedStats.calls.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-indigo-600 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-indigo-600">
+                    +{partitionedStats.calls.new}
+                  </span>
+                </div>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Scheduled Meets
+              </span>
+            </div>
+
+            {/* Card 5: SEO Audits */}
+            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
+                SEO Audits
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-purple-600">
+                    {partitionedStats.audits.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-purple-600 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-purple-600">
+                    +{partitionedStats.audits.new}
+                  </span>
+                </div>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Domains Tested
+              </span>
+            </div>
+
+            {/* Card 6: In Trash */}
+            <div className="bg-white p-4 rounded-2xl border border-rose-200/80 shadow-xs">
+              <span className="text-[10px] text-rose-500 font-bold uppercase tracking-wider block mb-1">
+                In Trash
+              </span>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
+                <div className="pr-2">
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
+                  <span className="text-xl sm:text-2xl font-black text-rose-600">
+                    {partitionedStats.trash.total}
+                  </span>
+                </div>
+                <div className="pl-3">
+                  <span className="text-[9px] text-rose-500 uppercase font-semibold block">New</span>
+                  <span className="text-xl sm:text-2xl font-black text-rose-500">
+                    +{partitionedStats.trash.new}
+                  </span>
+                </div>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
+                Recoverable Records
+              </span>
+            </div>
+          </div>
+
+          {/* DYNAMIC CONTENT VIEW */}
+          {isPublisherTab ? (
+            /* PUBLISHER SITES MANAGEMENT VIEW */
+            <PublisherSitesManager
+              onNotify={showToast}
+              isAddModalOpen={isAddPublisherModalOpen}
+              setIsAddModalOpen={setIsAddPublisherModalOpen}
+              activePreset={publisherPreset}
+              onSelectSiteForOrder={(site: PublisherSite) => {
+                showToast(`✓ Order for ${site.domain} opened ($${site.price} USD)`);
+              }}
+            />
+          ) : activeTab === "client_profile" ? (
+            <ClientProfileView
+              records={records}
+              initialQuery={selectedClientForProfile}
+              formatDate={formatDate}
+              copyToClipboard={copyToClipboard}
+              onRefreshData={loadRecords}
+            />
+          ) : activeTab === "analytics" ? (
+            <AnalyticsDashboardView stats={stats} />
+          ) : activeTab === "logs" ? (
+            /* AUDIT TRAIL LOGS VIEW */
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <span>📜</span>
+                <span>Complete System Activity &amp; Audit Trail</span>
+              </h3>
+              <p className="text-xs text-slate-500 mb-6 font-medium">
+                Every client action, status change, soft delete, and restore is permanently logged chronologically with timestamps.
+              </p>
+
+              <div className="space-y-3">
+                {(stats?.recentActivities || []).map((log) => (
+                  <div
+                    key={log.id}
+                    className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
+                          log.action === "create"
+                            ? "bg-emerald-100 text-emerald-800"
+                            : log.action === "soft_delete"
+                            ? "bg-rose-100 text-rose-800"
+                            : log.action === "restore"
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-amber-100 text-amber-800"
+                        }`}
+                      >
+                        {log.action}
+                      </span>
+                      <span className="font-semibold text-slate-800">{log.summary}</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-slate-400">
+                      {formatDate(log.timestamp)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            /* CRM DATA TABLE VIEW (Leads, WhatsApp, Audits, Payments, Trash) */
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
+              {/* Filter & Search Bar */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="relative flex-1 w-full">
+                  <input
+                    type="text"
+                    placeholder="Search by client name, email, phone, notes..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none"
+                  />
+                  <span className="absolute left-3 top-3 text-slate-400 text-xs">🔍</span>
+                </div>
+
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 font-semibold focus:outline-none cursor-pointer"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="new">New</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="closed">Closed</option>
+                  </select>
+
+                  <button
+                    onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
+                    className="px-3 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
+                  >
+                    {sortOrder === "desc" ? "Newest First ⬇" : "Oldest First ⬆"}
+                  </button>
+                </div>
+              </div>
+
+              {/* Table */}
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[#091427] text-gray-400 font-bold uppercase text-[10px] tracking-wider border-b border-gray-800">
-                    <tr>
-                      <th className="py-3.5 px-4">Date / Time</th>
-                      <th className="py-3.5 px-4 min-w-[240px]">Client Contact (Gmail &amp; Phone)</th>
-                      <th className="py-3.5 px-4">Service / Type</th>
-                      <th className="py-3.5 px-4">Details / Message</th>
-                      <th className="py-3.5 px-4">Status</th>
-                      <th className="py-3.5 px-4 text-right">Actions</th>
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
+                      <th className="py-3 px-4">Date</th>
+                      <th className="py-3 px-4">Client Contact</th>
+                      <th className="py-3 px-4">Service &amp; Details</th>
+                      <th className="py-3 px-4">Status</th>
+                      <th className="py-3 px-4 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-800/60 text-gray-300">
-                    {records.map((item) => {
-                      // Robust extraction of phone even with spaces or +
-                      const extractPhone = (record: BaseItem): string => {
-                        if (record.phone && String(record.phone).trim()) return String(record.phone).trim();
-                        if (record.clientIdentifier && /[0-9]/.test(record.clientIdentifier)) return String(record.clientIdentifier).trim();
-                        if (record.details) {
-                          const raw = String(record.details);
-                          const digits = raw.replace(/[^0-9]/g, "");
-                          if (digits.length >= 7) return raw.trim();
-                        }
-                        return "";
-                      };
+                  <tbody className="divide-y divide-slate-100">
+                    {loading ? (
+                      <tr>
+                        <td colSpan={5} className="py-12 text-center text-slate-400 font-semibold">
+                          Loading records from secure database...
+                        </td>
+                      </tr>
+                    ) : records.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="py-12 text-center text-slate-400 font-semibold">
+                          No records found in this category.
+                        </td>
+                      </tr>
+                    ) : (
+                      records.map((item) => {
+                        const clientName =
+                          item.name ||
+                          item.clientName ||
+                          item.domain ||
+                          (item.action === "whatsapp" ? "WhatsApp Visitor" : "Agency Inquirer");
+                        const clientPhone = item.phone || item.clientIdentifier || "";
+                        const cleanPhone = getCleanPhone(clientPhone);
+                        const clientEmail = item.email || item.clientEmail || "";
 
-                      // Robust extraction of email
-                      const extractEmail = (record: BaseItem): string => {
-                        if (record.email && String(record.email).trim()) return String(record.email).trim();
-                        if (record.clientEmail && String(record.clientEmail).trim()) return String(record.clientEmail).trim();
-                        if (record.emailSubmitted && String(record.emailSubmitted).trim()) return String(record.emailSubmitted).trim();
-                        if (record.clientIdentifier && record.clientIdentifier.includes("@")) return String(record.clientIdentifier).trim();
-                        if (record.details && String(record.details).includes("@")) {
-                          const match = String(record.details).match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
-                          if (match) return match[0];
-                        }
-                        return "";
-                      };
+                        return (
+                          <tr key={item.id} className="hover:bg-blue-50/40 transition-colors">
+                            {/* Date */}
+                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500 align-top whitespace-nowrap">
+                              {formatDate(item.createdAt)}
+                            </td>
 
-                      const phoneCandidate = extractPhone(item);
-                      const cleanPhone = getCleanPhone(phoneCandidate);
-                      const emailAddress = extractEmail(item);
-
-                      const clientDisplayName = item.name || (item.action === "whatsapp" ? "WhatsApp Visitor" : item.action === "video_call" ? "Video Call Inquirer" : item.domain || item.clientName || item.title || "Client Inquirer");
-
-                      return (
-                        <tr key={item.id} className="hover:bg-gray-900/40 transition-colors">
-
-                          {/* Date */}
-                          <td className="py-3.5 px-4 whitespace-nowrap font-mono text-[11px] text-gray-400 align-top">
-                            <div>{formatDate(item.createdAt)}</div>
-                            {item.isDeleted && (
-                              <span className="text-[10px] text-rose-400 font-bold block mt-1">
-                                Deleted: {formatDate(item.deletedAt || "")}
-                              </span>
-                            )}
-                          </td>
-
-                          {/* Client Contact Info (PROMINENT GMAIL & PHONE) */}
-                          <td className="py-3.5 px-4 align-top">
-                            {/* Client Name */}
-                            <div className="font-black text-white text-sm mb-1.5 flex items-center gap-2">
-                              <span>{clientDisplayName}</span>
-                              {item.action === "whatsapp" && (
-                                <span className="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 text-[10px] font-bold border border-emerald-800">
-                                  WhatsApp
-                                </span>
-                              )}
-                            </div>
-
-                            {/* Gmail / Email with Quick Actions */}
-                            {emailAddress ? (
-                              <div className="flex items-center gap-1.5 mb-1.5">
-                                <span className="text-gray-400 text-xs">✉️</span>
-                                <a
-                                  href={`mailto:${emailAddress}`}
-                                  className="font-bold text-amber-400 hover:underline text-xs"
-                                  title="Send email"
-                                >
-                                  {emailAddress}
-                                </a>
-                                <button
-                                  type="button"
-                                  onClick={() => copyToClipboard(emailAddress, "Email")}
-                                  className="text-[10px] text-gray-500 hover:text-white px-1.5 py-0.5 rounded bg-gray-800/80 cursor-pointer"
-                                  title="Copy Email"
-                                >
-                                  📋
-                                </button>
+                            {/* Contact */}
+                            <td className="py-3.5 px-4 align-top">
+                              <div className="font-bold text-slate-900 text-sm mb-1">
+                                {clientName}
                               </div>
-                            ) : (
-                              <div className="text-gray-500 text-[11px] mb-1">✉️ Email: —</div>
-                            )}
-
-                            {/* Phone / WhatsApp Number with 1-Click WhatsApp & Call */}
-                            {phoneCandidate ? (
-                              <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                                <span className="font-bold text-emerald-400 text-xs flex items-center gap-1 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-md">
-                                  <span>📞</span>
-                                  <span>{phoneCandidate}</span>
-                                </span>
-
-                                {cleanPhone && (
+                              {clientEmail && (
+                                <div className="text-xs text-blue-600 mb-0.5">
+                                  <a href={`mailto:${clientEmail}`} className="hover:underline">
+                                    ✉️ {clientEmail}
+                                  </a>
+                                </div>
+                              )}
+                              {clientPhone && (
+                                <div className="text-xs text-emerald-600">
                                   <a
                                     href={`https://wa.me/${cleanPhone}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
-                                    title="Open WhatsApp chat with client"
+                                    className="hover:underline"
                                   >
-                                    <span>💬 WhatsApp</span>
+                                    💬 {clientPhone}
                                   </a>
-                                )}
+                                </div>
+                              )}
+                            </td>
 
-                                <a
-                                  href={`tel:${cleanPhone || phoneCandidate}`}
-                                  className="px-2 py-0.5 rounded bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] transition-colors flex items-center gap-1 cursor-pointer"
-                                  title="Direct Phone Call"
-                                >
-                                  <span>Call</span>
-                                </a>
-
-                                <button
-                                  type="button"
-                                  onClick={() => copyToClipboard(phoneCandidate, "Phone")}
-                                  className="text-[10px] text-gray-500 hover:text-white px-1.5 py-0.5 rounded bg-gray-800/80 cursor-pointer"
-                                  title="Copy Phone"
-                                >
-                                  📋
-                                </button>
-                              </div>
-                            ) : (
-                              <div className="text-gray-500 text-[11px]">📞 Phone: —</div>
-                            )}
-
-
-                            {/* Website link if provided */}
-                            {item.website && (
-                              <div className="mt-1.5">
-                                <a
-                                  href={item.website.startsWith("http") ? item.website : `https://${item.website}`}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="text-blue-400 hover:underline text-[11px] flex items-center gap-1 truncate max-w-[220px]"
-                                >
-                                  <span>🌐</span>
-                                  <span>{item.website}</span>
-                                </a>
-                              </div>
-                            )}
-
-                            {/* Quick Client 360° Jump */}
-                            {(item.email || phoneCandidate || item.name) && (
-                              <div className="mt-2">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setSelectedClientForProfile(item.email || phoneCandidate || item.name || "");
-                                    setActiveTab("client_profile");
-                                  }}
-                                  className="px-2 py-0.5 rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
-                                  title="Open full 360° Dossier for this client"
-                                >
-                                  <span>👤</span>
-                                  <span>Client 360° Dossier</span>
-                                </button>
-                              </div>
-                            )}
-                          </td>
-
-                          {/* Type / Service */}
-                          <td className="py-3.5 px-4 align-top">
-                            <span className="px-2 py-0.5 rounded-md bg-gray-800 border border-gray-700 text-gray-300 text-[10px] font-bold uppercase inline-block mb-1">
-                              {item.type || item.collection}
-                            </span>
-                            <div className="text-gray-300 text-[11.5px] font-semibold">
-                              {item.service || item.planName || item.action || item.scores?.rankingTier || "—"}
-                            </div>
-                            {item.budget && <div className="text-emerald-400 text-[10.5px] mt-0.5">💰 {item.budget}</div>}
-                            {item.amount && (
-                              <div className="text-emerald-400 font-bold text-xs mt-0.5">
-                                {item.currency} {item.amount}
-                              </div>
-                            )}
-                          </td>
-
-                          {/* Details / Message */}
-                          <td className="py-3.5 px-4 max-w-xs align-top">
-                            <p className="line-clamp-3 text-gray-300 text-[11.5px] leading-relaxed">
-                              {item.message || item.details || item.notes || (item.scores ? `Rank: ${item.scores.rankingPosition} (${item.scores.rankingTier})` : "—")}
-                            </p>
-                            {item.notes && (
-                              <div className="text-[10.5px] text-amber-300/90 mt-1.5 italic bg-amber-950/30 border border-amber-900/40 p-1.5 rounded-lg">
-                                📝 Admin Note: {item.notes}
-                              </div>
-                            )}
-                          </td>
-
-                          {/* Status */}
-                          <td className="py-3.5 px-4 whitespace-nowrap align-top">
-                            {item.isDeleted ? (
-                              <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase bg-rose-950 text-rose-400 border border-rose-800/60">
-                                🗑️ Deleted
+                            {/* Service & Details */}
+                            <td className="py-3.5 px-4 align-top">
+                              <span className="font-semibold text-slate-800 block mb-0.5">
+                                {item.service || item.type || "General Inquiry"}
                               </span>
-                            ) : (
-                              <select
-                                value={item.status || "new"}
-                                onChange={(e) => handleUpdateStatus(item, e.target.value)}
-                                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border cursor-pointer focus:outline-none ${
-                                  item.status === "completed"
-                                    ? "bg-emerald-950/80 text-emerald-400 border-emerald-800"
-                                    : item.status === "in_progress"
-                                    ? "bg-blue-950/80 text-blue-400 border-blue-800"
-                                    : item.status === "contacted"
-                                    ? "bg-amber-950/80 text-amber-400 border-amber-800"
-                                    : "bg-gray-900 text-gray-300 border-gray-700"
-                                }`}
-                              >
-                                <option value="new">🟡 New</option>
-                                <option value="contacted">🟠 Contacted</option>
-                                <option value="in_progress">🔵 In Progress</option>
-                                <option value="completed">🟢 Completed</option>
-                                <option value="closed">⚪ Closed</option>
-                              </select>
-                            )}
-                          </td>
+                              <p className="text-[11px] text-slate-500 max-w-md line-clamp-2">
+                                {item.message || item.details || item.domain || "—"}
+                              </p>
+                              {item.notes && (
+                                <div className="mt-1 text-[11px] text-amber-700 bg-amber-50 p-1 rounded border border-amber-200">
+                                  📝 {item.notes}
+                                </div>
+                              )}
+                            </td>
 
-                          {/* Actions */}
-                          <td className="py-3.5 px-4 text-right whitespace-nowrap align-top">
-                            {item.isDeleted ? (
-                              <div className="flex items-center justify-end gap-2">
-                                <button
-                                  onClick={() => handleRestore(item)}
-                                  className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                  title="Restore record back to active database"
+                            {/* Status */}
+                            <td className="py-3.5 px-4 align-top">
+                              {item.isDeleted ? (
+                                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">
+                                  Deleted
+                                </span>
+                              ) : (
+                                <select
+                                  value={item.status || "new"}
+                                  onChange={(e) => handleUpdateStatus(item, e.target.value)}
+                                  className="px-2 py-1 rounded-lg text-xs font-bold border border-slate-200 bg-slate-50 cursor-pointer"
                                 >
-                                  ↺ Restore
-                                </button>
-                                <button
-                                  onClick={() => handlePermanentDelete(item)}
-                                  className="px-2.5 py-1.5 bg-rose-900/60 hover:bg-rose-800 text-rose-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                  title="Delete forever"
-                                >
-                                  ✕ Purge
-                                </button>
-                              </div>
-                            ) : (
-                              <div className="flex items-center justify-end gap-2">
-                                <button
-                                  onClick={() => {
-                                    setSelectedRecord(item);
-                                    setEditingNotes(item.notes || "");
-                                  }}
-                                  className="px-2.5 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                  title="Add/Edit internal admin notes"
-                                >
-                                  📝 Notes
-                                </button>
+                                  <option value="new">🟡 New</option>
+                                  <option value="contacted">🟠 Contacted</option>
+                                  <option value="in_progress">🔵 In Progress</option>
+                                  <option value="completed">🟢 Completed</option>
+                                  <option value="closed">⚪ Closed</option>
+                                </select>
+                              )}
+                            </td>
 
-                                <button
-                                  onClick={() => handleSoftDelete(item)}
-                                  className="px-2.5 py-1.5 bg-gray-900 hover:bg-rose-950/60 text-gray-400 hover:text-rose-400 border border-gray-800 hover:border-rose-800 rounded-lg text-xs font-bold transition-colors cursor-pointer"
-                                  title="Move to trash (Soft Delete)"
-                                >
-                                  🗑️
-                                </button>
+                            {/* Actions */}
+                            <td className="py-3.5 px-4 text-right align-top whitespace-nowrap">
+                              <div className="flex items-center justify-end gap-1.5">
+                                {item.isDeleted ? (
+                                  <>
+                                    <button
+                                      onClick={() => handleRestore(item)}
+                                      className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer"
+                                    >
+                                      Restore
+                                    </button>
+                                    <button
+                                      onClick={() => handlePermanentDelete(item)}
+                                      className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs cursor-pointer"
+                                    >
+                                      Purge
+                                    </button>
+                                  </>
+                                ) : (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        setSelectedRecord(item);
+                                        setEditingNotes(item.notes || "");
+                                      }}
+                                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
+                                    >
+                                      Notes
+                                    </button>
+                                    <button
+                                      onClick={() => handleSoftDelete(item)}
+                                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                                      title="Move to Trash"
+                                    >
+                                      🗑️
+                                    </button>
+                                  </>
+                                )}
                               </div>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
                   </tbody>
                 </table>
               </div>
-            )}
-          </div>
-        )}
-      </main>
+            </div>
+          )}
+        </main>
+      </div>
 
       {/* NOTES MODAL */}
       {selectedRecord && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-md w-full p-6 text-left shadow-2xl">
-            <h4 className="text-base font-bold text-white mb-1">
-              Add Notes for {selectedRecord.name || selectedRecord.domain || selectedRecord.id}
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 text-left shadow-2xl">
+            <h4 className="text-base font-bold text-slate-900 mb-1">
+              Internal Notes for {selectedRecord.name || selectedRecord.domain || selectedRecord.id}
             </h4>
-            <p className="text-xs text-gray-400 mb-4">
-              Add internal client follow-up notes, call summary, or project decisions.
+            <p className="text-xs text-slate-500 mb-4">
+              Add follow-up notes, call summaries, or private customer records.
             </p>
             <textarea
               rows={4}
               value={editingNotes}
               onChange={(e) => setEditingNotes(e.target.value)}
-              placeholder="e.g. Spoke to client on phone, agreed on $3,500 SEO package..."
-              className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-xs text-white focus:border-amber-400 outline-none resize-none mb-4"
+              placeholder="e.g. Spoke on WhatsApp, interested in $2,000 package..."
+              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 outline-none resize-none mb-4"
             />
             <div className="flex items-center justify-end gap-2 text-xs">
               <button
                 onClick={() => setSelectedRecord(null)}
-                className="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveNotes}
-                className="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-black font-extrabold rounded-xl cursor-pointer"
+                className="px-5 py-2 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-bold rounded-xl cursor-pointer"
               >
                 Save Notes
               </button>
@@ -1274,16 +1545,16 @@ export default function AdminDatabasePage() {
 
       {/* MANUAL ENTRY MODAL */}
       {isNewEntryOpen && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-left shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800 mb-5">
-              <h4 className="text-lg font-black text-white flex items-center gap-2">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-left shadow-2xl my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-5">
+              <h4 className="text-lg font-black text-slate-900 flex items-center gap-2">
                 <span>➕</span>
                 <span>Add Client Record Manually</span>
               </h4>
               <button
                 onClick={() => setIsNewEntryOpen(false)}
-                className="text-gray-400 hover:text-white text-xs p-1"
+                className="text-slate-400 hover:text-slate-600 text-xs p-1"
               >
                 ✕
               </button>
@@ -1291,77 +1562,78 @@ export default function AdminDatabasePage() {
 
             <form onSubmit={handleManualSubmit} className="flex flex-col gap-4 text-xs">
               <div>
-                <label className="font-bold text-gray-300 block mb-1">Client Full Name *</label>
+                <label className="font-bold text-slate-700 block mb-1">Client Full Name *</label>
                 <input
                   required
                   type="text"
                   placeholder="e.g. David Vance"
                   value={manualForm.name}
                   onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })}
-                  className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-bold text-gray-300 block mb-1">Client Email (Gmail) *</label>
+                  <label className="font-bold text-slate-700 block mb-1">Client Email *</label>
                   <input
                     required
                     type="email"
                     placeholder="david@company.com"
                     value={manualForm.email}
                     onChange={(e) => setManualForm({ ...manualForm, email: e.target.value })}
-                    className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400"
+                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-gray-300 block mb-1">Phone / WhatsApp Number *</label>
+                  <label className="font-bold text-slate-700 block mb-1">Phone / WhatsApp *</label>
                   <input
                     required
                     type="tel"
                     placeholder="+1 555-0192"
                     value={manualForm.phone}
                     onChange={(e) => setManualForm({ ...manualForm, phone: e.target.value })}
-                    className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400"
+                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-bold text-gray-300 block mb-1">Target Service</label>
+                <label className="font-bold text-slate-700 block mb-1">Target Service</label>
                 <select
                   value={manualForm.service}
                   onChange={(e) => setManualForm({ ...manualForm, service: e.target.value })}
-                  className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 outline-none focus:border-blue-500"
                 >
                   <option value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
                   <option value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
                   <option value="Website Development (Next.js)">Website Development (Next.js)</option>
                   <option value="Off-Page Backlink Building">Off-Page Backlink Building</option>
                   <option value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
+                  <option value="Guest Post Placement">Guest Post Placement</option>
                   <option value="Custom Project Work">Custom Project Work</option>
                 </select>
               </div>
 
               <div>
-                <label className="font-bold text-gray-300 block mb-1">Scope / Project Requirements</label>
+                <label className="font-bold text-slate-700 block mb-1">Scope / Requirements</label>
                 <textarea
                   rows={3}
                   placeholder="Requirements, discussion details, or deliverables..."
                   value={manualForm.message}
                   onChange={(e) => setManualForm({ ...manualForm, message: e.target.value })}
-                  className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400 resize-none"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500 resize-none"
                 />
               </div>
 
               <div>
-                <label className="font-bold text-gray-300 block mb-1">Admin Internal Notes</label>
+                <label className="font-bold text-slate-700 block mb-1">Admin Internal Notes</label>
                 <input
                   type="text"
                   placeholder="e.g. Client called from UK, quoted $3,000"
                   value={manualForm.notes}
                   onChange={(e) => setManualForm({ ...manualForm, notes: e.target.value })}
-                  className="w-full p-3 bg-gray-900 border border-gray-700 rounded-xl text-white outline-none focus:border-amber-400"
+                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
                 />
               </div>
 
@@ -1369,13 +1641,13 @@ export default function AdminDatabasePage() {
                 <button
                   type="button"
                   onClick={() => setIsNewEntryOpen(false)}
-                  className="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold cursor-pointer"
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-extrabold rounded-xl transition-all cursor-pointer shadow-md shadow-amber-500/20"
+                  className="px-6 py-2.5 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-extrabold rounded-xl transition-all cursor-pointer shadow-md shadow-indigo-500/20"
                 >
                   Save into Database →
                 </button>
