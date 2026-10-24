@@ -702,11 +702,20 @@ export default function GuestPostMarketplace() {
     setIsBuyerLoggedIn(false);
   };
 
-  // Custom publishers added via Admin panel
+  // Custom publishers added via Admin panel or Custom Database
   const [customPublishers, setCustomPublishers] = useState<PublisherSite[]>([]);
 
   useEffect(() => {
-    const syncCustom = () => {
+    const syncCustom = async () => {
+      try {
+        const res = await fetch("/api/db/custom-database");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.customSites) && data.customSites.length > 0) {
+          setCustomPublishers(data.customSites);
+          return;
+        }
+      } catch {}
+
       try {
         const customs = getCustomPublishers();
         setCustomPublishers(customs as unknown as PublisherSite[]);
@@ -717,9 +726,12 @@ export default function GuestPostMarketplace() {
     return () => window.removeEventListener("publishers-updated", syncCustom);
   }, []);
 
-  // Combined Marketplace publishers (Static starter inventory + Custom sites added by admin)
+  // Combined Marketplace publishers: Prioritize user's real websites if added!
   const allPublishers: PublisherSite[] = useMemo(() => {
-    return [...customPublishers, ...initialPublishers];
+    if (customPublishers.length > 0) {
+      return customPublishers;
+    }
+    return initialPublishers;
   }, [customPublishers]);
 
   // Download 40,000+ guest post database in Excel/CSV format

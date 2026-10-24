@@ -141,6 +141,48 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Action: Add a single website
+    if (action === "add_single" && body.site) {
+      const singleNormalized = normalizeSpreadsheetRows([body.site])[0];
+      if (!singleNormalized) {
+        return NextResponse.json({ success: false, error: "Invalid website data" }, { status: 400 });
+      }
+      const existing = current.customSites || [];
+      const updatedSites = [singleNormalized, ...existing.filter((s) => s.domain !== singleNormalized.domain)];
+      const updatedData: CustomDatabaseRecord = {
+        ...current,
+        customSites: updatedSites,
+        updatedAt: new Date().toISOString(),
+      };
+      saveCustomDatabase(updatedData);
+      return NextResponse.json({
+        success: true,
+        message: `Successfully added ${singleNormalized.domain}!`,
+        customSites: updatedSites,
+        totalCount: updatedSites.length,
+      });
+    }
+
+    // Action: Delete a single website
+    if (action === "delete_single" && (body.siteId || body.domain)) {
+      const existing = current.customSites || [];
+      const updatedSites = existing.filter(
+        (s) => s.id !== body.siteId && s.domain !== body.domain
+      );
+      const updatedData: CustomDatabaseRecord = {
+        ...current,
+        customSites: updatedSites,
+        updatedAt: new Date().toISOString(),
+      };
+      saveCustomDatabase(updatedData);
+      return NextResponse.json({
+        success: true,
+        message: "Website removed successfully.",
+        customSites: updatedSites,
+        totalCount: updatedSites.length,
+      });
+    }
+
     // Action 2: Sync from Vercel Blob URL
     if (action === "sync_blob" && vercelBlobUrl) {
       const cleanUrl = String(vercelBlobUrl).trim();
