@@ -1,11 +1,40 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
 
+const faqs = [
+  {
+    q: "Are these links permanent?",
+    a: "Yes. All placements are guaranteed for life. If any link drops within 12 months, we replace it with equal or higher DR publication for free.",
+  },
+  {
+    q: "Can I pre-approve the websites before publishing?",
+    a: "Absolutely. We provide a curated shortlist matching your topical niche. We only draft and place after your explicit approval.",
+  },
+  {
+    q: "Are these backlinks 100% Do-Follow & Indexed?",
+    a: "Yes. Every placement is guaranteed 100% contextual Do-Follow, placed naturally inside native 1,000+ word articles, and covered by our Google indexation warranty.",
+  },
+  {
+    q: "How fast do guest post links go live?",
+    a: "Most placements go live within 7 to 14 business days, depending on publication editorial calendars. You receive live URL confirmation as soon as it is indexed.",
+  },
+  {
+    q: "Can I choose my own anchor texts and target URLs?",
+    a: "Yes, you have complete editorial control over anchor texts and target landing pages to align with your exact SEO ranking strategy.",
+  },
+];
+
 export default function GuestPostingPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
@@ -119,22 +148,72 @@ export default function GuestPostingPage() {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
+      {/* FAQ Dropdown Accordion Section */}
       <section className="py-10 sm:py-12 px-4 sm:px-6 md:px-12 max-w-4xl mx-auto border-t border-gray-800/80">
-        <h2 className="text-xl sm:text-3xl font-bold text-center mb-6">Frequently Asked Questions</h2>
-        <div className="space-y-4 text-xs sm:text-sm">
-          <div className="p-5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <h3 className="font-bold text-white mb-2">Are these links permanent?</h3>
-            <p className="text-gray-400 leading-relaxed">Yes. All placements are guaranteed for life. If any link drops within 12 months, we replace it with equal or higher DR for free.</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-400 mb-2">
+            <span>❓</span> Quick Answers
           </div>
-          <div className="p-5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <h3 className="font-bold text-white mb-2">Can I pre-approve the websites before publishing?</h3>
-            <p className="text-gray-400 leading-relaxed">Absolutely. We provide a curated shortlist matching your topical niche. We only draft and place after your explicit approval.</p>
-          </div>
-          <div className="p-5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <h3 className="font-bold text-white mb-2">What is the average turnaround time (TAT)?</h3>
-            <p className="text-gray-400 leading-relaxed">Most placements go live within 7 to 14 business days, depending on publication editorial calendars.</p>
-          </div>
+          <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
+          <p className="text-xs text-gray-400 mt-1">Click on any question to view the answer</p>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openFaq === index;
+            return (
+              <div
+                key={index}
+                className={`rounded-2xl transition-all duration-200 border overflow-hidden ${
+                  isOpen
+                    ? "bg-[#0c1424] border-amber-500/50 shadow-lg shadow-amber-500/5"
+                    : "bg-[#0b1220] border-gray-800 hover:border-gray-700 hover:bg-[#0e1628]"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(index)}
+                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
+                  aria-expanded={isOpen}
+                >
+                  <span
+                    className={`font-bold text-xs sm:text-sm transition-colors ${
+                      isOpen ? "text-amber-400" : "text-white"
+                    }`}
+                  >
+                    {faq.q}
+                  </span>
+                  <span
+                    className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-200 ${
+                      isOpen
+                        ? "bg-amber-500 text-black border-amber-400 rotate-180"
+                        : "bg-gray-800/80 text-gray-400 border-gray-700"
+                    }`}
+                  >
+                    <svg
+                      className="w-3.5 h-3.5 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2.5"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-sm text-gray-300 leading-relaxed border-t border-gray-800/60 animate-in fade-in duration-150">
+                    <p className="pt-3">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
