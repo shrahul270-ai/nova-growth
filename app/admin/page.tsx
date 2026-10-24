@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import ClientProfileView from "./ClientProfileView";
 import AnalyticsDashboardView from "./AnalyticsDashboardView";
+import PublisherSitesManager from "./PublisherSitesManager";
 
 interface BaseItem {
   id: string;
@@ -50,7 +51,7 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
 
   // Database View State
-  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "analytics" | "trash" | "logs">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "leads" | "interactions" | "audits" | "payments" | "client_profile" | "analytics" | "publishers" | "trash" | "logs">("all");
   const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -62,6 +63,7 @@ export default function AdminDatabasePage() {
   const [selectedRecord, setSelectedRecord] = useState<BaseItem | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
   const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
+  const [isAddPublisherModalOpen, setIsAddPublisherModalOpen] = useState(false);
 
   // Fixed Admin Credentials
   const FIXED_ADMIN_EMAILS = ["admin@novagrowth.agency", "shrahul270@gmail.com"];
@@ -138,7 +140,7 @@ export default function AdminDatabasePage() {
 
   // Fetch Current Records
   const loadRecords = useCallback(async () => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || activeTab === "publishers") return;
     setLoading(true);
     try {
       let endpoint = "/api/db/leads";
@@ -379,6 +381,66 @@ export default function AdminDatabasePage() {
     return phone.replace(/[^0-9]/g, "");
   };
 
+  // Real-time partitioned stats calculations (Total vs New)
+  const partitionedStats = useMemo(() => {
+    const isToday = (dateStr: string) => {
+      if (!dateStr) return false;
+      const d = new Date(dateStr);
+      const now = new Date();
+      return (
+        d.getFullYear() === now.getFullYear() &&
+        d.getMonth() === now.getMonth() &&
+        d.getDate() === now.getDate()
+      );
+    };
+
+    const newLeads =
+      stats?.recentActivities?.filter(
+        (a) => a.collection === "leads" && (isToday(a.timestamp) || a.action === "create")
+      ).length || 0;
+
+    const newWhatsapp =
+      stats?.recentActivities?.filter(
+        (a) =>
+          a.collection === "interactions" &&
+          (a.summary?.toLowerCase().includes("whatsapp") || isToday(a.timestamp))
+      ).length ||
+      (stats?.todayActivity
+        ? Math.min(stats.todayActivity, stats?.breakdown.interactions.whatsapp || 0)
+        : 0);
+
+    const newCalls =
+      stats?.recentActivities?.filter(
+        (a) =>
+          a.collection === "interactions" &&
+          (a.summary?.toLowerCase().includes("call") ||
+            a.summary?.toLowerCase().includes("meet") ||
+            a.summary?.toLowerCase().includes("video"))
+      ).length || 0;
+
+    const newAudits =
+      stats?.recentActivities?.filter(
+        (a) => a.collection === "audits" && (isToday(a.timestamp) || a.action === "create")
+      ).length || 0;
+
+    const newPayments =
+      stats?.recentActivities?.filter(
+        (a) => a.collection === "payments" && (isToday(a.timestamp) || a.action === "create")
+      ).length || 0;
+
+    const newTrash =
+      stats?.recentActivities?.filter((a) => a.action === "soft_delete").length || 0;
+
+    return {
+      leads: { total: stats?.breakdown.leads.active || 0, new: newLeads },
+      whatsapp: { total: stats?.breakdown.interactions.whatsapp || 0, new: newWhatsapp },
+      calls: { total: stats?.breakdown.interactions.calls || 0, new: newCalls },
+      audits: { total: stats?.breakdown.audits.active || 0, new: newAudits },
+      payments: { total: stats?.breakdown.payments.active || 0, new: newPayments },
+      trash: { total: stats?.totalDeleted || 0, new: newTrash },
+    };
+  }, [stats]);
+
   // IF NOT AUTHENTICATED -> SHOW SECURE LOGIN GATE
   if (authChecked && !isAuthenticated) {
     return (
@@ -480,6 +542,19 @@ export default function AdminDatabasePage() {
           </div>
 
           <div className="flex items-center gap-3 text-xs">
+            {/* Add Website Option for Admin Marketplace */}
+            <button
+              onClick={() => {
+                setActiveTab("publishers");
+                setIsAddPublisherModalOpen(true);
+              }}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-emerald-600/25 cursor-pointer"
+              title="Add a new publisher website to marketplace inventory"
+            >
+              <span>🌐</span>
+              <span>+ Add Website</span>
+            </button>
+
             <button
               onClick={() => setIsNewEntryOpen(true)}
               className="bg-amber-500 hover:bg-amber-400 text-black font-extrabold px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-amber-500/20 cursor-pointer"
@@ -533,42 +608,120 @@ export default function AdminDatabasePage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* STATS OVERVIEW CARDS */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800">
-            <span className="text-[11px] text-gray-400 font-bold uppercase block mb-1">Active Leads</span>
-            <span className="text-2xl font-black text-amber-400">{stats?.breakdown.leads.active || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Form Submissions</span>
+        {/* STATS OVERVIEW CARDS (PARTITIONED INTO TOTAL & NEW) */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-8">
+          {/* Card 1: Active Leads */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Active Leads</span>
+              <span className="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded font-mono font-bold">LEADS</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-amber-400">{partitionedStats.leads.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-emerald-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-400">+{partitionedStats.leads.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Form Submissions</span>
           </div>
 
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800">
-            <span className="text-[11px] text-gray-400 font-bold uppercase block mb-1">WhatsApp Clicks</span>
-            <span className="text-2xl font-black text-emerald-400">{stats?.breakdown.interactions.whatsapp || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Direct Inquiries</span>
+          {/* Card 2: WhatsApp Clicks */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">WhatsApp Clicks</span>
+              <span className="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-mono font-bold">CHAT</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-400">{partitionedStats.whatsapp.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-emerald-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-400">+{partitionedStats.whatsapp.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Direct Inquiries</span>
           </div>
 
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800">
-            <span className="text-[11px] text-gray-400 font-bold uppercase block mb-1">Calls &amp; Meets</span>
-            <span className="text-2xl font-black text-blue-400">{stats?.breakdown.interactions.calls || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Video / Phone</span>
+          {/* Card 3: Calls & Meets */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Calls &amp; Meets</span>
+              <span className="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-1.5 py-0.5 rounded font-mono font-bold">MEETS</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-blue-400">{partitionedStats.calls.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-blue-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-blue-400">+{partitionedStats.calls.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Video / Phone</span>
           </div>
 
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800">
-            <span className="text-[11px] text-gray-400 font-bold uppercase block mb-1">SEO Audits</span>
-            <span className="text-2xl font-black text-purple-400">{stats?.breakdown.audits.active || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Domains Tested</span>
+          {/* Card 4: SEO Audits */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">SEO Audits</span>
+              <span className="text-[9px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-1.5 py-0.5 rounded font-mono font-bold">TOOL</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-purple-400">{partitionedStats.audits.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-purple-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-purple-400">+{partitionedStats.audits.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Domains Tested</span>
           </div>
 
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-gray-800">
-            <span className="text-[11px] text-gray-400 font-bold uppercase block mb-1">Payments</span>
-            <span className="text-2xl font-black text-teal-400">{stats?.breakdown.payments.active || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Checkouts &amp; Retainers</span>
+          {/* Card 5: Payments */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">Payments</span>
+              <span className="text-[9px] bg-teal-500/10 text-teal-400 border border-teal-500/20 px-1.5 py-0.5 rounded font-mono font-bold">REV</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-teal-400">{partitionedStats.payments.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-teal-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-teal-400">+{partitionedStats.payments.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Checkouts & Retainers</span>
           </div>
 
-          <div className="bg-[#0b1220] p-4 rounded-2xl border border-rose-900/40">
-            <span className="text-[11px] text-rose-400 font-bold uppercase block mb-1">🗑️ In Trash</span>
-            <span className="text-2xl font-black text-rose-500">{stats?.totalDeleted || 0}</span>
-            <span className="text-[10px] text-gray-500 block mt-1">Recoverable Data</span>
+          {/* Card 6: In Trash */}
+          <div className="bg-[#0b1220] p-3.5 rounded-2xl border border-rose-900/40 shadow-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] text-rose-400 font-bold uppercase tracking-wider">In Trash</span>
+              <span className="text-[9px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-1.5 py-0.5 rounded font-mono font-bold">RECOVER</span>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-gray-800/90 pt-1">
+              <div className="pr-2">
+                <span className="text-[10px] text-gray-400 uppercase font-semibold block leading-tight">Total</span>
+                <span className="text-xl sm:text-2xl font-black text-rose-500">{partitionedStats.trash.total}</span>
+              </div>
+              <div className="pl-3">
+                <span className="text-[10px] text-rose-400 uppercase font-semibold block leading-tight">New</span>
+                <span className="text-xl sm:text-2xl font-black text-rose-400">+{partitionedStats.trash.new}</span>
+              </div>
+            </div>
+            <span className="text-[10px] text-gray-500 block mt-2 border-t border-gray-900 pt-1.5 truncate">Recoverable Records</span>
           </div>
         </div>
 
@@ -656,6 +809,19 @@ export default function AdminDatabasePage() {
               <span>Data Analytics</span>
             </button>
 
+            {/* Vefogix-style Guest Posting Marketplace Publishers Tab */}
+            <button
+              onClick={() => setActiveTab("publishers")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "publishers"
+                  ? "bg-amber-500 text-black shadow-md shadow-amber-500/20"
+                  : "bg-teal-950/40 text-teal-300 hover:text-white border border-teal-800/60"
+              }`}
+            >
+              <span>🌐</span>
+              <span>Publisher Sites</span>
+            </button>
+
             <button
               onClick={() => setActiveTab("trash")}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
@@ -679,49 +845,57 @@ export default function AdminDatabasePage() {
             </button>
           </div>
 
-          {/* Search & Sort Filters */}
-          <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
-            {/* Search Input */}
-            <div className="relative flex-1 sm:w-64">
-              <input
-                type="text"
-                placeholder="Search by name, email, phone, website..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-gray-900/90 border border-gray-700 rounded-xl text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-              />
-              <span className="absolute left-3 top-2.5 text-gray-500 text-xs">🔍</span>
-            </div>
+          {/* Search & Sort Filters (for CRM & activity records) */}
+          {activeTab !== "publishers" && (
+            <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+              {/* Search Input */}
+              <div className="relative flex-1 sm:w-64">
+                <input
+                  type="text"
+                  placeholder="Search by name, email, phone, website..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 bg-gray-900/90 border border-gray-700 rounded-xl text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
+                />
+                <span className="absolute left-3 top-2.5 text-gray-500 text-xs">🔍</span>
+              </div>
 
-            {/* Sort Order: New to Old / Old to New */}
-            <button
-              onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
-              className="px-3 py-2 bg-gray-900 border border-gray-700 hover:border-gray-600 rounded-xl text-xs font-bold text-gray-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1"
-              title="Toggle date sort"
-            >
-              <span>{sortOrder === "desc" ? "⬇️ Newest First" : "⬆️ Oldest First"}</span>
-            </button>
-
-            {/* Status Filter */}
-            {activeTab !== "trash" && activeTab !== "logs" && activeTab !== "client_profile" && (
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-gray-300 font-bold focus:outline-none cursor-pointer"
+              {/* Sort Order: New to Old / Old to New */}
+              <button
+                onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
+                className="px-3 py-2 bg-gray-900 border border-gray-700 hover:border-gray-600 rounded-xl text-xs font-bold text-gray-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1"
+                title="Toggle date sort"
               >
-                <option value="all">All Statuses</option>
-                <option value="new">New</option>
-                <option value="contacted">Contacted</option>
-                <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="closed">Closed</option>
-              </select>
-            )}
-          </div>
+                <span>{sortOrder === "desc" ? "⬇️ Newest First" : "⬆️ Oldest First"}</span>
+              </button>
+
+              {/* Status Filter */}
+              {activeTab !== "trash" && activeTab !== "logs" && activeTab !== "client_profile" && (
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-3 py-2 bg-gray-900 border border-gray-700 rounded-xl text-xs text-gray-300 font-bold focus:outline-none cursor-pointer"
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="new">New</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                  <option value="closed">Closed</option>
+                </select>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* MAIN DATA TABLE VIEW */}
-        {activeTab === "client_profile" ? (
+        {/* MAIN DATA TABLE / PUBLISHER VIEW */}
+        {activeTab === "publishers" ? (
+          <PublisherSitesManager
+            onNotify={showToast}
+            isAddModalOpen={isAddPublisherModalOpen}
+            setIsAddModalOpen={setIsAddPublisherModalOpen}
+          />
+        ) : activeTab === "client_profile" ? (
           <ClientProfileView
             records={records}
             initialQuery={selectedClientForProfile}

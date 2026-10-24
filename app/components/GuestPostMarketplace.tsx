@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import SearchableSelect from "./SearchableSelect";
+import { getCustomPublishers } from "../data/publishersData";
 
 export interface PublisherSite {
   id: string;
@@ -664,6 +665,26 @@ export default function GuestPostMarketplace() {
   // Order / Inquiry Modal State
   const [selectedSiteForOrder, setSelectedSiteForOrder] = useState<PublisherSite | null>(null);
 
+  // Custom publishers added via Admin panel
+  const [customPublishers, setCustomPublishers] = useState<PublisherSite[]>([]);
+
+  useEffect(() => {
+    const syncCustom = () => {
+      try {
+        const customs = getCustomPublishers();
+        setCustomPublishers(customs as unknown as PublisherSite[]);
+      } catch {}
+    };
+    syncCustom();
+    window.addEventListener("publishers-updated", syncCustom);
+    return () => window.removeEventListener("publishers-updated", syncCustom);
+  }, []);
+
+  // Combined Marketplace publishers (Static starter inventory + Custom sites added by admin)
+  const allPublishers: PublisherSite[] = useMemo(() => {
+    return [...customPublishers, ...initialPublishers];
+  }, [customPublishers]);
+
   // All requested categories
   const categories = [
     "All Categories",
@@ -775,7 +796,7 @@ export default function GuestPostMarketplace() {
 
   // Filter logic
   const filteredSites = useMemo(() => {
-    return initialPublishers.filter((site) => {
+    return allPublishers.filter((site) => {
       // 1. Bulk search filter
       if (bulkSearchTerms.length > 0) {
         const matchesBulk = bulkSearchTerms.some((term) => {
@@ -861,6 +882,7 @@ export default function GuestPostMarketplace() {
       return true;
     });
   }, [
+    allPublishers,
     bulkSearchTerms,
     searchQuery,
     quickFilter,
