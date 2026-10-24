@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import * as XLSX from "xlsx";
 import {
   PublisherSite,
   INITIAL_PUBLISHERS,
@@ -218,6 +219,89 @@ export default function PublisherSitesManager({
     }
   };
 
+  // Vercel Blob & Excel Upload Sync State
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
+  const [inputBlobUrl, setInputBlobUrl] = useState("");
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncStatusMsg, setSyncStatusMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const handleSyncVercelBlob = async () => {
+    if (!inputBlobUrl.trim()) {
+      setSyncStatusMsg({ type: "error", text: "Please enter a valid Vercel Blob URL" });
+      return;
+    }
+    setIsSyncing(true);
+    setSyncStatusMsg(null);
+    try {
+      const res = await fetch("/api/db/custom-database", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "sync_blob", vercelBlobUrl: inputBlobUrl.trim() }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSyncStatusMsg({
+          type: "success",
+          text: data.message || `Successfully synced! ${data.totalCount} sites loaded.`,
+        });
+        onNotify(`✓ Vercel Blob database synced! ${data.totalCount} sites active.`);
+      } else {
+        setSyncStatusMsg({ type: "error", text: data.error || "Failed to sync Vercel Blob URL." });
+      }
+    } catch (err: any) {
+      setSyncStatusMsg({ type: "error", text: err?.message || "Sync error" });
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsSyncing(true);
+    setSyncStatusMsg(null);
+
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        const arrayBuffer = evt.target?.result as ArrayBuffer;
+        const workbook = XLSX.read(arrayBuffer, { type: "array" });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const rawJsonRows: any[] = XLSX.utils.sheet_to_json(worksheet);
+
+        if (!rawJsonRows || rawJsonRows.length === 0) {
+          setSyncStatusMsg({ type: "error", text: "Uploaded file is empty or invalid." });
+          setIsSyncing(false);
+          return;
+        }
+
+        const res = await fetch("/api/db/custom-database", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ customSites: rawJsonRows }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          setSyncStatusMsg({
+            type: "success",
+            text: `File uploaded successfully! ${data.totalCount} sites published to buyer dashboard.`,
+          });
+          onNotify(`✓ ${data.totalCount} websites published from ${file.name}!`);
+        } else {
+          setSyncStatusMsg({ type: "error", text: data.error || "Failed to save file." });
+        }
+      } catch (err: any) {
+        setSyncStatusMsg({ type: "error", text: `Error reading file: ${err.message}` });
+      } finally {
+        setIsSyncing(false);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
   return (
     <div className="space-y-6">
       {/* VEFOGIX INVENTORY HEADER */}
@@ -237,6 +321,16 @@ export default function PublisherSitesManager({
         </div>
 
         <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => {
+              setSyncStatusMsg(null);
+              setIsSyncModalOpen(true);
+            }}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow-md shadow-purple-500/20 flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>⚡</span>
+            <span>Sync Vercel Blob / Excel</span>
+          </button>
           <button
             onClick={() => setIsAddModalOpen(true)}
             className="bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all shadow-md shadow-indigo-500/20 flex items-center gap-1.5 cursor-pointer"
@@ -635,6 +729,93 @@ export default function PublisherSitesManager({
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* VERCEL BLOB / EXCEL SYNC MODAL */}
+      {isSyncModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">⚡</span>
+                <h3 className="text-base font-black text-slate-900">
+                  Connect Vercel Blob / Upload Excel
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsSyncModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+
+            {syncStatusMsg && (
+              <div
+                className={`p-3 rounded-xl text-xs font-bold ${
+                  syncStatusMsg.type === "success"
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    : "bg-rose-50 text-rose-700 border border-rose-200"
+                }`}
+              >
+                {syncStatusMsg.text}
+              </div>
+            )}
+
+            {/* Vercel Blob URL input */}
+            <div className="space-y-1.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <label className="text-xs font-bold text-slate-800 block">
+                Option 1: Paste Vercel Blob Storage URL
+              </label>
+              <p className="text-[11px] text-slate-500">
+                Paste the public URL of your Excel or CSV file from Vercel Blob Storage:
+              </p>
+              <div className="flex gap-2 pt-1">
+                <input
+                  type="url"
+                  value={inputBlobUrl}
+                  onChange={(e) => setInputBlobUrl(e.target.value)}
+                  placeholder="https://...public.blob.vercel-storage.com/.../database.xlsx"
+                  className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-mono focus:border-purple-500 focus:outline-none"
+                />
+                <button
+                  type="button"
+                  disabled={isSyncing}
+                  onClick={handleSyncVercelBlob}
+                  className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white font-bold text-xs rounded-xl transition-all cursor-pointer shrink-0"
+                >
+                  {isSyncing ? "Syncing..." : "Sync"}
+                </button>
+              </div>
+            </div>
+
+            {/* Direct File Upload */}
+            <div className="space-y-1.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <label className="text-xs font-bold text-slate-800 block">
+                Option 2: Direct Excel (.xlsx) / CSV File Upload
+              </label>
+              <p className="text-[11px] text-slate-500">
+                Upload a spreadsheet directly from your computer to populate the buyer dashboard:
+              </p>
+              <input
+                type="file"
+                accept=".xlsx, .xls, .csv"
+                onChange={handleFileUpload}
+                className="block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer pt-1"
+              />
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                type="button"
+                onClick={() => setIsSyncModalOpen(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

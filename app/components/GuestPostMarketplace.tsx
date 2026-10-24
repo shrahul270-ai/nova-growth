@@ -765,7 +765,8 @@ export default function GuestPostMarketplace() {
       setIsAuthModalOpen(true);
       return;
     }
-    handleDownloadDatabase(allPublishers);
+    // When logged in, navigate immediately to the Buyer Dashboard where the full database and download live!
+    window.location.href = "/buyer-dashboard";
   };
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
@@ -820,8 +821,8 @@ export default function GuestPostMarketplace() {
       setAuthPhone("");
       setAuthPassword("");
 
-      // Trigger automatic Excel download
-      handleDownloadDatabase(allPublishers);
+      // Redirect immediately to the full Buyer Dashboard!
+      window.location.href = "/buyer-dashboard";
     } catch (err) {
       console.error("Auth submit error:", err);
     } finally {
