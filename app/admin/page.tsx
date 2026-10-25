@@ -4,8 +4,6 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import ClientProfileView from "./ClientProfileView";
 import AnalyticsDashboardView from "./AnalyticsDashboardView";
-import PublisherSitesManager from "./PublisherSitesManager";
-import { PublisherSite } from "../data/publishersData";
 
 interface BaseItem {
   id: string;
@@ -52,24 +50,14 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Active View State (Nova Growth Sidebar Selection)
+  // Active View State (Nova Growth Agency CRM)
   const [activeTab, setActiveTab] = useState<
     | "dashboard"
     | "live_locations"
-    | "publishers_all"
-    | "publishers_premium"
-    | "publishers_iplay"
-    | "publishers_trusted"
-    | "publishers_verified"
-    | "publishers_forbidden"
-    | "publishers_link_insertion"
-    | "publishers_top_selling"
-    | "publishers_favorites"
-    | "publishers_blacklisted"
+    | "payments"
     | "leads"
     | "interactions"
     | "audits"
-    | "payments"
     | "client_profile"
     | "analytics"
     | "trash"
@@ -87,9 +75,6 @@ export default function AdminDatabasePage() {
   const [selectedRecord, setSelectedRecord] = useState<BaseItem | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
   const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
-  const [isAddPublisherModalOpen, setIsAddPublisherModalOpen] = useState(false);
-  const [isGuestPostMenuOpen, setIsGuestPostMenuOpen] = useState(true);
-  const [isCrmMenuOpen, setIsCrmMenuOpen] = useState(true);
 
   // Verify server-side session cookie on mount
   useEffect(() => {
@@ -181,11 +166,9 @@ export default function AdminDatabasePage() {
     }
   }, [isAuthenticated]);
 
-  // Fetch Current Records (when on CRM tabs)
-  const isPublisherTab = activeTab === "dashboard" || activeTab.startsWith("publishers_");
-
+  // Fetch Current Records (Agency Leads, Orders, Inquiries, Audit Trail)
   const loadRecords = useCallback(async () => {
-    if (!isAuthenticated || isPublisherTab) return;
+    if (!isAuthenticated) return;
     setLoading(true);
     try {
       let endpoint = "/api/db/leads";
@@ -217,7 +200,7 @@ export default function AdminDatabasePage() {
         return;
       }
 
-      if (activeTab === "client_profile" || activeTab === "live_locations") {
+      if (activeTab === "dashboard" || activeTab === "client_profile" || activeTab === "live_locations") {
         const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
@@ -260,7 +243,7 @@ export default function AdminDatabasePage() {
     } finally {
       setLoading(false);
     }
-  }, [isAuthenticated, activeTab, isPublisherTab, search, statusFilter, sortOrder]);
+  }, [isAuthenticated, activeTab, search, statusFilter, sortOrder]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -480,20 +463,6 @@ export default function AdminDatabasePage() {
     };
   }, [stats]);
 
-  // Map activeTab to PublisherSitesManager preset
-  const publisherPreset = useMemo(() => {
-    if (activeTab === "publishers_premium") return "premium";
-    if (activeTab === "publishers_iplay") return "iplay";
-    if (activeTab === "publishers_trusted") return "trusted";
-    if (activeTab === "publishers_verified") return "verified";
-    if (activeTab === "publishers_forbidden") return "forbidden";
-    if (activeTab === "publishers_link_insertion") return "link_insertion";
-    if (activeTab === "publishers_top_selling") return "top_selling";
-    if (activeTab === "publishers_favorites") return "favorites";
-    if (activeTab === "publishers_blacklisted") return "blacklisted";
-    return "all";
-  }, [activeTab]);
-
   // IF NOT AUTHENTICATED -> SHOW SECURE LOGIN GATE
   if (authChecked && !isAuthenticated) {
     return (
@@ -618,20 +587,30 @@ export default function AdminDatabasePage() {
             <nav className="hidden md:flex items-center gap-4 text-xs font-bold text-slate-600">
               <button
                 onClick={() => setActiveTab("dashboard")}
-                className="hover:text-blue-600 flex items-center gap-1 cursor-pointer"
+                className={`hover:text-blue-600 cursor-pointer ${activeTab === "dashboard" ? "text-blue-600 font-black" : ""}`}
               >
-                <span>Tools</span>
-                <span className="text-[10px]">⌵</span>
+                Dashboard
               </button>
               <button
-                onClick={() => setActiveTab("publishers_all")}
-                className="hover:text-blue-600 flex items-center gap-1 cursor-pointer"
+                onClick={() => setActiveTab("live_locations")}
+                className={`hover:text-blue-600 cursor-pointer ${activeTab === "live_locations" ? "text-blue-600 font-black" : ""}`}
               >
-                <span>Marketplace</span>
-                <span className="text-[10px]">⌵</span>
+                Live Locations
               </button>
-              <Link href="/guest-posting" className="hover:text-blue-600" target="_blank">
-                Live Storefront ↗
+              <button
+                onClick={() => setActiveTab("payments")}
+                className={`hover:text-blue-600 cursor-pointer ${activeTab === "payments" ? "text-blue-600 font-black" : ""}`}
+              >
+                Orders
+              </button>
+              <button
+                onClick={() => setActiveTab("leads")}
+                className={`hover:text-blue-600 cursor-pointer ${activeTab === "leads" ? "text-blue-600 font-black" : ""}`}
+              >
+                Leads
+              </button>
+              <Link href="/guest-posting" className="text-slate-400 hover:text-blue-600" target="_blank">
+                Live Site ↗
               </Link>
             </nav>
           </div>
@@ -639,16 +618,8 @@ export default function AdminDatabasePage() {
           {/* Action Buttons */}
           <div className="flex items-center gap-2.5 text-xs">
             <button
-              onClick={() => setIsAddPublisherModalOpen(true)}
-              className="bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-bold px-3.5 py-2 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
-            >
-              <span>+</span>
-              <span>Add Website</span>
-            </button>
-
-            <button
               onClick={() => setIsNewEntryOpen(true)}
-              className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
             >
               <span>+</span>
               <span>New Lead</span>
@@ -671,451 +642,247 @@ export default function AdminDatabasePage() {
         {/* 1. LEFT SLIM ICON RAIL */}
         <aside className="w-14 bg-white border-r border-slate-200 flex flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
           <button
-            onClick={() => setIsGuestPostMenuOpen(!isGuestPostMenuOpen)}
-            className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-800 text-xs font-bold transition-colors cursor-pointer"
-            title="Toggle Sidebar"
-          >
-            «
-          </button>
-
-          {/* Folder */}
-          <button
             onClick={() => setActiveTab("dashboard")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
-            title="Projects & Workspaces"
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "dashboard" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
+            title="Dashboard Overview"
           >
-            📁
+            ⏱️
           </button>
 
-          {/* Document / Publisher Sheets (Highlighted active icon from screenshot) */}
           <button
-            onClick={() => setActiveTab("publishers_all")}
-            className="p-2 rounded-xl bg-blue-50 text-blue-600 border-l-4 border-blue-600 transition-colors cursor-pointer text-base shadow-xs"
-            title="Guest Post Marketplace"
+            onClick={() => setActiveTab("live_locations")}
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "live_locations" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
+            title="Live Location Tracker"
           >
-            📄
+            📍
           </button>
 
-          {/* Chat / Messages */}
-          <button
-            onClick={() => setActiveTab("interactions")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
-            title="WhatsApp & Inquiries"
-          >
-            💬
-          </button>
-
-          {/* Cart / Orders */}
           <button
             onClick={() => setActiveTab("payments")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "payments" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
             title="Orders & Payments"
           >
             🛒
           </button>
 
-          {/* Gift / Promotions */}
-          <button
-            onClick={() => setActiveTab("publishers_top_selling")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
-            title="Top Selling & Promotions"
-          >
-            🎁
-          </button>
-
-          {/* Office / Building */}
           <button
             onClick={() => setActiveTab("leads")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
-            title="CRM Leads & Clients"
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "leads" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
+            title="CRM Leads & Registered Users"
           >
-            🏢
+            👥
           </button>
 
-          {/* Tools / Settings */}
+          <button
+            onClick={() => setActiveTab("interactions")}
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "interactions" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
+            title="WhatsApp & Inquiries"
+          >
+            💬
+          </button>
+
+          <button
+            onClick={() => setActiveTab("audits")}
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "audits" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
+            title="SEO Audit Requests"
+          >
+            🔍
+          </button>
+
           <button
             onClick={() => setActiveTab("analytics")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base"
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "analytics" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
             title="Data Analytics"
           >
-            🔧
+            📊
           </button>
 
-          {/* Support / Help */}
           <button
-            onClick={() => showToast("Support channel: admin@novagrowth.agency")}
-            className="p-2 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition-colors cursor-pointer text-base mt-auto"
-            title="Customer Support"
+            onClick={() => setActiveTab("trash")}
+            className={`p-2 rounded-xl transition-colors cursor-pointer text-base mt-auto ${activeTab === "trash" ? "bg-rose-50 text-rose-600" : "hover:bg-rose-50 text-slate-400"}`}
+            title="Trash Bin"
           >
-            🎧
+            🗑️
           </button>
         </aside>
 
         {/* 2. EXPANDED SIDEBAR MENU */}
         <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto">
-          <div className="p-3.5 space-y-4">
-            {/* GUEST POST SITES ACCORDION */}
+          <div className="p-3.5 space-y-5">
+            {/* CORE OPERATIONS */}
             <div>
-              <button
-                onClick={() => setIsGuestPostMenuOpen(!isGuestPostMenuOpen)}
-                className="w-full flex items-center justify-between text-xs font-bold text-slate-700 hover:text-blue-600 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <span>📑</span>
-                  <span>Guest Post Sites</span>
-                </span>
-                <span className="text-[10px] text-slate-400">
-                  {isGuestPostMenuOpen ? "▼" : "▶"}
-                </span>
-              </button>
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
+                Core Operations
+              </div>
+              <div className="space-y-1 text-xs">
+                {/* Dashboard Overview */}
+                <button
+                  onClick={() => setActiveTab("dashboard")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
+                    activeTab === "dashboard"
+                      ? "bg-[#ebf3ff] text-[#2563eb] shadow-xs"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>⏱️</span>
+                    <span>Executive Dashboard</span>
+                  </span>
+                  <span className="text-xs">›</span>
+                </button>
 
-              {isGuestPostMenuOpen && (
-                <div className="mt-1 space-y-1 pl-1 text-xs">
-                  {/* Dashboard */}
-                  <button
-                    onClick={() => setActiveTab("dashboard")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
-                      activeTab === "dashboard"
-                        ? "bg-[#ebf3ff] text-[#2563eb] shadow-xs"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>⏱️</span>
-                      <span>Dashboard</span>
+                {/* 📍 Live Location Tracker */}
+                <button
+                  onClick={() => setActiveTab("live_locations")}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
+                    activeTab === "live_locations"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
+                      : "bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-200"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span className="text-xs">›</span>
-                  </button>
-
-                  {/* 📍 Live Location Tracker (High-Visibility Direct Tab) */}
-                  <button
-                    onClick={() => setActiveTab("live_locations")}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
-                      activeTab === "live_locations"
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
-                        : "bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-200"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                      </span>
-                      <span>📍 Live Location Tracker</span>
-                    </span>
-                    <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-400 text-black">
-                      LIVE
-                    </span>
-                  </button>
-
-                  {/* All Publisher Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_all")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_all"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>📄</span>
-                      <span>All Publisher Sites</span>
-                    </span>
-                  </button>
-
-                  {/* 👑 Premium Sites (Warm yellow pill badge from screenshot) */}
-                  <button
-                    onClick={() => setActiveTab("publishers_premium")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
-                      activeTab === "publishers_premium"
-                        ? "bg-[#fef3c7] text-[#92400e] border border-amber-300"
-                        : "bg-[#fffbeb] text-[#b45309] border border-[#fde68a] hover:bg-[#fef3c7]"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>👑</span>
-                      <span>Premium Sites</span>
-                    </span>
-                  </button>
-
-                  {/* 🎮 iPlay Sites (Warm orange pill badge from screenshot) */}
-                  <button
-                    onClick={() => setActiveTab("publishers_iplay")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
-                      activeTab === "publishers_iplay"
-                        ? "bg-[#ffedd5] text-[#9a3412] border border-orange-300"
-                        : "bg-[#fff7ed] text-[#c2410c] border border-[#fed7aa] hover:bg-[#ffedd5]"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🎮</span>
-                      <span>iPlay Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Trusted Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_trusted")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_trusted"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🛡️</span>
-                      <span>Trusted Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Verified Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_verified")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_verified"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>✅</span>
-                      <span>Verified Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Forbidden Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_forbidden")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_forbidden"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🚫</span>
-                      <span>Forbidden Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Link Insertion Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_link_insertion")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_link_insertion"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🔗</span>
-                      <span>Link Insertion Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Top Selling */}
-                  <button
-                    onClick={() => setActiveTab("publishers_top_selling")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_top_selling"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🏷️</span>
-                      <span>Top Selling</span>
-                    </span>
-                  </button>
-
-                  {/* Favourite Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_favorites")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_favorites"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🤍</span>
-                      <span>Favourite Sites</span>
-                    </span>
-                  </button>
-
-                  {/* Blacklisted Sites */}
-                  <button
-                    onClick={() => setActiveTab("publishers_blacklisted")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "publishers_blacklisted"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>⛔</span>
-                      <span>Blacklisted Sites</span>
-                    </span>
-                  </button>
-                </div>
-              )}
+                    <span>📍 Live Location Tracker</span>
+                  </span>
+                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-400 text-black">
+                    LIVE
+                  </span>
+                </button>
+              </div>
             </div>
 
-            {/* AGENCY CRM & DATABASE ACCORDION */}
+            {/* ORDERS & REVENUE */}
             <div>
-              <button
-                onClick={() => setIsCrmMenuOpen(!isCrmMenuOpen)}
-                className="w-full flex items-center justify-between text-xs font-bold text-slate-700 hover:text-blue-600 p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <span>🏢</span>
-                  <span>CRM &amp; Inquiries</span>
-                </span>
-                <span className="text-[10px] text-slate-400">
-                  {isCrmMenuOpen ? "▼" : "▶"}
-                </span>
-              </button>
-
-              {isCrmMenuOpen && (
-                <div className="mt-1 space-y-1 pl-1 text-xs">
-                  <button
-                    onClick={() => setActiveTab("leads")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "leads"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>📋</span>
-                      <span>Leads &amp; Clients</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-slate-400">
-                      {partitionedStats.leads.total}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("interactions")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "interactions"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>💬</span>
-                      <span>WhatsApp &amp; Calls</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-emerald-600">
-                      {partitionedStats.whatsapp.total}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("audits")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "audits"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🔍</span>
-                      <span>SEO Audits</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-purple-600">
-                      {partitionedStats.audits.total}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("payments")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "payments"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>💳</span>
-                      <span>Orders &amp; Payments</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-blue-600">
-                      {partitionedStats.payments.total}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("client_profile")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "client_profile"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>👤</span>
-                      <span>Client 360° Dossier</span>
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("analytics")}
-                    className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "analytics"
-                        ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>📊</span>
-                      <span>Data Analytics</span>
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setActiveTab("trash")}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                      activeTab === "trash"
-                        ? "bg-rose-50 text-rose-700 font-bold"
-                        : "text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🗑️</span>
-                      <span>Trash Bin</span>
-                    </span>
-                    <span className="text-[11px] font-bold text-rose-600">
-                      {partitionedStats.trash.total}
-                    </span>
-                  </button>
-                </div>
-              )}
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
+                Orders &amp; Placements
+              </div>
+              <div className="space-y-1 text-xs">
+                {/* 🛒 Guest Post Orders */}
+                <button
+                  onClick={() => setActiveTab("payments")}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
+                    activeTab === "payments"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold shadow-xs"
+                      : "text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🛒</span>
+                    <span>Guest Post Orders</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-blue-600 font-mono">
+                    {partitionedStats.payments.total}
+                  </span>
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* BOTTOM SPONSORED PROMO BOX */}
-          <div className="p-3 m-3 bg-blue-50/50 border border-blue-100 rounded-2xl">
-            <div className="flex items-center justify-between mb-2">
-              <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold text-[9px] uppercase tracking-wider">
-                SPONSORED
-              </span>
-              <span className="text-slate-400 text-xs">↗</span>
+            {/* AGENCY CRM & CLIENT PIPELINE */}
+            <div>
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
+                Agency CRM &amp; Leads
+              </div>
+              <div className="space-y-1 text-xs">
+                <button
+                  onClick={() => setActiveTab("leads")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "leads"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>👥</span>
+                    <span>Leads &amp; Users</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-slate-500 font-mono">
+                    {partitionedStats.leads.total}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("interactions")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "interactions"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>💬</span>
+                    <span>WhatsApp Chats</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-emerald-600 font-mono">
+                    {partitionedStats.whatsapp.total}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("audits")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "audits"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🔍</span>
+                    <span>SEO Audits</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-purple-600 font-mono">
+                    {partitionedStats.audits.total}
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("client_profile")}
+                  className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "client_profile"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>👤</span>
+                    <span>Client 360° Dossier</span>
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("analytics")}
+                  className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "analytics"
+                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>📊</span>
+                    <span>Data Analytics</span>
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("trash")}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
+                    activeTab === "trash"
+                      ? "bg-rose-50 text-rose-700 font-bold"
+                      : "text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🗑️</span>
+                    <span>Trash Bin</span>
+                  </span>
+                  <span className="text-[11px] font-bold text-rose-600 font-mono">
+                    {partitionedStats.trash.total}
+                  </span>
+                </button>
+              </div>
             </div>
-            <p className="text-xs font-bold text-slate-800 leading-snug mb-1">
-              Professional SEO Website Content Writing Services
-            </p>
-            <div className="flex items-center gap-1 text-[11px] text-amber-500 font-bold mb-3">
-              <span>★ 5.0</span>
-              <span className="text-slate-400 font-normal">(23)</span>
-            </div>
-            <button
-              onClick={() => setIsAddPublisherModalOpen(true)}
-              className="w-full py-2 bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
-            >
-              + Add New Website
-            </button>
           </div>
         </aside>
 
@@ -1125,17 +892,21 @@ export default function AdminDatabasePage() {
           <div className="mb-6">
             <div className="w-9 h-1 bg-emerald-500 rounded-full mb-1.5" />
             <span className="text-xs font-black text-blue-600 uppercase tracking-widest block mb-1">
-              BUYER &amp; ADMIN WORKSPACE
+              AGENCY OWNER WORKSPACE
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
               {activeTab === "dashboard"
-                ? "Buyer & Admin Dashboard"
-                : activeTab.startsWith("publishers_")
-                ? "Guest Post Marketplace Directory"
+                ? "Executive Operations & Leads Dashboard"
+                : activeTab === "payments"
+                ? "Guest Post Orders & Placements"
+                : activeTab === "live_locations"
+                ? "Real-Time Live Location Tracker"
+                : activeTab === "leads"
+                ? "Registered Buyers & Agency Leads"
                 : "Agency Database & Inquiries"}
             </h1>
             <p className="text-xs text-slate-500 mt-1 font-medium">
-              Welcome back, Administrator. Real-time marketplace control and CRM pipeline.
+              Private portal for website owner. Track orders, registered users, and live visitor locations.
             </p>
           </div>
 
@@ -1311,18 +1082,7 @@ export default function AdminDatabasePage() {
           </div>
 
           {/* DYNAMIC CONTENT VIEW */}
-          {isPublisherTab ? (
-            /* PUBLISHER SITES MANAGEMENT VIEW */
-            <PublisherSitesManager
-              onNotify={showToast}
-              isAddModalOpen={isAddPublisherModalOpen}
-              setIsAddModalOpen={setIsAddPublisherModalOpen}
-              activePreset={publisherPreset}
-              onSelectSiteForOrder={(site: PublisherSite) => {
-                showToast(`✓ Order for ${site.domain} opened ($${site.price} USD)`);
-              }}
-            />
-          ) : activeTab === "client_profile" ? (
+          {activeTab === "client_profile" ? (
             <ClientProfileView
               records={records}
               initialQuery={selectedClientForProfile}
