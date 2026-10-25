@@ -55,6 +55,7 @@ export default function AdminDatabasePage() {
   // Active View State (Vefogix Sidebar Selection)
   const [activeTab, setActiveTab] = useState<
     | "dashboard"
+    | "live_locations"
     | "publishers_all"
     | "publishers_premium"
     | "publishers_iplay"
@@ -216,7 +217,7 @@ export default function AdminDatabasePage() {
         return;
       }
 
-      if (activeTab === "client_profile") {
+      if (activeTab === "client_profile" || activeTab === "live_locations") {
         const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
         const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
@@ -795,6 +796,27 @@ export default function AdminDatabasePage() {
                     <span className="text-xs">›</span>
                   </button>
 
+                  {/* 📍 Live Location Tracker (High-Visibility Direct Tab) */}
+                  <button
+                    onClick={() => setActiveTab("live_locations")}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
+                      activeTab === "live_locations"
+                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
+                        : "bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-200"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      <span>📍 Live Location Tracker</span>
+                    </span>
+                    <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-400 text-black">
+                      LIVE
+                    </span>
+                  </button>
+
                   {/* All Publisher Sites */}
                   <button
                     onClick={() => setActiveTab("publishers_all")}
@@ -1273,6 +1295,30 @@ export default function AdminDatabasePage() {
             </div>
           </div>
 
+          {/* 📍 LIVE LOCATION TRACKER PROMINENT OVERVIEW BANNER (High-Visibility on Admin) */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-2xl shadow-inner">
+                📍
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h4 className="text-sm sm:text-base font-black tracking-tight">Real-Time Visitor Live Location Tracker</h4>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-400 text-black animate-pulse">LIVE TRACKING</span>
+                </div>
+                <p className="text-xs text-blue-200 mt-0.5">
+                  Database download karne wale, login karne wale aur contact karne wale sabhi visitors ki Live Country, City, IP aur Google Map location track ho rahi hai.
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setActiveTab("live_locations")}
+              className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-blue-950 font-black text-xs transition-all shadow-md cursor-pointer shrink-0 hover:scale-102 active:scale-98"
+            >
+              Open Live Location Tracker (Map View) →
+            </button>
+          </div>
+
           {/* DYNAMIC CONTENT VIEW */}
           {isPublisherTab ? (
             /* PUBLISHER SITES MANAGEMENT VIEW */
@@ -1295,6 +1341,119 @@ export default function AdminDatabasePage() {
             />
           ) : activeTab === "analytics" ? (
             <AnalyticsDashboardView stats={stats} records={records} />
+          ) : activeTab === "live_locations" ? (
+            /* DEDICATED FULL-SCREEN LIVE LOCATION TRACKER VIEW */
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                      📍 Real-Time Live Location Tracker
+                    </h3>
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Real-time Country, City, IP address, and Google Maps location for everyone who downloads the database, creates an account, or contacts you.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold text-xs flex items-center gap-1.5">
+                    <span>📡</span>
+                    <span>{records.filter((r) => r.country || r.city || r.clientIp).length} Tracked Actions</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Table of all live locations */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50 text-slate-600 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
+                      <th className="py-3 px-4">Time</th>
+                      <th className="py-3 px-4">Live Location (Country &amp; City)</th>
+                      <th className="py-3 px-4">Action Done</th>
+                      <th className="py-3 px-4">User Contact / IP</th>
+                      <th className="py-3 px-4 text-right">Google Maps</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {records.filter((r) => r.country || r.city || r.clientIp).length > 0 ? (
+                      records
+                        .filter((r) => r.country || r.city || r.clientIp)
+                        .map((item) => (
+                          <tr key={item.id} className="hover:bg-blue-50/40 transition-colors">
+                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500 whitespace-nowrap">
+                              {formatDate(item.createdAt)}
+                            </td>
+                            <td className="py-3.5 px-4">
+                              <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+                                <span className="text-lg">{item.countryFlag || "🌐"}</span>
+                                <span>
+                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
+                                  {item.country || "Global"}
+                                </span>
+                              </div>
+                              <span className="text-[10px] text-slate-400 font-mono">
+                                IP: {item.clientIp || "Direct Connection"}
+                              </span>
+                            </td>
+                            <td className="py-3.5 px-4">
+                              <span className="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-lg text-xs">
+                                {item.title || item.service || item.type || "Interaction"}
+                              </span>
+                              <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
+                                {item.details || item.message || item.domain || "—"}
+                              </p>
+                            </td>
+                            <td className="py-3.5 px-4">
+                              <div className="font-bold text-slate-800 text-xs">
+                                {item.name || item.clientName || "Visitor"}
+                              </div>
+                              {item.email && <div className="text-[11px] text-blue-600 font-mono">{item.email}</div>}
+                              {item.phone && <div className="text-[11px] text-emerald-600 font-mono">{item.phone}</div>}
+                            </td>
+                            <td className="py-3.5 px-4 text-right">
+                              {item.mapsUrl ? (
+                                <a
+                                  href={item.mapsUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all"
+                                >
+                                  <span>🗺️ Open Map</span>
+                                  <span>↗</span>
+                                </a>
+                              ) : item.city && item.country ? (
+                                <a
+                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs"
+                                >
+                                  <span>📍 Search Map ↗</span>
+                                </a>
+                              ) : (
+                                <span className="text-slate-400 text-[11px]">—</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                    ) : (
+                      <tr>
+                        <td colSpan={5} className="py-12 text-center text-slate-400">
+                          <div className="text-3xl mb-2">📍</div>
+                          <p className="font-bold text-slate-700">Abhi tak koi live location track nahi hui hai</p>
+                          <p className="text-xs text-slate-400 mt-1">Jaise hi koi user download karega ya login karega, uski live country aur map yaha dikhega.</p>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           ) : activeTab === "logs" ? (
             /* AUDIT TRAIL LOGS VIEW */
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
