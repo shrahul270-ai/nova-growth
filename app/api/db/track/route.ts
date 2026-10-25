@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createInteraction, createLead } from "@/lib/db";
-import { extractGeoFromRequest } from "@/lib/geo";
+import { extractGeoFromRequest, resolveGeoForRequest } from "@/lib/geo";
 import { sanitizeInput } from "@/lib/security";
 
 export async function POST(req: NextRequest) {
@@ -8,8 +8,8 @@ export async function POST(req: NextRequest) {
     const userAgent = req.headers.get("user-agent") || "unknown";
     const body = await req.json();
 
-    // High precision live geolocation
-    const geo = extractGeoFromRequest(req, body.clientGeo);
+    // High precision live geolocation (with IP lookup fallback)
+    const geo = await resolveGeoForRequest(req, body.clientGeo);
 
     const eventType = body.type || "database_download";
     const action = body.action || "download";

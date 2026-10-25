@@ -1393,12 +1393,20 @@ export default function AdminDatabasePage() {
                                 <span className="text-lg">{item.countryFlag || "🌐"}</span>
                                 <span>
                                   {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                  {item.country || "Global"}
+                                  {item.region ? `${item.region}, ` : ""}
+                                  {item.country || "India"}
                                 </span>
                               </div>
-                              <span className="text-[10px] text-slate-400 font-mono">
-                                IP: {item.clientIp || "Direct Connection"}
-                              </span>
+                              <div className="flex items-center gap-2 mt-0.5">
+                                <span className="text-[10px] text-slate-400 font-mono">
+                                  IP: {item.clientIp || "Direct Connection"}
+                                </span>
+                                {item.isp && (
+                                  <span className="text-[10px] text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded font-medium">
+                                    {item.isp}
+                                  </span>
+                                )}
+                              </div>
                             </td>
                             <td className="py-3.5 px-4">
                               <span className="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-lg text-xs">
@@ -1416,28 +1424,33 @@ export default function AdminDatabasePage() {
                               {item.phone && <div className="text-[11px] text-emerald-600 font-mono">{item.phone}</div>}
                             </td>
                             <td className="py-3.5 px-4 text-right">
-                              {item.mapsUrl ? (
-                                <a
-                                  href={item.mapsUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all"
-                                >
-                                  <span>🗺️ Open Map</span>
-                                  <span>↗</span>
-                                </a>
-                              ) : item.city && item.country ? (
-                                <a
-                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs"
-                                >
-                                  <span>📍 Search Map ↗</span>
-                                </a>
-                              ) : (
-                                <span className="text-slate-400 text-[11px]">—</span>
-                              )}
+                              {(() => {
+                                const mapUrl =
+                                  item.mapsUrl ||
+                                  (item.latitude && item.longitude
+                                    ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
+                                    : item.city && item.country
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
+                                    : item.country && item.country !== "Global"
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
+                                    : item.clientIp
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
+                                    : null);
+
+                                return mapUrl ? (
+                                  <a
+                                    href={mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all"
+                                  >
+                                    <span>🗺️ Open Map</span>
+                                    <span>↗</span>
+                                  </a>
+                                ) : (
+                                  <span className="text-slate-400 text-[11px]">—</span>
+                                );
+                              })()}
                             </td>
                           </tr>
                         ))
@@ -1609,34 +1622,47 @@ export default function AdminDatabasePage() {
                                 <span>{item.countryFlag || "🌐"}</span>
                                 <span>
                                   {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                  {item.country || "Global"}
+                                  {item.region ? `${item.region}, ` : ""}
+                                  {item.country || "India"}
                                 </span>
                               </div>
-                              {item.clientIp && (
-                                <div className="text-[10px] text-slate-400 font-mono mt-0.5">
-                                  IP: {item.clientIp}
-                                </div>
-                              )}
-                              {item.mapsUrl ? (
-                                <a
-                                  href={item.mapsUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
-                                  title="View exact live location on Google Maps"
-                                >
-                                  <span>📍 View Map ↗</span>
-                                </a>
-                              ) : item.city && item.country ? (
-                                <a
-                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
-                                >
-                                  <span>📍 Map ↗</span>
-                                </a>
-                              ) : null}
+                              <div className="flex items-center gap-2 mt-0.5">
+                                {item.clientIp && (
+                                  <span className="text-[10px] text-slate-400 font-mono">
+                                    IP: {item.clientIp}
+                                  </span>
+                                )}
+                                {item.isp && (
+                                  <span className="text-[10px] text-indigo-600 bg-indigo-50 px-1 rounded font-medium">
+                                    {item.isp}
+                                  </span>
+                                )}
+                              </div>
+                              {(() => {
+                                const mapUrl =
+                                  item.mapsUrl ||
+                                  (item.latitude && item.longitude
+                                    ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
+                                    : item.city && item.country
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
+                                    : item.country && item.country !== "Global"
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
+                                    : item.clientIp
+                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
+                                    : null);
+
+                                return mapUrl ? (
+                                  <a
+                                    href={mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
+                                    title="View exact live location on Google Maps"
+                                  >
+                                    <span>📍 View Map ↗</span>
+                                  </a>
+                                ) : null;
+                              })()}
                             </td>
 
                             {/* Service & Details */}

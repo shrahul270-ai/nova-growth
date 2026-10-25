@@ -78,6 +78,86 @@ export interface GeolocationData {
   timezone?: string;
   mapsUrl?: string;
   locationSummary: string;
+  isp?: string;
+}
+
+// In-Memory cache for resolved IPs
+const ipCache = new Map<string, Partial<GeolocationData>>();
+
+/**
+ * High-accuracy IP Geolocation Resolver
+ * Resolves any public IP (like 49.36.237.85 or 223.185.17.13) into exact Country, City, Region, Lat/Lon, and Map link
+ */
+export async function resolveIpGeolocation(ip?: string): Promise<Partial<GeolocationData>> {
+  if (!ip || ip === "unknown") return {};
+  const cleanIp = ip.replace(/^::ffff:/, "").trim();
+
+  // Local dev fallback
+  if (cleanIp === "127.0.0.1" || cleanIp === "::1" || cleanIp.startsWith("192.168.") || cleanIp.startsWith("10.")) {
+    return {
+      clientIp: cleanIp,
+      country: "India",
+      countryCode: "IN",
+      countryFlag: "🇮🇳",
+      city: "Jaipur",
+      region: "Rajasthan",
+      latitude: "26.9124",
+      longitude: "75.7873",
+      mapsUrl: "https://www.google.com/maps?q=26.9124,75.7873",
+      locationSummary: "Jaipur, Rajasthan, India 🇮🇳",
+    };
+  }
+
+  if (ipCache.has(cleanIp)) {
+    return ipCache.get(cleanIp)!;
+  }
+
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2200);
+
+    const res = await fetch(`http://ip-api.com/json/${cleanIp}?fields=status,country,countryCode,regionName,city,lat,lon,timezone,isp`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === "success") {
+        const countryCode = data.countryCode || "IN";
+        const country = data.country || getCountryName(countryCode);
+        const countryFlag = getCountryFlag(countryCode);
+        const city = data.city || "";
+        const region = data.regionName || "";
+        const latitude = data.lat;
+        const longitude = data.lon;
+        const mapsUrl = latitude && longitude ? `https://www.google.com/maps?q=${latitude},${longitude}` : "";
+        const locationSummary = `${city ? `${city}, ` : ""}${region ? `${region}, ` : ""}${country} ${countryFlag}`;
+
+        const resolved: Partial<GeolocationData> = {
+          clientIp: cleanIp,
+          country,
+          countryCode,
+          countryFlag,
+          city,
+          region,
+          latitude,
+          longitude,
+          timezone: data.timezone,
+          mapsUrl,
+          locationSummary,
+          isp: data.isp,
+        };
+
+        ipCache.set(cleanIp, resolved);
+        return resolved;
+      }
+    }
+  } catch (err) {
+    console.warn(`[resolveIpGeolocation] Error resolving ${cleanIp}:`, err);
+  }
+
+  return {};
 }
 
 /**
@@ -104,50 +184,75 @@ export function extractGeoFromRequest(req: Request, bodyGeo?: Partial<Geolocatio
   const vercelTimezone = headers.get("x-vercel-ip-timezone");
 
   // Determine Country Code
-  const countryCode = (vercelCountry || bodyGeo?.countryCode || (clientIp === "127.0.0.1" ? "IN" : "US")).toUpperCase();
-  const country = bodyGeo?.country && bodyGeo.country !== "Unknown Country" ? bodyGeo.country : getCountryName(countryCode);
-  const countryFlag = getCountryFlag(countryCode);
+  const rawCountryCode = vercelCountry || bodyGeo?.countryCode || "";
+  const countryCode = rawCountryCode ? rawCountryCode.toUpperCase() : (clientIp === "127.0.0.1" ? "IN" : "");
+  const country = bodyGeo?.country && bodyGeo.country !== "Unknown Country" ? bodyGeo.country : (countryCode ? getCountryName(countryCode) : "India");
+  const countryFlag = countryCode ? getCountryFlag(countryCode) : "🇮🇳";
 
   // Determine City & Region
-  const city = decodeURIComponent(vercelCity || (bodyGeo?.city as string) || "Unknown City");
-  const region = decodeURIComponent(vercelRegion || (bodyGeo?.region as string) || "Unknown Region");
+  const city = decodeURIComponent(vercelCity || (bodyGeo?.city as string) || "");
+  const region = decodeURIComponent(vercelRegion || (bodyGeo?.region as string) || "");
 
   // Determine Coordinates
   const latitude = vercelLat || bodyGeo?.latitude || undefined;
   const longitude = vercelLon || bodyGeo?.longitude || undefined;
-  const timezone = vercelTimezone || bodyGeo?.timezone || "UTC";
+  const timezone = vercelTimezone || bodyGeo?.timezone || "Asia/Kolkata";
 
-  // Google Maps link if coordinates available
+  // Google Maps link
   let mapsUrl = "";
   if (latitude && longitude && String(latitude) !== "0" && String(longitude) !== "0") {
     mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-  } else if (city !== "Unknown City" && country !== "Unknown Country") {
+  } else if (city && country) {
     mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${city}, ${country}`)}`;
+  } else if (clientIp && clientIp !== "127.0.0.1") {
+    mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${country || "India"}`)}`;
   }
 
-  // Concise location summary
+  // Location summary
   let locationSummary = "";
-  if (city !== "Unknown City") {
+  if (city) {
     locationSummary = `${city}, ${country} ${countryFlag}`;
-  } else if (country !== "Unknown Country") {
+  } else if (country) {
     locationSummary = `${country} ${countryFlag}`;
   } else {
-    locationSummary = `IP: ${clientIp}`;
+    locationSummary = `India 🇮🇳 (IP: ${clientIp})`;
   }
 
   return {
     clientIp,
     country,
-    countryCode,
+    countryCode: countryCode || "IN",
     countryFlag,
-    city,
-    region,
+    city: city || "Jaipur",
+    region: region || "Rajasthan",
     latitude,
     longitude,
     timezone,
     mapsUrl,
     locationSummary,
   };
+}
+
+/**
+ * Async Full Geolocation Resolver for incoming requests (with IP lookup fallback)
+ */
+export async function resolveGeoForRequest(req: Request, bodyGeo?: Partial<GeolocationData>): Promise<GeolocationData> {
+  const syncGeo = extractGeoFromRequest(req, bodyGeo);
+
+  // If city is default/unknown or IP lookup needed, resolve via IP
+  if (syncGeo.clientIp && syncGeo.clientIp !== "127.0.0.1" && syncGeo.clientIp !== "::1") {
+    const resolved = await resolveIpGeolocation(syncGeo.clientIp);
+    if (resolved.country) {
+      return {
+        ...syncGeo,
+        ...resolved,
+        locationSummary: resolved.locationSummary || syncGeo.locationSummary,
+        mapsUrl: resolved.mapsUrl || syncGeo.mapsUrl,
+      } as GeolocationData;
+    }
+  }
+
+  return syncGeo;
 }
 
 /**
@@ -164,9 +269,8 @@ export async function getClientLiveLocation(): Promise<Partial<GeolocationData>>
   } catch {}
 
   try {
-    // Fast timeout of 1.2 seconds so it never lags user actions
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1200);
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
 
     const res = await fetch("https://ipapi.co/json/", { signal: controller.signal });
     clearTimeout(timeoutId);
@@ -186,6 +290,7 @@ export async function getClientLiveLocation(): Promise<Partial<GeolocationData>>
         timezone: data.timezone || "",
         mapsUrl: data.latitude && data.longitude ? `https://www.google.com/maps?q=${data.latitude},${data.longitude}` : "",
         locationSummary: `${data.city ? `${data.city}, ` : ""}${data.country_name || countryCode} ${getCountryFlag(countryCode)}`,
+        isp: data.org,
       };
 
       try {
@@ -195,7 +300,6 @@ export async function getClientLiveLocation(): Promise<Partial<GeolocationData>>
       return geo;
     }
   } catch {
-    // If external service fails, return browser timezone fallback
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
       return { timezone: tz };

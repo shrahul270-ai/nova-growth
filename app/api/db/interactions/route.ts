@@ -13,7 +13,7 @@ import {
   checkSubmissionRateLimit,
   sanitizeInput,
 } from "@/lib/security";
-import { extractGeoFromRequest } from "@/lib/geo";
+import { extractGeoFromRequest, resolveIpGeolocation, resolveGeoForRequest } from "@/lib/geo";
 
 export async function GET(req: NextRequest) {
   try {
@@ -44,7 +44,32 @@ export async function GET(req: NextRequest) {
       offset,
     });
 
-    return NextResponse.json({ success: true, ...result });
+    // Auto-enrich records with live IP geolocation if missing city or marked generic
+    const enrichedRecords = await Promise.all(
+      (result.records || []).map(async (r: any) => {
+        if (r.clientIp && (!r.city || r.city === "Unknown City" || !r.country || r.country === "Global")) {
+          const geo = await resolveIpGeolocation(r.clientIp);
+          if (geo.country) {
+            return {
+              ...r,
+              country: geo.country,
+              countryCode: geo.countryCode,
+              countryFlag: geo.countryFlag,
+              city: geo.city,
+              region: geo.region,
+              latitude: geo.latitude,
+              longitude: geo.longitude,
+              mapsUrl: geo.mapsUrl,
+              locationSummary: geo.locationSummary,
+              isp: geo.isp,
+            };
+          }
+        }
+        return r;
+      })
+    );
+
+    return NextResponse.json({ success: true, ...result, records: enrichedRecords });
   } catch (error) {
     console.error("Error fetching interactions:", error);
     return NextResponse.json(
@@ -71,8 +96,8 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    // High precision live visitor geolocation
-    const geo = extractGeoFromRequest(req, body.clientGeo);
+    // High precision live visitor geolocation (with IP lookup fallback)
+    const geo = await resolveGeoForRequest(req, body.clientGeo);
 
     const interaction = await createInteraction({
       type: sanitizeInput(body.type || "whatsapp_click"),
