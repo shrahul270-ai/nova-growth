@@ -254,6 +254,71 @@ export default function BuyerDashboardPage() {
     return filteredAndSortedSites.slice(start, start + pageSize);
   }, [filteredAndSortedSites, currentPage, pageSize]);
 
+  // Handle Order Post Click (Sends to WhatsApp 8000417058 & logs order to Admin CRM)
+  const handleOrderPost = (site: RealWebsiteSite) => {
+    const userEmail = buyerUser?.email || "Guest Visitor";
+    const userPhone = buyerUser?.phone || "Not specified";
+
+    const msg = [
+      `*New Guest Post Order Inquiry - Nova Growth*`,
+      ``,
+      `*Website Domain:* ${site.domain}`,
+      `*Wholesale Price:* $${site.price} USD`,
+      `*Niche Category:* ${site.niche}`,
+      `*Metrics:* Ahrefs DR ${site.dr} | Moz DA ${site.da}`,
+      `*Organic Traffic:* ${site.ahrefsTraffic || site.traffic || "100,000+"}`,
+      `*Link Type:* ${site.linkType || "DoFollow"}`,
+      `*Target Country:* ${site.country || "Global"}`,
+      ``,
+      `*Buyer Contact Details:*`,
+      `• Email: ${userEmail}`,
+      `• Mobile / WhatsApp: ${userPhone}`,
+      ``,
+      `Please share the live URL requirements and payment invoice.`
+    ].join("\n");
+
+    // Track order event in database so Admin sees exact order details
+    getClientLiveLocation().then((clientGeo) => {
+      fetch("/api/db/interactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "guest_post_order",
+          action: "whatsapp",
+          name: userEmail.split("@")[0] || "Buyer",
+          clientName: userEmail.split("@")[0] || "Buyer",
+          email: userEmail,
+          phone: userPhone,
+          service: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
+          domain: site.domain,
+          title: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
+          details: `User clicked Order Post for ${site.domain} ($${site.price} USD). Contact sent to WhatsApp 8000417058.`,
+          sourcePage: "/buyer-dashboard",
+          clientGeo,
+        }),
+      }).catch(() => {});
+
+      fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "guest_post_order",
+          name: userEmail.split("@")[0] || "Buyer",
+          email: userEmail,
+          phone: userPhone,
+          service: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
+          message: `Buyer ordered guest post for ${site.domain} ($${site.price} USD). Contacted WhatsApp 8000417058.`,
+          notes: `Domain: ${site.domain} | Price: $${site.price} USD | Niche: ${site.niche} | DR: ${site.dr} | DA: ${site.da} | Link: ${site.linkType}`,
+          clientGeo,
+        }),
+      }).catch(() => {});
+    });
+
+    // Open WhatsApp directly with 8000417058
+    const waUrl = `https://wa.me/918000417058?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, "_blank");
+  };
+
   // Excel / CSV Download Handler (Tracks live location & downloads XLSX)
   const handleDownloadExcel = () => {
     if (filteredAndSortedSites.length === 0) {
@@ -658,17 +723,14 @@ export default function BuyerDashboardPage() {
                           ${site.price} <span className="text-[10px] text-gray-400 font-normal">USD</span>
                         </td>
                         <td className="py-3 px-4 text-right">
-                          <a
-                            href={`https://wa.me/918000499092?text=${encodeURIComponent(
-                              `Hello Nova Growth! I want to order a guest post on ${site.domain} ($${site.price} USD). Please share order confirmation details.`
-                            )}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] shadow-sm transition-all inline-flex items-center gap-1 cursor-pointer"
+                          <button
+                            type="button"
+                            onClick={() => handleOrderPost(site)}
+                            className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] shadow-sm transition-all inline-flex items-center gap-1 cursor-pointer"
                           >
                             <span>Order Post</span>
                             <span>↗</span>
-                          </a>
+                          </button>
                         </td>
                       </tr>
                     );

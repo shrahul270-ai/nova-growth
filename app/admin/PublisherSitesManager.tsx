@@ -204,6 +204,16 @@ export default function PublisherSitesManager({
     setIsAddModalOpen(false);
     onNotify(`✓ ${cleanDomain} added successfully to Guest Posting Marketplace!`);
 
+    // Sync to persistent server database for buyer dashboard
+    fetch("/api/db/custom-database", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "add_single",
+        site: newSite,
+      }),
+    }).catch(() => {});
+
     // Reset Form
     setDomain("");
     setPrice("29");
@@ -215,6 +225,15 @@ export default function PublisherSitesManager({
     if (confirm(`Are you sure you want to delete ${domainName} from the marketplace?`)) {
       deleteCustomPublisher(id);
       refreshCustomSites();
+      fetch("/api/db/custom-database", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "delete_single",
+          siteId: id,
+          domain: domainName,
+        }),
+      }).catch(() => {});
       onNotify(`✓ ${domainName} removed from marketplace.`);
     }
   };
