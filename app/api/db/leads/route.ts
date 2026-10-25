@@ -13,6 +13,7 @@ import {
   checkSubmissionRateLimit,
   sanitizeInput,
 } from "@/lib/security";
+import { extractGeoFromRequest } from "@/lib/geo";
 
 export async function GET(req: NextRequest) {
   try {
@@ -84,6 +85,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // High precision live visitor geolocation
+    const geo = extractGeoFromRequest(req, body.clientGeo);
+
     // Sanitize user inputs against XSS/script injection
     const newLead = await createLead({
       type: sanitizeInput(body.type || "contact_form"),
@@ -91,14 +95,24 @@ export async function POST(req: NextRequest) {
       email: sanitizeInput(body.email || ""),
       phone: sanitizeInput(body.phone || ""),
       website: sanitizeInput(body.website || ""),
-      timezone: sanitizeInput(body.timezone || "US / Eastern (EST)"),
+      timezone: sanitizeInput(geo.timezone || body.timezone || "UTC"),
       service: sanitizeInput(body.service || "General Inquiry"),
       budget: sanitizeInput(body.budget || ""),
       message: sanitizeInput(body.message || ""),
       sourceUrl: sanitizeInput(body.sourceUrl || "/"),
-      clientIp,
+      clientIp: geo.clientIp || clientIp,
       userAgent,
       notes: sanitizeInput(body.notes || ""),
+      // Live Geolocation Fields
+      country: geo.country,
+      countryCode: geo.countryCode,
+      countryFlag: geo.countryFlag,
+      city: geo.city,
+      region: geo.region,
+      latitude: geo.latitude,
+      longitude: geo.longitude,
+      mapsUrl: geo.mapsUrl,
+      locationSummary: geo.locationSummary,
     });
 
     return NextResponse.json({

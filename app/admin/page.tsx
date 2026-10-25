@@ -1294,7 +1294,7 @@ export default function AdminDatabasePage() {
               onRefreshData={loadRecords}
             />
           ) : activeTab === "analytics" ? (
-            <AnalyticsDashboardView stats={stats} />
+            <AnalyticsDashboardView stats={stats} records={records} />
           ) : activeTab === "logs" ? (
             /* AUDIT TRAIL LOGS VIEW */
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
@@ -1381,6 +1381,7 @@ export default function AdminDatabasePage() {
                     <tr className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
                       <th className="py-3 px-4">Date</th>
                       <th className="py-3 px-4">Client Contact</th>
+                      <th className="py-3 px-4">Live Location</th>
                       <th className="py-3 px-4">Service &amp; Details</th>
                       <th className="py-3 px-4">Status</th>
                       <th className="py-3 px-4 text-right">Actions</th>
@@ -1389,13 +1390,13 @@ export default function AdminDatabasePage() {
                   <tbody className="divide-y divide-slate-100">
                     {loading ? (
                       <tr>
-                        <td colSpan={5} className="py-12 text-center text-slate-400 font-semibold">
+                        <td colSpan={6} className="py-12 text-center text-slate-400 font-semibold">
                           Loading records from secure database...
                         </td>
                       </tr>
                     ) : records.length === 0 ? (
                       <tr>
-                        <td colSpan={5} className="py-12 text-center text-slate-400 font-semibold">
+                        <td colSpan={6} className="py-12 text-center text-slate-400 font-semibold">
                           No records found in this category.
                         </td>
                       </tr>
@@ -1441,6 +1442,42 @@ export default function AdminDatabasePage() {
                                   </a>
                                 </div>
                               )}
+                            </td>
+
+                            {/* Live Location */}
+                            <td className="py-3.5 px-4 align-top">
+                              <div className="flex items-center gap-1.5 font-bold text-slate-800 text-xs">
+                                <span>{item.countryFlag || "🌐"}</span>
+                                <span>
+                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
+                                  {item.country || "Global"}
+                                </span>
+                              </div>
+                              {item.clientIp && (
+                                <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                                  IP: {item.clientIp}
+                                </div>
+                              )}
+                              {item.mapsUrl ? (
+                                <a
+                                  href={item.mapsUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
+                                  title="View exact live location on Google Maps"
+                                >
+                                  <span>📍 View Map ↗</span>
+                                </a>
+                              ) : item.city && item.country ? (
+                                <a
+                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
+                                >
+                                  <span>📍 Map ↗</span>
+                                </a>
+                              ) : null}
                             </td>
 
                             {/* Service & Details */}
@@ -1538,9 +1575,37 @@ export default function AdminDatabasePage() {
             <h4 className="text-base font-bold text-slate-900 mb-1">
               Internal Notes for {selectedRecord.name || selectedRecord.domain || selectedRecord.id}
             </h4>
-            <p className="text-xs text-slate-500 mb-4">
+            <p className="text-xs text-slate-500 mb-3">
               Add follow-up notes, call summaries, or private customer records.
             </p>
+
+            {/* Live Visitor Location Info Badge */}
+            {(selectedRecord.country || selectedRecord.city || selectedRecord.clientIp) && (
+              <div className="p-3 mb-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-700 flex items-center gap-1.5">
+                    <span>{selectedRecord.countryFlag || "📍"}</span>
+                    <span>{selectedRecord.city && selectedRecord.city !== "Unknown City" ? `${selectedRecord.city}, ` : ""}{selectedRecord.country || "Global"}</span>
+                  </span>
+                  {selectedRecord.mapsUrl && (
+                    <a
+                      href={selectedRecord.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 font-bold underline text-[11px]"
+                    >
+                      Open Google Maps ↗
+                    </a>
+                  )}
+                </div>
+                {selectedRecord.clientIp && (
+                  <div className="text-[10px] text-slate-500 font-mono">
+                    Client IP: <strong className="text-slate-800">{selectedRecord.clientIp}</strong>
+                    {selectedRecord.timezone ? ` • Timezone: ${selectedRecord.timezone}` : ""}
+                  </div>
+                )}
+              </div>
+            )}
             <textarea
               rows={4}
               value={editingNotes}

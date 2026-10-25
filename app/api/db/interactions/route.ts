@@ -13,6 +13,7 @@ import {
   checkSubmissionRateLimit,
   sanitizeInput,
 } from "@/lib/security";
+import { extractGeoFromRequest } from "@/lib/geo";
 
 export async function GET(req: NextRequest) {
   try {
@@ -70,6 +71,9 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
+    // High precision live visitor geolocation
+    const geo = extractGeoFromRequest(req, body.clientGeo);
+
     const interaction = await createInteraction({
       type: sanitizeInput(body.type || "whatsapp_click"),
       action: sanitizeInput(body.action || "whatsapp"),
@@ -80,9 +84,20 @@ export async function POST(req: NextRequest) {
       details: sanitizeInput(body.details || ""),
       clientIdentifier: sanitizeInput(body.clientIdentifier || ""),
       sourcePage: sanitizeInput(body.sourcePage || "/"),
-      clientIp,
+      clientIp: geo.clientIp || clientIp,
       userAgent,
       notes: sanitizeInput(body.notes || ""),
+      // Live Geolocation Fields
+      country: geo.country,
+      countryCode: geo.countryCode,
+      countryFlag: geo.countryFlag,
+      city: geo.city,
+      region: geo.region,
+      latitude: geo.latitude,
+      longitude: geo.longitude,
+      timezone: geo.timezone,
+      mapsUrl: geo.mapsUrl,
+      locationSummary: geo.locationSummary,
     });
 
     return NextResponse.json({

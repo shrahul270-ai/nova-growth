@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { trackInteraction } from "@/lib/tracker";
+import { getClientLiveLocation } from "@/lib/geo";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -48,6 +49,8 @@ export default function ContactPage() {
     setFormState("submitting");
 
     try {
+      const clientGeo = await getClientLiveLocation();
+
       const res = await fetch("/api/db/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +65,7 @@ export default function ContactPage() {
           budget: formData.budget,
           message: formData.message,
           sourceUrl: "/contact",
+          clientGeo,
         }),
       });
 

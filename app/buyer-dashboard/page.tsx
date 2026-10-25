@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
+import { getClientLiveLocation } from "@/lib/geo";
 
 interface BuyerSession {
   email: string;
@@ -160,6 +161,8 @@ export default function BuyerDashboardPage() {
       localStorage.setItem("nova_buyer_session", JSON.stringify(userRecord));
       setBuyerUser(userRecord);
 
+      const clientGeo = await getClientLiveLocation();
+
       await fetch("/api/db/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -170,6 +173,7 @@ export default function BuyerDashboardPage() {
           phone: cleanPhone,
           service: "Real Guest Post Database Access",
           message: "Buyer signed in/registered on Buyer Dashboard.",
+          clientGeo,
         }),
       });
 
@@ -247,12 +251,30 @@ export default function BuyerDashboardPage() {
     return filteredAndSortedSites.slice(start, start + pageSize);
   }, [filteredAndSortedSites, currentPage, pageSize]);
 
-  // Excel / CSV Download Handler (Exports ONLY the real websites)
+  // Excel / CSV Download Handler (Exports ONLY the real websites & tracks live location)
   const handleDownloadExcel = () => {
     if (filteredAndSortedSites.length === 0) {
       showToast("❌ Pehle apni real websites add karein taaki Excel download ho sake.");
       return;
     }
+
+    // Track live download event with location
+    getClientLiveLocation().then((clientGeo) => {
+      fetch("/api/db/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "database_download",
+          action: "download",
+          email: buyerUser?.email || "Guest Visitor",
+          phone: buyerUser?.phone || "",
+          title: "Buyer Dashboard Database Downloaded (.xlsx)",
+          details: `User downloaded ${filteredAndSortedSites.length} websites in Excel.`,
+          sourcePage: "/buyer-dashboard",
+          clientGeo,
+        }),
+      }).catch(() => {});
+    });
 
     // If direct Vercel Blob file link exists
     if (directDownloadUrl && (directDownloadUrl.endsWith(".xlsx") || directDownloadUrl.endsWith(".csv"))) {

@@ -1,7 +1,7 @@
 // Client-side helper to record interactions into the database in the background
 
 export interface TrackInteractionInput {
-  action: "whatsapp" | "video_call" | "phone" | "email" | "other";
+  action: "whatsapp" | "video_call" | "phone" | "email" | "download" | "login" | "other";
   title: string;
   details?: string;
   clientIdentifier?: string;
@@ -20,7 +20,16 @@ export function trackInteraction(input: TrackInteractionInput): void {
       input.title || input.details || input.action
     );
 
-    // 2. Persist to internal database
+    // 2. Attach cached live geolocation if available
+    let clientGeo: any = undefined;
+    if (typeof window !== "undefined") {
+      try {
+        const cached = sessionStorage.getItem("nova_live_geo");
+        if (cached) clientGeo = JSON.parse(cached);
+      } catch {}
+    }
+
+    // 3. Persist to internal database
     const payload = {
       type: `${input.action}_click`,
       action: input.action,
@@ -29,6 +38,7 @@ export function trackInteraction(input: TrackInteractionInput): void {
       clientIdentifier: input.clientIdentifier || "",
       sourcePage: input.sourcePage || (typeof window !== "undefined" ? window.location.pathname : "/"),
       targetUrl: input.targetUrl || "",
+      clientGeo,
     };
 
     if (typeof navigator !== "undefined" && navigator.sendBeacon) {

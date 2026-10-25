@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import SearchableSelect from "./SearchableSelect";
 import { getCustomPublishers } from "../data/publishersData";
+import { getClientLiveLocation } from "@/lib/geo";
 
 export interface PublisherSite {
   id: string;
@@ -813,6 +814,8 @@ export default function GuestPostMarketplace() {
       setBuyerUser(userRecord);
       setIsBuyerLoggedIn(true);
 
+      const clientGeo = await getClientLiveLocation();
+
       // Save lead to database as high-intent buyer registration
       await fetch("/api/db/leads", {
         method: "POST",
@@ -825,6 +828,7 @@ export default function GuestPostMarketplace() {
           service: "40,000+ Guest Post Database Access",
           message: "Buyer registered to unlock and download 40,000+ guest post database.",
           notes: `Buyer account created with password. Full database unlocked.`,
+          clientGeo,
         }),
       });
 

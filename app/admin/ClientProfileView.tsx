@@ -50,6 +50,14 @@ interface ClientDossier {
   audits: BaseItem[];
   payments: BaseItem[];
   notes: string[];
+  // Live Geolocation
+  country?: string;
+  countryFlag?: string;
+  city?: string;
+  region?: string;
+  clientIp?: string;
+  mapsUrl?: string;
+  locationSummary?: string;
 }
 
 interface ClientProfileViewProps {
@@ -131,6 +139,13 @@ export default function ClientProfileView({
         if (r.phone && !client.phone) client.phone = r.phone;
         if (r.website && !client.website) client.website = r.website;
         if (r.status) client.status = r.status;
+        if (r.country && !client.country) client.country = r.country;
+        if (r.countryFlag && !client.countryFlag) client.countryFlag = r.countryFlag;
+        if (r.city && !client.city) client.city = r.city;
+        if (r.region && !client.region) client.region = r.region;
+        if (r.clientIp && !client.clientIp) client.clientIp = r.clientIp;
+        if (r.mapsUrl && !client.mapsUrl) client.mapsUrl = r.mapsUrl;
+        if (r.locationSummary && !client.locationSummary) client.locationSummary = r.locationSummary;
         if (r.notes && !client.notes.includes(r.notes)) client.notes.push(r.notes);
         if (new Date(r.createdAt).getTime() > new Date(client.lastActive).getTime()) client.lastActive = r.createdAt;
         if (new Date(r.createdAt).getTime() < new Date(client.firstSeen).getTime()) client.firstSeen = r.createdAt;
@@ -143,6 +158,12 @@ export default function ClientProfileView({
         if (r.name && (!client.name || client.name === "Anonymous Client")) client.name = r.name;
         if (r.email && !client.email) client.email = r.email;
         if (r.phone && !client.phone) client.phone = r.phone;
+        if (r.country && !client.country) client.country = r.country;
+        if (r.countryFlag && !client.countryFlag) client.countryFlag = r.countryFlag;
+        if (r.city && !client.city) client.city = r.city;
+        if (r.clientIp && !client.clientIp) client.clientIp = r.clientIp;
+        if (r.mapsUrl && !client.mapsUrl) client.mapsUrl = r.mapsUrl;
+        if (r.locationSummary && !client.locationSummary) client.locationSummary = r.locationSummary;
         if (new Date(r.createdAt).getTime() > new Date(client.lastActive).getTime()) client.lastActive = r.createdAt;
         if (new Date(r.createdAt).getTime() < new Date(client.firstSeen).getTime()) client.firstSeen = r.createdAt;
       }
@@ -395,6 +416,29 @@ ${activeClient.notes.join("\n") || "No notes"}
                         >
                           {activeClient.website}
                         </a>
+                      </div>
+                    )}
+
+                    {(activeClient.country || activeClient.city || activeClient.clientIp) && (
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-900 border border-gray-700/80 text-[11px]">
+                        <span>{activeClient.countryFlag || "📍"}</span>
+                        <span className="font-semibold text-amber-300">
+                          {activeClient.city && activeClient.city !== "Unknown City" ? `${activeClient.city}, ` : ""}
+                          {activeClient.country || "Global"}
+                        </span>
+                        {activeClient.clientIp && (
+                          <span className="text-[10px] text-gray-400 font-mono">({activeClient.clientIp})</span>
+                        )}
+                        {activeClient.mapsUrl && (
+                          <a
+                            href={activeClient.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-400 hover:text-blue-300 underline font-bold text-[10px] ml-1"
+                          >
+                            Live Map ↗
+                          </a>
+                        )}
                       </div>
                     )}
                   </div>

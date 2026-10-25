@@ -73,7 +73,10 @@ export type RecordType =
   | "email_click" 
   | "seo_audit" 
   | "payment_checkout"
-  | "custom_work";
+  | "custom_work"
+  | "database_download"
+  | "buyer_account_registration"
+  | "buyer_login";
 
 export type RecordStatus = "new" | "contacted" | "in_progress" | "completed" | "closed";
 
@@ -88,6 +91,18 @@ export interface BaseRecord {
   clientIp?: string;
   userAgent?: string;
   notes?: string;
+
+  // Live Visitor Geolocation Fields
+  country?: string;
+  countryCode?: string;
+  countryFlag?: string;
+  city?: string;
+  region?: string;
+  latitude?: string | number;
+  longitude?: string | number;
+  timezone?: string;
+  mapsUrl?: string;
+  locationSummary?: string;
 }
 
 export interface LeadRecord extends BaseRecord {
@@ -106,7 +121,7 @@ export interface LeadRecord extends BaseRecord {
 
 export interface InteractionRecord extends BaseRecord {
   collection: "interactions";
-  action: "whatsapp" | "video_call" | "phone" | "email" | "other";
+  action: "whatsapp" | "video_call" | "phone" | "email" | "download" | "login" | "other";
   title: string;
   name?: string;
   phone?: string;

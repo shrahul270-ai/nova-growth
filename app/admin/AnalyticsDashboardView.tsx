@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { GA_MEASUREMENT_ID, trackAnalyticsEvent } from "@/lib/analytics";
 
 interface AnalyticsDashboardViewProps {
   stats: any;
+  records?: any[];
 }
 
-export default function AnalyticsDashboardView({ stats }: AnalyticsDashboardViewProps) {
+export default function AnalyticsDashboardView({ stats, records = [] }: AnalyticsDashboardViewProps) {
   const [testSent, setTestSent] = useState(false);
 
   const totalLeads = stats?.breakdown?.leads?.active || 0;
@@ -16,6 +17,28 @@ export default function AnalyticsDashboardView({ stats }: AnalyticsDashboardView
   const auditsRun = stats?.breakdown?.audits?.active || 0;
   const paymentsCount = stats?.breakdown?.payments?.active || 0;
   const totalConversions = totalLeads + whatsappClicks + callsMeets + auditsRun + paymentsCount;
+
+  // Compute live geolocation countries breakdown from records
+  const countryBreakdown = useMemo(() => {
+    if (!records || records.length === 0) return [];
+    const countMap: Record<string, { count: number; flag: string; country: string }> = {};
+    records.forEach((r) => {
+      const country = r.country || "Global";
+      const flag = r.countryFlag || "🌐";
+      if (!countMap[country]) {
+        countMap[country] = { count: 0, flag, country };
+      }
+      countMap[country].count++;
+    });
+    return Object.values(countMap).sort((a, b) => b.count - a.count);
+  }, [records]);
+
+  // Recent tracked actions with geolocation
+  const geoActivities = useMemo(() => {
+    return (records || [])
+      .filter((r) => r.country || r.city || r.clientIp)
+      .slice(0, 8);
+  }, [records]);
 
   const handleTestEvent = () => {
     trackAnalyticsEvent("admin_test_event", "diagnostic", "Admin triggered test tracking");
@@ -226,6 +249,100 @@ export default function AnalyticsDashboardView({ stats }: AnalyticsDashboardView
             <span className="text-[10px] text-gray-400 uppercase font-bold block mb-1">Total Conversions</span>
             <div className="text-2xl font-black text-white">{totalConversions}</div>
             <span className="text-[10px] text-emerald-400 font-semibold">100% Tracked</span>
+          </div>
+        </div>
+      </div>
+
+      {/* LIVE VISITOR GEOLOCATION & COUNTRIES TRACKING */}
+      <div className="bg-[#0b1220] border border-gray-800 rounded-2xl p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-3 border-b border-gray-800">
+          <div>
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <span>🌍</span>
+              <span>Live Visitor Geolocation &amp; Audience Intelligence</span>
+            </h3>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Real-time country tracking, city locations, and IP diagnostics for all downloads, logins, and inquiries.
+            </p>
+          </div>
+          <span className="self-start sm:self-auto px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-800">
+            Live GeoIP Active
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Countries Breakdown */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+              Top Visitor Countries ({countryBreakdown.length})
+            </h4>
+            {countryBreakdown.length > 0 ? (
+              <div className="space-y-2.5">
+                {countryBreakdown.slice(0, 6).map((c, i) => {
+                  const pct = Math.round((c.count / (records.length || 1)) * 100);
+                  return (
+                    <div key={c.country} className="space-y-1">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="font-bold text-white flex items-center gap-2">
+                          <span>{c.flag}</span>
+                          <span>{c.country}</span>
+                        </span>
+                        <span className="text-slate-400 font-mono text-[11px]">
+                          {c.count} actions ({pct}%)
+                        </span>
+                      </div>
+                      <div className="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full"
+                          style={{ width: `${Math.max(8, pct)}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-xs text-slate-500">Live geolocation data will appear here as users interact.</p>
+            )}
+          </div>
+
+          {/* Recent Live Actions */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+              Recent Live Geolocation Actions
+            </h4>
+            <div className="space-y-2">
+              {geoActivities.length > 0 ? (
+                geoActivities.map((act) => (
+                  <div
+                    key={act.id}
+                    className="p-2.5 bg-gray-900/70 border border-gray-800 rounded-xl flex items-center justify-between text-xs"
+                  >
+                    <div>
+                      <div className="font-bold text-white flex items-center gap-1.5">
+                        <span>{act.countryFlag || "🌐"}</span>
+                        <span>{act.city && act.city !== "Unknown City" ? `${act.city}, ` : ""}{act.country || "Global"}</span>
+                      </div>
+                      <div className="text-[10px] text-gray-400 font-mono">
+                        {act.service || act.type || "Interaction"} • IP: {act.clientIp || "N/A"}
+                      </div>
+                    </div>
+                    {act.mapsUrl && (
+                      <a
+                        href={act.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] text-blue-400 hover:underline font-bold px-2 py-1 rounded bg-blue-950/60 border border-blue-800"
+                      >
+                        Map ↗
+                      </a>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-slate-500">Tracking live visitor events across all pages.</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
