@@ -24,6 +24,41 @@ let memoryCustomDb: CustomDatabaseRecord = {
 
 function readCustomDatabase(): CustomDatabaseRecord {
   try {
+    // 1. Check if user placed an Excel/CSV file directly in the local data/ folder
+    const localFiles = [
+      "websites.xlsx",
+      "websites.csv",
+      "real_sites.xlsx",
+      "real_sites.csv",
+      "database.xlsx",
+      "database.csv",
+    ];
+    for (const f of localFiles) {
+      const fullPath = path.join(DATA_DIR, f);
+      if (fs.existsSync(fullPath)) {
+        try {
+          const buffer = fs.readFileSync(fullPath);
+          const workbook = XLSX.read(buffer, { type: "buffer" });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const rawRows = XLSX.utils.sheet_to_json(worksheet);
+          const parsed = normalizeSpreadsheetRows(rawRows);
+          if (parsed && parsed.length > 0) {
+            return {
+              vercelBlobUrl: "",
+              directDownloadUrl: "",
+              customSites: parsed,
+              updatedAt: new Date().toISOString(),
+              sourceType: "file_upload",
+            };
+          }
+        } catch (e) {
+          console.error("Local file read error:", e);
+        }
+      }
+    }
+
+    // 2. Check saved JSON file
     if (fs.existsSync(CUSTOM_DB_FILE)) {
       const raw = fs.readFileSync(CUSTOM_DB_FILE, "utf-8");
       const parsed = JSON.parse(raw);
