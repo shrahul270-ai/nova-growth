@@ -124,7 +124,7 @@ export default function PublisherSitesManager({
   const filteredSites = useMemo(() => {
     return allSites
       .filter((site) => {
-        // Preset filtering matching Vefogix sidebar
+        // Preset filtering matching marketplace sidebar
         if (activePreset === "premium" && site.dr < 75 && !site.isTopSelling) return false;
         if (activePreset === "iplay" && !site.niche.toLowerCase().includes("gaming") && !site.niche.toLowerCase().includes("entertainment")) return false;
         if (activePreset === "top_selling" && !site.isTopSelling) return false;
@@ -304,7 +304,7 @@ export default function PublisherSitesManager({
 
   return (
     <div className="space-y-6">
-      {/* VEFOGIX INVENTORY HEADER */}
+      {/* MARKETPLACE INVENTORY HEADER */}
       <div className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -415,7 +415,7 @@ export default function PublisherSitesManager({
         </div>
       </div>
 
-      {/* VEFOGIX STYLE PUBLISHER SITES TABLE */}
+      {/* PUBLISHER SITES TABLE */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
@@ -509,7 +509,7 @@ export default function PublisherSitesManager({
                       </span>
                     </td>
 
-                    {/* Action Button (Vefogix "Buy 29 USD" Button) */}
+                    {/* Action Button ("Buy USD" Button) */}
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button

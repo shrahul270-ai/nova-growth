@@ -52,7 +52,7 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Active View State (Vefogix Sidebar Selection)
+  // Active View State (Nova Growth Sidebar Selection)
   const [activeTab, setActiveTab] = useState<
     | "dashboard"
     | "live_locations"
@@ -578,7 +578,7 @@ export default function AdminDatabasePage() {
         </div>
       )}
 
-      {/* TOP TICKER BAR (From Vefogix screenshot: Rank 67.7K, Traffic 28K, L 0, LD 73.7K) */}
+      {/* TOP TICKER BAR (Rank 67.7K, Traffic 280K+, L 0, LD 73.7K) */}
       <div className="bg-[#0b1220] text-slate-300 text-[11px] font-mono py-1.5 px-6 border-b border-slate-800 flex items-center justify-between">
         <div className="flex items-center gap-5">
           <span className="flex items-center gap-1.5 text-blue-400 font-bold">
@@ -592,7 +592,7 @@ export default function AdminDatabasePage() {
         </div>
         <div className="hidden sm:flex items-center gap-4 text-slate-400">
           <span>Live Sync: Active</span>
-          <span className="text-emerald-400 font-bold">● Vefogix Workspace Mode</span>
+          <span className="text-emerald-400 font-bold">● Nova Growth Workspace Mode</span>
         </div>
       </div>
 
@@ -677,7 +677,7 @@ export default function AdminDatabasePage() {
 
       {/* DUAL SIDEBAR + MAIN WORKSPACE BODY */}
       <div className="flex flex-1 overflow-hidden">
-        {/* 1. LEFT SLIM ICON RAIL (Exactly like Vefogix screenshot) */}
+        {/* 1. LEFT SLIM ICON RAIL */}
         <aside className="w-14 bg-white border-r border-slate-200 flex flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
           <button
             onClick={() => setIsGuestPostMenuOpen(!isGuestPostMenuOpen)}
@@ -760,7 +760,7 @@ export default function AdminDatabasePage() {
           </button>
         </aside>
 
-        {/* 2. EXPANDED SIDEBAR MENU (Pixel-accurate match to Vefogix screenshot) */}
+        {/* 2. EXPANDED SIDEBAR MENU */}
         <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto">
           <div className="p-3.5 space-y-4">
             {/* GUEST POST SITES ACCORDION */}
@@ -1104,7 +1104,7 @@ export default function AdminDatabasePage() {
             </div>
           </div>
 
-          {/* BOTTOM SPONSORED PROMO BOX (From Vefogix screenshot) */}
+          {/* BOTTOM SPONSORED PROMO BOX */}
           <div className="p-3 m-3 bg-blue-50/50 border border-blue-100 rounded-2xl">
             <div className="flex items-center justify-between mb-2">
               <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold text-[9px] uppercase tracking-wider">
@@ -1130,7 +1130,7 @@ export default function AdminDatabasePage() {
 
         {/* 3. MAIN WORKSPACE CONTENT */}
         <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
-          {/* Breadcrumb & Top Label (From Vefogix screenshot: green bar + BUYER WORKSPACE) */}
+          {/* Breadcrumb & Top Label */}
           <div className="mb-6">
             <div className="w-9 h-1 bg-emerald-500 rounded-full mb-1.5" />
             <span className="text-xs font-black text-blue-600 uppercase tracking-widest block mb-1">
