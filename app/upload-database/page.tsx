@@ -78,6 +78,15 @@ export default function PrivateUploadDatabasePage() {
   // Logo URL
   const [logoUrl, setLogoUrl] = useState("");
 
+  // Pagination for currently saved websites table (Prevents browser freeze on thousands of sites)
+  const [previewPage, setPreviewPage] = useState(1);
+  const previewPageSize = 25;
+  const totalPreviewPages = Math.ceil(realSites.length / previewPageSize) || 1;
+  const paginatedPreviewSites = React.useMemo(() => {
+    const start = (previewPage - 1) * previewPageSize;
+    return realSites.slice(start, start + previewPageSize);
+  }, [realSites, previewPage]);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Form Reset Helper
@@ -181,6 +190,9 @@ export default function PrivateUploadDatabasePage() {
 
     const reader = new FileReader();
     reader.onload = async (evt) => {
+      // Yield to let React paint the uploading state
+      await new Promise((r) => setTimeout(r, 40));
+
       try {
         const arrayBuffer = evt.target?.result as ArrayBuffer;
         const workbook = XLSX.read(arrayBuffer, { type: "array" });
@@ -195,7 +207,10 @@ export default function PrivateUploadDatabasePage() {
           return;
         }
 
-        const BATCH_SIZE = 150;
+        // Yield to allow browser UI refresh after parsing
+        await new Promise((r) => setTimeout(r, 40));
+
+        const BATCH_SIZE = 400; // 400 rows (~60KB) is lightning fast and well within limits
         const totalRows = rawJsonRows.length;
         const totalBatches = Math.ceil(totalRows / BATCH_SIZE);
         let finalSavedSites: any[] = [];
@@ -212,6 +227,9 @@ export default function PrivateUploadDatabasePage() {
             total: totalRows,
             percent: Math.round((end / totalRows) * 100),
           });
+
+          // Yield to browser event loop so UI never freezes or shows "Page Unresponsive"
+          await new Promise((r) => setTimeout(r, 20));
 
           const res = await fetch("/api/db/custom-database", {
             method: "POST",
@@ -243,6 +261,7 @@ export default function PrivateUploadDatabasePage() {
 
         if (finalSavedSites.length > 0) {
           setRealSites(finalSavedSites);
+          setPreviewPage(1);
           await saveSitesToIndexedDB(finalSavedSites);
           try {
             localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(finalSavedSites.slice(0, 500)));
@@ -1101,61 +1120,97 @@ export default function PrivateUploadDatabasePage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-800/80">
-                  {realSites.map((site, idx) => (
-                    <tr key={site.id || site.domain + idx} className="hover:bg-gray-800/30 transition-colors">
-                      <td className="py-2.5 px-3 text-gray-500 font-mono text-[11px]">{idx + 1}</td>
-                      <td className="py-2.5 px-3 font-bold text-white flex items-center gap-1.5">
-                        {site.logoUrl ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={site.logoUrl}
-                            alt=""
-                            className="w-4 h-4 rounded-sm object-contain"
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = "none";
-                            }}
-                          />
-                        ) : null}
-                        <span>{site.domain}</span>
-                      </td>
-                      <td className="py-2.5 px-3 text-gray-300">{site.category || site.niche}</td>
-                      <td className="py-2.5 px-3 text-amber-400 font-bold">{site.dr}</td>
-                      <td className="py-2.5 px-3 text-gray-300 font-bold">{site.da}</td>
-                      <td className="py-2.5 px-3 text-gray-400">{site.pa || "—"}</td>
-                      <td className="py-2.5 px-3 text-emerald-400 font-mono font-bold text-[11px]">{site.traffic || site.ahrefsTraffic || "—"}</td>
-                      <td className="py-2.5 px-3 text-blue-400 font-mono">{site.semrushScore || "—"}</td>
-                      <td className="py-2.5 px-3 text-rose-400 font-mono">{site.spamScore || "1%"}</td>
-                      <td className="py-2.5 px-3">
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                          {site.linkType || "DoFollow"}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 font-mono font-bold text-white">
-                        {site.contentPlacementPrice || site.price ? `$${site.contentPlacementPrice || site.price}` : "—"}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-gray-300">
-                        {site.linkInsertPrice && site.linkInsertPrice > 0 ? `$${site.linkInsertPrice}` : "—"}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-emerald-400">
-                        {site.cbdContentPlacementPrice && site.cbdContentPlacementPrice > 0 ? `$${site.cbdContentPlacementPrice}` : "—"}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-rose-400">
-                        {site.adultContentPlacementPrice && site.adultContentPlacementPrice > 0 ? `$${site.adultContentPlacementPrice}` : "—"}
-                      </td>
-                      <td className="py-2.5 px-3 text-right">
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteSite(site.id || "", site.domain)}
-                          className="text-rose-400 hover:text-rose-300 text-xs cursor-pointer"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {paginatedPreviewSites.map((site, idx) => {
+                    const rowNumber = (previewPage - 1) * previewPageSize + idx + 1;
+                    return (
+                      <tr key={site.id || site.domain + idx} className="hover:bg-gray-800/30 transition-colors">
+                        <td className="py-2.5 px-3 text-gray-500 font-mono text-[11px]">{rowNumber}</td>
+                        <td className="py-2.5 px-3 font-bold text-white flex items-center gap-1.5">
+                          {site.logoUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={site.logoUrl}
+                              alt=""
+                              className="w-4 h-4 rounded-sm object-contain"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = "none";
+                              }}
+                            />
+                          ) : null}
+                          <span>{site.domain}</span>
+                        </td>
+                        <td className="py-2.5 px-3 text-gray-300">{site.category || site.niche}</td>
+                        <td className="py-2.5 px-3 text-amber-400 font-bold">{site.dr}</td>
+                        <td className="py-2.5 px-3 text-gray-300 font-bold">{site.da}</td>
+                        <td className="py-2.5 px-3 text-gray-400">{site.pa || "—"}</td>
+                        <td className="py-2.5 px-3 text-emerald-400 font-mono font-bold text-[11px]">{site.traffic || site.ahrefsTraffic || "—"}</td>
+                        <td className="py-2.5 px-3 text-blue-400 font-mono">{site.semrushScore || "—"}</td>
+                        <td className="py-2.5 px-3 text-rose-400 font-mono">{site.spamScore || "1%"}</td>
+                        <td className="py-2.5 px-3">
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                            {site.linkType || "DoFollow"}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 font-mono font-bold text-white">
+                          {site.contentPlacementPrice || site.price ? `$${site.contentPlacementPrice || site.price}` : "—"}
+                        </td>
+                        <td className="py-2.5 px-3 font-mono text-gray-300">
+                          {site.linkInsertPrice && site.linkInsertPrice > 0 ? `$${site.linkInsertPrice}` : "—"}
+                        </td>
+                        <td className="py-2.5 px-3 font-mono text-emerald-400">
+                          {site.cbdContentPlacementPrice && site.cbdContentPlacementPrice > 0 ? `$${site.cbdContentPlacementPrice}` : "—"}
+                        </td>
+                        <td className="py-2.5 px-3 font-mono text-rose-400">
+                          {site.adultContentPlacementPrice && site.adultContentPlacementPrice > 0 ? `$${site.adultContentPlacementPrice}` : "—"}
+                        </td>
+                        <td className="py-2.5 px-3 text-right">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteSite(site.id || "", site.domain)}
+                            className="text-rose-400 hover:text-rose-300 text-xs cursor-pointer"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
+
+            {/* Pagination Controls (Smooth performance for large datasets) */}
+            {realSites.length > previewPageSize && (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 pt-3 border-t border-gray-800">
+                <div>
+                  Showing <strong className="text-white">{(previewPage - 1) * previewPageSize + 1}</strong> to{" "}
+                  <strong className="text-white">{Math.min(previewPage * previewPageSize, realSites.length)}</strong> of{" "}
+                  <strong className="text-purple-400 font-mono">{realSites.length.toLocaleString()}</strong> websites
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    disabled={previewPage <= 1}
+                    onClick={() => setPreviewPage((p) => Math.max(1, p - 1))}
+                    className="px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 disabled:opacity-40 text-white font-bold cursor-pointer transition-colors"
+                  >
+                    Previous
+                  </button>
+                  <span className="px-2">
+                    Page <strong className="text-white">{previewPage}</strong> of <strong className="text-white">{totalPreviewPages}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    disabled={previewPage >= totalPreviewPages}
+                    onClick={() => setPreviewPage((p) => Math.min(totalPreviewPages, p + 1))}
+                    className="px-3 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 disabled:opacity-40 text-white font-bold cursor-pointer transition-colors"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>
