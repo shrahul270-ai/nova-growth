@@ -473,7 +473,8 @@ export default function BuyerDashboardPage() {
             className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors"
           >
             <span>←</span>
-            <span>Back to Marketplace</span>
+            <span className="hidden sm:inline">Back to Marketplace</span>
+            <span className="sm:hidden">Back</span>
           </Link>
           <span className="text-gray-700">|</span>
           <div className="flex items-center gap-2">
@@ -493,7 +494,8 @@ export default function BuyerDashboardPage() {
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-black font-black text-xs shadow-lg shadow-emerald-500/20 transition-all hover:scale-102 active:scale-98 flex items-center gap-2 cursor-pointer"
           >
             <span>📥</span>
-            <span>Download All 22-Col Database (.xlsx)</span>
+            <span className="hidden sm:inline">Download All 22-Col Database (.xlsx)</span>
+            <span className="sm:hidden">Download (.xlsx)</span>
           </button>
 
           {buyerUser ? (

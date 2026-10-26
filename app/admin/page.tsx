@@ -75,6 +75,7 @@ export default function AdminDatabasePage() {
   const [selectedRecord, setSelectedRecord] = useState<BaseItem | null>(null);
   const [editingNotes, setEditingNotes] = useState("");
   const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Verify server-side session cookie on mount
   useEffect(() => {
@@ -548,8 +549,8 @@ export default function AdminDatabasePage() {
       )}
 
       {/* TOP TICKER BAR (Rank 67.7K, Traffic 280K+, L 0, LD 73.7K) */}
-      <div className="bg-[#0b1220] text-slate-300 text-[11px] font-mono py-1.5 px-6 border-b border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-5">
+      <div className="bg-[#0b1220] text-slate-300 text-[11px] font-mono py-1.5 px-3 sm:px-6 border-b border-slate-800 flex items-center justify-between overflow-x-auto [scrollbar-width:none]">
+        <div className="flex items-center gap-4 sm:gap-5 shrink-0">
           <span className="flex items-center gap-1.5 text-blue-400 font-bold">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
             <span>SQ</span>
@@ -559,26 +560,34 @@ export default function AdminDatabasePage() {
           <span>L <strong className="text-white">0</strong></span>
           <span>LD <strong className="text-white">73.7K</strong></span>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-slate-400">
+        <div className="hidden sm:flex items-center gap-4 text-slate-400 shrink-0">
           <span>Live Sync: Active</span>
           <span className="text-emerald-400 font-bold">● Nova Growth Workspace Mode</span>
         </div>
       </div>
 
       {/* MAIN HEADER NAVBAR */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-6 py-3">
-        <div className="flex items-center justify-between gap-4">
-          {/* Logo & Dropdown menus */}
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-base shadow-sm">
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-3 sm:px-6 py-2.5 sm:py-3">
+        <div className="flex items-center justify-between gap-3">
+          {/* Mobile Menu Hamburger Button + Logo */}
+          <div className="flex items-center gap-2.5 sm:gap-6">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer flex items-center justify-center w-9 h-9 shrink-0 text-base"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? "✕" : "☰"}
+            </button>
+
+            <Link href="/" className="flex items-center gap-2 sm:gap-2.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-sm sm:text-base shadow-sm shrink-0">
                 NG
               </div>
               <div className="leading-tight">
-                <span className="text-base font-black text-slate-900 tracking-tight block">
+                <span className="text-sm sm:text-base font-black text-slate-900 tracking-tight block">
                   Nova Growth
                 </span>
-                <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">
+                <span className="text-[9px] sm:text-[10px] text-blue-600 font-bold uppercase tracking-wider block">
                   Admin &amp; Buyer Hub
                 </span>
               </div>
@@ -616,18 +625,19 @@ export default function AdminDatabasePage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5 text-xs">
+          <div className="flex items-center gap-2 sm:gap-2.5 text-xs">
             <button
               onClick={() => setIsNewEntryOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl transition-all flex items-center gap-1 sm:gap-1.5 cursor-pointer shadow-sm text-xs whitespace-nowrap"
             >
               <span>+</span>
-              <span>New Lead</span>
+              <span className="hidden sm:inline">New Lead</span>
+              <span className="sm:hidden">Lead</span>
             </button>
 
             <button
               onClick={handleLogout}
-              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1"
+              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1 text-xs whitespace-nowrap"
               title="Logout from admin session"
             >
               <span>🚪</span>
@@ -637,10 +647,202 @@ export default function AdminDatabasePage() {
         </div>
       </header>
 
+      {/* QUICK HORIZONTAL MOBILE TAB BAR (Only visible on mobile/tablet <lg) */}
+      <div className="lg:hidden bg-white border-b border-slate-200 px-3 py-2 flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] shrink-0 text-xs">
+        {[
+          { id: "dashboard", label: "⏱️ Dashboard", count: undefined },
+          { id: "live_locations", label: "📍 Live Map", count: undefined, highlight: true },
+          { id: "payments", label: "🛒 Orders", count: partitionedStats.payments.total },
+          { id: "leads", label: "👥 Leads", count: partitionedStats.leads.total },
+          { id: "interactions", label: "💬 WhatsApp", count: partitionedStats.whatsapp.total },
+          { id: "audits", label: "🔍 Audits", count: partitionedStats.audits.total },
+          { id: "client_profile", label: "👤 Client 360°", count: undefined },
+          { id: "analytics", label: "📊 Analytics", count: undefined },
+          { id: "trash", label: "🗑️ Trash", count: partitionedStats.trash.total },
+        ].map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-3 py-1.5 rounded-xl font-bold whitespace-nowrap cursor-pointer transition-all flex items-center gap-1.5 shrink-0 ${
+                isActive
+                  ? tab.highlight
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs"
+                    : "bg-blue-600 text-white shadow-xs"
+                  : tab.highlight
+                  ? "bg-blue-50 text-blue-800 border border-blue-200"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
+            >
+              <span>{tab.label}</span>
+              {tab.count !== undefined && (
+                <span
+                  className={`text-[10px] font-mono px-1 rounded ${
+                    isActive ? "bg-white/20 text-white" : "bg-slate-200 text-slate-800"
+                  }`}
+                >
+                  {tab.count}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* MOBILE SLIDE-OUT DRAWER OVERLAY */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="fixed top-0 bottom-0 left-0 w-72 max-w-[85vw] bg-white border-r border-slate-200 shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+            {/* Drawer Header */}
+            <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm">
+                  NG
+                </div>
+                <div>
+                  <span className="font-black text-sm text-slate-900 block leading-tight">Admin Menu</span>
+                  <span className="text-[10px] text-blue-600 font-bold uppercase">Nova Growth</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-200 text-sm cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Drawer Body Nav Items */}
+            <div className="p-3 overflow-y-auto flex-1 space-y-4 text-xs font-semibold">
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-2 mb-1.5">
+                  Core Operations
+                </span>
+                <div className="space-y-1">
+                  <button
+                    onClick={() => { setActiveTab("dashboard"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "dashboard" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>⏱️ Executive Dashboard</span>
+                    <span className="text-slate-400">›</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("live_locations"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "live_locations"
+                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black"
+                        : "bg-blue-50/70 text-blue-900 border border-blue-200"
+                    }`}
+                  >
+                    <span>📍 Live Location Tracker</span>
+                    <span className="text-[9px] bg-emerald-400 text-black px-1.5 py-0.5 rounded font-black">LIVE</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-2 mb-1.5">
+                  Client & Lead Management
+                </span>
+                <div className="space-y-1">
+                  <button
+                    onClick={() => { setActiveTab("payments"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "payments" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>🛒 Orders & Placements</span>
+                    <span className="text-blue-600 font-mono text-[11px] font-bold">{partitionedStats.payments.total}</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("leads"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "leads" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>👥 CRM Leads & Users</span>
+                    <span className="text-amber-600 font-mono text-[11px] font-bold">{partitionedStats.leads.total}</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("interactions"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "interactions" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>💬 WhatsApp Clicks & Chats</span>
+                    <span className="text-emerald-600 font-mono text-[11px] font-bold">{partitionedStats.whatsapp.total}</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("audits"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "audits" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>🔍 SEO Audits</span>
+                    <span className="text-purple-600 font-mono text-[11px] font-bold">{partitionedStats.audits.total}</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("client_profile"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "client_profile" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>👤 Client 360° Dossier</span>
+                    <span className="text-slate-400">›</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("analytics"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "analytics" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>📊 Data Analytics</span>
+                    <span className="text-slate-400">›</span>
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab("trash"); setMobileMenuOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
+                      activeTab === "trash" ? "bg-rose-50 text-rose-700 font-black" : "text-slate-700 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span>🗑️ Trash Bin</span>
+                    <span className="text-rose-600 font-mono text-[11px] font-bold">{partitionedStats.trash.total}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Drawer Footer */}
+            <div className="p-3 border-t border-slate-200 bg-slate-50 space-y-2">
+              <Link
+                href="/guest-posting"
+                target="_blank"
+                className="w-full py-2 px-3 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-800 font-bold flex items-center justify-center gap-1.5 text-xs text-center"
+              >
+                <span>Live Marketplace Site ↗</span>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="w-full py-2 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl font-bold flex items-center justify-center gap-1.5 text-xs cursor-pointer"
+              >
+                <span>🚪 Logout Admin</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* DUAL SIDEBAR + MAIN WORKSPACE BODY */}
       <div className="flex flex-1 overflow-hidden">
         {/* 1. LEFT SLIM ICON RAIL */}
-        <aside className="w-14 bg-white border-r border-slate-200 flex flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
+        <aside className="hidden xl:flex w-14 bg-white border-r border-slate-200 flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
           <button
             onClick={() => setActiveTab("dashboard")}
             className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "dashboard" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
@@ -707,7 +909,7 @@ export default function AdminDatabasePage() {
         </aside>
 
         {/* 2. EXPANDED SIDEBAR MENU */}
-        <aside className="w-64 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto">
+        <aside className="hidden lg:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 overflow-y-auto">
           <div className="p-3.5 space-y-5">
             {/* CORE OPERATIONS */}
             <div>
@@ -887,14 +1089,14 @@ export default function AdminDatabasePage() {
         </aside>
 
         {/* 3. MAIN WORKSPACE CONTENT */}
-        <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
+        <main className="flex-1 p-3 sm:p-5 lg:p-8 overflow-y-auto min-w-0 w-full">
           {/* Breadcrumb & Top Label */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div className="w-9 h-1 bg-emerald-500 rounded-full mb-1.5" />
             <span className="text-xs font-black text-blue-600 uppercase tracking-widest block mb-1">
               AGENCY OWNER WORKSPACE
             </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
               {activeTab === "dashboard"
                 ? "Executive Operations & Leads Dashboard"
                 : activeTab === "payments"
@@ -911,9 +1113,9 @@ export default function AdminDatabasePage() {
           </div>
 
           {/* PARTITIONED STAT OVERVIEW CARDS (Total | New as requested by user in Image 1) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3.5 mb-6 sm:mb-8">
             {/* Card 1: Total Orders / Inquiries */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 Total Orders
               </span>
@@ -937,7 +1139,7 @@ export default function AdminDatabasePage() {
             </div>
 
             {/* Card 2: Active Leads */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 Active Leads
               </span>
@@ -961,7 +1163,7 @@ export default function AdminDatabasePage() {
             </div>
 
             {/* Card 3: WhatsApp Inquiries */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 WhatsApp Clicks
               </span>
@@ -985,7 +1187,7 @@ export default function AdminDatabasePage() {
             </div>
 
             {/* Card 4: Calls & Meets */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 Calls &amp; Meets
               </span>
@@ -1009,7 +1211,7 @@ export default function AdminDatabasePage() {
             </div>
 
             {/* Card 5: SEO Audits */}
-            <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
                 SEO Audits
               </span>
@@ -1033,7 +1235,7 @@ export default function AdminDatabasePage() {
             </div>
 
             {/* Card 6: In Trash */}
-            <div className="bg-white p-4 rounded-2xl border border-rose-200/80 shadow-xs">
+            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-rose-200/80 shadow-xs">
               <span className="text-[10px] text-rose-500 font-bold uppercase tracking-wider block mb-1">
                 In Trash
               </span>
@@ -1118,8 +1320,8 @@ export default function AdminDatabasePage() {
                 </div>
               </div>
 
-              {/* Table of all live locations */}
-              <div className="overflow-x-auto">
+              {/* Table of all live locations (Desktop & Tablet) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="bg-slate-50 text-slate-600 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
@@ -1230,6 +1432,74 @@ export default function AdminDatabasePage() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Mobile Card Feed for Live Locations (<md) */}
+              <div className="md:hidden space-y-3">
+                {records.filter((r) => r.country || r.city || r.clientIp).length > 0 ? (
+                  records
+                    .filter((r) => r.country || r.city || r.clientIp)
+                    .map((item) => {
+                      const mapUrl =
+                        item.mapsUrl ||
+                        (item.latitude && item.longitude
+                          ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
+                          : item.city && item.country
+                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
+                          : item.country && item.country !== "Global"
+                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
+                          : item.clientIp
+                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
+                          : null);
+
+                      return (
+                        <div key={item.id} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-2xs">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-2xl">{item.countryFlag || "🌐"}</span>
+                              <div>
+                                <h4 className="font-bold text-slate-900 text-sm">
+                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
+                                  {item.region ? `${item.region}, ` : ""}
+                                  {item.country || "India"}
+                                </h4>
+                                <span className="text-[10px] font-mono text-slate-400">{formatDate(item.createdAt)}</span>
+                              </div>
+                            </div>
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${item.type === "buyer_login" ? "bg-amber-100 text-amber-900" : "bg-blue-100 text-blue-900"}`}>
+                              {item.type === "buyer_login" ? "🔑 Login" : item.service || item.type || "Action"}
+                            </span>
+                          </div>
+
+                          <div className="bg-white rounded-xl p-3 border border-slate-200/80 space-y-1 text-xs">
+                            <div className="font-bold text-slate-900">{item.name || item.clientName || "Visitor"}</div>
+                            {item.email && <div className="text-[11px] text-blue-600 font-mono">✉️ {item.email}</div>}
+                            {item.phone && <div className="text-[11px] text-emerald-600 font-mono">📞 {item.phone}</div>}
+                            <div className="text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-100">
+                              IP: {item.clientIp || "Direct"} {item.isp ? `• ${item.isp}` : ""}
+                            </div>
+                          </div>
+
+                          {mapUrl && (
+                            <a
+                              href={mapUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+                            >
+                              <span>🗺️ Open in Google Maps</span>
+                              <span>↗</span>
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="py-8 text-center text-slate-400">
+                    <div className="text-3xl mb-1">📍</div>
+                    <p className="font-bold text-slate-700 text-xs">Abhi tak koi live location track nahi hui hai</p>
+                  </div>
+                )}
+              </div>
             </div>
           ) : activeTab === "logs" ? (
             /* AUDIT TRAIL LOGS VIEW */
@@ -1334,8 +1604,8 @@ export default function AdminDatabasePage() {
                 </div>
               </div>
 
-              {/* Table */}
-              <div className="overflow-x-auto">
+              {/* Table (Desktop & Tablet) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
@@ -1563,6 +1833,214 @@ export default function AdminDatabasePage() {
                     )}
                   </tbody>
                 </table>
+              </div>
+              {/* Mobile Card Feed for CRM Leads & Orders (<md) */}
+              <div className="md:hidden space-y-3">
+                {loading ? (
+                  <div className="p-8 text-center text-slate-400 font-semibold text-xs">
+                    Loading records from secure database...
+                  </div>
+                ) : records.length === 0 ? (
+                  <div className="p-8 text-center text-slate-400 font-semibold text-xs">
+                    No records found in this category.
+                  </div>
+                ) : (
+                  records.map((item) => {
+                    const clientName =
+                      item.name ||
+                      item.clientName ||
+                      item.domain ||
+                      (item.action === "whatsapp" ? "WhatsApp Visitor" : "Agency Inquirer");
+                    const clientPhone = item.phone || item.clientIdentifier || "";
+                    const cleanPhone = getCleanPhone(clientPhone);
+                    const clientEmail = item.email || item.clientEmail || "";
+                    const mapUrl =
+                      item.mapsUrl ||
+                      (item.latitude && item.longitude
+                        ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
+                        : item.city && item.country
+                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
+                        : item.country && item.country !== "Global"
+                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
+                        : item.clientIp
+                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
+                        : null);
+
+                    return (
+                      <div
+                        key={item.id}
+                        className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 shadow-2xs"
+                      >
+                        {/* Card Header: Client Name, Date & Badges */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="font-bold text-slate-900 text-sm truncate">
+                              {clientName}
+                            </h4>
+                            <span className="text-[10px] font-mono text-slate-400">
+                              {formatDate(item.createdAt)}
+                            </span>
+                          </div>
+
+                          <div className="flex flex-col items-end gap-1 shrink-0">
+                            {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 inline-flex items-center gap-1 shadow-2xs">
+                                <span>📥</span>
+                                <span>40k Database</span>
+                              </span>
+                            ) : (item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) ? (
+                              <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-2xs">
+                                <span>🔑</span>
+                                <span>{item.type === "buyer_login" ? "User Login" : "Data Buyer"}</span>
+                              </span>
+                            ) : null}
+                          </div>
+                        </div>
+
+                        {/* Contact Details (Email + Phone) */}
+                        <div className="bg-white rounded-xl p-3 border border-slate-200/80 space-y-2 text-xs">
+                          {clientEmail && (
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Login ID:</span>
+                              <a
+                                href={`mailto:${clientEmail}`}
+                                className="text-blue-600 font-mono font-bold truncate max-w-[200px] hover:underline"
+                              >
+                                ✉️ {clientEmail}
+                              </a>
+                            </div>
+                          )}
+
+                          {clientPhone && (
+                            <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Phone:</span>
+                              <div className="flex items-center gap-2">
+                                <a
+                                  href={`tel:${cleanPhone}`}
+                                  className="text-slate-700 font-mono text-[11px] hover:underline"
+                                >
+                                  📞 {clientPhone}
+                                </a>
+                                <a
+                                  href={`https://wa.me/${cleanPhone}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-2 py-0.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[10px] flex items-center gap-1 shadow-2xs"
+                                >
+                                  <span>💬</span>
+                                  <span>WhatsApp</span>
+                                </a>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Live Location inside card */}
+                          <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Location:</span>
+                            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-800">
+                              <span>{item.countryFlag || "🌐"}</span>
+                              <span className="truncate max-w-[160px]">
+                                {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
+                                {item.region ? `${item.region}, ` : ""}
+                                {item.country || "India"}
+                              </span>
+                            </div>
+                          </div>
+
+                          {mapUrl && (
+                            <a
+                              href={mapUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full mt-1 py-1.5 px-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[11px] flex items-center justify-center gap-1.5 border border-blue-200 transition-colors"
+                            >
+                              <span>📍 Open Exact Location in Google Maps</span>
+                              <span>↗</span>
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Service & Message Details */}
+                        {(item.service || item.message || item.details) && (
+                          <div className="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200/80">
+                            {item.service && (
+                              <div className="font-bold text-slate-800 mb-1">
+                                {item.service}
+                              </div>
+                            )}
+                            <p className="text-[11px] text-slate-500 line-clamp-2">
+                              {item.message || item.details || "—"}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Status Select & Action Bar */}
+                        <div className="flex items-center justify-between gap-2 pt-1">
+                          <select
+                            value={item.status || "new"}
+                            onChange={(e) => handleUpdateStatus(item, e.target.value)}
+                            disabled={Boolean(item.isDeleted)}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
+                              item.status === "new"
+                                ? "bg-blue-50 text-blue-700 border-blue-200"
+                                : item.status === "contacted"
+                                ? "bg-amber-50 text-amber-700 border-amber-200"
+                                : item.status === "in_progress"
+                                ? "bg-indigo-50 text-indigo-700 border-indigo-200"
+                                : item.status === "completed"
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                : "bg-slate-100 text-slate-700 border-slate-200"
+                            }`}
+                          >
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="closed">Closed</option>
+                          </select>
+
+                          <div className="flex items-center gap-1.5">
+                            {item.isDeleted ? (
+                              <>
+                                <button
+                                  onClick={() => handleRestore(item)}
+                                  className="px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs cursor-pointer"
+                                >
+                                  ♻️ Restore
+                                </button>
+                                <button
+                                  onClick={() => handlePermanentDelete(item)}
+                                  className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs cursor-pointer"
+                                >
+                                  Permanent
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={() => {
+                                    setSelectedRecord(item);
+                                    setEditingNotes(item.notes || "");
+                                  }}
+                                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
+                                >
+                                  📝 Notes
+                                </button>
+                                <button
+                                  onClick={() => handleSoftDelete(item)}
+                                  className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition-colors cursor-pointer"
+                                  title="Move to Trash"
+                                >
+                                  🗑️
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
               </div>
             </div>
           )}
