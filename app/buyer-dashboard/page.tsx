@@ -10,24 +10,42 @@ interface BuyerSession {
   phone: string;
 }
 
-interface RealWebsiteSite {
+export interface RealWebsiteSite {
   id?: string;
   domain: string;
-  niche: string;
+  da: number;
+  pa?: number;
+  dr: number;
+  traffic?: string;
+  ahrefsTraffic?: string;
+  semrushScore?: string | number;
+  spamScore?: string | number;
+  category?: string;
+  niche?: string;
+  linkType: "DoFollow" | "NoFollow" | "Contextual" | string;
+  sampleLink?: string;
+  sampleUrl?: string;
   country: string;
   countryFlag?: string;
-  dr: number;
-  da: number;
-  ahrefsTraffic?: string;
-  traffic?: string;
-  linkType: "DoFollow" | "NoFollow" | "Contextual" | string;
-  price: number;
+  contentPlacementPrice?: number;
+  price?: number;
+  linkInsertPrice?: number;
+  cbdContentPlacementPrice?: number;
+  cbdContentCreationPlacementPrice?: number;
+  cbdLinkInsertPrice?: number;
+  adultContentPlacementPrice?: number;
+  adultContentCreationPlacementPrice?: number;
+  adultLinkInsertPrice?: number;
+  indexable?: boolean | string;
+  sponsored?: boolean | string;
+  sponsoredTag?: boolean;
+  logoUrl?: string;
   addedByAdmin?: boolean;
 }
 
 export default function BuyerDashboardPage() {
   const [buyerUser, setBuyerUser] = useState<BuyerSession | null>(null);
-  const [authChecked, setAuthChecked] = useState(false);
+  const [, setAuthChecked] = useState(false);
 
   // Authentication Modal (if visitor visits dashboard without login)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -42,12 +60,15 @@ export default function BuyerDashboardPage() {
   const [directDownloadUrl, setDirectDownloadUrl] = useState<string>("");
   const [isLoadingDb, setIsLoadingDb] = useState(true);
 
+  // Detailed Pricing Modal for a selected site
+  const [pricingModalSite, setPricingModalSite] = useState<RealWebsiteSite | null>(null);
+
   // Search, Filters & Pagination
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedLinkType, setSelectedLinkType] = useState("All");
   const [minDr, setMinDr] = useState("");
-  const [sortField, setSortField] = useState<"dr" | "da" | "price" | "domain">("dr");
+  const [sortField, setSortField] = useState<"dr" | "da" | "pa" | "price" | "domain">("dr");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
@@ -188,14 +209,15 @@ export default function BuyerDashboardPage() {
   // Prioritize real websites synced by admin, otherwise use verified initial publishers
   const displayedSites: RealWebsiteSite[] = useMemo(() => {
     if (realWebsites.length > 0) return realWebsites;
-    return INITIAL_PUBLISHERS as RealWebsiteSite[];
+    return INITIAL_PUBLISHERS as unknown as RealWebsiteSite[];
   }, [realWebsites]);
 
   // Extract unique categories from websites
   const categoriesList = useMemo(() => {
     const set = new Set<string>();
     displayedSites.forEach((s) => {
-      if (s.niche) set.add(s.niche);
+      const cat = s.category || s.niche;
+      if (cat) set.add(cat);
     });
     return ["All", ...Array.from(set).sort()];
   }, [displayedSites]);
@@ -210,14 +232,15 @@ export default function BuyerDashboardPage() {
       result = result.filter(
         (s) =>
           s.domain.toLowerCase().includes(q) ||
-          s.niche.toLowerCase().includes(q) ||
+          (s.category && s.category.toLowerCase().includes(q)) ||
+          (s.niche && s.niche.toLowerCase().includes(q)) ||
           (s.country && s.country.toLowerCase().includes(q))
       );
     }
 
     // Category
     if (selectedCategory !== "All") {
-      result = result.filter((s) => s.niche === selectedCategory);
+      result = result.filter((s) => (s.category || s.niche) === selectedCategory);
     }
 
     // Link Type
@@ -237,6 +260,14 @@ export default function BuyerDashboardPage() {
     result.sort((a, b) => {
       let valA: any = a[sortField];
       let valB: any = b[sortField];
+      if (sortField === "price") {
+        valA = a.contentPlacementPrice || a.price || 0;
+        valB = b.contentPlacementPrice || b.price || 0;
+      }
+      if (sortField === "pa") {
+        valA = a.pa ?? 0;
+        valB = b.pa ?? 0;
+      }
       if (typeof valA === "string") valA = valA.toLowerCase();
       if (typeof valB === "string") valB = valB.toLowerCase();
       if (valA < valB) return sortOrder === "asc" ? -1 : 1;
@@ -255,27 +286,42 @@ export default function BuyerDashboardPage() {
   }, [filteredAndSortedSites, currentPage, pageSize]);
 
   // Handle Order Post Click (Sends to WhatsApp 8000417058 & logs order to Admin CRM)
-  const handleOrderPost = (site: RealWebsiteSite) => {
+  const handleOrderPost = (site: RealWebsiteSite, selectedType?: string, selectedPrice?: number) => {
     const userEmail = buyerUser?.email || "Guest Visitor";
     const userPhone = buyerUser?.phone || "Not specified";
+    const chosenPrice = selectedPrice ?? (site.contentPlacementPrice || site.price || 0);
+    const chosenType = selectedType || "Standard Content Placement";
 
     const msg = [
       `*New Guest Post Order Inquiry - Nova Growth*`,
       ``,
       `*Website Domain:* ${site.domain}`,
-      `*Wholesale Price:* $${site.price} USD`,
-      `*Niche Category:* ${site.niche}`,
-      `*Metrics:* Ahrefs DR ${site.dr} | Moz DA ${site.da}`,
-      `*Organic Traffic:* ${site.ahrefsTraffic || site.traffic || "100,000+"}`,
+      `*Service Required:* ${chosenType}`,
+      `*Price:* $${chosenPrice} USD`,
+      `*Niche Category:* ${site.category || site.niche || "General"}`,
+      `*SEO Metrics:* Ahrefs DR ${site.dr} | Moz DA ${site.da} | Moz PA ${site.pa || "N/A"}`,
+      `*Traffic:* ${site.traffic || site.ahrefsTraffic || "100,000+"}`,
+      `*Semrush Score:* ${site.semrushScore ?? "N/A"} | *Spam Score:* ${site.spamScore ?? "1%"}`,
       `*Link Type:* ${site.linkType || "DoFollow"}`,
       `*Target Country:* ${site.country || "Global"}`,
+      site.sampleLink ? `*Sample Post URL:* ${site.sampleLink}` : ``,
+      ``,
+      `*All Available Rates:*`,
+      `• Standard Content Placement: $${site.contentPlacementPrice || site.price || 0} USD`,
+      `• Link Insert Price: $${site.linkInsertPrice || 0} USD`,
+      `• CBD Content Placement: $${site.cbdContentPlacementPrice || 0} USD`,
+      `• CBD Content Creation & Placement: $${site.cbdContentCreationPlacementPrice || 0} USD`,
+      `• CBD Link Insert: $${site.cbdLinkInsertPrice || 0} USD`,
+      `• Adult Content Placement: $${site.adultContentPlacementPrice || 0} USD`,
+      `• Adult Content Creation & Placement: $${site.adultContentCreationPlacementPrice || 0} USD`,
+      `• Adult Link Insert: $${site.adultLinkInsertPrice || 0} USD`,
       ``,
       `*Buyer Contact Details:*`,
       `• Email: ${userEmail}`,
       `• Mobile / WhatsApp: ${userPhone}`,
       ``,
-      `Please share the live URL requirements and payment invoice.`
-    ].join("\n");
+      `Please confirm availability, article requirements, and payment invoice.`
+    ].filter(Boolean).join("\n");
 
     // Track order event in database so Admin sees exact order details
     getClientLiveLocation().then((clientGeo) => {
@@ -289,10 +335,10 @@ export default function BuyerDashboardPage() {
           clientName: userEmail.split("@")[0] || "Buyer",
           email: userEmail,
           phone: userPhone,
-          service: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
+          service: `Order (${chosenType}): ${site.domain} ($${chosenPrice} USD)`,
           domain: site.domain,
-          title: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
-          details: `User clicked Order Post for ${site.domain} ($${site.price} USD). Contact sent to WhatsApp 8000417058.`,
+          title: `Guest Post Order: ${site.domain} ($${chosenPrice} USD)`,
+          details: `User ordered ${chosenType} for ${site.domain} ($${chosenPrice} USD). Contact sent to WhatsApp 8000417058.`,
           sourcePage: "/buyer-dashboard",
           clientGeo,
         }),
@@ -306,20 +352,20 @@ export default function BuyerDashboardPage() {
           name: userEmail.split("@")[0] || "Buyer",
           email: userEmail,
           phone: userPhone,
-          service: `Guest Post Order: ${site.domain} ($${site.price} USD)`,
-          message: `Buyer ordered guest post for ${site.domain} ($${site.price} USD). Contacted WhatsApp 8000417058.`,
-          notes: `Domain: ${site.domain} | Price: $${site.price} USD | Niche: ${site.niche} | DR: ${site.dr} | DA: ${site.da} | Link: ${site.linkType}`,
+          service: `Order (${chosenType}): ${site.domain} ($${chosenPrice} USD)`,
+          message: `Buyer placed order for ${site.domain} (${chosenType} - $${chosenPrice} USD). WhatsApp 8000417058.`,
+          notes: `Domain: ${site.domain} | Price: $${chosenPrice} USD | Service: ${chosenType} | Category: ${site.category || site.niche} | DR: ${site.dr} | DA: ${site.da} | PA: ${site.pa || "N/A"}`,
           clientGeo,
         }),
       }).catch(() => {});
     });
 
-    // Open WhatsApp directly with 8000417058
+    // Open WhatsApp directly with +91 8000417058
     const waUrl = `https://wa.me/918000417058?text=${encodeURIComponent(msg)}`;
     window.open(waUrl, "_blank");
   };
 
-  // Excel / CSV Download Handler (Tracks live location & downloads XLSX)
+  // Excel / CSV Download Handler with all 22 columns (Tracks live location & downloads XLSX)
   const handleDownloadExcel = () => {
     if (filteredAndSortedSites.length === 0) {
       showToast("❌ No websites found to export.");
@@ -337,59 +383,79 @@ export default function BuyerDashboardPage() {
           email: buyerUser?.email || "Guest Buyer",
           phone: buyerUser?.phone || "",
           title: "Buyer Marketplace Database Downloaded (.xlsx)",
-          details: `User downloaded ${filteredAndSortedSites.length} websites in Excel format.`,
+          details: `User downloaded ${filteredAndSortedSites.length} websites in Excel format with all 22 publisher columns.`,
           sourcePage: "/buyer-dashboard",
           clientGeo,
         }),
       }).catch(() => {});
     });
 
-    // If direct Vercel Blob file link exists and is an xlsx file
-    if (directDownloadUrl && (directDownloadUrl.endsWith(".xlsx") || directDownloadUrl.endsWith(".csv"))) {
-      const a = document.createElement("a");
-      a.href = directDownloadUrl;
-      a.setAttribute("download", `nova_growth_guest_post_database_${Date.now()}.xlsx`);
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast("Downloading verified database file...");
-      return;
-    }
-
-    // Native XLSX workbook via SheetJS
+    // Native XLSX workbook via SheetJS with all 22 columns
     try {
       const exportRows = filteredAndSortedSites.map((s, idx) => ({
         "Serial No.": idx + 1,
-        "Website Domain": s.domain,
-        "Niche / Category": s.niche,
-        "Ahrefs DR": s.dr,
-        "Moz DA": s.da,
-        "Traffic": s.ahrefsTraffic || s.traffic || "100,000+",
-        "Country": s.country,
-        "Link Type": s.linkType,
-        "Wholesale Price ($ USD)": `$${s.price} USD`,
+        "Domain": s.domain,
+        "DA": s.da,
+        "PA": s.pa !== undefined ? s.pa : "",
+        "DR": s.dr,
+        "Traffic": s.traffic || s.ahrefsTraffic || "100,000+",
+        "Semrush Score": s.semrushScore !== undefined ? s.semrushScore : "",
+        "Spam Score": s.spamScore !== undefined ? s.spamScore : "1%",
+        "Category": s.category || s.niche || "General",
+        "Link Type": s.linkType || "DoFollow",
+        "Sample Link": s.sampleLink || s.sampleUrl || "",
+        "Country": s.country || "Global",
+        "Content Placement Price": s.contentPlacementPrice ? `$${s.contentPlacementPrice}` : (s.price ? `$${s.price}` : "$0"),
+        "Link Insert Price": s.linkInsertPrice ? `$${s.linkInsertPrice}` : "$0",
+        "CBD Content Placement Price": s.cbdContentPlacementPrice ? `$${s.cbdContentPlacementPrice}` : "$0",
+        "CBD Content Creation & Placement Price": s.cbdContentCreationPlacementPrice ? `$${s.cbdContentCreationPlacementPrice}` : "$0",
+        "CBD Link Insert Price": s.cbdLinkInsertPrice ? `$${s.cbdLinkInsertPrice}` : "$0",
+        "Adult Content Placement Price": s.adultContentPlacementPrice ? `$${s.adultContentPlacementPrice}` : "$0",
+        "Adult Content Creation & Placement Price": s.adultContentCreationPlacementPrice ? `$${s.adultContentCreationPlacementPrice}` : "$0",
+        "Adult Link Insert Price": s.adultLinkInsertPrice ? `$${s.adultLinkInsertPrice}` : "$0",
+        "Indexable": (s.indexable === true || s.indexable === "Yes" || s.indexable === "true") ? "Yes" : "No",
+        "Sponsored": (s.sponsored === true || s.sponsored === "Yes" || s.sponsoredTag === true || s.sponsored === "true") ? "Yes" : "No",
+        "Logo URL": s.logoUrl || `https://www.google.com/s2/favicons?domain=${s.domain}&sz=128`,
       }));
 
       const ws = XLSX.utils.json_to_sheet(exportRows);
       ws["!cols"] = [
-        { wch: 10 },
-        { wch: 32 },
-        { wch: 25 },
-        { wch: 12 },
-        { wch: 12 },
-        { wch: 18 },
-        { wch: 20 },
-        { wch: 14 },
-        { wch: 20 },
+        { wch: 10 }, // Serial No.
+        { wch: 30 }, // Domain
+        { wch: 8 },  // DA
+        { wch: 8 },  // PA
+        { wch: 8 },  // DR
+        { wch: 22 }, // Traffic
+        { wch: 14 }, // Semrush Score
+        { wch: 12 }, // Spam Score
+        { wch: 24 }, // Category
+        { wch: 12 }, // Link Type
+        { wch: 36 }, // Sample Link
+        { wch: 18 }, // Country
+        { wch: 24 }, // Content Placement Price
+        { wch: 18 }, // Link Insert Price
+        { wch: 26 }, // CBD Content Placement Price
+        { wch: 34 }, // CBD Content Creation & Placement Price
+        { wch: 22 }, // CBD Link Insert Price
+        { wch: 26 }, // Adult Content Placement Price
+        { wch: 34 }, // Adult Content Creation & Placement Price
+        { wch: 22 }, // Adult Link Insert Price
+        { wch: 12 }, // Indexable
+        { wch: 12 }, // Sponsored
+        { wch: 36 }, // Logo URL
       ];
 
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Guest Post Sites");
       XLSX.writeFile(wb, `nova_growth_guest_post_database_${Date.now()}.xlsx`);
 
-      showToast(`✅ Successfully downloaded ${filteredAndSortedSites.length} websites in Excel (.xlsx)!`);
+      showToast(`✅ Successfully downloaded ${filteredAndSortedSites.length} websites with all 22 publisher metrics (.xlsx)!`);
     } catch (err) {
       console.error("Excel generation error:", err);
+      // Fallback to direct download URL if SheetJS export encountered any issue
+      if (directDownloadUrl) {
+        window.open(directDownloadUrl, "_blank");
+      }
     }
   };
 
@@ -431,7 +497,7 @@ export default function BuyerDashboardPage() {
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-black font-black text-xs shadow-lg shadow-emerald-500/20 transition-all hover:scale-102 active:scale-98 flex items-center gap-2 cursor-pointer"
           >
             <span>📥</span>
-            <span>Download Database (.xlsx)</span>
+            <span>Download All 22-Col Database (.xlsx)</span>
           </button>
 
           {buyerUser ? (
@@ -465,47 +531,59 @@ export default function BuyerDashboardPage() {
         </div>
       </header>
 
-      {/* HERO BANNER & STATS */}
-      <div className="border-b border-gray-800/80 bg-gradient-to-b from-[#0e172a] via-[#09101f] to-[#070b14] px-4 sm:px-6 lg:px-10 py-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-2 text-xs text-emerald-400 font-semibold mb-2">
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-                ✓ Verified Live Publisher Network
-              </span>
-              <span>40,000+ Direct Editorial Links</span>
+      {/* DASHBOARD HERO BANNER */}
+      <div className="border-b border-gray-800 bg-gradient-to-b from-[#0e1726] to-[#070b14] px-4 sm:px-6 lg:px-10 py-7">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+              <span>⚡</span>
+              <span>Direct Publisher Catalog & Live Rates</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-              Premium Guest Posting Database
+            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              Exclusive Publications Directory
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mt-2 max-w-2xl leading-relaxed">
-              Explore high-authority websites with verified DR, DA, organic traffic, and permanent DoFollow backlinks. 
-              Search by niche, filter by domain metrics, or download the complete database in Excel format.
+            <p className="text-xs sm:text-sm text-gray-400 max-w-2xl">
+              Filter high-authority websites by Moz DA, Moz PA, Ahrefs DR, Semrush Score, Spam Score, and Country. Review all pricing tiers (Standard, Link Insert, CBD, Adult) and order directly via WhatsApp or export the complete 22-column dataset.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <div className="bg-[#0b1220] border border-gray-800 p-3.5 rounded-2xl flex items-center gap-3 shadow-md">
               <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">
-                📊
+                🌐
               </div>
               <div>
                 <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
-                  Available Sites
+                  Live Sites
                 </div>
-                <div className="text-xl font-black text-white">
-                  {displayedSites.length.toLocaleString()}
+                <div className="text-lg font-black text-white font-mono">
+                  {isLoadingDb ? "..." : displayedSites.length.toLocaleString()}
                 </div>
               </div>
             </div>
 
             <div className="bg-[#0b1220] border border-gray-800 p-3.5 rounded-2xl flex items-center gap-3 shadow-md">
+              <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl font-bold">
+                🎯
+              </div>
+              <div>
+                <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
+                  Niches
+                </div>
+                <div className="text-lg font-black text-white font-mono">
+                  {categoriesList.length - 1}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#0b1220] border border-gray-800 p-3.5 rounded-2xl flex items-center gap-3 shadow-md col-span-2 sm:col-span-1">
               <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold">
                 📥
               </div>
               <div>
                 <div className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
-                  Full Spreadsheet
+                  Export 22 Cols
                 </div>
                 <button
                   type="button"
@@ -535,7 +613,7 @@ export default function BuyerDashboardPage() {
                   setSearch(e.target.value);
                   setCurrentPage(1);
                 }}
-                placeholder="Search websites by domain name, niche, or country..."
+                placeholder="Search websites by domain name, niche, category, or country..."
                 className="w-full bg-[#070b14] border border-gray-700/80 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition-colors"
               />
               {search && (
@@ -559,7 +637,7 @@ export default function BuyerDashboardPage() {
                     setSelectedCategory(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="bg-transparent text-white font-semibold focus:outline-none cursor-pointer"
+                  className="bg-transparent text-white font-semibold focus:outline-none cursor-pointer max-w-[150px] truncate"
                 >
                   {categoriesList.map((cat) => (
                     <option key={cat} value={cat} className="bg-gray-900 text-white">
@@ -627,13 +705,13 @@ export default function BuyerDashboardPage() {
         {/* WEBSITES DATA TABLE */}
         <div className="bg-[#0b1220] border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <table className="w-full text-left text-xs border-collapse min-w-[1080px]">
               <thead>
                 <tr className="bg-[#070b14] text-gray-400 font-bold uppercase text-[10px] tracking-wider border-b border-gray-800">
-                  <th scope="col" className="py-3 px-4">#</th>
+                  <th scope="col" className="py-3 px-3 w-10 text-center">#</th>
                   <th
                     scope="col"
-                    className="py-3 px-4 cursor-pointer hover:text-white transition-colors"
+                    className="py-3 px-4 cursor-pointer hover:text-white transition-colors min-w-[200px]"
                     onClick={() => {
                       if (sortField === "domain") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
                       else { setSortField("domain"); setSortOrder("asc"); }
@@ -644,25 +722,37 @@ export default function BuyerDashboardPage() {
                   <th scope="col" className="py-3 px-3">Category</th>
                   <th
                     scope="col"
-                    className="py-3 px-3 cursor-pointer hover:text-white transition-colors"
-                    onClick={() => {
-                      if (sortField === "dr") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                      else { setSortField("dr"); setSortOrder("desc"); }
-                    }}
-                  >
-                    Ahrefs DR {sortField === "dr" && (sortOrder === "asc" ? "▲" : "▼")}
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-3 px-3 cursor-pointer hover:text-white transition-colors"
+                    className="py-3 px-2 text-center cursor-pointer hover:text-white transition-colors"
                     onClick={() => {
                       if (sortField === "da") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
                       else { setSortField("da"); setSortOrder("desc"); }
                     }}
                   >
-                    Moz DA {sortField === "da" && (sortOrder === "asc" ? "▲" : "▼")}
+                    DA {sortField === "da" && (sortOrder === "asc" ? "▲" : "▼")}
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 px-2 text-center cursor-pointer hover:text-white transition-colors"
+                    onClick={() => {
+                      if (sortField === "pa") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+                      else { setSortField("pa"); setSortOrder("desc"); }
+                    }}
+                  >
+                    PA {sortField === "pa" && (sortOrder === "asc" ? "▲" : "▼")}
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-3 px-2 text-center cursor-pointer hover:text-white transition-colors"
+                    onClick={() => {
+                      if (sortField === "dr") setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+                      else { setSortField("dr"); setSortOrder("desc"); }
+                    }}
+                  >
+                    DR {sortField === "dr" && (sortOrder === "asc" ? "▲" : "▼")}
                   </th>
                   <th scope="col" className="py-3 px-3">Traffic</th>
+                  <th scope="col" className="py-3 px-2 text-center">Semrush</th>
+                  <th scope="col" className="py-3 px-2 text-center">Spam</th>
                   <th scope="col" className="py-3 px-3">Country</th>
                   <th scope="col" className="py-3 px-3">Link Type</th>
                   <th
@@ -673,7 +763,7 @@ export default function BuyerDashboardPage() {
                       else { setSortField("price"); setSortOrder("asc"); }
                     }}
                   >
-                    Wholesale Price {sortField === "price" && (sortOrder === "asc" ? "▲" : "▼")}
+                    Pricing {sortField === "price" && (sortOrder === "asc" ? "▲" : "▼")}
                   </th>
                   <th scope="col" className="py-3 px-4 text-right">Action</th>
                 </tr>
@@ -682,31 +772,81 @@ export default function BuyerDashboardPage() {
                 {paginatedSites.length > 0 ? (
                   paginatedSites.map((site, idx) => {
                     const rowNumber = (currentPage - 1) * pageSize + idx + 1;
+                    const standardPrice = site.contentPlacementPrice || site.price || 0;
+                    const faviconUrl = site.logoUrl || `https://www.google.com/s2/favicons?domain=${site.domain}&sz=64`;
+                    const hasSampleLink = Boolean(site.sampleLink || site.sampleUrl);
+                    const sampleUrl = site.sampleLink || site.sampleUrl || "";
+
                     return (
                       <tr
                         key={site.id || site.domain + idx}
                         className="hover:bg-gray-800/30 transition-colors"
                       >
-                        <td className="py-3 px-4 text-gray-500 text-[11px] font-mono">
+                        <td className="py-3 px-3 text-gray-500 text-[11px] font-mono text-center">
                           {rowNumber}
                         </td>
-                        <td className="py-3 px-4 font-bold text-white flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                          <span>{site.domain}</span>
+                        <td className="py-3 px-4 font-bold text-white">
+                          <div className="flex items-center gap-2.5">
+                            {/* Favicon Logo */}
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={faviconUrl}
+                              alt=""
+                              onError={(e) => {
+                                (e.currentTarget as HTMLImageElement).style.display = "none";
+                              }}
+                              className="w-4 h-4 rounded-sm object-contain flex-shrink-0"
+                            />
+                            <div className="flex flex-col">
+                              <span className="font-extrabold text-white text-xs">{site.domain}</span>
+                              <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                                {hasSampleLink && (
+                                  <a
+                                    href={sampleUrl.startsWith("http") ? sampleUrl : `https://${sampleUrl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[10px] text-blue-400 hover:text-blue-300 underline font-normal inline-flex items-center gap-0.5"
+                                  >
+                                    <span>🔗 Sample</span>
+                                    <span>↗</span>
+                                  </a>
+                                )}
+                                {site.indexable && (site.indexable === true || site.indexable === "Yes" || site.indexable === "true") && (
+                                  <span className="px-1 py-0.2 rounded text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                                    Indexable
+                                  </span>
+                                )}
+                                {site.sponsored && (site.sponsored === true || site.sponsored === "Yes" || site.sponsoredTag === true || site.sponsored === "true") && (
+                                  <span className="px-1 py-0.2 rounded text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold">
+                                    Sponsored
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
                         </td>
                         <td className="py-3 px-3 text-gray-300">
                           <span className="px-2.5 py-0.5 rounded-md bg-gray-800/80 border border-gray-700/60 text-[11px]">
-                            {site.niche}
+                            {site.category || site.niche || "General"}
                           </span>
                         </td>
-                        <td className="py-3 px-3 font-extrabold text-amber-400">
-                          {site.dr}
-                        </td>
-                        <td className="py-3 px-3 font-bold text-gray-300">
+                        <td className="py-3 px-2 text-center font-bold text-gray-200 font-mono">
                           {site.da}
                         </td>
-                        <td className="py-3 px-3 font-mono text-emerald-400 font-bold">
-                          {site.ahrefsTraffic || site.traffic || "100,000+"}
+                        <td className="py-3 px-2 text-center font-bold text-gray-300 font-mono">
+                          {site.pa !== undefined ? site.pa : "—"}
+                        </td>
+                        <td className="py-3 px-2 text-center font-extrabold text-amber-400 font-mono">
+                          {site.dr}
+                        </td>
+                        <td className="py-3 px-3 font-mono text-emerald-400 font-bold text-[11px]">
+                          {site.traffic || site.ahrefsTraffic || "100,000+"}
+                        </td>
+                        <td className="py-3 px-2 text-center font-mono text-cyan-400 font-semibold text-[11px]">
+                          {site.semrushScore !== undefined && site.semrushScore !== "" ? site.semrushScore : "—"}
+                        </td>
+                        <td className="py-3 px-2 text-center font-mono text-rose-300 text-[11px]">
+                          {site.spamScore !== undefined && site.spamScore !== "" ? site.spamScore : "1%"}
                         </td>
                         <td className="py-3 px-3 text-gray-300">
                           <span className="inline-flex items-center gap-1.5">
@@ -719,14 +859,25 @@ export default function BuyerDashboardPage() {
                             {site.linkType || "DoFollow"}
                           </span>
                         </td>
-                        <td className="py-3 px-3 font-black text-white font-mono">
-                          ${site.price} <span className="text-[10px] text-gray-400 font-normal">USD</span>
+                        <td className="py-3 px-3">
+                          <div className="flex flex-col">
+                            <span className="font-black text-white font-mono text-xs">
+                              ${standardPrice} <span className="text-[10px] text-gray-400 font-normal">USD</span>
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => setPricingModalSite(site)}
+                              className="text-[10px] text-amber-400 hover:text-amber-300 underline font-semibold mt-0.5 text-left cursor-pointer"
+                            >
+                              View All 8 Rates ↗
+                            </button>
+                          </div>
                         </td>
                         <td className="py-3 px-4 text-right">
                           <button
                             type="button"
                             onClick={() => handleOrderPost(site)}
-                            className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] shadow-sm transition-all inline-flex items-center gap-1 cursor-pointer"
+                            className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-black font-black text-[11px] shadow-sm transition-all inline-flex items-center gap-1 cursor-pointer"
                           >
                             <span>Order Post</span>
                             <span>↗</span>
@@ -737,7 +888,7 @@ export default function BuyerDashboardPage() {
                   })
                 ) : (
                   <tr>
-                    <td colSpan={10} className="py-16 text-center text-gray-400">
+                    <td colSpan={13} className="py-16 text-center text-gray-400">
                       <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg">
                         🔍
                       </div>
@@ -799,6 +950,232 @@ export default function BuyerDashboardPage() {
           )}
         </div>
       </main>
+
+      {/* DETAILED PRICING MODAL (Shows all Standard, CBD, Adult, Link Insertion rates) */}
+      {pricingModalSite && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl space-y-5">
+            <div className="flex items-start justify-between gap-4 border-b border-gray-800 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <h3 className="text-lg sm:text-xl font-black text-white tracking-tight">
+                    {pricingModalSite.domain}
+                  </h3>
+                </div>
+                <p className="text-xs text-gray-400 mt-1">
+                  Ahrefs DR {pricingModalSite.dr} • Moz DA {pricingModalSite.da} • Moz PA {pricingModalSite.pa || "N/A"} • Traffic {pricingModalSite.traffic || pricingModalSite.ahrefsTraffic || "100,000+"}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPricingModalSite(null)}
+                className="w-8 h-8 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white flex items-center justify-center text-sm font-bold cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Rates Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1">
+              {/* Standard Content Placement */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">Content Placement</div>
+                  <div className="text-[10px] text-gray-400">Standard Article Post</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-emerald-400 font-mono">
+                    ${pricingModalSite.contentPlacementPrice || pricingModalSite.price || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "Content Placement", pricingModalSite.contentPlacementPrice || pricingModalSite.price || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* Link Insert Price */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">Link Insert Price</div>
+                  <div className="text-[10px] text-gray-400">Existing Post Insertion</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-cyan-400 font-mono">
+                    ${pricingModalSite.linkInsertPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "Link Insert", pricingModalSite.linkInsertPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* CBD Content Placement */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">CBD Content Placement</div>
+                  <div className="text-[10px] text-emerald-400">Cannabis / CBD Niche</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-amber-400 font-mono">
+                    ${pricingModalSite.cbdContentPlacementPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "CBD Content Placement", pricingModalSite.cbdContentPlacementPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* CBD Content Creation & Placement */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">CBD Creation & Placement</div>
+                  <div className="text-[10px] text-emerald-400">Article Writing + Post</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-amber-400 font-mono">
+                    ${pricingModalSite.cbdContentCreationPlacementPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "CBD Creation & Placement", pricingModalSite.cbdContentCreationPlacementPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* CBD Link Insert Price */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">CBD Link Insert Price</div>
+                  <div className="text-[10px] text-emerald-400">CBD Niche Edit</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-amber-400 font-mono">
+                    ${pricingModalSite.cbdLinkInsertPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "CBD Link Insert", pricingModalSite.cbdLinkInsertPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* Adult Content Placement */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">Adult Content Placement</div>
+                  <div className="text-[10px] text-rose-400">Adult / 18+ Niche</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-rose-400 font-mono">
+                    ${pricingModalSite.adultContentPlacementPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "Adult Content Placement", pricingModalSite.adultContentPlacementPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-rose-500 hover:bg-rose-400 text-white text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* Adult Content Creation & Placement */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">Adult Creation & Placement</div>
+                  <div className="text-[10px] text-rose-400">Adult Writing + Post</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-rose-400 font-mono">
+                    ${pricingModalSite.adultContentCreationPlacementPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "Adult Creation & Placement", pricingModalSite.adultContentCreationPlacementPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-rose-500 hover:bg-rose-400 text-white text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+
+              {/* Adult Link Insert Price */}
+              <div className="p-3.5 rounded-xl bg-[#070b14] border border-gray-800 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-bold text-white">Adult Link Insert Price</div>
+                  <div className="text-[10px] text-rose-400">Adult Niche Edit</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-rose-400 font-mono">
+                    ${pricingModalSite.adultLinkInsertPrice || 0}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleOrderPost(pricingModalSite, "Adult Link Insert", pricingModalSite.adultLinkInsertPrice || 0);
+                      setPricingModalSite(null);
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-rose-500 hover:bg-rose-400 text-white text-[10px] font-black cursor-pointer"
+                  >
+                    Order
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 flex justify-between items-center text-xs text-gray-400 border-t border-gray-800">
+              <span>Orders route directly to WhatsApp: <strong className="text-white">+91 8000417058</strong></span>
+              <button
+                type="button"
+                onClick={() => setPricingModalSite(null)}
+                className="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* INLINE AUTH MODAL (If unauthenticated visitor opens dashboard directly) */}
       {isAuthModalOpen && (

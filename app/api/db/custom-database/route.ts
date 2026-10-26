@@ -83,14 +83,18 @@ function saveCustomDatabase(data: CustomDatabaseRecord): void {
   }
 }
 
-// Parse raw spreadsheet rows into normalized publisher sites
+// Parse raw spreadsheet rows into normalized publisher sites with all 22 attributes
 function normalizeSpreadsheetRows(rows: any[]): any[] {
   return rows.map((row, idx) => {
-    // Find matching keys case-insensitively
+    // Find matching keys case-insensitively with flexible space/underscore support
     const getVal = (possibleKeys: string[], defaultVal: any = ""): any => {
       const rowKeys = Object.keys(row);
       for (const pk of possibleKeys) {
-        const found = rowKeys.find((rk) => rk.toLowerCase().trim() === pk.toLowerCase().trim());
+        const cleanPk = pk.toLowerCase().replace(/[^a-z0-9]/g, "");
+        const found = rowKeys.find((rk) => {
+          const cleanRk = rk.toLowerCase().replace(/[^a-z0-9]/g, "");
+          return cleanRk === cleanPk;
+        });
         if (found !== undefined && row[found] !== undefined && row[found] !== null && String(row[found]).trim() !== "") {
           return row[found];
         }
@@ -98,34 +102,96 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
       return defaultVal;
     };
 
+    const parseNum = (val: any, defaultNum: number = 0): number => {
+      if (val === undefined || val === null || val === "") return defaultNum;
+      const cleaned = String(val).replace(/[^0-9.]/g, "");
+      const num = parseFloat(cleaned);
+      return isNaN(num) ? defaultNum : Math.round(num);
+    };
+
     const rawDomain = String(getVal(["domain", "website", "publication", "site", "url"], `site-${idx + 1}.com`))
       .replace(/^https?:\/\//i, "")
       .replace(/\/.*$/, "")
       .trim();
 
-    const rawDr = parseInt(String(getVal(["dr", "ahrefs dr", "ahrefs_dr", "domain rating"], 50)), 10);
-    const rawDa = parseInt(String(getVal(["da", "moz da", "moz_da", "domain authority"], 45)), 10);
-    const rawPrice = parseInt(String(getVal(["price", "cost", "usd", "price (usd)", "rate"], 150)).replace(/[^0-9]/g, ""), 10);
-    const rawTraffic = String(getVal(["traffic", "ahrefs traffic", "monthly traffic", "organic traffic", "visits"], "50,000+"));
-    const rawNiche = String(getVal(["niche", "category", "industry", "topic"], "General"));
-    const rawCountry = String(getVal(["country", "geo", "location", "target country"], "United States (USA)"));
+    const rawDr = parseNum(getVal(["dr", "ahrefs dr", "ahrefs_dr", "domain rating"], 50), 50);
+    const rawDa = parseNum(getVal(["da", "moz da", "moz_da", "domain authority"], 45), 45);
+    const rawPa = parseNum(getVal(["pa", "moz pa", "moz_pa", "page authority"], 40), 40);
+
+    const rawTraffic = String(getVal(["traffic", "ahrefs traffic", "monthly traffic", "organic traffic", "visits", "semrush traffic"], "50,000+"));
+    const rawSemrushScore = String(getVal(["semrush score", "semrush_score", "semrush", "authority score", "as"], "—"));
+    const rawSpamScore = String(getVal(["spam score", "spam_score", "spam", "ss"], "1%"));
+    const rawCategory = String(getVal(["category", "niche", "industry", "topic"], "General"));
     const rawLinkType = String(getVal(["link type", "linktype", "link_type", "type"], "DoFollow"));
+    const rawSampleLink = String(getVal(["sample link", "sample_link", "sample url", "sample_url", "sample", "example", "live link"], ""));
+    const rawCountry = String(getVal(["country", "geo", "location", "target country"], "Worldwide"));
+
+    // Standard Pricing
+    const rawContentPlacementPrice = parseNum(getVal(["content placement price", "content_placement_price", "placement price", "guest post price", "price", "cost", "rate", "usd"], 150), 150);
+    const rawLinkInsertPrice = parseNum(getVal(["link insert price", "link_insert_price", "link insertion price", "link insertion", "link insert"], Math.round(rawContentPlacementPrice * 0.7)), Math.round(rawContentPlacementPrice * 0.7));
+
+    // CBD Pricing
+    const rawCbdPlacementPrice = parseNum(getVal(["cbd content placement price", "cbd_content_placement_price", "cbd placement price", "cbd price"], Math.round(rawContentPlacementPrice * 1.3)), Math.round(rawContentPlacementPrice * 1.3));
+    const rawCbdCreationPlacementPrice = parseNum(getVal(["cbd content creation & placement price", "cbd content creation and placement price", "cbd_content_creation_placement_price", "cbd content creation placement"], Math.round(rawCbdPlacementPrice + 40)), Math.round(rawCbdPlacementPrice + 40));
+    const rawCbdLinkInsertPrice = parseNum(getVal(["cbd link insert price", "cbd_link_insert_price", "cbd link insertion price", "cbd link insert"], Math.round(rawLinkInsertPrice * 1.25)), Math.round(rawLinkInsertPrice * 1.25));
+
+    // Adult Pricing
+    const rawAdultPlacementPrice = parseNum(getVal(["adult content placement price", "adult_content_placement_price", "adult placement price", "adult price"], Math.round(rawContentPlacementPrice * 1.5)), Math.round(rawContentPlacementPrice * 1.5));
+    const rawAdultCreationPlacementPrice = parseNum(getVal(["adult content creation & placement price", "adult content creation and placement price", "adult_content_creation_placement_price", "adult content creation placement"], Math.round(rawAdultPlacementPrice + 45)), Math.round(rawAdultPlacementPrice + 45));
+    const rawAdultLinkInsertPrice = parseNum(getVal(["adult link insert price", "adult_link_insert_price", "adult link insertion price", "adult link insert"], Math.round(rawLinkInsertPrice * 1.4)), Math.round(rawLinkInsertPrice * 1.4));
+
+    // Indexable & Sponsored
+    const indexableVal = String(getVal(["indexable", "google indexable", "indexed", "index"], "Yes"));
+    const isIndexable = !indexableVal.toLowerCase().includes("no") && !indexableVal.toLowerCase().includes("false");
+
+    const sponsoredVal = String(getVal(["sponsored", "sponsored tag", "is sponsored", "sponsored_tag"], "No"));
+    const isSponsored = sponsoredVal.toLowerCase().includes("yes") || sponsoredVal.toLowerCase().includes("true");
+
+    // Logo / Favicon URL
+    const rawLogoUrl = String(getVal(["logo_url", "logo url", "logo", "image", "icon", "favicon"], ""));
+    const resolvedLogo = rawLogoUrl.trim() ? rawLogoUrl.trim() : `https://www.google.com/s2/favicons?domain=${rawDomain}&sz=128`;
+
+    let flag = "🌐";
+    const cLower = rawCountry.toLowerCase();
+    if (cLower.includes("us") || cLower.includes("united states") || cLower.includes("america")) flag = "🇺🇸";
+    else if (cLower.includes("uk") || cLower.includes("united kingdom") || cLower.includes("britain")) flag = "🇬🇧";
+    else if (cLower.includes("canada")) flag = "🇨🇦";
+    else if (cLower.includes("australia")) flag = "🇦🇺";
+    else if (cLower.includes("india")) flag = "🇮🇳";
+    else if (cLower.includes("germany")) flag = "🇩🇪";
+    else if (cLower.includes("france")) flag = "🇫🇷";
 
     return {
       id: `custom-pub-${idx + 1}-${Date.now().toString(36)}`,
       domain: rawDomain,
-      niche: rawNiche,
-      language: "English",
+      da: Math.min(100, Math.max(1, rawDa)),
+      pa: Math.min(100, Math.max(1, rawPa)),
+      dr: Math.min(100, Math.max(1, rawDr)),
+      traffic: rawTraffic.includes("+") || rawTraffic.includes(",") || rawTraffic.toLowerCase().includes("traffic") ? rawTraffic : `${Number(rawTraffic).toLocaleString()}+`,
+      ahrefsTraffic: rawTraffic,
+      semrushScore: rawSemrushScore,
+      spamScore: rawSpamScore.includes("%") ? rawSpamScore : `${rawSpamScore}%`,
+      category: rawCategory,
+      niche: rawCategory,
+      linkType: rawLinkType.toLowerCase().includes("no") ? "NoFollow" : rawLinkType.toLowerCase().includes("context") ? "Contextual" : "DoFollow",
+      sampleLink: rawSampleLink.startsWith("http") ? rawSampleLink : (rawSampleLink ? `https://${rawSampleLink}` : ""),
       country: rawCountry,
-      countryFlag: rawCountry.includes("UK") ? "🇬🇧" : rawCountry.includes("Canada") ? "🇨🇦" : rawCountry.includes("India") ? "🇮🇳" : "🇺🇸",
-      dr: isNaN(rawDr) ? 50 : Math.min(100, Math.max(1, rawDr)),
-      da: isNaN(rawDa) ? 45 : Math.min(100, Math.max(1, rawDa)),
-      ahrefsTraffic: rawTraffic.includes("+") || rawTraffic.includes(",") ? rawTraffic : `${Number(rawTraffic).toLocaleString()}+`,
-      linkType: rawLinkType.toLowerCase().includes("no") ? "NoFollow" : "DoFollow",
-      price: isNaN(rawPrice) || rawPrice <= 0 ? 150 : rawPrice,
+      countryFlag: flag,
+      language: "English",
+      contentPlacementPrice: rawContentPlacementPrice,
+      price: rawContentPlacementPrice,
+      linkInsertPrice: rawLinkInsertPrice,
+      cbdContentPlacementPrice: rawCbdPlacementPrice,
+      cbdContentCreationPlacementPrice: rawCbdCreationPlacementPrice,
+      cbdLinkInsertPrice: rawCbdLinkInsertPrice,
+      adultContentPlacementPrice: rawAdultPlacementPrice,
+      adultContentCreationPlacementPrice: rawAdultCreationPlacementPrice,
+      adultLinkInsertPrice: rawAdultLinkInsertPrice,
+      indexable: isIndexable,
+      sponsored: isSponsored,
+      sponsoredTag: isSponsored,
+      logoUrl: resolvedLogo,
       tatDays: 2,
-      indexable: true,
-      sponsoredTag: false,
       addedByAdmin: true,
     };
   }).filter((s) => s.domain && s.domain !== "site-1.com" || rows.length <= 1);
