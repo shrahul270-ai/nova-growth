@@ -148,9 +148,9 @@ export async function GET(req: NextRequest) {
     const allSites = catalog.length > 0 ? catalog : customDb.customSites || [];
     const directUrl = "/nova_growth_40000_guest_posts.xlsx";
 
-    // If no pageParam is passed, return lightweight 100-item preview (for backwards compatibility)
+    // If no pageParam is passed, return lightweight 30-item curated preview
     if (!pageParam) {
-      const safeSites = allSites.slice(0, 100);
+      const safeSites = allSites.slice(0, 30);
       return NextResponse.json({
         success: true,
         vercelBlobUrl: directUrl,

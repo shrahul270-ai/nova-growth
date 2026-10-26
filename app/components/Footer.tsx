@@ -37,11 +37,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#ffffff] text-[#334155] border-t border-gray-200/90 font-sans z-10 overflow-hidden">
-      {/* Floating Free AI Audit Right Tab (Quick conversion on Desktop/Tablet, hidden on mobile to prevent blocking touches) */}
+    <footer className="relative bg-[#070b14] text-gray-400 border-t border-gray-800 font-sans z-10 overflow-hidden">
+      {/* Floating Free AI Audit Right Tab */}
       <Link
         href="/audit"
-        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-gradient-to-b from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white py-3.5 px-2 rounded-l-xl shadow-2xl items-center gap-1.5 transition-all text-xs font-black tracking-wider uppercase [writing-mode:vertical-rl] rotate-180 hover:px-2.5 cursor-pointer border-l border-t border-b border-blue-400/30"
+        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-gradient-to-b from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-3.5 px-2 rounded-l-xl shadow-2xl items-center gap-1.5 transition-all text-xs font-black tracking-wider uppercase [writing-mode:vertical-rl] rotate-180 hover:px-2.5 cursor-pointer border-l border-t border-b border-blue-400/30"
         title="Analyze your website speed, ranking & SEO score for free"
       >
         <span className="rotate-90 text-amber-300 text-sm">✦</span>
@@ -56,7 +56,7 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-4">
             {/* Logo */}
             <Link href="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#0ea5e9] flex items-center justify-center shadow-md shadow-blue-500/10 group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0b1220] via-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform border border-blue-400/30">
                 <svg
                   className="w-5 h-5 text-white"
                   viewBox="0 0 24 24"
@@ -70,22 +70,22 @@ export default function Footer() {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-black text-[#0f172a] tracking-tight leading-none">
-                  NOVA <span className="text-[#2563eb]">GROWTH</span>
+                <span className="text-xl font-black text-white tracking-tight leading-none">
+                  NOVA <span className="text-blue-500">GROWTH</span>
                 </span>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">
                   Digital Marketing &amp; SEO Agency
                 </span>
               </div>
             </Link>
 
             {/* Agency Positioning Headline */}
-            <h3 className="text-sm font-extrabold text-[#0f172a] tracking-tight pt-1">
+            <h3 className="text-sm font-extrabold text-white tracking-tight pt-1">
               Top #1 SEO, Guest Post &amp; Digital Growth Agency
             </h3>
 
             {/* Accurate Agency Description */}
-            <p className="text-[12.5px] leading-relaxed text-[#64748b]">
+            <p className="text-[12.5px] leading-relaxed text-gray-400">
               Nova Growth is an elite growth agency helping US, UK &amp; global businesses
               scale organic search revenue. Through manual high-DA guest posting, technical
               Core Web Vitals optimization, and high-converting Next.js web engineering,
@@ -94,36 +94,36 @@ export default function Footer() {
 
             {/* Direct Contact Information */}
             <div className="pt-2">
-              <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-[#0f172a] mb-2.5">
+              <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-gray-300 mb-2.5">
                 CONTACT INFORMATION
               </h4>
-              <ul className="space-y-2 text-[12.5px] text-[#475569]">
+              <ul className="space-y-2 text-[12.5px] text-gray-300">
                 {/* Email */}
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#2563eb] text-sm shrink-0">✉</span>
+                  <span className="text-blue-400 text-sm shrink-0">✉</span>
                   <a
                     href="mailto:shrahul270@gmail.com"
-                    className="hover:text-[#2563eb] transition-colors font-medium break-all"
+                    className="hover:text-blue-400 text-gray-300 transition-colors font-medium break-all"
                   >
                     shrahul270@gmail.com
                   </a>
                 </li>
                 {/* WhatsApp & Call */}
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#2563eb] text-sm shrink-0">💬</span>
+                  <span className="text-emerald-400 text-sm shrink-0">💬</span>
                   <a
                     href="https://wa.me/918000417058"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#2563eb] transition-colors font-medium"
+                    className="hover:text-emerald-400 text-gray-300 transition-colors font-medium"
                   >
                     +91 80004 17058 (WhatsApp &amp; Direct)
                   </a>
                 </li>
                 {/* Global Delivery Hub */}
                 <li className="flex items-start gap-2.5">
-                  <span className="text-[#2563eb] text-sm shrink-0 mt-0.5">📍</span>
-                  <span>Serving US, UK, Australia, EU &amp; Worldwide Clients</span>
+                  <span className="text-blue-400 text-sm shrink-0 mt-0.5">📍</span>
+                  <span className="text-gray-400">Serving US, UK, Australia, EU &amp; Worldwide Clients</span>
                 </li>
               </ul>
             </div>
@@ -131,62 +131,62 @@ export default function Footer() {
 
           {/* COLUMN 2: SERVICES & SOLUTIONS (span 3) */}
           <div className="lg:col-span-3 space-y-3.5">
-            <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-[#0f172a]">
+            <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-white">
               SOLUTIONS &amp; SERVICES
             </h4>
-            <ul className="space-y-2.5 text-[13px] text-[#475569]">
+            <ul className="space-y-2.5 text-[13px] text-gray-300">
               <li>
                 <Link
                   href="/guest-posting"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>High-DA Guest Posting</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/services"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>Organic Search Engine Optimization</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/audit"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>Free Instant Website AI Audit</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/web-development-uk"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>Next.js Web Development</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/seo-services-usa"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>Local &amp; E-Commerce SEO</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/services"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>High-ROI Link Building</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">⌄</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">⌄</span>
                 </Link>
               </li>
             </ul>
@@ -194,32 +194,32 @@ export default function Footer() {
 
           {/* COLUMN 3: AGENCY & SUPPORT (span 2) */}
           <div className="lg:col-span-2 space-y-3.5">
-            <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-[#0f172a]">
+            <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-white">
               SUPPORT &amp; PAGES
             </h4>
-            <ul className="space-y-2.5 text-[13px] text-[#475569]">
+            <ul className="space-y-2.5 text-[13px] text-gray-300">
               <li>
-                <Link href="/about" className="hover:text-[#2563eb] transition-colors">
+                <Link href="/about" className="hover:text-blue-400 transition-colors">
                   About Agency
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-[#2563eb] transition-colors">
+                <Link href="/projects" className="hover:text-blue-400 transition-colors">
                   Case Studies &amp; Results
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-[#2563eb] transition-colors">
+                <Link href="/blog" className="hover:text-blue-400 transition-colors">
                   Growth Playbooks &amp; Blog
                 </Link>
               </li>
               <li>
-                <Link href="/pay" className="hover:text-[#2563eb] transition-colors">
+                <Link href="/pay" className="hover:text-blue-400 transition-colors">
                   Pay Invoice / Retainer
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#2563eb] transition-colors">
+                <Link href="/contact" className="hover:text-blue-400 transition-colors">
                   Contact Us
                 </Link>
               </li>
@@ -228,10 +228,10 @@ export default function Footer() {
                   href="https://calendly.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#2563eb] transition-colors flex items-center justify-between group"
+                  className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
                   <span>Schedule Strategy Call</span>
-                  <span className="text-gray-400 group-hover:text-[#2563eb] text-xs">↗</span>
+                  <span className="text-gray-600 group-hover:text-blue-400 text-xs">↗</span>
                 </a>
               </li>
               <li>
@@ -242,10 +242,10 @@ export default function Footer() {
                       window.dispatchEvent(new Event("open-cookie-settings"));
                     }
                   }}
-                  className="hover:text-[#2563eb] transition-colors text-left cursor-pointer flex items-center gap-1.5"
+                  className="hover:text-blue-400 transition-colors text-left cursor-pointer flex items-center gap-1.5"
                 >
                   <span>Cookie Preferences</span>
-                  <span className="text-[11px] text-amber-500">🍪</span>
+                  <span className="text-[11px] text-amber-400">🍪</span>
                 </button>
               </li>
             </ul>
@@ -255,17 +255,17 @@ export default function Footer() {
           <div className="lg:col-span-3 space-y-5">
             {/* Quick Packages */}
             <div>
-              <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-[#0f172a] mb-2">
+              <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-white mb-2">
                 QUICK LINKS
               </h4>
-              <ul className="space-y-1.5 text-[13px] text-[#475569]">
+              <ul className="space-y-1.5 text-[13px] text-gray-300">
                 <li>
-                  <Link href="/guest-posting" className="hover:text-[#2563eb] transition-colors">
+                  <Link href="/guest-posting" className="hover:text-blue-400 transition-colors">
                     Guest Posting Packages
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="hover:text-[#2563eb] transition-colors">
+                  <Link href="/services" className="hover:text-blue-400 transition-colors">
                     Link Building Packages
                   </Link>
                 </li>
@@ -274,10 +274,10 @@ export default function Footer() {
 
             {/* Newsletter */}
             <div>
-              <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-[#0f172a] mb-1">
+              <h4 className="text-[12px] font-extrabold uppercase tracking-wider text-white mb-1">
                 NEWSLETTER
               </h4>
-              <p className="text-[11.5px] text-[#64748b] mb-2.5">
+              <p className="text-[11.5px] text-gray-400 mb-2.5">
                 Get weekly actionable SEO strategies, ranking tips, and high-DA link opportunities.
               </p>
               <form onSubmit={handleSubscribe} className="space-y-2">
@@ -287,12 +287,12 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-[#3b82f6] text-gray-800 bg-[#f8fafc]"
+                  className="w-full px-3 py-2 text-xs border border-gray-800 rounded-lg focus:outline-none focus:border-blue-500 text-white bg-[#0b1220] placeholder-gray-500"
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-white font-bold text-xs py-2 px-4 rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-sm cursor-pointer disabled:opacity-70"
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs py-2 px-4 rounded-lg transition-all flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/20 cursor-pointer disabled:opacity-70"
                 >
                   {subscribed ? (
                     <span>✓ Subscribed to Nova Growth!</span>
@@ -307,21 +307,21 @@ export default function Footer() {
             </div>
 
             {/* Instant Free SEO Audit Card */}
-            <div className="bg-[#f8fafc] border border-blue-100 rounded-xl p-3 space-y-1.5">
+            <div className="bg-[#0b1220] border border-gray-800 rounded-xl p-3.5 space-y-2 shadow-lg">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-extrabold text-[#0f172a] uppercase tracking-wider">
+                <span className="text-[11px] font-extrabold text-white uppercase tracking-wider">
                   ⚡ Free Instant SEO Audit
                 </span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">
+                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold px-1.5 py-0.5 rounded">
                   Live
                 </span>
               </div>
-              <p className="text-[11px] text-[#64748b]">
+              <p className="text-[11px] text-gray-400">
                 Check your website speed, Core Web Vitals, and search visibility in 10 seconds.
               </p>
               <Link
                 href="/audit"
-                className="inline-block w-full text-center py-1.5 bg-[#0f172a] hover:bg-gray-800 text-white rounded-lg text-[11px] font-bold transition-colors cursor-pointer"
+                className="inline-block w-full text-center py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg text-[11px] font-bold transition-all shadow-md shadow-blue-500/20 cursor-pointer"
               >
                 Run Free Website Audit ↗
               </Link>
@@ -332,53 +332,53 @@ export default function Footer() {
         </div>
 
         {/* BOTTOM STRIP: PAYMENT ACCEPTED & SOCIAL ICONS */}
-        <div className="mt-12 pt-6 border-t border-gray-200/80 flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* We Accept Payment Icons (Real Nova Growth Supported Methods) */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="font-bold text-gray-700 text-xs mr-1">We accept:</span>
+        <div className="mt-12 pt-6 border-t border-gray-800/80 flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* We Accept Payment Icons */}
+          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
+            <span className="font-bold text-gray-300 text-xs mr-1">We accept:</span>
             {/* Stripe */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[11px] font-bold text-[#635bff]">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[11px] font-bold text-[#7a73ff]">
               stripe
             </span>
             {/* PayPal */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[11px] font-bold text-[#003087]">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[11px] font-bold text-[#3b82f6]">
               PayPal
             </span>
             {/* Wise */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[11px] font-bold text-[#00b9ff]">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[11px] font-bold text-[#38bdf8]">
               Wise
             </span>
             {/* Wire Transfer */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[10px] font-bold text-gray-700">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-bold text-gray-300">
               Wire Transfer
             </span>
             {/* VISA */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[11px] font-black text-[#1a1f71] italic">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[11px] font-black text-blue-400 italic">
               VISA
             </span>
             {/* Mastercard */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 flex items-center gap-0.5">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 flex items-center gap-0.5">
               <span className="w-2.5 h-2.5 rounded-full bg-[#eb001b] inline-block -mr-1" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#f79e1b] inline-block opacity-85" />
             </span>
             {/* UPI */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[10px] font-black text-[#5f259f]">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-black text-purple-400">
               UPI
             </span>
             {/* Crypto / USDT */}
-            <span className="px-2 py-0.5 bg-[#f1f5f9] rounded border border-gray-200 text-[10px] font-bold text-[#26a17b] flex items-center gap-0.5">
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-bold text-emerald-400 flex items-center gap-0.5">
               <span>₮</span> USDT
             </span>
           </div>
 
-          {/* Social Icons (Shifted left away from floating connect button) */}
+          {/* Social Icons */}
           <div className="flex flex-wrap items-center gap-2 mr-0 sm:mr-24 lg:mr-32">
             {/* WhatsApp */}
             <a
               href="https://wa.me/918000417058"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-7 h-7 rounded-full border border-gray-300 hover:border-[#25d366] hover:bg-[#25d366] hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs"
+              className="w-7 h-7 rounded-full border border-gray-800 bg-[#0b1220] hover:border-[#25d366] hover:bg-[#25d366]/20 hover:text-white text-gray-400 flex items-center justify-center transition-all text-xs"
               aria-label="Direct WhatsApp Support"
               title="WhatsApp Nova Growth"
             >
@@ -389,7 +389,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-7 h-7 rounded-full border border-gray-300 hover:border-[#0a66c2] hover:bg-[#0a66c2] hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs font-bold"
+              className="w-7 h-7 rounded-full border border-gray-800 bg-[#0b1220] hover:border-[#0a66c2] hover:bg-[#0a66c2]/20 hover:text-white text-gray-400 flex items-center justify-center transition-all text-xs font-bold"
               aria-label="LinkedIn"
               title="LinkedIn"
             >
@@ -400,7 +400,7 @@ export default function Footer() {
               href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-7 h-7 rounded-full border border-gray-300 hover:border-black hover:bg-black hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs font-bold"
+              className="w-7 h-7 rounded-full border border-gray-800 bg-[#0b1220] hover:border-white hover:bg-white/10 hover:text-white text-gray-400 flex items-center justify-center transition-all text-xs font-bold"
               aria-label="X Twitter"
               title="X"
             >
@@ -413,7 +413,7 @@ export default function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-7 h-7 rounded-full border border-gray-300 hover:border-[#e4405f] hover:bg-[#e4405f] hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs"
+              className="w-7 h-7 rounded-full border border-gray-800 bg-[#0b1220] hover:border-[#e4405f] hover:bg-[#e4405f]/20 hover:text-white text-gray-400 flex items-center justify-center transition-all text-xs"
               aria-label="Instagram"
               title="Instagram"
             >
@@ -424,7 +424,7 @@ export default function Footer() {
             {/* Email Contact */}
             <a
               href="mailto:shrahul270@gmail.com"
-              className="w-7 h-7 rounded-full border border-gray-300 hover:border-[#ea4335] hover:bg-[#ea4335] hover:text-white text-gray-600 flex items-center justify-center transition-all text-xs"
+              className="w-7 h-7 rounded-full border border-gray-800 bg-[#0b1220] hover:border-[#ea4335] hover:bg-[#ea4335]/20 hover:text-white text-gray-400 flex items-center justify-center transition-all text-xs"
               aria-label="Direct Email"
               title="Email Nova Growth"
             >
@@ -434,10 +434,10 @@ export default function Footer() {
         </div>
 
         {/* Copyright notice & Privacy / Cookies */}
-        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-100 pt-4 sm:pr-24 lg:pr-32">
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-800/80 pt-4 sm:pr-24 lg:pr-32">
           <span>&copy; 2026 Nova Growth. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.</span>
           <div className="flex items-center gap-3 text-[11px]">
-            <Link href="/about" className="hover:text-gray-600 transition-colors">
+            <Link href="/about" className="hover:text-gray-300 transition-colors">
               Privacy &amp; Terms
             </Link>
             <span>•</span>
@@ -448,7 +448,7 @@ export default function Footer() {
                   window.dispatchEvent(new Event("open-cookie-settings"));
                 }
               }}
-              className="hover:text-blue-600 transition-colors cursor-pointer font-medium"
+              className="hover:text-blue-400 text-gray-400 transition-colors cursor-pointer font-medium"
             >
               🍪 Cookie Settings
             </button>

@@ -729,12 +729,12 @@ export default function GuestPostMarketplace() {
     return () => window.removeEventListener("publishers-updated", syncCustom);
   }, []);
 
-  // Combined Marketplace publishers: Prioritize user's real websites if added!
+  // Combined Marketplace publishers: Prioritize user's real websites if added (Strict 30-item showcase)
   const allPublishers: PublisherSite[] = useMemo(() => {
     if (customPublishers.length > 0) {
-      return customPublishers;
+      return customPublishers.slice(0, 30);
     }
-    return initialPublishers;
+    return initialPublishers.slice(0, 30);
   }, [customPublishers]);
 
   // Download 40,000+ guest post database in Excel format (Secure stream)
@@ -1469,7 +1469,7 @@ export default function GuestPostMarketplace() {
 
       {/* PUBLISHER INVENTORY TABLE (Clean layout without TAT column) */}
       <div className="bg-[#0b1220] border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto [scrollbar-width:thin] [scrollbar-color:#374151_transparent]">
           <table className="w-full text-left text-xs whitespace-nowrap">
             <thead className="bg-[#070b14] border-b border-gray-800 text-gray-400 uppercase text-[10px] tracking-wider font-bold">
               <tr>
@@ -1632,15 +1632,19 @@ export default function GuestPostMarketplace() {
         )}
 
         {/* Footer Bar of Table: Bulk Inquiries & Pagination note */}
-        <div className="p-3.5 bg-[#070b14] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
-          <div>
-            Showing <strong className="text-white">{isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}</strong> of {filteredSites.length} filtered publishers.
+        <div className="p-4 bg-[#0b1220] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>
+              Showing <strong className="text-white font-mono">{isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}</strong> of{" "}
+              <strong className="text-emerald-400 font-mono">{filteredSites.length}</strong> verified publications
+            </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 text-xs">
             <span>Need a custom publisher not in this list?</span>
             <Link
               href="/contact"
-              className="text-amber-400 hover:text-amber-300 font-bold underline underline-offset-2"
+              className="text-amber-400 hover:text-amber-300 font-bold underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors"
             >
               Request Custom Manual Outreach ↗
             </Link>
