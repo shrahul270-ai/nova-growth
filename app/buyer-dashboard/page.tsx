@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import { INITIAL_PUBLISHERS } from "../data/publishersData";
+import { loadSitesFromIndexedDB, saveSitesToIndexedDB } from "@/lib/idb";
 
 interface BuyerSession {
   email: string;
@@ -131,15 +132,21 @@ export default function BuyerDashboardPage() {
   const fetchWebsites = async () => {
     setIsLoadingDb(true);
 
-    // 1. Immediately read cached real sites from localStorage so user never sees empty screen
+    // 1. Immediately read cached real sites from IndexedDB / localStorage
     let localList: RealWebsiteSite[] = [];
     try {
-      const cached = localStorage.getItem("nova_growth_real_sites_v1");
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          localList = parsed;
-          setRealWebsites(parsed);
+      const idbList = await loadSitesFromIndexedDB();
+      if (Array.isArray(idbList) && idbList.length > 0) {
+        localList = idbList;
+        setRealWebsites(idbList);
+      } else {
+        const cached = localStorage.getItem("nova_growth_real_sites_v1");
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            localList = parsed;
+            setRealWebsites(parsed);
+          }
         }
       }
     } catch {}
@@ -164,8 +171,9 @@ export default function BuyerDashboardPage() {
         const mergedList = Array.from(mergedMap.values());
         if (mergedList.length > 0) {
           setRealWebsites(mergedList);
+          await saveSitesToIndexedDB(mergedList);
           try {
-            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList));
+            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList.slice(0, 500)));
           } catch {}
         }
       }

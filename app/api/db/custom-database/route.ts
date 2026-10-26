@@ -268,6 +268,70 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Action: Batch Chunked Upload for Excel / CSV (Solves 413 Request Entity Too Large)
+    if (action === "batch_upload" && Array.isArray(body.batch)) {
+      const TMP_STAGING_FILE = path.join(os.tmpdir(), "nova_growth_staging_batch.json");
+      const normalizedBatch = normalizeSpreadsheetRows(body.batch);
+
+      let staging: any[] = [];
+      if (!body.isFirst) {
+        try {
+          if (fs.existsSync(TMP_STAGING_FILE)) {
+            staging = JSON.parse(fs.readFileSync(TMP_STAGING_FILE, "utf-8"));
+          }
+        } catch {}
+      }
+
+      staging.push(...normalizedBatch);
+
+      if (body.isLast) {
+        // Final batch received! Deduplicate by domain and save full database
+        const map = new Map<string, any>();
+        staging.forEach((s) => {
+          if (s && s.domain) {
+            map.set(s.domain.toLowerCase(), s);
+          }
+        });
+        const finalSites = Array.from(map.values());
+
+        const updatedData: CustomDatabaseRecord = {
+          ...current,
+          customSites: finalSites,
+          updatedAt: new Date().toISOString(),
+          sourceType: "file_upload",
+        };
+        saveCustomDatabase(updatedData);
+
+        // Clean up staging file
+        try {
+          if (fs.existsSync(TMP_STAGING_FILE)) {
+            fs.unlinkSync(TMP_STAGING_FILE);
+          }
+        } catch {}
+
+        return NextResponse.json({
+          success: true,
+          isComplete: true,
+          totalCount: finalSites.length,
+          customSites: finalSites,
+          message: `Successfully imported ${finalSites.length} websites!`,
+        });
+      } else {
+        // Save intermediate chunk
+        try {
+          fs.writeFileSync(TMP_STAGING_FILE, JSON.stringify(staging), "utf-8");
+        } catch {}
+
+        return NextResponse.json({
+          success: true,
+          isComplete: false,
+          currentCount: staging.length,
+          batchIndex: body.batchIndex,
+          totalBatches: body.totalBatches,
+        });
+      }
+    }
+
     // Action 2: Add a single website (Appends to existing sites, never deletes prior entries!)
     if (action === "add_single" && body.site) {
       const singleNormalized = normalizeSpreadsheetRows([body.site])[0];

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
+import { saveSitesToIndexedDB, loadSitesFromIndexedDB } from "@/lib/idb";
 
 export interface RealWebsiteSite {
   id?: string;
@@ -41,6 +42,7 @@ export default function PrivateUploadDatabasePage() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [statusMsg, setStatusMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"add_single" | "upload_file" | "vercel_link">("add_single");
+  const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number; percent: number } | null>(null);
 
   // Comprehensive 22-Field Single Site Form State (All default clean & empty)
   const [domain, setDomain] = useState("");
@@ -104,16 +106,22 @@ export default function PrivateUploadDatabasePage() {
     setLogoUrl("");
   };
 
-  // Load current saved database on mount (Merges localStorage + server so no entry is lost)
+  // Load current saved database on mount (Merges IndexedDB + localStorage + server so no entry is lost)
   const loadDatabase = async () => {
     let localList: RealWebsiteSite[] = [];
     try {
-      const cached = localStorage.getItem("nova_growth_real_sites_v1");
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          localList = parsed;
-          setRealSites(parsed);
+      const idbList = await loadSitesFromIndexedDB();
+      if (Array.isArray(idbList) && idbList.length > 0) {
+        localList = idbList;
+        setRealSites(idbList);
+      } else {
+        const cached = localStorage.getItem("nova_growth_real_sites_v1");
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            localList = parsed;
+            setRealSites(parsed);
+          }
         }
       }
     } catch {}
@@ -138,12 +146,13 @@ export default function PrivateUploadDatabasePage() {
 
         if (mergedList.length > 0) {
           setRealSites(mergedList);
+          await saveSitesToIndexedDB(mergedList);
           try {
-            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList));
+            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList.slice(0, 500)));
           } catch {}
 
           // If local list had more sites than server (e.g. serverless cold start), sync server in background
-          if (mergedList.length > serverList.length) {
+          if (mergedList.length > serverList.length && mergedList.length <= 150) {
             fetch("/api/db/custom-database", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -161,13 +170,14 @@ export default function PrivateUploadDatabasePage() {
     loadDatabase();
   }, []);
 
-  // 1. Upload Excel / CSV directly from computer (All 22 columns supported)
+  // 1. Upload Excel / CSV directly from computer (All 22 columns supported, chunked in batches to prevent 413 error)
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setIsSyncing(true);
     setStatusMsg(null);
+    setUploadProgress({ current: 0, total: 100, percent: 0 });
 
     const reader = new FileReader();
     reader.onload = async (evt) => {
@@ -181,34 +191,76 @@ export default function PrivateUploadDatabasePage() {
         if (!rawJsonRows || rawJsonRows.length === 0) {
           setStatusMsg({ type: "error", text: "Selected file is empty or invalid format." });
           setIsSyncing(false);
+          setUploadProgress(null);
           return;
         }
 
-        const res = await fetch("/api/db/custom-database", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ customSites: rawJsonRows }),
-        });
+        const BATCH_SIZE = 150;
+        const totalRows = rawJsonRows.length;
+        const totalBatches = Math.ceil(totalRows / BATCH_SIZE);
+        let finalSavedSites: any[] = [];
 
-        const data = await res.json();
-        if (data.success) {
-          setStatusMsg({
-            type: "success",
-            text: `✅ Success! ${data.totalCount} real websites imported from "${file.name}" with all 22 attributes!`,
+        for (let i = 0; i < totalBatches; i++) {
+          const start = i * BATCH_SIZE;
+          const end = Math.min(start + BATCH_SIZE, totalRows);
+          const batch = rawJsonRows.slice(start, end);
+          const isFirst = i === 0;
+          const isLast = i === totalBatches - 1;
+
+          setUploadProgress({
+            current: end,
+            total: totalRows,
+            percent: Math.round((end / totalRows) * 100),
           });
-          if (Array.isArray(data.customSites)) {
-            setRealSites(data.customSites);
-            try {
-              localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(data.customSites));
-            } catch {}
+
+          const res = await fetch("/api/db/custom-database", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "batch_upload",
+              batch,
+              isFirst,
+              isLast,
+              batchIndex: i + 1,
+              totalBatches,
+            }),
+          });
+
+          if (!res.ok) {
+            const errText = await res.text();
+            throw new Error(`Upload failed at row ${start + 1}-${end} (Status ${res.status}): ${errText.slice(0, 100)}`);
           }
-        } else {
-          setStatusMsg({ type: "error", text: data.error || "Failed to save spreadsheet data." });
+
+          const data = await res.json();
+          if (!data.success) {
+            throw new Error(data.error || "Batch upload failed");
+          }
+
+          if (isLast && Array.isArray(data.customSites)) {
+            finalSavedSites = data.customSites;
+          }
         }
+
+        if (finalSavedSites.length > 0) {
+          setRealSites(finalSavedSites);
+          await saveSitesToIndexedDB(finalSavedSites);
+          try {
+            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(finalSavedSites.slice(0, 500)));
+          } catch {}
+        } else {
+          loadDatabase();
+        }
+
+        setStatusMsg({
+          type: "success",
+          text: `✅ Success! All ${totalRows.toLocaleString()} websites from "${file.name}" have been imported successfully with all 22 attributes!`,
+        });
       } catch (err: any) {
-        setStatusMsg({ type: "error", text: `Error reading file: ${err.message}` });
+        console.error("Upload error:", err);
+        setStatusMsg({ type: "error", text: `Error importing file: ${err.message}` });
       } finally {
         setIsSyncing(false);
+        setUploadProgress(null);
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
     };
@@ -956,9 +1008,24 @@ export default function PrivateUploadDatabasePage() {
                 className="block w-full text-xs text-gray-300 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-gradient-to-r file:from-purple-600 file:to-indigo-600 file:text-white hover:file:from-purple-500 hover:file:to-indigo-500 cursor-pointer pt-2"
               />
 
-              {isSyncing && (
-                <div className="text-xs text-purple-400 font-bold animate-pulse">
-                  Importing your spreadsheet... Please wait.
+              {isSyncing && uploadProgress && (
+                <div className="space-y-2 p-4 bg-gray-900 border border-purple-500/40 rounded-2xl animate-in fade-in">
+                  <div className="flex justify-between text-xs text-gray-200 font-bold">
+                    <span className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping" />
+                      <span>Importing: {uploadProgress.current.toLocaleString()} of {uploadProgress.total.toLocaleString()} websites</span>
+                    </span>
+                    <span className="text-purple-400 font-mono font-black">{uploadProgress.percent}%</span>
+                  </div>
+                  <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden p-0.5 border border-gray-700">
+                    <div
+                      className="bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-400 h-2 rounded-full transition-all duration-150"
+                      style={{ width: `${uploadProgress.percent}%` }}
+                    />
+                  </div>
+                  <p className="text-[11px] text-gray-400">
+                    Processing your spreadsheet safely in small chunks to prevent any size or network limit...
+                  </p>
                 </div>
               )}
             </div>
