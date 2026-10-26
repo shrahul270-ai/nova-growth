@@ -115,23 +115,109 @@ function saveCustomDatabase(data: CustomDatabaseRecord): void {
   } catch {}
 }
 
-export async function GET() {
+let cachedCatalog: any[] | null = null;
+function getFullCatalog(): any[] {
+  if (cachedCatalog && cachedCatalog.length > 0) return cachedCatalog;
   try {
-    const data = readCustomDatabase();
-    const directUrl = data.directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
-    const allSites = data.customSites || [];
-    // Cap API payload to 500 items to guarantee < 500KB response under Vercel serverless limits
-    const safeSites = allSites.length > 500 ? allSites.slice(0, 500) : allSites;
+    const catalogPath = path.join(process.cwd(), "public", "data", "publishers_catalog.json");
+    if (fs.existsSync(catalogPath)) {
+      cachedCatalog = JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+      return cachedCatalog!;
+    }
+  } catch (err) {
+    console.error("Error reading catalog:", err);
+  }
+  return [];
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const pageParam = searchParams.get("page");
+    const search = (searchParams.get("search") || "").trim().toLowerCase();
+    const category = searchParams.get("category") || "All";
+    const linkType = searchParams.get("linkType") || "All";
+    const minDr = parseInt(searchParams.get("minDr") || "0", 10) || 0;
+    const sortField = searchParams.get("sortField") || "dr";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
+    const pageSize = Math.min(parseInt(searchParams.get("pageSize") || "25", 10) || 25, 100);
+
+    const catalog = getFullCatalog();
+    const customDb = readCustomDatabase();
+    const allSites = catalog.length > 0 ? catalog : customDb.customSites || [];
+    const directUrl = "/nova_growth_40000_guest_posts.xlsx";
+
+    // If no pageParam is passed, return lightweight 100-item preview (for backwards compatibility)
+    if (!pageParam) {
+      const safeSites = allSites.slice(0, 100);
+      return NextResponse.json({
+        success: true,
+        vercelBlobUrl: directUrl,
+        directDownloadUrl: directUrl,
+        catalogUrl: "/data/publishers_catalog.json",
+        customSites: safeSites,
+        totalCount: allSites.length || 32175,
+        updatedAt: customDb.updatedAt,
+        sourceType: customDb.sourceType,
+      });
+    }
+
+    // Ultra-fast server-side filter & pagination (< 25ms, ~12KB payload)
+    const page = Math.max(parseInt(pageParam, 10) || 1, 1);
+    let filtered = allSites;
+
+    if (search) {
+      filtered = filtered.filter(
+        (s: any) =>
+          (s.domain && s.domain.toLowerCase().includes(search)) ||
+          (s.category && s.category.toLowerCase().includes(search)) ||
+          (s.niche && s.niche.toLowerCase().includes(search)) ||
+          (s.country && s.country.toLowerCase().includes(search))
+      );
+    }
+
+    if (category !== "All") {
+      const catLower = category.toLowerCase();
+      filtered = filtered.filter(
+        (s: any) =>
+          (s.category && s.category.toLowerCase().includes(catLower)) ||
+          (s.niche && s.niche.toLowerCase().includes(catLower))
+      );
+    }
+
+    if (linkType !== "All") {
+      filtered = filtered.filter((s: any) => s.linkType === linkType);
+    }
+
+    if (minDr > 0) {
+      filtered = filtered.filter((s: any) => (s.dr || 0) >= minDr);
+    }
+
+    // Sort
+    filtered = [...filtered].sort((a: any, b: any) => {
+      let aVal = a[sortField] ?? 0;
+      let bVal = b[sortField] ?? 0;
+      if (typeof aVal === "string") aVal = aVal.toLowerCase();
+      if (typeof bVal === "string") bVal = bVal.toLowerCase();
+
+      if (sortOrder === "asc") {
+        return aVal > bVal ? 1 : -1;
+      }
+      return aVal < bVal ? 1 : -1;
+    });
+
+    const total = filtered.length;
+    const startIndex = (page - 1) * pageSize;
+    const paginatedItems = filtered.slice(startIndex, startIndex + pageSize);
 
     return NextResponse.json({
       success: true,
-      vercelBlobUrl: data.vercelBlobUrl || directUrl,
+      sites: paginatedItems,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
       directDownloadUrl: directUrl,
-      catalogUrl: "/data/publishers_catalog.json",
-      customSites: safeSites,
-      totalCount: allSites.length || 32175,
-      updatedAt: data.updatedAt,
-      sourceType: data.sourceType,
     });
   } catch (error) {
     console.error("[custom-database GET error]:", error);

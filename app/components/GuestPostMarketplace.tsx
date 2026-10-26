@@ -708,19 +708,6 @@ export default function GuestPostMarketplace() {
 
   useEffect(() => {
     const syncCustom = async () => {
-      // 1. Fetch static 40,000 real sites catalog (Loads on all phones & browsers)
-      try {
-        const catRes = await fetch("/data/publishers_catalog.json");
-        if (catRes.ok) {
-          const list = await catRes.json();
-          if (Array.isArray(list) && list.length > 0) {
-            setCustomPublishers(list);
-            return;
-          }
-        }
-      } catch {}
-
-      // 2. Fetch custom database from server
       try {
         const res = await fetch("/api/db/custom-database");
         const data = await res.json();
@@ -732,7 +719,9 @@ export default function GuestPostMarketplace() {
 
       try {
         const customs = getCustomPublishers();
-        setCustomPublishers(customs as unknown as PublisherSite[]);
+        if (customs && customs.length > 0) {
+          setCustomPublishers(customs as unknown as PublisherSite[]);
+        }
       } catch {}
     };
     syncCustom();

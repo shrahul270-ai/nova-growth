@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import * as XLSX from "xlsx";
 import { INITIAL_PUBLISHERS } from "../data/publishersData";
-import { loadSitesFromIndexedDB, saveSitesToIndexedDB } from "@/lib/idb";
 
 interface BuyerSession {
   email: string;
@@ -57,10 +55,14 @@ export default function BuyerDashboardPage() {
   const [authPassword, setAuthPassword] = useState("");
   const [authError, setAuthError] = useState<string | null>(null);
 
-  // REAL WEBSITES DATA FROM SERVER + LOCALSTORAGE
-  const [realWebsites, setRealWebsites] = useState<RealWebsiteSite[]>([]);
-  const [directDownloadUrl, setDirectDownloadUrl] = useState<string>("");
-  const [isLoadingDb, setIsLoadingDb] = useState(true);
+  // FAST PAGINATED SITES STATE (Zero Memory Hang: Only 25 items in RAM)
+  const [paginatedSites, setPaginatedSites] = useState<RealWebsiteSite[]>(() =>
+    INITIAL_PUBLISHERS.slice(0, 25) as unknown as RealWebsiteSite[]
+  );
+  const [totalMatchingSites, setTotalMatchingSites] = useState<number>(32175);
+  const [totalPages, setTotalPages] = useState<number>(Math.ceil(32175 / 25));
+  const [directDownloadUrl, setDirectDownloadUrl] = useState<string>("/nova_growth_40000_guest_posts.xlsx");
+  const [isLoadingDb, setIsLoadingDb] = useState(false);
 
   // Detailed Pricing Modal for a selected site
   const [pricingModalSite, setPricingModalSite] = useState<RealWebsiteSite | null>(null);
@@ -108,7 +110,7 @@ export default function BuyerDashboardPage() {
     }
   };
 
-  // Check login session & fetch server database source on mount
+  // Check login session on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem("nova_buyer_session");
@@ -126,70 +128,52 @@ export default function BuyerDashboardPage() {
       setIsAuthModalOpen(true);
     }
     setAuthChecked(true);
-
-    fetchWebsites();
   }, []);
 
-  const fetchWebsites = async () => {
+  const fetchWebsites = useCallback(async () => {
     setIsLoadingDb(true);
-
-    // 1. Immediately read cached real sites from IndexedDB / localStorage
-    let localList: RealWebsiteSite[] = [];
     try {
-      const idbList = await loadSitesFromIndexedDB();
-      if (Array.isArray(idbList) && idbList.length > 0) {
-        localList = idbList;
-        setRealWebsites(idbList);
-      } else {
-        const cached = localStorage.getItem("nova_growth_real_sites_v1");
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            localList = parsed;
-            setRealWebsites(parsed);
-          }
-        }
-      }
-    } catch {}
+      const query = new URLSearchParams({
+        page: String(currentPage),
+        pageSize: String(pageSize),
+        search: search.trim(),
+        category: selectedCategory,
+        linkType: selectedLinkType,
+        minDr: minDr,
+        sortField: sortField,
+        sortOrder: sortOrder,
+      });
 
-    // 2. Fetch full global 40,000 catalog from static CDN (Loads on all phones & browsers)
-    try {
-      const catRes = await fetch("/data/publishers_catalog.json");
-      if (catRes.ok) {
-        const catalogList: RealWebsiteSite[] = await catRes.json();
-        if (Array.isArray(catalogList) && catalogList.length > 0) {
-          setRealWebsites(catalogList);
-          setDirectDownloadUrl("/nova_growth_40000_guest_posts.xlsx");
-          saveSitesToIndexedDB(catalogList).catch(() => {});
-          try {
-            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(catalogList.slice(0, 500)));
-          } catch {}
-          setIsLoadingDb(false);
-          return;
-        }
-      }
-    } catch (e) {
-      console.warn("Catalog fetch:", e);
-    }
-
-    // 3. Fallback to /api/db/custom-database
-    try {
-      const res = await fetch("/api/db/custom-database");
+      const res = await fetch(`/api/db/custom-database?${query.toString()}`);
+      if (!res.ok) throw new Error("Fetch failed");
       const data = await res.json();
+
       if (data.success) {
-        setDirectDownloadUrl(data.directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx");
-        const serverList: RealWebsiteSite[] = data.customSites || [];
-        if (serverList.length > 0) {
-          setRealWebsites(serverList);
-          saveSitesToIndexedDB(serverList).catch(() => {});
+        if (Array.isArray(data.sites)) {
+          setPaginatedSites(data.sites);
+        }
+        if (typeof data.total === "number") {
+          setTotalMatchingSites(data.total);
+          setTotalPages(Math.max(1, Math.ceil(data.total / pageSize)));
+        }
+        if (data.directDownloadUrl) {
+          setDirectDownloadUrl(data.directDownloadUrl);
         }
       }
     } catch (err) {
-      console.error("Error fetching websites:", err);
+      console.warn("Fast query error:", err);
     } finally {
       setIsLoadingDb(false);
     }
-  };
+  }, [currentPage, pageSize, search, selectedCategory, selectedLinkType, minDr, sortField, sortOrder]);
+
+  // Debounced auto-fetch on filter or search change (120ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchWebsites();
+    }, 120);
+    return () => clearTimeout(timer);
+  }, [fetchWebsites]);
 
   const handleLogout = () => {
     try {
@@ -277,84 +261,33 @@ export default function BuyerDashboardPage() {
     }
   };
 
-  // Prioritize real websites synced by admin, otherwise use verified initial publishers
-  const displayedSites: RealWebsiteSite[] = useMemo(() => {
-    if (realWebsites.length > 0) return realWebsites;
-    return INITIAL_PUBLISHERS as unknown as RealWebsiteSite[];
-  }, [realWebsites]);
+  // Popular Categories for Fast Dropdown (Zero Lag: Avoids 2,000+ DOM option freeze)
+  const POPULAR_CATEGORIES = [
+    "All",
+    "News and Media",
+    "Technology",
+    "SaaS & Tech",
+    "Business & Startup",
+    "Finance & Investment",
+    "Crypto & Blockchain",
+    "Digital Marketing & SEO",
+    "E-Commerce & Retail",
+    "Health & Medical",
+    "Fitness & Sports",
+    "Education & Careers",
+    "Travel & Hospitality",
+    "Fashion & Lifestyle",
+    "Home & Real Estate",
+    "Automotive",
+    "Gaming & Entertainment",
+    "Law & Legal",
+    "Food & Beverage",
+    "General",
+  ];
 
-  // Extract unique categories from websites
-  const categoriesList = useMemo(() => {
-    const set = new Set<string>();
-    displayedSites.forEach((s) => {
-      const cat = s.category || s.niche;
-      if (cat) set.add(cat);
-    });
-    return ["All", ...Array.from(set).sort()];
-  }, [displayedSites]);
-
-  // Filtered & Sorted sites
-  const filteredAndSortedSites = useMemo(() => {
-    let result = [...displayedSites];
-
-    // Search query
-    if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      result = result.filter(
-        (s) =>
-          s.domain.toLowerCase().includes(q) ||
-          (s.category && s.category.toLowerCase().includes(q)) ||
-          (s.niche && s.niche.toLowerCase().includes(q)) ||
-          (s.country && s.country.toLowerCase().includes(q))
-      );
-    }
-
-    // Category
-    if (selectedCategory !== "All") {
-      result = result.filter((s) => (s.category || s.niche) === selectedCategory);
-    }
-
-    // Link Type
-    if (selectedLinkType !== "All") {
-      result = result.filter((s) => s.linkType === selectedLinkType);
-    }
-
-    // Min DR
-    if (minDr) {
-      const num = parseInt(minDr, 10);
-      if (!isNaN(num)) {
-        result = result.filter((s) => s.dr >= num);
-      }
-    }
-
-    // Sorting
-    result.sort((a, b) => {
-      let valA: any = a[sortField];
-      let valB: any = b[sortField];
-      if (sortField === "price") {
-        valA = a.contentPlacementPrice || a.price || 0;
-        valB = b.contentPlacementPrice || b.price || 0;
-      }
-      if (sortField === "pa") {
-        valA = a.pa ?? 0;
-        valB = b.pa ?? 0;
-      }
-      if (typeof valA === "string") valA = valA.toLowerCase();
-      if (typeof valB === "string") valB = valB.toLowerCase();
-      if (valA < valB) return sortOrder === "asc" ? -1 : 1;
-      if (valA > valB) return sortOrder === "asc" ? 1 : -1;
-      return 0;
-    });
-
-    return result;
-  }, [displayedSites, search, selectedCategory, selectedLinkType, minDr, sortField, sortOrder]);
-
-  // Paginated sites
-  const totalPages = Math.ceil(filteredAndSortedSites.length / pageSize) || 1;
-  const paginatedSites = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    return filteredAndSortedSites.slice(start, start + pageSize);
-  }, [filteredAndSortedSites, currentPage, pageSize]);
+  const categoriesList = POPULAR_CATEGORIES;
+  const displayedSites = paginatedSites;
+  const filteredAndSortedSites = paginatedSites;
 
   // Handle Order Post Click (Sends to WhatsApp 8000417058 & logs order to Admin CRM)
   const handleOrderPost = (site: RealWebsiteSite, selectedType?: string, selectedPrice?: number) => {
@@ -458,11 +391,6 @@ export default function BuyerDashboardPage() {
 
   // Execute full 40,000+ Excel download & record user login ID in admin panel
   const executeDownload = (user: BuyerSession) => {
-    if (filteredAndSortedSites.length === 0) {
-      showToast("❌ No websites found to export.");
-      return;
-    }
-
     // Track download lead in database so admin sees exact user who downloaded full 40,000 database
     getClientLiveLocation().then((clientGeo) => {
       // 1. Save directly into leads for admin panel CRM
@@ -475,7 +403,7 @@ export default function BuyerDashboardPage() {
           email: user.email,
           phone: user.phone || "Not specified",
           service: "40,000+ Full Database Download (.xlsx)",
-          message: `User entered Login ID (${user.email}) and downloaded the full 40,000+ publisher database (${filteredAndSortedSites.length} websites in XLSX format).`,
+          message: `User entered Login ID (${user.email}) and downloaded the full 40,000+ publisher database (${totalMatchingSites.toLocaleString()} websites in XLSX format).`,
           notes: `Action: Full 40k Database Downloaded | Login ID: ${user.email} | Mobile: ${user.phone || "N/A"}`,
           clientGeo,
         }),
@@ -492,99 +420,26 @@ export default function BuyerDashboardPage() {
           email: user.email,
           phone: user.phone || "",
           title: `40,000+ Database Download: ${user.email}`,
-          details: `User entered login credentials and downloaded ${filteredAndSortedSites.length} websites in Excel format.`,
+          details: `User entered login credentials and downloaded full 40,000+ websites in Excel format.`,
           sourcePage: "/buyer-dashboard",
           clientGeo,
         }),
       }).catch(() => {});
     });
 
-    // Fast download for full 40,000 database without freezing browser memory
-    if (filteredAndSortedSites.length >= 1000 || !search.trim()) {
-      try {
-        const a = document.createElement("a");
-        a.href = directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
-        a.download = `nova_growth_40000_guest_posts_${Date.now()}.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        showToast(`✅ Successfully downloaded complete 40,000+ guest post database (.xlsx)!`);
-        return;
-      } catch (err) {
-        console.error("Direct download error, falling back to sheetjs:", err);
-      }
-    }
-
-    // Native XLSX workbook via SheetJS with all 22 columns for filtered views
+    // Native browser direct download of full 40,000+ database (.xlsx) with zero memory overhead
     try {
-      const formatRate = (rate?: number) => {
-        if (!rate || rate <= 0) return "Not Offered (0)";
-        return `$${rate}`;
-      };
-
-      const exportRows = filteredAndSortedSites.map((s, idx) => ({
-        "Serial No.": idx + 1,
-        "Domain": s.domain,
-        "DA": s.da,
-        "PA": s.pa !== undefined && s.pa > 0 ? s.pa : "",
-        "DR": s.dr,
-        "Traffic": s.traffic || s.ahrefsTraffic || "100,000+",
-        "Semrush Score": s.semrushScore !== undefined && s.semrushScore !== "—" ? s.semrushScore : "",
-        "Spam Score": s.spamScore !== undefined ? s.spamScore : "1%",
-        "Category": s.category || s.niche || "General",
-        "Link Type": s.linkType || "DoFollow",
-        "Sample Link": s.sampleLink || s.sampleUrl || "",
-        "Country": s.country || "Worldwide",
-        "Content Placement Price": (s.contentPlacementPrice || s.price) ? `$${s.contentPlacementPrice || s.price}` : "Not Offered (0)",
-        "Link Insert Price": formatRate(s.linkInsertPrice),
-        "CBD Content Placement Price": formatRate(s.cbdContentPlacementPrice),
-        "CBD Content Creation & Placement Price": formatRate(s.cbdContentCreationPlacementPrice),
-        "CBD Link Insert Price": formatRate(s.cbdLinkInsertPrice),
-        "Adult Content Placement Price": formatRate(s.adultContentPlacementPrice),
-        "Adult Content Creation & Placement Price": formatRate(s.adultContentCreationPlacementPrice),
-        "Adult Link Insert Price": formatRate(s.adultLinkInsertPrice),
-        "Indexable": (s.indexable === true || s.indexable === "Yes" || s.indexable === "true") ? "Yes" : "No",
-        "Sponsored": (s.sponsored === true || s.sponsored === "Yes" || s.sponsoredTag === true || s.sponsored === "true") ? "Yes" : "No",
-        "Logo URL": s.logoUrl || `https://www.google.com/s2/favicons?domain=${s.domain}&sz=128`,
-      }));
-
-      const ws = XLSX.utils.json_to_sheet(exportRows);
-      ws["!cols"] = [
-        { wch: 10 }, // Serial No.
-        { wch: 30 }, // Domain
-        { wch: 8 },  // DA
-        { wch: 8 },  // PA
-        { wch: 8 },  // DR
-        { wch: 22 }, // Traffic
-        { wch: 14 }, // Semrush Score
-        { wch: 12 }, // Spam Score
-        { wch: 24 }, // Category
-        { wch: 12 }, // Link Type
-        { wch: 36 }, // Sample Link
-        { wch: 18 }, // Country
-        { wch: 24 }, // Content Placement Price
-        { wch: 20 }, // Link Insert Price
-        { wch: 26 }, // CBD Content Placement Price
-        { wch: 34 }, // CBD Content Creation & Placement Price
-        { wch: 22 }, // CBD Link Insert Price
-        { wch: 26 }, // Adult Content Placement Price
-        { wch: 34 }, // Adult Content Creation & Placement Price
-        { wch: 22 }, // Adult Link Insert Price
-        { wch: 12 }, // Indexable
-        { wch: 12 }, // Sponsored
-        { wch: 36 }, // Logo URL
-      ];
-
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Guest Post Sites");
-      XLSX.writeFile(wb, `nova_growth_guest_post_database_${Date.now()}.xlsx`);
-
-      showToast(`✅ Successfully downloaded ${filteredAndSortedSites.length} websites with all 22 publisher metrics (.xlsx)!`);
+      const downloadLink = document.createElement("a");
+      downloadLink.href = directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
+      downloadLink.setAttribute("download", "nova_growth_40000_guest_posts.xlsx");
+      downloadLink.target = "_blank";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      showToast(`✅ Successfully downloading complete 40,000+ guest post database (.xlsx)!`);
     } catch (err) {
-      console.error("Excel generation error:", err);
-      if (directDownloadUrl) {
-        window.open(directDownloadUrl, "_blank");
-      }
+      console.error("Direct download error:", err);
+      window.open(directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx", "_blank");
     }
   };
 
@@ -698,7 +553,7 @@ export default function BuyerDashboardPage() {
                   Live Sites
                 </div>
                 <div className="text-lg font-black text-white font-mono">
-                  {isLoadingDb ? "..." : displayedSites.length.toLocaleString()}
+                  {isLoadingDb ? "..." : totalMatchingSites.toLocaleString()}
                 </div>
               </div>
             </div>
@@ -1065,9 +920,9 @@ export default function BuyerDashboardPage() {
           {displayedSites.length > 0 && (
             <div className="p-4 bg-[#070b14] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
               <div>
-                Showing <strong className="text-white">{filteredAndSortedSites.length > 0 ? (currentPage - 1) * pageSize + 1 : 0}</strong> to{" "}
-                <strong className="text-white">{Math.min(currentPage * pageSize, filteredAndSortedSites.length)}</strong> of{" "}
-                <strong className="text-emerald-400 font-mono">{filteredAndSortedSites.length.toLocaleString()}</strong> publications
+                Showing <strong className="text-white">{totalMatchingSites > 0 ? (currentPage - 1) * pageSize + 1 : 0}</strong> to{" "}
+                <strong className="text-white">{Math.min(currentPage * pageSize, totalMatchingSites)}</strong> of{" "}
+                <strong className="text-emerald-400 font-mono">{totalMatchingSites.toLocaleString()}</strong> publications
               </div>
 
               {/* Pagination Controls */}
