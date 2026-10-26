@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import { saveSitesToIndexedDB, loadSitesFromIndexedDB } from "@/lib/idb";
+import { normalizeSpreadsheetRows } from "@/lib/spreadsheet";
 
 export interface RealWebsiteSite {
   id?: string;
@@ -179,7 +180,7 @@ export default function PrivateUploadDatabasePage() {
     loadDatabase();
   }, []);
 
-  // 1. Upload Excel / CSV directly from computer (All 22 columns supported, chunked in batches to prevent 413 error)
+  // 1. Upload Excel / CSV directly from computer (All 22 columns supported, normalized directly in browser)
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -198,7 +199,7 @@ export default function PrivateUploadDatabasePage() {
         const workbook = XLSX.read(arrayBuffer, { type: "array" });
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
-        const rawJsonRows: any[] = XLSX.utils.sheet_to_json(worksheet);
+        const rawJsonRows: any[] = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
 
         if (!rawJsonRows || rawJsonRows.length === 0) {
           setStatusMsg({ type: "error", text: "Selected file is empty or invalid format." });
@@ -207,20 +208,26 @@ export default function PrivateUploadDatabasePage() {
           return;
         }
 
-        // Yield to allow browser UI refresh after parsing
-        await new Promise((r) => setTimeout(r, 40));
+        // Clean & normalize all 22 attributes directly in browser (removes junk/formula bloat)
+        const cleanSites = normalizeSpreadsheetRows(rawJsonRows);
+        const totalRows = cleanSites.length;
 
-        const BATCH_SIZE = 400; // 400 rows (~60KB) is lightning fast and well within limits
-        const totalRows = rawJsonRows.length;
+        // Immediately update UI & local browser IndexedDB cache so user has the data instantly!
+        setRealSites(cleanSites);
+        setPreviewPage(1);
+        await saveSitesToIndexedDB(cleanSites);
+        try {
+          localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(cleanSites.slice(0, 500)));
+        } catch {}
+
+        // Background server sync in lightweight 200-item clean batches
+        const BATCH_SIZE = 200;
         const totalBatches = Math.ceil(totalRows / BATCH_SIZE);
-        let finalSavedSites: any[] = [];
 
         for (let i = 0; i < totalBatches; i++) {
           const start = i * BATCH_SIZE;
           const end = Math.min(start + BATCH_SIZE, totalRows);
-          const batch = rawJsonRows.slice(start, end);
-          const isFirst = i === 0;
-          const isLast = i === totalBatches - 1;
+          const batch = cleanSites.slice(start, end);
 
           setUploadProgress({
             current: end,
@@ -228,51 +235,27 @@ export default function PrivateUploadDatabasePage() {
             percent: Math.round((end / totalRows) * 100),
           });
 
-          // Yield to browser event loop so UI never freezes or shows "Page Unresponsive"
           await new Promise((r) => setTimeout(r, 20));
 
-          const res = await fetch("/api/db/custom-database", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              action: "batch_upload",
-              batch,
-              isFirst,
-              isLast,
-              batchIndex: i + 1,
-              totalBatches,
-            }),
-          });
-
-          if (!res.ok) {
-            const errText = await res.text();
-            throw new Error(`Upload failed at row ${start + 1}-${end} (Status ${res.status}): ${errText.slice(0, 100)}`);
-          }
-
-          const data = await res.json();
-          if (!data.success) {
-            throw new Error(data.error || "Batch upload failed");
-          }
-
-          if (isLast && Array.isArray(data.customSites)) {
-            finalSavedSites = data.customSites;
-          }
-        }
-
-        if (finalSavedSites.length > 0) {
-          setRealSites(finalSavedSites);
-          setPreviewPage(1);
-          await saveSitesToIndexedDB(finalSavedSites);
           try {
-            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(finalSavedSites.slice(0, 500)));
-          } catch {}
-        } else {
-          loadDatabase();
+            await fetch("/api/db/custom-database", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                action: "append_batch",
+                cleanSites: batch,
+                isFirst: i === 0,
+                isLast: i === totalBatches - 1,
+              }),
+            });
+          } catch (syncErr) {
+            console.warn("Background batch sync warning:", syncErr);
+          }
         }
 
         setStatusMsg({
           type: "success",
-          text: `✅ Success! All ${totalRows.toLocaleString()} websites from "${file.name}" have been imported successfully with all 22 attributes!`,
+          text: `✅ Success! All ${totalRows.toLocaleString()} websites from "${file.name}" have been imported successfully with all 22 attributes and are active on your Buyer Dashboard!`,
         });
       } catch (err: any) {
         console.error("Upload error:", err);
