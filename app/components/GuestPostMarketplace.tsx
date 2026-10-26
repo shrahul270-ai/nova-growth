@@ -816,21 +816,21 @@ export default function GuestPostMarketplace() {
 
       const clientGeo = await getClientLiveLocation();
 
-      // Save lead to database as high-intent buyer registration or login
+      // Save lead to database as high-intent 40,000 database download user
       await fetch("/api/db/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: authMode === "login" ? "buyer_login" : "buyer_account_registration",
+          type: "database_download",
           name: cleanEmail.split("@")[0],
           email: cleanEmail,
           phone: cleanPhone || "Not specified",
-          service: authMode === "login" ? "Database Access (User Login)" : "40,000+ Guest Post Database Access",
+          service: "40,000+ Full Database Download Request",
           message:
             authMode === "login"
-              ? `User logged in to view 40,000+ guest post database. (Login ID: ${cleanEmail})`
-              : `Buyer registered to unlock and download 40,000+ guest post database. (Login ID: ${cleanEmail})`,
-          notes: `Auth Mode: ${authMode.toUpperCase()} | Full Database Unlocked`,
+              ? `User entered Login ID (${cleanEmail}) to download the complete 40,000+ guest post database.`
+              : `New buyer registered with Login ID (${cleanEmail}) to unlock and download 40,000+ guest post database.`,
+          notes: `Action: 40k Database Download Request | Auth: ${authMode.toUpperCase()} | Phone: ${cleanPhone || "N/A"}`,
           clientGeo,
         }),
       });
@@ -840,13 +840,13 @@ export default function GuestPostMarketplace() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "buyer_login",
-          action: "login",
+          type: "database_download",
+          action: "download",
           name: cleanEmail.split("@")[0],
           email: cleanEmail,
           phone: cleanPhone || "",
-          title: authMode === "login" ? `Database User Login: ${cleanEmail}` : `New Buyer Registered: ${cleanEmail}`,
-          details: `User logged in from marketplace catalog. Live location logged.`,
+          title: `40,000+ Database Download Requested: ${cleanEmail}`,
+          details: `User authenticated to download 40,000+ sites dataset. Mode: ${authMode}.`,
           clientGeo,
         }),
       }).catch(() => {});

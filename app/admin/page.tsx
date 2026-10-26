@@ -1288,27 +1288,27 @@ export default function AdminDatabasePage() {
                 </div>
 
                 <div className="flex items-center flex-wrap gap-2 w-full sm:w-auto">
-                  {/* Quick Filter: Database Logins & Users */}
+                  {/* Quick Filter: 40k Database Downloads & Users */}
                   <button
                     onClick={() => {
-                      if (search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")) {
+                      if (search.toLowerCase().includes("database") || search.toLowerCase().includes("download")) {
                         setSearch("");
                       } else {
                         setSearch("database");
                       }
                     }}
                     className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer whitespace-nowrap shadow-xs ${
-                      search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")
-                        ? "bg-amber-500 text-black border-amber-500 shadow-sm font-extrabold"
-                        : "bg-amber-50 text-amber-900 border-amber-200 hover:bg-amber-100"
+                      search.toLowerCase().includes("database") || search.toLowerCase().includes("download")
+                        ? "bg-emerald-600 text-white border-emerald-600 shadow-sm font-extrabold"
+                        : "bg-emerald-50 text-emerald-900 border-emerald-200 hover:bg-emerald-100"
                     }`}
-                    title="Filter only users who logged in or registered to view data"
+                    title="Filter only users who logged in or downloaded the 40,000 sites database"
                   >
-                    <span>🔑</span>
+                    <span>📥</span>
                     <span>
-                      {search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")
-                        ? "Showing Data Logins ✕"
-                        : "Data Logins Only"}
+                      {search.toLowerCase().includes("database") || search.toLowerCase().includes("download")
+                        ? "Showing 40k Downloads ✕"
+                        : "40k Data Downloads & Logins"}
                     </span>
                   </button>
 
@@ -1384,12 +1384,17 @@ export default function AdminDatabasePage() {
                                 <span className="font-bold text-slate-900 text-sm">
                                   {clientName}
                                 </span>
-                                {(item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) && (
+                                {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
+                                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 inline-flex items-center gap-1 shadow-2xs">
+                                    <span>📥</span>
+                                    <span>Downloaded 40k Database</span>
+                                  </span>
+                                ) : (item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) ? (
                                   <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-2xs">
                                     <span>🔑</span>
                                     <span>{item.type === "buyer_login" ? "User Login" : "Data Buyer"}</span>
                                   </span>
-                                )}
+                                ) : null}
                               </div>
                               {clientEmail && (
                                 <div className="text-xs text-blue-600 mb-0.5 flex items-center gap-1 font-mono">
@@ -1466,7 +1471,12 @@ export default function AdminDatabasePage() {
                             {/* Service & Details */}
                             <td className="py-3.5 px-4 align-top">
                               <div className="flex items-center gap-1.5 mb-1">
-                                {(item.type === "buyer_login" || item.service?.toLowerCase().includes("database access")) ? (
+                                {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
+                                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1">
+                                    <span>📥</span>
+                                    <span>40,000 Sites Database Download (.xlsx)</span>
+                                  </span>
+                                ) : (item.type === "buyer_login" || item.service?.toLowerCase().includes("database access")) ? (
                                   <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300">
                                     📊 Database Access Login
                                   </span>

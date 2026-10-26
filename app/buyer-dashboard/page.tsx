@@ -50,6 +50,7 @@ export default function BuyerDashboardPage() {
 
   // Authentication Modal (if visitor visits dashboard without login)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isPendingDownload, setIsPendingDownload] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [authEmail, setAuthEmail] = useState("");
   const [authPhone, setAuthPhone] = useState("");
@@ -260,6 +261,11 @@ export default function BuyerDashboardPage() {
 
       setIsAuthModalOpen(false);
       showToast(authMode === "login" ? `Welcome back, ${cleanEmail}!` : `Account created! Welcome, ${cleanEmail}!`);
+
+      if (isPendingDownload) {
+        setIsPendingDownload(false);
+        executeDownload(userRecord);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -444,25 +450,43 @@ export default function BuyerDashboardPage() {
     window.open(waUrl, "_blank");
   };
 
-  // Excel / CSV Download Handler with all 22 columns (Tracks live location & downloads XLSX)
-  const handleDownloadExcel = () => {
+  // Execute full 40,000+ Excel download & record user login ID in admin panel
+  const executeDownload = (user: BuyerSession) => {
     if (filteredAndSortedSites.length === 0) {
       showToast("❌ No websites found to export.");
       return;
     }
 
-    // Track live download event with location in background
+    // Track download lead in database so admin sees exact user who downloaded full 40,000 database
     getClientLiveLocation().then((clientGeo) => {
-      fetch("/api/db/track", {
+      // 1. Save directly into leads for admin panel CRM
+      fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "database_download",
+          name: user.email.split("@")[0] || "Buyer",
+          email: user.email,
+          phone: user.phone || "Not specified",
+          service: "40,000+ Full Database Download (.xlsx)",
+          message: `User entered Login ID (${user.email}) and downloaded the full 40,000+ publisher database (${filteredAndSortedSites.length} websites in XLSX format).`,
+          notes: `Action: Full 40k Database Downloaded | Login ID: ${user.email} | Mobile: ${user.phone || "N/A"}`,
+          clientGeo,
+        }),
+      }).catch((e) => console.error("Error logging download lead:", e));
+
+      // 2. Also track in interactions table for live location map & activity feed
+      fetch("/api/db/interactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "database_download",
           action: "download",
-          email: buyerUser?.email || "Guest Buyer",
-          phone: buyerUser?.phone || "",
-          title: "Buyer Marketplace Database Downloaded (.xlsx)",
-          details: `User downloaded ${filteredAndSortedSites.length} websites in Excel format with all 22 publisher columns.`,
+          name: user.email.split("@")[0] || "Buyer",
+          email: user.email,
+          phone: user.phone || "",
+          title: `40,000+ Database Download: ${user.email}`,
+          details: `User entered login credentials and downloaded ${filteredAndSortedSites.length} websites in Excel format.`,
           sourcePage: "/buyer-dashboard",
           clientGeo,
         }),
@@ -540,6 +564,17 @@ export default function BuyerDashboardPage() {
         window.open(directDownloadUrl, "_blank");
       }
     }
+  };
+
+  // Excel / CSV Download Handler with all 22 columns (Requires login so user is tracked)
+  const handleDownloadExcel = () => {
+    if (!buyerUser || !buyerUser.email) {
+      setIsPendingDownload(true);
+      setIsAuthModalOpen(true);
+      showToast("🔐 Please enter your Login ID / Email to download the full 40,000+ database.");
+      return;
+    }
+    executeDownload(buyerUser);
   };
 
   return (
