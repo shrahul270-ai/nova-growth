@@ -816,21 +816,40 @@ export default function GuestPostMarketplace() {
 
       const clientGeo = await getClientLiveLocation();
 
-      // Save lead to database as high-intent buyer registration
+      // Save lead to database as high-intent buyer registration or login
       await fetch("/api/db/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "buyer_account_registration",
+          type: authMode === "login" ? "buyer_login" : "buyer_account_registration",
           name: cleanEmail.split("@")[0],
           email: cleanEmail,
-          phone: cleanPhone,
-          service: "40,000+ Guest Post Database Access",
-          message: "Buyer registered to unlock and download 40,000+ guest post database.",
-          notes: `Buyer account created with password. Full database unlocked.`,
+          phone: cleanPhone || "Not specified",
+          service: authMode === "login" ? "Database Access (User Login)" : "40,000+ Guest Post Database Access",
+          message:
+            authMode === "login"
+              ? `User logged in to view 40,000+ guest post database. (Login ID: ${cleanEmail})`
+              : `Buyer registered to unlock and download 40,000+ guest post database. (Login ID: ${cleanEmail})`,
+          notes: `Auth Mode: ${authMode.toUpperCase()} | Full Database Unlocked`,
           clientGeo,
         }),
       });
+
+      // Also track in interactions table for live location tracker & activity stream
+      await fetch("/api/db/interactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "buyer_login",
+          action: "login",
+          name: cleanEmail.split("@")[0],
+          email: cleanEmail,
+          phone: cleanPhone || "",
+          title: authMode === "login" ? `Database User Login: ${cleanEmail}` : `New Buyer Registered: ${cleanEmail}`,
+          details: `User logged in from marketplace catalog. Live location logged.`,
+          clientGeo,
+        }),
+      }).catch(() => {});
 
       setIsAuthModalOpen(false);
       setAuthEmail("");

@@ -1160,8 +1160,16 @@ export default function AdminDatabasePage() {
                               </div>
                             </td>
                             <td className="py-3.5 px-4">
-                              <span className="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/80 px-2 py-0.5 rounded-lg text-xs">
-                                {item.title || item.service || item.type || "Interaction"}
+                              <span
+                                className={`font-bold px-2 py-0.5 rounded-lg text-xs ${
+                                  item.type === "buyer_login"
+                                    ? "text-amber-900 bg-amber-100 border border-amber-300"
+                                    : "text-indigo-700 bg-indigo-50 border border-indigo-200/80"
+                                }`}
+                              >
+                                {item.type === "buyer_login"
+                                  ? "🔑 Database User Login"
+                                  : item.title || item.service || item.type || "Interaction"}
                               </span>
                               <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
                                 {item.details || item.message || item.domain || "—"}
@@ -1171,7 +1179,12 @@ export default function AdminDatabasePage() {
                               <div className="font-bold text-slate-800 text-xs">
                                 {item.name || item.clientName || "Visitor"}
                               </div>
-                              {item.email && <div className="text-[11px] text-blue-600 font-mono">{item.email}</div>}
+                              {item.email && (
+                                <div className="text-[11px] text-blue-600 font-mono font-semibold">
+                                  <span className="text-[9px] text-slate-400 font-sans font-bold">ID: </span>
+                                  {item.email}
+                                </div>
+                              )}
                               {item.phone && <div className="text-[11px] text-emerald-600 font-mono">{item.phone}</div>}
                             </td>
                             <td className="py-3.5 px-4 text-right">
@@ -1274,7 +1287,31 @@ export default function AdminDatabasePage() {
                   <span className="absolute left-3 top-3 text-slate-400 text-xs">🔍</span>
                 </div>
 
-                <div className="flex items-center gap-2 w-full sm:w-auto">
+                <div className="flex items-center flex-wrap gap-2 w-full sm:w-auto">
+                  {/* Quick Filter: Database Logins & Users */}
+                  <button
+                    onClick={() => {
+                      if (search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")) {
+                        setSearch("");
+                      } else {
+                        setSearch("database");
+                      }
+                    }}
+                    className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer whitespace-nowrap shadow-xs ${
+                      search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")
+                        ? "bg-amber-500 text-black border-amber-500 shadow-sm font-extrabold"
+                        : "bg-amber-50 text-amber-900 border-amber-200 hover:bg-amber-100"
+                    }`}
+                    title="Filter only users who logged in or registered to view data"
+                  >
+                    <span>🔑</span>
+                    <span>
+                      {search.toLowerCase().includes("database") || search.toLowerCase().includes("buyer")
+                        ? "Showing Data Logins ✕"
+                        : "Data Logins Only"}
+                    </span>
+                  </button>
+
                   <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
@@ -1343,23 +1380,33 @@ export default function AdminDatabasePage() {
 
                             {/* Contact */}
                             <td className="py-3.5 px-4 align-top">
-                              <div className="font-bold text-slate-900 text-sm mb-1">
-                                {clientName}
+                              <div className="flex items-center flex-wrap gap-1.5 mb-1">
+                                <span className="font-bold text-slate-900 text-sm">
+                                  {clientName}
+                                </span>
+                                {(item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) && (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-2xs">
+                                    <span>🔑</span>
+                                    <span>{item.type === "buyer_login" ? "User Login" : "Data Buyer"}</span>
+                                  </span>
+                                )}
                               </div>
                               {clientEmail && (
-                                <div className="text-xs text-blue-600 mb-0.5">
-                                  <a href={`mailto:${clientEmail}`} className="hover:underline">
+                                <div className="text-xs text-blue-600 mb-0.5 flex items-center gap-1 font-mono">
+                                  <span className="text-[10px] uppercase font-bold text-slate-400 font-sans">Login ID:</span>
+                                  <a href={`mailto:${clientEmail}`} className="hover:underline font-bold">
                                     ✉️ {clientEmail}
                                   </a>
                                 </div>
                               )}
                               {clientPhone && (
-                                <div className="text-xs text-emerald-600">
+                                <div className="text-xs text-emerald-600 flex items-center gap-1">
+                                  <span className="text-[10px] uppercase font-bold text-slate-400 font-sans">Phone:</span>
                                   <a
                                     href={`https://wa.me/${cleanPhone}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:underline"
+                                    className="hover:underline font-mono"
                                   >
                                     💬 {clientPhone}
                                   </a>
@@ -1418,14 +1465,22 @@ export default function AdminDatabasePage() {
 
                             {/* Service & Details */}
                             <td className="py-3.5 px-4 align-top">
-                              <span className="font-semibold text-slate-800 block mb-0.5">
-                                {item.service || item.type || "General Inquiry"}
-                              </span>
-                              <p className="text-[11px] text-slate-500 max-w-md line-clamp-2">
+                              <div className="flex items-center gap-1.5 mb-1">
+                                {(item.type === "buyer_login" || item.service?.toLowerCase().includes("database access")) ? (
+                                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300">
+                                    📊 Database Access Login
+                                  </span>
+                                ) : (
+                                  <span className="font-semibold text-slate-800">
+                                    {item.service || item.type || "General Inquiry"}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-[11px] text-slate-600 max-w-md line-clamp-2">
                                 {item.message || item.details || item.domain || "—"}
                               </p>
                               {item.notes && (
-                                <div className="mt-1 text-[11px] text-amber-700 bg-amber-50 p-1 rounded border border-amber-200">
+                                <div className="mt-1 text-[11px] text-amber-800 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
                                   📝 {item.notes}
                                 </div>
                               )}

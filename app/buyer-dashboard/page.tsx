@@ -223,22 +223,43 @@ export default function BuyerDashboardPage() {
 
       const clientGeo = await getClientLiveLocation();
 
+      // 1. Record Lead in Database
       await fetch("/api/db/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "buyer_account_registration",
+          type: authMode === "login" ? "buyer_login" : "buyer_account_registration",
           name: cleanEmail.split("@")[0],
           email: cleanEmail,
-          phone: cleanPhone,
-          service: "40,000+ Guest Post Database Access",
-          message: "Buyer signed in to Buyer Marketplace Dashboard.",
+          phone: cleanPhone || "Not provided",
+          service: authMode === "login" ? "Database Access (User Login)" : "40,000+ Guest Post Database Access",
+          message:
+            authMode === "login"
+              ? `User logged in with Login ID to view/export publisher database & live pricing. (Login ID: ${cleanEmail})`
+              : `New buyer registered with Login ID to access 40,000+ database. (Login ID: ${cleanEmail})`,
+          notes: `Login Mode: ${authMode.toUpperCase()} | Timestamp: ${new Date().toLocaleString()}`,
           clientGeo,
         }),
       });
 
+      // 2. Also log real-time interaction for live location tracker & activity logs
+      await fetch("/api/db/interactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "buyer_login",
+          action: "login",
+          name: cleanEmail.split("@")[0],
+          email: cleanEmail,
+          phone: cleanPhone || "",
+          title: authMode === "login" ? `Database User Login: ${cleanEmail}` : `New Buyer Registered: ${cleanEmail}`,
+          details: `User logged in to view 40,000+ publisher database directory & live pricing. Mode: ${authMode}.`,
+          clientGeo,
+        }),
+      }).catch((e) => console.error("Interaction log error:", e));
+
       setIsAuthModalOpen(false);
-      showToast(`Welcome back, ${cleanEmail}!`);
+      showToast(authMode === "login" ? `Welcome back, ${cleanEmail}!` : `Account created! Welcome, ${cleanEmail}!`);
     } catch (err) {
       console.error(err);
     }
