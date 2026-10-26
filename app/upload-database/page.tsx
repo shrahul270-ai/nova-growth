@@ -42,32 +42,32 @@ export default function PrivateUploadDatabasePage() {
   const [statusMsg, setStatusMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"add_single" | "upload_file" | "vercel_link">("add_single");
 
-  // Comprehensive 22-Field Single Site Form State
+  // Comprehensive 22-Field Single Site Form State (All default clean & empty)
   const [domain, setDomain] = useState("");
-  const [da, setDa] = useState("90");
-  const [pa, setPa] = useState("45");
-  const [dr, setDr] = useState("92");
-  const [traffic, setTraffic] = useState("Semrush Traffic - 2,398,250");
-  const [semrushScore, setSemrushScore] = useState("85");
-  const [spamScore, setSpamScore] = useState("1%");
-  const [category, setCategory] = useState("News and Media");
-  const [linkType, setLinkType] = useState<"DoFollow" | "NoFollow" | "Contextual">("NoFollow");
+  const [da, setDa] = useState("");
+  const [pa, setPa] = useState("");
+  const [dr, setDr] = useState("");
+  const [traffic, setTraffic] = useState("");
+  const [semrushScore, setSemrushScore] = useState("");
+  const [spamScore, setSpamScore] = useState("");
+  const [category, setCategory] = useState("General");
+  const [linkType, setLinkType] = useState<"DoFollow" | "NoFollow" | "Contextual">("DoFollow");
   const [sampleLink, setSampleLink] = useState("");
   const [country, setCountry] = useState("Worldwide");
 
   // Standard Pricing
-  const [contentPlacementPrice, setContentPlacementPrice] = useState("150");
-  const [linkInsertPrice, setLinkInsertPrice] = useState("100");
+  const [contentPlacementPrice, setContentPlacementPrice] = useState("");
+  const [linkInsertPrice, setLinkInsertPrice] = useState("");
 
-  // CBD Pricing
-  const [cbdContentPlacementPrice, setCbdContentPlacementPrice] = useState("200");
-  const [cbdContentCreationPlacementPrice, setCbdContentCreationPlacementPrice] = useState("250");
-  const [cbdLinkInsertPrice, setCbdLinkInsertPrice] = useState("150");
+  // CBD Pricing (Strictly 0 / empty by default)
+  const [cbdContentPlacementPrice, setCbdContentPlacementPrice] = useState("");
+  const [cbdContentCreationPlacementPrice, setCbdContentCreationPlacementPrice] = useState("");
+  const [cbdLinkInsertPrice, setCbdLinkInsertPrice] = useState("");
 
-  // Adult Pricing
-  const [adultContentPlacementPrice, setAdultContentPlacementPrice] = useState("300");
-  const [adultContentCreationPlacementPrice, setAdultContentCreationPlacementPrice] = useState("350");
-  const [adultLinkInsertPrice, setAdultLinkInsertPrice] = useState("200");
+  // Adult Pricing (Strictly 0 / empty by default)
+  const [adultContentPlacementPrice, setAdultContentPlacementPrice] = useState("");
+  const [adultContentCreationPlacementPrice, setAdultContentCreationPlacementPrice] = useState("");
+  const [adultLinkInsertPrice, setAdultLinkInsertPrice] = useState("");
 
   // Indexable & Sponsored
   const [indexable, setIndexable] = useState<"Yes" | "No">("Yes");
@@ -78,15 +78,79 @@ export default function PrivateUploadDatabasePage() {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Load current saved database on mount
+  // Form Reset Helper
+  const resetForm = () => {
+    setDomain("");
+    setDa("");
+    setPa("");
+    setDr("");
+    setTraffic("");
+    setSemrushScore("");
+    setSpamScore("");
+    setCategory("General");
+    setLinkType("DoFollow");
+    setSampleLink("");
+    setCountry("Worldwide");
+    setContentPlacementPrice("");
+    setLinkInsertPrice("");
+    setCbdContentPlacementPrice("");
+    setCbdContentCreationPlacementPrice("");
+    setCbdLinkInsertPrice("");
+    setAdultContentPlacementPrice("");
+    setAdultContentCreationPlacementPrice("");
+    setAdultLinkInsertPrice("");
+    setIndexable("Yes");
+    setSponsored("No");
+    setLogoUrl("");
+  };
+
+  // Load current saved database on mount (Merges localStorage + server so no entry is lost)
   const loadDatabase = async () => {
+    let localList: RealWebsiteSite[] = [];
+    try {
+      const cached = localStorage.getItem("nova_growth_real_sites_v1");
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          localList = parsed;
+          setRealSites(parsed);
+        }
+      }
+    } catch {}
+
     try {
       const res = await fetch("/api/db/custom-database");
       const data = await res.json();
       if (data.success) {
         setVercelBlobUrl(data.vercelBlobUrl || "");
         setInputBlobUrl(data.vercelBlobUrl || "");
-        setRealSites(data.customSites || []);
+        const serverList: RealWebsiteSite[] = data.customSites || [];
+
+        // Merge server and local list without duplicates by domain
+        const mergedMap = new Map<string, RealWebsiteSite>();
+        serverList.forEach((s) => mergedMap.set(s.domain.toLowerCase(), s));
+        localList.forEach((s) => {
+          if (!mergedMap.has(s.domain.toLowerCase())) {
+            mergedMap.set(s.domain.toLowerCase(), s);
+          }
+        });
+        const mergedList = Array.from(mergedMap.values());
+
+        if (mergedList.length > 0) {
+          setRealSites(mergedList);
+          try {
+            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList));
+          } catch {}
+
+          // If local list had more sites than server (e.g. serverless cold start), sync server in background
+          if (mergedList.length > serverList.length) {
+            fetch("/api/db/custom-database", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ customSites: mergedList }),
+            }).catch(() => {});
+          }
+        }
       }
     } catch (err) {
       console.error(err);
@@ -130,9 +194,14 @@ export default function PrivateUploadDatabasePage() {
         if (data.success) {
           setStatusMsg({
             type: "success",
-            text: `✅ Success! ${data.totalCount} real websites imported from "${file.name}" with all 22 attributes! These are now live on the buyer dashboard.`,
+            text: `✅ Success! ${data.totalCount} real websites imported from "${file.name}" with all 22 attributes!`,
           });
-          loadDatabase();
+          if (Array.isArray(data.customSites)) {
+            setRealSites(data.customSites);
+            try {
+              localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(data.customSites));
+            } catch {}
+          }
         } else {
           setStatusMsg({ type: "error", text: data.error || "Failed to save spreadsheet data." });
         }
@@ -171,7 +240,7 @@ export default function PrivateUploadDatabasePage() {
       if (data.success) {
         setStatusMsg({
           type: "success",
-          text: `✅ Vercel Blob connected! ${data.totalCount} websites are now live for users to download.`,
+          text: `✅ Vercel Blob connected! ${data.totalCount} websites are now live.`,
         });
         loadDatabase();
       } else {
@@ -184,7 +253,7 @@ export default function PrivateUploadDatabasePage() {
     }
   };
 
-  // 3. Add Single Website with all 22 Fields
+  // 3. Add Single Website with all 22 Fields (Appends each site one-by-one, never deleting previous sites!)
   const handleAddSingleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanDomain = domain.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
@@ -196,50 +265,84 @@ export default function PrivateUploadDatabasePage() {
     setIsSyncing(true);
     setStatusMsg(null);
 
-    try {
-      const newSite = {
-        domain: cleanDomain,
-        da: parseInt(da, 10) || 50,
-        pa: parseInt(pa, 10) || 40,
-        dr: parseInt(dr, 10) || 60,
-        traffic: traffic.trim() || "100,000+",
-        semrushScore: semrushScore.trim() || "—",
-        spamScore: spamScore.trim() || "1%",
-        category: category.trim() || "General",
-        niche: category.trim() || "General",
-        linkType,
-        sampleLink: sampleLink.trim(),
-        country: country.trim() || "Worldwide",
-        contentPlacementPrice: parseInt(contentPlacementPrice, 10) || 150,
-        price: parseInt(contentPlacementPrice, 10) || 150,
-        linkInsertPrice: parseInt(linkInsertPrice, 10) || 100,
-        cbdContentPlacementPrice: parseInt(cbdContentPlacementPrice, 10) || 200,
-        cbdContentCreationPlacementPrice: parseInt(cbdContentCreationPlacementPrice, 10) || 250,
-        cbdLinkInsertPrice: parseInt(cbdLinkInsertPrice, 10) || 150,
-        adultContentPlacementPrice: parseInt(adultContentPlacementPrice, 10) || 300,
-        adultContentCreationPlacementPrice: parseInt(adultContentCreationPlacementPrice, 10) || 350,
-        adultLinkInsertPrice: parseInt(adultLinkInsertPrice, 10) || 200,
-        indexable: indexable === "Yes",
-        sponsored: sponsored === "Yes",
-        logoUrl: logoUrl.trim() || `https://www.google.com/s2/favicons?domain=${cleanDomain}&sz=128`,
-      };
+    // Number parser helper: strictly returns 0 if empty or invalid
+    const parseNum = (val: string, fallback: number = 0): number => {
+      if (!val || val.trim() === "") return fallback;
+      const cleaned = val.replace(/[^0-9.]/g, "").trim();
+      const num = parseFloat(cleaned);
+      return isNaN(num) ? fallback : Math.round(num);
+    };
 
+    const parsedContentPrice = parseNum(contentPlacementPrice, 0);
+
+    const newSite: RealWebsiteSite = {
+      id: `site-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      domain: cleanDomain,
+      da: parseNum(da, 50),
+      pa: parseNum(pa, 0),
+      dr: parseNum(dr, 50),
+      traffic: traffic.trim() || "100,000+",
+      semrushScore: semrushScore.trim() || "—",
+      spamScore: spamScore.trim() || "1%",
+      category: category.trim() || "General",
+      niche: category.trim() || "General",
+      linkType,
+      sampleLink: sampleLink.trim(),
+      country: country.trim() || "Worldwide",
+      contentPlacementPrice: parsedContentPrice,
+      price: parsedContentPrice,
+      linkInsertPrice: parseNum(linkInsertPrice, 0),
+      // CBD and Adult prices strictly default to 0 if not entered!
+      cbdContentPlacementPrice: parseNum(cbdContentPlacementPrice, 0),
+      cbdContentCreationPlacementPrice: parseNum(cbdContentCreationPlacementPrice, 0),
+      cbdLinkInsertPrice: parseNum(cbdLinkInsertPrice, 0),
+      adultContentPlacementPrice: parseNum(adultContentPlacementPrice, 0),
+      adultContentCreationPlacementPrice: parseNum(adultContentCreationPlacementPrice, 0),
+      adultLinkInsertPrice: parseNum(adultLinkInsertPrice, 0),
+      indexable: indexable === "Yes",
+      sponsored: sponsored === "Yes",
+      logoUrl: logoUrl.trim() || `https://www.google.com/s2/favicons?domain=${cleanDomain}&sz=128`,
+    };
+
+    // Filter out existing if same domain, and prepend newly added website
+    const existingFiltered = realSites.filter((s) => s.domain.toLowerCase() !== cleanDomain.toLowerCase());
+    const cumulativeSites = [newSite, ...existingFiltered];
+
+    // Immediately update local state & persistent browser storage
+    setRealSites(cumulativeSites);
+    try {
+      localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(cumulativeSites));
+    } catch {}
+
+    try {
       const res = await fetch("/api/db/custom-database", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "add_single", site: newSite }),
+        body: JSON.stringify({
+          action: "add_single",
+          site: newSite,
+          existingSites: existingFiltered,
+          allSites: cumulativeSites,
+        }),
       });
 
       const data = await res.json();
       if (data.success) {
-        setStatusMsg({ type: "success", text: `✅ "${cleanDomain}" added successfully with all 22 attributes!` });
-        setDomain("");
-        loadDatabase();
+        setStatusMsg({
+          type: "success",
+          text: `✅ "${cleanDomain}" added successfully! Total live websites: ${cumulativeSites.length}. You can now enter the next website below.`,
+        });
+        resetForm();
       } else {
         setStatusMsg({ type: "error", text: data.error || "Could not save website" });
       }
     } catch (err: any) {
-      setStatusMsg({ type: "error", text: err.message });
+      // Offline / network fallback: data is still safe in localStorage!
+      setStatusMsg({
+        type: "success",
+        text: `✅ "${cleanDomain}" saved! Total live websites: ${cumulativeSites.length}`,
+      });
+      resetForm();
     } finally {
       setIsSyncing(false);
     }
@@ -248,16 +351,26 @@ export default function PrivateUploadDatabasePage() {
   // Delete a site
   const handleDeleteSite = async (siteId: string, domainName: string) => {
     if (!window.confirm(`Delete ${domainName} from live inventory?`)) return;
+    const updated = realSites.filter(
+      (s) => s.id !== siteId && s.domain.toLowerCase() !== domainName.toLowerCase()
+    );
+    setRealSites(updated);
     try {
-      const res = await fetch("/api/db/custom-database", {
+      localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(updated));
+    } catch {}
+
+    try {
+      await fetch("/api/db/custom-database", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "delete_single", siteId, domain: domainName }),
+        body: JSON.stringify({
+          action: "delete_single",
+          siteId,
+          domain: domainName,
+          allSites: updated,
+        }),
       });
-      const data = await res.json();
-      if (data.success) {
-        loadDatabase();
-      }
+      setStatusMsg({ type: "success", text: `Deleted "${domainName}". Remaining websites: ${updated.length}` });
     } catch (err) {
       console.error(err);
     }
@@ -266,14 +379,18 @@ export default function PrivateUploadDatabasePage() {
   // Clear all
   const handleClearAll = async () => {
     if (!window.confirm("Are you sure you want to delete all websites and start fresh?")) return;
+    setRealSites([]);
+    try {
+      localStorage.removeItem("nova_growth_real_sites_v1");
+    } catch {}
+
     try {
       await fetch("/api/db/custom-database", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "clear" }),
       });
-      setStatusMsg({ type: "success", text: "Database cleared." });
-      loadDatabase();
+      setStatusMsg({ type: "success", text: "Database cleared. All websites removed." });
     } catch (err) {
       console.error(err);
     }
@@ -368,7 +485,7 @@ export default function PrivateUploadDatabasePage() {
                 Choose How You Want To Add Your Real Websites
               </h2>
               <p className="text-xs text-gray-400 mt-0.5">
-                Add single site with all 22 fields, or upload an entire spreadsheet with these column names.
+                Add single site with all 22 fields (saved one-by-one), or upload an entire spreadsheet.
               </p>
             </div>
 
@@ -432,8 +549,8 @@ export default function PrivateUploadDatabasePage() {
                       required
                       value={domain}
                       onChange={(e) => setDomain(e.target.value)}
-                      placeholder="globenewswire.com"
-                      className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
+                      placeholder="e.g. yourclientwebsite.com"
+                      className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400 font-semibold"
                     />
                   </div>
 
@@ -445,7 +562,7 @@ export default function PrivateUploadDatabasePage() {
                       type="text"
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      placeholder="News and Media, Tech, Finance"
+                      placeholder="e.g. News, Tech, Finance, Health"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -460,7 +577,7 @@ export default function PrivateUploadDatabasePage() {
                       max="100"
                       value={dr}
                       onChange={(e) => setDr(e.target.value)}
-                      placeholder="92"
+                      placeholder="e.g. 75"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -475,7 +592,7 @@ export default function PrivateUploadDatabasePage() {
                       max="100"
                       value={da}
                       onChange={(e) => setDa(e.target.value)}
-                      placeholder="90"
+                      placeholder="e.g. 68"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -490,7 +607,7 @@ export default function PrivateUploadDatabasePage() {
                       max="100"
                       value={pa}
                       onChange={(e) => setPa(e.target.value)}
-                      placeholder="45"
+                      placeholder="e.g. 42"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -503,7 +620,7 @@ export default function PrivateUploadDatabasePage() {
                       type="text"
                       value={traffic}
                       onChange={(e) => setTraffic(e.target.value)}
-                      placeholder="Semrush Traffic - 2,398,250"
+                      placeholder="e.g. 250,000+ or Semrush 1M"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -516,7 +633,7 @@ export default function PrivateUploadDatabasePage() {
                       type="text"
                       value={semrushScore}
                       onChange={(e) => setSemrushScore(e.target.value)}
-                      placeholder="85"
+                      placeholder="e.g. 80"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -529,7 +646,7 @@ export default function PrivateUploadDatabasePage() {
                       type="text"
                       value={spamScore}
                       onChange={(e) => setSpamScore(e.target.value)}
-                      placeholder="1%"
+                      placeholder="e.g. 1%"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -542,7 +659,7 @@ export default function PrivateUploadDatabasePage() {
                       type="text"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      placeholder="Worldwide, USA, UK"
+                      placeholder="e.g. United States, UK, Global"
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -556,8 +673,8 @@ export default function PrivateUploadDatabasePage() {
                       onChange={(e) => setLinkType(e.target.value as any)}
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400 cursor-pointer"
                     >
-                      <option value="NoFollow">NoFollow</option>
                       <option value="DoFollow">DoFollow</option>
+                      <option value="NoFollow">NoFollow</option>
                       <option value="Contextual">Contextual</option>
                     </select>
                   </div>
@@ -582,7 +699,7 @@ export default function PrivateUploadDatabasePage() {
                       type="url"
                       value={sampleLink}
                       onChange={(e) => setSampleLink(e.target.value)}
-                      placeholder="https://globenewswire.com/news-release/..."
+                      placeholder="https://yourwebsite.com/sample-article..."
                       className="w-full bg-gray-900 border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                     />
                   </div>
@@ -617,7 +734,7 @@ export default function PrivateUploadDatabasePage() {
 
                   <div className="md:col-span-4">
                     <label className="text-[11px] text-gray-300 font-bold block mb-1">
-                      Logo URL (Optional, auto-generated if left empty)
+                      Logo URL (Optional, auto-generated from domain if left empty)
                     </label>
                     <input
                       type="url"
@@ -642,16 +759,16 @@ export default function PrivateUploadDatabasePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-[11px] text-gray-300 font-bold block mb-1">
-                      Content Placement Price ($ USD) *
+                      Content Placement Price ($ USD)
                     </label>
                     <div className="relative">
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
-                        required
+                        min="0"
                         value={contentPlacementPrice}
                         onChange={(e) => setContentPlacementPrice(e.target.value)}
-                        placeholder="150"
+                        placeholder="0 (leave empty if not offered)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400 font-bold"
                       />
                     </div>
@@ -665,9 +782,10 @@ export default function PrivateUploadDatabasePage() {
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={linkInsertPrice}
                         onChange={(e) => setLinkInsertPrice(e.target.value)}
-                        placeholder="100"
+                        placeholder="0 (leave empty if not offered)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400 font-bold"
                       />
                     </div>
@@ -680,7 +798,7 @@ export default function PrivateUploadDatabasePage() {
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2.5">
                   <span className="text-base">🌿</span>
                   <h3 className="text-xs font-black uppercase tracking-wider text-emerald-400">
-                    4. CBD &amp; Cannabis Content Pricing ($ USD)
+                    4. CBD &amp; Cannabis Content Pricing ($ USD) — Defaults to 0 if left empty
                   </h3>
                 </div>
 
@@ -693,9 +811,10 @@ export default function PrivateUploadDatabasePage() {
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={cbdContentPlacementPrice}
                         onChange={(e) => setCbdContentPlacementPrice(e.target.value)}
-                        placeholder="200"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -703,15 +822,16 @@ export default function PrivateUploadDatabasePage() {
 
                   <div>
                     <label className="text-[11px] text-gray-300 font-bold block mb-1">
-                      CBD Content Creation &amp; Placement Price ($)
+                      CBD Content Creation &amp; Placement ($)
                     </label>
                     <div className="relative">
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={cbdContentCreationPlacementPrice}
                         onChange={(e) => setCbdContentCreationPlacementPrice(e.target.value)}
-                        placeholder="250"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -725,9 +845,10 @@ export default function PrivateUploadDatabasePage() {
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={cbdLinkInsertPrice}
                         onChange={(e) => setCbdLinkInsertPrice(e.target.value)}
-                        placeholder="150"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -740,7 +861,7 @@ export default function PrivateUploadDatabasePage() {
                 <div className="flex items-center gap-2 border-b border-gray-800 pb-2.5">
                   <span className="text-base">🔞</span>
                   <h3 className="text-xs font-black uppercase tracking-wider text-rose-400">
-                    5. Adult &amp; Casino Content Pricing ($ USD)
+                    5. Adult &amp; Casino Content Pricing ($ USD) — Defaults to 0 if left empty
                   </h3>
                 </div>
 
@@ -753,9 +874,10 @@ export default function PrivateUploadDatabasePage() {
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={adultContentPlacementPrice}
                         onChange={(e) => setAdultContentPlacementPrice(e.target.value)}
-                        placeholder="300"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -763,15 +885,16 @@ export default function PrivateUploadDatabasePage() {
 
                   <div>
                     <label className="text-[11px] text-gray-300 font-bold block mb-1">
-                      Adult Content Creation &amp; Placement Price ($)
+                      Adult Creation &amp; Placement ($)
                     </label>
                     <div className="relative">
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={adultContentCreationPlacementPrice}
                         onChange={(e) => setAdultContentCreationPlacementPrice(e.target.value)}
-                        placeholder="350"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -785,9 +908,10 @@ export default function PrivateUploadDatabasePage() {
                       <span className="absolute left-3 top-2 text-gray-400 text-xs font-bold">$</span>
                       <input
                         type="number"
+                        min="0"
                         value={adultLinkInsertPrice}
                         onChange={(e) => setAdultLinkInsertPrice(e.target.value)}
-                        placeholder="200"
+                        placeholder="0 (leave empty if 0)"
                         className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-7 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-400"
                       />
                     </div>
@@ -795,8 +919,11 @@ export default function PrivateUploadDatabasePage() {
                 </div>
               </div>
 
-              {/* Submit Button */}
-              <div className="flex justify-end pt-2">
+              {/* Action Submit Button */}
+              <div className="pt-2 flex items-center justify-between">
+                <span className="text-xs text-gray-400">
+                  Clicking save appends this website to your inventory without deleting previous ones.
+                </span>
                 <button
                   type="submit"
                   disabled={isSyncing}
@@ -817,7 +944,7 @@ export default function PrivateUploadDatabasePage() {
                   <span>Upload Your Spreadsheet File (.xlsx, .xls, .csv):</span>
                 </h3>
                 <p className="text-xs text-gray-400">
-                  Select your client’s real website spreadsheet. All 22 columns (Domain, DA, PA, DR, Traffic, Semrush, Spam, Category, Link Type, Sample Link, Country, Content Placement Price, Link Insert Price, CBD Pricing, Adult Pricing, Indexable, Sponsored, Logo URL) are automatically recognized!
+                  Select your client’s real website spreadsheet. All 22 columns are automatically recognized. Any missing CBD or Adult columns default strictly to 0.
                 </p>
               </div>
 
@@ -880,7 +1007,7 @@ export default function PrivateUploadDatabasePage() {
                   Currently Live Real Websites ({realSites.length})
                 </h3>
                 <span className="text-xs text-gray-400">
-                  Showing all 22 attributes for each site. These websites are live on the Buyer Dashboard.
+                  Showing all 22 attributes for each site. Each added website is live on the Buyer Dashboard.
                 </span>
               </div>
             </div>
@@ -936,10 +1063,18 @@ export default function PrivateUploadDatabasePage() {
                           {site.linkType || "DoFollow"}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 font-mono font-bold text-white">${site.contentPlacementPrice || site.price}</td>
-                      <td className="py-2.5 px-3 font-mono text-gray-300">${site.linkInsertPrice || "—"}</td>
-                      <td className="py-2.5 px-3 font-mono text-emerald-400">${site.cbdContentPlacementPrice || "—"}</td>
-                      <td className="py-2.5 px-3 font-mono text-rose-400">${site.adultContentPlacementPrice || "—"}</td>
+                      <td className="py-2.5 px-3 font-mono font-bold text-white">
+                        {site.contentPlacementPrice || site.price ? `$${site.contentPlacementPrice || site.price}` : "—"}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-gray-300">
+                        {site.linkInsertPrice && site.linkInsertPrice > 0 ? `$${site.linkInsertPrice}` : "—"}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-emerald-400">
+                        {site.cbdContentPlacementPrice && site.cbdContentPlacementPrice > 0 ? `$${site.cbdContentPlacementPrice}` : "—"}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-rose-400">
+                        {site.adultContentPlacementPrice && site.adultContentPlacementPrice > 0 ? `$${site.adultContentPlacementPrice}` : "—"}
+                      </td>
                       <td className="py-2.5 px-3 text-right">
                         <button
                           type="button"

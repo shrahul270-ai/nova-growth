@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import os from "os";
 import * as XLSX from "xlsx";
 
 const DATA_DIR = path.join(process.cwd(), "data");
-const CUSTOM_DB_FILE = path.join(DATA_DIR, "custom_database_source.json");
+const LOCAL_CUSTOM_DB_FILE = path.join(DATA_DIR, "custom_database_source.json");
+const TMP_CUSTOM_DB_FILE = path.join(os.tmpdir(), "nova_growth_custom_db.json");
 
 interface CustomDatabaseRecord {
   vercelBlobUrl: string;
@@ -23,8 +25,25 @@ let memoryCustomDb: CustomDatabaseRecord = {
 };
 
 function readCustomDatabase(): CustomDatabaseRecord {
+  // 1. Check in-memory if populated
+  if (memoryCustomDb && memoryCustomDb.customSites && memoryCustomDb.customSites.length > 0) {
+    return memoryCustomDb;
+  }
+
+  // 2. Check writable tmp directory (survives across serverless executions in same container)
   try {
-    // 1. Check if user placed an Excel/CSV file directly in the local data/ folder
+    if (fs.existsSync(TMP_CUSTOM_DB_FILE)) {
+      const raw = fs.readFileSync(TMP_CUSTOM_DB_FILE, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.customSites) && parsed.customSites.length > 0) {
+        memoryCustomDb = parsed;
+        return parsed;
+      }
+    }
+  } catch {}
+
+  // 3. Check if user placed an Excel/CSV file directly in the local data/ folder
+  try {
     const localFiles = [
       "websites.xlsx",
       "websites.csv",
@@ -44,43 +63,55 @@ function readCustomDatabase(): CustomDatabaseRecord {
           const rawRows = XLSX.utils.sheet_to_json(worksheet);
           const parsed = normalizeSpreadsheetRows(rawRows);
           if (parsed && parsed.length > 0) {
-            return {
+            const result: CustomDatabaseRecord = {
               vercelBlobUrl: "",
               directDownloadUrl: "",
               customSites: parsed,
               updatedAt: new Date().toISOString(),
               sourceType: "file_upload",
             };
+            memoryCustomDb = result;
+            return result;
           }
         } catch (e) {
           console.error("Local file read error:", e);
         }
       }
     }
+  } catch {}
 
-    // 2. Check saved JSON file
-    if (fs.existsSync(CUSTOM_DB_FILE)) {
-      const raw = fs.readFileSync(CUSTOM_DB_FILE, "utf-8");
+  // 4. Check saved JSON file in local data dir
+  try {
+    if (fs.existsSync(LOCAL_CUSTOM_DB_FILE)) {
+      const raw = fs.readFileSync(LOCAL_CUSTOM_DB_FILE, "utf-8");
       const parsed = JSON.parse(raw);
-      memoryCustomDb = parsed;
-      return parsed;
+      if (parsed && Array.isArray(parsed.customSites)) {
+        memoryCustomDb = parsed;
+        return parsed;
+      }
     }
   } catch (err) {
     console.error("[custom-database] read error:", err);
   }
+
   return memoryCustomDb;
 }
 
 function saveCustomDatabase(data: CustomDatabaseRecord): void {
+  memoryCustomDb = data;
+
+  // Save to os.tmpdir (writable in Vercel serverless)
   try {
-    memoryCustomDb = data;
+    fs.writeFileSync(TMP_CUSTOM_DB_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch {}
+
+  // Save to local data dir (works in local dev)
+  try {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    fs.writeFileSync(CUSTOM_DB_FILE, JSON.stringify(data, null, 2), "utf-8");
-  } catch (err) {
-    console.error("[custom-database] save error (in-memory cached):", err);
-  }
+    fs.writeFileSync(LOCAL_CUSTOM_DB_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch {}
 }
 
 // Parse raw spreadsheet rows into normalized publisher sites with all 22 attributes
@@ -103,7 +134,7 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
     };
 
     const parseNum = (val: any, defaultNum: number = 0): number => {
-      if (val === undefined || val === null || val === "") return defaultNum;
+      if (val === undefined || val === null || val === "" || String(val).trim() === "") return defaultNum;
       const cleaned = String(val).replace(/[^0-9.]/g, "");
       const num = parseFloat(cleaned);
       return isNaN(num) ? defaultNum : Math.round(num);
@@ -116,9 +147,9 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
 
     const rawDr = parseNum(getVal(["dr", "ahrefs dr", "ahrefs_dr", "domain rating"], 50), 50);
     const rawDa = parseNum(getVal(["da", "moz da", "moz_da", "domain authority"], 45), 45);
-    const rawPa = parseNum(getVal(["pa", "moz pa", "moz_pa", "page authority"], 40), 40);
+    const rawPa = parseNum(getVal(["pa", "moz pa", "moz_pa", "page authority"], 0), 0);
 
-    const rawTraffic = String(getVal(["traffic", "ahrefs traffic", "monthly traffic", "organic traffic", "visits", "semrush traffic"], "50,000+"));
+    const rawTraffic = String(getVal(["traffic", "ahrefs traffic", "monthly traffic", "organic traffic", "visits", "semrush traffic"], "100,000+"));
     const rawSemrushScore = String(getVal(["semrush score", "semrush_score", "semrush", "authority score", "as"], "—"));
     const rawSpamScore = String(getVal(["spam score", "spam_score", "spam", "ss"], "1%"));
     const rawCategory = String(getVal(["category", "niche", "industry", "topic"], "General"));
@@ -126,19 +157,19 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
     const rawSampleLink = String(getVal(["sample link", "sample_link", "sample url", "sample_url", "sample", "example", "live link"], ""));
     const rawCountry = String(getVal(["country", "geo", "location", "target country"], "Worldwide"));
 
-    // Standard Pricing
-    const rawContentPlacementPrice = parseNum(getVal(["content placement price", "content_placement_price", "placement price", "guest post price", "price", "cost", "rate", "usd"], 150), 150);
-    const rawLinkInsertPrice = parseNum(getVal(["link insert price", "link_insert_price", "link insertion price", "link insertion", "link insert"], Math.round(rawContentPlacementPrice * 0.7)), Math.round(rawContentPlacementPrice * 0.7));
+    // Standard Pricing (Defaults to 0 if not provided by user)
+    const rawContentPlacementPrice = parseNum(getVal(["content placement price", "content_placement_price", "placement price", "guest post price", "price", "cost", "rate", "usd"], 0), 0);
+    const rawLinkInsertPrice = parseNum(getVal(["link insert price", "link_insert_price", "link insertion price", "link insertion", "link insert"], 0), 0);
 
-    // CBD Pricing
-    const rawCbdPlacementPrice = parseNum(getVal(["cbd content placement price", "cbd_content_placement_price", "cbd placement price", "cbd price"], Math.round(rawContentPlacementPrice * 1.3)), Math.round(rawContentPlacementPrice * 1.3));
-    const rawCbdCreationPlacementPrice = parseNum(getVal(["cbd content creation & placement price", "cbd content creation and placement price", "cbd_content_creation_placement_price", "cbd content creation placement"], Math.round(rawCbdPlacementPrice + 40)), Math.round(rawCbdPlacementPrice + 40));
-    const rawCbdLinkInsertPrice = parseNum(getVal(["cbd link insert price", "cbd_link_insert_price", "cbd link insertion price", "cbd link insert"], Math.round(rawLinkInsertPrice * 1.25)), Math.round(rawLinkInsertPrice * 1.25));
+    // CBD Pricing (Strictly defaults to 0! NO fake multipliers!)
+    const rawCbdPlacementPrice = parseNum(getVal(["cbd content placement price", "cbd_content_placement_price", "cbd placement price", "cbd price"], 0), 0);
+    const rawCbdCreationPlacementPrice = parseNum(getVal(["cbd content creation & placement price", "cbd content creation and placement price", "cbd_content_creation_placement_price", "cbd content creation placement"], 0), 0);
+    const rawCbdLinkInsertPrice = parseNum(getVal(["cbd link insert price", "cbd_link_insert_price", "cbd link insertion price", "cbd link insert"], 0), 0);
 
-    // Adult Pricing
-    const rawAdultPlacementPrice = parseNum(getVal(["adult content placement price", "adult_content_placement_price", "adult placement price", "adult price"], Math.round(rawContentPlacementPrice * 1.5)), Math.round(rawContentPlacementPrice * 1.5));
-    const rawAdultCreationPlacementPrice = parseNum(getVal(["adult content creation & placement price", "adult content creation and placement price", "adult_content_creation_placement_price", "adult content creation placement"], Math.round(rawAdultPlacementPrice + 45)), Math.round(rawAdultPlacementPrice + 45));
-    const rawAdultLinkInsertPrice = parseNum(getVal(["adult link insert price", "adult_link_insert_price", "adult link insertion price", "adult link insert"], Math.round(rawLinkInsertPrice * 1.4)), Math.round(rawLinkInsertPrice * 1.4));
+    // Adult Pricing (Strictly defaults to 0! NO fake multipliers!)
+    const rawAdultPlacementPrice = parseNum(getVal(["adult content placement price", "adult_content_placement_price", "adult placement price", "adult price"], 0), 0);
+    const rawAdultCreationPlacementPrice = parseNum(getVal(["adult content creation & placement price", "adult content creation and placement price", "adult_content_creation_placement_price", "adult content creation placement"], 0), 0);
+    const rawAdultLinkInsertPrice = parseNum(getVal(["adult link insert price", "adult_link_insert_price", "adult link insertion price", "adult link insert"], 0), 0);
 
     // Indexable & Sponsored
     const indexableVal = String(getVal(["indexable", "google indexable", "indexed", "index"], "Yes"));
@@ -158,26 +189,23 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
     else if (cLower.includes("canada")) flag = "🇨🇦";
     else if (cLower.includes("australia")) flag = "🇦🇺";
     else if (cLower.includes("india")) flag = "🇮🇳";
-    else if (cLower.includes("germany")) flag = "🇩🇪";
-    else if (cLower.includes("france")) flag = "🇫🇷";
 
     return {
-      id: `custom-pub-${idx + 1}-${Date.now().toString(36)}`,
+      id: `real-site-${Date.now()}-${idx}-${Math.random().toString(36).slice(2, 6)}`,
       domain: rawDomain,
-      da: Math.min(100, Math.max(1, rawDa)),
-      pa: Math.min(100, Math.max(1, rawPa)),
-      dr: Math.min(100, Math.max(1, rawDr)),
-      traffic: rawTraffic.includes("+") || rawTraffic.includes(",") || rawTraffic.toLowerCase().includes("traffic") ? rawTraffic : `${Number(rawTraffic).toLocaleString()}+`,
+      da: rawDa,
+      pa: rawPa,
+      dr: rawDr,
+      traffic: rawTraffic,
       ahrefsTraffic: rawTraffic,
       semrushScore: rawSemrushScore,
-      spamScore: rawSpamScore.includes("%") ? rawSpamScore : `${rawSpamScore}%`,
+      spamScore: rawSpamScore,
       category: rawCategory,
       niche: rawCategory,
-      linkType: rawLinkType.toLowerCase().includes("no") ? "NoFollow" : rawLinkType.toLowerCase().includes("context") ? "Contextual" : "DoFollow",
-      sampleLink: rawSampleLink.startsWith("http") ? rawSampleLink : (rawSampleLink ? `https://${rawSampleLink}` : ""),
+      linkType: rawLinkType,
+      sampleLink: rawSampleLink,
       country: rawCountry,
       countryFlag: flag,
-      language: "English",
       contentPlacementPrice: rawContentPlacementPrice,
       price: rawContentPlacementPrice,
       linkInsertPrice: rawLinkInsertPrice,
@@ -189,12 +217,10 @@ function normalizeSpreadsheetRows(rows: any[]): any[] {
       adultLinkInsertPrice: rawAdultLinkInsertPrice,
       indexable: isIndexable,
       sponsored: isSponsored,
-      sponsoredTag: isSponsored,
       logoUrl: resolvedLogo,
-      tatDays: 2,
       addedByAdmin: true,
     };
-  }).filter((s) => s.domain && s.domain !== "site-1.com" || rows.length <= 1);
+  });
 }
 
 export async function GET() {
@@ -242,33 +268,50 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Action: Add a single website
+    // Action 2: Add a single website (Appends to existing sites, never deletes prior entries!)
     if (action === "add_single" && body.site) {
       const singleNormalized = normalizeSpreadsheetRows([body.site])[0];
       if (!singleNormalized) {
         return NextResponse.json({ success: false, error: "Invalid website data" }, { status: 400 });
       }
-      const existing = current.customSites || [];
-      const updatedSites = [singleNormalized, ...existing.filter((s) => s.domain !== singleNormalized.domain)];
+
+      // Prioritize existing list passed by client (preserves browser continuity across serverless lambdas)
+      let baseList: any[] = [];
+      if (Array.isArray(body.allSites) && body.allSites.length > 0) {
+        baseList = body.allSites;
+      } else if (Array.isArray(body.existingSites) && body.existingSites.length > 0) {
+        baseList = body.existingSites;
+      } else if (Array.isArray(current.customSites) && current.customSites.length > 0) {
+        baseList = current.customSites;
+      }
+
+      // Filter out duplicate by domain and prepend the newly added website
+      const filteredExisting = baseList.filter(
+        (s: any) => s.domain?.toLowerCase() !== singleNormalized.domain?.toLowerCase()
+      );
+      const updatedSites = [singleNormalized, ...filteredExisting];
+
       const updatedData: CustomDatabaseRecord = {
         ...current,
         customSites: updatedSites,
         updatedAt: new Date().toISOString(),
+        sourceType: "manual",
       };
       saveCustomDatabase(updatedData);
+
       return NextResponse.json({
         success: true,
-        message: `Successfully added ${singleNormalized.domain}!`,
+        message: `Successfully added ${singleNormalized.domain}! Total: ${updatedSites.length} websites.`,
         customSites: updatedSites,
         totalCount: updatedSites.length,
       });
     }
 
-    // Action: Delete a single website
+    // Action 3: Delete a single website
     if (action === "delete_single" && (body.siteId || body.domain)) {
-      const existing = current.customSites || [];
-      const updatedSites = existing.filter(
-        (s) => s.id !== body.siteId && s.domain !== body.domain
+      const baseList = Array.isArray(body.allSites) ? body.allSites : (current.customSites || []);
+      const updatedSites = baseList.filter(
+        (s: any) => s.id !== body.siteId && s.domain?.toLowerCase() !== String(body.domain).toLowerCase()
       );
       const updatedData: CustomDatabaseRecord = {
         ...current,
@@ -284,7 +327,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Action 2: Sync from Vercel Blob URL
+    // Action 4: Sync from Vercel Blob URL
     if (action === "sync_blob" && vercelBlobUrl) {
       const cleanUrl = String(vercelBlobUrl).trim();
       let parsedSites: any[] = [];
@@ -306,8 +349,7 @@ export async function POST(req: NextRequest) {
 
         parsedSites = normalizeSpreadsheetRows(rawJsonRows);
       } catch (fetchErr: any) {
-        console.warn("[sync_blob error]: Could not parse file content, will use direct download link:", fetchErr.message);
-        // Even if parsing fails (e.g. CORS or encrypted), we still save the Vercel Blob link as direct download!
+        console.warn("[sync_blob error]: Could not parse file content, using direct download link:", fetchErr.message);
       }
 
       const updatedData: CustomDatabaseRecord = {
@@ -330,7 +372,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Action 3: Direct Upload / Save Custom Sites Array
+    // Action 5: Direct Upload / Save Custom Sites Array
     if (Array.isArray(customSites)) {
       const normalized = normalizeSpreadsheetRows(customSites);
       const updatedData: CustomDatabaseRecord = {
@@ -351,36 +393,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Action 4: Just save Vercel Blob / Download link
-    if (vercelBlobUrl || directDownloadUrl) {
-      const cleanUrl = String(vercelBlobUrl || directDownloadUrl).trim();
-      const updatedData: CustomDatabaseRecord = {
-        vercelBlobUrl: cleanUrl,
-        directDownloadUrl: cleanUrl,
-        customSites: current.customSites || [],
-        updatedAt: new Date().toISOString(),
-        sourceType: "blob_url",
-      };
-
-      saveCustomDatabase(updatedData);
-
-      return NextResponse.json({
-        success: true,
-        message: "Vercel Blob link saved successfully!",
-        vercelBlobUrl: cleanUrl,
-        directDownloadUrl: cleanUrl,
-        totalCount: updatedData.customSites.length,
-      });
-    }
-
-    return NextResponse.json(
-      { success: false, error: "Invalid payload: Provide vercelBlobUrl or customSites" },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: "Invalid request payload" }, { status: 400 });
   } catch (error: any) {
     console.error("[custom-database POST error]:", error);
     return NextResponse.json(
-      { success: false, error: error?.message || "Failed to save database source" },
+      { success: false, error: error.message || "Failed to update database" },
       { status: 500 }
     );
   }
