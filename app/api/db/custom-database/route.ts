@@ -4,6 +4,7 @@ import path from "path";
 import os from "os";
 import * as XLSX from "xlsx";
 import { normalizeSpreadsheetRows } from "@/lib/spreadsheet";
+import { verifyAdminRequest } from "@/lib/security";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const LOCAL_CUSTOM_DB_FILE = path.join(DATA_DIR, "custom_database_source.json");
@@ -230,6 +231,15 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    // Enterprise Security: Must be an authenticated admin to alter database records
+    const auth = verifyAdminRequest(req);
+    if (!auth.authenticated) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access: Admin authentication required to modify database" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { vercelBlobUrl, customSites, directDownloadUrl, action } = body;
 

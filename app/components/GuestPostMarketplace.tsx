@@ -737,11 +737,16 @@ export default function GuestPostMarketplace() {
     return initialPublishers;
   }, [customPublishers]);
 
-  // Download 40,000+ guest post database in Excel format
+  // Download 40,000+ guest post database in Excel format (Secure stream)
   const handleDownloadDatabase = () => {
     try {
+      if (!isBuyerLoggedIn || !buyerUser?.email) {
+        setAuthMode("signup");
+        setIsAuthModalOpen(true);
+        return;
+      }
       const a = document.createElement("a");
-      a.href = "/nova_growth_40000_guest_posts.xlsx";
+      a.href = `/api/download/database?email=${encodeURIComponent(buyerUser.email)}`;
       a.download = `nova_growth_40000_guest_posts_${Date.now()}.xlsx`;
       document.body.appendChild(a);
       a.click();

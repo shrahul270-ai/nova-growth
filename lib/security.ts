@@ -9,7 +9,7 @@ const SESSION_SECRET =
 // Fixed Admin Credentials (stored strictly on server, NEVER sent to client)
 const AUTHORIZED_ADMIN_EMAILS = (
   process.env.ADMIN_AUTHORIZED_EMAILS ||
-  "admin@novagrowth.agency,shrahul270@gmail.com"
+  "admin@novagrowth.agency,shrahul270@gmail.com,dd965220@gmail.com"
 )
   .split(",")
   .map((e) => e.trim().toLowerCase());
@@ -252,18 +252,122 @@ export function verifyAdminRequest(req: NextRequest): {
 }
 
 /**
- * Sanitize User Inputs against XSS & script injection
+ * Sanitize User Inputs against XSS, null-bytes, & script injection
  */
 export function sanitizeInput(input: any): any {
   if (typeof input !== "string") return input;
 
   return input
+    .replace(/\0/g, "") // remove null bytes
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
     .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, "")
+    .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, "")
+    .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, "")
     .replace(/javascript:/gi, "")
+    .replace(/vbscript:/gi, "")
+    .replace(/data:text\/html/gi, "")
     .replace(/onerror\s*=/gi, "")
     .replace(/onload\s*=/gi, "")
     .replace(/onclick\s*=/gi, "")
+    .replace(/onmouseover\s*=/gi, "")
     .replace(/eval\s*\(/gi, "")
+    .replace(/expression\s*\(/gi, "")
     .trim();
+}
+
+/**
+ * Malicious Pattern Detector (Anti-SQLi, Anti-Command Injection, Anti-Path Traversal)
+ */
+export function detectMaliciousPattern(input: string): boolean {
+  if (!input || typeof input !== "string") return false;
+
+  const suspiciousPatterns = [
+    /(\.\.[\/\\])/, // Path traversal ../ or ..\
+    /(union\s+select)/i, // SQLi union select
+    /(select\s+.*\s+from\s+information_schema)/i, // SQLi schema probe
+    /(waitfor\s+delay\s+)/i, // Time-based SQLi
+    /(benchmark\s*\(\s*\d+\s*,)/i, // MySQL benchmark SQLi
+    /(pg_sleep\s*\()/i, // Postgres SQLi
+    /(\'\s*or\s*\'1\'\s*=\s*\'1)/i, // Classic SQLi ' or '1'='1
+    /(\"\s*or\s*\"1\"\s*=\s*\"1)/i,
+    /(exec\s*\(|execute\s*\()/i, // Command exec
+    /(<script|%3cscript)/i, // Raw or URL-encoded script
+    /(base64_decode|system\s*\(|passthru\s*\(|shell_exec\s*\()/i, // Web shell probes
+  ];
+
+  return suspiciousPatterns.some((pattern) => pattern.test(input));
+}
+
+// Download Rate Limiter (Max 5 downloads per hour per IP / email)
+const downloadLimits = new Map<string, { count: number; firstAttempt: number }>();
+
+export function checkDownloadRateLimit(identifier: string): {
+  allowed: boolean;
+  remaining: number;
+  resetMinutes: number;
+} {
+  const now = Date.now();
+  const ONE_HOUR = 60 * 60 * 1000;
+  const record = downloadLimits.get(identifier);
+
+  if (!record) {
+    downloadLimits.set(identifier, { count: 1, firstAttempt: now });
+    return { allowed: true, remaining: 4, resetMinutes: 60 };
+  }
+
+  if (now - record.firstAttempt > ONE_HOUR) {
+    downloadLimits.set(identifier, { count: 1, firstAttempt: now });
+    return { allowed: true, remaining: 4, resetMinutes: 60 };
+  }
+
+  if (record.count >= 5) {
+    const resetMinutes = Math.ceil((ONE_HOUR - (now - record.firstAttempt)) / 60000);
+    return { allowed: false, remaining: 0, resetMinutes };
+  }
+
+  record.count += 1;
+  downloadLimits.set(identifier, record);
+  return {
+    allowed: true,
+    remaining: Math.max(0, 5 - record.count),
+    resetMinutes: Math.ceil((ONE_HOUR - (now - record.firstAttempt)) / 60000),
+  };
+}
+
+/**
+ * Validate CSRF Origin for State-Mutating Requests (POST, PUT, DELETE, PATCH)
+ */
+export function validateCsrfOrigin(req: NextRequest): boolean {
+  const method = req.method.toUpperCase();
+  if (["GET", "HEAD", "OPTIONS"].includes(method)) return true;
+
+  const origin = req.headers.get("origin");
+  const referer = req.headers.get("referer");
+  const host = req.headers.get("host");
+
+  if (!host) return false;
+
+  if (origin) {
+    try {
+      const originHost = new URL(origin).host;
+      if (originHost === host) return true;
+    } catch {
+      return false;
+    }
+  }
+
+  if (referer) {
+    try {
+      const refererHost = new URL(referer).host;
+      if (refererHost === host) return true;
+    } catch {
+      return false;
+    }
+  }
+
+  // Same-origin default or API clients with authorization header
+  const authHeader = req.headers.get("authorization");
+  if (authHeader) return true;
+
+  return false;
 }

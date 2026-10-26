@@ -427,19 +427,20 @@ export default function BuyerDashboardPage() {
       }).catch(() => {});
     });
 
-    // Native browser direct download of full 40,000+ database (.xlsx) with zero memory overhead
+    // Secure authenticated download of full 40,000+ database (.xlsx) with rate limiting & anti-scraping
     try {
+      const downloadUrl = `/api/download/database?email=${encodeURIComponent(user.email)}`;
       const downloadLink = document.createElement("a");
-      downloadLink.href = directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
+      downloadLink.href = downloadUrl;
       downloadLink.setAttribute("download", "nova_growth_40000_guest_posts.xlsx");
       downloadLink.target = "_blank";
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
-      showToast(`✅ Successfully downloading complete 40,000+ guest post database (.xlsx)!`);
+      showToast(`✅ Securely downloading complete 40,000+ guest post database (.xlsx)!`);
     } catch (err) {
       console.error("Direct download error:", err);
-      window.open(directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx", "_blank");
+      window.open(`/api/download/database?email=${encodeURIComponent(user.email)}`, "_blank");
     }
   };
 

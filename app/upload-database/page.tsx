@@ -44,6 +44,7 @@ export default function PrivateUploadDatabasePage() {
   const [statusMsg, setStatusMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [activeTab, setActiveTab] = useState<"add_single" | "upload_file" | "vercel_link">("add_single");
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number; percent: number } | null>(null);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean | null>(null);
 
   // Comprehensive 22-Field Single Site Form State (All default clean & empty)
   const [domain, setDomain] = useState("");
@@ -192,7 +193,19 @@ export default function PrivateUploadDatabasePage() {
   };
 
   useEffect(() => {
-    loadDatabase();
+    fetch("/api/admin/verify")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.authenticated) {
+          setIsAdminAuthenticated(true);
+          loadDatabase();
+        } else {
+          setIsAdminAuthenticated(false);
+        }
+      })
+      .catch(() => {
+        setIsAdminAuthenticated(false);
+      });
   }, []);
 
   // 1. Upload Excel / CSV directly from computer (All 22 columns supported, normalized directly in browser)
@@ -464,6 +477,42 @@ export default function PrivateUploadDatabasePage() {
       console.error(err);
     }
   };
+
+  if (isAdminAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-[#070b14] flex items-center justify-center text-white font-sans">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-3 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-gray-400 font-mono">Verifying enterprise security credentials...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAdminAuthenticated === false) {
+    return (
+      <div className="min-h-screen bg-[#070b14] flex items-center justify-center p-4 font-sans">
+        <div className="max-w-md w-full bg-[#0b1220] border border-red-500/30 rounded-3xl p-8 text-center space-y-4 shadow-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center text-3xl mx-auto shadow-lg">
+            🔒
+          </div>
+          <h2 className="text-xl font-black text-white">Access Denied</h2>
+          <p className="text-xs text-gray-400 leading-relaxed">
+            This database management portal is strictly restricted to authorized agency administrators. Please sign in via the secure Admin Gateway to continue.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs transition-transform hover:scale-102 active:scale-98 shadow-lg shadow-emerald-500/20"
+            >
+              <span>Go to Admin Login</span>
+              <span>→</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#070b14] text-gray-100 flex flex-col font-sans selection:bg-purple-600 selection:text-white">
