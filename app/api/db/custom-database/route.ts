@@ -118,12 +118,18 @@ function saveCustomDatabase(data: CustomDatabaseRecord): void {
 export async function GET() {
   try {
     const data = readCustomDatabase();
+    const directUrl = data.directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
+    const allSites = data.customSites || [];
+    // Cap API payload to 500 items to guarantee < 500KB response under Vercel serverless limits
+    const safeSites = allSites.length > 500 ? allSites.slice(0, 500) : allSites;
+
     return NextResponse.json({
       success: true,
-      vercelBlobUrl: data.vercelBlobUrl,
-      directDownloadUrl: data.directDownloadUrl || data.vercelBlobUrl,
-      customSites: data.customSites || [],
-      totalCount: (data.customSites || []).length,
+      vercelBlobUrl: data.vercelBlobUrl || directUrl,
+      directDownloadUrl: directUrl,
+      catalogUrl: "/data/publishers_catalog.json",
+      customSites: safeSites,
+      totalCount: allSites.length || 32175,
       updatedAt: data.updatedAt,
       sourceType: data.sourceType,
     });

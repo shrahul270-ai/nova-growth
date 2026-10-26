@@ -136,6 +136,21 @@ export default function PrivateUploadDatabasePage() {
       }
     } catch {}
 
+    // Fetch static 40,000 catalog
+    try {
+      const catRes = await fetch("/data/publishers_catalog.json");
+      if (catRes.ok) {
+        const catList: RealWebsiteSite[] = await catRes.json();
+        if (Array.isArray(catList) && catList.length > 0) {
+          setRealSites(catList);
+          setVercelBlobUrl("/nova_growth_40000_guest_posts.xlsx");
+          setInputBlobUrl("/nova_growth_40000_guest_posts.xlsx");
+          saveSitesToIndexedDB(catList).catch(() => {});
+          return;
+        }
+      }
+    } catch {}
+
     try {
       const res = await fetch("/api/db/custom-database");
       const data = await res.json();

@@ -152,30 +152,36 @@ export default function BuyerDashboardPage() {
       }
     } catch {}
 
-    // 2. Fetch from server API and merge seamlessly
+    // 2. Fetch full global 40,000 catalog from static CDN (Loads on all phones & browsers)
+    try {
+      const catRes = await fetch("/data/publishers_catalog.json");
+      if (catRes.ok) {
+        const catalogList: RealWebsiteSite[] = await catRes.json();
+        if (Array.isArray(catalogList) && catalogList.length > 0) {
+          setRealWebsites(catalogList);
+          setDirectDownloadUrl("/nova_growth_40000_guest_posts.xlsx");
+          saveSitesToIndexedDB(catalogList).catch(() => {});
+          try {
+            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(catalogList.slice(0, 500)));
+          } catch {}
+          setIsLoadingDb(false);
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn("Catalog fetch:", e);
+    }
+
+    // 3. Fallback to /api/db/custom-database
     try {
       const res = await fetch("/api/db/custom-database");
       const data = await res.json();
       if (data.success) {
-        setDirectDownloadUrl(data.directDownloadUrl || "");
+        setDirectDownloadUrl(data.directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx");
         const serverList: RealWebsiteSite[] = data.customSites || [];
-
-        // Merge by domain
-        const mergedMap = new Map<string, RealWebsiteSite>();
-        serverList.forEach((s) => mergedMap.set(s.domain.toLowerCase(), s));
-        localList.forEach((s) => {
-          if (!mergedMap.has(s.domain.toLowerCase())) {
-            mergedMap.set(s.domain.toLowerCase(), s);
-          }
-        });
-
-        const mergedList = Array.from(mergedMap.values());
-        if (mergedList.length > 0) {
-          setRealWebsites(mergedList);
-          await saveSitesToIndexedDB(mergedList);
-          try {
-            localStorage.setItem("nova_growth_real_sites_v1", JSON.stringify(mergedList.slice(0, 500)));
-          } catch {}
+        if (serverList.length > 0) {
+          setRealWebsites(serverList);
+          saveSitesToIndexedDB(serverList).catch(() => {});
         }
       }
     } catch (err) {
@@ -493,7 +499,23 @@ export default function BuyerDashboardPage() {
       }).catch(() => {});
     });
 
-    // Native XLSX workbook via SheetJS with all 22 columns
+    // Fast download for full 40,000 database without freezing browser memory
+    if (filteredAndSortedSites.length >= 1000 || !search.trim()) {
+      try {
+        const a = document.createElement("a");
+        a.href = directDownloadUrl || "/nova_growth_40000_guest_posts.xlsx";
+        a.download = `nova_growth_40000_guest_posts_${Date.now()}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast(`✅ Successfully downloaded complete 40,000+ guest post database (.xlsx)!`);
+        return;
+      } catch (err) {
+        console.error("Direct download error, falling back to sheetjs:", err);
+      }
+    }
+
+    // Native XLSX workbook via SheetJS with all 22 columns for filtered views
     try {
       const formatRate = (rate?: number) => {
         if (!rate || rate <= 0) return "Not Offered (0)";

@@ -708,6 +708,19 @@ export default function GuestPostMarketplace() {
 
   useEffect(() => {
     const syncCustom = async () => {
+      // 1. Fetch static 40,000 real sites catalog (Loads on all phones & browsers)
+      try {
+        const catRes = await fetch("/data/publishers_catalog.json");
+        if (catRes.ok) {
+          const list = await catRes.json();
+          if (Array.isArray(list) && list.length > 0) {
+            setCustomPublishers(list);
+            return;
+          }
+        }
+      } catch {}
+
+      // 2. Fetch custom database from server
       try {
         const res = await fetch("/api/db/custom-database");
         const data = await res.json();
@@ -735,41 +748,17 @@ export default function GuestPostMarketplace() {
     return initialPublishers;
   }, [customPublishers]);
 
-  // Download 40,000+ guest post database in Excel/CSV format
-  const handleDownloadDatabase = (sitesToExport = allPublishers) => {
-    const headers = [
-      "Publication Domain",
-      "Category / Niche",
-      "Ahrefs DR",
-      "Moz DA",
-      "Traffic",
-      "Country",
-      "Link Type",
-      "Price (USD)",
-      "Status",
-    ];
-    const rows = sitesToExport.map((s) => [
-      `"${s.domain}"`,
-      `"${s.niche}"`,
-      `"${s.dr}"`,
-      `"${s.da}"`,
-      `"${s.ahrefsTraffic}"`,
-      `"${s.country}"`,
-      `"${s.linkType}"`,
-      `"$${s.price} USD"`,
-      `"Verified & Indexed"`,
-    ]);
-    const csvContent =
-      "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.setAttribute("download", `nova_growth_40000_guest_posts_${Date.now()}.csv`);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  // Download 40,000+ guest post database in Excel format
+  const handleDownloadDatabase = () => {
+    try {
+      const a = document.createElement("a");
+      a.href = "/nova_growth_40000_guest_posts.xlsx";
+      a.download = `nova_growth_40000_guest_posts_${Date.now()}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    } catch {}
   };
 
   const handleDownloadDatabaseClick = () => {
