@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { INITIAL_PUBLISHERS } from "../data/publishersData";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 interface BuyerSession {
   email: string;
@@ -530,8 +531,9 @@ export default function BuyerDashboardPage() {
       </header>
 
       {/* DASHBOARD HERO BANNER */}
-      <div className="border-b border-gray-800 bg-gradient-to-b from-[#0e1726] to-[#070b14] px-4 sm:px-6 lg:px-10 py-7">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="relative border-b border-gray-800 bg-gradient-to-b from-[#0e1726] to-[#070b14] px-4 sm:px-6 lg:px-10 py-7 overflow-hidden">
+        <HeaderBackgroundAnimation variant="dark" />
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
               <span>⚡</span>
