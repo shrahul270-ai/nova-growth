@@ -62,7 +62,7 @@ export default function AdminDatabasePage() {
     | "analytics"
     | "trash"
     | "logs"
-  >("dashboard");
+  >("leads");
 
   const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
@@ -548,741 +548,141 @@ export default function AdminDatabasePage() {
         </div>
       )}
 
-      {/* TOP TICKER BAR (Rank 67.7K, Traffic 280K+, L 0, LD 73.7K) */}
-      <div className="bg-[#0b1220] text-slate-300 text-[11px] font-mono py-1.5 px-3 sm:px-6 border-b border-slate-800 flex items-center justify-between overflow-x-auto [scrollbar-width:none]">
-        <div className="flex items-center gap-4 sm:gap-5 shrink-0">
-          <span className="flex items-center gap-1.5 text-blue-400 font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span>SQ</span>
-          </span>
-          <span>Rank <strong className="text-white">67.7K</strong></span>
-          <span>Traffic <strong className="text-white">280K+</strong></span>
-          <span>L <strong className="text-white">0</strong></span>
-          <span>LD <strong className="text-white">73.7K</strong></span>
-        </div>
-        <div className="hidden sm:flex items-center gap-4 text-slate-400 shrink-0">
-          <span>Live Sync: Active</span>
-          <span className="text-emerald-400 font-bold">● Nova Growth Workspace Mode</span>
-        </div>
-      </div>
-
-      {/* MAIN HEADER NAVBAR */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-3 sm:px-6 py-2.5 sm:py-3">
-        <div className="flex items-center justify-between gap-3">
-          {/* Mobile Menu Hamburger Button + Logo */}
-          <div className="flex items-center gap-2.5 sm:gap-6">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer flex items-center justify-center w-9 h-9 shrink-0 text-base"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? "✕" : "☰"}
-            </button>
-
-            <Link href="/" className="flex items-center gap-2 sm:gap-2.5">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-sm sm:text-base shadow-sm shrink-0">
+      {/* CLEAN SIMPLE ADMIN NAVBAR */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 shadow-xs">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+          {/* Logo & Brand */}
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#091427] to-[#1d4ed8] text-white flex items-center justify-center font-black text-xs shadow-sm">
                 NG
               </div>
               <div className="leading-tight">
-                <span className="text-sm sm:text-base font-black text-slate-900 tracking-tight block">
+                <span className="text-sm font-black text-slate-900 tracking-tight block">
                   Nova Growth
                 </span>
-                <span className="text-[9px] sm:text-[10px] text-blue-600 font-bold uppercase tracking-wider block">
-                  Admin &amp; Buyer Hub
+                <span className="text-[10px] text-[#d97706] font-bold uppercase tracking-wider block">
+                  Admin Panel
                 </span>
               </div>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-4 text-xs font-bold text-slate-600">
+            {/* Mobile Actions */}
+            <div className="flex md:hidden items-center gap-2">
               <button
-                onClick={() => setActiveTab("dashboard")}
-                className={`hover:text-blue-600 cursor-pointer ${activeTab === "dashboard" ? "text-blue-600 font-black" : ""}`}
+                onClick={() => setIsNewEntryOpen(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs cursor-pointer shadow-xs"
               >
-                Dashboard
+                + Lead
               </button>
               <button
-                onClick={() => setActiveTab("live_locations")}
-                className={`hover:text-blue-600 cursor-pointer ${activeTab === "live_locations" ? "text-blue-600 font-black" : ""}`}
+                onClick={handleLogout}
+                className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-2.5 py-1.5 rounded-lg text-xs cursor-pointer"
               >
-                Live Locations
+                Logout
               </button>
-              <button
-                onClick={() => setActiveTab("payments")}
-                className={`hover:text-blue-600 cursor-pointer ${activeTab === "payments" ? "text-blue-600 font-black" : ""}`}
-              >
-                Orders
-              </button>
-              <button
-                onClick={() => setActiveTab("leads")}
-                className={`hover:text-blue-600 cursor-pointer ${activeTab === "leads" ? "text-blue-600 font-black" : ""}`}
-              >
-                Leads
-              </button>
-              <Link href="/guest-posting" className="text-slate-400 hover:text-blue-600" target="_blank">
-                Live Site ↗
-              </Link>
-            </nav>
+            </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-2.5 text-xs">
+          {/* Simple Clean Tabs */}
+          <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] py-1 text-xs font-bold">
+            {[
+              { id: 'leads', label: '👥 Leads', count: partitionedStats.leads.total },
+              { id: 'payments', label: '🛒 Orders', count: partitionedStats.payments.total },
+              { id: 'interactions', label: '💬 Inquiries', count: partitionedStats.whatsapp.total },
+              { id: 'audits', label: '🔍 Audits', count: partitionedStats.audits.total },
+              { id: 'live_locations', label: '📍 Live Locations', count: records.filter((r) => r.country || r.city || r.clientIp).length },
+              { id: 'trash', label: '🗑️ Trash', count: partitionedStats.trash.total },
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap cursor-pointer ${
+                    isActive
+                      ? 'bg-[#091427] text-white shadow-xs'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                  {tab.count !== undefined && tab.count > 0 && (
+                    <span
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                        isActive ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-700'
+                      }`}
+                    >
+                      {tab.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Desktop Right Action Buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            <button
+              onClick={() => {
+                showToast("Refreshing database...");
+                loadRecords();
+              }}
+              className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl transition-all text-xs flex items-center gap-1.5 cursor-pointer border border-slate-200"
+              title="Refresh database records"
+            >
+              <span>🔄</span>
+              <span>Refresh</span>
+            </button>
+
             <button
               onClick={() => setIsNewEntryOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl transition-all flex items-center gap-1 sm:gap-1.5 cursor-pointer shadow-sm text-xs whitespace-nowrap"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-xs text-xs whitespace-nowrap"
             >
               <span>+</span>
-              <span className="hidden sm:inline">New Lead</span>
-              <span className="sm:hidden">Lead</span>
+              <span>New Lead</span>
             </button>
 
             <button
               onClick={handleLogout}
-              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1 text-xs whitespace-nowrap"
+              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer flex items-center gap-1 text-xs whitespace-nowrap"
               title="Logout from admin session"
             >
               <span>🚪</span>
-              <span className="hidden sm:inline">Logout</span>
+              <span>Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* QUICK HORIZONTAL MOBILE TAB BAR (Only visible on mobile/tablet <lg) */}
-      <div className="lg:hidden bg-white border-b border-slate-200 px-3 py-2 flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] shrink-0 text-xs">
-        {[
-          { id: "dashboard", label: "⏱️ Dashboard", count: undefined },
-          { id: "live_locations", label: "📍 Live Map", count: undefined, highlight: true },
-          { id: "payments", label: "🛒 Orders", count: partitionedStats.payments.total },
-          { id: "leads", label: "👥 Leads", count: partitionedStats.leads.total },
-          { id: "interactions", label: "💬 WhatsApp", count: partitionedStats.whatsapp.total },
-          { id: "audits", label: "🔍 Audits", count: partitionedStats.audits.total },
-          { id: "client_profile", label: "👤 Client 360°", count: undefined },
-          { id: "analytics", label: "📊 Analytics", count: undefined },
-          { id: "trash", label: "🗑️ Trash", count: partitionedStats.trash.total },
-        ].map((tab) => {
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3 py-1.5 rounded-xl font-bold whitespace-nowrap cursor-pointer transition-all flex items-center gap-1.5 shrink-0 ${
-                isActive
-                  ? tab.highlight
-                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs"
-                    : "bg-blue-600 text-white shadow-xs"
-                  : tab.highlight
-                  ? "bg-blue-50 text-blue-800 border border-blue-200"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
-            >
-              <span>{tab.label}</span>
-              {tab.count !== undefined && (
-                <span
-                  className={`text-[10px] font-mono px-1 rounded ${
-                    isActive ? "bg-white/20 text-white" : "bg-slate-200 text-slate-800"
-                  }`}
-                >
-                  {tab.count}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* MOBILE SLIDE-OUT DRAWER OVERLAY */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          <div className="fixed top-0 bottom-0 left-0 w-72 max-w-[85vw] bg-white border-r border-slate-200 shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
-            {/* Drawer Header */}
-            <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm">
-                  NG
-                </div>
-                <div>
-                  <span className="font-black text-sm text-slate-900 block leading-tight">Admin Menu</span>
-                  <span className="text-[10px] text-blue-600 font-bold uppercase">Nova Growth</span>
-                </div>
-              </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-200 text-sm cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Drawer Body Nav Items */}
-            <div className="p-3 overflow-y-auto flex-1 space-y-4 text-xs font-semibold">
-              <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-2 mb-1.5">
-                  Core Operations
-                </span>
-                <div className="space-y-1">
-                  <button
-                    onClick={() => { setActiveTab("dashboard"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "dashboard" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>⏱️ Executive Dashboard</span>
-                    <span className="text-slate-400">›</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("live_locations"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "live_locations"
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black"
-                        : "bg-blue-50/70 text-blue-900 border border-blue-200"
-                    }`}
-                  >
-                    <span>📍 Live Location Tracker</span>
-                    <span className="text-[9px] bg-emerald-400 text-black px-1.5 py-0.5 rounded font-black">LIVE</span>
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-2 mb-1.5">
-                  Client & Lead Management
-                </span>
-                <div className="space-y-1">
-                  <button
-                    onClick={() => { setActiveTab("payments"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "payments" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>🛒 Orders & Placements</span>
-                    <span className="text-blue-600 font-mono text-[11px] font-bold">{partitionedStats.payments.total}</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("leads"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "leads" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>👥 CRM Leads & Users</span>
-                    <span className="text-amber-600 font-mono text-[11px] font-bold">{partitionedStats.leads.total}</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("interactions"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "interactions" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>💬 WhatsApp Clicks & Chats</span>
-                    <span className="text-emerald-600 font-mono text-[11px] font-bold">{partitionedStats.whatsapp.total}</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("audits"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "audits" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>🔍 SEO Audits</span>
-                    <span className="text-purple-600 font-mono text-[11px] font-bold">{partitionedStats.audits.total}</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("client_profile"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "client_profile" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>👤 Client 360° Dossier</span>
-                    <span className="text-slate-400">›</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("analytics"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "analytics" ? "bg-blue-50 text-blue-600 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>📊 Data Analytics</span>
-                    <span className="text-slate-400">›</span>
-                  </button>
-                  <button
-                    onClick={() => { setActiveTab("trash"); setMobileMenuOpen(false); }}
-                    className={`w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between ${
-                      activeTab === "trash" ? "bg-rose-50 text-rose-700 font-black" : "text-slate-700 hover:bg-slate-50"
-                    }`}
-                  >
-                    <span>🗑️ Trash Bin</span>
-                    <span className="text-rose-600 font-mono text-[11px] font-bold">{partitionedStats.trash.total}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Drawer Footer */}
-            <div className="p-3 border-t border-slate-200 bg-slate-50 space-y-2">
-              <Link
-                href="/guest-posting"
-                target="_blank"
-                className="w-full py-2 px-3 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-800 font-bold flex items-center justify-center gap-1.5 text-xs text-center"
-              >
-                <span>Live Marketplace Site ↗</span>
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="w-full py-2 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl font-bold flex items-center justify-center gap-1.5 text-xs cursor-pointer"
-              >
-                <span>🚪 Logout Admin</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* DUAL SIDEBAR + MAIN WORKSPACE BODY */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* 1. LEFT SLIM ICON RAIL */}
-        <aside className="hidden xl:flex w-14 bg-white border-r border-slate-200 flex-col items-center py-4 gap-4 select-none shrink-0 text-slate-500">
-          <button
-            onClick={() => setActiveTab("dashboard")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "dashboard" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="Dashboard Overview"
-          >
-            ⏱️
-          </button>
-
-          <button
-            onClick={() => setActiveTab("live_locations")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "live_locations" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="Live Location Tracker"
-          >
-            📍
-          </button>
-
-          <button
-            onClick={() => setActiveTab("payments")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "payments" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="Orders & Payments"
-          >
-            🛒
-          </button>
-
-          <button
-            onClick={() => setActiveTab("leads")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "leads" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="CRM Leads & Registered Users"
-          >
-            👥
-          </button>
-
-          <button
-            onClick={() => setActiveTab("interactions")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "interactions" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="WhatsApp & Inquiries"
-          >
-            💬
-          </button>
-
-          <button
-            onClick={() => setActiveTab("audits")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "audits" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="SEO Audit Requests"
-          >
-            🔍
-          </button>
-
-          <button
-            onClick={() => setActiveTab("analytics")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base ${activeTab === "analytics" ? "bg-blue-50 text-blue-600 font-bold" : "hover:bg-slate-50 text-slate-500"}`}
-            title="Data Analytics"
-          >
-            📊
-          </button>
-
-          <button
-            onClick={() => setActiveTab("trash")}
-            className={`p-2 rounded-xl transition-colors cursor-pointer text-base mt-auto ${activeTab === "trash" ? "bg-rose-50 text-rose-600" : "hover:bg-rose-50 text-slate-400"}`}
-            title="Trash Bin"
-          >
-            🗑️
-          </button>
-        </aside>
-
-        {/* 2. EXPANDED SIDEBAR MENU */}
-        <aside className="hidden lg:flex w-64 bg-white border-r border-slate-200 flex-col justify-between shrink-0 overflow-y-auto">
-          <div className="p-3.5 space-y-5">
-            {/* CORE OPERATIONS */}
-            <div>
-              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
-                Core Operations
-              </div>
-              <div className="space-y-1 text-xs">
-                {/* Dashboard Overview */}
-                <button
-                  onClick={() => setActiveTab("dashboard")}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-bold transition-all cursor-pointer ${
-                    activeTab === "dashboard"
-                      ? "bg-[#ebf3ff] text-[#2563eb] shadow-xs"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>⏱️</span>
-                    <span>Executive Dashboard</span>
-                  </span>
-                  <span className="text-xs">›</span>
-                </button>
-
-                {/* 📍 Live Location Tracker */}
-                <button
-                  onClick={() => setActiveTab("live_locations")}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
-                    activeTab === "live_locations"
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20"
-                      : "bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-200"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span>📍 Live Location Tracker</span>
-                  </span>
-                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-emerald-400 text-black">
-                    LIVE
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            {/* ORDERS & REVENUE */}
-            <div>
-              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
-                Orders &amp; Placements
-              </div>
-              <div className="space-y-1 text-xs">
-                {/* 🛒 Guest Post Orders */}
-                <button
-                  onClick={() => setActiveTab("payments")}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl font-bold transition-all cursor-pointer ${
-                    activeTab === "payments"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold shadow-xs"
-                      : "text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>🛒</span>
-                    <span>Guest Post Orders</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-blue-600 font-mono">
-                    {partitionedStats.payments.total}
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            {/* AGENCY CRM & CLIENT PIPELINE */}
-            <div>
-              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">
-                Agency CRM &amp; Leads
-              </div>
-              <div className="space-y-1 text-xs">
-                <button
-                  onClick={() => setActiveTab("leads")}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "leads"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>👥</span>
-                    <span>Leads &amp; Users</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-slate-500 font-mono">
-                    {partitionedStats.leads.total}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("interactions")}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "interactions"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>💬</span>
-                    <span>WhatsApp Chats</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-emerald-600 font-mono">
-                    {partitionedStats.whatsapp.total}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("audits")}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "audits"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>🔍</span>
-                    <span>SEO Audits</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-purple-600 font-mono">
-                    {partitionedStats.audits.total}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("client_profile")}
-                  className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "client_profile"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>👤</span>
-                    <span>Client 360° Dossier</span>
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("analytics")}
-                  className={`w-full flex items-center px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "analytics"
-                      ? "bg-[#ebf3ff] text-[#2563eb] font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>📊</span>
-                    <span>Data Analytics</span>
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("trash")}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all cursor-pointer ${
-                    activeTab === "trash"
-                      ? "bg-rose-50 text-rose-700 font-bold"
-                      : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <span>🗑️</span>
-                    <span>Trash Bin</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-rose-600 font-mono">
-                    {partitionedStats.trash.total}
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </aside>
-
-        {/* 3. MAIN WORKSPACE CONTENT */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-8 overflow-y-auto min-w-0 w-full">
-          {/* Breadcrumb & Top Label */}
-          <div className="mb-4 sm:mb-6">
-            <div className="w-9 h-1 bg-emerald-500 rounded-full mb-1.5" />
-            <span className="text-xs font-black text-blue-600 uppercase tracking-widest block mb-1">
-              AGENCY OWNER WORKSPACE
-            </span>
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
-              {activeTab === "dashboard"
-                ? "Executive Operations & Leads Dashboard"
-                : activeTab === "payments"
-                ? "Guest Post Orders & Placements"
-                : activeTab === "live_locations"
-                ? "Real-Time Live Location Tracker"
-                : activeTab === "leads"
-                ? "Registered Buyers & Agency Leads"
-                : "Agency Database & Inquiries"}
+      {/* MAIN WORKSPACE CONTENT */}
+      <main className="max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1">
+        {/* Simple Page Header */}
+        <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              {activeTab === 'payments'
+                ? 'Guest Post Orders & Placements'
+                : activeTab === 'live_locations'
+                ? 'Real-Time Live Location Tracker'
+                : activeTab === 'leads'
+                ? 'Registered Buyers & Agency Leads'
+                : activeTab === 'interactions'
+                ? 'WhatsApp & Client Inquiries'
+                : activeTab === 'audits'
+                ? 'SEO Audit Requests'
+                : activeTab === 'trash'
+                ? 'Trash Bin'
+                : 'Admin Panel'}
             </h1>
-            <p className="text-xs text-slate-500 mt-1 font-medium">
-              Private portal for website owner. Track orders, registered users, and live visitor locations.
+            <p className="text-xs text-slate-500 mt-0.5">
+              Direct overview of all incoming inquiries, orders, and customer records.
             </p>
           </div>
 
-          {/* PARTITIONED STAT OVERVIEW CARDS (Total | New as requested by user in Image 1) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3.5 mb-6 sm:mb-8">
-            {/* Card 1: Total Orders / Inquiries */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
-                Total Orders
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-slate-900">
-                    {partitionedStats.payments.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-blue-600 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-blue-600">
-                    +{partitionedStats.payments.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Client Checkouts
-              </span>
-            </div>
-
-            {/* Card 2: Active Leads */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
-                Active Leads
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-amber-500">
-                    {partitionedStats.leads.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-emerald-600 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
-                    +{partitionedStats.leads.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Form Submissions
-              </span>
-            </div>
-
-            {/* Card 3: WhatsApp Inquiries */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
-                WhatsApp Clicks
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
-                    {partitionedStats.whatsapp.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-emerald-600 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-emerald-600">
-                    +{partitionedStats.whatsapp.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Direct Chat
-              </span>
-            </div>
-
-            {/* Card 4: Calls & Meets */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
-                Calls &amp; Meets
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-indigo-600">
-                    {partitionedStats.calls.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-indigo-600 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-indigo-600">
-                    +{partitionedStats.calls.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Scheduled Meets
-              </span>
-            </div>
-
-            {/* Card 5: SEO Audits */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200/80 shadow-xs">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mb-1">
-                SEO Audits
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-purple-600">
-                    {partitionedStats.audits.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-purple-600 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-purple-600">
-                    +{partitionedStats.audits.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Domains Tested
-              </span>
-            </div>
-
-            {/* Card 6: In Trash */}
-            <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-rose-200/80 shadow-xs">
-              <span className="text-[10px] text-rose-500 font-bold uppercase tracking-wider block mb-1">
-                In Trash
-              </span>
-              <div className="grid grid-cols-2 divide-x divide-slate-100 pt-1">
-                <div className="pr-2">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">Total</span>
-                  <span className="text-xl sm:text-2xl font-black text-rose-600">
-                    {partitionedStats.trash.total}
-                  </span>
-                </div>
-                <div className="pl-3">
-                  <span className="text-[9px] text-rose-500 uppercase font-semibold block">New</span>
-                  <span className="text-xl sm:text-2xl font-black text-rose-500">
-                    +{partitionedStats.trash.new}
-                  </span>
-                </div>
-              </div>
-              <span className="text-[10px] text-slate-400 block mt-2 border-t border-slate-100 pt-1">
-                Recoverable Records
-              </span>
-            </div>
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+            <span>Total: <strong className="text-slate-900">{records.length}</strong> records</span>
           </div>
-
-          {/* 📍 LIVE LOCATION TRACKER PROMINENT OVERVIEW BANNER (High-Visibility on Admin) */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-2xl shadow-inner">
-                📍
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h4 className="text-sm sm:text-base font-black tracking-tight">Real-Time Visitor Live Location Tracker</h4>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-400 text-black animate-pulse">LIVE TRACKING</span>
-                </div>
-                <p className="text-xs text-blue-200 mt-0.5">
-                  Database download karne wale, login karne wale aur contact karne wale sabhi visitors ki Live Country, City, IP aur Google Map location track ho rahi hai.
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => setActiveTab("live_locations")}
-              className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-blue-950 font-black text-xs transition-all shadow-md cursor-pointer shrink-0 hover:scale-102 active:scale-98"
-            >
-              Open Live Location Tracker (Map View) →
-            </button>
-          </div>
-
+        </div>
           {/* DYNAMIC CONTENT VIEW */}
           {activeTab === "client_profile" ? (
             <ClientProfileView
@@ -2045,7 +1445,6 @@ export default function AdminDatabasePage() {
             </div>
           )}
         </main>
-      </div>
 
       {/* NOTES MODAL */}
       {selectedRecord && (
