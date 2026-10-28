@@ -4,6 +4,7 @@ import "./globals.css";
 import FloatingConnect from "./components/FloatingConnect";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -94,6 +95,8 @@ export default function RootLayout({
       </head>
       <body className="bg-[#0a0a0f] text-white antialiased overflow-x-hidden max-w-full w-full">
         <GoogleAnalytics />
+        {/* Living Animated Background for All Pages (Particles, Aurora & Glow) */}
+        <AnimatedBackground />
         {children}
         {/* Sabhi pages par 3D animated connect popup */}
         <FloatingConnect />

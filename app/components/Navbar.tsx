@@ -23,11 +23,17 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
   return (
     <>
-      {/* 3D Global Timezone & Presence Ribbon */}
-      <div className="bg-[#091427] text-white text-[10.5px] sm:text-[11px] font-medium py-1.5 px-3 sm:px-6 border-b border-[#d97706]/30 shadow-xs relative z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-y-1 gap-x-3">
+      {/* 3D Global Timezone & Presence Ribbon with Animated Shimmer */}
+      <div className="bg-[#091427] text-white text-[10.5px] sm:text-[11px] font-medium py-1.5 px-3 sm:px-6 border-b border-[#d97706]/30 shadow-xs relative z-50 overflow-hidden">
+        {/* Animated Light Shimmer Streak */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#f59e0b]/80 to-transparent animate-shimmer-sweep pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-y-1 gap-x-3 relative z-10">
           <div className="flex items-center gap-1.5 sm:gap-2 truncate">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </span>
             <span className="text-slate-300 truncate">
               Global Support • <span className="text-[#f59e0b] font-bold">EST</span> • <span className="text-[#f59e0b] font-bold">GMT</span> • <span className="text-[#f59e0b] font-bold">AEST</span>
             </span>
@@ -42,9 +48,32 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         </div>
       </div>
 
-      {/* 3D Glassmorphic Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-[#d97706]/20 px-3 sm:px-6 lg:px-6 xl:px-10 2xl:px-12 py-2.5 sm:py-3.5 transition-all shadow-[0_4px_20px_-2px_rgba(9,20,39,0.06)]">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-3 lg:gap-4 xl:gap-8">
+      {/* 3D Glassmorphic Header with Living Ambient Animated Background */}
+      <header className="sticky top-0 z-40 bg-white/92 backdrop-blur-xl border-b border-[#d97706]/20 px-3 sm:px-6 lg:px-6 xl:px-10 2xl:px-12 py-2.5 sm:py-3.5 transition-all shadow-[0_4px_24px_-2px_rgba(9,20,39,0.06)] relative overflow-hidden">
+        {/* Animated Background Layers inside Header */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          {/* Ambient Champagne Gold Light Orb drifting slowly */}
+          <div className="absolute -top-10 left-1/4 w-80 h-32 rounded-full bg-gradient-to-r from-amber-400/20 via-[#d97706]/15 to-transparent blur-2xl animate-header-glow-1 will-change-transform" />
+
+          {/* Ambient Sapphire Navy Light Orb drifting counter */}
+          <div className="absolute -top-8 right-1/4 w-88 h-32 rounded-full bg-gradient-to-r from-[#1d4ed8]/15 via-blue-500/10 to-transparent blur-2xl animate-header-glow-2 will-change-transform" />
+
+          {/* Micro-dot texture mesh overlay */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage: "radial-gradient(#d97706 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
+        </div>
+
+        {/* Dynamic Optical Border Beam at bottom of Header */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1.5px] overflow-hidden pointer-events-none">
+          <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-[#d97706] to-transparent animate-border-beam" />
+        </div>
+
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-3 lg:gap-4 xl:gap-8 relative z-10">
           
           {/* 3D Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0">

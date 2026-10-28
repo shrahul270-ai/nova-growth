@@ -203,11 +203,20 @@ export default function Home() {
             <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
           </div>
         )}
-        {/* Soft Organic Iridescent Background Shapes */}
+        {/* Soft Organic Iridescent Background Shapes (Animated via globals.css) */}
         <div className="curved-ribbon-left" aria-hidden="true" />
         <div className="curved-ribbon-right" aria-hidden="true" />
         <div className="curved-ribbon-mid-left" aria-hidden="true" />
         <div className="curved-ribbon-bottom" aria-hidden="true" />
+
+        {/* Hero Ambient Radiant Beacon matching Brand 3D Aesthetic */}
+        <div
+          className="absolute top-0 right-0 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full blur-[100px] pointer-events-none opacity-40 animate-pulse-glow -z-0"
+          style={{
+            background: "radial-gradient(circle, rgba(217, 119, 6, 0.22) 0%, rgba(245, 158, 11, 0.12) 40%, rgba(29, 78, 216, 0.08) 70%, transparent 85%)",
+          }}
+          aria-hidden="true"
+        />
 
         {/* 1. HEADER / NAVIGATION */}
         <Navbar activePage="home" />
