@@ -357,6 +357,122 @@ body {
   animation: auroraPulseSlow 9s ease-in-out infinite;
 }
 
+/* Floating Rings & Halos */
+@keyframes ringFloat {
+  0% {
+    transform: translate(-50%, -50%) rotate(-6deg) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-48%, -52%) rotate(2deg) scale(1.06);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-6deg) scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes ringFloatCounter {
+  0% {
+    transform: translate(-50%, -50%) rotate(8deg) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(-52%, -48%) rotate(-2deg) scale(1.08);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(8deg) scale(1);
+    opacity: 0.55;
+  }
+}
+
+/* Flowing Header Wave Ribbons */
+@keyframes waveFlow1 {
+  0% {
+    transform: translateX(-40px) translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(40px) translateY(-8px);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(-40px) translateY(0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes waveFlow2 {
+  0% {
+    transform: translateX(35px) translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateX(-35px) translateY(6px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(35px) translateY(0);
+    opacity: 0.45;
+  }
+}
+
+.animate-wave-flow-1 {
+  animation: waveFlow1 12s ease-in-out infinite alternate;
+}
+
+.animate-wave-flow-2 {
+  animation: waveFlow2 15s ease-in-out infinite alternate;
+}
+
+/* Sparkle & Stardust Twinkles */
+@keyframes sparkleTwinkle1 {
+  0%, 100% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-12px) scale(1.25);
+    opacity: 0.95;
+  }
+}
+
+@keyframes sparkleTwinkle2 {
+  0%, 100% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-16px) scale(1.35);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkleTwinkle3 {
+  0%, 100% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+.animate-sparkle-1 {
+  animation: sparkleTwinkle1 4s ease-in-out infinite;
+}
+
+.animate-sparkle-2 {
+  animation: sparkleTwinkle2 5.5s ease-in-out infinite;
+}
+
+.animate-sparkle-3 {
+  animation: sparkleTwinkle3 4.8s ease-in-out infinite;
+}
+
 /* 3D Depth & Elevation Utilities (Maintaining Brand Colors) */
 .perspective-1000 {
   perspective: 1000px;

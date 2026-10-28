@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
   title: "About Us | Nova Growth Global Digital Agency",
@@ -66,19 +67,22 @@ export default function AboutPage() {
 
       <Navbar activePage="about" />
 
-      {/* Hero Header */}
-      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-          <span>Our Story &amp; Mission</span>
+      {/* Hero Header with Animated Background */}
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+            <span>Our Story &amp; Mission</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            Shaping the Future of <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">Global Digital Growth</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            Nova Growth is a modern digital marketing and engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-          Shaping the Future of <br className="hidden sm:inline" />
-          <span className="text-gradient-navy-gold">Global Digital Growth</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-          Nova Growth is a modern digital marketing and engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
-        </p>
       </section>
 
       {/* Mission & Vision Section */}

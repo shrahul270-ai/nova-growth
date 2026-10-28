@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import HeaderBackgroundAnimation from "../../components/HeaderBackgroundAnimation";
 import { blogPosts, BlogPost } from "../blogData";
 
 interface PageProps {
@@ -96,9 +97,11 @@ export default async function BlogPostPage({ params }: PageProps) {
           <span className="text-[#091427] font-semibold truncate max-w-xs sm:max-w-md">{post.category}</span>
         </nav>
 
-        {/* Article Header */}
-        <header className="mb-12 text-left">
-          <div className="flex flex-wrap items-center gap-3 mb-5">
+        {/* Article Header with Animated Background */}
+        <header className="mb-12 text-left relative overflow-hidden">
+          <HeaderBackgroundAnimation variant="subpage" />
+          <div className="relative z-10">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
             <span className="bg-amber-50 text-amber-900 border border-amber-200/80 text-xs font-bold px-3 py-1 rounded-full badge-3d">
               {post.category}
             </span>
@@ -136,6 +139,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </span>
               </div>
             )}
+          </div>
           </div>
         </header>
 

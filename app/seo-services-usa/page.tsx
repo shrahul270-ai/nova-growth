@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SeoAuditWidget from "../components/SeoAuditWidget";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
   title: "B2B & E-Commerce SEO Services USA | Nova Growth Agency",
@@ -38,32 +39,35 @@ export default function SeoServicesUsaPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header */}
-      <section className="relative pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        {/* Top Back Navigation */}
-        <div className="flex items-center justify-between mb-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-[#d97706] transition-colors group bg-white border border-gray-200 px-3.5 py-1.5 rounded-full shadow-2xs"
-          >
-            <span className="group-hover:-translate-x-1 transition-transform font-black">←</span>
-            <span>Back to Home</span>
-          </Link>
-          <div className="text-[11px] text-gray-400">
-            <Link href="/" className="hover:underline">Home</Link> / <Link href="/services" className="hover:underline">Services</Link> / <span className="text-[#091427] font-semibold">SEO Services USA</span>
+      {/* Hero Header with Animated Background */}
+      <section className="relative pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          {/* Top Back Navigation */}
+          <div className="flex items-center justify-between mb-6">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-[#d97706] transition-colors group bg-white border border-gray-200 px-3.5 py-1.5 rounded-full shadow-2xs"
+            >
+              <span className="group-hover:-translate-x-1 transition-transform font-black">←</span>
+              <span>Back to Home</span>
+            </Link>
+            <div className="text-[11px] text-gray-400">
+              <Link href="/" className="hover:underline">Home</Link> / <Link href="/services" className="hover:underline">Services</Link> / <span className="text-[#091427] font-semibold">SEO Services USA</span>
+            </div>
           </div>
-        </div>
 
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span>🇺🇸 Specialized for United States Businesses</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span>🇺🇸 Specialized for United States Businesses</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            High-Intent SEO Services for <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">US Brands &amp; Startups</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            Tired of paying $10,000/mo to bloated US agencies with zero organic pipeline? We deliver high-velocity technical SEO, commercial keyword clustering, and editorial backlinks tailored for the American market.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-          High-Intent SEO Services for <br className="hidden sm:inline" />
-          <span className="text-gradient-navy-gold">US Brands &amp; Startups</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-          Tired of paying $10,000/mo to bloated US agencies with zero organic pipeline? We deliver high-velocity technical SEO, commercial keyword clustering, and editorial backlinks tailored for the American market.
-        </p>
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"

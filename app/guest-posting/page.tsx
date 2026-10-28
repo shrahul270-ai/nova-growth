@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 const faqs = [
   {
@@ -39,39 +40,42 @@ export default function GuestPostingPage() {
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
 
-      {/* 1. Hero Section */}
-      <section className="relative pt-6 pb-8 sm:pt-12 sm:pb-10 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-4 badge-3d">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-          Curated White-Hat Editorial Links
-        </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-4 sm:mb-5">
-          Authority Guest Posts on <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">
-            Real DR 50–90+ Publications
-          </span>
-        </h1>
-        <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-normal">
-          Zero PBNs. Zero spam farms. Pure in-content editorial backlinks that drive topical authority, pass link juice, and survive every Google core update.
-        </p>
+      {/* 1. Hero Section with Animated Header Background */}
+      <section className="relative pt-6 pb-8 sm:pt-12 sm:pb-10 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto text-center overflow-hidden">
+        <HeaderBackgroundAnimation variant="dark" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-4 badge-3d">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            Curated White-Hat Editorial Links
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-4 sm:mb-5">
+            Authority Guest Posts on <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">
+              Real DR 50–90+ Publications
+            </span>
+          </h1>
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-normal">
+            Zero PBNs. Zero spam farms. Pure in-content editorial backlinks that drive topical authority, pass link juice, and survive every Google core update.
+          </p>
 
-        {/* Feature Pill Highlights */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto text-left">
-          <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-base sm:text-lg">100%</div>
-            <div className="text-[11px] sm:text-xs text-gray-400">Do-Follow Guaranteed</div>
-          </div>
-          <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-base sm:text-lg">DR 50–90+</div>
-            <div className="text-[11px] sm:text-xs text-gray-400">Ahrefs Verified Authority</div>
-          </div>
-          <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-base sm:text-lg">Real Traffic</div>
-            <div className="text-[11px] sm:text-xs text-gray-400">Minimum 10k+ Monthly Visits</div>
-          </div>
-          <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
-            <div className="text-amber-400 font-bold text-base sm:text-lg">Editorial Native</div>
-            <div className="text-[11px] sm:text-xs text-gray-400">Handwritten by Native Writers</div>
+          {/* Feature Pill Highlights */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto text-left">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+              <div className="text-amber-400 font-bold text-base sm:text-lg">100%</div>
+              <div className="text-[11px] sm:text-xs text-gray-400">Do-Follow Guaranteed</div>
+            </div>
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+              <div className="text-amber-400 font-bold text-base sm:text-lg">DR 50–90+</div>
+              <div className="text-[11px] sm:text-xs text-gray-400">Ahrefs Verified Authority</div>
+            </div>
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+              <div className="text-amber-400 font-bold text-base sm:text-lg">Real Traffic</div>
+              <div className="text-[11px] sm:text-xs text-gray-400">Minimum 10k+ Monthly Visits</div>
+            </div>
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-[#0b1220] border border-gray-800 card-3d">
+              <div className="text-amber-400 font-bold text-base sm:text-lg">Editorial Native</div>
+              <div className="text-[11px] sm:text-xs text-gray-400">Handwritten by Native Writers</div>
+            </div>
           </div>
         </div>
       </section>

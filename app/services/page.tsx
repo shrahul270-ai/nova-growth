@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 const serviceList = [
   {
@@ -224,20 +225,22 @@ export default function ServicesPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header */}
-      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-          <span>Full-Funnel Growth Services</span>
-        </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-          Digital Solutions Designed for <br className="hidden sm:inline" />
-          <span className="text-gradient-navy-gold">Measurable Growth</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-          From high-ranking international SEO and fast Next.js development to high-converting content and ethical link building, we offer end-to-end services built for overseas scaling.
-        </p>
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-4">
+      {/* Hero Header with Animated Background */}
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+            <span>Full-Funnel Growth Services</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            Digital Solutions Designed for <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">Measurable Growth</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            From high-ranking international SEO and fast Next.js development to high-converting content and ethical link building, we offer end-to-end services built for overseas scaling.
+          </p>
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-4">
           <Link
             href="/contact"
             className="btn-3d inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
@@ -259,6 +262,7 @@ export default function ServicesPage() {
             <span>Payment Portal</span>
             <span className="text-[#d97706]">💳</span>
           </Link>
+        </div>
         </div>
       </section>
 

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import HeaderBackgroundAnimation from "../../components/HeaderBackgroundAnimation";
 import { caseStudiesData } from "../projectsData";
 
 interface PageProps {
@@ -98,9 +99,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </div>
 
       {/* Case Study Hero */}
-      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
-        
-        {/* Badges Bar */}
+      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          {/* Badges Bar */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-bold badge-3d">
             <span>🏆</span>
@@ -360,6 +362,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </Link>
             ))}
           </div>
+        </div>
         </div>
 
       </article>

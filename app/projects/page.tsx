@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 import { caseStudiesData } from "./projectsData";
 
 export default function ProjectsPage() {
@@ -35,19 +36,22 @@ export default function ProjectsPage() {
 
       <Navbar activePage="projects" />
 
-      {/* Hero Header */}
-      <section className="relative pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-          <span>Verified Client Outcomes</span>
+      {/* Hero Header with Animated Background */}
+      <section className="relative pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#d97706]" />
+            <span>Verified Client Outcomes</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            Case Studies &amp; <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">Measurable Client Results</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            Explore how our high-intent SEO, modern Next.js development, and data-driven marketing deliver compounding revenue across global markets.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-          Case Studies &amp; <br className="hidden sm:inline" />
-          <span className="text-gradient-navy-gold">Measurable Client Results</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-          Explore how our high-intent SEO, modern Next.js development, and data-driven marketing deliver compounding revenue across global markets.
-        </p>
 
         {/* Interactive Category Filter Pills */}
         <div className="inline-flex flex-wrap justify-center p-1.5 bg-white rounded-2xl border border-gray-200/80 shadow-xs gap-1 max-w-2xl mx-auto">

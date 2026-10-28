@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -94,9 +95,10 @@ export default function ContactPage() {
         </div>
       )}
 
-      {/* Main Contact Section */}
-      <section className="relative pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+      {/* Main Contact Section with Animated Header Background */}
+      <section className="relative pt-10 pb-16 sm:pt-16 sm:pb-24 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
             <span>Global Client Inquiries Welcome</span>

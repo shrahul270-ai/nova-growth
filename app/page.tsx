@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SeoAuditWidget from "./components/SeoAuditWidget";
+import HeaderBackgroundAnimation from "./components/HeaderBackgroundAnimation";
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -222,8 +223,11 @@ export default function Home() {
         <Navbar activePage="home" />
 
         {/* 2. HERO SECTION */}
-        <section id="home" className="relative pt-6 pb-14 sm:pt-10 sm:pb-20 md:pt-16 md:pb-28 px-4 sm:px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+        <section id="home" className="relative pt-6 pb-14 sm:pt-10 sm:pb-20 md:pt-16 md:pb-28 px-4 sm:px-6 md:px-12 z-10 overflow-hidden">
+          {/* Header & Hero Background Living Animation */}
+          <HeaderBackgroundAnimation variant="hero" />
+
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10">
             
             {/* Hero Left Content */}
             <div className="lg:col-span-7 flex flex-col items-start text-left w-full">

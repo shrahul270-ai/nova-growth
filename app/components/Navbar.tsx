@@ -49,28 +49,31 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       </div>
 
       {/* 3D Glassmorphic Header with Living Ambient Animated Background */}
-      <header className="sticky top-0 z-40 bg-white/92 backdrop-blur-xl border-b border-[#d97706]/20 px-3 sm:px-6 lg:px-6 xl:px-10 2xl:px-12 py-2.5 sm:py-3.5 transition-all shadow-[0_4px_24px_-2px_rgba(9,20,39,0.06)] relative overflow-hidden">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-[#d97706]/25 px-3 sm:px-6 lg:px-6 xl:px-10 2xl:px-12 py-2.5 sm:py-3.5 transition-all shadow-[0_4px_24px_-2px_rgba(9,20,39,0.08)] relative overflow-hidden">
         {/* Animated Background Layers inside Header */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          {/* Sweeping ambient gradient shimmer */}
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 via-blue-500/10 to-amber-500/10 animate-shimmer-sweep" />
+
           {/* Ambient Champagne Gold Light Orb drifting slowly */}
-          <div className="absolute -top-10 left-1/4 w-80 h-32 rounded-full bg-gradient-to-r from-amber-400/20 via-[#d97706]/15 to-transparent blur-2xl animate-header-glow-1 will-change-transform" />
+          <div className="absolute -top-8 left-1/4 w-96 h-36 rounded-full bg-gradient-to-r from-amber-400/35 via-[#d97706]/25 to-transparent blur-2xl animate-header-glow-1 will-change-transform" />
 
           {/* Ambient Sapphire Navy Light Orb drifting counter */}
-          <div className="absolute -top-8 right-1/4 w-88 h-32 rounded-full bg-gradient-to-r from-[#1d4ed8]/15 via-blue-500/10 to-transparent blur-2xl animate-header-glow-2 will-change-transform" />
+          <div className="absolute -top-6 right-1/4 w-96 h-36 rounded-full bg-gradient-to-r from-[#1d4ed8]/25 via-blue-500/20 to-transparent blur-2xl animate-header-glow-2 will-change-transform" />
 
           {/* Micro-dot texture mesh overlay */}
           <div
-            className="absolute inset-0 opacity-[0.04]"
+            className="absolute inset-0 opacity-[0.06]"
             style={{
-              backgroundImage: "radial-gradient(#d97706 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
+              backgroundImage: "radial-gradient(#d97706 1.2px, transparent 1.2px)",
+              backgroundSize: "22px 22px",
             }}
           />
         </div>
 
         {/* Dynamic Optical Border Beam at bottom of Header */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1.5px] overflow-hidden pointer-events-none">
-          <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-[#d97706] to-transparent animate-border-beam" />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden pointer-events-none">
+          <div className="w-2/3 h-full bg-gradient-to-r from-transparent via-[#f59e0b] to-transparent animate-border-beam" />
         </div>
 
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-3 lg:gap-4 xl:gap-8 relative z-10">

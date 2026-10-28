@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SeoAuditWidget from "../components/SeoAuditWidget";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
   title: "Free Instant Website SEO, Speed & Ranking Audit | Nova Growth",
@@ -16,8 +17,10 @@ export default function AuditPage() {
     <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
       <Navbar activePage="services" />
 
-      <main className="relative pt-8 pb-16 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto z-10">
-        {/* Top Back Navigation Bar */}
+      <main className="relative pt-8 pb-16 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          {/* Top Back Navigation Bar */}
         <div className="flex items-center justify-between max-w-4xl mx-auto mb-6">
           <Link
             href="/"
@@ -61,6 +64,7 @@ export default function AuditPage() {
               Live checks for robots.txt files, XML sitemaps, canonical tags, and mobile-friendly responsive viewports.
             </p>
           </div>
+        </div>
         </div>
       </main>
 

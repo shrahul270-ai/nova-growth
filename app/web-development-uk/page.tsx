@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
   title: "High-Performance Web Development UK | Next.js & Shopify Agency",
@@ -37,18 +38,21 @@ export default function WebDevelopmentUkPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header */}
-      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span>🇬🇧 Tailored for UK Businesses &amp; Scaleups</span>
+      {/* Hero Header with Animated Background */}
+      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span>🇬🇧 Tailored for UK Businesses &amp; Scaleups</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            Bespoke Next.js &amp; E-Commerce <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">Web Development UK</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            We craft lightning-fast web applications and e-commerce stores designed to convert British consumers. Built with Next.js, TypeScript, and modern headless architectures.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-          Bespoke Next.js &amp; E-Commerce <br className="hidden sm:inline" />
-          <span className="text-gradient-navy-gold">Web Development UK</span>
-        </h1>
-        <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-          We craft lightning-fast web applications and e-commerce stores designed to convert British consumers. Built with Next.js, TypeScript, and modern headless architectures.
-        </p>
         <div className="flex justify-center gap-4">
           <Link
             href="/contact"
