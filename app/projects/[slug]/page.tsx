@@ -99,29 +99,32 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </div>
 
       {/* Case Study Hero */}
-      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16 overflow-hidden">
-        <HeaderBackgroundAnimation variant="subpage" />
-        <div className="relative z-10">
-          {/* Badges Bar */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-bold badge-3d">
-            <span>🏆</span>
-            <span>{study.category}</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold">
-            <span>📍</span>
-            <span>{study.client}</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-900 border border-blue-200/70 text-xs font-semibold">
-            <span>⏱️</span>
-            <span>{study.timeline}</span>
-          </span>
-        </div>
+      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 pb-16">
+        <header className="relative w-full p-6 sm:p-10 rounded-3xl overflow-hidden mb-8 border border-amber-200/40 shadow-xs bg-white/60 backdrop-blur-xs">
+          <HeaderBackgroundAnimation variant="subpage" />
+          <div className="relative z-10">
+            {/* Badges Bar */}
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-bold badge-3d">
+                <span>🏆</span>
+                <span>{study.category}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-semibold">
+                <span>📍</span>
+                <span>{study.client}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-900 border border-blue-200/70 text-xs font-semibold">
+                <span>⏱️</span>
+                <span>{study.timeline}</span>
+              </span>
+            </div>
 
-        {/* Title */}
-        <h1 className="text-3xl sm:text-5xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.15] mb-6">
-          {study.title}
-        </h1>
+            {/* Title */}
+            <h1 className="text-3xl sm:text-5xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.15]">
+              {study.title}
+            </h1>
+          </div>
+        </header>
 
         {/* Executive Impact Callout */}
         <div className="bg-gradient-to-r from-[#091427] to-[#0f213d] text-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-[#091427]/15 mb-10 card-3d border border-[#d97706]/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -362,7 +365,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </Link>
             ))}
           </div>
-        </div>
         </div>
 
       </article>

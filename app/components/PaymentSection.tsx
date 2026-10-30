@@ -45,7 +45,7 @@ const retainerPlans = [
   },
 ];
 
-function PaymentSectionInner() {
+function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
   const searchParams = useSearchParams();
   const planParam = searchParams.get("plan");
   const modeParam = searchParams.get("mode");
@@ -126,23 +126,25 @@ function PaymentSectionInner() {
 
 
   return (
-    <section id="payment" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
+    <section id="payment" className={`relative ${hideHeader ? "pt-2 pb-14 sm:pb-20" : "py-14 sm:py-20"} px-4 sm:px-6 md:px-12 z-10`}>
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-            <span>Bank-Grade Escrow &amp; Client Settlement</span>
+        {!hideHeader && (
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
+              <span>Bank-Grade Escrow &amp; Client Settlement</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight">
+              Secure Global <br />
+              <span className="text-gradient-navy-gold">Payment &amp; Invoicing Portal</span>
+            </h2>
+            <p className="text-sm sm:text-[15px] text-[#54647c] mt-3">
+              Seamless multi-currency settlement for overseas clients across North America, the UK, Europe, UAE, and Australia.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight">
-            Secure Global <br />
-            <span className="text-gradient-navy-gold">Payment &amp; Invoicing Portal</span>
-          </h2>
-          <p className="text-sm sm:text-[15px] text-[#54647c] mt-3">
-            Seamless multi-currency settlement for overseas clients across North America, the UK, Europe, UAE, and Australia.
-          </p>
-        </div>
+        )}
 
         {/* Currency & Mode Switcher Bar */}
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 sm:mb-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
@@ -604,10 +606,10 @@ function PaymentSectionInner() {
 }
 
 
-export default function PaymentSection() {
+export default function PaymentSection({ hideHeader = false }: { hideHeader?: boolean } = {}) {
   return (
     <Suspense fallback={<div className="py-24 text-center text-sm font-semibold text-gray-500">Loading Secure Payment Gateway...</div>}>
-      <PaymentSectionInner />
+      <PaymentSectionInner hideHeader={hideHeader} />
     </Suspense>
   );
 }

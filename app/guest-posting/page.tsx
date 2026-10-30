@@ -40,10 +40,10 @@ export default function GuestPostingPage() {
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
 
-      {/* 1. Hero Section with Animated Header Background */}
-      <section className="relative pt-6 pb-8 sm:pt-12 sm:pb-10 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto text-center overflow-hidden">
+      {/* 1. Hero Section with Full-Width Animated Header Background */}
+      <section className="relative w-full pt-8 pb-10 sm:pt-14 sm:pb-12 px-4 sm:px-6 md:px-12 text-center overflow-hidden">
         <HeaderBackgroundAnimation variant="dark" />
-        <div className="relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-4 badge-3d">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             Curated White-Hat Editorial Links

@@ -39,10 +39,10 @@ export default function SeoServicesUsaPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header with Animated Background */}
-      <section className="relative pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+      {/* Hero Header with Full-Width Animated Background */}
+      <section className="relative w-full pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
         <HeaderBackgroundAnimation variant="subpage" />
-        <div className="relative z-10">
+        <div className="max-w-4xl mx-auto relative z-10">
           {/* Top Back Navigation */}
           <div className="flex items-center justify-between mb-6">
             <Link

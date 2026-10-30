@@ -38,10 +38,10 @@ export default function WebDevelopmentUkPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header with Animated Background */}
-      <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-14 px-4 sm:px-6 md:px-12 text-center max-w-4xl mx-auto z-10 overflow-hidden">
+      {/* Hero Header with Full-Width Animated Background */}
+      <section className="relative w-full pt-10 pb-12 sm:pt-16 sm:pb-14 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
         <HeaderBackgroundAnimation variant="subpage" />
-        <div className="relative z-10">
+        <div className="max-w-4xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
             <span>🇬🇧 Tailored for UK Businesses &amp; Scaleups</span>
           </div>

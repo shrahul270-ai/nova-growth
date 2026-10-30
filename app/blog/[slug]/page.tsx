@@ -98,7 +98,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </nav>
 
         {/* Article Header with Animated Background */}
-        <header className="mb-12 text-left relative overflow-hidden">
+        <header className="mb-12 text-left relative overflow-hidden p-6 sm:p-10 rounded-3xl border border-amber-200/40 bg-white/60 backdrop-blur-xs">
           <HeaderBackgroundAnimation variant="subpage" />
           <div className="relative z-10">
             <div className="flex flex-wrap items-center gap-3 mb-5">
