@@ -175,10 +175,10 @@ export default function HeaderBackgroundAnimation({
     const bucketPaths: Path2D[] = Array.from({ length: numBuckets }, () => new Path2D());
 
     // 3D Camera & Projection Parameters
-    // Center the wave field cleanly across the entire header vertically
+    // Center the wave field cleanly: Hero lifted to middle of viewport
     const fov = 450;
-    const baseCamY = isHero ? -110 : -85;
-    const basePitch = 0.38; // ~22 degrees tilt for full panoramic coverage
+    const baseCamY = isHero ? -75 : -85;
+    const basePitch = isHero ? 0.36 : 0.38;
     const waveAmp = isHero ? (isMobile ? 42 : 68) : isMobile ? 32 : 52;
 
     let time = 0;
@@ -210,9 +210,9 @@ export default function HeaderBackgroundAnimation({
       const cosYaw = Math.cos(camYaw);
       const sinYaw = Math.sin(camYaw);
 
-      // Center the wave field across the entire header
+      // Center the wave field: hero page wave is lifted gracefully into the middle
       const cx = width * 0.5;
-      const cy = height * (isHero ? 0.52 : 0.50);
+      const cy = height * (isHero ? (isMobile ? 0.40 : 0.36) : 0.50);
 
       // Reset path batches
       for (let b = 0; b < numBuckets; b++) {
