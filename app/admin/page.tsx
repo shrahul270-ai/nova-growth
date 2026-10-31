@@ -7,6 +7,7 @@ import AnalyticsDashboardView from "./AnalyticsDashboardView";
 import AiCommandDashboardView from "./AiCommandDashboardView";
 import PublisherSitesManager from "./PublisherSitesManager";
 import NovaBentoAdminView from "./NovaBentoAdminView";
+import NovaCyber3DAdmin from "./NovaCyber3DAdmin";
 
 interface BaseItem {
   id: string;
@@ -544,26 +545,26 @@ export default function AdminDatabasePage() {
     );
   }
 
-  const isBento = activeTab === "dashboard";
+  const is3D = activeTab === "dashboard";
   const isDarkUi = activeTab === "ai_graph";
 
   return (
     <div className={`min-h-screen ${
-      isBento
-        ? "bg-[#EAECE9] p-3 sm:p-5 md:p-8 flex flex-col items-center justify-center font-sans antialiased selection:bg-[#DCF842] selection:text-black"
+      is3D
+        ? "bg-[#050208] text-white font-sans antialiased selection:bg-[#FF007F] selection:text-white"
         : isDarkUi
         ? "bg-[#040711] text-slate-100 font-sans selection:bg-amber-500 selection:text-black"
         : "bg-[#f8fafc] text-slate-800 font-sans selection:bg-amber-500 selection:text-black"
     } transition-colors`}>
       {/* TOAST ALERT NOTIFICATION */}
       {toast && (
-        <div className="fixed top-5 right-5 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="fixed top-5 right-5 z-50 bg-[#14081F] text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(255,0,127,0.5)] border border-[#FF007F]/40 animate-in fade-in slide-in-from-top-4 duration-200">
           {toast}
         </div>
       )}
 
-      {/* CLEAN FUTURISTIC ADMIN NAVBAR (Hidden on Bento Dashboard to match reference design) */}
-      {!isBento && (
+      {/* CLEAN FUTURISTIC ADMIN NAVBAR (Hidden on 3D Dashboard as it has its own built-in 3D HUD) */}
+      {!is3D && (
       <header className={`${isDarkUi ? "bg-[#070c18]/95 border-b border-gray-800 text-white shadow-xl" : "bg-white border-b border-slate-200 text-slate-800 shadow-xs"} sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 transition-colors`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Logo & Brand */}
@@ -681,20 +682,20 @@ export default function AdminDatabasePage() {
 
       {/* MAIN WORKSPACE CONTENT */}
       <main className={
-        isBento
-          ? "w-full max-w-[1540px] bg-white rounded-[32px] sm:rounded-[42px] p-4 sm:p-6 md:p-8 border border-[#DFE2DF] shadow-2xl shadow-black/5"
+        is3D
+          ? "w-full min-h-screen"
           : "max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1"
       }>
-        {/* Simple Page Header (Shown for tables, hidden for Bento and AI Canvas) */}
-        {!isBento && !isDarkUi && (
+        {/* Simple Page Header (Shown for tables, hidden for 3D Cyber Hub) */}
+        {!is3D && !isDarkUi && (
           <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <button
                   onClick={() => setActiveTab("dashboard")}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-lg transition"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#FF77B8] hover:text-white bg-[#14081F] hover:bg-[#FF007F]/30 px-3 py-1.5 rounded-xl border border-[#FF007F]/30 transition shadow-sm"
                 >
-                  ← Back to Bento Overview
+                  ← Return to 3D Orbit Hub
                 </button>
               </div>
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -727,11 +728,15 @@ export default function AdminDatabasePage() {
 
         {/* DYNAMIC CONTENT VIEW */}
         {activeTab === "dashboard" ? (
-          <NovaBentoAdminView
+          <NovaCyber3DAdmin
             stats={stats}
-            onSelectTab={(tab) => setActiveTab(tab)}
+            records={records}
+            onNavigateTab={(tab) => setActiveTab(tab as any)}
             onNewEntry={() => setIsNewEntryOpen(true)}
-            activeSubTab={activeTab}
+            onRefresh={() => {
+              showToast("Syncing 3D telemetry & database...");
+              loadRecords();
+            }}
           />
         ) : activeTab === "ai_graph" ? (
           <AiCommandDashboardView
