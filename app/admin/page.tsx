@@ -6,6 +6,7 @@ import ClientProfileView from "./ClientProfileView";
 import AnalyticsDashboardView from "./AnalyticsDashboardView";
 import AiCommandDashboardView from "./AiCommandDashboardView";
 import PublisherSitesManager from "./PublisherSitesManager";
+import NovaBentoAdminView from "./NovaBentoAdminView";
 
 interface BaseItem {
   id: string;
@@ -55,6 +56,7 @@ export default function AdminDatabasePage() {
   // Active View State (Nova Growth Agency CRM)
   const [activeTab, setActiveTab] = useState<
     | "dashboard"
+    | "ai_graph"
     | "live_locations"
     | "payments"
     | "leads"
@@ -542,10 +544,17 @@ export default function AdminDatabasePage() {
     );
   }
 
-  const isDarkUi = activeTab === "dashboard";
+  const isBento = activeTab === "dashboard";
+  const isDarkUi = activeTab === "ai_graph";
 
   return (
-    <div className={`min-h-screen ${isDarkUi ? "bg-[#040711] text-slate-100" : "bg-[#f8fafc] text-slate-800"} flex flex-col font-sans selection:bg-amber-500 selection:text-black transition-colors`}>
+    <div className={`min-h-screen ${
+      isBento
+        ? "bg-[#EAECE9] p-3 sm:p-5 md:p-8 flex flex-col items-center justify-center font-sans antialiased selection:bg-[#DCF842] selection:text-black"
+        : isDarkUi
+        ? "bg-[#040711] text-slate-100 font-sans selection:bg-amber-500 selection:text-black"
+        : "bg-[#f8fafc] text-slate-800 font-sans selection:bg-amber-500 selection:text-black"
+    } transition-colors`}>
       {/* TOAST ALERT NOTIFICATION */}
       {toast && (
         <div className="fixed top-5 right-5 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 animate-in fade-in slide-in-from-top-4 duration-200">
@@ -553,7 +562,8 @@ export default function AdminDatabasePage() {
         </div>
       )}
 
-      {/* CLEAN FUTURISTIC ADMIN NAVBAR */}
+      {/* CLEAN FUTURISTIC ADMIN NAVBAR (Hidden on Bento Dashboard to match reference design) */}
+      {!isBento && (
       <header className={`${isDarkUi ? "bg-[#070c18]/95 border-b border-gray-800 text-white shadow-xl" : "bg-white border-b border-slate-200 text-slate-800 shadow-xs"} sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 transition-colors`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Logo & Brand */}
@@ -592,7 +602,8 @@ export default function AdminDatabasePage() {
           {/* Simple Clean Tabs */}
           <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] py-1 text-xs font-bold">
             {[
-              { id: 'dashboard', label: '🧠 AI Command', count: undefined },
+              { id: 'dashboard', label: '✨ Bento Overview', count: undefined },
+              { id: 'ai_graph', label: '🧠 AI Command Canvas', count: undefined },
               { id: 'leads', label: '👥 Leads', count: partitionedStats.leads.total },
               { id: 'payments', label: '🛒 Orders', count: partitionedStats.payments.total },
               { id: 'publishers', label: '📰 Publishers (DR 50+)', count: undefined },
@@ -666,13 +677,26 @@ export default function AdminDatabasePage() {
           </div>
         </div>
       </header>
+      )}
 
       {/* MAIN WORKSPACE CONTENT */}
-      <main className="max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1">
-        {/* Simple Page Header (Shown for tables, hidden for AI Command Center) */}
-        {!isDarkUi && (
+      <main className={
+        isBento
+          ? "w-full max-w-[1540px] bg-white rounded-[32px] sm:rounded-[42px] p-4 sm:p-6 md:p-8 border border-[#DFE2DF] shadow-2xl shadow-black/5"
+          : "max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1"
+      }>
+        {/* Simple Page Header (Shown for tables, hidden for Bento and AI Canvas) */}
+        {!isBento && !isDarkUi && (
           <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
             <div>
+              <div className="flex items-center gap-2 mb-1">
+                <button
+                  onClick={() => setActiveTab("dashboard")}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-lg transition"
+                >
+                  ← Back to Bento Overview
+                </button>
+              </div>
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                 {activeTab === 'payments'
                   ? 'Guest Post Orders & Placements'
@@ -703,6 +727,13 @@ export default function AdminDatabasePage() {
 
         {/* DYNAMIC CONTENT VIEW */}
         {activeTab === "dashboard" ? (
+          <NovaBentoAdminView
+            stats={stats}
+            onSelectTab={(tab) => setActiveTab(tab)}
+            onNewEntry={() => setIsNewEntryOpen(true)}
+            activeSubTab={activeTab}
+          />
+        ) : activeTab === "ai_graph" ? (
           <AiCommandDashboardView
             stats={stats}
             records={records}
