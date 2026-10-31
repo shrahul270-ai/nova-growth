@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import GooglePreferredSourceButton from "../components/GooglePreferredSourceButton";
 import { blogPosts } from "./blogData";
 
 export default function BlogPage() {
@@ -111,6 +112,11 @@ export default function BlogPage() {
           ))}
         </div>
       </section>
+
+      {/* Google Preferred Source Banner Callout */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 my-6 sm:my-8 relative z-10">
+        <GooglePreferredSourceButton variant="banner" />
+      </div>
 
       {/* Featured Article */}
       {featuredPost && (

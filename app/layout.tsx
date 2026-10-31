@@ -91,6 +91,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        {/* Google Official Preferred Sources Script */}
+        <script async src="https://news.google.com/swg/js/v1/publisher.js" />
       </head>
       <body className="bg-[#0a0a0f] text-white antialiased overflow-x-hidden max-w-full w-full">
         <GoogleAnalytics />

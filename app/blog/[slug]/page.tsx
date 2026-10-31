@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import HeaderBackgroundAnimation from "../../components/HeaderBackgroundAnimation";
+import GooglePreferredSourceButton from "../../components/GooglePreferredSourceButton";
 import { blogPosts, BlogPost } from "../blogData";
 
 interface PageProps {
@@ -139,6 +140,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </span>
               </div>
             )}
+
+            {/* Google Preferred Source Compact Pill */}
+            <div className="hidden sm:block">
+              <GooglePreferredSourceButton variant="compact" />
+            </div>
           </div>
           </div>
         </header>
@@ -202,6 +208,9 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           )}
         </article>
+
+        {/* Google Preferred Source High-Converting Banner */}
+        <GooglePreferredSourceButton variant="banner" className="mb-12" />
 
         {/* Growth Consultation Callout */}
         <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/40 shadow-xl text-white text-center mb-16">

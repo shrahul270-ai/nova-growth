@@ -269,6 +269,17 @@ export default function Footer() {
                     Link Building Packages
                   </Link>
                 </li>
+                <li>
+                  <a
+                    href="https://www.google.com/preferences/source?q=nova-growth-six.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-amber-400 text-amber-300 font-semibold transition-colors flex items-center gap-1.5"
+                    title="Add Nova Growth as a Preferred Source on Google Search & AI"
+                  >
+                    <span>★ Follow on Google (Preferred)</span>
+                  </a>
+                </li>
               </ul>
             </div>
 
