@@ -4,6 +4,8 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import ClientProfileView from "./ClientProfileView";
 import AnalyticsDashboardView from "./AnalyticsDashboardView";
+import AiCommandDashboardView from "./AiCommandDashboardView";
+import PublisherSitesManager from "./PublisherSitesManager";
 
 interface BaseItem {
   id: string;
@@ -56,13 +58,14 @@ export default function AdminDatabasePage() {
     | "live_locations"
     | "payments"
     | "leads"
+    | "publishers"
     | "interactions"
     | "audits"
     | "client_profile"
     | "analytics"
     | "trash"
     | "logs"
-  >("leads");
+  >("dashboard");
 
   const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
   const [search, setSearch] = useState("");
@@ -539,8 +542,10 @@ export default function AdminDatabasePage() {
     );
   }
 
+  const isDarkUi = activeTab === "dashboard";
+
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className={`min-h-screen ${isDarkUi ? "bg-[#040711] text-slate-100" : "bg-[#f8fafc] text-slate-800"} flex flex-col font-sans selection:bg-amber-500 selection:text-black transition-colors`}>
       {/* TOAST ALERT NOTIFICATION */}
       {toast && (
         <div className="fixed top-5 right-5 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-2xl border border-slate-700 animate-in fade-in slide-in-from-top-4 duration-200">
@@ -548,21 +553,21 @@ export default function AdminDatabasePage() {
         </div>
       )}
 
-      {/* CLEAN SIMPLE ADMIN NAVBAR */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 shadow-xs">
+      {/* CLEAN FUTURISTIC ADMIN NAVBAR */}
+      <header className={`${isDarkUi ? "bg-[#070c18]/95 border-b border-gray-800 text-white shadow-xl" : "bg-white border-b border-slate-200 text-slate-800 shadow-xs"} sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 transition-colors`}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Logo & Brand */}
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#091427] to-[#1d4ed8] text-white flex items-center justify-center font-black text-xs shadow-sm">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] text-white flex items-center justify-center font-black text-xs shadow-sm">
                 NG
               </div>
               <div className="leading-tight">
-                <span className="text-sm font-black text-slate-900 tracking-tight block">
+                <span className={`text-sm font-black ${isDarkUi ? "text-white" : "text-slate-900"} tracking-tight block`}>
                   Nova Growth
                 </span>
                 <span className="text-[10px] text-[#d97706] font-bold uppercase tracking-wider block">
-                  Admin Panel
+                  {isDarkUi ? "AI Command Center" : "Admin Panel"}
                 </span>
               </div>
             </Link>
@@ -587,8 +592,10 @@ export default function AdminDatabasePage() {
           {/* Simple Clean Tabs */}
           <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] py-1 text-xs font-bold">
             {[
+              { id: 'dashboard', label: '🧠 AI Command', count: undefined },
               { id: 'leads', label: '👥 Leads', count: partitionedStats.leads.total },
               { id: 'payments', label: '🛒 Orders', count: partitionedStats.payments.total },
+              { id: 'publishers', label: '📰 Publishers (DR 50+)', count: undefined },
               { id: 'interactions', label: '💬 Inquiries', count: partitionedStats.whatsapp.total },
               { id: 'audits', label: '🔍 Audits', count: partitionedStats.audits.total },
               { id: 'live_locations', label: '📍 Live Locations', count: records.filter((r) => r.country || r.city || r.clientIp).length },
@@ -601,7 +608,11 @@ export default function AdminDatabasePage() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? 'bg-[#091427] text-white shadow-xs'
+                      ? isDarkUi
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-black shadow-md shadow-amber-500/20'
+                        : 'bg-[#091427] text-white shadow-xs'
+                      : isDarkUi
+                      ? 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
@@ -609,7 +620,9 @@ export default function AdminDatabasePage() {
                   {tab.count !== undefined && tab.count > 0 && (
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                        isActive ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-700'
+                        isActive
+                          ? isDarkUi ? 'bg-black/30 text-black' : 'bg-white/25 text-white'
+                          : isDarkUi ? 'bg-white/10 text-slate-300' : 'bg-slate-200 text-slate-700'
                       }`}
                     >
                       {tab.count}
@@ -656,35 +669,56 @@ export default function AdminDatabasePage() {
 
       {/* MAIN WORKSPACE CONTENT */}
       <main className="max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1">
-        {/* Simple Page Header */}
-        <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              {activeTab === 'payments'
-                ? 'Guest Post Orders & Placements'
-                : activeTab === 'live_locations'
-                ? 'Real-Time Live Location Tracker'
-                : activeTab === 'leads'
-                ? 'Registered Buyers & Agency Leads'
-                : activeTab === 'interactions'
-                ? 'WhatsApp & Client Inquiries'
-                : activeTab === 'audits'
-                ? 'SEO Audit Requests'
-                : activeTab === 'trash'
-                ? 'Trash Bin'
-                : 'Admin Panel'}
-            </h1>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Direct overview of all incoming inquiries, orders, and customer records.
-            </p>
-          </div>
+        {/* Simple Page Header (Shown for tables, hidden for AI Command Center) */}
+        {!isDarkUi && (
+          <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                {activeTab === 'payments'
+                  ? 'Guest Post Orders & Placements'
+                  : activeTab === 'publishers'
+                  ? 'Publisher Marketplace Database'
+                  : activeTab === 'live_locations'
+                  ? 'Real-Time Live Location Tracker'
+                  : activeTab === 'leads'
+                  ? 'Registered Buyers & Agency Leads'
+                  : activeTab === 'interactions'
+                  ? 'WhatsApp & Client Inquiries'
+                  : activeTab === 'audits'
+                  ? 'SEO Audit Requests'
+                  : activeTab === 'trash'
+                  ? 'Trash Bin'
+                  : 'Admin Panel'}
+              </h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Direct overview of all incoming inquiries, orders, and customer records.
+              </p>
+            </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-            <span>Total: <strong className="text-slate-900">{records.length}</strong> records</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+              <span>Total: <strong className="text-slate-900">{records.length}</strong> records</span>
+            </div>
           </div>
-        </div>
-          {/* DYNAMIC CONTENT VIEW */}
-          {activeTab === "client_profile" ? (
+        )}
+
+        {/* DYNAMIC CONTENT VIEW */}
+        {activeTab === "dashboard" ? (
+          <AiCommandDashboardView
+            stats={stats}
+            records={records}
+            onNavigateTab={(tab) => setActiveTab(tab as any)}
+            onRefresh={() => {
+              showToast("Syncing AI telemetry & database...");
+              loadRecords();
+            }}
+          />
+        ) : activeTab === "publishers" ? (
+          <PublisherSitesManager
+            onNotify={showToast}
+            isAddModalOpen={isNewEntryOpen}
+            setIsAddModalOpen={setIsNewEntryOpen}
+          />
+        ) : activeTab === "client_profile" ? (
             <ClientProfileView
               records={records}
               initialQuery={selectedClientForProfile}
