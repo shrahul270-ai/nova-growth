@@ -6,9 +6,12 @@ import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "High-Performance Web Development UK | Next.js & Shopify Agency",
+  title: "High-Performance Web Development UK | Balaji Prime Media",
   description:
     "Bespoke web development agency serving UK businesses in London, Manchester, and Birmingham. Ultra-fast Next.js apps, headless Shopify, and 95+ PageSpeed scores.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/web-development-uk",
+  },
 };
 
 export default function WebDevelopmentUkPage() {
@@ -19,8 +22,8 @@ export default function WebDevelopmentUkPage() {
     "serviceType": "Web Development",
     "provider": {
       "@type": "Organization",
-      "name": "Nova Growth Agency",
-      "url": "https://novagrowth.agency"
+      "name": "Balaji Prime Media",
+      "url": "https://balajiprimemedia.in"
     },
     "areaServed": {
       "@type": "Country",

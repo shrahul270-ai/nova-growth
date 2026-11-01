@@ -71,7 +71,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black text-white tracking-tight leading-none">
-                  NOVA <span className="text-blue-500">GROWTH</span>
+                  BALAJI PRIME <span className="text-blue-500">MEDIA</span>
                 </span>
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-0.5">
                   Digital Marketing &amp; SEO Agency
@@ -81,15 +81,15 @@ export default function Footer() {
 
             {/* Agency Positioning Headline */}
             <h3 className="text-sm font-extrabold text-white tracking-tight pt-1">
-              Top #1 SEO, Guest Post &amp; Digital Growth Agency
+              Data-Driven SEO, High-DA Placements &amp; Web Growth
             </h3>
 
             {/* Accurate Agency Description */}
             <p className="text-[12.5px] leading-relaxed text-gray-400">
-              Nova Growth is an elite growth agency helping US, UK &amp; global businesses
-              scale organic search revenue. Through manual high-DA guest posting, technical
+              Balaji Prime Media is a specialized digital growth agency helping US, UK &amp; global businesses
+              scale organic search revenue. Through manual DR 50–90+ editorial outreach, technical
               Core Web Vitals optimization, and high-converting Next.js web engineering,
-              we help ambitious brands outrank competition and drive real business ROI.
+              we help ambitious brands build sustainable authority and rank higher.
             </p>
 
             {/* Direct Contact Information */}
@@ -224,15 +224,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a
-                  href="https://calendly.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contact"
                   className="hover:text-blue-400 transition-colors flex items-center justify-between group"
                 >
-                  <span>Schedule Strategy Call</span>
+                  <span>Schedule Strategy Session</span>
                   <span className="text-gray-600 group-hover:text-blue-400 text-xs">↗</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <button
@@ -271,7 +269,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://www.google.com/preferences/source?q=nova-growth-six.vercel.app"
+                    href="https://www.google.com/preferences/source?q=balajiprimemedia.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-amber-400 text-amber-300 font-semibold transition-colors flex items-center gap-1.5"
@@ -376,9 +374,9 @@ export default function Footer() {
             <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-black text-purple-400">
               UPI
             </span>
-            {/* Crypto / USDT */}
-            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-bold text-emerald-400 flex items-center gap-0.5">
-              <span>₮</span> USDT
+            {/* ACH / Direct Bank Transfer */}
+            <span className="px-2 py-0.5 bg-[#0b1220] rounded border border-gray-800 text-[10px] font-bold text-emerald-400">
+              ACH Transfer
             </span>
           </div>
 
@@ -446,10 +444,14 @@ export default function Footer() {
 
         {/* Copyright notice & Privacy / Cookies */}
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 border-t border-gray-800/80 pt-4 sm:pr-24 lg:pr-32">
-          <span>&copy; 2026 Nova Growth. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.</span>
+          <span>&copy; 2026 Balaji Prime Media. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.</span>
           <div className="flex items-center gap-3 text-[11px]">
-            <Link href="/about" className="hover:text-gray-300 transition-colors">
-              Privacy &amp; Terms
+            <Link href="/privacy-policy" className="hover:text-gray-300 transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link href="/terms" className="hover:text-gray-300 transition-colors">
+              Terms of Service
             </Link>
             <span>•</span>
             <button

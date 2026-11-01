@@ -20,27 +20,27 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nova-growth-six.vercel.app"),
-  title: "Nova Growth | Global SEO & Digital Marketing Agency",
-  description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building.",
+  metadataBase: new URL("https://balajiprimemedia.in"),
+  title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
+  description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
   verification: {
     google: "eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU",
   },
   alternates: {
-    canonical: "https://nova-growth-six.vercel.app",
+    canonical: "https://balajiprimemedia.in",
   },
   openGraph: {
-    title: "Nova Growth | Global SEO & Digital Marketing Agency",
-    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building.",
-    url: "https://nova-growth-six.vercel.app",
-    siteName: "Nova Growth Agency",
+    title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
+    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
+    url: "https://balajiprimemedia.in",
+    siteName: "Balaji Prime Media",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nova Growth | Global SEO & Digital Marketing Agency",
-    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building.",
+    title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
+    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
   },
 };
 
@@ -49,9 +49,9 @@ const structuredData = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://nova-growth-six.vercel.app/#organization",
-      name: "Nova Growth",
-      url: "https://nova-growth-six.vercel.app",
+      "@id": "https://balajiprimemedia.in/#organization",
+      name: "Balaji Prime Media",
+      url: "https://balajiprimemedia.in",
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+918000417058",
@@ -62,17 +62,17 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://nova-growth-six.vercel.app/#website",
-      url: "https://nova-growth-six.vercel.app",
-      name: "Nova Growth",
+      "@id": "https://balajiprimemedia.in/#website",
+      url: "https://balajiprimemedia.in",
+      name: "Balaji Prime Media",
       publisher: {
-        "@id": "https://nova-growth-six.vercel.app/#organization",
+        "@id": "https://balajiprimemedia.in/#organization",
       },
     },
     {
       "@type": "ProfessionalService",
-      name: "Nova Growth Agency",
-      url: "https://nova-growth-six.vercel.app",
+      name: "Balaji Prime Media",
+      url: "https://balajiprimemedia.in",
       telephone: "+918000417058",
       priceRange: "$$$",
     },

@@ -11,7 +11,7 @@ interface GooglePreferredSourceButtonProps {
 
 export default function GooglePreferredSourceButton({
   variant = "banner",
-  domain = "nova-growth-six.vercel.app",
+  domain = "balajiprimemedia.in",
   className = "",
 }: GooglePreferredSourceButtonProps) {
   const [showInfo, setShowInfo] = useState(false);

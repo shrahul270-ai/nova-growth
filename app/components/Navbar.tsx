@@ -67,10 +67,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
             <div className="flex flex-col text-left">
               <span className="text-[13.5px] sm:text-[17px] font-black tracking-tight text-[#091427] leading-none whitespace-nowrap">
-                NOVA GROWTH
+                BALAJI PRIME MEDIA
               </span>
               <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-0.5 sm:mt-1 whitespace-nowrap">
-                Digital Marketing Agency
+                Digital Growth &amp; SEO Agency
               </span>
             </div>
           </Link>

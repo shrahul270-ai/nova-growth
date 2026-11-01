@@ -6,9 +6,12 @@ import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "About Us | Nova Growth Global Digital Agency",
+  title: "About Us | Balaji Prime Media Global Digital Growth Agency",
   description:
-    "Learn about Nova Growth — our mission, global client footprint, and how we combine engineering-grade web development with international search strategy.",
+    "Learn about Balaji Prime Media — our mission, high-authority media network, and how we combine engineering-grade web development with international search strategy.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/about",
+  },
 };
 
 const pillars = [
@@ -40,21 +43,21 @@ const pillars = [
 
 const team = [
   {
-    name: "Aiden Vance",
-    role: "Head of Growth & SEO Strategy",
-    bio: "Ex-SaaS growth marketer with 10+ years scaling organic acquisition channels across North America and Europe.",
+    name: "Rahul Sharma",
+    role: "Founder & Lead Digital Strategist",
+    bio: "Search specialist and founder of Balaji Prime Media with over 7 years executing technical SEO, high-DA editorial outreach, and international organic acquisition.",
     avatar: "👨‍💼",
   },
   {
-    name: "Elena Rostova",
-    role: "Principal Web Architect",
-    bio: "Next.js & modern frontend specialist focused on headless e-commerce, web accessibility, and performance optimization.",
+    name: "Engineering Team",
+    role: "Full-Stack Web Architects",
+    bio: "Next.js & modern frontend developers focused on ultra-fast headless web architectures, Core Web Vitals optimization, and clean conversion pipelines.",
     avatar: "👩‍💻",
   },
   {
-    name: "Marcus Sterling",
-    role: "Director of Digital PR & Authority",
-    bio: "Editorial strategist who has secured coverage on Forbes, TechCrunch, Inc., and leading industry publications.",
+    name: "Media Relations Lead",
+    role: "Head of Editorial Outreach & Digital PR",
+    bio: "Publisher specialist managing direct relationships with 850+ vetted DR 50–90+ digital publications across the US, UK, and Europe.",
     avatar: "👨‍🔬",
   },
 ];
@@ -80,7 +83,7 @@ export default function AboutPage() {
             <span className="text-gradient-navy-gold">Global Digital Growth</span>
           </h1>
           <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            Nova Growth is a modern digital marketing and engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
+            Balaji Prime Media is a performance digital marketing and web engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
           </p>
         </div>
       </section>
@@ -96,7 +99,7 @@ export default function AboutPage() {
               We help businesses win in the world&apos;s most competitive search markets.
             </h2>
             <p className="text-xs sm:text-sm text-[#475569] leading-relaxed mb-4">
-              Founded on the principle that digital marketing should be measurable, ethical, and high-ROI, Nova Growth combines deep engineering discipline with creative storytelling.
+              Founded on the principle that digital marketing should be measurable, ethical, and high-ROI, Balaji Prime Media combines deep engineering discipline with data-driven outreach.
             </p>
             <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
               We partner with forward-thinking founders and marketing teams who demand real business outcomes — qualified pipeline, organic revenue, and long-term brand equity — not vanity impressions.
@@ -105,24 +108,24 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div className="bg-amber-50/80 p-4 sm:p-6 rounded-2xl border border-amber-200/70 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">150+</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Global Clients</span>
-              <span className="text-[10px] text-gray-500">Across 10+ countries</span>
+              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">850+</span>
+              <span className="text-xs font-bold text-gray-700 mt-1 block">Vetted Media Outlets</span>
+              <span className="text-[10px] text-gray-500">DR 50–90+ Publications</span>
             </div>
             <div className="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">300+</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Projects Delivered</span>
-              <span className="text-[10px] text-gray-500">On time &amp; on spec</span>
+              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">100%</span>
+              <span className="text-xs font-bold text-gray-700 mt-1 block">Manual Outreach</span>
+              <span className="text-[10px] text-gray-500">Zero PBNs or spam</span>
             </div>
             <div className="bg-blue-50/70 p-4 sm:p-6 rounded-2xl border border-blue-200/60 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#1e40af] block">98%</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Client Retention</span>
-              <span className="text-[10px] text-gray-500">Year-over-year</span>
+              <span className="text-2xl sm:text-3xl font-black text-[#1e40af] block">7-14d</span>
+              <span className="text-xs font-bold text-gray-700 mt-1 block">Turnaround Time</span>
+              <span className="text-[10px] text-gray-500">Fast publication</span>
             </div>
             <div className="bg-amber-50 p-4 sm:p-6 rounded-2xl border border-amber-200 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#d97706] block">300%</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Average Organic ROI</span>
-              <span className="text-[10px] text-gray-500">For our partners</span>
+              <span className="text-2xl sm:text-3xl font-black text-[#d97706] block">95+</span>
+              <span className="text-xs font-bold text-gray-700 mt-1 block">Target PageSpeed</span>
+              <span className="text-[10px] text-gray-500">Core Web Vitals Pass</span>
             </div>
           </div>
         </div>
@@ -164,7 +167,7 @@ export default function AboutPage() {
             Leadership
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-2">
-            Meet the Strategists Behind Nova Growth
+            Meet the Strategists Behind Balaji Prime Media
           </h2>
         </div>
 

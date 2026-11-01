@@ -7,9 +7,12 @@ import SeoAuditWidget from "../components/SeoAuditWidget";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "B2B & E-Commerce SEO Services USA | Nova Growth Agency",
+  title: "B2B & E-Commerce SEO Services USA | Balaji Prime Media",
   description:
     "Top-tier SEO agency tailored for US businesses. We help American startups, SaaS companies, and e-commerce brands dominate Google organic search with proven ROI.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/seo-services-usa",
+  },
 };
 
 export default function SeoServicesUsaPage() {
@@ -20,8 +23,8 @@ export default function SeoServicesUsaPage() {
     "serviceType": "Search Engine Optimization",
     "provider": {
       "@type": "Organization",
-      "name": "Nova Growth Global Agency",
-      "url": "https://novagrowth.agency"
+      "name": "Balaji Prime Media",
+      "url": "https://balajiprimemedia.in"
     },
     "areaServed": {
       "@type": "Country",

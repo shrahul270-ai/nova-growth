@@ -88,11 +88,11 @@ export default function Home() {
     "@graph": [
       {
         "@type": "ProfessionalService",
-        "@id": "https://novagrowth.agency/#organization",
-        "name": "Nova Growth - Global Digital Marketing Agency",
-        "url": "https://novagrowth.agency",
-        "logo": "https://novagrowth.agency/logo.png",
-        "image": "https://novagrowth.agency/og-image.jpg",
+        "@id": "https://balajiprimemedia.in/#organization",
+        "name": "Balaji Prime Media - Global Digital Marketing & SEO Agency",
+        "url": "https://balajiprimemedia.in",
+        "logo": "https://balajiprimemedia.in/logo.png",
+        "image": "https://balajiprimemedia.in/og-image.jpg",
         "description": "Global digital marketing agency helping overseas businesses scale through high-ranking SEO, modern web development, and performance digital solutions.",
         "priceRange": "$$$",
         "areaServed": [
@@ -168,7 +168,7 @@ export default function Home() {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How quickly can my website rank on Google with Nova Growth?",
+            "name": "How quickly can my website rank on Google with Balaji Prime Media?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Using our strategic high-intent low-competition keyword strategy and technical SEO foundations, initial keyword rankings typically begin indexing within 3 to 6 weeks, with major organic traffic growth compounding within 90 days."
@@ -689,16 +689,16 @@ export default function Home() {
             <div className="lg:col-span-6 flex flex-col items-start text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
                 <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                <span>About Nova Growth</span>
+                <span>About Balaji Prime Media</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
                 Your Trusted Partner <br />
-                in <span className="text-gradient-navy-gold">Digital Success</span>
+                in <span className="text-gradient-navy-gold">Digital Growth</span>
               </h2>
 
               <p className="text-[15.5px] text-[#475569] leading-relaxed mb-8">
-                At Nova Growth, we combine creativity, technology and data to deliver results-driven digital marketing solutions. Our goal is simple — help your business grow, globally.
+                At Balaji Prime Media, we combine search intelligence, white-hat editorial outreach, and modern web engineering to deliver sustainable organic growth for overseas businesses.
               </p>
 
               {/* 4 Feature Cards (2x2 Grid) */}
@@ -763,26 +763,26 @@ export default function Home() {
                 <span className="handwriting text-2xl text-[#d97706]">⤹</span>
               </div>
 
-              {/* 4 Stats */}
+              {/* 4 Performance Standards */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">150+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Happy Clients</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">850+</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Vetted DR 50–90+ Sites</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">300+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Projects Completed</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">100%</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Manual White-Hat Outreach</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">98%</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Client Satisfaction</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">7-14d</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Guaranteed Placement TAT</div>
                 </div>
 
                 <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">10+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Countries Served</div>
+                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">95+</div>
+                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Target Core Web Vitals</div>
                 </div>
               </div>
 
@@ -1171,7 +1171,7 @@ export default function Home() {
         <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
-              <span>⭐️ 4.9/5 Rating on Clutch &amp; Google Reviews</span>
+              <span>⭐️ Verified Pilot Case Studies &amp; Client Feedback</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
               Trusted by Ambitious Global Founders
@@ -1194,7 +1194,7 @@ export default function Home() {
                     </span>
                   </div>
                   <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;Nova Growth completely transformed our organic pipeline. In 4 months, our US search traffic grew by 340%, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
+                    &ldquo;Balaji Prime Media completely transformed our organic pipeline. In 4 months, our US search traffic grew significantly, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
                   </p>
                 </div>
 
@@ -1288,7 +1288,7 @@ export default function Home() {
                 {/* Middle CTA & description */}
                 <div className="lg:col-span-4 flex flex-col items-start gap-4">
                   <p className="text-[14px] text-slate-300 leading-relaxed">
-                    Get a free consultation and discover how Nova Growth can help you achieve your digital marketing goals.
+                    Get a free consultation and discover how Balaji Prime Media can help you achieve your digital marketing goals.
                   </p>
                   <button
                     onClick={() => setContactOpen(true)}

@@ -3,7 +3,7 @@ import { blogPosts } from "./blog/blogData";
 import { caseStudiesData } from "./projects/projectsData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://nova-growth-six.vercel.app";
+  const baseUrl = "https://balajiprimemedia.in";
   const now = new Date();
 
   // Core & Service Pages
@@ -49,6 +49,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/web-development-uk`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/web-development-uk`,

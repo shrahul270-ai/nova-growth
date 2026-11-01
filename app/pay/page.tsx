@@ -6,9 +6,12 @@ import PaymentSection from "../components/PaymentSection";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "Secure Client Payment Portal | Nova Growth",
+  title: "Secure Client Payment Portal | Balaji Prime Media",
   description:
     "Settle invoices or authorize monthly marketing retainers securely via Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/pay",
+  },
 };
 
 export default function PayPage() {

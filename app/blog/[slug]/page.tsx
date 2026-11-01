@@ -24,15 +24,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!post) {
     return {
-      title: "Article Not Found | Nova Growth",
+      title: "Article Not Found | Balaji Prime Media",
     };
   }
 
   return {
-    title: `${post.title} | Nova Growth Agency`,
+    title: `${post.title} | Balaji Prime Media`,
     description: post.excerpt,
     alternates: {
-      canonical: `https://nova-growth-six.vercel.app/blog/${post.id}`,
+      canonical: `https://balajiprimemedia.in/blog/${post.id}`,
     },
     openGraph: {
       title: post.title,
@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       "name": "Nova Growth",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://nova-growth-six.vercel.app/logo.png",
+        "url": "https://balajiprimemedia.in/logo.png",
       },
     },
     "datePublished": post.date,

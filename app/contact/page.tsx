@@ -123,7 +123,7 @@ export default function ContactPage() {
             
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xs">
               <h2 className="text-xl font-bold text-[#0f172a] mb-3">
-                Why Global Brands Choose Nova Growth
+                Why Global Brands Choose Balaji Prime Media
               </h2>
               <p className="text-xs text-[#64748b] leading-relaxed mb-6">
                 We eliminate the friction of offshore agency partnerships with strict SLAs, fluent communication, and time-zone aligned support.
@@ -187,7 +187,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex gap-1.5 shrink-0">
                   <a
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("New Agency Inquiry - Nova Growth")}`}
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("New Agency Inquiry - Balaji Prime Media")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackInteraction({
@@ -270,7 +270,7 @@ export default function ContactPage() {
 
                     {/* 2. Direct Gmail Web (Opens in new tab guaranteed) */}
                     <a
-                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Nova Growth Team,\n\nI have submitted an inquiry on your website:\n\nName: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\nPhone: ${formData.phone || "N/A"}\nWebsite: ${formData.website || "N/A"}\nService: ${formData.service || "N/A"}\nBudget: ${formData.budget || "N/A"}\n\nMessage:\n${formData.message || "Looking forward to your proposal."}`)}`}
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Balaji Prime Media Team,\n\nI have submitted an inquiry on your website:\n\nName: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\nPhone: ${formData.phone || "N/A"}\nWebsite: ${formData.website || "N/A"}\nService: ${formData.service || "N/A"}\nBudget: ${formData.budget || "N/A"}\n\nMessage:\n${formData.message || "Looking forward to your proposal."}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackInteraction({
@@ -287,7 +287,7 @@ export default function ContactPage() {
 
                     {/* 3. Default Desktop Mail (Outlook / Apple Mail) */}
                     <a
-                      href={`mailto:${agencyEmail}?subject=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Nova Growth Team,\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nBudget: ${formData.budget}\nMessage: ${formData.message}`)}`}
+                      href={`mailto:${agencyEmail}?subject=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Balaji Prime Media Team,\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nService: ${formData.service}\nBudget: ${formData.budget}\nMessage: ${formData.message}`)}`}
                       onClick={() => trackInteraction({
                         action: "email",
                         title: "Inquiry Sent via Desktop Mail",

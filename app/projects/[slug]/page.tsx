@@ -23,15 +23,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!study) {
     return {
-      title: "Case Study Not Found | Nova Growth",
+      title: "Case Study Not Found | Balaji Prime Media",
     };
   }
 
   return {
-    title: `${study.title} | Nova Growth Agency`,
+    title: `${study.title} | Balaji Prime Media`,
     description: `${study.overview.slice(0, 155)}...`,
     alternates: {
-      canonical: `https://nova-growth-six.vercel.app/projects/${study.id}`,
+      canonical: `https://balajiprimemedia.in/projects/${study.id}`,
     },
     openGraph: {
       title: `${study.title} | Case Study`,
@@ -59,13 +59,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     "description": study.overview,
     "author": {
       "@type": "Organization",
-      "name": "Nova Growth Agency",
-      "url": "https://nova-growth-six.vercel.app"
+      "name": "Balaji Prime Media",
+      "url": "https://balajiprimemedia.in"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Nova Growth Agency",
-      "url": "https://nova-growth-six.vercel.app"
+      "name": "Balaji Prime Media",
+      "url": "https://balajiprimemedia.in"
     },
     "about": study.category,
     "spatialCoverage": study.country
