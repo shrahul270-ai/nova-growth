@@ -40,8 +40,17 @@ const SUSPICIOUS_PATHS = [
 ];
 
 export function proxy(req: NextRequest) {
+  const host = req.headers.get("host") || "";
   const { pathname, search } = req.nextUrl;
   const userAgent = (req.headers.get("user-agent") || "").toLowerCase();
+
+  // 0. Redirect staging/preview domains (*.vercel.app) and www to apex production domain https://balajiprimemedia.in
+  if (host.includes("vercel.app") || host === "www.balajiprimemedia.in") {
+    const targetUrl = new URL(pathname + search, "https://balajiprimemedia.in");
+    const redirectResponse = NextResponse.redirect(targetUrl, 301);
+    redirectResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return redirectResponse;
+  }
 
   // 1. Block Malicious Exploit Scanners & Bad Bots
   if (BLOCKED_USER_AGENTS.some((bot) => userAgent.includes(bot))) {

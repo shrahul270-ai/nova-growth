@@ -17,6 +17,32 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "nova-growth-six.vercel.app",
+          },
+        ],
+        destination: "https://balajiprimemedia.in/:path*",
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.balajiprimemedia.in",
+          },
+        ],
+        destination: "https://balajiprimemedia.in/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

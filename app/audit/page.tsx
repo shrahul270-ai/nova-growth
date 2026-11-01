@@ -7,9 +7,21 @@ import SeoAuditWidget from "../components/SeoAuditWidget";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "Free Instant Website SEO, Speed & Ranking Audit | Nova Growth",
+  title: "Free Instant Website SEO, Speed & Ranking Audit | Balaji Prime Media",
   description:
     "Analyze any website's SEO health, Google SERP ranking potential, TTFB speed, and indexing status in 30 seconds for free.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/audit",
+  },
+  openGraph: {
+    title: "Free Instant Website SEO, Speed & Ranking Audit | Balaji Prime Media",
+    description:
+      "Analyze any website's SEO health, Google SERP ranking potential, TTFB speed, and indexing status in 30 seconds for free.",
+    url: "https://balajiprimemedia.in/audit",
+    siteName: "Balaji Prime Media",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function AuditPage() {
