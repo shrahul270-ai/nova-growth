@@ -703,6 +703,181 @@ body {
 }
 
 /* ==========================================================================
+   Cast & Render Studio Header & Nav Design System
+   ========================================================================== */
+
+:root {
+  --cr-fg: #0d0c0b;
+  --cr-fg-soft: rgba(13, 12, 11, 0.64);
+  --cr-fg-faint: rgba(13, 12, 11, 0.42);
+  --cr-shade: #f2f0ec;
+  --cr-rule: rgba(13, 12, 11, 0.16);
+  --cr-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --cr-pill-bg: #0a0908;
+  --cr-pill-fg: #ffffff;
+}
+
+/* Fixed Chrome Header */
+.cr-chrome {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: linear-gradient(to bottom, rgba(242, 240, 236, 0.96) 0%, rgba(242, 240, 236, 0.88) 72%, rgba(242, 240, 236, 0.65) 100%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(13, 12, 11, 0.08);
+  font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  transition: background 0.3s var(--cr-ease);
+}
+
+/* Scroll progress meter hairline */
+.cr-meter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--cr-fg);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Brand Mark */
+.cr-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--cr-fg);
+  min-width: 0;
+  flex-shrink: 1;
+  text-decoration: none;
+}
+
+.cr-mark-star {
+  opacity: 0.85;
+  font-size: 15px;
+  line-height: 1;
+  color: var(--cr-fg);
+}
+
+/* Navigation Links */
+.cr-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 30px);
+  flex-shrink: 0;
+}
+
+.cr-nav a:not(.cr-pill) {
+  color: var(--cr-fg);
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+  opacity: 0.88;
+  position: relative;
+  transition: opacity 0.3s var(--cr-ease);
+  display: inline-flex;
+  align-items: center;
+}
+
+.cr-nav a:not(.cr-pill):hover {
+  opacity: 1;
+}
+
+.cr-nav a.active:not(.cr-pill) {
+  opacity: 1;
+  font-weight: 500;
+}
+
+.cr-nav a.active:not(.cr-pill)::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--cr-fg);
+  opacity: 0.7;
+  border-radius: 1px;
+}
+
+/* Signature Pill Button */
+.cr-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 21px;
+  border-radius: 999px;
+  background: var(--cr-pill-bg);
+  color: var(--cr-pill-fg);
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.008em;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 1;
+  border: 1px solid rgba(10, 9, 8, 0.12);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  -webkit-text-fill-color: var(--cr-pill-fg);
+  transition: transform 0.4s var(--cr-ease), background 0.3s var(--cr-ease), color 0.3s var(--cr-ease);
+  cursor: pointer;
+}
+
+.cr-chrome .cr-pill,
+.cr-nav .cr-pill {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.cr-pill:hover,
+.cr-pill:focus-visible {
+  transform: translateY(-2px);
+  background: #000;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.cr-pill:focus-visible {
+  outline: 2px solid var(--cr-fg);
+  outline-offset: 2px;
+}
+
+/* Ghost Pill Button */
+.cr-pill-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(13, 12, 11, 0.05);
+  color: var(--cr-fg);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.008em;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid rgba(13, 12, 11, 0.12);
+  transition: transform 0.3s var(--cr-ease), background 0.3s var(--cr-ease), border-color 0.3s var(--cr-ease);
+}
+
+.cr-pill-ghost:hover {
+  transform: translateY(-1.5px);
+  background: rgba(13, 12, 11, 0.09);
+  border-color: rgba(13, 12, 11, 0.25);
+}
+
+/* ==========================================================================
    Vesper.ai Liquid-Metal & Liquid-Glass Design System (Header & Nav)
    ========================================================================== */
 
