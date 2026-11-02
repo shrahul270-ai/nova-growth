@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import IntelligentPerformanceHeader from "../components/IntelligentPerformanceHeader";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -68,25 +68,13 @@ export default function AboutPage() {
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
 
-      <Navbar activePage="about" />
+      {/* Transparent / Dark Navbar wrapper preserving official brand navbar styling */}
+      <div className="relative z-40 bg-[#091427] border-b border-white/10 shadow-sm">
+        <Navbar activePage="about" />
+      </div>
 
-      {/* Hero Header with Full-Width Animated Background */}
-      <section className="relative w-full pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
-        <HeaderBackgroundAnimation variant="subpage" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-            <span>Our Story &amp; Mission</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-            Shaping the Future of <br className="hidden sm:inline" />
-            <span className="text-gradient-navy-gold">Global Digital Growth</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            Balaji Prime Media is a performance digital marketing and web engineering agency. We bridge the gap between technical web craftsmanship and international organic search supremacy.
-          </p>
-        </div>
-      </section>
+      {/* Built for Intelligent Performance Header Stage */}
+      <IntelligentPerformanceHeader />
 
       {/* Mission & Vision Section */}
       <section className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
