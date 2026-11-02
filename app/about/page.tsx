@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import IntelligentPerformanceHeader from "../components/IntelligentPerformanceHeader";
+import VesperAboutHeader from "../components/VesperAboutHeader";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -68,13 +68,13 @@ export default function AboutPage() {
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
 
-      {/* Transparent / Dark Navbar wrapper preserving official brand navbar styling */}
-      <div className="relative z-40 bg-[#091427] border-b border-white/10 shadow-sm">
+      {/* Navbar with pure black background matching Vesper header */}
+      <div className="relative z-40 bg-[#000000] border-b border-white/10 shadow-sm">
         <Navbar activePage="about" />
       </div>
 
-      {/* Built for Intelligent Performance Header Stage */}
-      <IntelligentPerformanceHeader />
+      {/* Vesper.ai Operational AI Infrastructure Header */}
+      <VesperAboutHeader />
 
       {/* Mission & Vision Section */}
       <section className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
