@@ -1221,4 +1221,24 @@ body {
   }
 }
 
+/* 3D Orbit Keyframe Animations for Motion CTA Orb */
+@keyframes orbitSpin1 {
+  0% {
+    transform: rotateX(65deg) rotateY(20deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateY(20deg) rotateZ(360deg);
+  }
+}
+
+@keyframes orbitSpin2 {
+  0% {
+    transform: rotateX(-55deg) rotateY(-35deg) rotateZ(360deg);
+  }
+  100% {
+    transform: rotateX(-55deg) rotateY(-35deg) rotateZ(0deg);
+  }
+}
+
+
 

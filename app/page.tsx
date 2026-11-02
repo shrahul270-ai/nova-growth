@@ -8,6 +8,7 @@ import SeoAuditWidget from "./components/SeoAuditWidget";
 import HeaderBackgroundAnimation from "./components/HeaderBackgroundAnimation";
 import PromptHero from "./components/PromptHero";
 import FeatureCard from "./components/FeatureCard";
+import MotionCta3DOrb from "./components/MotionCta3DOrb";
 import { Search, Code2, FileText, Mail, Link2, Settings } from "lucide-react";
 
 export default function Home() {
@@ -1006,61 +1007,94 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 8. BOTTOM CALL-TO-ACTION BANNER */}
-        <section id="contact" className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10">
+        {/* 8. BOTTOM CALL-TO-ACTION BANNER (3D MOTIONSITE UPGRADE) */}
+        <section id="contact" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="relative rounded-3xl p-6 sm:p-8 md:p-12 overflow-hidden border border-[#d97706]/40 shadow-2xl"
-                 style={{
-                   background: "linear-gradient(135deg, #091427 0%, #0f213d 50%, #1e293b 100%)"
-                 }}
+            <div
+              className="relative rounded-3xl p-7 sm:p-10 md:p-14 overflow-hidden border border-purple-500/25 shadow-2xl backdrop-blur-xl"
+              style={{
+                background: "linear-gradient(135deg, #07060D 0%, #110B22 50%, #170F2E 100%)",
+                boxShadow:
+                  "0 30px 70px -15px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 0 50px rgba(168, 85, 247, 0.15)",
+              }}
             >
-              
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Volumetric ambient background glow */}
+              <div
+                aria-hidden="true"
+                className="absolute top-0 right-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.22)_0%,transparent_70%)] pointer-events-none"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute bottom-0 left-1/4 w-[400px] h-[250px] bg-[radial-gradient(circle,rgba(99,102,241,0.18)_0%,transparent_75%)] pointer-events-none"
+              />
+
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                 
-                {/* Left side text */}
+                {/* Left side text (Preserved 100% Exactly) */}
                 <div className="lg:col-span-5 text-left">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-white tracking-tight leading-[1.15]">
                     Ready to Take Your Business to the Next Level?
                   </h2>
                 </div>
 
-                {/* Middle CTA & description */}
+                {/* Middle CTA & description (Preserved 100% Exactly) */}
                 <div className="lg:col-span-4 flex flex-col items-start gap-4">
-                  <p className="text-[14px] text-slate-300 leading-relaxed">
+                  <p className="text-[14.5px] text-slate-300 leading-relaxed font-normal">
                     Get a free consultation and discover how Balaji Prime Media can help you achieve your digital marketing goals.
                   </p>
                   <button
                     onClick={() => setContactOpen(true)}
-                    className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-xl shadow-[#d97706]/30 transition-all hover:gap-3 cursor-pointer"
+                    className="group relative inline-flex items-center gap-2.5 text-white text-[14.5px] font-bold px-8 py-4 rounded-full shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 transition-all hover:scale-105 cursor-pointer overflow-hidden"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #f59e0b 0%, #d97706 60%, #b45309 100%)",
+                      boxShadow:
+                        "0 12px 28px -4px rgba(217, 119, 6, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.35)",
+                    }}
                   >
                     <span>Book a Free Consultation</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    <svg
+                      className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2.5"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
                     </svg>
                   </button>
                 </div>
 
-                {/* Right side handwritten note & 3D orb */}
-                <div className="lg:col-span-3 flex items-center justify-center lg:justify-end gap-3">
-                  <div className="flex flex-col items-end">
-                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
+                {/* Right side: Handwritten note & Interactive 3D Motion Orb */}
+                <div className="lg:col-span-3 flex items-center justify-center lg:justify-end gap-3 sm:gap-4">
+                  <div className="flex flex-col items-end shrink-0">
+                    <span className="handwriting text-2xl sm:text-[26px] font-bold text-[#fcd34d] -rotate-6 filter drop-shadow-[0_2px_8px_rgba(252,211,77,0.35)]">
                       Your Growth
                     </span>
-                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
+                    <span className="handwriting text-2xl sm:text-[26px] font-bold text-[#fcd34d] -rotate-6 filter drop-shadow-[0_2px_8px_rgba(252,211,77,0.35)]">
                       Starts Here
                     </span>
-                    <svg className="w-8 h-8 text-[#d97706] -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                      className="w-8 h-8 text-[#fcd34d] -rotate-12 filter drop-shadow-[0_2px_6px_rgba(252,211,77,0.3)]"
+                      viewBox="0 0 50 50"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                    >
+                      <path
+                        d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
 
-                  {/* Iridescent glass orb accent */}
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full shadow-xl border border-white/80 animate-float-slow shrink-0"
-                       style={{
-                         background: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.95), rgba(251,191,36,0.7) 45%, rgba(30,64,175,0.65) 85%, rgba(9,20,39,0.9) 100%)",
-                         boxShadow: "0 15px 30px rgba(217,119,6,0.25)"
-                       }}
-                  />
+                  {/* Interactive 3D Motion Gyroscope Orb */}
+                  <MotionCta3DOrb />
                 </div>
 
               </div>
