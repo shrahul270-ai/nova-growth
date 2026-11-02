@@ -1111,3 +1111,102 @@ body {
   transform: translateY(-1px);
 }
 
+/* ========================================================
+   PROMPT SPECIFICATIONS: Power AI / Balaji Prime Media Hero
+   Theme & Colors (index.css CSS variables):
+   Background: 260 87% 3% (deep dark blue-purple)
+   Foreground: 40 6% 95% (off-white)
+   Hero sub text: 40 6% 82%
+   ======================================================== */
+:root {
+  --prompt-bg: hsl(260, 87%, 3%);
+  --prompt-fg: hsl(40, 6%, 95%);
+  --prompt-sub: hsl(40, 6%, 82%);
+  --font-general: 'General Sans', system-ui, -apple-system, sans-serif;
+  --font-geist: 'Geist', system-ui, -apple-system, sans-serif;
+}
+
+.font-general-sans {
+  font-family: 'General Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-geist-sans {
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+}
+
+/* Liquid glass utility class (exact prompt requirement) */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 20%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.15) 80%, rgba(255, 255, 255, 0.45) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* heroSecondary variant */
+.heroSecondary,
+.btn-hero-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: hsl(40, 6%, 95%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18), 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.heroSecondary:hover,
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.36);
+  color: #ffffff;
+  transform: translateY(-1.5px);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+/* Marquee continuous scroll */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-scroll {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 20s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-scroll:hover {
+  animation-play-state: paused;
+}
+
+

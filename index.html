@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>The Next Layer of Intelligence</title>
+  <title>Balaji Prime Media | Global SEO &amp; Digital Growth Agency</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
   <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  
+  <!-- General Sans font from Fontshare & Geist Sans fallback -->
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ========================================================
+       Theme & Colors (CSS variables):
+       Background: 260 87% 3% (deep dark blue-purple)
+       Foreground: 40 6% 95% (off-white)
+       Hero sub text: 40 6% 82%
+       ======================================================== */
     :root {
-      --ink: #fafafa;
-      --muted: #a7a6a6;
-      --nav: #b6b5b5;
-      --strip: #8b8a8a;
-      --pill: #ffffff;
-      --pill-ink: #050505;
-      --bg: #050505;
-
-      --u: calc(100vh / 1058);
-      --uw: calc(100vw / 1487);
-      --h: clamp(var(--u), calc(var(--u) * .65 + var(--uw) * .35), calc(var(--u) * 1.16));
-    }
-
-    @supports (height: 100dvh) {
-      :root {
-        --u: calc(100dvh / 1058);
-      }
+      --bg: hsl(260, 87%, 3%);
+      --fg: hsl(40, 6%, 95%);
+      --hero-sub: hsl(40, 6%, 82%);
+      --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+      --font-headline: 'General Sans', system-ui, -apple-system, sans-serif;
     }
 
     *, *::before, *::after {
@@ -38,620 +38,614 @@
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-rendering: geometricPrecision;
+      overflow-x: hidden;
     }
 
-    /* Fixed Full-screen Stage */
-    .stage {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
+    /* Index page wrapper: overflow-hidden, relative, min-h-screen */
+    .wrapper {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
       overflow: hidden;
-      background: #050505;
+      background-color: var(--bg);
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Video Plate */
-    .plate {
+    /* Background Video: absolute inset-0 w-full h-full object-cover, starts opacity: 0 */
+    .bg-video {
       position: absolute;
       inset: 0;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 0;
+    }
+
+    /* Blurred overlay shape (centered behind content):
+       w-[984px] h-[527px] opacity-90 bg-gray-950 blur-[82px]
+       top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+       pointer-events-none */
+    .blur-shape {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 984px;
+      height: 527px;
+      max-width: 90vw;
+      background-color: #030712; /* gray-950 */
+      opacity: 0.9;
+      filter: blur(82px);
+      -webkit-filter: blur(82px);
+      transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 1;
     }
 
-    .plate-video {
-      position: absolute;
-      left: 50%;
-      top: calc(1 * var(--u));
-      width: calc(1492 * var(--u));
-      height: calc(1054 * var(--u));
-      transform: translateX(calc(-50% - calc(0.5 * var(--u))));
-      object-fit: cover;
-      pointer-events: none;
+    /* Hero section has overflow-visible so the blur is not clipped, relative z-10 */
+    .hero-stage {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
     }
 
-    /* Measured Fades */
-    .plate::after {
+    /* Navbar: Full width, py-5 px-8, flex row with justify-between */
+    .navbar {
+      width: 100%;
+      padding: 20px 32px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 20;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #091427, #1d4ed8 55%, #d97706);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+    }
+
+    .brand-logo svg {
+      width: 20px;
+      height: 20px;
+      stroke: #ffffff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .brand-subtitle {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: #d97706;
+      text-transform: uppercase;
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    .nav-items {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: hsla(40, 6%, 95%, 0.85);
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-btn:hover {
+      color: var(--fg);
+    }
+
+    .nav-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fcd34d;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 2px 6px;
+      border-radius: 9999px;
+    }
+
+    /* heroSecondary variant */
+    .heroSecondary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--fg);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22), 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    .heroSecondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.36);
+      color: #ffffff;
+      transform: translateY(-1.5px);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 8px 25px rgba(99, 102, 241, 0.25);
+    }
+
+    .nav-pill {
+      padding: 8px 18px;
+      font-size: 13.5px;
+    }
+
+    /* Below navbar: 1px divider line with gradient from-transparent via-foreground/20 to-transparent, offset mt-[3px] */
+    .nav-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, hsla(40, 6%, 95%, 0.2), transparent);
+      margin-top: 3px;
+    }
+
+    /* Hero content (vertically centered in remaining space via flex-1) */
+    .hero-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    /* Headline: General Sans, clamp responsive, leading-[1.02], tracking-[-0.024em] */
+    .headline {
+      font-family: var(--font-headline);
+      font-size: clamp(48px, 11vw, 220px);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.024em;
+      user-select: none;
+      max-width: 100%;
+    }
+
+    .headline-plain {
+      color: var(--fg);
+    }
+
+    .headline-gradient {
+      background-image: linear-gradient(to left, #6366f1, #a855f7, #fcd34d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    /* Subtitle: text-hero-sub, text-lg, leading-8, max-w-md, mt-[9px], opacity-80 */
+    .subtitle {
+      font-size: 18px;
+      line-height: 2;
+      max-width: 620px;
+      margin-top: 9px;
+      color: var(--hero-sub);
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+    /* CTA: "Schedule a Consult" button, heroSecondary variant, px-[29px] py-[24px], mt-[25px] */
+    .hero-cta {
+      padding: 24px 29px;
+      margin-top: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      gap: 10px;
+    }
+
+    /* Logo marquee (pinned to bottom of hero, pb-10): max-w-5xl mx-auto */
+    .marquee-container {
+      width: 100%;
+      max-width: 1024px; /* 5xl */
+      margin: 0 auto;
+      padding-bottom: 40px;
+      padding-left: 20px;
+      padding-right: 20px;
+      z-index: 20;
+    }
+
+    .marquee-inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 48px; /* gap-12 between text and marquee */
+      overflow: hidden;
+    }
+
+    .marquee-static-text {
+      font-size: 14px;
+      line-height: 1.4;
+      color: hsla(40, 6%, 95%, 0.5); /* text-foreground/50 */
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: left;
+    }
+
+    .marquee-scroll-mask {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    /* Liquid glass utility class (exact prompt specs) */
+    .liquid-glass {
+      background: rgba(255, 255, 255, 0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: none;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-glass::before {
       content: "";
       position: absolute;
       inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(to bottom,
-          rgba(5,5,5,0) 78.8%,
-          rgba(5,5,5,.23) 79.6%,
-          rgba(5,5,5,.45) 81.4%,
-          rgba(5,5,5,.75) 83.3%,
-          rgba(5,5,5,.84) 85.2%,
-          rgba(5,5,5,.888) 88%,
-          rgba(5,5,5,.905) 91%,
-          rgba(5,5,5,.96) 95%,
-          #050505 100%),
-        linear-gradient(to right,
-          #050505 calc(50% - calc(746 * var(--u))),
-          transparent calc(50% - calc(676 * var(--u))),
-          transparent calc(50% + calc(676 * var(--u))),
-          #050505 calc(50% + calc(746 * var(--u))));
-    }
-
-    /* Topbar Header */
-    .topbar {
-      position: absolute;
-      inset: 0 0 auto 0;
-      z-index: 20;
-      display: block;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
       pointer-events: none;
     }
 
-    .brand {
-      position: absolute;
-      left: calc(75 * var(--u));
-      top: calc(27 * var(--u));
-      width: calc(31.5 * var(--u));
-      height: calc(48.5 * var(--u));
-      display: block;
-      pointer-events: auto;
-      text-decoration: none;
-      cursor: pointer;
+    /* Marquee animation: translateX(0%) -> translateX(-50%), 20s linear infinite, gap-16 (64px) between logos */
+    @keyframes marqueeRun {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
-    .brand svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .links {
-      position: absolute;
-      left: 50%;
-      top: calc(51 * var(--u));
-      transform: translate(-50%, -50%);
+    .marquee-track {
       display: flex;
       align-items: center;
-      gap: calc(24.5 * var(--u));
-      pointer-events: auto;
+      gap: 64px; /* gap-16 between logos */
+      width: max-content;
+      animation: marqueeRun 20s linear infinite;
     }
 
-    .links a {
-      color: var(--nav);
-      text-decoration: none;
-      font-size: calc(19.0 * var(--u));
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      transition: color 0.25s ease;
-      white-space: nowrap;
+    .marquee-track:hover {
+      animation-play-state: paused;
     }
 
-    .links a:hover {
-      color: #ffffff;
+    .logo-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
     }
 
-    .pill-nav {
-      position: absolute;
-      right: calc(75.4 * var(--u));
-      top: calc(27 * var(--u));
-      width: calc(175 * var(--u));
-      height: calc(49 * var(--u));
-      border-radius: 999px;
-      background: var(--pill);
-      color: var(--pill-ink);
-      font-size: calc(20.6 * var(--u));
-      font-weight: 500;
-      text-decoration: none;
-      display: inline-flex;
+    .logo-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px; /* rounded-lg */
+      display: flex;
       align-items: center;
       justify-content: center;
-      white-space: nowrap;
-      pointer-events: auto;
-      transition: transform 0.2s ease, background 0.2s ease;
-      cursor: pointer;
-    }
-
-    .pill-nav span {
-      transform: translateY(calc(1 * var(--u)));
-    }
-
-    .pill-nav:hover {
-      transform: translateY(-1.5px);
-      background: #f0f0f0;
-    }
-
-    .burger {
-      display: none;
-    }
-
-    /* Main Hero */
-    .hero {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .headline {
-      position: absolute;
-      left: calc(75.5 * var(--u));
-      top: calc(230.5 * var(--u));
-      font-size: calc(71.6 * var(--h));
-      line-height: calc(80.5 * var(--h));
-      font-weight: 400;
-      letter-spacing: calc(0.3 * var(--h));
-      color: var(--ink);
-      white-space: nowrap;
-      pointer-events: auto;
-    }
-
-    .headline span {
-      display: block;
-    }
-
-    .sub {
-      position: absolute;
-      left: calc(75.5 * var(--u));
-      top: calc(230.5 * var(--u) + calc(189.0 * var(--h)));
-      font-size: calc(20.7 * var(--h));
-      line-height: calc(23.5 * var(--h));
-      font-weight: 400;
-      word-spacing: calc(1.8 * var(--h));
-      color: var(--muted);
-      pointer-events: auto;
-    }
-
-    .sub span {
-      display: block;
-      white-space: nowrap;
-    }
-
-    .actions {
-      position: absolute;
-      left: calc(74.9 * var(--u));
-      top: calc(230.5 * var(--u) + calc(264.5 * var(--h)));
-      display: flex;
-      align-items: center;
-      pointer-events: auto;
-    }
-
-    .pill-cta {
-      width: calc(175.6 * var(--h));
-      height: calc(50 * var(--h));
-      border-radius: 999px;
-      background: var(--pill);
-      color: var(--pill-ink);
-      font-size: calc(20.6 * var(--h));
-      font-weight: 500;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      transition: transform 0.2s ease, background 0.2s ease;
-      cursor: pointer;
-    }
-
-    .pill-cta:hover {
-      transform: translateY(-1.5px);
-      background: #f0f0f0;
-    }
-
-    .ghost {
-      margin-left: calc(45 * var(--h));
-      font-size: calc(20.6 * var(--h));
-      font-weight: 500;
-      letter-spacing: calc(0.12 * var(--h));
-      color: #ffffff;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity 0.2s ease;
-      cursor: pointer;
-    }
-
-    .ghost:hover {
-      opacity: 0.8;
-    }
-
-    /* Partner Logos Strip */
-    .logos {
-      position: absolute;
-      left: 50%;
-      top: calc(994.7 * var(--u));
-      width: calc(741 * var(--u));
-      transform: translateX(calc(-50% + calc(20 * var(--u))));
-      z-index: 10;
-      color: var(--strip);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .lg {
-      display: inline-flex;
-      align-items: center;
-      gap: calc(8 * var(--u));
-      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.02em;
+      color: var(--fg);
+      text-transform: uppercase;
     }
 
-    .lg svg {
-      fill: currentColor;
+    .logo-name {
+      font-size: 16px; /* text-base */
+      font-weight: 600;
+      color: var(--fg);
+      letter-spacing: -0.01em;
     }
 
-    .lg1 { font-size: calc(18.1 * var(--u)); }
-    .lg2 { font-size: calc(18.5 * var(--u)); }
-    .lg3 { font-size: calc(16.15 * var(--u)); }
-    .lg4 { font-size: calc(15.3 * var(--u)); }
-
-    .dot {
-      display: inline-block;
-      width: 0.2em;
-      height: 0.2em;
-      background: currentColor;
-      border-radius: 50%;
-      vertical-align: 0.62em;
-      margin-left: 0.08em;
-    }
-
-    /* Animations */
-    @media (prefers-reduced-motion: no-preference) {
-      @keyframes rise {
-        from { opacity: 0; transform: translateY(calc(14 * var(--u))); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      @keyframes riseNav {
-        from { opacity: 0; transform: translate(-50%, calc(-50% + calc(14 * var(--u)))); }
-        to { opacity: 1; transform: translate(-50%, -50%); }
-      }
-
-      @keyframes fade {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .brand { animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both; }
-      .links { animation: riseNav 0.8s cubic-bezier(.22, 1, .36, 1) both; }
-      .pill-nav { animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both; }
-      .headline { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.06s both; }
-      .sub { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.14s both; }
-      .pill-cta, .ghost { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.22s both; }
-      .logos { animation: fade 1.1s ease 0.34s both; }
-    }
-
-    /* Mobile Menu Drawer */
-    .menu {
-      position: fixed;
-      inset: 0;
-      z-index: 90;
-      background: rgba(5, 5, 5, 0.94);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.42s ease, visibility 0.42s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 32px 24px;
-    }
-
-    .stage.is-open .menu {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Portrait / Narrow Layout */
-    @media (max-aspect-ratio: 11/10) {
-      :root {
-        --m: min(calc(100vw / 430), 1.34px);
-        --u: var(--m);
-        --h: var(--m);
-      }
-
-      .plate-video {
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        transform: none;
-        object-fit: cover;
-        object-position: 43% center;
-      }
-
-      .plate::after {
-        background:
-          linear-gradient(to right, rgba(5,5,5,.86), rgba(5,5,5,.66) 42%, rgba(5,5,5,.20) 78%, rgba(5,5,5,.10) 100%),
-          linear-gradient(to bottom, rgba(5,5,5,.72) 0%, rgba(5,5,5,.34) 24%, rgba(5,5,5,.34) 56%, rgba(5,5,5,.80) 82%, rgba(5,5,5,.97) 94%, #050505 100%);
-      }
-
-      .links, .pill-nav {
+    @media (max-width: 900px) {
+      .nav-items {
         display: none;
       }
-
-      .brand {
-        left: 20px;
-        top: 24px;
-        width: 26px;
-        height: 40px;
+      .navbar {
+        padding: 16px 20px;
       }
-
-      .burger {
-        position: absolute;
-        right: 20px;
-        top: 24px;
-        width: 44px;
-        height: 44px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        backdrop-filter: blur(16px);
-        display: flex;
+      .marquee-inner {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        cursor: pointer;
-        pointer-events: auto;
-        z-index: 100;
+        gap: 20px;
       }
-
-      .burger i {
-        display: block;
-        width: 16px;
-        height: 1.5px;
-        background: #ffffff;
-        border-radius: 2px;
-        transition: transform 0.3s ease;
+      .marquee-static-text {
+        text-align: center;
       }
-
-      .stage.is-open .burger i:first-child {
-        transform: translateY(3.25px) rotate(45deg);
-      }
-
-      .stage.is-open .burger i:last-child {
-        transform: translateY(-3.25px) rotate(-45deg);
-      }
-
-      .headline {
-        left: 24px;
-        right: 24px;
-        top: 140px;
-        font-size: clamp(34px, 9vw, 54px);
-        line-height: 1.12;
-        white-space: normal;
-      }
-
-      .sub {
-        left: 24px;
-        right: 24px;
-        top: auto;
-        bottom: 180px;
-        font-size: 15px;
-        line-height: 1.45;
-      }
-
-      .sub span {
-        white-space: normal;
-      }
-
-      .actions {
-        left: 24px;
-        right: 24px;
-        bottom: 96px;
-        top: auto;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-
-      .pill-cta {
-        width: 100%;
-        max-width: 320px;
-        height: 48px;
+      .subtitle {
         font-size: 16px;
-      }
-
-      .ghost {
-        margin-left: 0;
-        font-size: 16px;
-      }
-
-      .logos {
-        display: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="stage" id="stage">
+  <!-- Index page wrapper: overflow-hidden, hero content in relative z-10 above -->
+  <div class="wrapper">
     
-    <!-- Background Video Plate -->
-    <div class="plate">
-      <video class="plate-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4" type="video/mp4">
-      </video>
-    </div>
+    <!-- Background Video: Custom JS-controlled fade loop: 0.5s fade-in, 0.5s fade-out, 100ms reset delay -->
+    <video
+      id="bgVideo"
+      class="bg-video"
+      src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
+      playsinline
+      muted
+      preload="auto"
+    ></video>
 
-    <!-- Topbar Navigation -->
-    <header class="topbar">
-      <!-- Abstract Geometric S Mark -->
-      <a class="brand" href="#" aria-label="Home">
-        <svg viewBox="0 0 31.5 48.5" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="bg1" x1="8" y1="0" x2="34.1" y2="28.9" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#9e9e9e"/>
-              <stop offset="0.28" stop-color="#a6a6a6"/>
-              <stop offset="0.34" stop-color="#a3a3a3"/>
-              <stop offset="0.40" stop-color="#3a3a3a"/>
-              <stop offset="0.55" stop-color="#414141"/>
-              <stop offset="0.60" stop-color="#7a7a7a"/>
-              <stop offset="0.68" stop-color="#8e8e8e"/>
-              <stop offset="0.80" stop-color="#a9a9a9"/>
-              <stop offset="0.95" stop-color="#c4c4c4"/>
-              <stop offset="1" stop-color="#cccccc"/>
-            </linearGradient>
-          </defs>
-          <path d="M21.5 0 L21.5 19.5 L31.5 19.5 L31.5 29 L10 48.5 L10 28.5 L0.5 28.5 L0.5 18.5 Z" fill="url(#bg1)"/>
-          <rect x="0.5" y="18.5" width="9" height="10" fill="#fdfdfd"/>
-          <rect x="22" y="19.5" width="9.5" height="9.5" fill="#fdfdfd"/>
-        </svg>
-      </a>
+    <!-- Blurred overlay shape: w-[984px] h-[527px] opacity-90 bg-gray-950 blur-[82px] -->
+    <div class="blur-shape" aria-hidden="true"></div>
 
-      <!-- Primary Nav Links -->
-      <nav class="links" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <!-- Section structure: min-h-screen flex flex-col, overflow-visible -->
+    <div class="hero-stage">
+      
+      <!-- Navbar: Full width, py-5 px-8, flex row with justify-between -->
+      <header>
+        <div class="navbar">
+          <!-- Left: Official Balaji Prime Media Logo & Name -->
+          <a href="/" class="brand-wrap" aria-label="Balaji Prime Media">
+            <div class="brand-logo">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20L4 4L20 20L20 4" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">BALAJI PRIME MEDIA</span>
+              <span class="brand-subtitle">Digital Growth &amp; SEO Agency</span>
+            </div>
+          </a>
 
-      <!-- Header White Pill CTA -->
-      <a class="pill-nav" href="#get-started">
-        <span>Get Started</span>
-      </a>
+          <!-- Center: Website nav items with text-foreground/90 and hover transition -->
+          <nav class="nav-items" aria-label="Primary">
+            <a href="/" class="nav-btn" style="color: var(--fg); font-weight: 600;">Home</a>
+            <a href="/about" class="nav-btn">About</a>
+            <a href="/services" class="nav-btn">Services</a>
+            <a href="/guest-posting" class="nav-btn">
+              <span>Guest Posting</span>
+              <span class="nav-badge">DR 50+</span>
+            </a>
+            <a href="/projects" class="nav-btn">Projects</a>
+            <a href="/pay" class="nav-btn">Pay</a>
+            <a href="/blog" class="nav-btn">Blog</a>
+            <a href="/contact" class="nav-btn">Contact</a>
+          </nav>
 
-      <!-- Mobile Burger -->
-      <button class="burger" id="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
-        <i></i>
-        <i></i>
-      </button>
-    </header>
-
-    <!-- Mobile Menu Overlay -->
-    <nav class="menu" id="menu" aria-label="Mobile Navigation">
-      <div style="padding-top: 60px;">
-        <p style="font-size: 12px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 24px;">Menu</p>
-        <div style="display: flex; flex-direction: column; gap: 18px; font-size: 26px; font-weight: 500;">
-          <a href="#about" style="color: #ffffff; text-decoration: none;">About</a>
-          <a href="#features" style="color: #ffffff; text-decoration: none;">Features</a>
-          <a href="#faq" style="color: #ffffff; text-decoration: none;">FAQ</a>
-          <a href="#contact" style="color: #ffffff; text-decoration: none;">Contact</a>
+          <!-- Right: heroSecondary button rounded-full px-4 py-2 -->
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <a href="/contact" class="heroSecondary nav-pill">
+              Sign Up
+            </a>
+          </div>
         </div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px;">
-        <a href="#get-started" style="height: 48px; border-radius: 999px; background: #ffffff; color: #050505; display: flex; align-items: center; justify-content: center; font-weight: 600; text-decoration: none;">Get Started</a>
-        <a href="#architecture" style="height: 48px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 500; text-decoration: none;">View Architecture</a>
-      </div>
-    </nav>
 
-    <!-- Main Hero Content -->
-    <main class="hero">
-      <h1 class="headline">
-        <span>The Next Layer</span>
-        <span>of Intelligence</span>
-      </h1>
+        <!-- Below navbar: 1px divider line with gradient from-transparent via-foreground/20 to-transparent, offset mt-[3px] -->
+        <div class="nav-divider"></div>
+      </header>
 
-      <p class="sub">
-        <span>A unified infrastructure platform to help teams build,</span>
-        <span>ship, and scale AI systems with confidence.</span>
-      </p>
+      <!-- Hero content (vertically centered in remaining space via flex-1) -->
+      <main class="hero-body">
+        <!-- Headline: "Balaji Prime Media" -->
+        <h1 class="headline">
+          <span class="headline-plain">Balaji Prime </span>
+          <span class="headline-gradient">Media</span>
+        </h1>
 
-      <div class="actions">
-        <a class="pill-cta" href="#get-started">
-          <span>Get Started</span>
+        <!-- Subtitle: text-hero-sub, text-lg, leading-8, max-w-md, mt-[9px], opacity-80 -->
+        <p class="subtitle">
+          The most powerful AI-driven digital growth &amp; SEO deployed <br>
+          for ambitious global brands in talent &amp; revenue acquisition.
+        </p>
+
+        <!-- CTA: "Schedule a Consult" button, heroSecondary variant, px-[29px] py-[24px], mt-[25px] -->
+        <a href="/contact" class="heroSecondary hero-cta">
+          <span>Schedule a Consult</span>
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
         </a>
-        <a class="ghost" href="#architecture">View Architecture</a>
-      </div>
-    </main>
+      </main>
 
-    <!-- Bottom Partner Logos Strip -->
-    <div class="logos" aria-label="Partners">
-      <!-- lg1 -->
-      <div class="lg lg1">
-        <svg width="26" height="26" viewBox="0 0 30 31">
-          <rect x="2" y="2" width="26" height="26" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/>
-          <circle cx="15" cy="15" r="4.5"/>
-        </svg>
-        <span>logoipsum</span>
-      </div>
-      <!-- lg2 -->
-      <div class="lg lg2">
-        <svg width="24" height="26" viewBox="0 0 25 30">
-          <rect x="2" y="2" width="8" height="26" rx="4"/>
-          <circle cx="17" cy="15" r="6"/>
-        </svg>
-        <span>logoipsum<span class="dot"></span></span>
-      </div>
-      <!-- lg3 -->
-      <div class="lg lg3">
-        <svg width="24" height="24" viewBox="0 0 28 28">
-          <circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/>
-          <circle cx="14" cy="14" r="4"/>
-        </svg>
-        <span>logoipsum</span>
-      </div>
-      <!-- lg4 -->
-      <div class="lg lg4">
-        <svg width="24" height="22" viewBox="0 0 28 25.5">
-          <path d="M4 18 C8 12 14 12 18 18 C22 24 26 18 26 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        <span>logoipsum</span>
-      </div>
+      <!-- Logo marquee (pinned to bottom of hero, pb-10) -->
+      <footer class="marquee-container">
+        <div class="marquee-inner">
+          <!-- Left side: static text in text-foreground/50 text-sm -->
+          <div class="marquee-static-text">
+            Relied on by brands <br> across the globe
+          </div>
+
+          <!-- Right side: infinite scrolling marquee with logos (duplicated for seamless loop) -->
+          <div class="marquee-scroll-mask">
+            <div class="marquee-track">
+              <!-- Set 1 -->
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">V</div>
+                <span class="logo-name">Vortex</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">N</div>
+                <span class="logo-name">Nimbus</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">P</div>
+                <span class="logo-name">Prysma</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">C</div>
+                <span class="logo-name">Cirrus</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">K</div>
+                <span class="logo-name">Kynder</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">H</div>
+                <span class="logo-name">Halcyn</span>
+              </div>
+
+              <!-- Set 2 (Duplicated for seamless loop) -->
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">V</div>
+                <span class="logo-name">Vortex</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">N</div>
+                <span class="logo-name">Nimbus</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">P</div>
+                <span class="logo-name">Prysma</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">C</div>
+                <span class="logo-name">Cirrus</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">K</div>
+                <span class="logo-name">Kynder</span>
+              </div>
+              <div class="logo-item">
+                <div class="liquid-glass logo-badge">H</div>
+                <span class="logo-name">Halcyn</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
-
   </div>
 
+  <!-- Background Video Custom JS Fade-loop:
+       0.5s fade-in at start, 0.5s fade-out at end, using requestAnimationFrame.
+       On ended, opacity resets to 0, waits 100ms, then replays from 0 -->
   <script>
-    (function () {
-      "use strict";
-      var stage = document.getElementById("stage");
-      var burger = document.getElementById("burger");
-      var menu = document.getElementById("menu");
+    (function() {
+      const video = document.getElementById('bgVideo');
+      if (!video) return;
 
-      if (burger && stage) {
-        burger.addEventListener("click", function () {
-          var open = stage.classList.toggle("is-open");
-          burger.setAttribute("aria-expanded", String(open));
-        });
+      let animId;
+      let isRestarting = false;
+      const fadeDuration = 0.5; // 0.5s
 
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && stage.classList.contains("is-open")) {
-            stage.classList.remove("is-open");
-            burger.setAttribute("aria-expanded", "false");
+      function tick() {
+        if (!video || isRestarting) return;
+
+        const currentTime = video.currentTime;
+        const duration = video.duration;
+
+        if (duration && !isNaN(duration) && duration > 0) {
+          if (currentTime < fadeDuration) {
+            // 0.5s fade-in at start
+            const alpha = Math.min(1, Math.max(0, currentTime / fadeDuration));
+            video.style.opacity = alpha.toFixed(4);
+          } else if (currentTime > duration - fadeDuration) {
+            // 0.5s fade-out at end
+            const timeLeft = Math.max(0, duration - currentTime);
+            const alpha = Math.min(1, Math.max(0, timeLeft / fadeDuration));
+            video.style.opacity = alpha.toFixed(4);
+          } else {
+            video.style.opacity = '1';
           }
-        });
+        }
 
-        menu.addEventListener("click", function (e) {
-          if (e.target.tagName === "A") {
-            stage.classList.remove("is-open");
-            burger.setAttribute("aria-expanded", "false");
-          }
-        });
-
-        window.addEventListener("resize", function () {
-          if (window.innerWidth / window.innerHeight > 1.1 && stage.classList.contains("is-open")) {
-            stage.classList.remove("is-open");
-            burger.setAttribute("aria-expanded", "false");
-          }
-        });
+        animId = requestAnimationFrame(tick);
       }
+
+      function handleEnded() {
+        if (isRestarting) return;
+        isRestarting = true;
+        video.style.opacity = '0';
+
+        setTimeout(() => {
+          video.currentTime = 0;
+          video.play().then(() => {
+            isRestarting = false;
+            animId = requestAnimationFrame(tick);
+          }).catch(() => {
+            isRestarting = false;
+          });
+        }, 100);
+      }
+
+      video.addEventListener('ended', handleEnded);
+
+      // Autoplay initiation
+      video.play().then(() => {
+        animId = requestAnimationFrame(tick);
+      }).catch(() => {
+        video.muted = true;
+        video.play().then(() => {
+          animId = requestAnimationFrame(tick);
+        }).catch(() => {});
+      });
     })();
   </script>
 </body>

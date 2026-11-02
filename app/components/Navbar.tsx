@@ -45,11 +45,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
   return (
     <>
-      {/* Dark Cinematic AI Infrastructure Topbar */}
-      <header className="cinematic-topbar">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 sm:gap-6 px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
+      {/* Dark Full-width Navbar matching Prompt Specs */}
+      <header className="w-full relative z-30 bg-[hsl(260,87%,3%)]/80 backdrop-blur-md">
+        <div className="w-full flex items-center justify-between gap-3 sm:gap-6 px-4 sm:px-8 py-5">
           
-          {/* User's Original Official Brand Logo (Preserved 100% Exactly) */}
+          {/* User's Original Official Brand Logo & Name (Preserved 100% Exactly) */}
           <Link
             href="/"
             className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-w-0"
@@ -70,7 +70,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </svg>
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-[14px] sm:text-[16.5px] font-extrabold tracking-tight text-[#fafafa] leading-none whitespace-nowrap">
+              <span className="text-[14px] sm:text-[16.5px] font-extrabold tracking-tight text-[hsl(40,6%,95%)] leading-none whitespace-nowrap">
                 BALAJI PRIME MEDIA
               </span>
               <span className="text-[8px] sm:text-[9.5px] font-bold tracking-[0.16em] text-[#d97706] uppercase mt-0.5 sm:mt-1 whitespace-nowrap">
@@ -79,7 +79,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Centered Desktop Navigation Links (.links) */}
+          {/* Centered Desktop Navigation Links with text-foreground/90 and hover transition */}
           <nav
             className="hidden lg:flex items-center gap-6 xl:gap-8"
             aria-label="Primary"
@@ -87,7 +87,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             <Link
               href="/"
               prefetch={false}
-              className={`cinematic-nav-link ${activePage === "home" ? "active text-white font-semibold" : ""}`}
+              className={`text-[14px] font-medium transition-colors hover:text-[hsl(40,6%,95%)] ${
+                activePage === "home" ? "text-[hsl(40,6%,95%)] font-semibold" : "text-[hsl(40,6%,95%)]/75"
+              }`}
             >
               Home
             </Link>
@@ -98,11 +100,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   key={link.key}
                   href={link.href}
                   prefetch={false}
-                  className={`cinematic-nav-link ${isActive ? "active text-white font-semibold" : ""}`}
+                  className={`text-[14px] font-medium transition-colors hover:text-[hsl(40,6%,95%)] flex items-center gap-1 ${
+                    isActive ? "text-[hsl(40,6%,95%)] font-semibold" : "text-[hsl(40,6%,95%)]/75"
+                  }`}
                 >
                   <span>{link.name}</span>
                   {link.badge && (
-                    <span className="ml-1.5 text-[9.5px] font-bold bg-white/10 text-amber-300 border border-white/15 px-1.5 py-0.5 rounded-full tracking-wide">
+                    <span className="text-[9.5px] font-bold bg-white/10 text-amber-300 border border-white/15 px-1.5 py-0.5 rounded-full tracking-wide">
                       {link.badge}
                     </span>
                   )}
@@ -111,11 +115,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Area: Live Support + White Pill CTA */}
+          {/* Right Action Area: Live Support + Portal + heroSecondary rounded-full CTA */}
           <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
             {/* Live Global Support Signal */}
             <div
-              className="hidden xl:flex items-center gap-1.5 text-[11px] font-medium text-[#a7a6a6] border border-white/10 bg-white/5 px-2.5 py-1.5 rounded-full whitespace-nowrap"
+              className="hidden xl:flex items-center gap-1.5 text-[11px] font-medium text-[hsl(40,6%,82%)]/80 border border-white/10 bg-white/5 px-2.5 py-1.5 rounded-full whitespace-nowrap"
               title="Global Support: EST • GMT • AEST"
             >
               <span className="relative flex h-1.5 w-1.5 shrink-0">
@@ -128,19 +132,19 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             {/* Client Portal Link */}
             <Link
               href="/pay"
-              className="hidden sm:inline-flex items-center gap-1 text-[13px] text-[#b6b5b5] hover:text-white transition-colors whitespace-nowrap"
+              className="hidden sm:inline-flex items-center gap-1 text-[13px] text-[hsl(40,6%,82%)] hover:text-white transition-colors whitespace-nowrap"
             >
               <span>Portal</span>
               <span>💳</span>
             </Link>
 
-            {/* Prompt's Signature White Pill (.pill-nav) */}
+            {/* Prompt's heroSecondary rounded-full px-4 py-2 CTA */}
             <Link
               href="/contact"
-              className="cinematic-pill"
+              className="heroSecondary text-[13.5px] font-medium rounded-full px-4 py-2 transition-all"
               aria-label="Get Started with Balaji Prime Media"
             >
-              <span className="translate-y-[0.5px]">Get Started</span>
+              <span>Get Started</span>
             </Link>
 
             {/* Minimalist 2-Bar Burger Button for Mobile */}
@@ -166,6 +170,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </button>
           </div>
         </div>
+
+        {/* Prompt Requirement: Below navbar: a 1px divider line with gradient from-transparent via-foreground/20 to-transparent, offset mt-[3px] */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(40,6%,95%)]/20 to-transparent mt-[3px]" />
+      </header>
 
         {/* Mobile Dark Full-screen Overlay Menu */}
         {mobileMenuOpen && (
@@ -233,7 +241,6 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
           </nav>
         )}
-      </header>
     </>
   );
 }
