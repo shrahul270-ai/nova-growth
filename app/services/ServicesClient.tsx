@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import SellixServicesHeader from "../components/SellixServicesHeader";
 
 const serviceList = [
   {
@@ -229,51 +229,16 @@ export default function ServicesClient() {
         </div>
       )}
 
-      <Navbar activePage="services" />
+      {/* Official Website Navbar & Logo Preserved with Dark Header Container */}
+      <div className="relative z-40 bg-[#000000] border-b border-white/10 shadow-sm">
+        <Navbar activePage="services" />
+      </div>
 
-      {/* Hero Header with Full-Width Animated Background */}
-      <section className="relative w-full pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
-        <HeaderBackgroundAnimation variant="subpage" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-            <span>Full-Funnel Growth Services</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-            Digital Solutions Designed for <br className="hidden sm:inline" />
-            <span className="text-gradient-navy-gold">Measurable Growth</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            From high-ranking international SEO and fast Next.js development to high-converting content and ethical link building, we offer end-to-end services built for overseas scaling.
-          </p>
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 sm:gap-4">
-          <Link
-            href="/contact"
-            className="btn-3d inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-lg shadow-[#091427]/25 transition-all cursor-pointer"
-          >
-            <span>Request Custom Proposal</span>
-            <span>→</span>
-          </Link>
-          <Link
-            href="/guest-posting"
-            className="btn-gold-3d inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs sm:text-sm font-bold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
-          >
-            <span>Guest Posting (DR 50-90+)</span>
-            <span>⚡</span>
-          </Link>
-          <Link
-            href="/pay"
-            className="inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-[#091427] border border-[#d97706]/40 text-xs sm:text-sm font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-full shadow-sm transition-all cursor-pointer"
-          >
-            <span>Payment Portal</span>
-            <span className="text-[#d97706]">💳</span>
-          </Link>
-        </div>
-        </div>
-      </section>
+      {/* Sellix Cross-border Finance Rotating Globe Hero Header */}
+      <SellixServicesHeader />
 
       {/* Detailed Services Grid with Glowing Gradient Border Cards */}
-      <section className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section id="services-grid" className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
           {serviceList.map((service, idx) => (
             <div
