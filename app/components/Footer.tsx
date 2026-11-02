@@ -507,12 +507,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Giant Thin Amber-Brown Wordmark Sinking Off The Bottom Edge */}
+        {/* Giant Thin Amber-Brown Wordmark Fully Visible Behind Hands */}
         <div
           aria-hidden="true"
-          className="w-full overflow-hidden flex justify-center items-end select-none pointer-events-none -mb-6 sm:-mb-10 md:-mb-14 lg:-mb-16 pt-2 px-4"
+          className="w-full overflow-hidden flex justify-center items-center select-none pointer-events-none pt-2 pb-6 sm:pb-8 md:pb-10 px-4"
         >
-          <span className="sinking-wordmark font-thin uppercase text-3xl sm:text-5xl md:text-7xl lg:text-[105px] xl:text-[130px] leading-none whitespace-nowrap opacity-85 tracking-widest scale-y-110">
+          <span className="sinking-wordmark font-thin uppercase text-3xl sm:text-5xl md:text-7xl lg:text-[95px] xl:text-[120px] leading-tight whitespace-nowrap opacity-90 tracking-widest">
             BALAJI PRIME
           </span>
         </div>
