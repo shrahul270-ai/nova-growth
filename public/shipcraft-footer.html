@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipcraft — Closing CTA & Footer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@9..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0D0D0D;
+      --text-white: #FFFFFF;
+      --text-gray-ad: #ADADAD;
+      --text-gray-7d: #7D7D7D;
+      --text-gray-71: #717171;
+      --amber: #F0A24C;
+      --amber-social: #E0A165;
+      --wordmark: #5A3418;
+      --pill-bg: #1D1510;
+      --border-dark: #261E17;
+      --font-family: 'Google Sans Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-gray-ad);
+      font-family: var(--font-family);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .shipcraft-section {
+      position: relative;
+      background-color: var(--bg);
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    /* Ambient Warm Amber Glows */
+    .ambient-glow-top {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(240, 162, 76, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 500px;
+      height: 350px;
+      background: radial-gradient(circle at bottom left, rgba(240, 162, 76, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 500px;
+      height: 350px;
+      background: radial-gradient(circle at bottom right, rgba(240, 162, 76, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+      z-index: 1;
+    }
+
+    /* CTA BAND */
+    .cta-band {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 48px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .cta-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      max-width: 620px;
+    }
+
+    /* Dark pill with amber hairline & sparkle */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background-color: var(--pill-bg);
+      border: 1px solid rgba(240, 162, 76, 0.35);
+      color: var(--amber);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .pill .sparkle {
+      font-size: 13px;
+      color: var(--amber);
+    }
+
+    .cta-title {
+      color: var(--text-white);
+      font-size: clamp(34px, 4.4vw, 58px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-title span {
+      background: linear-gradient(90deg, #FFFFFF 0%, #FFE0B2 40%, var(--amber) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-desc {
+      color: var(--text-gray-ad);
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* Glossy Amber-Glass CTA Button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      background: linear-gradient(180deg, #7A5832 0%, #2C241D 100%);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(240, 162, 76, 0.45);
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(240, 162, 76, 0.25),
+        0 0 24px rgba(240, 162, 76, 0.25),
+        0 8px 20px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-cta:hover {
+      background: linear-gradient(180deg, #8C663B 0%, #362D24 100%);
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 0 36px rgba(240, 162, 76, 0.45),
+        0 10px 28px rgba(0, 0, 0, 0.6);
+      transform: translateY(-2px);
+      border-color: rgba(240, 162, 76, 0.7);
+    }
+
+    .btn-cta .arrow {
+      color: var(--amber);
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-cta:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* Editor Panel Visual */
+    .cta-visual {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .editor-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .editor-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(240, 162, 76, 0.3) 0%, transparent 70%);
+      filter: blur(28px);
+      pointer-events: none;
+    }
+
+    .editor-image {
+      position: relative;
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 14px 36px rgba(240, 162, 76, 0.35));
+      transition: transform 0.5s ease;
+    }
+
+    .editor-wrapper:hover .editor-image {
+      transform: scale(1.02);
+    }
+
+    /* FOUR-PART FOOTER */
+    .footer-main {
+      padding-top: 64px;
+      padding-bottom: 56px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+      gap: 40px;
+    }
+
+    .col-title {
+      color: var(--text-white);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    /* Brand Column */
+    .brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .sail-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #2C241D 0%, #14100D 100%);
+      border: 1px solid rgba(240, 162, 76, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 18px rgba(240, 162, 76, 0.25);
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+    }
+
+    .brand-blurb {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-gray-ad);
+      max-width: 290px;
+    }
+
+    /* Social icons in amber #E0A165 */
+    .social-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .social-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(240, 162, 76, 0.28);
+      background-color: rgba(29, 21, 16, 0.8);
+      color: var(--amber-social);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .social-icon:hover {
+      border-color: var(--amber);
+      background-color: rgba(240, 162, 76, 0.15);
+      color: #FFFFFF;
+      box-shadow: 0 0 16px rgba(240, 162, 76, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .social-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Footer Links */
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .footer-links a {
+      color: var(--text-gray-ad);
+      text-decoration: none;
+      font-size: 13.5px;
+      transition: color 0.2s ease;
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: var(--amber);
+    }
+
+    /* Newsletter Column */
+    .newsletter-form {
+      display: flex;
+      position: relative;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding: 12px 46px 12px 14px;
+      border-radius: 12px;
+      background-color: rgba(29, 21, 16, 0.8);
+      border: 1px solid rgba(240, 162, 76, 0.3);
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.25s ease;
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--amber);
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--text-gray-71);
+    }
+
+    /* Warm Metal Gradient Key */
+    .newsletter-btn {
+      position: absolute;
+      right: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #F0A24C 0%, #D8822B 50%, #7A4210 100%);
+      border: none;
+      color: #1D1510;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 8px rgba(240, 162, 76, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .newsletter-btn:hover {
+      background: linear-gradient(135deg, #FFB25E 0%, #E89138 50%, #8E4E14 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 4px 14px rgba(240, 162, 76, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .newsletter-subtext {
+      font-size: 11px;
+      color: var(--text-gray-71);
+      margin-top: 8px;
+    }
+
+    /* BOTTOM SECTION: REACHING HANDS & GIANT WORDMARK */
+    .bottom-section {
+      position: relative;
+      padding-top: 48px;
+      padding-bottom: 0;
+      overflow: hidden;
+      border-top: 1px solid #1C1612;
+      text-align: center;
+    }
+
+    .marble-hand {
+      position: absolute;
+      bottom: 12px;
+      z-index: 10;
+      pointer-events: none;
+      user-select: none;
+      width: clamp(200px, 28vw, 420px);
+    }
+
+    .marble-hand.left {
+      left: 0;
+      animation: marbleFloatLeft 8s ease-in-out infinite;
+    }
+
+    .marble-hand.right {
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      animation: marbleFloatRight 8s ease-in-out infinite;
+    }
+
+    .marble-hand img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(240, 162, 76, 0.35));
+    }
+
+    .bottom-center {
+      position: relative;
+      z-index: 20;
+      max-width: 600px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bottom-copyright {
+      color: var(--text-gray-ad);
+      font-size: 12.5px;
+      letter-spacing: 0.01em;
+    }
+
+    .bottom-tagline {
+      color: var(--text-white);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    /* Giant thin amber-brown wordmark sinking off bottom edge */
+    .sinking-container {
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      user-select: none;
+      pointer-events: none;
+      margin-bottom: -0.22em;
+    }
+
+    .sinking-wordmark {
+      font-size: clamp(60px, 14vw, 175px);
+      font-weight: 100;
+      color: var(--wordmark);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      line-height: 0.85;
+      text-shadow: 0 0 45px rgba(90, 52, 24, 0.45);
+      transform: scaleY(1.1);
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+
+    /* ENTRANCE ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleTiltIn {
+      from { opacity: 0; transform: perspective(1000px) rotateY(-6deg) rotateX(4deg) scale(0.94); }
+      to { opacity: 1; transform: perspective(1000px) rotateY(0) rotateX(0) scale(1); }
+    }
+    @keyframes marbleFloatLeft {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(8px, -4px); }
+    }
+    @keyframes marbleFloatRight {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-8px, -4px); }
+    }
+
+    .anim-pill { animation: fadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+    .anim-title { animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both; }
+    .anim-desc { animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both; }
+    .anim-cta { animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both; }
+    .anim-editor { animation: scaleTiltIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+    .anim-col-1 { animation: riseUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+    .anim-col-2 { animation: riseUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both; }
+    .anim-col-3 { animation: riseUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+    .anim-col-4 { animation: riseUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both; }
+
+    /* RESPONSIVE: BELOW 900PX */
+    @media (max-width: 900px) {
+      .cta-band {
+        grid-template-columns: 1fr;
+        padding-top: 56px;
+        padding-bottom: 56px;
+        gap: 36px;
+      }
+      .cta-visual {
+        justify-content: center;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .marble-hand {
+        bottom: 8px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .marble-hand {
+        width: 140px;
+        bottom: 4px;
+      }
+      .bottom-center {
+        padding-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SHIPPROOF CLOSING CTA + FOOTER SECTION -->
+  <section class="shipcraft-section">
+    <!-- Ambient Warm Amber Glows -->
+    <div class="ambient-glow-top" aria-hidden="true"></div>
+    <div class="ambient-glow-left" aria-hidden="true"></div>
+    <div class="ambient-glow-right" aria-hidden="true"></div>
+
+    <div class="container">
+      <!-- TOP CTA BAND -->
+      <div class="cta-band">
+        <div class="cta-content">
+          <!-- Pill -->
+          <div class="pill anim-pill">
+            <span class="sparkle">✦</span>
+            <span>Ship Your Idea</span>
+          </div>
+
+          <!-- Headline -->
+          <h2 class="cta-title anim-title">
+            Your next app <br>
+            <span>starts now.</span>
+          </h2>
+
+          <!-- Blurb -->
+          <p class="cta-desc anim-desc">
+            Describe it, shape it in the canvas or code, ship it to the App Store, Play Store, or web. No install, no credit card.
+          </p>
+
+          <!-- Glossy Amber-Glass CTA Button -->
+          <div class="anim-cta">
+            <a href="#get-started" class="btn-cta">
+              <span>Get started now</span>
+              <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tilted 3D Editor Panel Bleeding Off Top-Right -->
+        <div class="cta-visual anim-editor">
+          <div class="editor-wrapper">
+            <div class="editor-glow" aria-hidden="true"></div>
+            <img 
+              src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/5bc1d856-0342-40d4-b7ca-c490ac20624a.png" 
+              alt="Shipcraft 3D Editor panel glowing amber" 
+              class="editor-image"
+              width="912"
+              height="700"
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN 4-PART FOOTER -->
+      <div class="footer-main">
+        <div class="footer-grid">
+          
+          <!-- BRAND COLUMN -->
+          <div class="brand-col anim-col-1">
+            <a href="#" class="brand-logo">
+              <!-- Amber sail mark -->
+              <div class="sail-mark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3L19 18H12V3Z" fill="#F0A24C" stroke="#F0A24C" stroke-width="1.2" stroke-linejoin="round"/>
+                  <path d="M10 7L4 18H10V7Z" fill="#E0A165" stroke="#E0A165" stroke-width="1.2" stroke-linejoin="round"/>
+                  <path d="M3 20H21" stroke="#F0A24C" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="brand-name">shipcraft</span>
+            </a>
+            <p class="brand-blurb">
+              Shipcraft keeps every surface in sync, so you never rebuild from scratch.
+            </p>
+            <div class="social-links">
+              <!-- LinkedIn -->
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m1.37 9.74v-8.37H5.1v8.37h2.73z"/></svg>
+              </a>
+              <!-- Instagram -->
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <!-- YouTube -->
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- PRODUCT COLUMN -->
+          <div class="anim-col-2">
+            <h4 class="col-title">Product</h4>
+            <ul class="footer-links">
+              <li><a href="#preview">Preview</a></li>
+              <li><a href="#features">Features</a></li>
+              <li><a href="#how-it-works">How it works</a></li>
+              <li><a href="#developers">Developers</a></li>
+            </ul>
+          </div>
+
+          <!-- RESOURCES COLUMN -->
+          <div class="anim-col-3">
+            <h4 class="col-title">Resources</h4>
+            <ul class="footer-links">
+              <li><a href="#blog">Blog</a></li>
+              <li><a href="#documentation">Documentation</a></li>
+              <li><a href="#videos">Videos</a></li>
+              <li><a href="#community">Community</a></li>
+            </ul>
+          </div>
+
+          <!-- NEWSLETTER COLUMN -->
+          <div class="anim-col-4">
+            <h4 class="col-title">Newsletter</h4>
+            <p style="font-size: 13px; color: var(--text-gray-ad); margin-bottom: 10px;">
+              Subscribe to our newsletter
+            </p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to Shipcraft!');">
+              <input 
+                type="email" 
+                class="newsletter-input" 
+                placeholder="jane@shipcraft.example" 
+                required
+              >
+              <button type="submit" class="newsletter-btn" aria-label="Subscribe">→</button>
+            </form>
+            <p class="newsletter-subtext">Unsubscribe anytime</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING & GIANT WORDMARK -->
+    <div class="bottom-section">
+      <!-- Left Marble Hand -->
+      <div class="marble-hand left">
+        <img 
+          src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4c029f38-d0a0-46d1-9ebc-3edcdaa11fc1.png" 
+          alt="White marble sculpture hand left"
+          width="582"
+          height="290"
+        >
+      </div>
+
+      <!-- Right Marble Hand -->
+      <div class="marble-hand right">
+        <img 
+          src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/7eba3f06-a99e-44b8-bd46-7ccfaf6b2363.png" 
+          alt="White marble sculpture hand right"
+          width="558"
+          height="328"
+        >
+      </div>
+
+      <!-- Center Content -->
+      <div class="bottom-center">
+        <p class="bottom-tagline">Build a real app, fast.</p>
+        <p class="bottom-copyright">&copy; 2026 Shipcraft. All rights reserved.</p>
+      </div>
+
+      <!-- Giant Thin Amber-Brown Wordmark Sinking Off Edge -->
+      <div class="sinking-container" aria-hidden="true">
+        <span class="sinking-wordmark">SHIPCRAFT</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
