@@ -9,6 +9,7 @@ import HeaderBackgroundAnimation from "./components/HeaderBackgroundAnimation";
 import PromptHero from "./components/PromptHero";
 import FeatureCard from "./components/FeatureCard";
 import MotionCta3DOrb from "./components/MotionCta3DOrb";
+import GlowRatingBento from "./components/GlowRatingBento";
 import { Search, Code2, FileText, Mail, Link2, Settings } from "lucide-react";
 
 export default function Home() {
@@ -18,7 +19,6 @@ export default function Home() {
   const [toast, setToast] = useState<string | null>(null);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
   const [activeProcessStep, setActiveProcessStep] = useState<number>(0);
-  const [reviewFilter, setReviewFilter] = useState<"all" | "usa" | "uk">("all");
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -907,105 +907,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CLIENT TESTIMONIALS & REVIEWS SECTION */}
-        <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
-              <span>⭐️ Verified Pilot Case Studies &amp; Client Feedback</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
-              Trusted by Ambitious Global Founders
-            </h2>
-            <p className="text-[15px] text-[#475569] mt-2">
-              See how our high-intent SEO and Next.js development deliver real organic revenue across the US, UK, and Europe.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Review 1 */}
-            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                      +340% Revenue
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;Balaji Prime Media completely transformed our organic pipeline. In 4 months, our US search traffic grew significantly, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    DH
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">David Henderson</h4>
-                    <p className="text-[11px] text-[#64748b]">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Review 2 */}
-            {(reviewFilter === 'all' || reviewFilter === 'uk') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-slate-100 text-[#091427] px-2.5 py-1 rounded-full border border-slate-200">
-                      #1 Google Map Pack
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    OT
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">Oliver Thorne</h4>
-                    <p className="text-[11px] text-[#64748b]">Marketing Director, Apex Dental Group (London, UK 🇬🇧)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Review 3 */}
-            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                      98 PageSpeed
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    CM
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">Chloe Martinez</h4>
-                    <p className="text-[11px] text-[#64748b]">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div>
-        </section>
+        {/* CLIENT TESTIMONIALS & REVIEWS SECTION: MOTIONSITES GLOW FEATURES BENTO GRID */}
+        <GlowRatingBento
+          onOpenConsultation={(service) => {
+            setSelectedService(service || "SEO Optimization");
+            setContactOpen(true);
+          }}
+        />
 
         {/* 8. BOTTOM CALL-TO-ACTION BANNER (3D MOTIONSITE UPGRADE) */}
         <section id="contact" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
