@@ -62,70 +62,6 @@ export default function Footer() {
         <span>FREE AI AUDIT</span>
       </Link>
 
-      {/* TOP CTA BAND: Tilted 3D Editor Panel Glowing Amber + Glossy Amber CTA */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-16 sm:pt-20 pb-16 lg:pb-24 border-b border-[#261E17]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left CTA Info */}
-          <div className="lg:col-span-7 space-y-6 z-10 text-left">
-            {/* Pill */}
-            <div className="animate-shipcraft-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1D1510] border border-[#F0A24C]/35 text-[#F0A24C] text-xs font-semibold tracking-wide shadow-sm">
-              <span>✦</span>
-              <span>Ship Your Idea</span>
-            </div>
-
-            {/* Headline */}
-            <h2 className="animate-shipcraft-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
-              Your next app <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-amber-100 to-[#F0A24C]">
-                starts now.
-              </span>
-            </h2>
-
-            {/* Description */}
-            <p className="animate-shipcraft-desc text-sm sm:text-base text-[#ADADAD] max-w-xl leading-relaxed">
-              Describe it, shape it in the canvas or code, ship it to the App Store, Play Store, or web. No install, no credit card.
-            </p>
-
-            {/* Glossy Amber-Glass CTA Button */}
-            <div className="animate-shipcraft-cta pt-2 flex flex-wrap items-center gap-4">
-              <Link
-                href="/audit"
-                className="amber-glass-button inline-flex items-center gap-3 px-7 py-3.5 rounded-full text-white font-bold text-sm cursor-pointer"
-              >
-                <span>Get started now</span>
-                <span className="text-base text-[#F0A24C]">→</span>
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold text-[#ADADAD] hover:text-white border border-[#261E17] hover:border-[#F0A24C]/40 bg-[#141210]/60 transition-colors"
-              >
-                <span>Schedule Strategy Call</span>
-                <span className="text-xs">↗</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: Tilted 3D Editor Panel Bleeding Off Top-Right */}
-          <div className="lg:col-span-5 relative flex justify-center lg:justify-end animate-shipcraft-editor">
-            <div className="relative w-full max-w-[520px] lg:max-w-none lg:-mr-12 group">
-              {/* Amber rim glow behind editor panel */}
-              <div 
-                aria-hidden="true" 
-                className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(240,162,76,0.3)_0%,transparent_70%)] filter blur-2xl pointer-events-none" 
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/footer/editor-panel.png"
-                alt="Shipcraft 3D Editor Panel glowing amber"
-                className="relative z-10 w-full h-auto object-contain filter drop-shadow-[0_12px_32px_rgba(240,162,76,0.35)] transform transition-transform duration-500 hover:scale-[1.02]"
-              />
-            </div>
-          </div>
-
-        </div>
-      </div>
-
       {/* MAIN FOOTER: 4-Column Grid */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-14 sm:pt-16 pb-12">
         
@@ -134,55 +70,28 @@ export default function Footer() {
           
           {/* COLUMN 1: Brand & Direct Contact (span 4) */}
           <div className="lg:col-span-4 space-y-4 text-left animate-shipcraft-col-1">
-            {/* Brand Logo with Amber Sail Mark */}
+            {/* Brand Logo with Website's Exact Logo */}
             <Link href="/" className="inline-flex items-center gap-3 group">
-              {/* Original Amber Sail Mark */}
-              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-b from-[#2C241D] to-[#14100D] border border-[#F0A24C]/40 flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_20px_rgba(240,162,76,0.25)] group-hover:border-[#F0A24C] transition-all group-hover:scale-105">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-lg shadow-[#091427]/50 border border-[#d97706]/50 group-hover:scale-105 transition-all shrink-0">
                 <svg
-                  className="w-5 h-5"
+                  className="w-5 h-5 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
                   viewBox="0 0 24 24"
                   fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <path
-                    d="M12 3L19 18H12V3Z"
-                    fill="url(#amber-sail-grad-1)"
-                    stroke="#F0A24C"
-                    strokeWidth="1.2"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M10 7L4 18H10V7Z"
-                    fill="url(#amber-sail-grad-2)"
-                    stroke="#E0A165"
-                    strokeWidth="1.2"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M3 20H21"
-                    stroke="#F0A24C"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="amber-sail-grad-1" x1="12" y1="3" x2="19" y2="18" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#FFB25E" />
-                      <stop offset="1" stopColor="#A85A14" />
-                    </linearGradient>
-                    <linearGradient id="amber-sail-grad-2" x1="4" y1="7" x2="10" y2="18" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#F0A24C" stopOpacity="0.85" />
-                      <stop offset="1" stopColor="#5A3418" stopOpacity="0.9" />
-                    </linearGradient>
-                  </defs>
+                  <path d="M4 20L4 4L20 20L20 4" />
                 </svg>
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="text-xl font-black text-white tracking-tight leading-none group-hover:text-amber-100 transition-colors">
-                  shipcraft
+                  BALAJI PRIME <span className="text-[#F0A24C]">MEDIA</span>
                 </span>
-                <span className="text-[10px] font-semibold text-[#7D7D7D] uppercase tracking-widest mt-1">
-                  Balaji Prime Media
+                <span className="text-[9.5px] font-bold tracking-widest text-[#F0A24C] uppercase mt-1">
+                  Digital Growth &amp; SEO Agency
                 </span>
               </div>
             </Link>
@@ -193,9 +102,9 @@ export default function Footer() {
               <span>Full-Funnel Organic Growth Engine</span>
             </div>
 
-            {/* Shipcraft Blurb */}
+            {/* Agency Positioning & Blurb */}
             <p className="text-[12.5px] leading-relaxed text-[#ADADAD]">
-              Shipcraft keeps every surface in sync, so you never rebuild from scratch.
+              Balaji Prime Media is a specialized digital growth agency helping US, UK &amp; global businesses scale organic search revenue through manual DR 50–90+ editorial outreach, technical Core Web Vitals optimization, and high-converting Next.js web engineering.
             </p>
 
             {/* Direct Contact Information */}
@@ -570,10 +479,10 @@ export default function Footer() {
         {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) */}
         <div className="relative z-20 max-w-2xl mx-auto px-4 text-center space-y-2 pb-8 sm:pb-12">
           <p className="text-white font-bold text-sm sm:text-base tracking-tight">
-            Build a real app, fast.
+            Build a real agency-grade brand, fast.
           </p>
           <p className="text-xs text-[#ADADAD]">
-            &copy; 2026 Shipcraft. All rights reserved.
+            &copy; 2026 Balaji Prime Media. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#7D7D7D] pt-1">
             <Link href="/privacy-policy" className="hover:text-[#F0A24C] transition-colors">
@@ -603,8 +512,8 @@ export default function Footer() {
           aria-hidden="true"
           className="w-full overflow-hidden flex justify-center items-end select-none pointer-events-none -mb-6 sm:-mb-10 md:-mb-14 lg:-mb-16 pt-2"
         >
-          <span className="sinking-wordmark font-thin uppercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap opacity-85 tracking-widest scale-y-110">
-            SHIPCRAFT
+          <span className="sinking-wordmark font-thin uppercase text-4xl sm:text-6xl md:text-8xl lg:text-[110px] xl:text-[140px] leading-none whitespace-nowrap opacity-85 tracking-widest scale-y-110">
+            BALAJI PRIME MEDIA
           </span>
         </div>
 
