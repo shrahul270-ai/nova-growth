@@ -326,33 +326,40 @@ export default function HowWeWork3D() {
                 }}
               />
 
-              {/* Shower of Dynamic Sparkling Particle Embers Spraying to the Right */}
-              <div className="absolute inset-y-0 left-1/2 w-32 pointer-events-none overflow-hidden">
+              {/* Dense Shower of Dynamic Sparkling Particle Embers Spraying to the Right */}
+              <div className="absolute inset-y-0 left-1/2 w-44 pointer-events-none overflow-hidden">
                 {[
-                  { top: "10%", size: 3, x: 26, y: -12, delay: "0s" },
-                  { top: "18%", size: 2, x: 38, y: -8, delay: "0.3s" },
-                  { top: "26%", size: 4, x: 44, y: 10, delay: "0.7s" },
-                  { top: "34%", size: 2.5, x: 32, y: -14, delay: "1.1s" },
-                  { top: "42%", size: 3.5, x: 50, y: 6, delay: "0.2s" },
-                  { top: "50%", size: 2, x: 28, y: -18, delay: "0.5s" },
-                  { top: "58%", size: 4, x: 46, y: 12, delay: "0.9s" },
-                  { top: "66%", size: 3, x: 36, y: -10, delay: "1.3s" },
-                  { top: "74%", size: 2.5, x: 42, y: 8, delay: "0.4s" },
-                  { top: "82%", size: 3, x: 30, y: -16, delay: "0.8s" },
-                  { top: "90%", size: 2, x: 40, y: 14, delay: "1.2s" },
+                  { top: "6%", size: 2.5, x: 30, y: -10, delay: "0s" },
+                  { top: "12%", size: 3.5, x: 48, y: -6, delay: "0.2s" },
+                  { top: "16%", size: 2, x: 22, y: -12, delay: "0.5s" },
+                  { top: "22%", size: 4, x: 55, y: 8, delay: "0.7s" },
+                  { top: "27%", size: 2.5, x: 35, y: -14, delay: "1.1s" },
+                  { top: "32%", size: 4.5, x: 62, y: 6, delay: "0.3s" },
+                  { top: "38%", size: 3, x: 42, y: -8, delay: "0.9s" },
+                  { top: "43%", size: 2, x: 25, y: -16, delay: "0.4s" },
+                  { top: "48%", size: 5, x: 68, y: 12, delay: "0.1s" },
+                  { top: "53%", size: 3, x: 38, y: -14, delay: "0.8s" },
+                  { top: "58%", size: 4, x: 52, y: 10, delay: "1.2s" },
+                  { top: "63%", size: 2.5, x: 28, y: -18, delay: "0.6s" },
+                  { top: "68%", size: 4.5, x: 58, y: 8, delay: "0.35s" },
+                  { top: "74%", size: 3, x: 34, y: -10, delay: "1.0s" },
+                  { top: "79%", size: 2, x: 20, y: -12, delay: "0.45s" },
+                  { top: "84%", size: 3.5, x: 46, y: 14, delay: "0.85s" },
+                  { top: "90%", size: 2.5, x: 32, y: -15, delay: "1.25s" },
+                  { top: "95%", size: 3, x: 40, y: 10, delay: "0.15s" },
                 ].map((ember, i) => (
                   <span
                     key={i}
-                    className="absolute rounded-full bg-orange-400 shadow-[0_0_8px_#f97316]"
+                    className="absolute rounded-full bg-gradient-to-r from-amber-300 via-orange-400 to-orange-500 shadow-[0_0_10px_#f97316]"
                     style={
                       {
                         top: ember.top,
-                        left: "4px",
+                        left: "2px",
                         width: `${ember.size}px`,
                         height: `${ember.size}px`,
                         "--ember-x": `${ember.x}px`,
                         "--ember-y": `${ember.y}px`,
-                        animation: `emberShower 1.8s ease-out infinite ${ember.delay}`,
+                        animation: `emberShower 1.6s ease-out infinite ${ember.delay}`,
                       } as React.CSSProperties
                     }
                   />
@@ -368,7 +375,7 @@ export default function HowWeWork3D() {
               {/* Active Work Page Card Sliding In From Right */}
               <div
                 key={`card-${activeIndex}`}
-                className="relative w-full max-w-[420px] rounded-[26px] p-6 sm:p-7 text-white shadow-[0_25px_60px_-10px_rgba(0,0,0,0.65)] overflow-hidden flex flex-col justify-between min-h-[460px] border border-white/10"
+                className="relative w-full max-w-[420px] rounded-[26px] p-6 sm:p-7 text-white shadow-[0_25px_60px_-10px_rgba(0,0,0,0.65),-15px_0_35px_-5px_rgba(249,115,22,0.35)] overflow-hidden flex flex-col justify-between min-h-[460px] border border-white/10 border-l-2 border-l-orange-400/80"
                 style={{
                   background: current.cardBg,
                   animation: "pageSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1)",

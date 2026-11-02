@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import VesperAboutHeader from "../components/VesperAboutHeader";
+import VaultraAboutHeader from "../components/VaultraAboutHeader";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -73,11 +73,11 @@ export default function AboutPage() {
         <Navbar activePage="about" />
       </div>
 
-      {/* Vesper.ai Operational AI Infrastructure Header */}
-      <VesperAboutHeader />
+      {/* Vaultra Glowing Dotted Particle Globe Hero Header */}
+      <VaultraAboutHeader />
 
       {/* Mission & Vision Section */}
-      <section className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section id="about-purpose" className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
