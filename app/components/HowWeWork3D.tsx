@@ -2,19 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Search,
-  FileSpreadsheet,
-  Code2,
-  TrendingUp,
+  Clock,
+  CheckCircle2,
   Sparkles,
   ArrowRight,
   ArrowLeft,
-  CheckCircle2,
-  Clock,
-  Users,
   ShieldCheck,
-  ChevronRight,
-  Terminal,
+  TrendingUp,
+  FileCheck,
+  Layers,
+  Calendar,
+  Users,
 } from "lucide-react";
 
 interface StepData {
@@ -28,10 +26,8 @@ interface StepData {
   timeframeDesc: string;
   categoryTitle: string;
   categoryItems: string[];
-  codeSnippet: string;
   metricBadge: { left: string; right: string };
   icon: string;
-  color: string;
 }
 
 const stepsData: StepData[] = [
@@ -52,16 +48,8 @@ const stepsData: StepData[] = [
       "Senior Next.js Frontend Engineer",
       "Slack Channel Standup Access",
     ],
-    codeSnippet: `<pipeline phase="01_discovery">
-  <audit target="all_routes" status="analyzing" />
-  <gap-mapping regions="["US", "UK", "EU"]" />
-  <crawl-traps resolved="142" errors="0" />
-  <team lead="Senior Technical SEO Architect" />
-  <deliverable type="15_page_diagnostic_notion" />
-</pipeline>`,
-    metricBadge: { left: "Audit Engine", right: "Week 1 Active" },
+    metricBadge: { left: "Step 01", right: "Days 1 - 7" },
     icon: "🔍",
-    color: "#f97316",
   },
   {
     step: "02",
@@ -80,16 +68,8 @@ const stepsData: StepData[] = [
       "Digital PR Target Publications",
       "High-Intent Geo-Landing Blueprints",
     ],
-    codeSnippet: `<strategy sprint="90_day_organic_roadmap">
-  <keyword-matrix clustering="high_buyer_intent" />
-  <geo-targeting markets="["US", "UK", "Canada"]" />
-  <difficulty-filter target="low_competition_fast_rank" />
-  <calendar duration="3_months" pr_targets="Tier_1" />
-  <ux-wireframe intent="high_conversion_flow" />
-</strategy>`,
-    metricBadge: { left: "Keyword Matrix", right: "90-Day Sprint" },
+    metricBadge: { left: "Step 02", right: "Days 8 - 14" },
     icon: "📋",
-    color: "#f59e0b",
   },
   {
     step: "03",
@@ -108,15 +88,8 @@ const stepsData: StepData[] = [
       "100% White-Hat Editorial Links",
       "Strict Git Version Control",
     ],
-    codeSnippet: `<engineering environment="nextjs_15_production">
-  <rebuild speed_target="<1.0s" core_web_vitals="100/100" />
-  <schema type="AggregateRating" status="injected" />
-  <link-building authority="DA_65_plus" mode="white_hat" />
-  <deployment zero_downtime="true" git_branch="main" />
-</engineering>`,
-    metricBadge: { left: "Speed Rebuild", right: "0.8s Target" },
+    metricBadge: { left: "Step 03", right: "Weeks 3 - 8" },
     icon: "💻",
-    color: "#f97316",
   },
   {
     step: "04",
@@ -135,15 +108,8 @@ const stepsData: StepData[] = [
       "Bi-Weekly Zoom Growth Call",
       "24/7 Live Data Studio Access",
     ],
-    codeSnippet: `<scaling cadence="compounding_growth">
-  <serp-tracker frequency="real_time_hourly" />
-  <cro-testing mode="multivariate_ab" boost="+340%" />
-  <analytics dashboard="Looker_Studio_24_7" />
-  <client-sync channel="Slack_Digest_Plus_Zoom" />
-</scaling>`,
-    metricBadge: { left: "Live Looker", right: "24/7 Access" },
+    metricBadge: { left: "Step 04", right: "Month 3 Onward" },
     icon: "🎯",
-    color: "#10b981",
   },
 ];
 
@@ -156,7 +122,7 @@ export default function HowWeWork3D() {
     if (isPaused) return;
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % stepsData.length);
-    }, 7000);
+    }, 6500);
     return () => clearInterval(interval);
   }, [isPaused]);
 
@@ -174,30 +140,22 @@ export default function HowWeWork3D() {
       {/* Dynamic Keyframes for Particle Spark Embers and Orange Laser Beam */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes laserGlow {
-          0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 18px rgba(249, 115, 22, 0.9)) drop-shadow(0 0 35px rgba(249, 115, 22, 0.5)); }
-          50% { opacity: 1; filter: drop-shadow(0 0 28px rgba(249, 115, 22, 1)) drop-shadow(0 0 55px rgba(251, 146, 60, 0.7)); }
-        }
-        @keyframes sparkExplode {
-          0% { transform: translate(0, 0) scale(1); opacity: 1; }
-          100% { transform: translate(var(--tw-translate-x), var(--tw-translate-y)) scale(0); opacity: 0; }
-        }
-        @keyframes codeFlicker {
-          0%, 100% { opacity: 0.95; }
-          50% { opacity: 0.8; }
+          0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 16px rgba(249, 115, 22, 0.9)) drop-shadow(0 0 35px rgba(249, 115, 22, 0.5)); }
+          50% { opacity: 1; filter: drop-shadow(0 0 25px rgba(249, 115, 22, 1)) drop-shadow(0 0 50px rgba(251, 146, 60, 0.7)); }
         }
         @keyframes slideInFromRight {
-          from { transform: translateX(80px); opacity: 0; }
+          from { transform: translateX(90px); opacity: 0.15; }
           to { transform: translateX(0px); opacity: 1; }
         }
-        @keyframes portalPulse {
-          0%, 100% { transform: scaleY(1); opacity: 0.9; }
-          50% { transform: scaleY(1.04); opacity: 1; }
+        @keyframes fadeInScale {
+          from { transform: scale(0.97); opacity: 0.2; }
+          to { transform: scale(1); opacity: 1; }
         }
       `}} />
 
       {/* Ambient Radial Background Glows */}
       <div
-        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(249,115,22,0.12)_0%,rgba(99,102,241,0.06)_45%,transparent_75%)] blur-3xl -z-10"
+        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(249,115,22,0.12)_0%,rgba(99,102,241,0.06)_45%,transparent_75%)] blur-3xl -z-10"
         aria-hidden="true"
       />
 
@@ -215,7 +173,7 @@ export default function HowWeWork3D() {
             A simple, transparent process to turn your goals into measurable results.
           </p>
 
-          {/* Interactive Step Selection Buttons */}
+          {/* Interactive Step Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-7">
             {stepsData.map((s, idx) => (
               <button
@@ -235,89 +193,102 @@ export default function HowWeWork3D() {
         </div>
 
         {/* ================================================================ */}
-        {/* 3D WORK CONVERSION PORTAL: WORK SLIDING FROM RIGHT INTO ORANGE LINE */}
+        {/* 3D WORK SLIDER PORTAL: RIGHT SIDE WORK SLIDES INTO ORANGE LINE */}
         {/* ================================================================ */}
-        <div className="relative rounded-3xl bg-[#060813]/95 border border-white/10 overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-4 sm:p-6 md:p-10">
+        <div className="relative rounded-3xl bg-[#060813]/95 border border-white/10 overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] p-5 sm:p-7 md:p-10">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative min-h-[480px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative min-h-[460px]">
             
             {/* ------------------------------------------------------------ */}
-            {/* LEFT ZONE: TRANSFORMED SEMANTIC CODE & ARCHITECTURE TOKENS */}
+            {/* LEFT SIDE: PHASE DELIVERABLES & DETAILED SCOPE (NO CODE) */}
             {/* ------------------------------------------------------------ */}
-            <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-4 py-2 pr-0 lg:pr-4">
-              <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-                  <Terminal className="w-4 h-4 text-orange-400" />
-                  <span>output.tokenized.xml</span>
+            <div
+              key={`left-${activeStep}`}
+              className="lg:col-span-5 flex flex-col justify-between space-y-5 py-2"
+              style={{ animation: "fadeInScale 0.4s ease-out" }}
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-2 h-2 rounded-full bg-orange-400 animate-ping" />
+                  <span className="text-[11px] font-mono font-bold text-orange-400 uppercase tracking-widest">
+                    Phase Deliverables &amp; Scope
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
-                  ✓ Transformed Live
-                </span>
-              </div>
 
-              {/* Monospace Code Representation (Disintegrated from the Orange Laser Line) */}
-              <div className="relative rounded-2xl bg-black/70 border border-white/5 p-4 sm:p-5 font-mono text-xs overflow-x-auto text-slate-300 leading-relaxed shadow-inner">
-                <pre className="text-slate-300 text-[11.5px] leading-relaxed">
-                  <code>{current.codeSnippet}</code>
-                </pre>
-              </div>
-
-              {/* Deliverable Highlights on the Left Output Side */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1.5">
-                <span className="text-[10px] font-mono font-bold text-orange-400 tracking-wider uppercase block">
-                  Executed Output
-                </span>
-                <h4 className="text-xs font-bold text-white">
+                <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight mb-3">
                   {current.deliverablesTitle}
-                </h4>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                </h3>
+
+                <p className="text-sm text-slate-300 leading-relaxed font-normal">
                   {current.deliverablesDesc}
                 </p>
+              </div>
+
+              {/* Execution Window Card */}
+              <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-4 space-y-2 backdrop-blur-md">
+                <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 text-slate-200 font-bold">
+                    <Calendar className="w-4 h-4 text-orange-400" />
+                    <span>Timeframe:</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-orange-300 bg-orange-500/15 border border-orange-400/30 px-2.5 py-0.5 rounded-full">
+                    {current.timeframe}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  {current.timeframeDesc}
+                </p>
+              </div>
+
+              {/* Step indicator pills */}
+              <div className="flex items-center gap-2 pt-2 border-t border-white/10 text-xs font-mono text-slate-400">
+                <span className="text-orange-400 font-bold">Current Phase:</span>
+                <span className="text-white font-medium">
+                  {current.step} &bull; {current.title}
+                </span>
               </div>
             </div>
 
             {/* ------------------------------------------------------------ */}
             {/* CENTER: THE LUMINOUS GLOWING ORANGE LINE & SPARK EMBER PORTAL */}
             {/* ------------------------------------------------------------ */}
-            <div className="hidden lg:flex lg:col-span-1 flex-col items-center justify-center relative h-full min-h-[460px]">
+            <div className="hidden lg:flex lg:col-span-2 flex-col items-center justify-center relative h-full min-h-[440px]">
               
-              {/* Top Dual Pill Badge (Matching Image: Left Solid Orange, Right Frosted) */}
-              <div className="absolute -top-3 z-30 flex items-center shadow-[0_0_25px_rgba(249,115,22,0.5)]">
-                <span className="bg-orange-500 text-slate-950 font-black text-[10px] font-mono px-2.5 py-1 rounded-l-full">
+              {/* Top Dual Pill Badge (Matching image: Left Solid Orange, Right Frosted) */}
+              <div className="absolute -top-3 z-30 flex items-center shadow-[0_0_25px_rgba(249,115,22,0.6)]">
+                <span className="bg-orange-500 text-slate-950 font-black text-[11px] font-mono px-3 py-1 rounded-l-full">
                   {current.metricBadge.left}
                 </span>
-                <span className="bg-slate-900/90 text-orange-200 border border-orange-500/30 font-medium text-[10px] font-mono px-2.5 py-1 rounded-r-full backdrop-blur-md">
+                <span className="bg-slate-900/90 text-orange-200 border border-orange-500/30 font-semibold text-[11px] font-mono px-3 py-1 rounded-r-full backdrop-blur-md">
                   {current.metricBadge.right}
                 </span>
               </div>
 
               {/* The Vertical Orange Glowing Line */}
               <div
-                className="relative w-1.5 h-full rounded-full"
+                className="relative w-2 h-full rounded-full"
                 style={{
-                  background: "linear-gradient(180deg, rgba(249,115,22,0.2) 0%, #f97316 25%, #fb923c 50%, #f97316 75%, rgba(249,115,22,0.2) 100%)",
-                  boxShadow: "0 0 20px #f97316, 0 0 40px #fb923c, 0 0 60px rgba(249, 115, 22, 0.8)",
+                  background:
+                    "linear-gradient(180deg, rgba(249,115,22,0.2) 0%, #f97316 20%, #fb923c 50%, #f97316 80%, rgba(249,115,22,0.2) 100%)",
+                  boxShadow:
+                    "0 0 20px #f97316, 0 0 40px #fb923c, 0 0 60px rgba(249, 115, 22, 0.85)",
                   animation: "laserGlow 3s ease-in-out infinite",
                 }}
               />
 
-              {/* Active Volumetric Laser Beam Core */}
-              <div
-                className="absolute inset-y-8 w-8 bg-gradient-to-r from-transparent via-orange-500/30 to-transparent blur-md pointer-events-none"
-                style={{ animation: "portalPulse 4s ease-in-out infinite" }}
-              />
+              {/* Volumetric Radial Glow Band behind the line */}
+              <div className="absolute inset-y-4 w-12 bg-gradient-to-r from-transparent via-orange-500/25 to-transparent blur-md pointer-events-none" />
 
               {/* Dynamic Sparkling Particle Embers exploding along the orange line */}
-              <div className="absolute inset-y-0 w-28 pointer-events-none overflow-hidden flex items-center justify-center">
+              <div className="absolute inset-y-0 w-32 pointer-events-none overflow-hidden flex items-center justify-center">
                 {[
-                  { top: "15%", left: "10%", size: 3, delay: "0s" },
-                  { top: "25%", left: "60%", size: 2, delay: "0.4s" },
-                  { top: "35%", left: "20%", size: 4, delay: "0.8s" },
-                  { top: "45%", left: "75%", size: 3, delay: "1.2s" },
-                  { top: "55%", left: "30%", size: 2, delay: "0.2s" },
-                  { top: "65%", left: "80%", size: 4, delay: "0.6s" },
-                  { top: "75%", left: "25%", size: 3, delay: "1.0s" },
-                  { top: "85%", left: "70%", size: 2, delay: "1.4s" },
+                  { top: "12%", left: "15%", size: 3, delay: "0s" },
+                  { top: "24%", left: "65%", size: 2, delay: "0.4s" },
+                  { top: "36%", left: "20%", size: 4, delay: "0.8s" },
+                  { top: "48%", left: "75%", size: 3, delay: "1.2s" },
+                  { top: "60%", left: "30%", size: 2, delay: "0.2s" },
+                  { top: "72%", left: "80%", size: 4, delay: "0.6s" },
+                  { top: "84%", left: "25%", size: 3, delay: "1.0s" },
                 ].map((spark, i) => (
                   <span
                     key={i}
@@ -336,32 +307,32 @@ export default function HowWeWork3D() {
             </div>
 
             {/* ------------------------------------------------------------ */}
-            {/* RIGHT ZONE: WORK CARD COMING OUT FROM THE RIGHT INTO THE LINE */}
+            {/* RIGHT SIDE: WORK CARD SLIDING IN FROM RIGHT INTO THE LINE */}
             {/* ------------------------------------------------------------ */}
-            <div className="lg:col-span-6 relative flex flex-col justify-between h-full space-y-4">
+            <div className="lg:col-span-5 relative flex flex-col justify-between space-y-4">
               
-              {/* Work Card Sliding In */}
+              {/* Work Card with smooth sliding animation */}
               <div
-                key={activeStep}
-                className="relative rounded-2xl bg-gradient-to-br from-[#0c1224] to-[#080d19] border border-orange-500/30 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden"
+                key={`right-${activeStep}`}
+                className="relative rounded-2xl bg-gradient-to-br from-[#0c1224] to-[#080d19] border border-orange-500/35 p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden"
                 style={{ animation: "slideInFromRight 0.5s cubic-bezier(0.16, 1, 0.3, 1)" }}
               >
-                {/* Glow bloom on top-right of the card */}
-                <div className="absolute -top-12 -right-12 w-48 h-48 bg-orange-500/15 rounded-full blur-2xl pointer-events-none" />
+                {/* Subtle ambient orange glow on the edge pointing to the laser line */}
+                <div className="absolute -left-10 inset-y-0 w-20 bg-orange-500/20 blur-xl pointer-events-none" />
 
-                {/* Card Header */}
+                {/* Card Header: Icon + Step Title */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 border border-orange-400/30 flex items-center justify-center text-lg shadow-[0_0_15px_rgba(249,115,22,0.25)]">
+                    <div className="w-11 h-11 rounded-xl bg-orange-500/20 text-orange-400 border border-orange-400/30 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(249,115,22,0.3)]">
                       {current.icon}
                     </div>
                     <div>
                       <span className="text-[11px] font-mono font-bold text-orange-400 tracking-wider">
                         {current.num}
                       </span>
-                      <h3 className="text-xl font-black text-white">
+                      <h4 className="text-xl font-black text-white">
                         {current.title}
-                      </h3>
+                      </h4>
                     </div>
                   </div>
 
@@ -371,55 +342,42 @@ export default function HowWeWork3D() {
                   </span>
                 </div>
 
-                {/* Editorial Subtitle */}
-                <p className="text-sm text-slate-200 font-medium leading-relaxed mb-6">
+                {/* Subtitle / Objective */}
+                <p className="text-sm text-slate-200 font-medium leading-relaxed mb-5">
                   {current.subtitle}
                 </p>
 
-                {/* 2-Column Details Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                  {/* Timeframe Detailed Description */}
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase text-orange-400 font-bold block">
-                      Execution Window
-                    </span>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      {current.timeframeDesc}
-                    </p>
-                  </div>
-
-                  {/* Team Allocation / Guarantees Checklist */}
-                  <div className="bg-black/40 rounded-xl p-3 border border-white/5 space-y-1.5">
-                    <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block">
-                      {current.categoryTitle}
-                    </span>
-                    <ul className="text-[11px] space-y-1 text-slate-200">
-                      {current.categoryItems.map((item, i) => (
-                        <li key={i} className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                {/* Scope Category Items (Team Allocation / Guarantees / Cadence) */}
+                <div className="bg-black/50 rounded-xl p-4 border border-white/10 space-y-2">
+                  <span className="text-[11px] font-mono uppercase text-orange-400 font-bold block">
+                    {current.categoryTitle}
+                  </span>
+                  <ul className="text-xs space-y-2 text-slate-200">
+                    {current.categoryItems.map((item, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* Motion arrow indicating movement into the orange laser line */}
-                <div className="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-slate-400">
-                  <span className="flex items-center gap-1 text-orange-300">
-                    <Sparkles className="w-3 h-3 text-orange-400" />
-                    <span>Entering transformation line</span>
+                {/* Slide indicator motion label */}
+                <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                  <span className="flex items-center gap-1.5 text-orange-300">
+                    <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+                    <span>← Work sliding into orange threshold</span>
                   </span>
                   <span className="text-slate-500 hidden sm:inline">
-                    Click steps or pause on hover
+                    Auto-playing (hover to pause)
                   </span>
                 </div>
               </div>
 
-              {/* Peek of the Next Queued Step on the Far Right (Exact styling as in reference image!) */}
-              <div className="hidden sm:flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-slate-400">
+              {/* Next Queued Step Bar at the Bottom */}
+              <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-slate-400">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-slate-500">Next queued work:</span>
+                  <span className="text-[10px] font-mono text-slate-500">Next phase:</span>
                   <span className="font-bold text-slate-200">
                     {nextStep.step} {nextStep.title} ({nextStep.timeframe})
                   </span>
