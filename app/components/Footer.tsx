@@ -444,7 +444,7 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
-      <div className="relative pt-10 pb-0 overflow-hidden border-t border-[#1C1612]">
+      <div className="relative pt-8 pb-10 sm:pb-14 md:pb-16 overflow-hidden border-t border-[#1C1612]">
         
         {/* Subtle amber rim light halos behind the hands */}
         <div
@@ -457,7 +457,7 @@ export default function Footer() {
         />
 
         {/* Left Carrara Marble Hand Reaching In */}
-        <div className="absolute left-0 bottom-10 sm:bottom-8 md:bottom-6 z-10 pointer-events-none w-[200px] sm:w-[280px] md:w-[340px] lg:w-[420px] select-none animate-hand-left">
+        <div className="absolute left-0 bottom-4 sm:bottom-6 md:bottom-8 z-10 pointer-events-none w-[180px] sm:w-[260px] md:w-[320px] lg:w-[380px] select-none animate-hand-left">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-left.png"
@@ -467,7 +467,7 @@ export default function Footer() {
         </div>
 
         {/* Right Carrara Marble Hand Reaching In */}
-        <div className="absolute right-0 bottom-10 sm:bottom-8 md:bottom-6 z-10 pointer-events-none w-[200px] sm:w-[280px] md:w-[340px] lg:w-[420px] select-none flex justify-end animate-hand-right">
+        <div className="absolute right-0 bottom-4 sm:bottom-6 md:bottom-8 z-10 pointer-events-none w-[180px] sm:w-[260px] md:w-[320px] lg:w-[380px] select-none flex justify-end animate-hand-right">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-right.png"
@@ -477,7 +477,7 @@ export default function Footer() {
         </div>
 
         {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) */}
-        <div className="relative z-20 max-w-2xl mx-auto px-4 text-center space-y-2 pb-8 sm:pb-12">
+        <div className="relative z-20 max-w-2xl mx-auto px-4 text-center space-y-2 pb-4 sm:pb-6">
           <p className="text-white font-bold text-sm sm:text-base tracking-tight">
             Build a real agency-grade brand, fast.
           </p>
@@ -510,9 +510,9 @@ export default function Footer() {
         {/* Giant Thin Amber-Brown Wordmark Fully Visible Behind Hands */}
         <div
           aria-hidden="true"
-          className="w-full overflow-hidden flex justify-center items-center select-none pointer-events-none pt-2 pb-6 sm:pb-8 md:pb-10 px-4"
+          className="relative z-10 w-full flex justify-center items-center select-none pointer-events-none pt-1 pb-4 sm:pb-6 px-4"
         >
-          <span className="sinking-wordmark font-thin uppercase text-3xl sm:text-5xl md:text-7xl lg:text-[95px] xl:text-[120px] leading-tight whitespace-nowrap opacity-90 tracking-widest">
+          <span className="sinking-wordmark font-thin uppercase text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-normal whitespace-nowrap opacity-90 tracking-widest block text-center">
             BALAJI PRIME
           </span>
         </div>
