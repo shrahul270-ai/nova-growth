@@ -248,29 +248,29 @@ export default function Home() {
                 We help overseas founders and marketing teams dominate Google search through high-intent SEO, modern Next.js development, and real DR 50–90+ editorial backlinks that compound pipeline 24/7.
               </p>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Cinematic AI Infrastructure White Pill & Ghost */}
               <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-10 w-full sm:w-auto">
                 <button
                   onClick={() => setContactOpen(true)}
-                  className="btn-3d inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-xs sm:text-sm font-bold px-5 sm:px-7 py-3 sm:py-3.5 rounded-full transition-all cursor-pointer w-full sm:w-auto"
+                  className="cinematic-pill !h-[48px] !px-7 !text-[14.5px] cursor-pointer shadow-lg shadow-white/10 hover:shadow-white/25 transition-all flex items-center justify-center gap-2"
                 >
                   <span>Book Strategy Call (EST / GMT)</span>
-                  <svg className="w-4 h-4 text-[#d97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#050505]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
 
                 <Link
                   href="/guest-posting"
-                  className="btn-gold-3d inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs sm:text-sm font-bold px-5 sm:px-6 py-3 sm:py-3.5 rounded-full transition-all cursor-pointer w-full sm:w-auto"
+                  className="cinematic-ghost !h-[48px] !px-6 !text-[14px] cursor-pointer transition-all flex items-center justify-center gap-2"
                 >
                   <span>Explore Guest Posts (DR 50+)</span>
-                  <span>⚡</span>
+                  <span className="text-amber-400">⚡</span>
                 </Link>
 
                 <a
                   href="#services"
-                  className="inline-flex items-center justify-center text-xs sm:text-sm font-semibold text-[#091427] px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-all shadow-xs w-full sm:w-auto"
+                  className="inline-flex items-center justify-center text-xs sm:text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors px-3 py-2"
                 >
                   View All Services ↓
                 </a>

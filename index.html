@@ -3,21 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Cast &amp; Render — 3D Object Studio</title>
+  <title>The Next Layer of Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --fg: #0d0c0b;
-      --fg-soft: rgba(13, 12, 11, .64);
-      --fg-faint: rgba(13, 12, 11, .42);
-      --shade: #f2f0ec;
-      --rule: rgba(13, 12, 11, .16);
-      --ease: cubic-bezier(.22, .61, .36, 1);
-      --pill-bg: #0a0908;
-      --pill-fg: #ffffff;
+      --ink: #fafafa;
+      --muted: #a7a6a6;
+      --nav: #b6b5b5;
+      --strip: #8b8a8a;
+      --pill: #ffffff;
+      --pill-ink: #050505;
+      --bg: #050505;
+
+      --u: calc(100vh / 1058);
+      --uw: calc(100vw / 1487);
+      --h: clamp(var(--u), calc(var(--u) * .65 + var(--uw) * .35), calc(var(--u) * 1.16));
+    }
+
+    @supports (height: 100dvh) {
+      :root {
+        --u: calc(100dvh / 1058);
+      }
     }
 
     *, *::before, *::after {
@@ -26,626 +35,623 @@
       padding: 0;
     }
 
-    html {
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      background: var(--shade);
-      color: var(--fg);
-      font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 400;
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      text-rendering: geometricPrecision;
     }
 
-    /* Fixed Stage & Video */
+    /* Fixed Full-screen Stage */
     .stage {
       position: fixed;
       inset: 0;
-      z-index: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      background: var(--shade);
+      background: #050505;
     }
 
-    .stage video {
+    /* Video Plate */
+    .plate {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      transform: translate(-50%, -50%) scale(1.02);
-      object-fit: cover;
-      filter: contrast(1.02);
-      will-change: transform;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .veil {
+    .plate-video {
+      position: absolute;
+      left: 50%;
+      top: calc(1 * var(--u));
+      width: calc(1492 * var(--u));
+      height: calc(1054 * var(--u));
+      transform: translateX(calc(-50% - calc(0.5 * var(--u))));
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* Measured Fades */
+    .plate::after {
+      content: "";
       position: absolute;
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(to bottom, rgba(242, 240, 236, .62) 0%, rgba(242, 240, 236, .12) 22%, rgba(242, 240, 236, .12) 78%, rgba(242, 240, 236, .66) 100%),
-        radial-gradient(100% 80% at 50% 48%, rgba(242, 240, 236, 0) 0%, rgba(242, 240, 236, .34) 100%),
-        rgba(242, 240, 236, .20);
+        linear-gradient(to bottom,
+          rgba(5,5,5,0) 78.8%,
+          rgba(5,5,5,.23) 79.6%,
+          rgba(5,5,5,.45) 81.4%,
+          rgba(5,5,5,.75) 83.3%,
+          rgba(5,5,5,.84) 85.2%,
+          rgba(5,5,5,.888) 88%,
+          rgba(5,5,5,.905) 91%,
+          rgba(5,5,5,.96) 95%,
+          #050505 100%),
+        linear-gradient(to right,
+          #050505 calc(50% - calc(746 * var(--u))),
+          transparent calc(50% - calc(676 * var(--u))),
+          transparent calc(50% + calc(676 * var(--u))),
+          #050505 calc(50% + calc(746 * var(--u))));
     }
 
-    .grain {
+    /* Topbar Header */
+    .topbar {
       position: absolute;
-      inset: -50%;
-      opacity: .13;
-      mix-blend-mode: multiply;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      display: block;
       pointer-events: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
     }
 
-    /* Meter */
-    .meter {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 50;
-      height: 2px;
+    .brand {
+      position: absolute;
+      left: calc(75 * var(--u));
+      top: calc(27 * var(--u));
+      width: calc(31.5 * var(--u));
+      height: calc(48.5 * var(--u));
+      display: block;
+      pointer-events: auto;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .brand svg {
       width: 100%;
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-      background: var(--fg);
-      opacity: .55;
-      pointer-events: none;
+      height: 100%;
+      display: block;
     }
 
-    /* Chrome */
-    .chrome {
-      position: fixed;
-      left: 0;
-      right: 0;
-      top: 0;
-      z-index: 40;
+    .links {
+      position: absolute;
+      left: 50%;
+      top: calc(51 * var(--u));
+      transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
-      background: linear-gradient(to bottom, rgba(242, 240, 236, .94) 0%, rgba(242, 240, 236, .78) 72%, rgba(242, 240, 236, 0) 100%);
+      gap: calc(24.5 * var(--u));
+      pointer-events: auto;
     }
 
-    .mark {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 15px;
-      letter-spacing: -.012em;
-      color: var(--fg);
-      min-width: 0;
-      flex-shrink: 1;
+    .links a {
+      color: var(--nav);
       text-decoration: none;
+      font-size: calc(19.0 * var(--u));
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      transition: color 0.25s ease;
+      white-space: nowrap;
     }
 
-    .mark-star {
-      opacity: .85;
+    .links a:hover {
+      color: #ffffff;
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: clamp(14px, 2.4vw, 32px);
-      flex-shrink: 0;
-    }
-
-    .nav a:not(.pill) {
-      color: var(--fg);
+    .pill-nav {
+      position: absolute;
+      right: calc(75.4 * var(--u));
+      top: calc(27 * var(--u));
+      width: calc(175 * var(--u));
+      height: calc(49 * var(--u));
+      border-radius: 999px;
+      background: var(--pill);
+      color: var(--pill-ink);
+      font-size: calc(20.6 * var(--u));
+      font-weight: 500;
       text-decoration: none;
-      font-size: 14.5px;
-      letter-spacing: -.008em;
-      opacity: .88;
-      transition: opacity .3s var(--ease);
-    }
-
-    .nav a:not(.pill):hover {
-      opacity: 1;
-    }
-
-    .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 40px;
-      padding: 0 21px;
-      border-radius: 999px;
-      background: var(--pill-bg);
-      color: var(--pill-fg);
-      font-size: 14.5px;
-      font-weight: 500;
-      letter-spacing: -.008em;
-      text-decoration: none;
       white-space: nowrap;
-      opacity: 1;
-      border: 1px solid rgba(10, 9, 8, .12);
-      box-shadow: 0 1px 0 rgba(255, 255, 255, .10) inset;
-      -webkit-text-fill-color: var(--pill-fg);
-      transition: transform .4s var(--ease), background .3s var(--ease), color .3s var(--ease);
+      pointer-events: auto;
+      transition: transform 0.2s ease, background 0.2s ease;
+      cursor: pointer;
     }
 
-    .nav .pill {
-      color: #fff;
-      -webkit-text-fill-color: #fff;
+    .pill-nav span {
+      transform: translateY(calc(1 * var(--u)));
     }
 
-    .pill:hover,
-    .pill:focus-visible {
-      transform: translateY(-2px);
-      background: #000;
-      color: #fff;
-      -webkit-text-fill-color: #fff;
+    .pill-nav:hover {
+      transform: translateY(-1.5px);
+      background: #f0f0f0;
     }
 
-    .pill:focus-visible {
-      outline: 2px solid var(--fg);
-      outline-offset: 2px;
+    .burger {
+      display: none;
     }
 
-    /* Footer */
-    .foot {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 40;
-      display: flex;
-      justify-content: center;
-      padding: 14px clamp(16px, 4vw, 24px) max(16px, calc(env(safe-area-inset-bottom, 0px) + 12px));
-      font-size: 12px;
-      line-height: 1.45;
-      letter-spacing: .02em;
-      color: var(--fg-faint);
-      text-align: center;
-      pointer-events: none;
-      background: linear-gradient(to top, rgba(242, 240, 236, .92) 0%, rgba(242, 240, 236, .72) 72%, rgba(242, 240, 236, 0) 100%);
-    }
-
-    /* Panels Layer */
-    .panels {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      pointer-events: none;
-    }
-
-    .panel {
+    /* Main Hero */
+    .hero {
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: max(104px, calc(env(safe-area-inset-top, 0px) + 88px)) clamp(20px, 5vw, 60px) max(96px, calc(env(safe-area-inset-bottom, 0px) + 80px));
-      opacity: 0;
-      will-change: opacity, transform;
+      z-index: 10;
+      pointer-events: none;
     }
 
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px 12px;
-      font-size: 12.5px;
-      letter-spacing: .045em;
-      color: var(--fg-soft);
-      margin-bottom: clamp(16px, 2vw, 22px);
-      max-width: min(46ch, 100%);
-      text-align: center;
-    }
-
-    h1 {
+    .headline {
+      position: absolute;
+      left: calc(75.5 * var(--u));
+      top: calc(230.5 * var(--u));
+      font-size: calc(71.6 * var(--h));
+      line-height: calc(80.5 * var(--h));
       font-weight: 400;
-      font-size: clamp(34px, 7.1vw, 104px);
-      line-height: .98;
-      letter-spacing: -.036em;
-      max-width: 15ch;
-      text-wrap: balance;
+      letter-spacing: calc(0.3 * var(--h));
+      color: var(--ink);
+      white-space: nowrap;
+      pointer-events: auto;
+    }
+
+    .headline span {
+      display: block;
     }
 
     .sub {
-      margin-top: clamp(18px, 2.2vw, 28px);
-      font-size: clamp(15px, 1.28vw, 19px);
-      line-height: 1.5;
-      letter-spacing: -.008em;
-      color: var(--fg-soft);
-      max-width: min(46ch, 100%);
-      text-wrap: pretty;
-    }
-
-    .cta {
-      margin-top: clamp(28px, 3.4vw, 44px);
+      position: absolute;
+      left: calc(75.5 * var(--u));
+      top: calc(230.5 * var(--u) + calc(189.0 * var(--h)));
+      font-size: calc(20.7 * var(--h));
+      line-height: calc(23.5 * var(--h));
+      font-weight: 400;
+      word-spacing: calc(1.8 * var(--h));
+      color: var(--muted);
       pointer-events: auto;
-      width: 100%;
+    }
+
+    .sub span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .actions {
+      position: absolute;
+      left: calc(74.9 * var(--u));
+      top: calc(230.5 * var(--u) + calc(264.5 * var(--h)));
       display: flex;
+      align-items: center;
+      pointer-events: auto;
+    }
+
+    .pill-cta {
+      width: calc(175.6 * var(--h));
+      height: calc(50 * var(--h));
+      border-radius: 999px;
+      background: var(--pill);
+      color: var(--pill-ink);
+      font-size: calc(20.6 * var(--h));
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
+      white-space: nowrap;
+      transition: transform 0.2s ease, background 0.2s ease;
+      cursor: pointer;
     }
 
-    .cta .pill {
-      height: 48px;
-      padding: 0 27px;
-      font-size: 15px;
-      max-width: min(100%, 320px);
+    .pill-cta:hover {
+      transform: translateY(-1.5px);
+      background: #f0f0f0;
     }
 
-    /* Preloader */
-    .boot {
+    .ghost {
+      margin-left: calc(45 * var(--h));
+      font-size: calc(20.6 * var(--h));
+      font-weight: 500;
+      letter-spacing: calc(0.12 * var(--h));
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s ease;
+      cursor: pointer;
+    }
+
+    .ghost:hover {
+      opacity: 0.8;
+    }
+
+    /* Partner Logos Strip */
+    .logos {
+      position: absolute;
+      left: 50%;
+      top: calc(994.7 * var(--u));
+      width: calc(741 * var(--u));
+      transform: translateX(calc(-50% + calc(20 * var(--u))));
+      z-index: 10;
+      color: var(--strip);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .lg {
+      display: inline-flex;
+      align-items: center;
+      gap: calc(8 * var(--u));
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .lg svg {
+      fill: currentColor;
+    }
+
+    .lg1 { font-size: calc(18.1 * var(--u)); }
+    .lg2 { font-size: calc(18.5 * var(--u)); }
+    .lg3 { font-size: calc(16.15 * var(--u)); }
+    .lg4 { font-size: calc(15.3 * var(--u)); }
+
+    .dot {
+      display: inline-block;
+      width: 0.2em;
+      height: 0.2em;
+      background: currentColor;
+      border-radius: 50%;
+      vertical-align: 0.62em;
+      margin-left: 0.08em;
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(calc(14 * var(--u))); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes riseNav {
+        from { opacity: 0; transform: translate(-50%, calc(-50% + calc(14 * var(--u)))); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+      }
+
+      @keyframes fade {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .brand { animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both; }
+      .links { animation: riseNav 0.8s cubic-bezier(.22, 1, .36, 1) both; }
+      .pill-nav { animation: rise 0.8s cubic-bezier(.22, 1, .36, 1) both; }
+      .headline { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.06s both; }
+      .sub { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.14s both; }
+      .pill-cta, .ghost { animation: rise 0.9s cubic-bezier(.22, 1, .36, 1) 0.22s both; }
+      .logos { animation: fade 1.1s ease 0.34s both; }
+    }
+
+    /* Mobile Menu Drawer */
+    .menu {
       position: fixed;
       inset: 0;
       z-index: 90;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: var(--shade);
-      transition: opacity .7s var(--ease), visibility .7s;
-    }
-
-    .boot.done {
+      background: rgba(5, 5, 5, 0.94);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       opacity: 0;
       visibility: hidden;
+      transition: opacity 0.42s ease, visibility 0.42s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 24px;
     }
 
-    .boot p {
-      font-size: 12.5px;
-      letter-spacing: .05em;
-      color: var(--fg-faint);
+    .stage.is-open .menu {
+      opacity: 1;
+      visibility: visible;
     }
 
-    .bar {
-      width: 150px;
-      height: 1px;
-      background: var(--rule);
-      overflow: hidden;
-    }
+    /* Portrait / Narrow Layout */
+    @media (max-aspect-ratio: 11/10) {
+      :root {
+        --m: min(calc(100vw / 430), 1.34px);
+        --u: var(--m);
+        --h: var(--m);
+      }
 
-    .bar i {
-      display: block;
-      height: 100%;
-      width: 100%;
-      background: var(--fg);
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-    }
-
-    /* Scroll Track */
-    .track {
-      position: relative;
-      z-index: 1;
-      height: 560vh;
-      min-height: 3200px;
-    }
-
-    /* Responsive Breakpoints */
-    @media (max-width: 900px) {
-      .veil {
-        background:
-          linear-gradient(to bottom, rgba(242, 240, 236, .72) 0%, rgba(242, 240, 236, .18) 24%, rgba(242, 240, 236, .18) 76%, rgba(242, 240, 236, .74) 100%),
-          radial-gradient(100% 80% at 50% 48%, rgba(242, 240, 236, 0) 0%, rgba(242, 240, 236, .40) 100%),
-          rgba(242, 240, 236, .24);
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav a:not(.pill) {
-        display: none;
-      }
-      .mark {
-        font-size: 14px;
-      }
-      .nav .pill {
-        height: 38px;
-        padding: 0 16px;
-        font-size: 13.5px;
-      }
-      h1 {
-        max-width: 12ch;
-        font-size: clamp(30px, 9.8vw, 52px);
-      }
-      .sub {
-        font-size: 15px;
-        max-width: 34ch;
-      }
-      .panel {
-        padding: max(92px, calc(env(safe-area-inset-top, 0px) + 76px)) 18px max(88px, calc(env(safe-area-inset-bottom, 0px) + 72px));
-      }
-      .foot {
-        font-size: 11px;
-        max-width: 34ch;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .mark-star {
-        display: none;
-      }
-      .nav .pill {
-        height: 36px;
-        padding: 0 14px;
-        font-size: 13px;
-      }
-      h1 {
-        max-width: 11ch;
-        font-size: clamp(28px, 10.5vw, 40px);
-      }
-      .eyebrow {
-        font-size: 11px;
-        letter-spacing: .04em;
-        max-width: 28ch;
-      }
-      .cta .pill {
+      .plate-video {
+        inset: 0;
         width: 100%;
-        max-width: 280px;
-        height: 44px;
-        padding: 0 20px;
-        font-size: 14px;
+        height: 100%;
+        transform: none;
+        object-fit: cover;
+        object-position: 43% center;
       }
-    }
 
-    @media (max-height: 520px) and (orientation: landscape) {
-      .panel {
-        padding: max(72px, calc(env(safe-area-inset-top, 0px) + 56px)) 24px max(64px, calc(env(safe-area-inset-bottom, 0px) + 48px));
+      .plate::after {
+        background:
+          linear-gradient(to right, rgba(5,5,5,.86), rgba(5,5,5,.66) 42%, rgba(5,5,5,.20) 78%, rgba(5,5,5,.10) 100%),
+          linear-gradient(to bottom, rgba(5,5,5,.72) 0%, rgba(5,5,5,.34) 24%, rgba(5,5,5,.34) 56%, rgba(5,5,5,.80) 82%, rgba(5,5,5,.97) 94%, #050505 100%);
       }
-      h1 {
-        font-size: clamp(28px, 8vh, 44px);
+
+      .links, .pill-nav {
+        display: none;
       }
+
+      .brand {
+        left: 20px;
+        top: 24px;
+        width: 26px;
+        height: 40px;
+      }
+
+      .burger {
+        position: absolute;
+        right: 20px;
+        top: 24px;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(16px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        cursor: pointer;
+        pointer-events: auto;
+        z-index: 100;
+      }
+
+      .burger i {
+        display: block;
+        width: 16px;
+        height: 1.5px;
+        background: #ffffff;
+        border-radius: 2px;
+        transition: transform 0.3s ease;
+      }
+
+      .stage.is-open .burger i:first-child {
+        transform: translateY(3.25px) rotate(45deg);
+      }
+
+      .stage.is-open .burger i:last-child {
+        transform: translateY(-3.25px) rotate(-45deg);
+      }
+
+      .headline {
+        left: 24px;
+        right: 24px;
+        top: 140px;
+        font-size: clamp(34px, 9vw, 54px);
+        line-height: 1.12;
+        white-space: normal;
+      }
+
       .sub {
-        margin-top: 12px;
-        font-size: 14px;
+        left: 24px;
+        right: 24px;
+        top: auto;
+        bottom: 180px;
+        font-size: 15px;
+        line-height: 1.45;
       }
-      .cta {
-        margin-top: 16px;
+
+      .sub span {
+        white-space: normal;
+      }
+
+      .actions {
+        left: 24px;
+        right: 24px;
+        bottom: 96px;
+        top: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .pill-cta {
+        width: 100%;
+        max-width: 320px;
+        height: 48px;
+        font-size: 16px;
+      }
+
+      .ghost {
+        margin-left: 0;
+        font-size: 16px;
+      }
+
+      .logos {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. Preloader -->
-  <div class="boot" id="boot">
-    <div class="bar"><i id="bootBar"></i></div>
-    <p id="bootPct">LOADING 0%</p>
-  </div>
+  <div class="stage" id="stage">
+    
+    <!-- Background Video Plate -->
+    <div class="plate">
+      <video class="plate-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <!-- 2. Fixed Background Video Stage -->
-  <div class="stage">
-    <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
-    <div class="veil"></div>
-    <div class="grain"></div>
-  </div>
+    <!-- Topbar Navigation -->
+    <header class="topbar">
+      <!-- Abstract Geometric S Mark -->
+      <a class="brand" href="#" aria-label="Home">
+        <svg viewBox="0 0 31.5 48.5" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="bg1" x1="8" y1="0" x2="34.1" y2="28.9" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#9e9e9e"/>
+              <stop offset="0.28" stop-color="#a6a6a6"/>
+              <stop offset="0.34" stop-color="#a3a3a3"/>
+              <stop offset="0.40" stop-color="#3a3a3a"/>
+              <stop offset="0.55" stop-color="#414141"/>
+              <stop offset="0.60" stop-color="#7a7a7a"/>
+              <stop offset="0.68" stop-color="#8e8e8e"/>
+              <stop offset="0.80" stop-color="#a9a9a9"/>
+              <stop offset="0.95" stop-color="#c4c4c4"/>
+              <stop offset="1" stop-color="#cccccc"/>
+            </linearGradient>
+          </defs>
+          <path d="M21.5 0 L21.5 19.5 L31.5 19.5 L31.5 29 L10 48.5 L10 28.5 L0.5 28.5 L0.5 18.5 Z" fill="url(#bg1)"/>
+          <rect x="0.5" y="18.5" width="9" height="10" fill="#fdfdfd"/>
+          <rect x="22" y="19.5" width="9.5" height="9.5" fill="#fdfdfd"/>
+        </svg>
+      </a>
 
-  <!-- 3. Scroll Meter Hairline -->
-  <i class="meter" id="meter"></i>
+      <!-- Primary Nav Links -->
+      <nav class="links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-  <!-- 4. Fixed Chrome Header -->
-  <header class="chrome">
-    <div class="mark"><span class="mark-star" aria-hidden="true">&#10037;</span>&nbsp;Cast &amp; Render</div>
-    <nav class="nav">
-      <a href="#board">Works</a>
-      <a href="#visit">About</a>
-      <a class="pill" href="#order">Start a brief</a>
+      <!-- Header White Pill CTA -->
+      <a class="pill-nav" href="#get-started">
+        <span>Get Started</span>
+      </a>
+
+      <!-- Mobile Burger -->
+      <button class="burger" id="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
+        <i></i>
+        <i></i>
+      </button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <nav class="menu" id="menu" aria-label="Mobile Navigation">
+      <div style="padding-top: 60px;">
+        <p style="font-size: 12px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 24px;">Menu</p>
+        <div style="display: flex; flex-direction: column; gap: 18px; font-size: 26px; font-weight: 500;">
+          <a href="#about" style="color: #ffffff; text-decoration: none;">About</a>
+          <a href="#features" style="color: #ffffff; text-decoration: none;">Features</a>
+          <a href="#faq" style="color: #ffffff; text-decoration: none;">FAQ</a>
+          <a href="#contact" style="color: #ffffff; text-decoration: none;">Contact</a>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px;">
+        <a href="#get-started" style="height: 48px; border-radius: 999px; background: #ffffff; color: #050505; display: flex; align-items: center; justify-content: center; font-weight: 600; text-decoration: none;">Get Started</a>
+        <a href="#architecture" style="height: 48px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 500; text-decoration: none;">View Architecture</a>
+      </div>
     </nav>
-  </header>
 
-  <!-- 5. Cross-fading Panels -->
-  <main class="panels">
-    <section class="panel" data-panel>
-      <div class="eyebrow">Objects studio <span>&middot;</span> No. 112 Render Lane</div>
-      <h1>Built at four.<br />Out by seven.</h1>
-      <p class="sub">Six kinds of mesh, one render farm, and a queue that starts before the sun does.</p>
-      <div class="cta"><a class="pill" href="#board">View the reel</a></div>
-    </section>
+    <!-- Main Hero Content -->
+    <main class="hero">
+      <h1 class="headline">
+        <span>The Next Layer</span>
+        <span>of Intelligence</span>
+      </h1>
 
-    <section class="panel" data-panel>
-      <div class="eyebrow">Across the studio</div>
-      <h1>Flat, never bent.</h1>
-      <p class="sub">The mesh should still be clean when it reaches the viewport. We export to order, never before.</p>
-      <div class="cta"><a class="pill" href="#visit">Tour our space</a></div>
-    </section>
+      <p class="sub">
+        <span>A unified infrastructure platform to help teams build,</span>
+        <span>ship, and scale AI systems with confidence.</span>
+      </p>
 
-    <section class="panel" data-panel>
-      <div class="eyebrow">The surface</div>
-      <h1>Smooth enough to<br />hold a light pass.</h1>
-      <p class="sub">Custom surface shaders whipped every morning, spread to the edge and weighed by the quarter pound.</p>
-      <div class="cta"><a class="pill" href="#order">Start a brief</a></div>
-    </section>
-  </main>
+      <div class="actions">
+        <a class="pill-cta" href="#get-started">
+          <span>Get Started</span>
+        </a>
+        <a class="ghost" href="#architecture">View Architecture</a>
+      </div>
+    </main>
 
-  <!-- 6. Footer -->
-  <footer class="foot">112 Render Lane &nbsp;&middot;&nbsp; Tue–Sun, 9am till sold out</footer>
+    <!-- Bottom Partner Logos Strip -->
+    <div class="logos" aria-label="Partners">
+      <!-- lg1 -->
+      <div class="lg lg1">
+        <svg width="26" height="26" viewBox="0 0 30 31">
+          <rect x="2" y="2" width="26" height="26" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="15" cy="15" r="4.5"/>
+        </svg>
+        <span>logoipsum</span>
+      </div>
+      <!-- lg2 -->
+      <div class="lg lg2">
+        <svg width="24" height="26" viewBox="0 0 25 30">
+          <rect x="2" y="2" width="8" height="26" rx="4"/>
+          <circle cx="17" cy="15" r="6"/>
+        </svg>
+        <span>logoipsum<span class="dot"></span></span>
+      </div>
+      <!-- lg3 -->
+      <div class="lg lg3">
+        <svg width="24" height="24" viewBox="0 0 28 28">
+          <circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="14" cy="14" r="4"/>
+        </svg>
+        <span>logoipsum</span>
+      </div>
+      <!-- lg4 -->
+      <div class="lg lg4">
+        <svg width="24" height="22" viewBox="0 0 28 25.5">
+          <path d="M4 18 C8 12 14 12 18 18 C22 24 26 18 26 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span>logoipsum</span>
+      </div>
+    </div>
 
-  <!-- 7. Scroll Track -->
-  <div class="track"></div>
+  </div>
 
-  <!-- 8. Script IIFE -->
   <script>
     (function () {
       "use strict";
+      var stage = document.getElementById("stage");
+      var burger = document.getElementById("burger");
+      var menu = document.getElementById("menu");
 
-      // 1920×1080, 10.04s, 241 frames, all-intra — every frame is a keyframe,
-      // which is why a scroll scrub can land on an exact frame instantly.
-      var VIDEO_URL = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/45567745-d826-44a2-a5ce-7ef670944e60.mp4";
-
-      var clip = document.getElementById("clip");
-      var boot = document.getElementById("boot");
-      var bootBar = document.getElementById("bootBar");
-      var bootPct = document.getElementById("bootPct");
-      var meter = document.getElementById("meter");
-      var panels = [].slice.call(document.querySelectorAll("[data-panel]"));
-
-      // Cue table: Each panel owns a slice of scroll as [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd].
-      // The gaps between one panel's fadeOutEnd and the next's fadeInStart are deliberate dead zones —
-      // video only — so two panels are never readable at once.
-      var CUES = [
-        [0.00, 0.00, 0.15, 0.23],
-        [0.35, 0.43, 0.57, 0.65],
-        [0.77, 0.85, 1.10, 1.20]
-      ];
-      var DRIFT = 22; // px of counter-scroll travel per panel
-
-      function clamp(v, a, b) {
-        return Math.max(a, Math.min(b, v));
-      }
-
-      function smooth(t) {
-        return t * t * (3 - 2 * t); // smoothstep
-      }
-
-      function ramp(p, a, b) {
-        if (b <= a) return p >= b ? 1 : 0;
-        return smooth(clamp((p - a) / (b - a), 0, 1));
-      }
-
-      var progress = 0;
-      var seekTo = 0;
-      var seekAt = 0;
-      var duration = 0;
-      var ready = false;
-      var started = false;
-      var attached = false;
-
-      function readScroll() {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        progress = max > 0 ? clamp(window.pageYOffset / max, 0, 1) : 0;
-        if (duration) seekTo = progress * duration;
-      }
-
-      function paint() {
-        meter.style.transform = "scaleX(" + progress + ")";
-        for (var i = 0; i < panels.length; i++) {
-          var c = CUES[i];
-          var enter = ramp(progress, c[0], c[1]);
-          var leave = ramp(progress, c[2], c[3]);
-          var o = enter * (1 - leave);
-          var y = (1 - enter) * DRIFT - leave * DRIFT;
-          var el = panels[i];
-          el.style.opacity = o;
-          el.style.transform = "translate3d(0," + y + "px,0)";
-          el.style.pointerEvents = o > 0.6 ? "auto" : "none";
-        }
-      }
-
-      function frame() {
-        if (ready && duration) {
-          var gap = seekTo - seekAt;
-          if (Math.abs(gap) > 0.0008) {
-            seekAt += gap * 0.115; // easing factor — do not change
-            if (clip.readyState >= 2 && !clip.seeking) {
-              try { clip.currentTime = seekAt; } catch (e) { }
-            }
-          }
-        }
-        paint();
-        requestAnimationFrame(frame);
-      }
-
-      function setProgress(f) {
-        bootBar.style.transform = "scaleX(" + f + ")";
-        bootPct.textContent = "LOADING " + Math.round(f * 100) + "%";
-      }
-
-      function start() {
-        if (started) return;
-        started = true;
-        ready = true;
-        boot.classList.add("done");
-        readScroll();
-        seekAt = seekTo;
-      }
-
-      function attach(src) {
-        if (attached) return;
-        attached = true;
-
-        clip.addEventListener("loadedmetadata", function () {
-          duration = clip.duration || 0;
-          clip.pause();
-          readScroll();
-          seekAt = seekTo;
-          try { clip.currentTime = seekAt; } catch (e) { }
+      if (burger && stage) {
+        burger.addEventListener("click", function () {
+          var open = stage.classList.toggle("is-open");
+          burger.setAttribute("aria-expanded", String(open));
         });
-        clip.addEventListener("loadeddata", start);
-        clip.addEventListener("canplaythrough", start);
-        clip.addEventListener("error", start);
 
-        clip.src = src;
-        clip.load();
-        setTimeout(start, 12000);
-      }
-
-      // Fetch the mp4 as a fully buffered blob first, because seeking inside a buffered blob
-      // is near instant while range requests over the network are a slideshow.
-      function preload() {
-        var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-        var bail = setTimeout(function () {
-          if (!attached) {
-            if (controller) controller.abort();
-            setProgress(1);
-            attach(VIDEO_URL);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && stage.classList.contains("is-open")) {
+            stage.classList.remove("is-open");
+            burger.setAttribute("aria-expanded", "false");
           }
-        }, 15000);
+        });
 
-        fetch(VIDEO_URL, controller ? { signal: controller.signal } : {})
-          .then(function (res) {
-            if (!res.ok || !res.body) throw new Error("Fetch failed");
-            var total = parseInt(res.headers.get("content-length") || "0", 10);
-            var reader = res.body.getReader();
-            var chunks = [];
-            var got = 0;
+        menu.addEventListener("click", function (e) {
+          if (e.target.tagName === "A") {
+            stage.classList.remove("is-open");
+            burger.setAttribute("aria-expanded", "false");
+          }
+        });
 
-            function pump() {
-              return reader.read().then(function (r) {
-                if (r.done) {
-                  return new Blob(chunks, { type: "video/mp4" });
-                }
-                chunks.push(r.value);
-                got += r.value.length;
-                setProgress(total ? got / total : Math.min(got / 11e6, 0.95));
-                return pump();
-              });
-            }
-            return pump();
-          })
-          .then(function (blob) {
-            clearTimeout(bail);
-            setProgress(1);
-            attach(URL.createObjectURL(blob));
-          })
-          .catch(function () {
-            clearTimeout(bail);
-            setProgress(1);
-            attach(VIDEO_URL);
-          });
+        window.addEventListener("resize", function () {
+          if (window.innerWidth / window.innerHeight > 1.1 && stage.classList.contains("is-open")) {
+            stage.classList.remove("is-open");
+            burger.setAttribute("aria-expanded", "false");
+          }
+        });
       }
-
-      // iOS will not paint a frame from a video that has never been played,
-      // so nudge it once on the first interaction and pause immediately.
-      function unlock() {
-        var p = clip.play();
-        if (p && p.then) {
-          p.then(function () { clip.pause(); }).catch(function () { });
-        } else {
-          clip.pause();
-        }
-      }
-      ["touchstart", "pointerdown", "wheel", "keydown"].forEach(function (ev) {
-        window.addEventListener(ev, unlock, { once: true, passive: true });
-      });
-
-      // Wiring in exact order
-      window.addEventListener("scroll", readScroll, { passive: true });
-      window.addEventListener("resize", readScroll);
-
-      readScroll();
-      paint();
-      preload();
-      requestAnimationFrame(frame);
     })();
   </script>
 </body>
