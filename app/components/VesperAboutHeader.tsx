@@ -88,7 +88,8 @@ export default function VesperAboutHeader() {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
-          min-height: calc(100svh - 85px);
+          min-height: 100svh;
+          padding-top: clamp(75px, 11vh, 100px);
           display: flex;
           flex-direction: column;
           justify-content: space-between;

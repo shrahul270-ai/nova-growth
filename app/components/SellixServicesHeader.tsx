@@ -146,7 +146,8 @@ export default function SellixServicesHeader() {
           text-rendering: geometricPrecision;
           color: var(--ink);
           background: #000;
-          min-height: calc(100svh - 85px);
+          min-height: 100svh;
+          padding-top: clamp(65px, 10vh, 90px);
           display: flex;
           align-items: center;
           justify-content: center;

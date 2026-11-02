@@ -229,8 +229,8 @@ export default function ServicesClient() {
         </div>
       )}
 
-      {/* Official Website Navbar & Logo Preserved with Dark Header Container */}
-      <div className="relative z-40 bg-[#000000] border-b border-white/10 shadow-sm">
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="services" />
       </div>
 

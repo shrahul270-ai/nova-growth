@@ -68,8 +68,8 @@ export default function AboutPage() {
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
 
-      {/* Navbar with pure black background matching Vesper header */}
-      <div className="relative z-40 bg-[#000000] border-b border-white/10 shadow-sm">
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="about" />
       </div>
 
