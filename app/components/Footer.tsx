@@ -444,20 +444,30 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
-      <div className="relative pt-8 pb-10 sm:pb-14 md:pb-16 overflow-hidden border-t border-[#1C1612]">
+      <div className="relative pt-10 pb-8 sm:pb-12 md:pb-14 overflow-hidden border-t border-[#1C1612] min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col justify-center">
         
         {/* Subtle amber rim light halos behind the hands */}
         <div
           aria-hidden="true"
-          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(240,162,76,0.22)_0%,transparent_75%)] pointer-events-none"
+          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(240,162,76,0.22)_0%,transparent_75%)] pointer-events-none z-0"
         />
         <div
           aria-hidden="true"
-          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(240,162,76,0.22)_0%,transparent_75%)] pointer-events-none"
+          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(240,162,76,0.22)_0%,transparent_75%)] pointer-events-none z-0"
         />
 
-        {/* Left Carrara Marble Hand Reaching In */}
-        <div className="absolute left-0 bottom-4 sm:bottom-6 md:bottom-8 z-10 pointer-events-none w-[180px] sm:w-[260px] md:w-[320px] lg:w-[380px] select-none animate-hand-left">
+        {/* Giant Thin Amber-Brown Wordmark - BEHIND THE HANDS (z-0) & BADA BADA */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 overflow-hidden"
+        >
+          <span className="sinking-wordmark font-thin uppercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap opacity-80 tracking-widest scale-y-105">
+            BALAJI PRIME
+          </span>
+        </div>
+
+        {/* Left Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
+        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[200px] sm:w-[280px] md:w-[350px] lg:w-[420px] select-none animate-hand-left">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-left.png"
@@ -466,8 +476,8 @@ export default function Footer() {
           />
         </div>
 
-        {/* Right Carrara Marble Hand Reaching In */}
-        <div className="absolute right-0 bottom-4 sm:bottom-6 md:bottom-8 z-10 pointer-events-none w-[180px] sm:w-[260px] md:w-[320px] lg:w-[380px] select-none flex justify-end animate-hand-right">
+        {/* Right Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
+        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[200px] sm:w-[280px] md:w-[350px] lg:w-[420px] select-none flex justify-end animate-hand-right">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-right.png"
@@ -476,8 +486,8 @@ export default function Footer() {
           />
         </div>
 
-        {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) */}
-        <div className="relative z-20 max-w-2xl mx-auto px-4 text-center space-y-2 pb-4 sm:pb-6">
+        {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) - z-30 */}
+        <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-4">
           <p className="text-white font-bold text-sm sm:text-base tracking-tight">
             Build a real agency-grade brand, fast.
           </p>
@@ -505,16 +515,6 @@ export default function Footer() {
               Cookie Settings
             </button>
           </div>
-        </div>
-
-        {/* Giant Thin Amber-Brown Wordmark Fully Visible Behind Hands */}
-        <div
-          aria-hidden="true"
-          className="relative z-10 w-full flex justify-center items-center select-none pointer-events-none pt-1 pb-4 sm:pb-6 px-4"
-        >
-          <span className="sinking-wordmark font-thin uppercase text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-normal whitespace-nowrap opacity-90 tracking-widest block text-center">
-            BALAJI PRIME
-          </span>
         </div>
 
       </div>
