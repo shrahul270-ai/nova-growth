@@ -6,35 +6,128 @@ import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
-const faqs = [
+interface FaqItem {
+  id: number;
+  category: "quality" | "approval" | "delivery" | "pricing";
+  q: string;
+  a: string;
+}
+
+const faqs: FaqItem[] = [
   {
+    id: 1,
+    category: "quality",
     q: "Are these links permanent?",
-    a: "Yes. All placements are guaranteed for life. If any link drops within 12 months, we replace it with equal or higher DR publication for free.",
+    a: "Yes. All placements are guaranteed for life. If any link drops, is altered, or loses Google indexation within 12 months, we replace it with an equal or higher DR publication completely free of charge.",
   },
   {
+    id: 2,
+    category: "approval",
     q: "Can I pre-approve the websites before publishing?",
-    a: "Absolutely. We provide a curated shortlist matching your topical niche. We only draft and place after your explicit approval.",
+    a: "Absolutely. We provide a curated shortlist matching your exact topical niche, domain metrics, and target audience. We only draft native content and secure publication after your explicit written approval.",
   },
   {
+    id: 3,
+    category: "quality",
     q: "Are these backlinks 100% Do-Follow & Indexed?",
-    a: "Yes. Every placement is guaranteed 100% contextual Do-Follow, placed naturally inside native 1,000+ word articles, and covered by our Google indexation warranty.",
+    a: "Yes. Every placement is guaranteed 100% contextual Do-Follow, placed naturally inside native 1,000+ word editorial articles, and backed by our Google indexation warranty.",
   },
   {
+    id: 4,
+    category: "delivery",
     q: "How fast do guest post links go live?",
-    a: "Most placements go live within 7 to 14 business days, depending on publication editorial calendars. You receive live URL confirmation as soon as it is indexed.",
+    a: "Most placements go live within 7 to 14 business days, depending on publication editorial calendars. You receive live URL confirmation and indexation tracking as soon as it goes live.",
   },
   {
+    id: 5,
+    category: "approval",
     q: "Can I choose my own anchor texts and target URLs?",
-    a: "Yes, you have complete editorial control over anchor texts and target landing pages to align with your exact SEO ranking strategy.",
+    a: "Yes, you have complete editorial control over anchor texts, branded variations, and target landing pages to align with your exact topical SEO ranking strategy.",
+  },
+  {
+    id: 6,
+    category: "quality",
+    q: "What metrics do you guarantee for each publication?",
+    a: "We guarantee minimum Ahrefs DR 50–90+, verified organic search traffic of 10,000+ monthly visits, clean backlink profiles with zero PBNs, and strict zero-spam editorial standards.",
+  },
+  {
+    id: 7,
+    category: "pricing",
+    q: "Do you offer bulk discounts or custom monthly retainers?",
+    a: "Yes! For agencies, aggregators, and enterprise brands purchasing 10+ placements per month, we offer dedicated volume discounts, priority editorial queues, and white-label client reports.",
+  },
+  {
+    id: 8,
+    category: "pricing",
+    q: "Which payment methods are accepted for link building?",
+    a: "We support Stripe, PayPal, Wise, Wire Transfer, VISA, Mastercard, UPI, and ACH direct bank transfers with automated invoice generation and tax compliance.",
+  },
+];
+
+const categoryCards = [
+  {
+    key: "quality",
+    title: "Link Quality & Warranty",
+    articles: "32 Articles",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+  },
+  {
+    key: "approval",
+    title: "Editorial Rules & Approval",
+    articles: "24 Articles",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    key: "delivery",
+    title: "Turnaround & Speed",
+    articles: "18 Articles",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+  },
+  {
+    key: "pricing",
+    title: "Pricing & Retainers",
+    articles: "16 Articles",
+    icon: (
+      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      </svg>
+    ),
   },
 ];
 
 export default function GuestPostingClient() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
+
+  // Filter FAQs based on search query and category
+  const filteredFaqs = faqs.filter((faq) => {
+    const matchesSearch =
+      searchQuery.trim() === "" ||
+      faq.q.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      faq.a.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      !selectedCategory || faq.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
@@ -152,73 +245,240 @@ export default function GuestPostingClient() {
         </div>
       </section>
 
-      {/* FAQ Dropdown Accordion Section */}
-      <section className="py-10 sm:py-12 px-4 sm:px-6 md:px-12 max-w-4xl mx-auto border-t border-gray-800/80">
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-400 mb-2">
-            <span>❓</span> Quick Answers
+      {/* ZENTRADE PREMIUM FAQ SECTION (With Website's Native Amber / Midnight Theme) */}
+      <section className="relative py-20 sm:py-28 px-4 sm:px-6 md:px-12 bg-[#090909] text-white overflow-hidden border-t border-[#221B14] font-['Figtree',sans-serif]">
+        
+        {/* Stepped Ambient Light Bars & Central Warm Glow */}
+        <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-[500px] pointer-events-none select-none overflow-hidden z-0">
+          {/* Central Radial Amber Glow */}
+          <div className="absolute top-[90px] left-1/2 -translate-x-1/2 w-[740px] h-[550px] bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.14)_0%,rgba(9,9,9,0)_70%)] pointer-events-none" />
+
+          {/* Top Faint Amber Light Spill */}
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#F0A24C]/40 to-transparent" />
+
+          {/* Left Stepped Vertical Light Bars (5 stepped bars) */}
+          <div className="hidden lg:flex absolute top-0 left-8 xl:left-24 gap-4 items-start opacity-70">
+            <div className="w-16 h-[380px] bg-gradient-to-b from-[#7A4210]/40 via-[#3D2008]/20 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[310px] bg-gradient-to-b from-[#7A4210]/35 via-[#3D2008]/15 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[245px] bg-gradient-to-b from-[#7A4210]/30 via-[#3D2008]/10 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[180px] bg-gradient-to-b from-[#7A4210]/25 via-[#3D2008]/8 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[120px] bg-gradient-to-b from-[#7A4210]/20 to-transparent rounded-b-xl" />
           </div>
-          <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
-          <p className="text-xs text-gray-400 mt-1">Click on any question to view the answer</p>
+
+          {/* Right Stepped Vertical Light Bars (5 stepped bars) */}
+          <div className="hidden lg:flex absolute top-0 right-8 xl:right-24 gap-4 items-start opacity-70">
+            <div className="w-16 h-[120px] bg-gradient-to-b from-[#7A4210]/20 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[180px] bg-gradient-to-b from-[#7A4210]/25 via-[#3D2008]/8 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[245px] bg-gradient-to-b from-[#7A4210]/30 via-[#3D2008]/10 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[310px] bg-gradient-to-b from-[#7A4210]/35 via-[#3D2008]/15 to-transparent rounded-b-xl" />
+            <div className="w-16 h-[380px] bg-gradient-to-b from-[#7A4210]/40 via-[#3D2008]/20 to-transparent rounded-b-xl" />
+          </div>
         </div>
 
-        <div className="space-y-3">
-          {faqs.map((faq, index) => {
-            const isOpen = openFaq === index;
-            return (
-              <div
-                key={index}
-                className={`rounded-2xl transition-all duration-200 border overflow-hidden ${
-                  isOpen
-                    ? "bg-[#0c1424] border-amber-500/50 shadow-lg shadow-amber-500/5"
-                    : "bg-[#0b1220] border-gray-800 hover:border-gray-700 hover:bg-[#0e1628]"
-                }`}
+        {/* FAQ Centered Content Column (Max Width 1224px reference) */}
+        <div className="relative z-10 max-w-[1224px] mx-auto text-center">
+          
+          {/* Tag: Green/Amber tinted glass pill */}
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#1D1510]/80 border border-[#F0A24C]/40 text-[#F0A24C] text-xs font-bold tracking-widest uppercase mb-5 backdrop-blur-md shadow-[0_0_16px_rgba(240,162,76,0.2)]">
+            <span className="w-2 h-2 rounded-full bg-[#F0A24C] animate-pulse" />
+            <span>FAQ • Quick Answers</span>
+          </div>
+
+          {/* Big Bold Headline: Figtree 800 */}
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-[800] tracking-tight text-white mb-4 leading-[1.12]">
+            Frequently Asked Questions
+          </h2>
+
+          {/* Lede: Two lines */}
+          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto mb-7 leading-relaxed font-normal">
+            Find answers to the most common questions about Balaji Prime Media&apos;s guest posting platforms, editorial rules, lifetime warranties, and link building deliverables.
+          </p>
+
+          {/* Action Button: White Community / Brief Button */}
+          <div className="mb-14">
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-[11px] bg-white text-[#0B2400] hover:bg-neutral-100 font-bold text-sm tracking-tight transition-all duration-200 hover:-translate-y-0.5 shadow-xl hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
+            >
+              <span>Schedule Strategy Call</span>
+              <span className="text-base">→</span>
+            </a>
+          </div>
+
+          {/* Glass Search Bar: 74px tall, Lexend 300 font */}
+          <div className="max-w-[880px] mx-auto mb-12">
+            <div className="relative flex items-center h-[68px] sm:h-[74px] rounded-full bg-white/[0.04] backdrop-blur-[24px] border border-white/15 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:border-[#F0A24C] focus-within:ring-2 focus-within:ring-[#F0A24C]/30 transition-all">
+              <svg
+                className="w-5 h-5 sm:w-6 sm:h-6 text-[#F0A24C] shrink-0 mr-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2.2"
               >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for your queries (e.g. Do-Follow, Indexing, Permanent, Pricing)..."
+                className="w-full bg-transparent text-white placeholder-white/40 text-sm sm:text-base font-['Lexend',sans-serif] font-[300] outline-none"
+              />
+              {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => toggleFaq(index)}
-                  className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
-                  aria-expanded={isOpen}
+                  onClick={() => setSearchQuery("")}
+                  className="text-xs text-white/50 hover:text-white px-2 py-1 rounded bg-white/10"
                 >
-                  <span
-                    className={`font-bold text-xs sm:text-sm transition-colors ${
-                      isOpen ? "text-amber-400" : "text-white"
-                    }`}
-                  >
-                    {faq.q}
-                  </span>
-                  <span
-                    className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-200 ${
-                      isOpen
-                        ? "bg-amber-500 text-black border-amber-400 rotate-180"
-                        : "bg-gray-800/80 text-gray-400 border-gray-700"
-                    }`}
-                  >
-                    <svg
-                      className="w-3.5 h-3.5 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2.5"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </span>
+                  Clear
                 </button>
+              )}
+            </div>
+          </div>
 
-                {isOpen && (
-                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-sm text-gray-300 leading-relaxed border-t border-gray-800/60 animate-in fade-in duration-150">
-                    <p className="pt-3">{faq.a}</p>
+          {/* 4 Pill-Shaped Category Cards (2×2 Grid) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-[1040px] mx-auto mb-14 text-left">
+            {categoryCards.map((card) => {
+              const isSelected = selectedCategory === card.key;
+              return (
+                <button
+                  type="button"
+                  key={card.key}
+                  onClick={() => setSelectedCategory(isSelected ? null : card.key)}
+                  className={`group relative flex items-center gap-4 sm:gap-5 p-4 sm:p-5 rounded-full bg-[#1B1B1B] border transition-all duration-300 cursor-pointer ${
+                    isSelected
+                      ? "border-[#F0A24C] shadow-[0_0_24px_rgba(240,162,76,0.3)] bg-[#221c17]"
+                      : "border-[#2F2F2F] hover:border-[#F0A24C]/60 hover:shadow-[0_0_20px_rgba(240,162,76,0.18)]"
+                  }`}
+                >
+                  {/* Round Icon Disc */}
+                  <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shrink-0 border transition-all ${
+                    isSelected
+                      ? "bg-[#F0A24C] border-[#F0A24C] text-black shadow-md"
+                      : "bg-[#232323] border-white/10 text-white group-hover:border-[#F0A24C]/40 group-hover:scale-105"
+                  }`}>
+                    {card.icon}
                   </div>
-                )}
+
+                  {/* Card Info */}
+                  <div className="flex flex-col">
+                    <span className="font-['Figtree',sans-serif] font-[500] text-sm sm:text-[17px] text-white group-hover:text-[#F0A24C] transition-colors leading-tight">
+                      {card.title}
+                    </span>
+                    <span className="text-xs sm:text-[13.5px] text-white/60 font-normal mt-1 flex items-center gap-1.5">
+                      <span>{card.articles}</span>
+                      {isSelected && (
+                        <span className="text-[10px] text-[#F0A24C] font-bold uppercase tracking-wider bg-[#F0A24C]/15 px-2 py-0.5 rounded-full">
+                          Active Filter
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active Filter Pill Alert */}
+          {(selectedCategory || searchQuery) && (
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <span className="text-xs text-white/60">
+                Showing results for {selectedCategory ? `category: ${selectedCategory}` : ""} {searchQuery ? `"${searchQuery}"` : ""}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedCategory(null);
+                  setSearchQuery("");
+                }}
+                className="text-xs text-[#F0A24C] hover:underline font-semibold"
+              >
+                Reset filters
+              </button>
+            </div>
+          )}
+
+          {/* Accordion Rows: Smooth One-at-a-Time Expansion */}
+          <div className="max-w-[1040px] mx-auto space-y-4 text-left">
+            {filteredFaqs.length === 0 ? (
+              <div className="p-12 rounded-3xl bg-[#131313] border border-[#2F2F2F] text-center space-y-3">
+                <span className="text-3xl">🔍</span>
+                <p className="text-base text-white/80 font-medium">No questions match your search.</p>
+                <p className="text-xs text-white/50">Try different keywords like &quot;permanent&quot;, &quot;approval&quot;, or &quot;guarantee&quot;.</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedCategory(null);
+                  }}
+                  className="mt-3 px-4 py-2 rounded-xl bg-[#F0A24C] text-black font-bold text-xs"
+                >
+                  View All Questions
+                </button>
               </div>
-            );
-          })}
+            ) : (
+              filteredFaqs.map((faq) => {
+                const isOpen = openFaq === faq.id;
+                return (
+                  <div
+                    key={faq.id}
+                    className={`rounded-[14px] sm:rounded-[18px] transition-all duration-300 border overflow-hidden ${
+                      isOpen
+                        ? "bg-[#161616] border-[#F0A24C]/50 shadow-[0_8px_24px_rgba(240,162,76,0.12)]"
+                        : "bg-[#131313] border-[#2F2F2F] hover:border-white/20 hover:bg-[#181818]"
+                    }`}
+                  >
+                    {/* Question Button (Min 82px tall equivalent) */}
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(faq.id)}
+                      className="w-full min-h-[70px] sm:min-h-[82px] p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
+                      aria-expanded={isOpen}
+                    >
+                      <span
+                        className={`font-['Figtree',sans-serif] font-[500] text-sm sm:text-lg transition-colors leading-snug ${
+                          isOpen ? "text-[#F0A24C]" : "text-white"
+                        }`}
+                      >
+                        {faq.q}
+                      </span>
+
+                      {/* Thin Circular Rotating Chevron */}
+                      <span
+                        className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                          isOpen
+                            ? "bg-[#F0A24C] text-[#0B2400] border-[#F0A24C] rotate-180 shadow-md"
+                            : "bg-[#1E1E1E] text-white/70 border-white/10 group-hover:border-white/30"
+                        }`}
+                      >
+                        <svg
+                          className="w-4 h-4 transition-transform duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2.2"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </span>
+                    </button>
+
+                    {/* Smooth Accordion Body with Thin Rule */}
+                    {isOpen && (
+                      <div className="px-5 pb-6 sm:px-6 sm:pb-7 pt-0 border-t border-[#2F2F2F] animate-in fade-in duration-200">
+                        <p className="pt-4 text-xs sm:text-[15px] text-white/80 leading-relaxed font-normal">
+                          {faq.a}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
+          </div>
+
         </div>
+
       </section>
 
       <Footer />
