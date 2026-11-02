@@ -13,6 +13,7 @@ const serviceList = [
     badge: "Organic Growth",
     title: "SEO Optimization & Organic Growth",
     tagline: "Rank higher, capture high-intent searchers, and drive sustainable pipeline.",
+    gradient: "linear-gradient(137deg, #FF3D77 0%, #FFB1CE 45%, #FF9D3C 100%)",
     description:
       "We design data-driven SEO strategies tailored for competitive international markets like the US, UK, and Europe. From deep technical audits and semantic keyword mapping to on-page CRO, we help your business dominate Google.",
     deliverables: [
@@ -32,6 +33,7 @@ const serviceList = [
     badge: "Web Experience",
     title: "Website Development & Modern CRO",
     tagline: "Modern, ultra-fast and responsive web apps built with Next.js & Tailwind CSS.",
+    gradient: "linear-gradient(137deg, #FFFFFF 0%, #7DD3FC 45%, #06B6D4 100%)",
     description:
       "Your website is your best salesperson. We craft pixel-perfect, lightning-fast digital experiences that turn foreign visitors into qualified leads. Optimized for maximum performance and 95+ Google PageSpeed scores.",
     deliverables: [
@@ -51,6 +53,7 @@ const serviceList = [
     badge: "Thought Leadership",
     title: "Content Writing & Strategy",
     tagline: "Powerful editorial content that connects, educates, and converts.",
+    gradient: "linear-gradient(137deg, #4361EE 0%, #E0AEFF 45%, #F72585 100%)",
     description:
       "Content created specifically for international audiences. We produce researched long-form articles, landing page copy, case studies, and lead magnets that establish your brand authority and rank organically.",
     deliverables: [
@@ -70,6 +73,7 @@ const serviceList = [
     badge: "Retention & CRM",
     title: "Email Marketing & Automation",
     tagline: "Build lasting customer relationships and maximize lifetime value (LTV).",
+    gradient: "linear-gradient(137deg, #10B981 0%, #6EE7B7 45%, #059669 100%)",
     description:
       "Turn cold subscribers into raving brand advocates. We build end-to-end email funnels, drip campaigns, automated abandoned cart flows, and personalized newsletters using Klaviyo, HubSpot, and ActiveCampaign.",
     deliverables: [
@@ -89,6 +93,7 @@ const serviceList = [
     badge: "Domain Authority",
     title: "Off-Page Backlink Building & Digital PR",
     tagline: "Stronger domain authority through ethical, editorial outreach.",
+    gradient: "linear-gradient(137deg, #8B5CF6 0%, #C084FC 45%, #EC4899 100%)",
     description:
       "No PBNs, no spam. We acquire contextual, high-DA backlinks from real editorial publications and industry-relevant websites. We build genuine authority that Google algorithms reward with top SERP positions.",
     deliverables: [
@@ -108,6 +113,7 @@ const serviceList = [
     badge: "Security & Care",
     title: "Website Maintenance & Speed Optimization",
     tagline: "Keep your site secure, updated, and operating at peak performance 24/7.",
+    gradient: "linear-gradient(137deg, #F59E0B 0%, #FBBF24 45%, #EF4444 100%)",
     description:
       "Websites require proactive upkeep. We handle cloud hosting monitoring, security patching, plugin updates, speed optimizations, and ongoing design tweaks so you can focus entirely on growing your business.",
     deliverables: [
@@ -266,60 +272,88 @@ export default function ServicesClient() {
         </div>
       </section>
 
-      {/* Detailed Services Grid */}
-      <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {serviceList.map((service) => (
+      {/* Detailed Services Grid with Glowing Gradient Border Cards */}
+      <section className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+          {serviceList.map((service, idx) => (
             <div
               key={service.id}
               onClick={() => {
                 setActiveModalService(service);
                 showToast(`📋 Opened scope overview for ${service.title}`);
               }}
-              className="bg-white rounded-3xl p-5 sm:p-8 border border-gray-100 shadow-xs card-3d flex flex-col justify-between cursor-pointer group"
+              className="relative flex flex-col justify-start items-start w-full group mx-auto cursor-pointer"
+              style={{
+                animation: `cardFadeUp 0.8s ease-out ${idx * 0.1}s both`,
+              }}
             >
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <span className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform">
-                      {service.icon}
+              {/* Glow Background (Crucial) */}
+              <div
+                className="absolute inset-0 w-full h-full opacity-60 rounded-[32px] md:rounded-[40px] pointer-events-none transition-opacity duration-500 group-hover:opacity-85 -z-0"
+                style={{
+                  background: service.gradient,
+                  filter: "blur(45px)",
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Foreground Card with Gradient Border (Crucial) */}
+              <div
+                className="relative self-stretch w-full h-full min-h-[320px] rounded-[32px] md:rounded-[40px] z-10 overflow-hidden transition-all duration-300 group-hover:-translate-y-1.5 flex flex-col justify-between"
+                style={{
+                  border: "8px solid transparent",
+                  background: `linear-gradient(#1A1A1C, #1A1A1C) padding-box, ${service.gradient} border-box`,
+                }}
+              >
+                <div className="w-full h-full p-6 sm:p-8 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-5">
+                      <div className="flex items-center gap-3">
+                        <span className="w-12 h-12 rounded-2xl bg-white/10 text-white border border-white/15 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform backdrop-blur-sm">
+                          {service.icon}
+                        </span>
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white/90 bg-white/10 px-3 py-1 rounded-full border border-white/15">
+                          {service.badge}
+                        </span>
+                      </div>
+                      <span className="text-white/40 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all font-bold text-lg">
+                        ↗
+                      </span>
+                    </div>
+
+                    <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">
+                      {service.title}
+                    </h2>
+                    <p className="text-sm font-medium text-amber-300 mb-3">{service.tagline}</p>
+                    <p className="text-gray-400 text-[14px] leading-[1.6] font-normal selection:bg-white/20 mb-6">
+                      {service.description}
+                    </p>
+
+                    <div className="border-t border-white/10 pt-5">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                        What&apos;s Included:
+                      </h3>
+                      <ul className="space-y-2">
+                        {service.deliverables.map((item, dIdx) => (
+                          <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-gray-300 font-medium">
+                            <span className="text-amber-400 font-bold">✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                    <span className="text-xs font-bold text-gray-300 group-hover:text-white flex items-center gap-1.5 transition-colors">
+                      <span>View full scope &amp; deliverables</span>
+                      <span>→</span>
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
-                      {service.badge}
+                    <span className="text-[11px] font-semibold text-amber-300 bg-white/10 px-3 py-1 rounded-full border border-white/15">
+                      From {service.startingFrom}
                     </span>
                   </div>
-                  <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all font-bold text-lg">
-                    ↗
-                  </span>
                 </div>
-
-                <h2 className="text-2xl font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors mb-2">{service.title}</h2>
-                <p className="text-sm font-medium text-[#d97706] mb-3">{service.tagline}</p>
-                <p className="text-sm text-[#64748b] leading-relaxed mb-6">{service.description}</p>
-
-                <div className="border-t border-gray-100 pt-5">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">
-                    What&apos;s Included:
-                  </h3>
-                  <ul className="space-y-2">
-                    {service.deliverables.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-xs text-gray-700 font-medium">
-                        <span className="text-[#d97706] font-bold">✓</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs font-bold text-[#091427] group-hover:text-[#d97706] flex items-center gap-1.5 transition-colors">
-                  <span>View full scope &amp; deliverables</span>
-                  <span>→</span>
-                </span>
-                <span className="text-[11px] font-semibold text-[#d97706] bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/60">
-                  From {service.startingFrom}
-                </span>
               </div>
             </div>
           ))}
