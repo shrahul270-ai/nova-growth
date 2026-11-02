@@ -61,48 +61,21 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
   return (
     <>
-      {/* Top Global Support Ribbon in Cast & Render Editorial Tone */}
-      <div className="bg-[#ebe8e2] text-[#0d0c0b] text-[10.5px] sm:text-[11px] font-medium py-1.5 px-4 sm:px-6 border-b border-[#0d0c0b]/10 relative z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-y-1 gap-x-3 relative z-10">
-          <div className="flex items-center gap-2 truncate">
-            <span className="relative flex h-2 w-2 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600" />
-            </span>
-            <span className="text-[#0d0c0b]/70 truncate tracking-tight">
-              Global Support • <span className="text-[#0d0c0b] font-semibold">EST</span> •{" "}
-              <span className="text-[#0d0c0b] font-semibold">GMT</span> •{" "}
-              <span className="text-[#0d0c0b] font-semibold">AEST</span>
-            </span>
-          </div>
-          <div className="flex items-center gap-3 text-[#0d0c0b]/70 shrink-0 text-[10px] sm:text-[11px]">
-            <span className="hidden sm:inline">✨ White-Hat SEO</span>
-            <Link
-              href="/pay"
-              className="text-[#0d0c0b] hover:opacity-75 font-semibold flex items-center gap-1 transition-opacity underline decoration-[#0d0c0b]/30"
-            >
-              <span>Client Portal</span>
-              <span>💳</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Cast & Render Editorial Chrome Header */}
+      {/* Cast & Render Editorial Chrome Header (Single-Tier Floating Studio Header) */}
       <header className="cr-chrome relative">
-        {/* Scroll Progress Hairline Meter */}
+        {/* Scroll Progress Hairline Meter (.meter) */}
         <i
           className="cr-meter"
           style={{ transform: `scaleX(${scrollProgress})` }}
           aria-hidden="true"
         />
 
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 sm:gap-4">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 sm:gap-6">
           
-          {/* Original Official Brand Logo */}
+          {/* User's Original Official Brand Logo (Preserved 100%) */}
           <Link
             href="/"
-            className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0"
+            className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-w-0"
             aria-label="Balaji Prime Media Home"
           >
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-md shadow-[#091427]/30 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden shrink-0">
@@ -129,9 +102,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* Cast & Render Desktop Navigation (.nav) */}
           <nav
-            className="hidden lg:flex cr-nav"
+            className="hidden lg:flex cr-nav items-center"
             aria-label="Main Navigation"
           >
             {navLinks.map((link) => {
@@ -154,8 +127,20 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action CTAs & Mobile Burger */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Right Action CTAs: Live Support Pill + Cast & Render .pill */}
+          <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
+            {/* Live Global Support Badge (Integrated Seamlessly) */}
+            <div
+              className="hidden 2xl:flex items-center gap-1.5 text-[11px] font-medium text-[#0d0c0b]/65 border border-[#0d0c0b]/10 bg-[#0d0c0b]/4 px-2.5 py-1.5 rounded-full whitespace-nowrap"
+              title="Global Support: EST • GMT • AEST"
+            >
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600" />
+              </span>
+              <span>Live Support · EST · GMT · AEST</span>
+            </div>
+
             {/* DR 50+ Secondary Ghost Pill */}
             <Link
               href="/guest-posting"
@@ -166,7 +151,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               <span>DR 50+</span>
             </Link>
 
-            {/* Signature Dark Pill - Start a brief / Contact */}
+            {/* Prompt's Signature Dark Pill Button (.pill) */}
             <Link
               href="/contact"
               className="cr-pill"
@@ -175,7 +160,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               Start a brief
             </Link>
 
-            {/* Clean Mobile Burger Button */}
+            {/* Clean Minimal Mobile Burger (<=1024px) */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -203,11 +188,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer in Editorial Style */}
+        {/* Mobile Navigation Drawer in Cast & Render Style */}
         {mobileMenuOpen && (
           <div
             id="mobile-nav"
-            className="fixed inset-x-0 top-[90px] bottom-0 bg-[#f2f0ec]/98 backdrop-blur-2xl border-t border-[#0d0c0b]/10 p-6 z-50 flex flex-col justify-between overflow-y-auto lg:hidden animate-fadeIn"
+            className="fixed inset-x-0 top-[72px] bottom-0 bg-[#f2f0ec]/98 backdrop-blur-2xl border-t border-[#0d0c0b]/10 p-6 z-50 flex flex-col justify-between overflow-y-auto lg:hidden animate-fadeIn"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {

@@ -723,11 +723,11 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40;
-  background: linear-gradient(to bottom, rgba(242, 240, 236, 0.96) 0%, rgba(242, 240, 236, 0.88) 72%, rgba(242, 240, 236, 0.65) 100%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(13, 12, 11, 0.08);
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba(242, 240, 236, 0.96) 0%, rgba(242, 240, 236, 0.82) 72%, rgba(242, 240, 236, 0.4) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
   font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   transition: background 0.3s var(--cr-ease);
 }
@@ -751,9 +751,8 @@ body {
 .cr-mark {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   font-size: 15px;
-  font-weight: 500;
   letter-spacing: -0.012em;
   color: var(--cr-fg);
   min-width: 0;
@@ -763,16 +762,13 @@ body {
 
 .cr-mark-star {
   opacity: 0.85;
-  font-size: 15px;
-  line-height: 1;
-  color: var(--cr-fg);
 }
 
 /* Navigation Links */
 .cr-nav {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 2.2vw, 30px);
+  gap: clamp(14px, 2.4vw, 32px);
   flex-shrink: 0;
 }
 
@@ -783,7 +779,6 @@ body {
   font-weight: 400;
   letter-spacing: -0.008em;
   opacity: 0.88;
-  position: relative;
   transition: opacity 0.3s var(--cr-ease);
   display: inline-flex;
   align-items: center;
@@ -796,18 +791,6 @@ body {
 .cr-nav a.active:not(.cr-pill) {
   opacity: 1;
   font-weight: 500;
-}
-
-.cr-nav a.active:not(.cr-pill)::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--cr-fg);
-  opacity: 0.7;
-  border-radius: 1px;
 }
 
 /* Signature Pill Button */
