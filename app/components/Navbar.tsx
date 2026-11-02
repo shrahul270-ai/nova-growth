@@ -45,11 +45,43 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
   return (
     <>
-      {/* Dark Full-width Navbar matching Prompt Specs */}
-      <header className="w-full relative z-30 bg-[hsl(260,87%,3%)]/80 backdrop-blur-md">
-        <div className="w-full flex items-center justify-between gap-3 sm:gap-6 px-4 sm:px-8 py-5">
+      {/* 2-Tier Transparent Header */}
+      <header className="w-full relative z-30 bg-transparent">
+        
+        {/* Tier 1: Top Transparent Utility Bar (Left empty, Right has Live Support & Portal) */}
+        <div className="w-full flex items-center justify-between px-4 sm:px-8 pt-3 pb-1 text-xs">
+          {/* Left: Empty as requested */}
+          <div className="hidden sm:block" />
+
+          {/* Right: Live Support + Portal Link */}
+          <div className="flex items-center gap-3 sm:gap-4 ml-auto">
+            {/* Live Global Support Signal */}
+            <div
+              className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[hsl(40,6%,82%)]/90 border border-white/10 bg-white/[0.04] px-2.5 py-1 rounded-full whitespace-nowrap backdrop-blur-xs"
+              title="Global Support: EST • GMT • AEST"
+            >
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              <span>Live Support · EST · GMT · AEST</span>
+            </div>
+
+            {/* Client Portal Link */}
+            <Link
+              href="/pay"
+              className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-[hsl(40,6%,82%)] hover:text-white transition-colors border border-white/10 bg-white/[0.04] px-2.5 py-1 rounded-full whitespace-nowrap hover:border-white/25"
+            >
+              <span>Portal</span>
+              <span className="text-[11px]">💳</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Tier 2: Main Bottom Transparent Navbar (Brand Logo, Center Links, Right CTA) */}
+        <div className="w-full flex items-center justify-between gap-4 sm:gap-6 px-4 sm:px-8 py-3 sm:py-3.5">
           
-          {/* User's Original Official Brand Logo & Name (Preserved 100% Exactly) */}
+          {/* User's Original Official Brand Logo & Name */}
           <Link
             href="/"
             className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-w-0"
@@ -115,33 +147,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Area: Live Support + Portal + heroSecondary rounded-full CTA */}
-          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
-            {/* Live Global Support Signal */}
-            <div
-              className="hidden xl:flex items-center gap-1.5 text-[11px] font-medium text-[hsl(40,6%,82%)]/80 border border-white/10 bg-white/5 px-2.5 py-1.5 rounded-full whitespace-nowrap"
-              title="Global Support: EST • GMT • AEST"
-            >
-              <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-              </span>
-              <span>Live Support · EST · GMT · AEST</span>
-            </div>
-
-            {/* Client Portal Link */}
-            <Link
-              href="/pay"
-              className="hidden sm:inline-flex items-center gap-1 text-[13px] text-[hsl(40,6%,82%)] hover:text-white transition-colors whitespace-nowrap"
-            >
-              <span>Portal</span>
-              <span>💳</span>
-            </Link>
-
-            {/* Prompt's heroSecondary rounded-full px-4 py-2 CTA */}
+          {/* Right Action Area: ONLY "Get Started" CTA (Live Support & Portal removed from here) */}
+          <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/contact"
-              className="heroSecondary text-[13.5px] font-medium rounded-full px-4 py-2 transition-all"
+              className="heroSecondary text-[13.5px] font-medium rounded-full px-5 py-2 transition-all shadow-sm"
               aria-label="Get Started with Balaji Prime Media"
             >
               <span>Get Started</span>
@@ -152,14 +162,14 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               type="button"
               id="burger"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-[42px] h-[42px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-[5.5px] cursor-pointer transition-colors shrink-0 z-50"
+              className="lg:hidden w-[40px] h-[40px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50"
               aria-controls="menu"
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               <i
                 className={`w-4 h-[1.5px] bg-[#fafafa] rounded-full transition-transform duration-300 ease-out ${
-                  mobileMenuOpen ? "translate-y-[3.5px] rotate-45" : ""
+                  mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
                 }`}
               />
               <i
@@ -171,8 +181,8 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Prompt Requirement: Below navbar: a 1px divider line with gradient from-transparent via-foreground/20 to-transparent, offset mt-[3px] */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(40,6%,95%)]/20 to-transparent mt-[3px]" />
+        {/* 1px divider line with gradient from-transparent via-foreground/20 to-transparent */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(40,6%,95%)]/15 to-transparent mt-[1px]" />
       </header>
 
         {/* Mobile Dark Full-screen Overlay Menu */}

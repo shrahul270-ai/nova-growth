@@ -447,9 +447,25 @@
     <!-- Section structure: min-h-screen flex flex-col, overflow-visible -->
     <div class="hero-stage">
       
-      <!-- Navbar: Full width, py-5 px-8, flex row with justify-between -->
-      <header>
-        <div class="navbar">
+      <!-- 2-Tier Transparent Header -->
+      <header style="background: transparent;">
+        <!-- Tier 1: Top Transparent Utility Bar (Left empty, Right has Live Support and Portal) -->
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 32px 4px 32px;">
+          <div></div>
+          <div style="display: flex; align-items: center; gap: 14px; margin-left: auto;">
+            <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: hsla(40, 6%, 82%, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.04); padding: 4px 10px; border-radius: 9999px;">
+              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #34d399;"></span>
+              <span>Live Support · EST · GMT · AEST</span>
+            </div>
+            <a href="/pay" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; color: hsla(40, 6%, 82%, 0.9); text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.04); padding: 4px 10px; border-radius: 9999px;">
+              <span>Portal</span>
+              <span>💳</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tier 2: Main Bottom Transparent Navbar -->
+        <div class="navbar" style="padding-top: 10px; padding-bottom: 14px;">
           <!-- Left: Official Balaji Prime Media Logo & Name -->
           <a href="/" class="brand-wrap" aria-label="Balaji Prime Media">
             <div class="brand-logo">
@@ -478,10 +494,10 @@
             <a href="/contact" class="nav-btn">Contact</a>
           </nav>
 
-          <!-- Right: heroSecondary button rounded-full px-4 py-2 -->
+          <!-- Right: ONLY "Get Started" CTA -->
           <div style="display: flex; align-items: center; gap: 14px;">
             <a href="/contact" class="heroSecondary nav-pill">
-              Sign Up
+              Get Started
             </a>
           </div>
         </div>
