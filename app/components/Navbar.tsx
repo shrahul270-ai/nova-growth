@@ -99,21 +99,32 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-3 sm:gap-4">
           
-          {/* Brand Mark with Cast & Render Star Mark */}
+          {/* Original Official Brand Logo */}
           <Link
             href="/"
-            className="cr-mark group"
-            aria-label="Balaji Prime Media — 3D & Digital Growth Studio"
+            className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0"
+            aria-label="Balaji Prime Media Home"
           >
-            <span className="cr-mark-star group-hover:rotate-45 transition-transform duration-300" aria-hidden="true">
-              &#10037;
-            </span>
-            <div className="flex items-baseline gap-2">
-              <span className="font-semibold text-[15px] sm:text-[16px] tracking-[-0.015em] text-[#0d0c0b]">
-                Balaji Prime Media
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-md shadow-[#091427]/30 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden shrink-0">
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <svg
+                className="w-4 h-4 sm:w-5 sm:h-5 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 20L4 4L20 20L20 4" />
+              </svg>
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-[13.5px] sm:text-[16px] font-black tracking-tight text-[#0d0c0b] leading-none whitespace-nowrap">
+                BALAJI PRIME MEDIA
               </span>
-              <span className="hidden xl:inline text-[11px] text-[#0d0c0b]/50 tracking-normal font-normal">
-                · Growth Studio
+              <span className="text-[8px] sm:text-[9.5px] font-bold tracking-widest text-[#d97706] uppercase mt-0.5 sm:mt-1 whitespace-nowrap">
+                Digital Growth &amp; SEO Agency
               </span>
             </div>
           </Link>
