@@ -51,19 +51,16 @@ export default function ThreeDServiceCard({
 
   return (
     <div
-      style={{
-        animation: `cardEmerge 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${(index % 9) * 0.08}s both`,
-      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-service-id={service.id}
       data-price-inr={service.priceINR}
       data-price-usd={service.priceUSD}
-      className="group relative w-full h-full rounded-[26px] p-[1.5px] overflow-hidden transition-all duration-500 hover:-translate-y-2.5 hover:shadow-[0_25px_60px_-12px_rgba(168,85,247,0.35)] select-none flex flex-col"
+      className="group relative w-full h-full rounded-[26px] p-[1.5px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-12px_rgba(168,85,247,0.3)] select-none flex flex-col bg-[#161127] border border-[#2B2144]/80 hover:border-[#a855f7]/60"
     >
-      {/* 1. Animated Glowing Border Beam (Continuous rotating gradient border) */}
+      {/* 1. Subtle Glow on Desktop Hover Only (Zero overhead on mobile) */}
       <div
-        className="absolute inset-[-120%] rounded-[26px] pointer-events-none transition-opacity duration-500 animate-spin-slow -z-10"
+        className="hidden lg:block absolute inset-[-100%] rounded-[26px] pointer-events-none transition-opacity duration-500 group-hover:animate-spin-slow -z-10"
         style={{
           background: `conic-gradient(from 0deg at 50% 50%, 
             transparent 0%, 
@@ -73,28 +70,19 @@ export default function ThreeDServiceCard({
             rgba(168, 85, 247, 0.85) 55%, 
             rgba(99, 102, 241, 0.15) 80%, 
             transparent 100%)`,
-          opacity: isHovered ? 1 : 0.28,
+          opacity: isHovered ? 0.9 : 0,
         }}
         aria-hidden="true"
       />
 
       {/* 2. Main Luxury Card Inner Canvas */}
-      <div className="relative w-full h-full rounded-[24.5px] bg-gradient-to-b from-[#130E24]/95 via-[#0D091A]/98 to-[#08060F] p-6 sm:p-7 flex flex-col justify-between overflow-hidden backdrop-blur-2xl border border-[#2B2144]/60 group-hover:border-[#a855f7]/40 transition-colors duration-500">
+      <div className="relative w-full h-full rounded-[24.5px] bg-[#0D091A] p-6 sm:p-7 flex flex-col justify-between overflow-hidden">
         
-        {/* Animated Aurora Light Orbs inside the card */}
+        {/* Ambient Light Orb inside the card */}
         <div
-          className="absolute -top-16 -right-16 w-48 h-48 rounded-full blur-3xl pointer-events-none transition-all duration-700 animate-aurora-breathe"
+          className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl pointer-events-none transition-opacity duration-300 opacity-20 group-hover:opacity-40"
           style={{
             background: service.gradient,
-            opacity: isHovered ? 0.35 : 0.16,
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute -bottom-12 -left-12 w-44 h-44 rounded-full blur-2xl pointer-events-none transition-all duration-700"
-          style={{
-            background: "radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)",
-            opacity: isHovered ? 0.3 : 0.1,
           }}
           aria-hidden="true"
         />
@@ -113,9 +101,9 @@ export default function ThreeDServiceCard({
         <div className="relative z-10">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">
-              {/* Animated Levitating Floating Icon Container */}
+              {/* Static / Hover-scaled Icon Container (Smooth, zero GPU lag) */}
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md border border-[#a855f7]/30 transition-all duration-500 group-hover:scale-110 animate-icon-levitate shrink-0"
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md border border-[#a855f7]/30 transition-transform duration-300 group-hover:scale-105 shrink-0"
                 style={{
                   background: "linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%)",
                   boxShadow: "inset 0 1px 1px rgba(255,255,255,0.25), 0 8px 16px rgba(0,0,0,0.5)",

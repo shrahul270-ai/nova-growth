@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 
 interface PromptHeroProps {
@@ -17,106 +17,24 @@ const marqueeLogos = [
 ];
 
 export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let animId: number;
-    let isRestarting = false;
-    const fadeDuration = 0.5; // 0.5s fade-in at start, 0.5s fade-out at end
-
-    const tick = () => {
-      if (!video || isRestarting) return;
-
-      const currentTime = video.currentTime;
-      const duration = video.duration;
-
-      if (duration && !isNaN(duration) && duration > 0) {
-        if (currentTime < fadeDuration) {
-          // 0.5s fade-in at start
-          const alpha = Math.min(1, Math.max(0, currentTime / fadeDuration));
-          video.style.opacity = alpha.toFixed(4);
-        } else if (currentTime > duration - fadeDuration) {
-          // 0.5s fade-out at end
-          const timeLeft = Math.max(0, duration - currentTime);
-          const alpha = Math.min(1, Math.max(0, timeLeft / fadeDuration));
-          video.style.opacity = alpha.toFixed(4);
-        } else {
-          video.style.opacity = "1";
-        }
-      }
-
-      animId = requestAnimationFrame(tick);
-    };
-
-    const handleEnded = () => {
-      if (isRestarting) return;
-      isRestarting = true;
-      if (video) {
-        video.style.opacity = "0";
-      }
-      setTimeout(() => {
-        if (video) {
-          video.currentTime = 0;
-          video
-            .play()
-            .then(() => {
-              isRestarting = false;
-              animId = requestAnimationFrame(tick);
-            })
-            .catch(() => {
-              isRestarting = false;
-            });
-        }
-      }, 100);
-    };
-
-    video.addEventListener("ended", handleEnded);
-
-    // Initial play attempt with muted autoplay support
-    video
-      .play()
-      .then(() => {
-        animId = requestAnimationFrame(tick);
-      })
-      .catch(() => {
-        video.muted = true;
-        video
-          .play()
-          .then(() => {
-            animId = requestAnimationFrame(tick);
-          })
-          .catch(() => {});
-      });
-
-    return () => {
-      cancelAnimationFrame(animId);
-      if (video) {
-        video.removeEventListener("ended", handleEnded);
-      }
-    };
-  }, []);
-
   return (
     <div
       id="home"
-      className="relative min-h-screen flex flex-col overflow-hidden select-none"
+      className="relative min-h-[580px] sm:min-h-screen flex flex-col overflow-hidden select-none"
       style={{
         backgroundColor: "hsl(260, 87%, 3%)",
         color: "hsl(40, 6%, 95%)",
       }}
     >
-      {/* Background Video (Index page wrapper) */}
+      {/* Background Video (Hardware-accelerated native loop, zero JS tick overhead) */}
       <video
-        ref={videoRef}
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
-        playsInline
+        autoPlay
+        loop
         muted
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-none"
-        style={{ opacity: 0 }}
+        playsInline
+        preload="metadata"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-50 sm:opacity-65"
       />
 
       {/* Blurred overlay shape (centered behind content) */}
@@ -132,8 +50,8 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
 
         {/* Hero content vertically centered in remaining space via flex-1 */}
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-10 sm:py-16">
-          {/* Headline: Balaji Prime Media ("Balaji Prime " in plain off-white, "Media" in indigo->purple->amber gradient) */}
-          <h1 className="font-general-sans text-[34px] sm:text-[52px] md:text-[68px] lg:text-[84px] xl:text-[96px] font-normal leading-[1.08] tracking-[-0.024em] max-w-5xl mx-auto">
+          {/* Headline: Balaji Prime Media (Optimized, balanced font size) */}
+          <h1 className="font-general-sans text-[30px] sm:text-[44px] md:text-[56px] lg:text-[72px] xl:text-[80px] font-normal leading-[1.08] tracking-[-0.024em] max-w-5xl mx-auto">
             <span className="text-[hsl(40,6%,95%)]">Balaji Prime </span>
             <span
               className="bg-clip-text text-transparent"
