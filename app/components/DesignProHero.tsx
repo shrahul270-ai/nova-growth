@@ -49,8 +49,8 @@ export default function DesignProHero() {
             Seats for Next Program Opening Soon
           </span>
 
-          {/* Main Heading (5xl to 9xl, line-height 0.85, tracking-tighter) */}
-          <h1 className="font-sans font-medium tracking-tighter leading-[0.85] text-5xl sm:text-7xl md:text-8xl xl:text-9xl mb-8 sm:mb-10 select-none">
+          {/* Main Heading (4xl to 9xl, line-height 0.88, tracking-tighter) */}
+          <h1 className="font-sans font-medium tracking-tighter leading-[0.88] text-4xl sm:text-6xl md:text-8xl xl:text-9xl mb-8 sm:mb-10 select-none">
             {/* Line 1: White */}
             <span className="text-white block">Become</span>
             {/* Line 2: Animated Shiny Gradient Effect */}

@@ -495,22 +495,22 @@ export default function Footer() {
         </div>
 
         {/* Left Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
-        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[200px] sm:w-[280px] md:w-[350px] lg:w-[420px] select-none animate-hand-left">
+        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none animate-hand-left opacity-40 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-left.png"
             alt="Carrara Marble Hand Left"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(168,85,247,0.35)] opacity-95 transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(168,85,247,0.35)] transition-all"
           />
         </div>
 
         {/* Right Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
-        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[200px] sm:w-[280px] md:w-[350px] lg:w-[420px] select-none flex justify-end animate-hand-right">
+        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none flex justify-end animate-hand-right opacity-40 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-right.png"
             alt="Carrara Marble Hand Right"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(99,102,241,0.35)] opacity-95 transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(99,102,241,0.35)] transition-all"
           />
         </div>
 

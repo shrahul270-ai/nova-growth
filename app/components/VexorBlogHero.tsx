@@ -41,7 +41,7 @@ export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroPr
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-auto py-6">
         {/* Framed CTA Card */}
         <div className="relative mx-auto rounded-[24px] p-[1.5px] bg-gradient-to-br from-[rgba(244,118,104,0.7)] via-[rgba(244,118,104,0.35)] to-[rgba(244,118,104,0.18)] shadow-[0_20px_70px_-15px_rgba(240,96,90,0.3)]">
-          <div className="relative rounded-[22.5px] overflow-hidden bg-black p-8 sm:p-12 lg:p-16 min-h-[440px] sm:min-h-[480px] flex flex-col items-center justify-center text-center">
+          <div className="relative rounded-[22.5px] overflow-hidden bg-black p-5 sm:p-10 lg:p-16 min-h-[420px] sm:min-h-[480px] flex flex-col items-center justify-center text-center">
             
             {/* Background Still Plate */}
             <div

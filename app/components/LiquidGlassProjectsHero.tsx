@@ -24,8 +24,8 @@ export default function LiquidGlassProjectsHero() {
       />
 
       {/* Hero content (bottom-left) */}
-      <div className="absolute bottom-0 left-0 z-20 px-6 sm:px-12 pb-10 sm:pb-16 max-w-2xl">
-        <h1 className="text-white text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight tracking-tight mb-4">
+      <div className="absolute bottom-0 left-0 z-20 px-4 sm:px-10 pb-8 sm:pb-16 max-w-2xl">
+        <h1 className="text-white text-3xl sm:text-5xl lg:text-6xl font-medium leading-tight tracking-tight mb-4">
           Live Better, Feel Whole Every Day
         </h1>
         <p className="text-white/60 text-sm leading-relaxed mb-7 max-w-md font-normal">

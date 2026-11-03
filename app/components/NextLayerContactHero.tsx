@@ -13,7 +13,7 @@ export default function NextLayerContactHero() {
   };
 
   return (
-    <section className="relative w-full h-screen min-h-[720px] overflow-hidden bg-[#050505] select-none flex flex-col justify-between font-manrope">
+    <section className="relative w-full min-h-[620px] sm:min-h-[720px] lg:h-screen overflow-hidden bg-[#050505] select-none flex flex-col justify-between font-manrope">
       {/* Background Plate & Video */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <video

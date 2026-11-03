@@ -656,8 +656,14 @@ export default function ServicesClient() {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-[#2B2144] bg-[#110D1D]/90 backdrop-blur-2xl shadow-2xl">
-            <table className="w-full text-left text-xs border-collapse">
+          {/* Swipe indicator for mobile users */}
+          <div className="flex items-center justify-end md:hidden text-[11px] text-[#94a3b8] mb-2.5 gap-1.5 px-2">
+            <span>Scroll table horizontally</span>
+            <span className="text-[#c084fc] animate-pulse">⇄</span>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl sm:rounded-3xl border border-[#2B2144] bg-[#110D1D]/90 backdrop-blur-2xl shadow-2xl -mx-2 sm:mx-0">
+            <table className="w-full text-left text-xs border-collapse min-w-[640px] sm:min-w-[720px]">
               <thead>
                 <tr className="border-b border-[#2B2144] bg-[#18122B] text-[#94a3b8] uppercase text-[11px] tracking-wider">
                   <th className="py-4 px-4 font-bold text-center w-14">#</th>
@@ -725,9 +731,9 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setActiveModalService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
         >
-          <div className="bg-[#120E22] rounded-[28px] max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[85vh] overflow-y-auto my-auto text-white">
+          <div className="bg-[#120E22] rounded-[22px] sm:rounded-[28px] max-w-xl w-full p-4.5 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
             <div className="flex items-center justify-between pb-4 border-b border-[#231A33] mb-4">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{activeModalService.icon3D}</span>
@@ -820,9 +826,9 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setBookingService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
         >
-          <div className="bg-[#120E22] rounded-[28px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
+          <div className="bg-[#120E22] rounded-[22px] sm:rounded-[28px] max-w-lg w-full p-4.5 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
             <div className="flex items-center justify-between pb-3 border-b border-[#231A33] mb-4">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#c084fc]">

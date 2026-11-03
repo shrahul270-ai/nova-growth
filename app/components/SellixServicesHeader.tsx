@@ -412,34 +412,42 @@ export default function SellixServicesHeader() {
           }
         }
 
-        /* MOBILE BREAKPOINT (max-width: 552px) */
-        @media (max-width: 552px) {
+        /* MOBILE BREAKPOINT (max-width: 768px) */
+        @media (max-width: 768px) {
           .sellix-hero-root {
             --u: 1px;
-            min-height: 520px;
-            padding: 40px 0;
+            min-height: 560px;
+            padding: 110px 16px 40px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .sellix-hero-inner {
             position: relative;
             left: 0;
             right: 0;
             top: auto;
-            width: auto;
-            max-width: none;
-            padding: 0 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 12px;
             transform: none;
+            text-align: center;
           }
           .sellix-h1 {
-            font-size: min(74px, calc((100vw - 44px) / 6.9));
-            line-height: 1.04;
+            font-size: clamp(34px, 8.5vw, 56px);
+            line-height: 1.08;
             letter-spacing: -0.02em;
           }
+          .sellix-ln-i {
+            white-space: normal;
+          }
           .sellix-sub {
-            margin-top: 16px;
-            font-size: clamp(15.5px, 4vw, 16.5px);
+            margin-top: 14px;
+            font-size: clamp(14px, 3.8vw, 16px);
             line-height: 1.6;
             letter-spacing: 0;
-            max-width: 42ch;
+            max-width: 48ch;
             margin-left: auto;
             margin-right: auto;
           }
@@ -447,24 +455,22 @@ export default function SellixServicesHeader() {
             display: none;
           }
           .sellix-ctas {
-            margin-top: 24px;
-            gap: 10px;
+            margin-top: 22px;
+            gap: 12px;
             transform: none;
+            display: flex;
+            flex-direction: row;
             flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
           }
           .sellix-btn-lg {
-            height: 46px;
-            border-radius: 23px;
-            font-size: 15px;
+            height: 48px;
+            border-radius: 24px;
+            font-size: 14.5px;
             gap: 9px;
-          }
-          .sellix-btn-primary {
-            padding-left: 20px;
-            padding-right: 21px;
-          }
-          .sellix-btn-ghost {
-            padding-left: 19px;
-            padding-right: 20px;
+            padding-left: 22px;
+            padding-right: 22px;
           }
           .sellix-arw {
             width: 13px;
@@ -485,14 +491,17 @@ export default function SellixServicesHeader() {
           }
         }
 
-        /* NARROW PHONES (max-width: 353px) */
-        @media (max-width: 353px) {
+        /* NARROW PHONES (max-width: 440px) */
+        @media (max-width: 440px) {
           .sellix-ctas {
             flex-direction: column;
+            width: 100%;
             align-items: center;
           }
           .sellix-btn-lg {
-            width: min(100%, 272px);
+            width: 100%;
+            max-width: 290px;
+            justify-content: center;
           }
         }
 

@@ -207,16 +207,16 @@ export default function ThreeDServiceCard({
             </div>
           </div>
 
-          {/* Action CTAs */}
-          <div className="grid grid-cols-2 gap-2.5">
+          {/* Action CTAs: Responsive Grid/Flex */}
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2.5">
             {/* Primary CTA: WhatsApp Quote */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl shadow-[0_4px_16px_rgba(124,58,237,0.35)] transition-all cursor-pointer text-center overflow-hidden"
+              className="group/btn relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl shadow-[0_4px_16px_rgba(124,58,237,0.35)] transition-all cursor-pointer text-center overflow-hidden w-full"
             >
-              <span className="relative z-10">Instant Quote</span>
+              <span className="relative z-10 whitespace-nowrap">Instant Quote</span>
               <span className="relative z-10 group-hover/btn:translate-x-0.5 transition-transform text-xs">💬</span>
             </a>
 
@@ -224,7 +224,7 @@ export default function ThreeDServiceCard({
             <button
               type="button"
               onClick={() => onBookCall(service)}
-              className="inline-flex items-center justify-center gap-1 bg-[#18122B] hover:bg-[#251A40] active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl border border-[#2B2144] hover:border-[#a855f7]/40 transition-all cursor-pointer text-center"
+              className="inline-flex items-center justify-center gap-1 bg-[#18122B] hover:bg-[#251A40] active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl border border-[#2B2144] hover:border-[#a855f7]/40 transition-all cursor-pointer text-center w-full whitespace-nowrap"
             >
               <span>Strategy Call</span>
               <span>📅</span>
