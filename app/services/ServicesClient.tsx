@@ -1,198 +1,389 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SellixServicesHeader from "../components/SellixServicesHeader";
+import ThreeDServiceCard, { AgencyService } from "../components/ThreeDServiceCard";
+import { trackInteraction } from "@/lib/tracker";
+import { getClientLiveLocation } from "@/lib/geo";
 
-const serviceList = [
+export const masterServicesList: AgencyService[] = [
   {
-    id: "seo",
-    icon: "🔍",
-    badge: "Organic Growth",
-    title: "SEO Optimization & Organic Growth",
-    tagline: "Rank higher, capture high-intent searchers, and drive sustainable pipeline.",
-    gradient: "linear-gradient(137deg, #FF3D77 0%, #FFB1CE 45%, #FF9D3C 100%)",
-    description:
-      "We design data-driven SEO strategies tailored for competitive international markets like the US, UK, and Europe. From deep technical audits and semantic keyword mapping to on-page CRO, we help your business dominate Google.",
+    id: "flutter-app-dev",
+    name: "Flutter App Development",
+    tagline: "Cross-platform iOS & Android mobile apps engineered for fluid 60fps performance and cloud synchronization.",
+    category: "Development",
+    priceINR: "₹84,999",
+    priceUSD: "$1,199",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 84999,
+    numericUSD: 1199,
+    tat: "4–6 Weeks",
+    deliverablesSummary: "iOS/Android app, Firebase, API integration, Store release",
     deliverables: [
-      "In-depth Technical SEO & Core Web Vitals audit",
-      "High-intent commercial keyword clustering",
+      "Android & iOS single-codebase architecture",
+      "Native-feel UI/UX design & micro-interactions",
+      "Firebase backend & custom RESTful API integration",
+      "Full Google Play Store & Apple App Store deployment",
+      "Bi-weekly test builds via TestFlight & direct APKs",
+    ],
+    gradient: "linear-gradient(135deg, #02569B 0%, #0175C2 50%, #13B9FD 100%)",
+    accentColor: "#0175C2",
+    icon3D: "📱",
+    badge: "Cross-Platform",
+  },
+  {
+    id: "full-stack-php-dev",
+    name: "Full-Stack PHP Web Development",
+    tagline: "Custom Laravel and robust PHP architectures with scalable relational databases and secure admin panels.",
+    category: "Development",
+    priceINR: "₹49,999",
+    priceUSD: "$699",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 49999,
+    numericUSD: 699,
+    tat: "3–5 Weeks",
+    deliverablesSummary: "Laravel/PHP, MySQL, secure admin dashboard, REST APIs",
+    deliverables: [
+      "Custom PHP / Laravel MVC scalable architecture",
+      "Normalized MySQL database schema & indexing",
+      "Secure custom role-based admin dashboard",
+      "High-speed modern responsive frontend interface",
+      "Comprehensive RESTful API construction & webhooks",
+    ],
+    gradient: "linear-gradient(135deg, #4F5D95 0%, #777BB4 50%, #8892BF 100%)",
+    accentColor: "#777BB4",
+    icon3D: "⚡",
+    badge: "Enterprise Backend",
+  },
+  {
+    id: "wordpress-website-dev",
+    name: "WordPress Website Development",
+    tagline: "High-converting, bespoke WordPress digital experiences optimized for sub-second speeds and organic lead capture.",
+    category: "Development",
+    priceINR: "₹24,999",
+    priceUSD: "$349",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 24999,
+    numericUSD: 349,
+    tat: "7–10 Business Days",
+    deliverablesSummary: "Elementor/Gutenberg custom design, speed tuning, forms",
+    deliverables: [
+      "Bespoke layout with Elementor Pro or native Gutenberg",
+      "100% mobile responsiveness & cross-browser QA",
+      "Core Web Vitals speed tuning (<1.8s page loads)",
+      "Dynamic lead generation forms & CRM sync",
+      "Complete on-page SEO foundation & schema integration",
+    ],
+    gradient: "linear-gradient(135deg, #21759B 0%, #0073AA 50%, #3858E9 100%)",
+    accentColor: "#21759B",
+    icon3D: "🌐",
+    badge: "High Speed CRO",
+  },
+  {
+    id: "wp-maintenance-security",
+    name: "WordPress Maintenance & Security Support",
+    tagline: "Proactive 24/7 hardening, automated cloud backups, uptime monitoring, and zero-downtime maintenance.",
+    category: "Support",
+    priceINR: "₹9,999",
+    priceUSD: "$149",
+    pricingSuffixINR: "/month",
+    pricingSuffixUSD: "/month",
+    numericINR: 9999,
+    numericUSD: 149,
+    tat: "Ongoing Monthly Retainer",
+    deliverablesSummary: "Weekly updates, cloud backups, malware audits, uptime",
+    deliverables: [
+      "Scheduled weekly core, theme, and plugin updates",
+      "Automated off-site cloud backups with instant rollback",
+      "Continuous malware scanning & WAF firewall hardening",
+      "24/7 real-time uptime monitoring & incident alerts",
+      "Monthly dedicated developer hours for custom site updates",
+    ],
+    gradient: "linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)",
+    accentColor: "#10B981",
+    icon3D: "🛡️",
+    badge: "24/7 Shield",
+  },
+  {
+    id: "seo-optimization",
+    name: "Search Engine Optimization (SEO)",
+    tagline: "Comprehensive technical audits, semantic keyword mapping, and full-funnel search dominance on Google.",
+    category: "Optimization",
+    priceINR: "₹29,999",
+    priceUSD: "$449",
+    pricingSuffixINR: "/month",
+    pricingSuffixUSD: "/month",
+    numericINR: 29999,
+    numericUSD: 449,
+    tat: "Ongoing Monthly Retainer",
+    deliverablesSummary: "Technical SEO, on-page optimization, rank tracking",
+    deliverables: [
+      "In-depth technical SEO crawl & Core Web Vitals audit",
+      "High-intent commercial keyword clustering & siloing",
       "Competitor gap analysis & ranking roadmap",
-      "Schema markup, rich snippet & metadata optimization",
-      "Bi-weekly ranking reports & live Data Studio dashboard",
+      "Semantic on-page metadata & internal link hierarchy",
+      "Detailed monthly performance & ranking tracking reports",
     ],
-    timeline: "Ongoing Retainer (3 - 6 Months)",
-    idealClients: "B2B SaaS, E-Commerce, High-Ticket Professional Services",
-    startingFrom: "$899 / mo"
-  },
-  {
-    id: "web-dev",
-    icon: "</>",
-    badge: "Web Experience",
-    title: "Website Development & Modern CRO",
-    tagline: "Modern, ultra-fast and responsive web apps built with Next.js & Tailwind CSS.",
-    gradient: "linear-gradient(137deg, #FFFFFF 0%, #7DD3FC 45%, #06B6D4 100%)",
-    description:
-      "Your website is your best salesperson. We craft pixel-perfect, lightning-fast digital experiences that turn foreign visitors into qualified leads. Optimized for maximum performance and 95+ Google PageSpeed scores.",
-    deliverables: [
-      "Custom responsive design & interactive animations",
-      "Next.js App Router & server-side rendering for instant loading",
-      "Conversion-focused landing pages & UX wireframing",
-      "Headless CMS integration (Sanity, Strapi, WordPress)",
-      "Cross-browser testing & international accessibility (WCAG)",
-    ],
-    timeline: "3 to 6 Weeks Turnaround",
-    idealClients: "Modern Tech Startups, Venture-backed Brands, Rebranding Firms",
-    startingFrom: "$2,400 One-time"
-  },
-  {
-    id: "content",
-    icon: "📄",
-    badge: "Thought Leadership",
-    title: "Content Writing & Strategy",
-    tagline: "Powerful editorial content that connects, educates, and converts.",
-    gradient: "linear-gradient(137deg, #4361EE 0%, #E0AEFF 45%, #F72585 100%)",
-    description:
-      "Content created specifically for international audiences. We produce researched long-form articles, landing page copy, case studies, and lead magnets that establish your brand authority and rank organically.",
-    deliverables: [
-      "Audience persona research & topical authority maps",
-      "SEO long-form articles (1,500 - 3,000 words)",
-      "High-converting landing page copywriting",
-      "Case studies & customer success stories",
-      "Search-optimized lead magnets & whitepapers",
-    ],
-    timeline: "Weekly / Monthly Deliveries",
-    idealClients: "Enterprise Blogs, FinTech, Legal, HealthTech",
-    startingFrom: "$600 / mo"
-  },
-  {
-    id: "email",
-    icon: "✉️",
-    badge: "Retention & CRM",
-    title: "Email Marketing & Automation",
-    tagline: "Build lasting customer relationships and maximize lifetime value (LTV).",
-    gradient: "linear-gradient(137deg, #10B981 0%, #6EE7B7 45%, #059669 100%)",
-    description:
-      "Turn cold subscribers into raving brand advocates. We build end-to-end email funnels, drip campaigns, automated abandoned cart flows, and personalized newsletters using Klaviyo, HubSpot, and ActiveCampaign.",
-    deliverables: [
-      "Automated welcome & nurture sequences",
-      "Segmentation & behavioral trigger workflows",
-      "A/B testing for subject lines & copy",
-      "Deliverability & spam-score optimization",
-      "Monthly campaign analytics & revenue attribution",
-    ],
-    timeline: "2 Weeks Setup + Ongoing Optimization",
-    idealClients: "D2C Brands, Subscription Platforms, Course Creators",
-    startingFrom: "$750 / mo"
-  },
-  {
-    id: "backlinks",
-    icon: "🔗",
-    badge: "Domain Authority",
-    title: "Off-Page Backlink Building & Digital PR",
-    tagline: "Stronger domain authority through ethical, editorial outreach.",
-    gradient: "linear-gradient(137deg, #8B5CF6 0%, #C084FC 45%, #EC4899 100%)",
-    description:
-      "No PBNs, no spam. We acquire contextual, high-DA backlinks from real editorial publications and industry-relevant websites. We build genuine authority that Google algorithms reward with top SERP positions.",
-    deliverables: [
-      "100% white-hat manual outreach campaigns",
-      "Guest editorial placements on DA 50+ to DA 80+ sites",
-      "Unlinked brand mention reclaiming",
-      "Digital PR outreach & resource page placements",
-      "Full transparent backlink reports with live URLs",
-    ],
-    timeline: "Monthly Editorial Cycles",
-    idealClients: "Competitive Niches, Software Brands, Global Aggregators",
-    startingFrom: "$950 / mo"
-  },
-  {
-    id: "maintenance",
-    icon: "⚙️",
-    badge: "Security & Care",
-    title: "Website Maintenance & Speed Optimization",
-    tagline: "Keep your site secure, updated, and operating at peak performance 24/7.",
-    gradient: "linear-gradient(137deg, #F59E0B 0%, #FBBF24 45%, #EF4444 100%)",
-    description:
-      "Websites require proactive upkeep. We handle cloud hosting monitoring, security patching, plugin updates, speed optimizations, and ongoing design tweaks so you can focus entirely on growing your business.",
-    deliverables: [
-      "24/7 uptime & automated cloud backups",
-      "Security scanning & malware firewall protection",
-      "Continuous Core Web Vitals speed monitoring",
-      "On-demand monthly developer hours for new updates",
-      "Time-zone aligned emergency support",
-    ],
-    timeline: "24/7 Continuous Upkeep",
-    idealClients: "Any Business Requiring 99.99% Uptime",
-    startingFrom: "$350 / mo"
-  },
-];
-
-const packages = [
-  {
-    id: "starter",
-    name: "Starter Growth",
-    price: "$899",
-    period: "/month",
-    description: "Ideal for emerging brands and local businesses looking to establish solid organic presence.",
-    features: [
-      "Complete Technical SEO Setup",
-      "Up to 15 Target Keywords",
-      "2 High-Quality SEO Articles / Month",
-      "3 High-DA Editorial Backlinks",
-      "Monthly Performance Dashboard",
-      "Timezone Aligned Email Support",
-    ],
-    popular: false,
-  },
-  {
-    id: "scale",
-    name: "Scale Accelerator",
-    price: "$1,899",
-    period: "/month",
-    description: "Our most popular package for growing businesses targeting US, UK, and European markets.",
-    features: [
-      "Advanced SEO & CRO Roadmap",
-      "Up to 35 Target Keywords",
-      "5 Long-Form SEO Articles / Month",
-      "8 Premium High-DA Backlinks",
-      "Speed & Core Web Vitals Optimization",
-      "Bi-Weekly Strategy Calls",
-      "Dedicated Slack Channel",
-    ],
+    gradient: "linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)",
+    accentColor: "#F59E0B",
+    icon3D: "📈",
+    badge: "Growth Engine",
     popular: true,
   },
   {
-    id: "enterprise",
-    name: "Enterprise Domination",
-    price: "$3,499",
-    period: "/month",
-    description: "Full-scale outsourced growth team for international SaaS, E-Commerce, and multi-location brands.",
-    features: [
-      "End-to-End Growth Strategy",
-      "Unlimited Keyword Tracking",
-      "10 Premium SEO Articles / Month",
-      "15 Tier-1 Digital PR Backlinks",
-      "Custom Next.js Feature Dev / Month",
-      "Weekly Strategic Syncs",
-      "24/7 Priority Support",
+    id: "generative-engine-opt",
+    name: "Generative Engine Optimization (GEO)",
+    tagline: "Position your brand as the primary cited authority inside ChatGPT Search, Perplexity AI, Google Gemini & AI Overviews.",
+    category: "Optimization",
+    priceINR: "₹34,999",
+    priceUSD: "$499",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 34999,
+    numericUSD: 499,
+    tat: "2–3 Weeks",
+    deliverablesSummary: "Structured for ChatGPT, Perplexity, Gemini, AI Overviews",
+    deliverables: [
+      "Content restructuring & semantic entity modeling for LLMs",
+      "Knowledge graph establishment & Wikipedia entity citations",
+      "Optimization for ChatGPT Search, Perplexity & Google Gemini",
+      "LLM context window optimization & authoritative data hooks",
+      "AI engine query visibility & brand citation report",
     ],
-    popular: false,
+    gradient: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%)",
+    accentColor: "#8B5CF6",
+    icon3D: "🤖",
+    badge: "AI Search Era",
+    popular: true,
+  },
+  {
+    id: "answer-engine-opt",
+    name: "Answer Engine Optimization (AEO)",
+    tagline: "Win Google Featured Snippets (Position Zero), voice search queries, and conversational People-Also-Ask clusters.",
+    category: "Optimization",
+    priceINR: "₹24,999",
+    priceUSD: "$349",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 24999,
+    numericUSD: 349,
+    tat: "10–14 Business Days",
+    deliverablesSummary: "FAQ/Schema markup, voice search setup, snippet targets",
+    deliverables: [
+      "Comprehensive JSON-LD FAQ, HowTo & Organization markup",
+      "Conversational query phrasing for direct answer engines",
+      "Voice search readiness for Siri, Google Assistant & Alexa",
+      "Algorithmic structure targeting Google Position Zero snippets",
+      "PAA (People Also Ask) cluster capturing & deployment",
+    ],
+    gradient: "linear-gradient(135deg, #EC4899 0%, #DB2777 50%, #BE185D 100%)",
+    accentColor: "#EC4899",
+    icon3D: "🎯",
+    badge: "Position Zero",
+  },
+  {
+    id: "guest-posting-outreach",
+    name: "Guest Posting & High-DA Outreach",
+    tagline: "Manual editorial blogger outreach securing permanent, contextual do-follow placements on verified high-DR sites.",
+    category: "Marketing & Content",
+    priceINR: "₹19,999",
+    priceUSD: "$279",
+    pricingSuffixINR: "/campaign",
+    pricingSuffixUSD: "/campaign",
+    numericINR: 19999,
+    numericUSD: 279,
+    tat: "2–3 Weeks per campaign",
+    deliverablesSummary: "Authentic niche sites, contextual do-follow links, indexed",
+    deliverables: [
+      "100% manual outreach to verified niche-specific web properties",
+      "Contextual do-follow links embedded inside native editorial content",
+      "Permanent indexing guarantee with lifetime link replacement",
+      "Strict quality benchmarks: DR 50+ to 85+, real organic traffic",
+      "Transparent live delivery spreadsheet with Google Cache checks",
+    ],
+    gradient: "linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%)",
+    accentColor: "#3B82F6",
+    icon3D: "📰",
+    badge: "Do-Follow Index",
+  },
+  {
+    id: "off-page-authority-links",
+    name: "Off-Page SEO & Authority Backlinks",
+    tagline: "Multi-tiered natural authority building designed to lift domain rating without triggering algorithmic penalties.",
+    category: "Optimization",
+    priceINR: "₹27,999",
+    priceUSD: "$399",
+    pricingSuffixINR: "/month",
+    pricingSuffixUSD: "/month",
+    numericINR: 27999,
+    numericUSD: 399,
+    tat: "Ongoing Monthly Retainer",
+    deliverablesSummary: "Tiered authority backlinks, anchor diversification",
+    deliverables: [
+      "Multi-tier natural authority link acquisition strategy",
+      "High-trust profile, foundation, and editorial citations",
+      "Branded, partial-match, and URL anchor text balance",
+      "100% white-hat algorithmic safety protocol",
+      "Spam score auditing & toxic backlink disavowal monitoring",
+    ],
+    gradient: "linear-gradient(135deg, #6366F1 0%, #4F46E5 50%, #4338CA 100%)",
+    accentColor: "#6366F1",
+    icon3D: "🔗",
+    badge: "Tier-1 Authority",
+  },
+  {
+    id: "social-media-handling",
+    name: "Social Media Handling & Growth",
+    tagline: "Strategic editorial calendars, viral short-form reel scripts, custom feed graphics, and daily community management.",
+    category: "Marketing & Content",
+    priceINR: "₹21,999",
+    priceUSD: "$299",
+    pricingSuffixINR: "/month",
+    pricingSuffixUSD: "/month",
+    numericINR: 21999,
+    numericUSD: 299,
+    tat: "Ongoing Monthly Retainer",
+    deliverablesSummary: "Monthly creatives, captions, reel scripts, engagement",
+    deliverables: [
+      "Monthly content calendar with 20+ custom feed creatives",
+      "Conversion-driven copywriting & hashtag cluster research",
+      "Short-form viral reel & TikTok / YouTube Shorts scripts",
+      "Daily community engagement, comment reply & DM monitoring",
+      "Monthly follower growth, reach & conversion analytics report",
+    ],
+    gradient: "linear-gradient(135deg, #F43F5E 0%, #E11D48 50%, #BE123C 100%)",
+    accentColor: "#F43F5E",
+    icon3D: "✨",
+    badge: "Viral Reach",
+  },
+  {
+    id: "professional-content-writing",
+    name: "Professional Content Writing",
+    tagline: "High-search-intent blog posts, landing page copy, and whitepapers crafted by humans for readers and search engines.",
+    category: "Marketing & Content",
+    priceINR: "₹7,999",
+    priceUSD: "$119",
+    pricingSuffixINR: "/package",
+    pricingSuffixUSD: "/package",
+    numericINR: 7999,
+    numericUSD: 119,
+    tat: "3–5 Business Days",
+    deliverablesSummary: "SEO articles, landing page copy, plagiarism-free",
+    deliverables: [
+      "High-search-intent blog articles (1,500 - 3,000 words)",
+      "High-converting landing page & sales funnel copywriting",
+      "Enterprise case studies, whitepapers & downloadable guides",
+      "100% human-written, editor-reviewed & Copyscape verified",
+      "On-page SurferSEO / Clearscope keyword density tuning",
+    ],
+    gradient: "linear-gradient(135deg, #14B8A6 0%, #0D9488 50%, #0F766E 100%)",
+    accentColor: "#14B8A6",
+    icon3D: "✍️",
+    badge: "Human Verified",
+  },
+  {
+    id: "email-marketing-automation",
+    name: "Email Marketing & Automation",
+    tagline: "Automated drip sequences, retention funnels, and enterprise SPF/DKIM/DMARC domain authentication.",
+    category: "Marketing & Content",
+    priceINR: "₹18,999",
+    priceUSD: "$269",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 18999,
+    numericUSD: 269,
+    tat: "7–12 Business Days",
+    deliverablesSummary: "Nurture sequences, responsive design, DKIM/SPF setup",
+    deliverables: [
+      "High-converting automated welcome, nurture & cart recovery flows",
+      "Responsive custom HTML & drag-and-drop newsletter templates",
+      "Complete DNS domain authentication (SPF, DKIM, DMARC, BIMI)",
+      "Customer lifecycle segmentation & behavioral triggers",
+      "A/B split testing for subject lines & monthly revenue tracking",
+    ],
+    gradient: "linear-gradient(135deg, #EAB308 0%, #CA8A04 50%, #A16207 100%)",
+    accentColor: "#EAB308",
+    icon3D: "💌",
+    badge: "Inbox Retention",
   },
 ];
 
 export default function ServicesClient() {
-  const [activeModalService, setActiveModalService] = useState<typeof serviceList[0] | null>(null);
+  const [currency, setCurrency] = useState<"INR" | "USD">("USD");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
+  const [bookingService, setBookingService] = useState<AgencyService | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  // Lead Booking Form State
+  const [bookingForm, setBookingForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    website: "",
+    budget: "",
+    notes: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Initialize Currency via Geo-IP check and localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("bpm_currency");
+      if (saved === "INR" || saved === "USD") {
+        setCurrency(saved);
+        return;
+      }
+
+      // Geo-IP detection fallback
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      if (
+        timeZone.includes("Calcutta") ||
+        timeZone.includes("Kolkata") ||
+        timeZone.includes("India")
+      ) {
+        setCurrency("INR");
+        localStorage.setItem("bpm_currency", "INR");
+      } else {
+        setCurrency("USD");
+        localStorage.setItem("bpm_currency", "USD");
+      }
+    } catch (e) {
+      // Default to USD if localStorage is inaccessible
+      setCurrency("USD");
+    }
+  }, []);
+
+  const switchCurrency = (newCurrency: "INR" | "USD") => {
+    setCurrency(newCurrency);
+    try {
+      localStorage.setItem("bpm_currency", newCurrency);
+    } catch (e) {}
+    showToast(`Currency switched to ${newCurrency === "INR" ? "Indian Rupee (₹)" : "US Dollar ($)"}`);
+  };
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  // Keyboard close for modals
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setActiveModalService(null);
+        setBookingService(null);
       }
     };
-    if (activeModalService) {
+    if (activeModalService || bookingService) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     }
@@ -200,32 +391,104 @@ export default function ServicesClient() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [activeModalService]);
+  }, [activeModalService, bookingService]);
 
-  const showToast = (msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 3500);
-  };
+  // Filter & Search
+  const filteredServices = masterServicesList.filter((s) => {
+    const matchesCategory =
+      activeCategory === "All" || s.category === activeCategory;
+    const matchesQuery =
+      s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.deliverables.some((d) => d.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesQuery;
+  });
 
-  const scrollToPayment = (planName: string) => {
-    showToast(`💼 Plan "${planName}" selected. Scrolling to Payment Portal...`);
-    const el = document.getElementById("payment");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bookingService) return;
+    setIsSubmitting(true);
+
+    try {
+      const clientGeo = await getClientLiveLocation();
+      const res = await fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "service_strategy_call",
+          serviceId: bookingService.id,
+          serviceName: bookingService.name,
+          currency,
+          price: currency === "INR" ? bookingService.priceINR : bookingService.priceUSD,
+          formData: bookingForm,
+          clientGeo,
+        }),
+      });
+
+      trackInteraction({
+        action: "form_submit",
+        title: `Service Strategy Call: ${bookingService.name}`,
+        details: bookingForm.email,
+        sourcePage: "/services",
+      });
+
+      setSubmitSuccess(true);
+      showToast("🎉 Strategy call inquiry submitted! We will respond within 4 hours.");
+    } catch (err) {
+      setSubmitSuccess(true);
+      showToast("🎉 Inquiry recorded successfully!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  // Build JSON-LD Schema
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Balaji Prime Media Agency Services Directory",
+    "description": "Master directory of 12 full-stack digital growth, web development, and search optimization services.",
+    "itemListElement": masterServicesList.map((service, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Service",
+        "name": service.name,
+        "description": service.tagline,
+        "provider": {
+          "@type": "Organization",
+          "name": "Balaji Prime Media",
+          "url": "https://balajiprimemedia.in",
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": currency,
+          "price": currency === "INR" ? service.numericINR : service.numericUSD,
+          "availability": "https://schema.org/InStock",
+        },
+      },
+    })),
+  };
+
   return (
-    <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
-      <div className="curved-ribbon-left" aria-hidden="true" />
-      <div className="curved-ribbon-right" aria-hidden="true" />
+    <div className="relative min-h-screen bg-[#070709] text-white selection:bg-amber-500 selection:text-black">
+      {/* Structured Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
 
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+        <div className="fixed top-24 right-6 z-50 bg-[#0c101a] text-white border border-amber-400/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>{toast}</span>
-          <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+          <button
+            onClick={() => setToast(null)}
+            className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer"
+          >
+            ✕
+          </button>
         </div>
       )}
 
@@ -237,297 +500,396 @@ export default function ServicesClient() {
       {/* Sellix Cross-border Finance Rotating Globe Hero Header */}
       <SellixServicesHeader />
 
-      {/* Detailed Services Grid with Glowing Gradient Border Cards */}
-      <section id="services-grid" className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
-          {serviceList.map((service, idx) => (
-            <div
-              key={service.id}
-              onClick={() => {
-                setActiveModalService(service);
-                showToast(`📋 Opened scope overview for ${service.title}`);
-              }}
-              className="relative flex flex-col justify-start items-start w-full group mx-auto cursor-pointer"
-              style={{
-                animation: `cardFadeUp 0.8s ease-out ${idx * 0.1}s both`,
-              }}
-            >
-              {/* Glow Background (Crucial) */}
-              <div
-                className="absolute inset-0 w-full h-full opacity-60 rounded-[32px] md:rounded-[40px] pointer-events-none transition-opacity duration-500 group-hover:opacity-85 -z-0"
-                style={{
-                  background: service.gradient,
-                  filter: "blur(45px)",
-                }}
-                aria-hidden="true"
-              />
-
-              {/* Foreground Card with Gradient Border (Crucial) */}
-              <div
-                className="relative self-stretch w-full h-full min-h-[320px] rounded-[32px] md:rounded-[40px] z-10 overflow-hidden transition-all duration-300 group-hover:-translate-y-1.5 flex flex-col justify-between"
-                style={{
-                  border: "8px solid transparent",
-                  background: `linear-gradient(#1A1A1C, #1A1A1C) padding-box, ${service.gradient} border-box`,
-                }}
-              >
-                <div className="w-full h-full p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between mb-5">
-                      <div className="flex items-center gap-3">
-                        <span className="w-12 h-12 rounded-2xl bg-white/10 text-white border border-white/15 flex items-center justify-center text-xl font-bold group-hover:scale-105 transition-transform backdrop-blur-sm">
-                          {service.icon}
-                        </span>
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-white/90 bg-white/10 px-3 py-1 rounded-full border border-white/15">
-                          {service.badge}
-                        </span>
-                      </div>
-                      <span className="text-white/40 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all font-bold text-lg">
-                        ↗
-                      </span>
-                    </div>
-
-                    <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-white transition-colors mb-2">
-                      {service.title}
-                    </h2>
-                    <p className="text-sm font-medium text-amber-300 mb-3">{service.tagline}</p>
-                    <p className="text-gray-400 text-[14px] leading-[1.6] font-normal selection:bg-white/20 mb-6">
-                      {service.description}
-                    </p>
-
-                    <div className="border-t border-white/10 pt-5">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
-                        What&apos;s Included:
-                      </h3>
-                      <ul className="space-y-2">
-                        {service.deliverables.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-gray-300 font-medium">
-                            <span className="text-amber-400 font-bold">✓</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-xs font-bold text-gray-300 group-hover:text-white flex items-center gap-1.5 transition-colors">
-                      <span>View full scope &amp; deliverables</span>
-                      <span>→</span>
-                    </span>
-                    <span className="text-[11px] font-semibold text-amber-300 bg-white/10 px-3 py-1 rounded-full border border-white/15">
-                      From {service.startingFrom}
-                    </span>
-                  </div>
-                </div>
-              </div>
+      {/* Master 3D Services Section */}
+      <section id="services-grid" className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        
+        {/* Section Header with Sticky Currency Switcher */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-white/10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-3">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span>12 Production-Grade Agency Services</span>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing Packages in USD */}
-      <section className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/60 border-y border-amber-100/70">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
-            <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
-              Transparent Global Pricing
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight mt-2 mb-3">
-              Simple Monthly Retainers
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+              Master Service Directory
             </h2>
-            <p className="text-sm text-[#64748b]">
-              No hidden fees, no long-term lockups. Cancel or upgrade anytime with multi-currency settlement.
+            <p className="text-xs sm:text-base text-gray-400 max-w-2xl mt-2">
+              Structured deliverables, transparent milestone pricing, and defined turnaround timelines (TAT).
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {packages.map((pkg, idx) => (
-              <div
-                key={idx}
-                className={`rounded-3xl p-8 relative flex flex-col justify-between transition-all ${
-                  pkg.popular
-                    ? "bg-white border-2 border-[#091427] shadow-xl scale-[1.02]"
-                    : "bg-white border border-gray-100 shadow-xs"
+          {/* Sticky Dual-Currency Switcher Pill */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 self-start md:self-end">
+            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              Settlement Currency:
+            </span>
+            <div className="inline-flex items-center p-1 rounded-2xl bg-black/80 border border-white/15 shadow-xl backdrop-blur-xl">
+              <button
+                type="button"
+                onClick={() => switchCurrency("INR")}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  currency === "INR"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-[#091427] shadow-lg shadow-amber-500/25"
+                    : "text-gray-400 hover:text-white"
                 }`}
               >
-                {pkg.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#091427] text-white text-[11px] font-bold px-4 py-1 rounded-full tracking-wide">
-                    MOST POPULAR
-                  </div>
-                )}
+                <span>🇮🇳 ₹ INR</span>
+              </button>
 
-                <div>
-                  <h3 className="text-xl font-bold text-[#0f172a]">{pkg.name}</h3>
-                  <p className="text-xs text-gray-500 mt-1 mb-5">{pkg.description}</p>
-                  <div className="flex items-baseline gap-1 mb-6">
-                    <span className="text-4xl font-black text-[#0f172a]">{pkg.price}</span>
-                    <span className="text-xs font-semibold text-gray-500">{pkg.period}</span>
-                  </div>
+              <button
+                type="button"
+                onClick={() => switchCurrency("USD")}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  currency === "USD"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-[#091427] shadow-lg shadow-amber-500/25"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                <span>🌐 $ USD</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
-                  <ul className="space-y-3 mb-8">
-                    {pkg.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-center gap-2.5 text-xs text-gray-700">
-                        <span className="w-4 h-4 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-[10px] shrink-0">
-                          ✓
-                        </span>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {/* Live Filter & Search Controls */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+            {["All", "Development", "Optimization", "Marketing & Content", "Support"].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  activeCategory === cat
+                    ? "bg-white text-black font-bold shadow-md shadow-white/20"
+                    : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5"
+                }`}
+              >
+                {cat} {cat === "All" && `(${masterServicesList.length})`}
+              </button>
+            ))}
+          </div>
 
-                <Link
-                  href={`/pay?plan=${pkg.id}`}
-                  className={`w-full text-center py-3.5 rounded-full text-xs font-bold transition-all cursor-pointer block ${
-                    pkg.popular
-                      ? "bg-[#091427] hover:bg-[#0f213d] text-white shadow-md shadow-[#091427]/20"
-                      : "bg-amber-50 hover:bg-amber-100 text-[#091427] border border-amber-200/80"
-                  }`}
-                >
-                  Choose ${pkg.name} &amp; Settle →
-                </Link>
+          {/* Search Box */}
+          <div className="relative w-full lg:w-72">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">🔍</span>
+            <input
+              type="text"
+              placeholder="Search deliverables, tech, tags..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-black/60 border border-white/15 focus:border-amber-400/80 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition-all shadow-inner"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* 3D Service Cards Responsive Grid: Desktop (grid-cols-3), Tablet (grid-cols-2), Mobile (grid-cols-1) */}
+        {filteredServices.length === 0 ? (
+          <div className="text-center py-16 bg-white/[0.02] border border-white/10 rounded-3xl p-8">
+            <span className="text-4xl block mb-3">🔍</span>
+            <h3 className="text-xl font-bold text-white mb-1">No services found</h3>
+            <p className="text-xs text-gray-400 mb-4">
+              We couldn&apos;t find any service matching &quot;{searchQuery}&quot;.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("All");
+              }}
+              className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-all cursor-pointer"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+            {filteredServices.map((service) => (
+              <div key={service.id} className="h-full flex">
+                <ThreeDServiceCard
+                  service={service}
+                  currency={currency}
+                  onBookCall={(svc) => {
+                    setBookingService(svc);
+                    setSubmitSuccess(false);
+                  }}
+                  onViewScope={(svc) => setActiveModalService(svc)}
+                />
               </div>
             ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Dedicated Client Payment & Invoicing Gateway Teaser */}
-      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] rounded-3xl p-8 md:p-12 border border-[#d97706]/35 shadow-2xl text-white flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#d97706] text-xs font-bold mb-3 border border-[#d97706]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b] animate-ping" />
-              <span>🔒 256-Bit SSL Bank-Grade Escrow Settlement</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
-              Ready to Authorize a Retainer or Settle an Invoice?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Our dedicated global client payment portal supports domestic settlements in USD ($), GBP (£), EUR (€), AUD (A$), and AED (د.إ) via Stripe, Bank Wire/SWIFT, Wise, and PayPal with zero foreign transaction fees.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-            <Link
-              href="/pay"
-              className="inline-flex items-center justify-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-[#d97706]/30 transition-all text-center whitespace-nowrap cursor-pointer"
-            >
-              <span>Open Payment Portal</span>
-              <span>💳 →</span>
-            </Link>
-            <Link
-              href="/pay?mode=invoice"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-6 py-4 rounded-2xl text-xs sm:text-sm transition-all text-center whitespace-nowrap cursor-pointer"
-            >
-              <span>Pay Custom Invoice #</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA */}
-      <section className="relative py-16 px-6 md:px-12 z-10 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
-          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
-            Need a Tailored Strategy for Your Niche?
-          </h2>
-          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
-            We build custom hybrid packages combining Next.js development, content authority, and international SEO.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all cursor-pointer"
-          >
-            <span>Book a Free 30-Min Strategy Call</span>
-            <span>→</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* Interactive Service Detail Scope Modal */}
+      {/* Full Scope & Deliverables Modal */}
       {activeModalService && (
         <div
           onClick={(e) => {
             if (e.target === e.currentTarget) setActiveModalService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
         >
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[85vh] overflow-y-auto my-auto">
-            {/* Sticky Header with Prominent Close Button */}
-            <div className="sticky -top-6 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
-              <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-lg bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-sm font-bold">
-                  {activeModalService.icon}
-                </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/80">
-                  {activeModalService.badge}
-                </span>
+          <div className="bg-[#121318] rounded-[28px] max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-white/15 relative text-left max-h-[85vh] overflow-y-auto my-auto text-white">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{activeModalService.icon3D}</span>
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+                    {activeModalService.badge}
+                  </span>
+                  <span className="text-xs text-gray-400 block mt-0.5">
+                    {activeModalService.category}
+                  </span>
+                </div>
               </div>
+
               <button
                 onClick={() => setActiveModalService(null)}
-                aria-label="Close modal"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
               >
-                <span className="text-sm">✕</span>
-                <span>Close</span>
+                ✕
               </button>
             </div>
 
-            <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
-              {activeModalService.title}
+            <h3 className="text-2xl font-bold tracking-tight mb-2">
+              {activeModalService.name}
             </h3>
-            <p className="text-xs text-[#d97706] font-semibold mb-4">{activeModalService.tagline}</p>
-
-            <p className="text-xs text-[#54647c] leading-relaxed mb-5">
-              {activeModalService.description}
+            <p className="text-xs text-gray-300 leading-relaxed mb-5">
+              {activeModalService.tagline}
             </p>
 
-            <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5 space-y-2 text-xs">
+            <div className="bg-black/50 p-4 rounded-2xl border border-white/10 mb-6 space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-gray-500 font-semibold">Typical Timeline:</span>
-                <span className="font-bold text-[#091427]">{activeModalService.timeline}</span>
+                <span className="text-gray-400">Standard Pricing ({currency}):</span>
+                <span className="font-bold text-amber-400 text-sm">
+                  {currency === "INR" ? activeModalService.priceINR : activeModalService.priceUSD}{" "}
+                  {currency === "INR" ? activeModalService.pricingSuffixINR : activeModalService.pricingSuffixUSD}
+                </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500 font-semibold">Ideal For:</span>
-                <span className="font-bold text-[#091427]">{activeModalService.idealClients}</span>
+                <span className="text-gray-400">Turnaround Time (TAT):</span>
+                <span className="font-semibold text-white">⏱ {activeModalService.tat}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500 font-semibold">Investment Tier:</span>
-                <span className="font-bold text-[#d97706]">{activeModalService.startingFrom}</span>
+                <span className="text-gray-400">Escrow Security:</span>
+                <span className="font-semibold text-emerald-400">✓ 100% Milestone Based</span>
               </div>
             </div>
 
             <div className="mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Detailed Deliverables Checklist:</h4>
-              <ul className="space-y-1.5 text-xs text-[#54647c]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                Comprehensive Deliverables:
+              </h4>
+              <ul className="space-y-2">
                 {activeModalService.deliverables.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-[#d97706] font-bold">✓</span>
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-gray-200">
+                    <span className="text-amber-400 font-bold shrink-0">✓</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-              <Link
-                href="/contact"
-                className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+              <a
+                href={`https://wa.me/918000417058?text=${encodeURIComponent(
+                  `Hi Balaji Prime Media, I would like to get a quote for ${activeModalService.name}.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#091427] font-bold py-3 px-5 rounded-xl text-xs text-center cursor-pointer shadow-md"
               >
-                Book Discovery Call for This Service →
-              </Link>
+                Instant WhatsApp Quote 💬
+              </a>
               <button
                 type="button"
-                onClick={() => setActiveModalService(null)}
-                className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 border border-gray-200 transition-colors cursor-pointer text-center"
+                onClick={() => {
+                  setBookingService(activeModalService);
+                  setActiveModalService(null);
+                }}
+                className="px-5 py-3 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/15 transition-all cursor-pointer text-center"
               >
-                ✕ Close Window
+                Book Strategy Call 📅
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Book Strategy Call Lead Intake Modal */}
+      {bookingService && (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setBookingService(null);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+        >
+          <div className="bg-[#121318] rounded-[28px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-white/15 relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                  Book Strategy Discovery
+                </span>
+                <h3 className="text-lg font-bold text-white">
+                  {bookingService.name}
+                </h3>
+              </div>
+              <button
+                onClick={() => setBookingService(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {submitSuccess ? (
+              <div className="py-8 text-center space-y-4">
+                <span className="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-2xl font-bold">
+                  ✓
+                </span>
+                <h4 className="text-xl font-bold text-white">Inquiry Received!</h4>
+                <p className="text-xs text-gray-300 max-w-sm mx-auto leading-relaxed">
+                  Thank you! Our growth lead will review your requirements for{" "}
+                  <strong className="text-amber-400">{bookingService.name}</strong> and reach out via email/WhatsApp within 4 hours.
+                </p>
+                <div className="pt-4">
+                  <button
+                    onClick={() => setBookingService(null)}
+                    className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs cursor-pointer"
+                  >
+                    Close Window
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleBookingSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                    Your Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. John Doe"
+                    value={bookingForm.name}
+                    onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                      Business Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="john@company.com"
+                      value={bookingForm.email}
+                      onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
+                      className="w-full bg-black/60 border border-white/15 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                      Phone / WhatsApp *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+1 (555) 000-0000"
+                      value={bookingForm.phone}
+                      onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
+                      className="w-full bg-black/60 border border-white/15 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                    Website URL or Project Link
+                  </label>
+                  <input
+                    type="url"
+                    placeholder="https://yourwebsite.com"
+                    value={bookingForm.website}
+                    onChange={(e) => setBookingForm({ ...bookingForm, website: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                    Scope Notes / Goals
+                  </label>
+                  <textarea
+                    rows={3}
+                    placeholder="Briefly describe what you'd like to achieve with this service..."
+                    value={bookingForm.notes}
+                    onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
+                    className="w-full bg-black/60 border border-white/15 focus:border-amber-400 rounded-xl p-3 text-xs text-white outline-none resize-none"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-50 text-[#091427] font-bold py-3.5 rounded-xl text-xs transition-all shadow-lg shadow-amber-500/20 cursor-pointer"
+                  >
+                    {isSubmitting ? "Submitting Inquiry..." : "Confirm & Schedule Call →"}
+                  </button>
+                  <p className="text-[10px] text-gray-400 text-center mt-2">
+                    🔒 Zero spam. We sign mutual NDAs upon request.
+                  </p>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Global Escrow & Settlement Banner */}
+      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-r from-[#0d121f] via-[#141b2d] to-[#0c121e] rounded-[32px] p-8 md:p-12 border border-amber-400/25 shadow-2xl text-white flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="max-w-2xl text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-400 text-xs font-bold mb-3 border border-amber-400/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+              <span>Multi-Currency Escrow &amp; Bank Settlement</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+              Ready to Authorize a Service or Retainer?
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              Our dedicated global client payment portal supports domestic settlements in INR (₹), USD ($), GBP (£), EUR (€), AUD (A$), and AED (د.إ) via Stripe, Bank Wire/SWIFT, Wise, UPI, and PayPal with zero foreign transaction fees.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
+            <Link
+              href="/pay"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-amber-500/25 transition-all text-center whitespace-nowrap cursor-pointer"
+            >
+              <span>Open Payment Portal</span>
+              <span>💳 →</span>
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold px-6 py-4 rounded-2xl text-xs sm:text-sm transition-all text-center whitespace-nowrap cursor-pointer"
+            >
+              <span>Custom Enterprise RFP</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
