@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, MouseEvent } from "react";
-import Link from "next/link";
 
 export interface AgencyService {
   id: string;
@@ -52,18 +51,17 @@ export default function ThreeDServiceCard({
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // Calculate rotation (-10deg to 10deg)
-    const rotX = ((y - centerY) / centerY) * -9;
-    const rotY = ((x - centerX) / centerX) * 9;
+    // Subtle natural tilt (-6deg to 6deg)
+    const rotX = ((y - centerY) / centerY) * -5;
+    const rotY = ((x - centerX) / centerX) * 5;
 
     setRotateX(rotX);
     setRotateY(rotY);
 
-    // Glare position in percent
     setGlarePos({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
-      opacity: 0.35,
+      opacity: 0.2,
     });
   };
 
@@ -96,35 +94,35 @@ export default function ThreeDServiceCard({
       data-service-id={service.id}
       data-price-inr={service.priceINR}
       data-price-usd={service.priceUSD}
-      className="relative w-full h-full perspective-[1200px] select-none"
+      className="relative w-full h-full select-none"
     >
-      {/* 3D Atmospheric Background Glow */}
+      {/* Ambient Radial Hover Halo (Footer Indigo/Purple Hue) */}
       <div
-        className="absolute -inset-1 rounded-[34px] pointer-events-none transition-opacity duration-700 blur-2xl -z-10"
+        className="absolute -inset-1 rounded-[32px] pointer-events-none transition-opacity duration-500 blur-xl -z-10"
         style={{
-          background: service.gradient,
-          opacity: isHovered ? 0.65 : 0.22,
+          background: "radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(99,102,241,0.15) 60%, transparent 80%)",
+          opacity: isHovered ? 0.8 : 0,
         }}
         aria-hidden="true"
       />
 
-      {/* 3D Transform Container */}
+      {/* Main Luxury Glass Card */}
       <div
         style={{
           transform: isHovered
-            ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(12px)`
-            : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)",
-          transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
-          background: `linear-gradient(145deg, rgba(20, 20, 24, 0.94) 0%, rgba(10, 10, 14, 0.98) 100%)`,
+            ? `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`
+            : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)",
+          transition: isHovered ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
+          background: "linear-gradient(180deg, rgba(20, 16, 32, 0.85) 0%, rgba(12, 10, 20, 0.95) 100%)",
           boxShadow: isHovered
-            ? "0 30px 60px -12px rgba(0, 0, 0, 0.75), 0 0 30px 2px rgba(245, 158, 11, 0.15)"
-            : "0 15px 35px -10px rgba(0, 0, 0, 0.5)",
+            ? "0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 25px 1px rgba(168, 85, 247, 0.2)"
+            : "0 10px 30px -10px rgba(0, 0, 0, 0.6)",
         }}
-        className="relative w-full h-full rounded-[28px] p-6 sm:p-7 flex flex-col justify-between border border-white/10 hover:border-white/25 overflow-hidden transition-all duration-300 backdrop-blur-xl"
+        className="relative w-full h-full rounded-[26px] p-6 sm:p-7 flex flex-col justify-between border border-[#2B2144] hover:border-[#a855f7]/60 overflow-hidden transition-all duration-300 backdrop-blur-2xl"
       >
-        {/* Dynamic Light Glare Overlay */}
+        {/* Subtle Light Glare Layer */}
         <div
-          className="absolute inset-0 pointer-events-none rounded-[28px] transition-opacity duration-300 z-30"
+          className="absolute inset-0 pointer-events-none rounded-[26px] transition-opacity duration-300 z-30"
           style={{
             background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255, 255, 255, ${glarePos.opacity}) 0%, transparent 60%)`,
           }}
@@ -133,67 +131,67 @@ export default function ThreeDServiceCard({
 
         {/* Popular Ribbon if applicable */}
         {service.popular && (
-          <div className="absolute top-0 right-7 -translate-y-1 z-20">
-            <span className="bg-gradient-to-r from-amber-500 to-amber-600 text-[#091427] font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-b-xl shadow-md border-x border-b border-amber-300">
-              ★ High Demand
+          <div className="absolute top-0 right-6 -translate-y-0.5 z-20">
+            <span className="bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-bold text-[10px] uppercase tracking-wider px-3 py-1 rounded-b-xl shadow-lg shadow-purple-950/80 border-x border-b border-[#c084fc]/40">
+              ✦ Featured
             </span>
           </div>
         )}
 
-        {/* Top Header Row */}
+        {/* Card Header & Content */}
         <div>
           <div className="flex items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">
-              {/* 3D Floating Icon Sphere */}
+              {/* Floating Icon Container with Footer-matched Indigo/Purple Gradient */}
               <div
-                className="w-13 h-13 rounded-2xl flex items-center justify-center text-2xl shadow-lg border border-white/15 transition-transform duration-300 group-hover:scale-110"
+                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md border border-[#a855f7]/30 transition-transform duration-300 group-hover:scale-105 shrink-0"
                 style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%)",
-                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.25), 0 8px 16px rgba(0,0,0,0.4)",
+                  background: "linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.15) 100%)",
+                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.5)",
                 }}
               >
                 <span>{service.icon3D}</span>
               </div>
 
               <div>
-                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#c084fc] bg-[#1E1638] px-2.5 py-0.5 rounded-full border border-[#a855f7]/30">
                   {service.badge}
                 </span>
-                <span className="block text-[11px] text-gray-400 mt-0.5">
+                <span className="block text-[11px] text-[#94a3b8] mt-0.5">
                   {service.category}
                 </span>
               </div>
             </div>
 
-            {/* Turnaround Time (TAT) Badge */}
+            {/* Turnaround Time (TAT) Badge in Dark Luxury Pill */}
             <div className="text-right">
-              <span className="text-[10px] font-semibold text-gray-400 block uppercase tracking-wider">
+              <span className="text-[10px] font-medium text-[#7D7D7D] block uppercase tracking-wider">
                 Turnaround
               </span>
-              <span className="text-xs font-bold text-white bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg inline-block mt-0.5">
+              <span className="text-xs font-semibold text-[#e2e8f0] bg-[#161126] border border-[#2B2144] px-2.5 py-0.5 rounded-lg inline-block mt-0.5">
                 ⏱ {service.tat}
               </span>
             </div>
           </div>
 
-          {/* Card Title & Tagline */}
-          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug mb-2 hover:text-amber-300 transition-colors">
+          {/* Title & Tagline */}
+          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug mb-2 group-hover:text-purple-100 transition-colors">
             {service.name}
           </h3>
-          <p className="text-xs sm:text-[13px] text-gray-300 leading-relaxed mb-5 font-normal">
+          <p className="text-xs sm:text-[13px] text-[#ADADAD] leading-relaxed mb-5 font-normal">
             {service.tagline}
           </p>
 
           {/* Deliverables Checklist */}
-          <div className="border-t border-white/10 pt-4 mb-6">
+          <div className="border-t border-[#231A33] pt-4 mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#7D7D7D]">
                 Core Deliverables:
               </h4>
               <button
                 type="button"
                 onClick={() => onViewScope(service)}
-                className="text-[11px] font-semibold text-amber-400 hover:text-amber-300 underline cursor-pointer"
+                className="text-[11px] font-semibold text-[#c084fc] hover:text-[#e9d5ff] transition-colors cursor-pointer"
               >
                 Full Scope →
               </button>
@@ -203,9 +201,9 @@ export default function ThreeDServiceCard({
               {service.deliverables.map((item, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start gap-2.5 text-xs text-gray-300 font-normal leading-tight"
+                  className="flex items-start gap-2.5 text-xs text-[#cbd5e1] font-normal leading-tight"
                 >
-                  <span className="text-amber-400 font-bold shrink-0 mt-0.5">✓</span>
+                  <span className="text-[#a855f7] font-bold shrink-0 mt-0.5">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -213,49 +211,49 @@ export default function ThreeDServiceCard({
           </div>
         </div>
 
-        {/* Bottom Section: Dual Pricing & CTAs */}
-        <div className="border-t border-white/10 pt-5 mt-auto">
+        {/* Pricing & CTAs */}
+        <div className="border-t border-[#231A33] pt-5 mt-auto">
           {/* Price Output */}
           <div className="flex items-baseline justify-between mb-5">
             <div>
-              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">
+              <span className="text-[10px] font-medium text-[#7D7D7D] uppercase tracking-wider block">
                 Standard Pricing ({currency})
               </span>
               <div className="flex items-baseline gap-1.5 mt-0.5">
-                <span className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                   {currentPrice}
                 </span>
-                <span className="text-xs font-medium text-gray-400">
+                <span className="text-xs font-normal text-[#94a3b8]">
                   {currentSuffix}
                 </span>
               </div>
             </div>
 
             <div className="text-right">
-              <span className="text-[10px] text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-0.5 rounded-full font-semibold">
-                Guaranteed Delivery
+              <span className="text-[10px] text-[#a855f7] bg-[#1E1638] border border-[#a855f7]/30 px-2.5 py-0.5 rounded-full font-medium">
+                Verified Escrow
               </span>
             </div>
           </div>
 
-          {/* Action CTAs (Primary & Secondary) */}
+          {/* Action CTAs */}
           <div className="grid grid-cols-2 gap-2.5">
-            {/* Primary CTA: WhatsApp Instant Quote */}
+            {/* Primary CTA: WhatsApp Quote */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#091427] font-bold text-xs py-3 px-3 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_4px_12px_rgba(245,158,11,0.3)] transition-all cursor-pointer text-center"
+              className="group relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl shadow-[0_4px_16px_rgba(124,58,237,0.35)] transition-all cursor-pointer text-center"
             >
               <span>Instant Quote</span>
-              <span className="group-hover:translate-x-0.5 transition-transform text-sm">💬</span>
+              <span className="group-hover:translate-x-0.5 transition-transform text-xs">💬</span>
             </a>
 
             {/* Secondary CTA: Book Strategy Call Modal */}
             <button
               type="button"
               onClick={() => onBookCall(service)}
-              className="inline-flex items-center justify-center gap-1 bg-white/10 hover:bg-white/20 active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl border border-white/15 hover:border-white/30 transition-all cursor-pointer text-center"
+              className="inline-flex items-center justify-center gap-1 bg-[#161126] hover:bg-[#201838] active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl border border-[#2B2144] hover:border-[#a855f7]/40 transition-all cursor-pointer text-center"
             >
               <span>Strategy Call</span>
               <span>📅</span>
