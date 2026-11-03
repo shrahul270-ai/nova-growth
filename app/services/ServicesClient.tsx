@@ -623,12 +623,13 @@ export default function ServicesClient() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-            {filteredServices.map((service) => (
+          <div key={activeCategory} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+            {filteredServices.map((service, idx) => (
               <div key={service.id} className="h-full flex">
                 <ThreeDServiceCard
                   service={service}
                   currency={currency}
+                  index={idx}
                   onBookCall={(svc) => {
                     setBookingService(svc);
                     setSubmitSuccess(false);
