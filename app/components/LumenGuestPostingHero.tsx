@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck } from "lucide-react";
 
 interface ConnectorLineProps {
   x1: string;
@@ -56,104 +55,9 @@ export default function LumenGuestPostingHero() {
 
       {/* Content Layer (No outer padding) */}
       <div className="relative z-10 w-full h-full">
-        {/* Top Cybernetic Telemetry Strip */}
-        <div className="absolute top-0 left-0 w-full hidden lg:flex items-center px-5 md:px-[35px] py-4 border-b border-white/[0.05] backdrop-blur-[2px]">
-          {/* Left group */}
-          <div className="flex items-center gap-[40px]">
-            <div
-              className="font-graphik text-white text-[18px] md:text-[21px] leading-[21px] whitespace-nowrap anim-fade-up tracking-wider"
-              style={{ animationDelay: "200ms" }}
-            >
-              BPM // EDITORIAL
-            </div>
-
-            <div className="flex items-center gap-[40px]">
-              <div
-                className="flex items-center gap-[3px] anim-fade-up"
-                style={{ animationDelay: "350ms" }}
-              >
-                <span className="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">
-                  01.
-                </span>
-                <span
-                  onClick={scrollToMarketplace}
-                  className="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors"
-                >
-                  EDITORIAL_NETWORK
-                </span>
-              </div>
-
-              <div
-                className="flex items-center gap-[3px] anim-fade-up"
-                style={{ animationDelay: "450ms" }}
-              >
-                <span className="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">
-                  02.
-                </span>
-                <span
-                  onClick={scrollToMarketplace}
-                  className="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors"
-                >
-                  VERIFIED_METRICS
-                </span>
-              </div>
-
-              <div
-                className="flex items-center gap-[3px] anim-fade-up"
-                style={{ animationDelay: "550ms" }}
-              >
-                <span className="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">
-                  03.
-                </span>
-                <span
-                  onClick={scrollToMarketplace}
-                  className="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors"
-                >
-                  DOFOLLOW_INDEX
-                </span>
-              </div>
-
-              <div
-                className="flex items-center gap-[3px] anim-fade-up"
-                style={{ animationDelay: "650ms" }}
-              >
-                <span className="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">
-                  04.
-                </span>
-                <span
-                  onClick={scrollToMarketplace}
-                  className="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors"
-                >
-                  LIFETIME_WARRANTY
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right group */}
-          <div
-            className="flex items-center gap-[12px] ml-auto anim-slide-right"
-            style={{ animationDelay: "600ms" }}
-          >
-            <ShieldCheck className="w-[15px] h-[15px] text-[#AFDDFF]" strokeWidth={1.5} />
-            <span className="font-manrope text-white text-[13px] leading-[15.6px]">
-              DR 50–90+
-            </span>
-            <span className="font-manrope text-[#AFDDFF] text-[13px] leading-[15.6px]">
-              [ 100%_INDEXED ]
-            </span>
-            <span className="font-manrope text-white text-[13px] leading-[15.6px] ml-[20px]">
-              STATUS:
-            </span>
-            <div className="bg-[#AFDDFF] rounded-[3px] px-[5px] py-[2px] text-black font-manrope text-[13px] leading-[15.6px] font-medium">
-              PRIME_MEMBER
-            </div>
-          </div>
-        </div>
-
         {/* Main Heading */}
         <h1
-          className="font-graphik text-white font-normal leading-[1em] absolute anim-fade-up text-[32px] sm:text-[48px] md:text-[68px] top-[100px] sm:top-[128px] md:top-[160px] lg:top-[168px] left-5 md:left-[35px] max-w-[300px] sm:max-w-[420px] md:max-w-[554px]"
+          className="font-graphik text-white font-normal leading-[1em] absolute anim-fade-up text-[32px] sm:text-[48px] md:text-[68px] top-[140px] sm:top-[160px] md:top-[178px] left-5 md:left-[35px] max-w-[300px] sm:max-w-[420px] md:max-w-[554px]"
           style={{ animationDelay: "400ms" }}
         >
           Editorial Authority. Luminous Rankings.

@@ -132,7 +132,10 @@ export default function GuestPostingClient() {
 
   return (
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
-      <Navbar activePage="guest-posting" />
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+        <Navbar activePage="guest-posting" />
+      </div>
 
       {/* 1. Lumen 3D Cybernetic Video Hero Section */}
       <LumenGuestPostingHero />
