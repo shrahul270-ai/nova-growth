@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
-import FacetGlassHero from "../components/FacetGlassHero";
+import LumenGuestPostingHero from "../components/LumenGuestPostingHero";
 
 interface FaqItem {
   id: number;
@@ -134,8 +134,8 @@ export default function GuestPostingClient() {
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
 
-      {/* 1. Facet "Designed in glass" WebGL Hero Section */}
-      <FacetGlassHero />
+      {/* 1. Lumen 3D Cybernetic Video Hero Section */}
+      <LumenGuestPostingHero />
 
       {/* 2. Curated Editorial Overview Banner */}
       <section className="relative w-full py-8 sm:py-10 px-4 sm:px-6 md:px-12 text-center bg-[#070b14] border-b border-gray-800/80">

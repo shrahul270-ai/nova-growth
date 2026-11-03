@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/file.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Balaji Prime Media // Editorial Index</title>
+    <link href="https://db.onlinewebfonts.com/c/ca3d10781128664daddf89bf2e2d1305?family=Graphik+LCG+Regular+Regular" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #000; overflow: hidden; width: 100vw; height: 100vh; }
+
+      .font-graphik { font-family: 'Graphik LCG Regular Regular', 'Graphik LCG', sans-serif; }
+      .font-manrope { font-family: 'Manrope', sans-serif; }
+
+      @keyframes fadeUp      { from { opacity: 0; transform: translateY(18px); }  to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeIn      { from { opacity: 0; }                                to { opacity: 1; } }
+      @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+      @keyframes slideInRight{ from { opacity: 0; transform: translateX(20px); }  to { opacity: 1; transform: translateX(0); } }
+      @keyframes scaleIn     { from { opacity: 0; transform: scale(0.85); }       to { opacity: 1; transform: scale(1); } }
+      @keyframes drawLine    { from { opacity: 0; stroke-dashoffset: 100; }       to { opacity: 1; stroke-dashoffset: 0; } }
+      @keyframes gridReveal  { from { opacity: 0; transform: scaleY(0); }         to { opacity: 1; transform: scaleY(1); } }
+      @keyframes gridRevealH { from { opacity: 0; transform: scaleX(0); }         to { opacity: 1; transform: scaleX(1); } }
+
+      .anim-fade-up     { opacity: 0; animation: fadeUp       0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-fade-in     { opacity: 0; animation: fadeIn       0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-slide-left  { opacity: 0; animation: slideInLeft  0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-slide-right { opacity: 0; animation: slideInRight 0.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-scale-in    { opacity: 0; animation: scaleIn      0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-grid-v      { opacity: 0; transform-origin: top;  animation: gridReveal  1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-grid-h      { opacity: 0; transform-origin: left; animation: gridRevealH 1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .anim-draw-line   { stroke-dasharray: 100; stroke-dashoffset: 100; animation: drawLine 1s cubic-bezier(0.16,1,0.3,1) forwards; }
+    </style>
+  </head>
+  <body class="bg-black text-white selection:bg-[#AFDDFF] selection:text-black">
+    <section class="relative w-full h-screen overflow-hidden bg-black select-none">
+      <!-- Background Video (Layer 0) -->
+      <video
+        class="absolute inset-0 w-full h-full object-cover anim-fade-in pointer-events-none"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260813_115057_94c3699b-0fd1-4124-bcf3-3626bb8c1f77.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+
+      <!-- Content Layer -->
+      <div class="relative z-10 w-full h-full">
+        <!-- Top Navigation -->
+        <nav class="absolute top-0 left-0 w-full flex items-center px-5 md:px-[35px] py-5 md:py-[27px]">
+          <!-- Left Group -->
+          <div class="flex items-center gap-[40px]">
+            <a href="/guest-posting" class="font-graphik text-white text-[18px] md:text-[21px] leading-[21px] whitespace-nowrap anim-fade-up cursor-pointer" style="animation-delay: 200ms;">
+              BPM // EDITORIAL
+            </a>
+            <div class="hidden lg:flex items-center gap-[40px]">
+              <div class="flex items-center gap-[3px] anim-fade-up" style="animation-delay: 350ms;">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">01.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors">EDITORIAL_NETWORK</a>
+              </div>
+              <div class="flex items-center gap-[3px] anim-fade-up" style="animation-delay: 450ms;">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">02.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors">VERIFIED_METRICS</a>
+              </div>
+              <div class="flex items-center gap-[3px] anim-fade-up" style="animation-delay: 550ms;">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">03.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors">DOFOLLOW_INDEX</a>
+              </div>
+              <div class="flex items-center gap-[3px] anim-fade-up" style="animation-delay: 650ms;">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[13px] leading-[15.6px]">04.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[13px] leading-[15.6px] cursor-pointer hover:text-[#AFDDFF] transition-colors">LIFETIME_WARRANTY</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Group -->
+          <div class="hidden lg:flex items-center gap-[12px] ml-auto anim-slide-right" style="animation-delay: 600ms;">
+            <svg class="w-[15px] h-[15px] text-[#AFDDFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <span class="font-manrope text-white text-[13px] leading-[15.6px]">DR 50–90+</span>
+            <span class="font-manrope text-[#AFDDFF] text-[13px] leading-[15.6px]">[ 100%_INDEXED ]</span>
+            <span class="font-manrope text-white text-[13px] leading-[15.6px] ml-[20px]">STATUS:</span>
+            <div class="bg-[#AFDDFF] rounded-[3px] px-[5px] py-[2px] text-black font-manrope text-[13px] leading-[15.6px] font-medium">
+              PRIME_MEMBER
+            </div>
+          </div>
+
+          <!-- Hamburger Button (Mobile) -->
+          <button id="menu-toggle" aria-label="Toggle menu" class="lg:hidden ml-auto relative w-[40px] h-[40px] flex items-center justify-center anim-fade-in cursor-pointer z-50" style="animation-delay: 400ms;">
+            <span id="icon-menu" class="absolute transition-all duration-300 opacity-100 rotate-0 scale-100">
+              <svg class="w-[22px] h-[22px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+            </span>
+            <span id="icon-close" class="absolute transition-all duration-300 opacity-0 -rotate-90 scale-50">
+              <svg class="w-[22px] h-[22px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </span>
+          </button>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-overlay" class="fixed inset-0 z-40 lg:hidden transition-all duration-500 invisible opacity-0 pointer-events-none">
+          <div id="overlay-backdrop" class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-500 opacity-0"></div>
+          <div id="overlay-panel" class="relative h-full flex flex-col px-5 pt-24 pb-10 transition-all duration-500 opacity-0 -translate-y-4">
+            <div class="flex flex-col gap-8">
+              <div class="flex items-center gap-3">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[14px] leading-[1]">01.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[28px] leading-[1.2] tracking-tight">EDITORIAL_NETWORK</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[14px] leading-[1]">02.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[28px] leading-[1.2] tracking-tight">VERIFIED_METRICS</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[14px] leading-[1]">03.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[28px] leading-[1.2] tracking-tight">DOFOLLOW_INDEX</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="font-manrope text-[#AFDDFF]/80 text-[14px] leading-[1]">04.</span>
+                <a href="/guest-posting#marketplace" class="font-manrope text-white text-[28px] leading-[1.2] tracking-tight">LIFETIME_WARRANTY</a>
+              </div>
+            </div>
+
+            <div class="mt-auto pt-10 border-t border-white/10">
+              <div class="flex items-center gap-[10px] mb-3">
+                <svg class="w-[15px] h-[15px] text-[#AFDDFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <span class="font-manrope text-white text-[13px]">DR 50–90+ VERIFIED</span>
+                <span class="font-manrope text-[#AFDDFF] text-[13px]">[ 100%_INDEXED ]</span>
+              </div>
+              <div class="flex items-center gap-[8px]">
+                <span class="font-manrope text-white text-[13px]">STATUS:</span>
+                <div class="bg-[#AFDDFF] rounded-[3px] px-[5px] py-[2px] text-black font-manrope text-[13px] font-medium">
+                  PRIME_MEMBER
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="font-graphik text-white font-normal leading-[1em] absolute anim-fade-up text-[32px] sm:text-[48px] md:text-[68px] top-[140px] sm:top-[160px] md:top-[178px] left-5 md:left-[35px] max-w-[300px] sm:max-w-[420px] md:max-w-[554px]" style="animation-delay: 400ms;">
+          Editorial Authority. Luminous Rankings.
+        </h1>
+
+        <!-- Vertical Grid Lines (4) -->
+        <div class="absolute top-0 h-full w-px bg-white/[0.04] anim-grid-v pointer-events-none" style="left: 12.6%; animation-delay: 600ms;"></div>
+        <div class="absolute top-0 h-full w-px bg-white/[0.04] anim-grid-v pointer-events-none" style="left: 37.5%; animation-delay: 700ms;"></div>
+        <div class="absolute top-0 h-full w-px bg-white/[0.04] anim-grid-v pointer-events-none" style="left: 61.9%; animation-delay: 800ms;"></div>
+        <div class="absolute top-0 h-full w-px bg-white/[0.04] anim-grid-v pointer-events-none" style="left: 86.2%; animation-delay: 900ms;"></div>
+
+        <!-- Horizontal Grid Lines (2) -->
+        <div class="absolute left-0 w-full h-px bg-white/[0.04] anim-grid-h pointer-events-none" style="top: 32.7%; animation-delay: 800ms;"></div>
+        <div class="absolute left-0 w-full h-px bg-white/[0.04] anim-grid-h pointer-events-none" style="top: 71.4%; animation-delay: 950ms;"></div>
+
+        <!-- 8 Plus Marks -->
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 32.7%; left: 12.6%; animation-delay: 1000ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 32.7%; left: 37.5%; animation-delay: 1080ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 32.7%; left: 61.9%; animation-delay: 1160ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 32.7%; left: 86.2%; animation-delay: 1240ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 71.4%; left: 12.6%; animation-delay: 1320ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 71.4%; left: 37.5%; animation-delay: 1400ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 71.4%; left: 61.9%; animation-delay: 1480ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+        <div class="absolute anim-scale-in pointer-events-none" style="top: 71.4%; left: 86.2%; animation-delay: 1560ms;">
+          <span class="absolute w-[10px] h-px bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+          <span class="absolute w-px h-[10px] bg-white/70 -translate-x-1/2 -translate-y-1/2"></span>
+        </div>
+
+        <!-- Central Nodes (Hidden below md) -->
+        <div class="absolute inset-0 pointer-events-none hidden md:block">
+          <!-- 6 Connector Lines -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 1200ms;">
+            <line x1="38%" y1="14%" x2="52%" y2="14%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 1400ms;">
+            <line x1="52%" y1="14%" x2="60%" y2="27%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 1500ms;">
+            <line x1="32%" y1="58%" x2="20%" y2="74%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 1700ms;">
+            <line x1="20%" y1="74%" x2="6%" y2="74%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 1800ms;">
+            <line x1="78%" y1="53%" x2="63%" y2="53%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none anim-fade-in" style="animation-delay: 2000ms;">
+            <line x1="63%" y1="53%" x2="50%" y2="63%" stroke="rgba(255,255,255,0.25)" stroke-width="1" vector-effect="non-scaling-stroke" />
+          </svg>
+
+          <!-- 3 Squares -->
+          <div class="absolute top-[27%] left-[60%] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] border border-white/80 anim-scale-in" style="animation-delay: 1500ms;"></div>
+          <div class="absolute top-[58%] left-[32%] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] border border-white/80 anim-scale-in" style="animation-delay: 1800ms;"></div>
+          <div class="absolute top-[63%] left-[50%] w-[80px] h-[80px] lg:w-[100px] lg:h-[100px] border border-white/80 anim-scale-in" style="animation-delay: 2100ms;"></div>
+
+          <!-- 3 Labels -->
+          <div class="absolute top-[11%] left-[26%] anim-slide-left pointer-events-auto" style="animation-delay: 1100ms;">
+            <span class="font-manrope text-white text-[13px] leading-[15.6px] whitespace-nowrap font-medium">[ CORE_PUBLICATIONS ]</span>
+            <p class="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[160px]">
+              Neural catalog indexing 850+ vetted DR 50–90+ media houses.
+            </p>
+          </div>
+          <div class="absolute top-[76%] left-[3%] anim-slide-left pointer-events-auto" style="animation-delay: 1400ms;">
+            <span class="font-manrope text-white text-[13px] leading-[15.6px] whitespace-nowrap font-medium">[ CONTEXTUAL_EQUITY ]</span>
+            <p class="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[160px]">
+              100% do-follow in-content links passing pure algorithmic trust.
+            </p>
+          </div>
+          <div class="absolute top-[50%] left-[78%] anim-slide-right pointer-events-auto" style="animation-delay: 1700ms;">
+            <span class="font-manrope text-white text-[13px] leading-[15.6px] whitespace-nowrap font-medium">[ INDEXATION_WARRANTY ]</span>
+            <p class="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[180px]">
+              Lifetime permanent placement backed by 12-month link warranty.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="absolute bottom-5 md:bottom-[35px] left-5 md:left-[35px] right-5 md:right-[35px] flex flex-col md:flex-row items-start md:items-end justify-between gap-5 md:gap-0 z-20">
+          <!-- Left CTA Button -->
+          <a
+            href="/guest-posting#marketplace"
+            class="bg-[#AFDDFF] px-[16px] md:px-[20px] py-[10px] md:py-[12px] flex items-center gap-[10px] hover:bg-[#c8e8ff] transition-colors anim-fade-up inline-flex cursor-pointer text-decoration-none"
+            style="animation-delay: 900ms;"
+          >
+            <span class="text-black text-[16px] leading-none">&#10022;</span>
+            <span class="font-manrope text-black text-[12px] md:text-[13px] leading-[15.6px] uppercase tracking-wide font-medium">
+              Explore 850+ Publications
+            </span>
+          </a>
+
+          <!-- Right Info Card -->
+          <div class="relative max-w-[280px] hidden sm:block anim-slide-right" style="animation-delay: 1100ms;">
+            <div class="font-manrope text-black text-[13px] leading-[15.6px] bg-[#AFDDFF] px-[6px] py-[2px] inline-block mb-[10px] font-medium">
+              NOT JUST LINKS — AN ECOSYSTEM
+            </div>
+            <div class="relative p-[20px]">
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 280 168" preserveAspectRatio="none">
+                <polygon points="0.5,0.5 279.5,0.5 279.5,167.5 30,167.5 0.5,137.5" fill="rgba(0,0,0,0.5)" stroke="#AFDDFF" stroke-width="1" vector-effect="non-scaling-stroke" />
+              </svg>
+              <p class="relative font-manrope text-white text-[13px] leading-[18px] mb-[18px]">
+                Navigate algorithmic search updates with verified DR 50–90+ publications that bring compounding organic authority to your brand.
+              </p>
+              <a href="/guest-posting#marketplace" class="relative font-manrope text-[#AFDDFF] text-[13px] leading-[15.6px] cursor-pointer hover:underline block font-medium">
+                VIEW_EDITORIAL_DATABASE
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Drawer Script -->
+    <script>
+      const toggle = document.getElementById('menu-toggle');
+      const overlay = document.getElementById('mobile-overlay');
+      const backdrop = document.getElementById('overlay-backdrop');
+      const panel = document.getElementById('overlay-panel');
+      const iconMenu = document.getElementById('icon-menu');
+      const iconClose = document.getElementById('icon-close');
+      let isOpen = false;
+
+      function setOpen(open) {
+        isOpen = open;
+        if (isOpen) {
+          overlay.classList.remove('invisible');
+          overlay.classList.remove('pointer-events-none');
+          overlay.classList.add('visible');
+          backdrop.classList.remove('opacity-0');
+          backdrop.classList.add('opacity-100');
+          panel.classList.remove('opacity-0', '-translate-y-4');
+          panel.classList.add('opacity-100', 'translate-y-0');
+          iconMenu.classList.replace('opacity-100', 'opacity-0');
+          iconMenu.classList.replace('rotate-0', 'rotate-90');
+          iconMenu.classList.replace('scale-100', 'scale-50');
+          iconClose.classList.replace('opacity-0', 'opacity-100');
+          iconClose.classList.replace('-rotate-90', 'rotate-0');
+          iconClose.classList.replace('scale-50', 'scale-100');
+        } else {
+          backdrop.classList.remove('opacity-100');
+          backdrop.classList.add('opacity-0');
+          panel.classList.remove('opacity-100', 'translate-y-0');
+          panel.classList.add('opacity-0', '-translate-y-4');
+          iconMenu.classList.replace('opacity-0', 'opacity-100');
+          iconMenu.classList.replace('rotate-90', 'rotate-0');
+          iconMenu.classList.replace('scale-50', 'scale-100');
+          iconClose.classList.replace('opacity-100', 'opacity-0');
+          iconClose.classList.replace('rotate-0', '-rotate-90');
+          iconClose.classList.replace('scale-100', 'scale-50');
+          setTimeout(() => {
+            if (!isOpen) {
+              overlay.classList.add('invisible');
+              overlay.classList.add('pointer-events-none');
+              overlay.classList.remove('visible');
+            }
+          }, 500);
+        }
+      }
+
+      if (toggle) {
+        toggle.addEventListener('click', () => setOpen(!isOpen));
+      }
+      if (backdrop) {
+        backdrop.addEventListener('click', () => setOpen(false));
+      }
+    </script>
+  </body>
+</html>
