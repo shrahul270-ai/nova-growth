@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
-import CinematicContactHero from "../components/CinematicContactHero";
+import NextLayerContactHero from "../components/NextLayerContactHero";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -100,8 +100,8 @@ export default function ContactClient() {
         </div>
       )}
 
-      {/* 1. Cinematic Liquid Glass Looping Video Hero Section */}
-      <CinematicContactHero />
+      {/* 1. Dark Cinematic AI-Infrastructure Video Hero Section */}
+      <NextLayerContactHero />
 
       {/* 2. Main Contact Section (Form & Cards) */}
       <section id="contact-form" className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">

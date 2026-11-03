@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The Next Layer of Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --ink: #fafafa;
+        --muted: #a7a6a6;
+        --nav: #b6b5b5;
+        --strip: #8b8a8a;
+        --pill: #ffffff;
+        --pill-ink: #050505;
+        --u: calc(100vh / 1058);
+        --uw: calc(100vw / 1487);
+        --h: clamp(var(--u), calc(var(--u) * .65 + var(--uw) * .35), calc(var(--u) * 1.16));
+      }
+      @supports (height: 100dvh) {
+        :root { --u: calc(100dvh / 1058); }
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        height: 100%;
+        background: #050505;
+        color: #fff;
+        overflow: hidden;
+        font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+      }
+      a { color: inherit; text-decoration: none; }
+      button { background: none; border: none; font: inherit; color: inherit; cursor: pointer; }
+
+      .stage {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        background: #050505;
+        isolation: isolate;
+      }
+
+      /* Plate & Video */
+      .plate {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .plate-video {
+        position: absolute;
+        left: 50%;
+        top: calc(1 * var(--u));
+        width: calc(1492 * var(--u));
+        height: calc(1054 * var(--u));
+        transform: translateX(calc(-50% - calc(0.5 * var(--u))));
+        object-fit: cover;
+      }
+      .plate::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(to bottom,
+            rgba(5,5,5,0) 78.8%, rgba(5,5,5,.23) 79.6%, rgba(5,5,5,.45) 81.4%,
+            rgba(5,5,5,.75) 83.3%, rgba(5,5,5,.84) 85.2%, rgba(5,5,5,.888) 88%,
+            rgba(5,5,5,.905) 91%, rgba(5,5,5,.96) 95%, #050505 100%),
+          linear-gradient(to right,
+            #050505 calc(50% - 746 * var(--u)),
+            transparent calc(50% - 676 * var(--u)),
+            transparent calc(50% + 676 * var(--u)),
+            #050505 calc(50% + 746 * var(--u)));
+      }
+
+      /* Topbar */
+      .topbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        height: 0;
+      }
+      .brand {
+        position: absolute;
+        left: calc(75 * var(--u));
+        top: calc(27 * var(--u));
+        width: calc(31.5 * var(--u));
+        height: calc(48.5 * var(--u));
+        display: block;
+      }
+      .links {
+        position: absolute;
+        left: 50%;
+        top: calc(51 * var(--u));
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: calc(25 * var(--u));
+        font-size: calc(19 * var(--u));
+        color: var(--nav);
+        font-weight: 400;
+      }
+      .links a:hover { color: #fff; }
+      .pill-nav {
+        position: absolute;
+        right: calc(75.4 * var(--u));
+        top: calc(27 * var(--u));
+        width: calc(175 * var(--u));
+        height: calc(49 * var(--u));
+        background: var(--pill);
+        color: var(--pill-ink);
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(20.6 * var(--u));
+        font-weight: 500;
+        transition: transform .2s, opacity .2s;
+      }
+      .pill-nav:hover { opacity: .92; transform: scale(1.02); }
+
+      /* Main Hero */
+      .hero {
+        position: relative;
+        z-index: 5;
+      }
+      .headline {
+        position: absolute;
+        left: calc(75.5 * var(--u));
+        top: calc(230.5 * var(--u));
+        font-size: calc(71.6 * var(--h));
+        line-height: calc(80.5 * var(--h));
+        font-weight: 400;
+        letter-spacing: calc(0.3 * var(--h));
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .headline span { display: block; }
+
+      .sub {
+        position: absolute;
+        left: calc(75.5 * var(--u));
+        top: calc(230.5 * var(--u) + 189 * var(--h));
+        font-size: calc(20.7 * var(--h));
+        line-height: calc(23.5 * var(--h));
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .sub span { display: block; white-space: nowrap; }
+
+      .actions {
+        position: absolute;
+        left: calc(74.9 * var(--u));
+        top: calc(230.5 * var(--u) + 264.5 * var(--h));
+        display: flex;
+        align-items: center;
+        gap: calc(45 * var(--h));
+      }
+      .pill-cta {
+        width: calc(175.6 * var(--h));
+        height: calc(50 * var(--h));
+        background: var(--pill);
+        color: var(--pill-ink);
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(20.6 * var(--h));
+        font-weight: 500;
+        transition: transform .2s, opacity .2s;
+      }
+      .pill-cta:hover { opacity: .92; transform: scale(1.02); }
+      .ghost {
+        font-size: calc(20.6 * var(--h));
+        font-weight: 500;
+        color: #fff;
+        transition: color .2s;
+      }
+      .ghost:hover { color: var(--muted); }
+
+      /* Logos */
+      .logos {
+        position: absolute;
+        width: calc(741 * var(--u));
+        left: 50%;
+        transform: translateX(calc(-50% + calc(20 * var(--u))));
+        top: calc(994.7 * var(--u));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--strip);
+        z-index: 5;
+      }
+      .lg { display: flex; align-items: center; gap: calc(10 * var(--u)); }
+      .lg svg { height: calc(28 * var(--u)); fill: currentColor; }
+      .lg span { font-weight: 700; font-size: calc(17 * var(--u)); }
+
+      /* Mobile Burger */
+      .burger { display: none; }
+
+      @media (max-aspect-ratio: 11/10), (max-width: 900px) {
+        .plate-video {
+          left: 0; top: 0; width: 100%; height: 100%; transform: none;
+          object-position: 44% center;
+        }
+        .links, .pill-nav { display: none; }
+        .topbar {
+          position: relative; height: auto; padding: 24px 20px;
+          display: flex; align-items: center; justify-content: space-between;
+        }
+        .brand { position: relative; left: auto; top: auto; width: 28px; height: 42px; }
+        .headline {
+          position: relative; left: auto; top: auto; font-size: clamp(34px, 8vw, 48px);
+          line-height: 1.1; padding: 40px 20px 0; white-space: normal;
+        }
+        .sub {
+          position: relative; left: auto; top: auto; font-size: 16px; line-height: 1.4;
+          padding: 16px 20px 0;
+        }
+        .sub span { white-space: normal; display: inline; }
+        .actions {
+          position: relative; left: auto; top: auto; padding: 28px 20px 0;
+          flex-direction: column; align-items: flex-start; gap: 16px;
+        }
+        .pill-cta { width: 160px; height: 46px; font-size: 16px; }
+        .ghost { font-size: 16px; }
+        .logos {
+          position: relative; left: auto; top: auto; transform: none; width: 100%;
+          padding: 60px 20px 30px; flex-wrap: wrap; justify-content: center; gap: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <!-- Background Plate -->
+      <div class="plate">
+        <video class="plate-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- Header Topbar -->
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Home">
+          <svg viewBox="0 0 31.5 48.5" width="100%" height="100%">
+            <defs>
+              <linearGradient id="bg1" x1="8" y1="0" x2="34.1" y2="28.9" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#9e9e9e"/>
+                <stop offset="0.28" stop-color="#a6a6a6"/>
+                <stop offset="0.34" stop-color="#a3a3a3"/>
+                <stop offset="0.40" stop-color="#3a3a3a"/>
+                <stop offset="0.55" stop-color="#414141"/>
+                <stop offset="0.60" stop-color="#7a7a7a"/>
+                <stop offset="0.68" stop-color="#8e8e8e"/>
+                <stop offset="0.80" stop-color="#a9a9a9"/>
+                <stop offset="0.95" stop-color="#c4c4c4"/>
+                <stop offset="1" stop-color="#cccccc"/>
+              </linearGradient>
+            </defs>
+            <path d="M21.5 0 L21.5 19.5 L31.5 19.5 L31.5 29 L10 48.5 L10 28.5 L0.5 28.5 L0.5 18.5 Z" fill="url(#bg1)"/>
+            <rect x="0.5" y="18.5" width="9" height="10" fill="#fdfdfd"/>
+            <rect x="22" y="19.5" width="9.5" height="9.5" fill="#fdfdfd"/>
+          </svg>
+        </a>
+
+        <nav class="links" aria-label="Primary">
+          <a href="/about">About</a>
+          <a href="/services">Features</a>
+          <a href="/guest-posting">FAQ</a>
+          <a href="/contact">Contact</a>
+        </nav>
+
+        <a class="pill-nav" href="/contact">
+          <span>Get Started</span>
+        </a>
+      </header>
+
+      <!-- Main Hero -->
+      <main class="hero">
+        <h1 class="headline">
+          <span>The Next Layer</span>
+          <span>of Intelligence</span>
+        </h1>
+
+        <p class="sub">
+          <span>A unified infrastructure platform to help teams build,</span>
+          <span>ship, and scale AI systems with confidence.</span>
+        </p>
+
+        <div class="actions">
+          <a class="pill-cta" href="/contact">
+            <span>Get Started</span>
+          </a>
+          <a class="ghost" href="/projects">
+            <span>View Architecture</span>
+          </a>
+        </div>
+      </main>
+
+      <!-- Logos -->
+      <div class="logos">
+        <div class="lg">
+          <svg viewBox="0 0 30 31"><circle cx="15" cy="15.5" r="12"/></svg>
+          <span>logoipsum</span>
+        </div>
+        <div class="lg">
+          <svg viewBox="0 0 25 30"><rect width="25" height="25" rx="6"/></svg>
+          <span>logoipsum</span>
+        </div>
+        <div class="lg">
+          <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" stroke="currentColor" stroke-width="3" fill="none"/></svg>
+          <span>logoipsum</span>
+        </div>
+        <div class="lg">
+          <svg viewBox="0 0 28 25.5"><polygon points="14,2 2,22 26,22"/></svg>
+          <span>logoipsum</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
