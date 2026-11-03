@@ -1,7 +1,7 @@
 "use client";
 
-import LumenGuestPostingHero from "./LumenGuestPostingHero";
+import DesignProHero from "./DesignProHero";
 
 export default function FacetGlassHero() {
-  return <LumenGuestPostingHero />;
+  return <DesignProHero />;
 }

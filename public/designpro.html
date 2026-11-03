@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DesignPro — Become Product Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #000; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+
+      @keyframes shinySweep {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+
+      .animate-shiny-text {
+        background: linear-gradient(
+          100deg,
+          #64CEFB 0%,
+          #64CEFB 35%,
+          #ffffff 50%,
+          #64CEFB 65%,
+          #64CEFB 100%
+        );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        animation: shinySweep 3s linear infinite;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white selection:bg-[#64CEFB] selection:text-black">
+    <section class="relative w-full h-screen min-h-[680px] overflow-hidden bg-black select-none flex flex-col justify-between">
+      <!-- Full-screen looping video background -->
+      <video
+        class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+
+      <!-- Navigation Bar (Standalone DesignPro Spec) -->
+      <header class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-6 flex items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center">
+            <div class="w-2.5 h-2.5 rounded-full bg-white"></div>
+          </div>
+          <span class="text-white font-semibold text-lg tracking-tight">DesignPro</span>
+        </div>
+
+        <!-- Pill Navigation Container -->
+        <nav class="hidden lg:flex items-center gap-6 px-6 py-2.5 rounded-full border border-gray-700 bg-black/40 backdrop-blur-md">
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">Home</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">About Us</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">Courses</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">Instructors</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">Testimonials</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors">Blog</a>
+          <a href="#" class="text-white/80 hover:text-white text-sm transition-colors flex items-center gap-1">
+            <span>Contact us</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </nav>
+
+        <!-- Mobile Hamburger -->
+        <button class="lg:hidden text-white/80 hover:text-white p-2">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </header>
+
+      <!-- Content Container -->
+      <div class="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8 h-full flex flex-col justify-between pt-12 pb-10">
+        <!-- Top Section (2 columns on lg+, stacked on mobile) -->
+        <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 sm:gap-6 w-full">
+          <p class="text-white/80 text-sm md:text-base leading-relaxed font-normal max-w-md sm:max-w-lg">
+            We deliver transformative programs that empower emerging product designers with cutting-edge expertise and vision to thrive globally.
+          </p>
+          <div class="lg:text-right shrink-0">
+            <p class="text-white/80 text-sm md:text-base font-medium">
+              8000+ Talented Designers Launched !
+            </p>
+          </div>
+        </div>
+
+        <!-- Hero Section (Center: Tag, Heading, CTA) -->
+        <div class="flex flex-col items-center text-center my-auto py-6 sm:py-10">
+          <span class="text-white/80 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">
+            Seats for Next Program Opening Soon
+          </span>
+          <h1 class="font-sans font-medium tracking-tighter leading-[0.85] text-5xl sm:text-7xl md:text-8xl xl:text-9xl mb-8 sm:mb-10 select-none">
+            <span class="text-white block">Become</span>
+            <span class="animate-shiny-text block mt-1 sm:mt-2">Product Leader.</span>
+          </h1>
+          <a
+            href="/guest-posting#marketplace"
+            class="group inline-flex items-center gap-3 bg-black hover:bg-gray-900 text-white font-medium text-sm md:text-base px-6 md:px-8 py-3 md:py-4 rounded-full border border-white/20 hover:border-white/40 transition-all duration-300 shadow-2xl cursor-pointer"
+          >
+            <span>Apply for Next Enrollment</span>
+            <svg class="w-4 h-4 md:w-5 md:h-5 text-white transition-transform duration-300 group-hover:translate-x-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="w-full hidden lg:block h-2"></div>
+      </div>
+    </section>
+  </body>
+</html>

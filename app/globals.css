@@ -1380,6 +1380,37 @@ body {
   animation: drawLine 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* -------------------------------------------------------------------------- */
+/* DesignPro / ShinyText Hero Animations                                      */
+/* -------------------------------------------------------------------------- */
+
+@keyframes shinySweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-shiny-text {
+  background: linear-gradient(
+    100deg,
+    #64CEFB 0%,
+    #64CEFB 35%,
+    #ffffff 50%,
+    #64CEFB 65%,
+    #64CEFB 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: shinySweep 3s linear infinite;
+  display: inline-block;
+}
+
 
 
 
