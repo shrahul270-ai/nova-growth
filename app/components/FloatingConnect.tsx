@@ -63,7 +63,7 @@ export default function FloatingConnect() {
       <a
         href={`https://wa.me/${whatsappNumber}?text=Hi%20Nova%20Growth,%20I%20want%20to%20discuss%20a%20project.`}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="opener"
         onClick={handleWhatsAppClick}
         aria-label="Chat on WhatsApp"
         className={`${buttonBase} bg-[#25D366] shadow-lg shadow-[#25D366]/40 border-2 border-white/30 ${
@@ -85,7 +85,7 @@ export default function FloatingConnect() {
       <a
         href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("Direct Agency Inquiry - Nova Growth")}`}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="opener"
         onClick={handleEmailClick}
         aria-label="Send Quick Email"
         className={`${buttonBase} bg-[#EA4335] shadow-lg shadow-[#EA4335]/40 border-2 border-white/30 ${

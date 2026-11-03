@@ -139,7 +139,7 @@ export default function Footer() {
                   <a
                     href="https://wa.me/918000417058"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="opener"
                     className="hover:text-[#c084fc] text-[#ADADAD] transition-colors font-medium"
                   >
                     +91 80004 17058 (WhatsApp &amp; Direct)
@@ -243,7 +243,7 @@ export default function Footer() {
                 <a
                   href="https://www.google.com/preferences/source?q=balajiprimemedia.in"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="opener"
                   className="hover:text-[#c084fc] transition-colors block py-0.5"
                 >
                   Community
@@ -398,7 +398,7 @@ export default function Footer() {
             <a
               href="https://wa.me/918000417058"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="Direct WhatsApp Support"
               title="WhatsApp Nova Growth"
@@ -408,7 +408,7 @@ export default function Footer() {
             <a
               href="https://linkedin.com"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="LinkedIn"
               title="LinkedIn"
@@ -418,7 +418,7 @@ export default function Footer() {
             <a
               href="https://x.com"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="X Twitter"
               title="X"
@@ -430,7 +430,7 @@ export default function Footer() {
             <a
               href="https://instagram.com"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="Instagram"
               title="Instagram"
@@ -442,7 +442,7 @@ export default function Footer() {
             <a
               href="https://youtube.com"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="YouTube"
               title="YouTube"
