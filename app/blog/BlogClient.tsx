@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import VexorBlogHero from "../components/VexorBlogHero";
 import GooglePreferredSourceButton from "../components/GooglePreferredSourceButton";
 import { blogPosts } from "./blogData";
 
@@ -53,22 +53,26 @@ export default function BlogClient() {
         </div>
       )}
 
-      <Navbar activePage="blog" />
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+        <Navbar activePage="blog" />
+      </div>
 
-      {/* Hero Header with Full-Width Animated Background */}
-      <section className="relative w-full pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
-        <HeaderBackgroundAnimation variant="subpage" />
+      {/* Vexor Swirling Coral & Crimson Smoke Hero Header */}
+      <VexorBlogHero onSearch={setSearchQuery} searchQuery={searchQuery} />
+
+      {/* Articles & Search Filter Section */}
+      <section id="articles-section" className="relative w-full pt-12 pb-6 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden bg-white/60 border-b border-gray-100">
         <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4 badge-3d">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3 badge-3d">
             <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-            <span>Growth Marketing Insights &amp; SEO Strategy</span>
+            <span>Search Knowledge Base &amp; Editorial Archive</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-            Actionable Guides for <br className="hidden sm:inline" />
-            <span className="text-gradient-navy-gold">Global Search Dominance</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
-            Data-backed playbooks, Core Web Vitals engineering, and high-DA link acquisition strategies curated for ambitious international brands.
+          <h2 className="text-2xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-3">
+            Search Our SEO &amp; Growth Field Manuals
+          </h2>
+          <p className="text-xs sm:text-base text-[#475569] leading-relaxed max-w-2xl mx-auto mb-6 font-normal">
+            Direct case studies, algorithmic recovery blueprints, and programmatic ranking frameworks tested across 200+ partner websites.
           </p>
         </div>
 
@@ -78,7 +82,7 @@ export default function BlogClient() {
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
             <input
               type="text"
-              placeholder="Search articles (e.g. Next.js, SEO, Backlinks)..."
+              placeholder="Search articles (e.g. Next.js, SEO, Backlinks, SGE)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-11 pr-4 py-3 rounded-2xl border border-gray-200 text-base sm:text-sm outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] bg-white shadow-xs"
