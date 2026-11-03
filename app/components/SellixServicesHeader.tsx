@@ -578,37 +578,22 @@ export default function SellixServicesHeader() {
       <div className="sellix-hero-inner">
         <h1 className="sellix-h1">
           <span className="sellix-ln">
-            <span className="sellix-ln-i">Cross-border</span>
+            <span className="sellix-ln-i">Balaji Prime</span>
           </span>
           <span className="sellix-ln">
-            <span className="sellix-ln-i">finance</span>
+            <span className="sellix-ln-i">Media Services</span>
           </span>
         </h1>
 
         <p className="sellix-sub">
-          Accept payments, manage and custody your assets with ease,
+          Full-funnel digital growth, enterprise web engineering, high-DA backlink
           <br />
-          enjoy seamless on/off-ramping between cryptocurrencies and fiat,
-          <br />
-          and explore integrated eCommerce solutions.
+          acquisitions, and algorithmic search optimization for ambitious global brands.
         </p>
 
         <div className="sellix-ctas">
-          <Link href="/contact" className="sellix-btn sellix-btn-lg sellix-btn-primary">
-            <span>Get Started</span>
-            <svg className="sellix-arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-              <path
-                d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6"
-                stroke="currentColor"
-                strokeWidth="1.35"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
-
-          <a href="#services-grid" className="sellix-btn sellix-btn-lg sellix-btn-ghost">
-            <span>Contact Sales</span>
+          <a href="#services-grid" className="sellix-btn sellix-btn-lg sellix-btn-primary">
+            <span>Explore 12 Services</span>
             <svg className="sellix-arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
               <path
                 d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6"
@@ -619,6 +604,19 @@ export default function SellixServicesHeader() {
               />
             </svg>
           </a>
+
+          <Link href="/contact" className="sellix-btn sellix-btn-lg sellix-btn-ghost">
+            <span>Book Strategy Call</span>
+            <svg className="sellix-arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+              <path
+                d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6"
+                stroke="currentColor"
+                strokeWidth="1.35"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

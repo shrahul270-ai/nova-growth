@@ -133,7 +133,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
         {/* Hero content vertically centered in remaining space via flex-1 */}
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-10 sm:py-16">
           {/* Headline: Balaji Prime Media ("Balaji Prime " in plain off-white, "Media" in indigo->purple->amber gradient) */}
-          <h1 className="font-general-sans text-[44px] sm:text-[76px] md:text-[116px] lg:text-[160px] xl:text-[200px] 2xl:text-[220px] font-normal leading-[1.02] tracking-[-0.024em] max-w-full">
+          <h1 className="font-general-sans text-[34px] sm:text-[52px] md:text-[68px] lg:text-[84px] xl:text-[96px] font-normal leading-[1.08] tracking-[-0.024em] max-w-5xl mx-auto">
             <span className="text-[hsl(40,6%,95%)]">Balaji Prime </span>
             <span
               className="bg-clip-text text-transparent"
