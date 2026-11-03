@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import LiquidGlassProjectsHero from "../components/LiquidGlassProjectsHero";
 import { caseStudiesData } from "./projectsData";
 
 export default function ProjectsClient() {
@@ -34,27 +35,31 @@ export default function ProjectsClient() {
         </div>
       )}
 
-      <Navbar activePage="projects" />
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+        <Navbar activePage="projects" />
+      </div>
 
-      {/* Hero Header with Full-Width Animated Background */}
-      <section className="relative w-full pt-10 pb-8 sm:pt-16 sm:pb-12 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
-        <HeaderBackgroundAnimation variant="subpage" />
-        <div className="max-w-4xl mx-auto relative z-10">
+      {/* Full-Screen Liquid Glass Looping Background Video Hero */}
+      <LiquidGlassProjectsHero />
+
+      {/* Client Outcomes & Case Studies Filter Section */}
+      <section id="projects-grid" className="relative w-full pt-12 pb-8 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto relative z-10 mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#d97706]" />
             <span>Verified Client Outcomes</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-            Case Studies &amp; <br className="hidden sm:inline" />
-            <span className="text-gradient-navy-gold">Measurable Client Results</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-4">
+            Case Studies &amp; <span className="text-gradient-navy-gold">Client Results</span>
+          </h2>
+          <p className="text-sm sm:text-base text-[#475569] leading-relaxed max-w-2xl mx-auto font-normal">
             Explore how our high-intent SEO, modern Next.js development, and data-driven marketing deliver compounding revenue across global markets.
           </p>
         </div>
 
         {/* Interactive Category Filter Pills */}
-        <div className="inline-flex flex-wrap justify-center p-1.5 bg-white rounded-2xl border border-gray-200/80 shadow-xs gap-1 max-w-2xl mx-auto">
+        <div className="inline-flex flex-wrap justify-center p-1.5 bg-gray-50 rounded-2xl border border-gray-200/80 shadow-xs gap-1 max-w-2xl mx-auto">
           {[
             { id: "all", label: "All Projects (6)" },
             { id: "ecommerce", label: "E-Commerce (2)" },
@@ -71,7 +76,7 @@ export default function ProjectsClient() {
               className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filter === tab.id
                   ? "bg-[#091427] text-white shadow-sm"
-                  : "text-[#54647c] hover:text-[#091427] hover:bg-gray-50"
+                  : "text-[#54647c] hover:text-[#091427] hover:bg-gray-100"
               }`}
             >
               {tab.label}
