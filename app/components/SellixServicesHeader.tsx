@@ -95,15 +95,15 @@ export default function SellixServicesHeader() {
           acquisitions, and algorithmic search optimization for ambitious global brands.
         </p>
 
-        {/* Action CTAs: Tap-friendly & Responsive (Untouched) */}
+        {/* Action CTAs: Transparent Glassmorphic & Tap-friendly */}
         <div className="mt-7 sm:mt-9 flex flex-col min-[440px]:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md px-4">
           <a
             href="#services-grid"
-            className="w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white text-[#060B18] font-bold text-xs sm:text-sm hover:bg-slate-100 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-cyan-950/60 cursor-pointer"
+            className="group w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/[0.07] hover:bg-white/[0.14] text-white font-semibold text-xs sm:text-sm border border-white/25 hover:border-cyan-400/60 backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] cursor-pointer"
           >
             <span>Explore 12 Services</span>
             <svg
-              className="w-3.5 h-3.5 text-black"
+              className="w-3.5 h-3.5 text-cyan-300 group-hover:translate-x-0.5 transition-transform"
               viewBox="0 0 12 10"
               fill="none"
               aria-hidden="true"
@@ -120,11 +120,11 @@ export default function SellixServicesHeader() {
 
           <Link
             href="/contact"
-            className="w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-semibold text-xs sm:text-sm border border-white/20 hover:border-white/40 backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            className="group w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white/[0.04] hover:bg-white/[0.10] text-white/90 hover:text-white font-medium text-xs sm:text-sm border border-white/15 hover:border-purple-400/50 backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all hover:shadow-[0_0_25px_rgba(168,85,247,0.2)] cursor-pointer"
           >
             <span>Book Strategy Call</span>
             <svg
-              className="w-3.5 h-3.5 text-cyan-300"
+              className="w-3.5 h-3.5 text-purple-300 group-hover:translate-x-0.5 transition-transform"
               viewBox="0 0 12 10"
               fill="none"
               aria-hidden="true"
