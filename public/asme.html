@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asme — Built for the curious</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+      body { background: #000; overflow: hidden; width: 100vw; height: 100vh; }
+
+      .liquid-glass {
+        background: rgba(255, 255, 255, 0.01);
+        background-blend-mode: luminosity;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: none;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .liquid-glass::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1.4px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.15) 20%,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0) 60%,
+          rgba(255, 255, 255, 0.15) 80%,
+          rgba(255, 255, 255, 0.45) 100%
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white selection:bg-white selection:text-black">
+    <div class="relative w-full h-screen min-h-screen overflow-hidden bg-black select-none flex flex-col justify-between">
+      <!-- Full-screen Background Video shifted down by 17% -->
+      <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <video
+          id="hero-video"
+          class="absolute inset-0 w-full h-full object-cover translate-y-[17%]"
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_115001_bcdaa3b4-03de-47e7-ad63-ae3e392c32d4.mp4"
+          autoplay
+          muted
+          playsinline
+        ></video>
+      </div>
+
+      <!-- Navigation Bar -->
+      <header class="relative z-20 px-6 py-6 w-full">
+        <div class="rounded-full px-6 py-3 flex items-center justify-between max-w-5xl mx-auto liquid-glass">
+          <!-- Left side: Logo & Nav Links -->
+          <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2 text-white font-semibold text-lg cursor-pointer">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span>Asme</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+              <a href="#" class="text-white/80 hover:text-white transition-colors text-sm font-medium">Features</a>
+              <a href="#" class="text-white/80 hover:text-white transition-colors text-sm font-medium">Pricing</a>
+              <a href="#" class="text-white/80 hover:text-white transition-colors text-sm font-medium">About</a>
+            </nav>
+          </div>
+
+          <!-- Right side: Sign Up & Login -->
+          <div class="flex items-center gap-4">
+            <button class="text-white text-sm font-medium hover:text-white/80 transition-colors">Sign Up</button>
+            <button class="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium hover:bg-white/5 transition-colors">Login</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Content Area (-translate-y-[20%]) -->
+      <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[20%] max-w-3xl mx-auto">
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl text-white mb-8 tracking-tight whitespace-nowrap font-normal"
+          style="font-family: 'Instrument Serif', serif;"
+        >
+          Built for the curious
+        </h1>
+
+        <div class="max-w-xl w-full space-y-4 mx-auto">
+          <!-- Email input bar -->
+          <div class="liquid-glass rounded-full pl-6 pr-2 py-2 flex items-center gap-3 w-full shadow-2xl">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="bg-transparent border-none outline-none text-white placeholder:text-white/40 text-base flex-1 min-w-0"
+            />
+            <button class="bg-white rounded-full p-3 text-black hover:bg-white/90 transition-colors shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+          <!-- Subtitle text -->
+          <p class="text-white text-sm leading-relaxed px-4 font-normal">
+            Stay updated with the latest news and insights. Subscribe to our newsletter today and never miss out on exciting updates.
+          </p>
+
+          <!-- Manifesto button -->
+          <div>
+            <button class="liquid-glass rounded-full px-8 py-3 text-white text-sm font-medium hover:bg-white/5 transition-colors cursor-pointer">
+              Read Our Manifesto
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Icons Footer -->
+      <div class="relative z-10 flex justify-center gap-4 pb-12">
+        <a href="#" aria-label="Instagram" class="liquid-glass rounded-full p-4 text-white/80 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="Twitter" class="liquid-glass rounded-full p-4 text-white/80 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        </a>
+        <a href="#" aria-label="Globe" class="liquid-glass rounded-full p-4 text-white/80 hover:text-white hover:bg-white/5 transition-all">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Custom RAF Seamless Video Fade System Script -->
+    <script>
+      const video = document.getElementById('hero-video');
+      let rafId = null;
+      let fadingOut = false;
+
+      function fadeTo(target, duration, cb) {
+        if (rafId) cancelAnimationFrame(rafId);
+        const start = parseFloat(video.style.opacity || '0');
+        const startTime = performance.now();
+        function step(now) {
+          const p = Math.min((now - startTime) / duration, 1);
+          video.style.opacity = start + (target - start) * p;
+          if (p < 1) {
+            rafId = requestAnimationFrame(step);
+          } else {
+            rafId = null;
+            if (cb) cb();
+          }
+        }
+        rafId = requestAnimationFrame(step);
+      }
+
+      if (video) {
+        video.style.opacity = '0';
+        video.addEventListener('play', () => {
+          fadingOut = false;
+          fadeTo(1, 500);
+        });
+        video.addEventListener('timeupdate', () => {
+          if (!video.duration || fadingOut) return;
+          if (video.duration - video.currentTime <= 0.55) {
+            fadingOut = true;
+            fadeTo(0, 500);
+          }
+        });
+        video.addEventListener('ended', () => {
+          video.style.opacity = '0';
+          setTimeout(() => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+            fadingOut = false;
+            fadeTo(1, 500);
+          }, 100);
+        });
+      }
+    </script>
+  </body>
+</html>

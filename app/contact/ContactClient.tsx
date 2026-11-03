@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import CinematicContactHero from "../components/CinematicContactHero";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -86,7 +87,11 @@ export default function ContactClient() {
       <div className="curved-ribbon-left" aria-hidden="true" />
       <div className="curved-ribbon-right" aria-hidden="true" />
 
-      <Navbar activePage="contact" />
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+        <Navbar activePage="contact" />
+      </div>
+
       {toast && (
         <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
@@ -95,26 +100,11 @@ export default function ContactClient() {
         </div>
       )}
 
-      {/* 1. Full-Width Dedicated Header Banner with 3D Glowing Wave Animation */}
-      <section className="relative w-full pt-10 pb-12 sm:pt-16 sm:pb-16 px-4 sm:px-6 md:px-12 z-10 overflow-hidden text-center">
-        <HeaderBackgroundAnimation variant="subpage" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-            <span>Global Client Inquiries Welcome</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
-            Let&apos;s Build Something <br className="hidden sm:inline" />
-            <span className="text-gradient-navy-gold">Extraordinary Together</span>
-          </h1>
-          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto font-normal">
-            Whether you need international SEO dominance, modern Next.js development, or full-service growth marketing, we&apos;re here to help you scale.
-          </p>
-        </div>
-      </section>
+      {/* 1. Cinematic Liquid Glass Looping Video Hero Section */}
+      <CinematicContactHero />
 
       {/* 2. Main Contact Section (Form & Cards) */}
-      <section className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section id="contact-form" className="relative py-10 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
