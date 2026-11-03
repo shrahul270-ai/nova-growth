@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import FacetGlassHero from "../components/FacetGlassHero";
 
 interface FaqItem {
   id: number;
@@ -133,20 +134,22 @@ export default function GuestPostingClient() {
     <div className="min-h-screen bg-[#070b14] text-white selection:bg-amber-500 selection:text-black">
       <Navbar activePage="guest-posting" />
 
-      {/* 1. Hero Section with Full-Width Animated Header Background */}
-      <section className="relative w-full pt-8 pb-10 sm:pt-14 sm:pb-12 px-4 sm:px-6 md:px-12 text-center overflow-hidden">
-        <HeaderBackgroundAnimation variant="dark" />
+      {/* 1. Facet "Designed in glass" WebGL Hero Section */}
+      <FacetGlassHero />
+
+      {/* 2. Curated Editorial Overview Banner */}
+      <section className="relative w-full py-8 sm:py-10 px-4 sm:px-6 md:px-12 text-center bg-[#070b14] border-b border-gray-800/80">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-400 mb-4 badge-3d">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
             Curated White-Hat Editorial Links
           </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-4 sm:mb-5">
-            Authority Guest Posts on <br className="hidden sm:inline" />
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-[1.15] mb-3 sm:mb-4">
+            Authority Guest Posts on{" "}
             <span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">
               Real DR 50–90+ Publications
             </span>
-          </h1>
+          </h2>
           <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed font-normal">
             Zero PBNs. Zero spam farms. Pure in-content editorial backlinks that drive topical authority, pass link juice, and survive every Google core update.
           </p>

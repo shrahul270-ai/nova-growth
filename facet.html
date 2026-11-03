@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Facet — Designed in glass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap">
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #050507;
+      color: #ffffff;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      user-select: none;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+
+    /* Interactive DOM layer mapped onto 3D panel with matrix3d */
+    #dom-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      transform-origin: 50% 50%;
+    }
+
+    .interactive-hit {
+      position: absolute;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    /* The Definitions View ("Real-time glass, in five terms.") */
+    #definitions-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(5, 5, 7, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    #definitions-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .definitions-container {
+      position: absolute;
+      left: 32.4vw;
+      width: 33.9vw;
+      top: 26vh;
+    }
+
+    .definitions-title {
+      font-size: 1.36vw;
+      font-weight: 650;
+      letter-spacing: -0.022em;
+      color: #ffffff;
+      margin-bottom: 1.2vw;
+    }
+
+    .definition-term {
+      font-size: 0.73vw;
+      line-height: 1.72;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1.05vw;
+    }
+    .definition-term strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Back shard button sliver */
+    #back-shard-btn {
+      position: absolute;
+      left: 14.7vw;
+      top: 24.3vh;
+      width: 14vw;
+      height: 5.5vh;
+      z-index: 10;
+      pointer-events: auto;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72vw;
+      font-weight: 500;
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(35, 35, 45, 0.85) 0%, rgba(18, 18, 22, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 12px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      opacity: 0;
+      transform: scale(0.85) perspective(600px) rotateY(-9deg) rotateX(4deg);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #back-shard-btn.visible {
+      opacity: 1;
+      transform: scale(1) perspective(600px) rotateY(-9deg) rotateX(4deg);
+    }
+    #back-shard-btn:hover {
+      color: #b9abff;
+      border-color: rgba(185, 171, 255, 0.5);
+      box-shadow: 0 14px 40px rgba(185, 171, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      transform: scale(1.04) perspective(600px) rotateY(-6deg) rotateX(2deg);
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .definitions-container {
+        left: 8vw;
+        width: 84vw;
+        top: 22vh;
+      }
+      .definitions-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+      }
+      .definition-term {
+        font-size: 0.85rem;
+        margin-bottom: 0.85rem;
+      }
+      #back-shard-btn {
+        left: 8vw;
+        top: 12vh;
+        width: 120px;
+        height: 38px;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Interactive DOM Layer -->
+  <div id="dom-layer">
+    <!-- Clickable hitboxes mapped to 3D elements -->
+    <div id="btn-open-studio" class="interactive-hit" title="Open studio"></div>
+    <div id="btn-read-paper" class="interactive-hit" title="Read paper"></div>
+    <div id="nav-hit-studio" class="interactive-hit" title="Studio"></div>
+    <div id="nav-hit-materials" class="interactive-hit" title="Materials"></div>
+    <div id="nav-hit-pricing" class="interactive-hit" title="Pricing"></div>
+    <div id="nav-hit-signin" class="interactive-hit" title="Sign in"></div>
+  </div>
+
+  <!-- Definitions View ("Real-time glass, in five terms.") -->
+  <div id="definitions-overlay" aria-hidden="true">
+    <button id="back-shard-btn">← Back</button>
+    <div class="definitions-container">
+      <h2 class="definitions-title">Real-time glass, in five terms.</h2>
+      
+      <p class="definition-term">
+        <strong>Iridescence</strong> — Thin-film optical wave interference producing structural colour and iridescent lustre as viewing angle changes relative to incident illumination.
+      </p>
+      <p class="definition-term">
+        <strong>Index of refraction</strong> — Physical ratio governing phase velocity of light within the dielectric medium, dictating angular boundary bending and Fresnel reflectance.
+      </p>
+      <p class="definition-term">
+        <strong>Dispersion</strong> — Variation of refractive index with spectral wavelength, resolving collimated white beams into chromatic Abbe-number fringes at prismatic shard facets.
+      </p>
+      <p class="definition-term">
+        <strong>Transmission</strong> — Volumetric ratio of specular photon throughput through non-scattering glass interior, free from internal absorption.
+      </p>
+      <p class="definition-term">
+        <strong>Roughness</strong> — Statistical microfacet slope distribution controlling micro-scattering, softening specular reflection lobes and transmitted highlights.
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    // -------------------------------------------------------------------------
+    // 1. SETUP RENDERER, CAMERA & SCENE
+    // -------------------------------------------------------------------------
+    const canvas = document.getElementById('webgl-canvas');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x050507, 1);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+
+    const scene = new THREE.Scene();
+
+    // 1 world unit = 1 CSS px at z = 0 with 30° FOV:
+    // D = (height / 2) / tan(15°)
+    const fov = 30;
+    const cameraZ = (height / 2) / Math.tan((fov * Math.PI) / 360);
+    const camera = new THREE.PerspectiveCamera(fov, width / height, 10, cameraZ * 3);
+    camera.position.set(0, 0, cameraZ);
+    camera.lookAt(0, 0, 0);
+
+    // Environment & Studio Lighting
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    const roomEnv = new RoomEnvironment();
+    scene.environment = pmremGenerator.fromScene(roomEnv).texture;
+    scene.environmentIntensity = 0.42;
+
+    // Key light: soft white-blue from top-left
+    const keyLight = new THREE.DirectionalLight(0xe8f0ff, 1.8);
+    keyLight.position.set(-width * 0.45, height * 0.55, 650);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xa5b4fc, 0.6);
+    fillLight.position.set(width * 0.4, -height * 0.35, 450);
+    scene.add(fillLight);
+
+    const ambientLight = new THREE.AmbientLight(0x0c0c12, 0.8);
+    scene.add(ambientLight);
+
+    // -------------------------------------------------------------------------
+    // 2. SCALE & BLOCK LAYOUT
+    // -------------------------------------------------------------------------
+    let blockW, blockH, S, navH, gap, panelH;
+    function computeLayout() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      
+      const isMobile = width < 768;
+      const sideMargin = isMobile ? 16 : width * 0.055;
+      const topBottomMargin = isMobile ? 16 : height * 0.085;
+
+      blockW = width - sideMargin * 2;
+      blockH = height - topBottomMargin * 2;
+      S = blockW / 1730;
+
+      navH = blockH * 0.108;
+      gap = 14 * S;
+      panelH = blockH - navH - gap;
+
+      camera.aspect = width / height;
+      camera.position.z = (height / 2) / Math.tan((fov * Math.PI) / 360);
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+    computeLayout();
+
+    // -------------------------------------------------------------------------
+    // 3. MASTER CANVASES FOR PRINTED CONTENT
+    // -------------------------------------------------------------------------
+    let panelCanvas, panelCtx, panelTexture;
+    let navCanvas, navCtx, navTexture;
+
+    let hoverButtonOpen = false;
+    let hoverLinkRead = false;
+    let hoverNavStudio = false;
+    let hoverNavMaterials = false;
+    let hoverNavPricing = false;
+    let hoverNavSignin = false;
+
+    function createTextures() {
+      const dpr = Math.max(window.devicePixelRatio, 1.5);
+
+      // Panel content canvas
+      panelCanvas = document.createElement('canvas');
+      panelCanvas.width = Math.round(blockW * dpr);
+      panelCanvas.height = Math.round(panelH * dpr);
+      panelCtx = panelCanvas.getContext('2d');
+      panelTexture = new THREE.CanvasTexture(panelCanvas);
+      panelTexture.colorSpace = THREE.SRGBColorSpace;
+      panelTexture.minFilter = THREE.LinearFilter;
+      panelTexture.magFilter = THREE.LinearFilter;
+
+      // Nav content canvas
+      navCanvas = document.createElement('canvas');
+      navCanvas.width = Math.round(blockW * dpr);
+      navCanvas.height = Math.round(navH * dpr);
+      navCtx = navCanvas.getContext('2d');
+      navTexture = new THREE.CanvasTexture(navCanvas);
+      navTexture.colorSpace = THREE.SRGBColorSpace;
+      navTexture.minFilter = THREE.LinearFilter;
+      navTexture.magFilter = THREE.LinearFilter;
+
+      drawPanelCanvas();
+      drawNavCanvas();
+    }
+
+    // Geometry of hit areas for interactive DOM sync
+    const hitCoords = {
+      openStudio: { x: 0, y: 0, w: 0, h: 0 },
+      readPaper: { x: 0, y: 0, w: 0, h: 0 }
+    };
+
+    function drawPanelCanvas() {
+      if (!panelCtx) return;
+      const dpr = Math.max(window.devicePixelRatio, 1.5);
+      const w = blockW * dpr;
+      const h = panelH * dpr;
+      const s = S * dpr;
+
+      panelCtx.clearRect(0, 0, w, h);
+
+      const padX = 54 * s;
+      let curY = 0;
+
+      // Eyebrow "REAL-TIME MATERIAL STUDIO" (11·S px, tracking .2em, 38% white at 13.5% height)
+      curY = h * 0.135;
+      panelCtx.save();
+      panelCtx.font = `600 ${Math.round(11 * s)}px "Inter", sans-serif`;
+      panelCtx.fillStyle = 'rgba(255, 255, 255, 0.38)';
+      panelCtx.letterSpacing = `${2.2 * s}px`;
+      panelCtx.fillText('REAL-TIME MATERIAL STUDIO', padX, curY);
+      panelCtx.restore();
+
+      // Headline "Designed / in glass."
+      // Inter 500, size min(7.8% width, 20% height), tracking -.045em, leading .97, #dcdce0→#bdbdc3 gradient
+      const headlineSize = Math.min(w * 0.078, h * 0.20);
+      curY += headlineSize * 0.95;
+      const grad = panelCtx.createLinearGradient(0, curY - headlineSize, 0, curY + headlineSize * 1.05);
+      grad.addColorStop(0, '#dcdce0');
+      grad.addColorStop(1, '#bdbdc3');
+
+      panelCtx.save();
+      panelCtx.font = `500 ${headlineSize}px "Inter", sans-serif`;
+      panelCtx.letterSpacing = `${-0.045 * headlineSize}px`;
+      panelCtx.fillStyle = grad;
+      panelCtx.fillText('Designed', padX, curY);
+      curY += headlineSize * 0.97;
+      panelCtx.fillText('in glass.', padX, curY);
+      panelCtx.restore();
+
+      // Two-line sub "Author dispersion, transmission, and refraction in the browser. Live / previews, real materials." 55% white
+      const subSize = Math.max(14 * s, 14);
+      curY += subSize * 2.2;
+      panelCtx.save();
+      panelCtx.font = `400 ${subSize}px "Inter", sans-serif`;
+      panelCtx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+      panelCtx.letterSpacing = '-0.01em';
+      panelCtx.fillText('Author dispersion, transmission, and refraction in the browser. Live', padX, curY);
+      curY += subSize * 1.5;
+      panelCtx.fillText('previews, real materials.', padX, curY);
+      panelCtx.restore();
+
+      // CTA buttons: "Open studio" light pill (116×40·S, radius 6, turns green #36d67e on hover) + "Read paper →"
+      curY += 34 * s;
+      const btnW = 124 * s;
+      const btnH = 40 * s;
+      const btnRadius = 6 * s;
+
+      // Open Studio Pill
+      hitCoords.openStudio = { x: padX / dpr, y: curY / dpr, w: btnW / dpr, h: btnH / dpr };
+      panelCtx.save();
+      panelCtx.beginPath();
+      panelCtx.roundRect(padX, curY, btnW, btnH, btnRadius);
+      panelCtx.fillStyle = hoverButtonOpen ? '#36d67e' : 'rgba(255, 255, 255, 0.92)';
+      panelCtx.fill();
+      panelCtx.font = `600 ${13 * s}px "Inter", sans-serif`;
+      panelCtx.fillStyle = hoverButtonOpen ? '#050507' : '#0a0a0d';
+      panelCtx.textAlign = 'center';
+      panelCtx.textBaseline = 'middle';
+      panelCtx.fillText('Open studio', padX + btnW / 2, curY + btnH / 2);
+      panelCtx.restore();
+
+      // "Read paper →" link (underlines on hover)
+      const linkX = padX + btnW + 28 * s;
+      panelCtx.save();
+      panelCtx.font = `500 ${13.5 * s}px "Inter", sans-serif`;
+      panelCtx.fillStyle = hoverLinkRead ? '#ffffff' : 'rgba(255, 255, 255, 0.85)';
+      panelCtx.textAlign = 'left';
+      panelCtx.textBaseline = 'middle';
+      const paperText = 'Read paper →';
+      panelCtx.fillText(paperText, linkX, curY + btnH / 2);
+      const textMetrics = panelCtx.measureText(paperText);
+      hitCoords.readPaper = { x: linkX / dpr, y: curY / dpr, w: textMetrics.width / dpr, h: btnH / dpr };
+      if (hoverLinkRead) {
+        panelCtx.beginPath();
+        panelCtx.strokeStyle = '#ffffff';
+        panelCtx.lineWidth = 1.2 * s;
+        panelCtx.moveTo(linkX, curY + btnH / 2 + 10 * s);
+        panelCtx.lineTo(linkX + textMetrics.width, curY + btnH / 2 + 10 * s);
+        panelCtx.stroke();
+      }
+      panelCtx.restore();
+
+      // Footer labels: "© Facet Lab" bottom-left, "KHR_materials_dispersion" bottom-right, 11·S px at 34% white
+      const footerY = h - 24 * s;
+      panelCtx.save();
+      panelCtx.font = `400 ${11 * s}px "Inter", sans-serif`;
+      panelCtx.fillStyle = 'rgba(255, 255, 255, 0.34)';
+      panelCtx.textAlign = 'left';
+      panelCtx.fillText('© Facet Lab', padX, footerY);
+      panelCtx.textAlign = 'right';
+      panelCtx.fillText('KHR_materials_dispersion', w - padX, footerY);
+      panelCtx.restore();
+
+      panelTexture.needsUpdate = true;
+    }
+
+    function drawNavCanvas() {
+      if (!navCtx) return;
+      const dpr = Math.max(window.devicePixelRatio, 1.5);
+      const w = blockW * dpr;
+      const h = navH * dpr;
+      const s = S * dpr;
+
+      navCtx.clearRect(0, 0, w, h);
+
+      const padX = 36 * s;
+      const midY = h / 2;
+
+      // Brand: Square mark + "Facet"
+      navCtx.save();
+      const markSize = 18 * s;
+      navCtx.fillStyle = '#ffffff';
+      navCtx.fillRect(padX, midY - markSize / 2, markSize, markSize);
+
+      navCtx.font = `650 ${16 * s}px "Inter", sans-serif`;
+      navCtx.fillStyle = '#ffffff';
+      navCtx.textBaseline = 'middle';
+      navCtx.textAlign = 'left';
+      navCtx.letterSpacing = '-0.02em';
+      navCtx.fillText('Facet', padX + markSize + 12 * s, midY);
+      navCtx.restore();
+
+      // Centre links: Studio · Materials · Pricing (60% white, brighten on hover)
+      navCtx.save();
+      navCtx.font = `500 ${13 * s}px "Inter", sans-serif`;
+      navCtx.textBaseline = 'middle';
+      navCtx.textAlign = 'center';
+      
+      const centerX = w / 2;
+      const linkSpacing = 80 * s;
+
+      navCtx.fillStyle = hoverNavStudio ? '#ffffff' : 'rgba(255, 255, 255, 0.6)';
+      navCtx.fillText('Studio', centerX - linkSpacing, midY);
+
+      navCtx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      navCtx.fillText('·', centerX - linkSpacing / 2, midY);
+
+      navCtx.fillStyle = hoverNavMaterials ? '#ffffff' : 'rgba(255, 255, 255, 0.6)';
+      navCtx.fillText('Materials', centerX, midY);
+
+      navCtx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+      navCtx.fillText('·', centerX + linkSpacing / 2, midY);
+
+      navCtx.fillStyle = hoverNavPricing ? '#ffffff' : 'rgba(255, 255, 255, 0.6)';
+      navCtx.fillText('Pricing', centerX + linkSpacing, midY);
+      navCtx.restore();
+
+      // Right: "Sign in"
+      navCtx.save();
+      navCtx.font = `500 ${13 * s}px "Inter", sans-serif`;
+      navCtx.textBaseline = 'middle';
+      navCtx.textAlign = 'right';
+      navCtx.fillStyle = hoverNavSignin ? '#ffffff' : 'rgba(255, 255, 255, 0.75)';
+      navCtx.fillText('Sign in', w - padX, midY);
+      navCtx.restore();
+
+      navTexture.needsUpdate = true;
+    }
+
+    createTextures();
+
+    // -------------------------------------------------------------------------
+    // 4. GLASS SHADER WITH LAVENDER CURSOR EMISSION
+    // -------------------------------------------------------------------------
+    const pointerWorld = new THREE.Vector3(0, 0, 0);
+    const pointerGlowUniform = { value: 0.0 };
+    const pointerWorldUniform = { value: pointerWorld };
+    const scaleUniform = { value: S };
+
+    function createGlassMaterial() {
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x17171b,
+        roughness: 0.36,
+        clearcoat: 0.7,
+        clearcoatRoughness: 0.12,
+        specularIntensity: 0.7,
+        iridescence: 0.55,
+        iridescenceIOR: 1.3,
+        iridescenceThicknessRange: [250, 650],
+        transmission: 0.05,
+        transparent: true,
+        opacity: 0.98,
+        reflectivity: 0.85
+      });
+
+      mat.onBeforeCompile = (shader) => {
+        shader.uniforms.uPointerWorld = pointerWorldUniform;
+        shader.uniforms.uPointerGlow = pointerGlowUniform;
+        shader.uniforms.uScale = scaleUniform;
+
+        shader.vertexShader = shader.vertexShader.replace(
+          '#include <common>',
+          `#include <common>
+           varying vec3 vWorldPos;`
+        );
+        shader.vertexShader = shader.vertexShader.replace(
+          '#include <worldpos_vertex>',
+          `#include <worldpos_vertex>
+           vWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`
+        );
+
+        shader.fragmentShader = shader.fragmentShader.replace(
+          '#include <common>',
+          `#include <common>
+           uniform vec3 uPointerWorld;
+           uniform float uPointerGlow;
+           uniform float uScale;
+           varying vec3 vWorldPos;`
+        );
+
+        shader.fragmentShader = shader.fragmentShader.replace(
+          '#include <emissivemap_fragment>',
+          `#include <emissivemap_fragment>
+           float distToPointer = length(vWorldPos - uPointerWorld);
+           float glowFactor = exp(-1.6 * pow(distToPointer / (300.0 * uScale), 2.0));
+           vec3 lavenderGlow = vec3(0.42, 0.37, 0.62) * 0.16 * glowFactor * uPointerGlow;
+           totalEmissiveRadiance += lavenderGlow;`
+        );
+      };
+
+      return mat;
+    }
+
+    // Material for printed content on top of glass
+    const contentMaterial = new THREE.MeshBasicMaterial({
+      map: panelTexture,
+      transparent: true,
+      opacity: 0.99,
+      depthWrite: false
+    });
+
+    const navContentMaterial = new THREE.MeshBasicMaterial({
+      map: navTexture,
+      transparent: true,
+      opacity: 0.99,
+      depthWrite: false
+    });
+
+    // -------------------------------------------------------------------------
+    // 5. CUT PATTERN, JUNCTIONS & GEOMETRIES
+    // -------------------------------------------------------------------------
+    // 5 cells base definition in panel-normalised coords (x right, y down)
+    const baseCutData = {
+      tAB: 0.22,
+      tBC: 0.515,
+      tCE: 0.84,
+      bAD: 0.34,
+      bDE: 0.865,
+      J0: [0.385, 0.72],
+      J1: [0.48, 0.62],
+      J2: [0.716, 0.49]
+    };
+
+    // Shard groups & meshes
+    const rootBlock = new THREE.Group();
+    scene.add(rootBlock);
+
+    let navPiece = null;
+    const shardPieces = [];
+
+    // Helper: Rounded Polygon Shape creation
+    function createRoundedPolygonShape(points, radius) {
+      const shape = new THREE.Shape();
+      const n = points.length;
+      if (n < 3) return shape;
+
+      for (let i = 0; i < n; i++) {
+        const prev = points[(i - 1 + n) % n];
+        const curr = points[i];
+        const next = points[(i + 1) % n];
+
+        const v1 = { x: prev.x - curr.x, y: prev.y - curr.y };
+        const v2 = { x: next.x - curr.x, y: next.y - curr.y };
+        const len1 = Math.hypot(v1.x, v1.y);
+        const len2 = Math.hypot(v2.x, v2.y);
+
+        if (len1 === 0 || len2 === 0) continue;
+
+        const r = Math.min(radius, len1 * 0.45, len2 * 0.45);
+        const p1 = { x: curr.x + (v1.x / len1) * r, y: curr.y + (v1.y / len1) * r };
+        const p2 = { x: curr.x + (v2.x / len2) * r, y: curr.y + (v2.y / len2) * r };
+
+        if (i === 0) {
+          shape.moveTo(p1.x, p1.y);
+        } else {
+          shape.lineTo(p1.x, p1.y);
+        }
+        shape.quadraticCurveTo(curr.x, curr.y, p2.x, p2.y);
+      }
+      shape.closePath();
+      return shape;
+    }
+
+    // Inset polygon points by half gap (7·S)
+    function insetPolygon(pts, insetDist) {
+      // Compute polygon centroid
+      let cx = 0, cy = 0;
+      pts.forEach(p => { cx += p.x; cy += p.y; });
+      cx /= pts.length;
+      cy /= pts.length;
+
+      return pts.map(p => {
+        const dx = cx - p.x;
+        const dy = cy - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist <= insetDist) return { x: cx, y: cy };
+        const ratio = insetDist / dist;
+        return {
+          x: p.x + dx * ratio,
+          y: p.y + dy * ratio
+        };
+      });
+    }
+
+    function buildNavPiece() {
+      if (navPiece) rootBlock.remove(navPiece.group);
+
+      const navY = panelH / 2 + gap / 2 + navH / 2;
+      const cornerRadius = 20 * S;
+      const depth = 13 * S;
+      const bevel = 2.6 * S;
+
+      const rawPts = [
+        { x: -blockW / 2, y: -navH / 2 },
+        { x: blockW / 2, y: -navH / 2 },
+        { x: blockW / 2, y: navH / 2 },
+        { x: -blockW / 2, y: navH / 2 }
+      ];
+
+      const shape = createRoundedPolygonShape(rawPts, cornerRadius);
+      const geom = new THREE.ExtrudeGeometry(shape, {
+        depth: depth,
+        bevelEnabled: true,
+        bevelThickness: bevel,
+        bevelSize: bevel,
+        bevelSegments: 3
+      });
+
+      const glassMat = createGlassMaterial();
+      const mesh = new THREE.Mesh(geom, glassMat);
+
+      // Top printed content plane
+      const planeGeom = new THREE.PlaneGeometry(blockW, navH);
+      const planeMesh = new THREE.Mesh(planeGeom, navContentMaterial);
+      planeMesh.position.set(0, 0, depth + bevel + 0.3);
+
+      const group = new THREE.Group();
+      group.add(mesh);
+      group.add(planeMesh);
+      group.position.set(0, navY, 0);
+
+      rootBlock.add(group);
+
+      navPiece = {
+        group,
+        mesh,
+        basePos: new THREE.Vector3(0, navY, 0),
+        baseRot: new THREE.Euler(0, 0, 0),
+        liftZ: 0,
+        tipX: 0,
+        tipY: 0,
+        shatterPos: new THREE.Vector3(),
+        shatterRot: new THREE.Euler(),
+        shatterVel: new THREE.Vector3(),
+        shatterAngVel: new THREE.Vector3(),
+        glassMat
+      };
+    }
+
+    function buildShardPieces() {
+      // Remove old shards
+      shardPieces.forEach(p => rootBlock.remove(p.group));
+      shardPieces.length = 0;
+
+      const cornerRadius = 20 * S;
+      const depth = 13 * S;
+      const bevel = 2.6 * S;
+      const insetDist = 7 * S;
+
+      // Base coordinates converted to panel local space: [-blockW/2 .. blockW/2], [-panelH/2 .. panelH/2]
+      function toLocal(nx, ny) {
+        return {
+          x: (nx - 0.5) * blockW,
+          y: (0.5 - ny) * panelH
+        };
+      }
+
+      const TL = toLocal(0, 0);
+      const TR = toLocal(1, 0);
+      const BR = toLocal(1, 1);
+      const BL = toLocal(0, 1);
+
+      const tAB = toLocal(baseCutData.tAB, 0);
+      const tBC = toLocal(baseCutData.tBC, 0);
+      const tCE = toLocal(baseCutData.tCE, 0);
+
+      const bAD = toLocal(baseCutData.bAD, 1);
+      const bDE = toLocal(baseCutData.bDE, 1);
+
+      const J0 = toLocal(baseCutData.J0[0], baseCutData.J0[1]);
+      const J1 = toLocal(baseCutData.J1[0], baseCutData.J1[1]);
+      const J2 = toLocal(baseCutData.J2[0], baseCutData.J2[1]);
+
+      const cellDefs = [
+        { name: 'A', pts: [TL, tAB, J0, bAD, BL] },
+        { name: 'B', pts: [tAB, tBC, J1, J0] },
+        { name: 'C', pts: [tBC, tCE, J2, J1] },
+        { name: 'D', pts: [J0, J1, J2, bDE, bAD] },
+        { name: 'E', pts: [tCE, TR, BR, bDE, J2] }
+      ];
+
+      const panelCenterY = -navH / 2 - gap / 2;
+
+      cellDefs.forEach((cell, idx) => {
+        const insetPts = insetPolygon(cell.pts, insetDist);
+        const shape = createRoundedPolygonShape(insetPts, cornerRadius);
+
+        const geom = new THREE.ExtrudeGeometry(shape, {
+          depth: depth,
+          bevelEnabled: true,
+          bevelThickness: bevel,
+          bevelSize: bevel,
+          bevelSegments: 3
+        });
+
+        // Set custom UVs mapped directly to panel position so text is aligned perfectly
+        const posAttr = geom.attributes.position;
+        const uvAttr = geom.attributes.uv;
+        for (let i = 0; i < posAttr.count; i++) {
+          const px = posAttr.getX(i);
+          const py = posAttr.getY(i);
+          // Map [-blockW/2 .. blockW/2] to [0..1]
+          const u = (px + blockW / 2) / blockW;
+          // Map [-panelH/2 .. panelH/2] to [0..1]
+          const v = (py + panelH / 2) / panelH;
+          uvAttr.setXY(i, u, v);
+        }
+        geom.computeVertexNormals();
+
+        const glassMat = createGlassMaterial();
+        const glassMesh = new THREE.Mesh(geom, glassMat);
+
+        // Printed text overlay using ShapeGeometry with exact UV mapping
+        const textGeom = new THREE.ShapeGeometry(shape);
+        const textPosAttr = textGeom.attributes.position;
+        const textUvAttr = textGeom.attributes.uv;
+        for (let i = 0; i < textPosAttr.count; i++) {
+          const px = textPosAttr.getX(i);
+          const py = textPosAttr.getY(i);
+          textUvAttr.setXY(i, (px + blockW / 2) / blockW, (py + panelH / 2) / panelH);
+        }
+
+        const textMesh = new THREE.Mesh(textGeom, contentMaterial);
+        textMesh.position.set(0, 0, depth + bevel + 0.3);
+
+        const group = new THREE.Group();
+        group.add(glassMesh);
+        group.add(textMesh);
+        group.position.set(0, panelCenterY, 0);
+
+        rootBlock.add(group);
+
+        shardPieces.push({
+          idx,
+          name: cell.name,
+          group,
+          glassMesh,
+          textMesh,
+          glassMat,
+          basePos: new THREE.Vector3(0, panelCenterY, 0),
+          baseRot: new THREE.Euler(0, 0, 0),
+          liftZ: 0,
+          tipX: 0,
+          tipY: 0,
+          shatterPos: new THREE.Vector3(),
+          shatterRot: new THREE.Euler(),
+          shatterVel: new THREE.Vector3(),
+          shatterAngVel: new THREE.Vector3()
+        });
+      });
+    }
+
+    function initSceneContent() {
+      buildNavPiece();
+      buildShardPieces();
+    }
+    initSceneContent();
+
+    // -------------------------------------------------------------------------
+    // 6. INTERACTION & SPRINGS
+    // -------------------------------------------------------------------------
+    let mouseX = 0, mouseY = 0; // Normalized -1..1
+    let targetTiltX = 0, targetTiltY = 0;
+    let currentTiltX = 0, currentTiltY = 0;
+    let hoveredPiece = null;
+
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2(-10, -10);
+
+    window.addEventListener('mousemove', (e) => {
+      const nx = (e.clientX / width) * 2 - 1;
+      const ny = -(e.clientY / height) * 2 + 1;
+      mouseX = nx;
+      mouseY = ny;
+
+      mouseNDC.set(nx, ny);
+
+      // Global tilt: rotateY = x·7° - 1.2°, rotateX = -y·5.5° + 0.8°
+      targetTiltY = THREE.MathUtils.degToRad(nx * 7.0 - 1.2);
+      targetTiltX = THREE.MathUtils.degToRad(-ny * 5.5 + 0.8);
+
+      // Unproject pointer to z = 0 world coords for cursor glow
+      const vec = new THREE.Vector3(nx, ny, 0.5);
+      vec.unproject(camera);
+      vec.sub(camera.position).normalize();
+      const dist = -camera.position.z / vec.z;
+      pointerWorld.copy(camera.position).add(vec.multiplyScalar(dist));
+      pointerGlowUniform.value = 1.0;
+
+      // Check hover on DOM hit areas
+      checkDomHits(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('mouseleave', () => {
+      targetTiltX = 0;
+      targetTiltY = 0;
+      pointerGlowUniform.value = 0.0;
+      hoveredPiece = null;
+      hoverButtonOpen = false;
+      hoverLinkRead = false;
+      drawPanelCanvas();
+      drawNavCanvas();
+    });
+
+    function checkDomHits(cx, cy) {
+      if (isShattered) return;
+      const isMobile = width < 768;
+      const sideMargin = isMobile ? 16 : width * 0.055;
+      const topMargin = isMobile ? 16 : height * 0.085;
+      const panelOffsetY = topMargin + navH + gap;
+
+      const px = cx - sideMargin;
+      const py = cy - panelOffsetY;
+
+      const wasBtn = hoverButtonOpen;
+      const wasLink = hoverLinkRead;
+
+      hoverButtonOpen = (
+        px >= hitCoords.openStudio.x &&
+        px <= hitCoords.openStudio.x + hitCoords.openStudio.w &&
+        py >= hitCoords.openStudio.y &&
+        py <= hitCoords.openStudio.y + hitCoords.openStudio.h
+      );
+
+      hoverLinkRead = (
+        px >= hitCoords.readPaper.x &&
+        px <= hitCoords.readPaper.x + hitCoords.readPaper.w &&
+        py >= hitCoords.readPaper.y &&
+        py <= hitCoords.readPaper.y + hitCoords.readPaper.h
+      );
+
+      if (wasBtn !== hoverButtonOpen || wasLink !== hoverLinkRead) {
+        drawPanelCanvas();
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // 7. SHATTER & REASSEMBLE TRANSITIONS
+    // -------------------------------------------------------------------------
+    let isShattered = false;
+    let shatterStartTime = 0;
+    let isReassembling = false;
+    let reassembleStartTime = 0;
+
+    const defsOverlay = document.getElementById('definitions-overlay');
+    const backShardBtn = document.getElementById('back-shard-btn');
+
+    function triggerShatter() {
+      if (isShattered) return;
+      isShattered = true;
+      isReassembling = false;
+      shatterStartTime = performance.now();
+
+      // Configure shatter trajectories for each piece
+      const allPieces = [navPiece, ...shardPieces];
+      allPieces.forEach((p, idx) => {
+        const stagger = idx * 0.032; // nav first, then shards
+        const angle = (idx / allPieces.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.8;
+        const outSpeed = 480 + Math.random() * 320;
+        const forwardVel = (420 + Math.random() * 380) * S;
+
+        p.shatterVel.set(
+          Math.cos(angle) * outSpeed * S,
+          -(300 + Math.random() * 400) * S, // gravity down
+          forwardVel
+        );
+        p.shatterAngVel.set(
+          (Math.random() - 0.5) * 4.2,
+          (Math.random() - 0.5) * 4.2,
+          (Math.random() - 0.5) * 3.5
+        );
+        p.stagger = stagger;
+      });
+
+      // Reveal definitions view at 0.28s
+      setTimeout(() => {
+        defsOverlay.classList.add('visible');
+        defsOverlay.setAttribute('aria-hidden', 'false');
+      }, 280);
+
+      // Back shard sliver enters at 0.3s
+      setTimeout(() => {
+        backShardBtn.classList.add('visible');
+      }, 300);
+    }
+
+    function triggerReassemble() {
+      if (!isShattered || isReassembling) return;
+      isReassembling = true;
+      reassembleStartTime = performance.now();
+
+      // Definitions fade out in 0.25s
+      defsOverlay.classList.remove('visible');
+      defsOverlay.setAttribute('aria-hidden', 'true');
+      backShardBtn.classList.remove('visible');
+
+      setTimeout(() => {
+        isShattered = false;
+        isReassembling = false;
+        // Snap back to precise initial baseline
+        const allPieces = [navPiece, ...shardPieces];
+        allPieces.forEach(p => {
+          p.group.position.copy(p.basePos);
+          p.group.rotation.set(0, 0, 0);
+          p.liftZ = 0;
+          p.tipX = 0;
+          p.tipY = 0;
+        });
+      }, 760);
+    }
+
+    // Attach click triggers
+    window.addEventListener('click', (e) => {
+      if (!isShattered) {
+        if (hoverLinkRead) {
+          triggerShatter();
+        } else if (hoverButtonOpen) {
+          try {
+            window.parent.postMessage({ type: 'FACET_OPEN_STUDIO' }, '*');
+          } catch (err) {}
+          const el = document.getElementById('marketplace');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+
+    backShardBtn.addEventListener('click', () => {
+      triggerReassemble();
+    });
+
+    // -------------------------------------------------------------------------
+    // 8. ANIMATION & RENDER LOOP
+    // -------------------------------------------------------------------------
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = Math.min(clock.getDelta(), 0.1);
+      const elapsed = clock.getElapsedTime();
+
+      // Smooth exponential tilt (0.3s exponential)
+      const tiltAlpha = 1.0 - Math.exp(-delta / 0.3);
+      currentTiltX += (targetTiltX - currentTiltX) * tiltAlpha;
+      currentTiltY += (targetTiltY - currentTiltY) * tiltAlpha;
+      rootBlock.rotation.x = currentTiltX;
+      rootBlock.rotation.y = currentTiltY;
+
+      // Raycasting for hovered piece
+      if (!isShattered) {
+        raycaster.setFromCamera(mouseNDC, camera);
+        const meshes = [navPiece.mesh, ...shardPieces.map(p => p.glassMesh)];
+        const intersects = raycaster.intersectObjects(meshes);
+
+        hoveredPiece = null;
+        if (intersects.length > 0) {
+          const hitMesh = intersects[0].object;
+          if (hitMesh === navPiece.mesh) {
+            hoveredPiece = navPiece;
+          } else {
+            hoveredPiece = shardPieces.find(p => p.glassMesh === hitMesh) || null;
+          }
+        }
+
+        // Update piece spring lift & tip
+        const allPieces = [navPiece, ...shardPieces];
+        allPieces.forEach((p) => {
+          const isHovered = (p === hoveredPiece);
+          const maxLift = (p === navPiece ? 32 : 50) * S;
+          const targetLift = isHovered ? maxLift : 0;
+          
+          // Spring dynamics (k = 170, c = 19)
+          const springK = 170;
+          const springC = 19;
+          p.liftZ += (targetLift - p.liftZ) * (springK * delta * 0.05);
+
+          // Tip toward/away from pointer
+          const targetTipX = isHovered ? -mouseY * 0.24 : 0;
+          const targetTipY = isHovered ? mouseX * 0.24 : 0;
+          p.tipX += (targetTipX - p.tipX) * 0.12;
+          p.tipY += (targetTipY - p.tipY) * 0.12;
+
+          p.group.position.set(
+            p.basePos.x,
+            p.basePos.y,
+            p.basePos.z + p.liftZ
+          );
+          p.group.rotation.set(p.tipX, p.tipY, 0);
+
+          // Iridescence rises to 1.0 and envMapIntensity 1.0 -> 1.9 on hover
+          const targetIrid = isHovered ? 1.0 : 0.55;
+          const targetEnv = isHovered ? 1.9 : 1.0;
+          p.glassMat.iridescence += (targetIrid - p.glassMat.iridescence) * 0.15;
+          p.glassMat.envMapIntensity = targetEnv;
+        });
+
+      } else {
+        // Shatter flight animation
+        const now = performance.now();
+        const shatterProgress = Math.min((now - shatterStartTime) / 720, 1.0);
+        const reassembleProgress = isReassembling ? Math.min((now - reassembleStartTime) / 720, 1.0) : 0;
+
+        const allPieces = [navPiece, ...shardPieces];
+        allPieces.forEach((p) => {
+          const t = Math.max(0, shatterProgress - p.stagger);
+          // Ease-in cubic for shatter
+          const easeIn = t * t * t;
+
+          if (!isReassembling) {
+            p.group.position.set(
+              p.basePos.x + p.shatterVel.x * easeIn,
+              p.basePos.y + p.shatterVel.y * easeIn,
+              p.basePos.z + p.shatterVel.z * easeIn
+            );
+            p.group.rotation.set(
+              p.shatterAngVel.x * easeIn,
+              p.shatterAngVel.y * easeIn,
+              p.shatterAngVel.z * easeIn
+            );
+          } else {
+            // Reassembling fly-back with ease-out-back
+            const rt = 1.0 - reassembleProgress;
+            const c1 = 1.70158;
+            const c3 = c1 + 1;
+            const backEase = rt <= 0 ? 0 : 1 + c3 * Math.pow(rt - 1, 3) + c1 * Math.pow(rt - 1, 2);
+
+            p.group.position.set(
+              p.basePos.x + p.shatterVel.x * backEase,
+              p.basePos.y + p.shatterVel.y * backEase,
+              p.basePos.z + p.shatterVel.z * backEase
+            );
+            p.group.rotation.set(
+              p.shatterAngVel.x * backEase,
+              p.shatterAngVel.y * backEase,
+              p.shatterAngVel.z * backEase
+            );
+          }
+        });
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      computeLayout();
+      createTextures();
+      initSceneContent();
+    });
+  </script>
+</body>
+</html>
