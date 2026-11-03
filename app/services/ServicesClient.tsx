@@ -426,7 +426,7 @@ export default function ServicesClient() {
       });
 
       trackInteraction({
-        action: "form_submit",
+        action: "email",
         title: `Service Strategy Call: ${bookingService.name}`,
         details: bookingForm.email,
         sourcePage: "/services",
@@ -626,6 +626,82 @@ export default function ServicesClient() {
             ))}
           </div>
         )}
+
+        {/* Master Pricing & Delivery Matrix Table (Direct Specification from Developer Handover) */}
+        <div className="mt-20 pt-12 border-t border-white/10">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-2">
+              Master Pricing &amp; Delivery Matrix
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              All 12 Agency Services at a Glance
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 mt-2">
+              Complete index with standardized deliverables, transparent pricing in {currency === "INR" ? "INR (₹)" : "USD ($)"}, and confirmed turnaround times.
+            </p>
+          </div>
+
+          <div className="overflow-x-auto rounded-3xl border border-white/15 bg-black/60 backdrop-blur-xl shadow-2xl">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-white/15 bg-white/[0.04] text-gray-400 uppercase text-[11px] tracking-wider">
+                  <th className="py-4 px-4 font-bold text-center w-14">#</th>
+                  <th className="py-4 px-5 font-bold">Service Name</th>
+                  <th className="py-4 px-5 font-bold hidden md:table-cell">Deliverables Summary</th>
+                  <th className="py-4 px-5 font-bold text-right">Price ({currency})</th>
+                  <th className="py-4 px-5 font-bold text-center">Turnaround (TAT)</th>
+                  <th className="py-4 px-5 font-bold text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10 text-gray-300">
+                {masterServicesList.map((svc, index) => (
+                  <tr key={svc.id} className="hover:bg-white/[0.03] transition-colors">
+                    <td className="py-4 px-4 font-mono text-center text-amber-400 font-bold">
+                      {String(index + 1).padStart(2, "0")}
+                    </td>
+                    <td className="py-4 px-5">
+                      <div className="font-bold text-white text-sm flex items-center gap-2">
+                        <span>{svc.icon3D}</span>
+                        <span>{svc.name}</span>
+                      </div>
+                      <div className="text-[11px] text-gray-400 block md:hidden mt-1">
+                        {svc.deliverablesSummary}
+                      </div>
+                    </td>
+                    <td className="py-4 px-5 hidden md:table-cell text-gray-300">
+                      {svc.deliverablesSummary}
+                    </td>
+                    <td className="py-4 px-5 text-right font-bold text-white text-sm whitespace-nowrap">
+                      <span className="text-amber-400">
+                        {currency === "INR" ? svc.priceINR : svc.priceUSD}
+                      </span>
+                      <span className="text-[10px] text-gray-400 block font-normal">
+                        {currency === "INR" ? svc.pricingSuffixINR : svc.pricingSuffixUSD}
+                      </span>
+                    </td>
+                    <td className="py-4 px-5 text-center whitespace-nowrap">
+                      <span className="inline-block px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-semibold text-gray-200">
+                        ⏱ {svc.tat}
+                      </span>
+                    </td>
+                    <td className="py-4 px-5 text-center whitespace-nowrap">
+                      <a
+                        href={`https://wa.me/918000417058?text=${encodeURIComponent(
+                          `Hi Balaji Prime Media, I am interested in ${svc.name}.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-[11px] transition-all cursor-pointer shadow-sm"
+                      >
+                        Quote 💬
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       {/* Full Scope & Deliverables Modal */}
