@@ -2,77 +2,104 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SellixServicesHeader() {
   return (
-    <section className="relative w-full min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] pt-28 sm:pt-36 pb-14 sm:pb-20 px-4 sm:px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-[#07050E] select-none">
-      {/* 1. Ambient Cosmic Background Glows */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[680px] lg:w-[900px] h-[340px] sm:h-[500px] rounded-full pointer-events-none -z-0"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(99, 102, 241, 0.15) 45%, transparent 70%)",
-          filter: "blur(70px)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-[#07050E] via-[#07050E]/80 to-transparent pointer-events-none z-10"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#09080E] to-transparent pointer-events-none z-10"
-        aria-hidden="true"
-      />
-
-      {/* 2. High-Performance Hardware-Accelerated Video Layer (Single Loop, Zero JS Overhead) */}
+    <section className="relative w-full min-h-[540px] sm:min-h-[600px] lg:min-h-[660px] pt-28 sm:pt-36 pb-14 sm:pb-20 px-4 sm:px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-[#060B18] select-none">
+      {/* ========================================================================= */}
+      {/* 1. CINEMATIC 3D BACKGROUND (16:9 Realistic Visual with Slow Camera Drift) */}
+      {/* ========================================================================= */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/82e7eb75-c65f-490a-99b5-f3d1cad54200.webp"
-          className="w-full h-full object-cover object-center opacity-45 sm:opacity-55 brightness-90 contrast-110"
-          aria-hidden="true"
+        {/* Cinematic Backdrop Image with subtle continuous camera drift */}
+        <div
+          className="relative w-full h-full will-change-transform"
+          style={{
+            animation: "cinematicDrift 28s ease-in-out infinite alternate",
+          }}
         >
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260912_104036_bd6924f6-3c8e-417e-8465-6d03c8c2e9e6.mp4"
-            type="video/mp4"
+          <Image
+            src="/images/services-hero-cinematic.jpg"
+            alt="Cinematic 3D Service Constellation with glowing glass holo icons in modern agency environment"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center scale-105 brightness-[0.78] contrast-[1.12]"
           />
-        </video>
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#07050E]/60 to-[#07050E]" />
+        </div>
+
+        {/* Cinematic Lens Flare & Volumetric Lighting Highlights (Deep Navy, Teal & Warm Amber) */}
+        <div
+          className="absolute -top-24 right-1/4 w-[420px] sm:w-[650px] h-[420px] sm:h-[650px] rounded-full pointer-events-none opacity-40 blur-[90px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, rgba(14, 165, 233, 0.18) 40%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-10 right-10 w-[300px] sm:w-[480px] h-[300px] sm:h-[480px] rounded-full pointer-events-none opacity-30 blur-[80px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.15) 45%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Negative Space Vignette: Left & Center darkening for flawless text legibility */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-[#060B18]/95 via-[#060B18]/75 to-transparent pointer-events-none z-10"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-[#060B18] via-[#060B18]/80 to-transparent pointer-events-none z-10"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#09080E] to-transparent pointer-events-none z-10"
+          aria-hidden="true"
+        />
       </div>
 
-      {/* 3. Hero Content Container (Guaranteed 100% Visible & Rendered Instantly) */}
+      {/* ========================================================================= */}
+      {/* 2. SUBTLE PULSING CYBERNETIC DATA PARTICLES & GLOWING PATHWAYS OVERLAY   */}
+      {/* ========================================================================= */}
+      <div className="absolute inset-0 pointer-events-none z-15 overflow-hidden">
+        {/* Soft floating cyan & amber light trails in center-right */}
+        <div className="hidden md:block absolute right-[15%] top-[28%] w-2 h-2 rounded-full bg-[#00f0ff] shadow-[0_0_14px_#00f0ff] animate-ping" />
+        <div className="hidden md:block absolute right-[28%] top-[42%] w-1.5 h-1.5 rounded-full bg-[#f59e0b] shadow-[0_0_12px_#f59e0b] animate-pulse" />
+        <div className="hidden lg:block absolute right-[22%] top-[60%] w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_16px_#38bdf8] animate-ping" style={{ animationDuration: "3s" }} />
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 3. HERO CONTENT CONTAINER (EXACT HEADLINE, SUBTITLE & CTAS PRESERVED)      */}
+      {/* ========================================================================= */}
       <div className="relative z-20 w-full max-w-4xl mx-auto flex flex-col items-center">
         {/* Subtle Category Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.06] border border-[#a855f7]/30 text-[#c084fc] text-xs font-semibold mb-4 sm:mb-5 backdrop-blur-xs shadow-inner">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c084fc] animate-pulse" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.06] border border-[#38bdf8]/35 text-[#38bdf8] text-xs font-semibold mb-4 sm:mb-5 backdrop-blur-xs shadow-inner">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] animate-pulse" />
           <span>Full-Stack Agency Directory</span>
         </div>
 
-        {/* Master Heading: Balaji Prime Media Services */}
+        {/* Master Heading: Balaji Prime Media Services (Untouched) */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-extrabold tracking-tight text-white leading-[1.12] max-w-3xl mx-auto drop-shadow-sm">
           <span>Balaji Prime </span>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#818cf8] via-[#c084fc] to-[#fcd34d]">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#fcd34d]">
             Media Services
           </span>
         </h1>
 
-        {/* Descriptive Subtitle */}
+        {/* Descriptive Subtitle (Untouched) */}
         <p className="text-sm sm:text-base md:text-lg text-white/85 max-w-2xl mx-auto mt-4 sm:mt-5 leading-relaxed font-normal px-2">
           Full-funnel digital growth, enterprise web engineering, high-DA backlink
           acquisitions, and algorithmic search optimization for ambitious global brands.
         </p>
 
-        {/* Action CTAs: Tap-friendly & Responsive */}
+        {/* Action CTAs: Tap-friendly & Responsive (Untouched) */}
         <div className="mt-7 sm:mt-9 flex flex-col min-[440px]:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md px-4">
           <a
             href="#services-grid"
-            className="w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white text-[#09080E] font-bold text-xs sm:text-sm hover:bg-slate-100 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-purple-950/60 cursor-pointer"
+            className="w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-white text-[#060B18] font-bold text-xs sm:text-sm hover:bg-slate-100 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-cyan-950/60 cursor-pointer"
           >
             <span>Explore 12 Services</span>
             <svg
@@ -97,7 +124,7 @@ export default function SellixServicesHeader() {
           >
             <span>Book Strategy Call</span>
             <svg
-              className="w-3.5 h-3.5 text-purple-300"
+              className="w-3.5 h-3.5 text-cyan-300"
               viewBox="0 0 12 10"
               fill="none"
               aria-hidden="true"
@@ -113,6 +140,21 @@ export default function SellixServicesHeader() {
           </Link>
         </div>
       </div>
+
+      {/* Cinematic drift keyframes */}
+      <style jsx global>{`
+        @keyframes cinematicDrift {
+          0% {
+            transform: scale(1) translate(0%, 0%);
+          }
+          50% {
+            transform: scale(1.04) translate(-1.2%, -0.8%);
+          }
+          100% {
+            transform: scale(1) translate(0%, 0%);
+          }
+        }
+      `}</style>
     </section>
   );
 }
