@@ -29,6 +29,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://balajiprimemedia.in",
   },
+  icons: {
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/logo-symbol.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/images/logo-icon-192.png",
+  },
   openGraph: {
     title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
     description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
@@ -36,11 +44,20 @@ export const metadata: Metadata = {
     siteName: "Balaji Prime Media",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/images/logo-original.png",
+        width: 1015,
+        height: 377,
+        alt: "Balaji Prime Media Official Logo",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
     description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
+    images: ["/images/logo-original.png"],
   },
 };
 
@@ -52,6 +69,7 @@ const structuredData = {
       "@id": "https://balajiprimemedia.in/#organization",
       name: "Balaji Prime Media",
       url: "https://balajiprimemedia.in",
+      logo: "https://balajiprimemedia.in/images/logo.png",
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+918000417058",

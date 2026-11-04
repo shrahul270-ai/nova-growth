@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import VaultraAboutHeader from "../components/VaultraAboutHeader";
@@ -80,9 +81,20 @@ export default function AboutPage() {
       <section id="about-purpose" className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
-              Our Purpose
-            </span>
+            <div className="mb-5 inline-block">
+              <Image
+                src="/images/logo.png"
+                alt="Balaji Prime Media Official Brand Identity"
+                width={260}
+                height={80}
+                className="h-11 sm:h-12 w-auto object-contain"
+              />
+            </div>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
+                Our Purpose
+              </span>
+            </div>
             <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-4 mb-4">
               We help businesses win in the world&apos;s most competitive search markets.
             </h2>

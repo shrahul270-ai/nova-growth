@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -85,25 +86,21 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           {/* User's Original Official Brand Logo & Name */}
           <Link
             href="/"
-            className="flex items-center gap-2 sm:gap-3 group shrink min-w-0"
+            className="flex items-center gap-2.5 sm:gap-3 group shrink min-w-0"
             aria-label="Balaji Prime Media Home"
           >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center shadow-lg shadow-black/60 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-[#d97706]/40 relative overflow-hidden shrink-0">
-              <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <svg
-                className="w-4 h-4 sm:w-5 sm:h-5 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 20L4 4L20 20L20 4" />
-              </svg>
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-lg shadow-black/50 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-white/20 shrink-0">
+              <Image
+                src="/images/logo-symbol.png"
+                alt="Balaji Prime Media Official Logo"
+                width={44}
+                height={44}
+                priority
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex flex-col text-left truncate">
-              <span className="text-[13px] sm:text-[16.5px] font-extrabold tracking-tight text-[hsl(40,6%,95%)] leading-none truncate">
+              <span className="text-[13px] sm:text-[16.5px] font-extrabold tracking-tight text-[hsl(40,6%,95%)] leading-none truncate group-hover:text-amber-300 transition-colors">
                 BALAJI PRIME MEDIA
               </span>
               <span className="text-[7.5px] sm:text-[9.5px] font-bold tracking-[0.12em] sm:tracking-[0.16em] text-[#d97706] uppercase mt-0.5 sm:mt-1 truncate">
@@ -199,10 +196,14 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2.5"
               >
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] flex items-center justify-center border border-[#d97706]/40">
-                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M4 20L4 4L20 20L20 4" />
-                  </svg>
+                <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center p-1 shrink-0 shadow-sm">
+                  <Image
+                    src="/images/logo-symbol.png"
+                    alt="Balaji Prime Media Official Logo"
+                    width={32}
+                    height={32}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <span className="text-[14px] font-extrabold text-white tracking-tight">
                   BALAJI PRIME MEDIA

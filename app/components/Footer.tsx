@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -75,18 +76,14 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-4 text-left animate-shipcraft-col-1">
             {/* Brand Logo with Website's Exact Logo */}
             <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#091427] via-[#6366f1] to-[#a855f7] flex items-center justify-center shadow-lg shadow-purple-950/60 border border-[#a855f7]/40 group-hover:scale-105 transition-all shrink-0">
-                <svg
-                  className="w-5 h-5 text-white filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M4 20L4 4L20 20L20 4" />
-                </svg>
+              <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-lg shadow-black/50 p-1.5 group-hover:scale-105 transition-all shrink-0 border border-white/20">
+                <Image
+                  src="/images/logo-symbol.png"
+                  alt="Balaji Prime Media Official Logo"
+                  width={44}
+                  height={44}
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <div className="flex flex-col text-left">
