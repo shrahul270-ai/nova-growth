@@ -27,47 +27,23 @@ const PORTRAIT_URL =
 export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
-  // Smooth scroll-scrubbing effect
+  // Smooth native playback with zero decoder lag & GPU parallax
   useEffect(() => {
-    let animId: number;
-    let targetTime = 0;
-    let currentTime = 0;
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.play().catch(() => {});
+    }
 
     const handleScroll = () => {
-      const video = videoRef.current;
-      if (!video || !video.duration) return;
-
-      const scrollY = window.scrollY;
-      const scrubRange = Math.max(1, window.innerHeight * 1.6);
-      const progress = Math.min(1, Math.max(0, scrollY / scrubRange));
-
-      targetTime = progress * (video.duration - 0.05);
-
-      // If user scrolls past 20px, pause autoplay to let scroll control the playback
-      if (scrollY > 20 && !video.paused) {
-        video.pause();
-      }
-    };
-
-    const updateFrame = () => {
-      const video = videoRef.current;
-      if (video && video.duration && window.scrollY > 20) {
-        currentTime += (targetTime - currentTime) * 0.14;
-        if (Math.abs(video.currentTime - currentTime) > 0.03) {
-          video.currentTime = currentTime;
-        }
-      }
-      animId = requestAnimationFrame(updateFrame);
+      setScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    animId = requestAnimationFrame(updateFrame);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(animId);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
