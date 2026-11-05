@@ -80,13 +80,13 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-[#E9EEF3]/30 via-transparent to-[#E9EEF3]/70 pointer-events-none" />
       </div>
 
-      {/* 2. NAVBAR (Preserved intact with full logo and links, wrapped in high-contrast header bar) */}
-      <div className="relative z-50 bg-[#091427]/95 backdrop-blur-md border-b border-white/10 shadow-sm">
+      {/* 2. NAVBAR (Kept transparent so background video flows completely behind it) */}
+      <div className="relative z-50">
         <Navbar activePage="home" />
       </div>
 
       {/* 3. HERO CONTENT WRAPPER */}
-      <div className="relative z-10 flex-1 flex flex-col justify-between max-w-7xl mx-auto w-full px-5 sm:px-8 md:px-12 pt-16 sm:pt-20 pb-10 sm:pb-14">
+      <div className="relative z-10 flex-1 flex flex-col justify-between max-w-7xl mx-auto w-full px-5 sm:px-8 md:px-12 pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14">
         
         {/* Top Row: Service List (Left) + Intro Copy (Right) */}
         <div className="flex flex-col sm:row items-start justify-between gap-8 pt-2">
