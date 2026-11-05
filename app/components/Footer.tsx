@@ -38,19 +38,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#09080E] text-[#ADADAD] font-shipcraft z-10 overflow-hidden border-t border-[#231A33]">
+    <footer className="relative bg-[#E9EEF3] text-[#475569] font-shipcraft z-10 overflow-hidden border-t border-slate-300/80">
+      {/* Subtle dot matrix grid matching design plate */}
+      <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+
       {/* Ambient Media Glows (Indigo, Purple & Amber) */}
       <div
         aria-hidden="true"
-        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.14)_0%,transparent_70%)] pointer-events-none"
+        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.08)_0%,transparent_70%)] pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute bottom-0 left-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.16)_0%,transparent_70%)] pointer-events-none"
+        className="absolute bottom-0 left-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.08)_0%,transparent_70%)] pointer-events-none"
       />
       <div
         aria-hidden="true"
-        className="absolute bottom-0 right-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.16)_0%,transparent_70%)] pointer-events-none"
+        className="absolute bottom-0 right-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.08)_0%,transparent_70%)] pointer-events-none"
       />
 
       {/* Floating Free AI Audit Right Tab (Matching Media Gradient) */}
@@ -85,46 +88,46 @@ export default function Footer() {
               />
             </Link>
 
-            {/* Dark Pill with Media Gradient Border */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#18122B]/90 border border-[#a855f7]/35 text-[#c084fc] text-[11px] font-medium shadow-sm backdrop-blur-xs">
-              <span className="text-[10px] text-[#fcd34d]">✦</span>
+            {/* Pill with Media Gradient Border */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-slate-300/80 text-[#154359] text-[11px] font-medium shadow-xs backdrop-blur-xs">
+              <span className="text-[10px] text-amber-500">✦</span>
               <span>Full-Funnel Organic Growth Engine</span>
             </div>
 
             {/* Agency Positioning & Blurb */}
-            <p className="text-[12.5px] leading-relaxed text-[#ADADAD]">
+            <p className="text-[12.5px] leading-relaxed text-[#475569]">
               Balaji Prime Media is a specialized digital growth agency helping US, UK &amp; global businesses scale organic search revenue through manual DR 50–90+ editorial outreach, technical Core Web Vitals optimization, and high-converting Next.js web engineering.
             </p>
 
             {/* Direct Contact Information */}
             <div className="pt-2">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#7D7D7D] mb-2.5">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#154359] mb-2.5">
                 CONTACT INFORMATION
               </h4>
-              <ul className="space-y-2 text-[12.5px] text-[#ADADAD]">
+              <ul className="space-y-2 text-[12.5px] text-[#475569]">
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#a855f7] text-sm shrink-0">✉</span>
+                  <span className="text-[#185B7B] text-sm shrink-0">✉</span>
                   <a
                     href="mailto:shrahul270@gmail.com"
-                    className="hover:text-[#c084fc] text-[#ADADAD] transition-colors font-medium break-all"
+                    className="hover:text-[#154359] text-[#475569] transition-colors font-medium break-all"
                   >
                     shrahul270@gmail.com
                   </a>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#818cf8] text-sm shrink-0">💬</span>
+                  <span className="text-[#185B7B] text-sm shrink-0">💬</span>
                   <a
                     href="https://wa.me/918000417058"
                     target="_blank"
                     rel="opener"
-                    className="hover:text-[#c084fc] text-[#ADADAD] transition-colors font-medium"
+                    className="hover:text-[#154359] text-[#475569] transition-colors font-medium"
                   >
                     +91 80004 17058 (WhatsApp &amp; Direct)
                   </a>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="text-[#a855f7] text-sm shrink-0 mt-0.5">📍</span>
-                  <span className="text-[#7D7D7D]">Serving US, UK, Australia, EU &amp; Worldwide Clients</span>
+                  <span className="text-[#185B7B] text-sm shrink-0 mt-0.5">📍</span>
+                  <span className="text-[#64748b]">Serving US, UK, Australia, EU &amp; Worldwide Clients</span>
                 </li>
               </ul>
             </div>
@@ -132,63 +135,63 @@ export default function Footer() {
 
           {/* COLUMN 2: PRODUCT (span 3) */}
           <div className="lg:col-span-3 space-y-4 text-left animate-shipcraft-col-2">
-            <h4 className="text-[12px] font-bold uppercase tracking-wider text-white flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7]" />
+            <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#154359] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#185B7B]" />
               Product
             </h4>
-            <ul className="space-y-2.5 text-[13px] text-[#ADADAD]">
+            <ul className="space-y-2.5 text-[13px] text-[#475569]">
               <li>
                 <Link
                   href="/audit"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>Preview</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/services"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>Features</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>How it works</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/web-development-uk"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>Developers</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/guest-posting"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>High-DA Guest Posting</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/seo-services-usa"
-                  className="hover:text-[#c084fc] transition-colors flex items-center justify-between group py-0.5"
+                  className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>Organic SEO &amp; Link Building</span>
-                  <span className="text-[#717171] group-hover:text-[#c084fc] text-xs transition-colors">→</span>
+                  <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
                 </Link>
               </li>
             </ul>
@@ -196,23 +199,23 @@ export default function Footer() {
 
           {/* COLUMN 3: RESOURCES & COMPANY (span 2) */}
           <div className="lg:col-span-2 space-y-4 text-left animate-shipcraft-col-3">
-            <h4 className="text-[12px] font-bold uppercase tracking-wider text-white flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#818cf8]" />
+            <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#154359] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#185B7B]" />
               Resources
             </h4>
-            <ul className="space-y-2.5 text-[13px] text-[#ADADAD]">
+            <ul className="space-y-2.5 text-[13px] text-[#475569]">
               <li>
-                <Link href="/blog" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/blog" className="hover:text-[#154359] transition-colors block py-0.5">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/projects" className="hover:text-[#154359] transition-colors block py-0.5">
                   Documentation &amp; Cases
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/about" className="hover:text-[#154359] transition-colors block py-0.5">
                   Videos &amp; Company
                 </Link>
               </li>
@@ -221,23 +224,23 @@ export default function Footer() {
                   href="https://www.google.com/preferences/source?q=balajiprimemedia.in"
                   target="_blank"
                   rel="opener"
-                  className="hover:text-[#c084fc] transition-colors block py-0.5"
+                  className="hover:text-[#154359] transition-colors block py-0.5"
                 >
                   Community
                 </a>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/contact" className="hover:text-[#154359] transition-colors block py-0.5">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/privacy-policy" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/privacy-policy" className="hover:text-[#154359] transition-colors block py-0.5">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-[#c084fc] transition-colors block py-0.5">
+                <Link href="/terms" className="hover:text-[#154359] transition-colors block py-0.5">
                   Terms of Service
                 </Link>
               </li>
@@ -249,10 +252,10 @@ export default function Footer() {
                       window.dispatchEvent(new Event("open-cookie-settings"));
                     }
                   }}
-                  className="hover:text-[#c084fc] transition-colors text-left cursor-pointer flex items-center gap-1.5 py-0.5 text-xs text-[#7D7D7D]"
+                  className="hover:text-[#154359] transition-colors text-left cursor-pointer flex items-center gap-1.5 py-0.5 text-xs text-[#64748b]"
                 >
                   <span>Cookie Preferences</span>
-                  <span className="text-[11px] text-[#c084fc]">🍪</span>
+                  <span className="text-[11px] text-amber-600">🍪</span>
                 </button>
               </li>
             </ul>
@@ -261,12 +264,12 @@ export default function Footer() {
           {/* COLUMN 4: NEWSLETTER & PAYMENTS (span 3) */}
           <div className="lg:col-span-3 space-y-5 text-left animate-shipcraft-col-4">
             
-            {/* Newsletter with Glass Field & Media Gradient Key */}
+            {/* Newsletter with Clean Field */}
             <div>
-              <h4 className="text-[12px] font-bold uppercase tracking-wider text-white mb-1">
+              <h4 className="text-[12px] font-bold uppercase tracking-wider text-[#154359] mb-1">
                 Subscribe to our newsletter
               </h4>
-              <p className="text-[11.5px] text-[#7D7D7D] mb-2.5">
+              <p className="text-[11.5px] text-[#64748b] mb-2.5">
                 Shipcraft keeps every surface in sync, so you never rebuild from scratch.
               </p>
               <form onSubmit={handleSubscribe} className="relative flex items-center">
@@ -276,58 +279,48 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jane@shipcraft.example"
                   required
-                  className="w-full pl-3.5 pr-12 py-2.5 text-xs rounded-xl bg-[#18122B]/80 border border-[#a855f7]/35 focus:border-[#a855f7] focus:outline-none text-white placeholder-[#717171] shadow-inner transition-colors"
+                  className="w-full pl-3.5 pr-12 py-2.5 text-xs rounded-xl bg-white border border-slate-300 focus:border-[#154359] focus:outline-none text-[#154359] placeholder-[#94a3b8] shadow-xs transition-colors"
                 />
                 <button
                   type="submit"
                   disabled={loading}
                   aria-label="Subscribe to newsletter"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 text-white font-bold w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer disabled:opacity-50 transition-all shadow-md shadow-purple-950/50 hover:scale-105"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)",
-                  }}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 text-white font-bold w-8 h-8 rounded-lg flex items-center justify-center cursor-pointer disabled:opacity-50 transition-all bg-[#154359] hover:bg-[#091427] shadow-sm hover:scale-105"
                 >
                   {loading ? (
                     <span className="text-xs">⋯</span>
                   ) : (
-                    <span className="text-sm font-black leading-none text-[#0D0D0D]">→</span>
+                    <span className="text-sm font-black leading-none text-white">→</span>
                   )}
                 </button>
               </form>
               {subscribed ? (
-                <p className="text-[11px] text-[#c084fc] font-semibold mt-1.5 flex items-center gap-1">
+                <p className="text-[11px] text-emerald-600 font-semibold mt-1.5 flex items-center gap-1">
                   <span>✓ Subscribed to Balaji Prime Media!</span>
                 </p>
               ) : (
-                <p className="text-[10px] text-[#717171] mt-1.5">
+                <p className="text-[10px] text-[#64748b] mt-1.5">
                   Unsubscribe anytime. Zero spam policy.
                 </p>
               )}
             </div>
 
-            {/* Instant Free SEO Audit Card in Purple/Media Glass */}
-            <div className="bg-[#18122B]/75 border border-[#a855f7]/35 rounded-xl p-3.5 space-y-2 shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-sm">
+            {/* Instant Free SEO Audit Card */}
+            <div className="bg-white/85 border border-slate-200/90 rounded-xl p-3.5 space-y-2 shadow-sm backdrop-blur-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1">
-                  <span className="text-[#fcd34d]">⚡</span> Free Instant SEO Audit
+                <span className="text-[11px] font-bold text-[#154359] uppercase tracking-wider flex items-center gap-1">
+                  <span className="text-amber-500">⚡</span> Free Instant SEO Audit
                 </span>
-                <span className="text-[10px] bg-[#a855f7]/20 text-[#c084fc] border border-[#a855f7]/40 font-bold px-1.5 py-0.5 rounded">
+                <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold px-1.5 py-0.5 rounded">
                   Live
                 </span>
               </div>
-              <p className="text-[11px] text-[#ADADAD]">
+              <p className="text-[11px] text-[#64748b]">
                 Check your website speed, Core Web Vitals, and search visibility in 10 seconds.
               </p>
               <Link
                 href="/audit"
-                className="block w-full text-center py-2 rounded-lg text-[11px] font-bold cursor-pointer border border-[#a855f7]/40 transition-all hover:opacity-95 shadow-md shadow-purple-950/40"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, #6366f1, #a855f7, #fcd34d)",
-                  color: "#0a0a0f",
-                  fontWeight: 700,
-                }}
+                className="block w-full text-center py-2 rounded-lg text-[11px] font-bold cursor-pointer transition-all hover:bg-[#091427] bg-[#154359] text-white shadow-xs"
               >
                 Run Free Website Audit ↗
               </Link>
@@ -338,45 +331,45 @@ export default function Footer() {
         </div>
 
         {/* BOTTOM STRIP: PAYMENT ACCEPTED & SOCIAL ICONS */}
-        <div className="mt-12 pt-6 border-t border-[#231A33] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-12 pt-6 border-t border-slate-300/80 flex flex-col md:flex-row items-center justify-between gap-6">
           
           {/* We Accept Payment Icons */}
-          <div className="flex flex-wrap items-center gap-2 text-xs text-[#7D7D7D]">
-            <span className="font-bold text-[#ADADAD] text-xs mr-1">We accept:</span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[11px] font-bold text-[#ADADAD]">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-[#64748b]">
+            <span className="font-bold text-[#154359] text-xs mr-1">We accept:</span>
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[11px] font-bold text-[#475569] shadow-xs">
               stripe
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[11px] font-bold text-[#38bdf8]">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[11px] font-bold text-[#0284c7] shadow-xs">
               PayPal
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[11px] font-bold text-[#38bdf8]">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[11px] font-bold text-[#0284c7] shadow-xs">
               Wise
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[10px] font-bold text-[#ADADAD]">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[10px] font-bold text-[#475569] shadow-xs">
               Wire Transfer
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[11px] font-black text-white italic">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[11px] font-black text-[#154359] italic shadow-xs">
               VISA
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 flex items-center gap-0.5">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 flex items-center gap-0.5 shadow-xs">
               <span className="w-2.5 h-2.5 rounded-full bg-[#eb001b] inline-block -mr-1" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#f79e1b] inline-block opacity-85" />
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[10px] font-black text-[#c084fc]">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[10px] font-black text-purple-700 shadow-xs">
               UPI
             </span>
-            <span className="px-2.5 py-1 bg-[#18122B] rounded-md border border-[#a855f7]/20 text-[10px] font-bold text-[#818cf8]">
+            <span className="px-2.5 py-1 bg-white rounded-md border border-slate-200 text-[10px] font-bold text-[#185B7B] shadow-xs">
               ACH Transfer
             </span>
           </div>
 
-          {/* Social Outline Icons in Media Purple / Indigo Tones */}
+          {/* Social Outline Icons */}
           <div className="flex flex-wrap items-center gap-2.5">
             <a
               href="https://wa.me/918000417058"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs shadow-xs"
               aria-label="Direct WhatsApp Support"
               title="WhatsApp Balaji Prime Media"
             >
@@ -386,7 +379,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs font-bold shadow-xs"
               aria-label="LinkedIn"
               title="LinkedIn"
             >
@@ -396,7 +389,7 @@ export default function Footer() {
               href="https://x.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs font-bold shadow-xs"
               aria-label="X Twitter"
               title="X"
             >
@@ -408,7 +401,7 @@ export default function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs shadow-xs"
               aria-label="Instagram"
               title="Instagram"
             >
@@ -420,7 +413,7 @@ export default function Footer() {
               href="https://youtube.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs shadow-xs"
               aria-label="YouTube"
               title="YouTube"
             >
@@ -430,7 +423,7 @@ export default function Footer() {
             </a>
             <a
               href="mailto:shrahul270@gmail.com"
-              className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+              className="w-8 h-8 rounded-full border border-slate-300 bg-white hover:bg-[#154359] hover:text-white text-[#154359] flex items-center justify-center transition-all text-xs shadow-xs"
               aria-label="Direct Email"
               title="Email Balaji Prime Media"
             >
@@ -443,28 +436,28 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
-      <div className="relative pt-10 pb-8 sm:pb-12 md:pb-14 overflow-hidden border-t border-[#1F172C] min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col justify-center">
+      <div className="relative pt-10 pb-8 sm:pb-12 md:pb-14 overflow-hidden border-t border-slate-300/80 min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col justify-center">
         
-        {/* Subtle purple-indigo rim light halos behind the hands */}
+        {/* Subtle rim light halos behind the hands */}
         <div
           aria-hidden="true"
-          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(168,85,247,0.22)_0%,transparent_75%)] pointer-events-none z-0"
+          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(21,67,89,0.1)_0%,transparent_75%)] pointer-events-none z-0"
         />
         <div
           aria-hidden="true"
-          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(99,102,241,0.22)_0%,transparent_75%)] pointer-events-none z-0"
+          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(24,91,123,0.1)_0%,transparent_75%)] pointer-events-none z-0"
         />
 
-        {/* Giant Thin Purple-Tinted Wordmark - BEHIND THE HANDS (z-0) */}
+        {/* Giant Thin Wordmark - BEHIND THE HANDS (z-0) */}
         <div
           aria-hidden="true"
           className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 overflow-hidden"
         >
           <span
-            className="sinking-wordmark font-thin uppercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap opacity-60 tracking-widest scale-y-105 bg-clip-text text-transparent"
+            className="sinking-wordmark font-thin uppercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap opacity-25 tracking-widest scale-y-105 bg-clip-text text-transparent"
             style={{
               backgroundImage:
-                "linear-gradient(to bottom, rgba(168,85,247,0.4) 0%, rgba(99,102,241,0.2) 60%, transparent 100%)",
+                "linear-gradient(to bottom, rgba(21, 67, 89, 0.45) 0%, rgba(24, 91, 123, 0.2) 60%, transparent 100%)",
             }}
           >
             BALAJI PRIME
@@ -472,42 +465,42 @@ export default function Footer() {
         </div>
 
         {/* Left Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
-        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none animate-hand-left opacity-40 sm:opacity-95">
+        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none animate-hand-left opacity-60 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-left.png"
             alt="Carrara Marble Hand Left"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(168,85,247,0.35)] transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(21,67,89,0.2)] transition-all"
           />
         </div>
 
         {/* Right Carrara Marble Hand Reaching In - IN FRONT OF WORDMARK (z-20) */}
-        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none flex justify-end animate-hand-right opacity-40 sm:opacity-95">
+        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[120px] sm:w-[260px] md:w-[350px] lg:w-[420px] select-none flex justify-end animate-hand-right opacity-60 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-right.png"
             alt="Carrara Marble Hand Right"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(99,102,241,0.35)] transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(21,67,89,0.2)] transition-all"
           />
         </div>
 
         {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) - z-30 */}
         <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-4">
-          <p className="text-white font-bold text-sm sm:text-base tracking-tight">
+          <p className="text-[#154359] font-bold text-sm sm:text-base tracking-tight">
             Build a real agency-grade brand, fast.
           </p>
-          <p className="text-xs text-[#ADADAD]">
+          <p className="text-xs text-[#64748b]">
             &copy; 2026 Balaji Prime Media. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#7D7D7D] pt-1">
-            <Link href="/privacy-policy" className="hover:text-[#c084fc] transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#64748b] pt-1">
+            <Link href="/privacy-policy" className="hover:text-[#154359] transition-colors">
               Privacy Policy
             </Link>
-            <span className="text-purple-900">•</span>
-            <Link href="/terms" className="hover:text-[#c084fc] transition-colors">
+            <span className="text-slate-300">•</span>
+            <Link href="/terms" className="hover:text-[#154359] transition-colors">
               Terms of Service
             </Link>
-            <span className="text-purple-900">•</span>
+            <span className="text-slate-300">•</span>
             <button
               type="button"
               onClick={() => {
@@ -515,7 +508,7 @@ export default function Footer() {
                   window.dispatchEvent(new Event("open-cookie-settings"));
                 }
               }}
-              className="hover:text-[#c084fc] text-[#7D7D7D] transition-colors cursor-pointer font-medium"
+              className="hover:text-[#154359] text-[#64748b] transition-colors cursor-pointer font-medium"
             >
               Cookie Settings
             </button>

@@ -166,15 +166,18 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
   return (
     <section
       id="services"
-      className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 bg-[#090a0f] text-white overflow-hidden font-['Lexend',sans-serif]"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 bg-[#E9EEF3] text-[#154359] overflow-hidden font-['Lexend',sans-serif]"
     >
+      {/* Subtle dot matrix grid matching design plate */}
+      <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+
       {/* Background ambient lighting */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-amber-600/10 rounded-full blur-[140px] pointer-events-none -z-0"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-0"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-orange-700/10 rounded-full blur-[120px] pointer-events-none -z-0"
+        className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-sky-400/10 rounded-full blur-[120px] pointer-events-none -z-0"
         aria-hidden="true"
       />
 
@@ -182,22 +185,22 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
         
         {/* Section Header: Centered Bold Headline & Two-Line Lead */}
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/15 text-[12px] font-semibold text-amber-300 mb-5 backdrop-blur-md shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-300/80 text-[12px] font-semibold text-amber-800 mb-5 backdrop-blur-md shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#ec601c] animate-pulse" />
             <span className="tracking-wide uppercase font-[500]">Measurable Results &amp; Services</span>
           </div>
 
           {/* Centered Headline with word spans for elegant staggered typography */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-[600] text-white tracking-tight leading-[1.15] mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-[600] text-[#154359] tracking-tight leading-[1.15] mb-5">
             {headlineWords.map((word, i) => (
-              <span key={i} className="inline-block mr-[0.28em] transition-transform duration-300 hover:text-amber-300">
+              <span key={i} className="inline-block mr-[0.28em] transition-transform duration-300 hover:text-[#ec601c]">
                 {word}
               </span>
             ))}
           </h2>
 
           {/* Two-line lead in Lexend 300 */}
-          <p className="text-[15px] sm:text-base md:text-[17px] font-[300] text-neutral-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[15px] sm:text-base md:text-[17px] font-[400] text-[#475569] leading-relaxed max-w-2xl mx-auto">
             Our clients come from very different industries, but the goal is always the same: measurable results.
             The projects below show the results that are actually possible.
           </p>
