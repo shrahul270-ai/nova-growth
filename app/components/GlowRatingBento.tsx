@@ -7,11 +7,7 @@ import {
   TrendingUp,
   Gauge,
   ShieldCheck,
-  Check,
-  Copy,
   ArrowUpRight,
-  ChevronDown,
-  Terminal,
 } from "lucide-react";
 
 interface GlowRatingBentoProps {
@@ -94,9 +90,6 @@ function DotNumberSVG({
 
 export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoProps) {
   const [filter, setFilter] = useState<"all" | "usa" | "uk">("all");
-  const [showCodeHUD, setShowCodeHUD] = useState(false);
-  const [activeCodeTab, setActiveCodeTab] = useState<"growth" | "vitals" | "schema">("growth");
-  const [copiedCode, setCopiedCode] = useState(false);
 
   // Generate ticks for Card 1 SVG gauge
   const gaugeTicks: { x1: number; y1: number; x2: number; y2: number; sw: number }[] = [];
@@ -112,57 +105,6 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
       sw: i % 5 === 0 ? 1.5 : 1,
     });
   }
-
-  const codeSnippets = {
-    growth: `// next.config.ts - Turbocharged High-Intent Organic Pipeline
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  experimental: {
-    optimizePackageImports: ["lucide-react"],
-  },
-  images: {
-    formats: ["image/avif", "image/webp"],
-  },
-  headers: async () => [
-    {
-      source: "/:all*(svg|jpg|png|webp|avif)",
-      headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-    },
-  ],
-};
-
-export default nextConfig;`,
-    vitals: `// lib/performance.ts - Google Core Web Vitals (Target: 100/100)
-export function reportCoreWebVitals(metric: any) {
-  // Real-world performance results:
-  // LCP: 0.8s (Baseline 4.2s -> 10x faster)
-  // FID: 8ms  (Industry best < 100ms)
-  // CLS: 0.00 (Zero layout shifts)
-  if (metric.label === "web-vital") {
-    navigator.sendBeacon("/api/analytics/vitals", JSON.stringify(metric));
-  }
-}`,
-    schema: `// SEO Schema - 5-Star Verified Aggregate Rating
-{
-  "@context": "https://schema.org",
-  "@type": "AggregateRating",
-  "ratingValue": "4.9",
-  "reviewCount": "158",
-  "bestRating": "5",
-  "itemReviewed": {
-    "@type": "Service",
-    "name": "High-Intent SEO & Next.js Development",
-    "provider": "Balaji Prime Media"
-  }
-}`,
-  };
-
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(codeSnippets[activeCodeTab]);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
 
   return (
     <section className="relative w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 overflow-hidden bg-[#ececeb] text-[#222]">
@@ -629,114 +571,6 @@ export function reportCoreWebVitals(metric: any) {
             </article>
           </div>
 
-        </div>
-
-        {/* EXPANDABLE VERIFIED PILOT CONSENSUS & CODE ENGINE */}
-        <div className="mt-12 sm:mt-16 rounded-3xl bg-white border border-slate-300 p-5 sm:p-7 shadow-md">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-orange-500/15 border border-orange-500/30 flex items-center justify-center text-orange-600">
-                <Terminal className="w-4 h-4" />
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                  <span>Verified Pilot Consensus Engine</span>
-                  <span className="text-[10px] font-mono text-emerald-700 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full font-bold">
-                    158 Verified Reviews
-                  </span>
-                </h4>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Next.js 15 production architecture with 100% white-hat organic schema
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setShowCodeHUD(!showCodeHUD)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs text-slate-700 transition-colors font-medium cursor-pointer"
-              >
-                <span>{showCodeHUD ? "Hide Code Engine" : "Inspect Code Snippets"}</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                    showCodeHUD ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              <button
-                onClick={() => onOpenConsultation?.("Next.js & SEO Audit")}
-                className="inline-flex items-center justify-center gap-2 bg-[#111] hover:bg-slate-800 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer group/btn"
-              >
-                <span>Schedule Free Founder Strategy Call</span>
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Collapsible Code Inspector */}
-          {showCodeHUD && (
-            <div className="mt-5 pt-5 border-t border-slate-200 space-y-3 animate-in fade-in duration-300">
-              <div className="flex items-center justify-between pb-2">
-                <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-lg border border-slate-200">
-                  <button
-                    onClick={() => setActiveCodeTab("growth")}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                      activeCodeTab === "growth"
-                        ? "bg-white text-slate-900 font-bold shadow-xs border border-slate-300"
-                        : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    growth.config.ts
-                  </button>
-                  <button
-                    onClick={() => setActiveCodeTab("vitals")}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                      activeCodeTab === "vitals"
-                        ? "bg-white text-slate-900 font-bold shadow-xs border border-slate-300"
-                        : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    vitals.ts
-                  </button>
-                  <button
-                    onClick={() => setActiveCodeTab("schema")}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                      activeCodeTab === "schema"
-                        ? "bg-white text-slate-900 font-bold shadow-xs border border-slate-300"
-                        : "text-slate-500 hover:text-slate-900"
-                    }`}
-                  >
-                    schema.json
-                  </button>
-                </div>
-
-                <button
-                  onClick={handleCopyCode}
-                  className="inline-flex items-center gap-1 px-3 py-1 rounded-md text-xs font-mono text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-300 transition-colors cursor-pointer"
-                  title="Copy code"
-                >
-                  {copiedCode ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-700 font-bold">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <div className="rounded-xl bg-[#0d1117] border border-slate-800 p-4 font-mono text-xs overflow-x-auto text-slate-300">
-                <pre className="leading-relaxed">
-                  <code>{codeSnippets[activeCodeTab]}</code>
-                </pre>
-              </div>
-            </div>
-          )}
         </div>
 
       </div>
