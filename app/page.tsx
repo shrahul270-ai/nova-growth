@@ -10,7 +10,7 @@ import PromptHero from "./components/PromptHero";
 import EloServiceSection from "./components/EloServiceSection";
 import MotionCta3DOrb from "./components/MotionCta3DOrb";
 import GlowRatingBento from "./components/GlowRatingBento";
-import HowWeWork3D from "./components/HowWeWork3D";
+import ClientGrowthAtlas from "./components/ClientGrowthAtlas";
 import AboutFoundersSection from "./components/AboutFoundersSection";
 import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
 
@@ -174,46 +174,6 @@ export default function Home() {
         {/* 4. ABOUT FOUNDERS / BALAJI PRIME MEDIA LEADERSHIP */}
         <AboutFoundersSection />
 
-        {/* 5. STATS BAR: OUR IMPACT IN NUMBERS */}
-        <section className="relative py-8 sm:py-10 px-4 sm:px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/35 rounded-3xl p-5 sm:p-8 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 text-white">
-              
-              {/* Badge text with hand-drawn arrow */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-lg md:text-xl font-extrabold text-white tracking-tight">
-                  Our Impact in Numbers
-                </span>
-                <span className="handwriting text-2xl text-[#d97706]">⤹</span>
-              </div>
-
-              {/* 4 Performance Standards */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">850+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Vetted DR 50–90+ Sites</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">100%</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Manual White-Hat Outreach</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">7-14d</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Guaranteed Placement TAT</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">95+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Target Core Web Vitals</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
         {/* 6. RECENT PROJECTS SECTION */}
         <section id="projects" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
@@ -344,8 +304,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. HOW WE WORK (3D CODE TRANSFORMATION PORTAL SECTION) */}
-        <HowWeWork3D />
+        {/* 7. ENTERPRISE CLIENT GROWTH ATLAS / SHOWCASE ANALYZER */}
+        <ClientGrowthAtlas />
 
         {/* CLIENT TESTIMONIALS & REVIEWS SECTION: MOTIONSITES GLOW FEATURES BENTO GRID */}
         <GlowRatingBento
