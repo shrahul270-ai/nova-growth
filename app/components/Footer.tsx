@@ -9,6 +9,15 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Pre-formatted direct email link with client details template
+  const emailInquiryHref =
+    "mailto:support@balajiprimemedia.in?subject=" +
+    encodeURIComponent("New Inquiry - Balaji Prime Media") +
+    "&body=" +
+    encodeURIComponent(
+      "Hello Balaji Prime Media,\n\nClient Details:\n• Full Name: \n• Business Email: \n• Phone / WhatsApp: \n• Website Domain: \n• Service Interested: \n• Estimated Budget: \n\nMessage / Requirements:\n"
+    );
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
@@ -106,16 +115,25 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2 text-[12.5px] text-[#475569]">
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#185B7B] text-sm shrink-0">✉</span>
+                  <span className="text-[#EA4335] text-xs shrink-0">
+                    <svg className="w-3.5 h-3.5 fill-currentColor inline-block" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                  </span>
                   <a
-                    href="mailto:support@balajiprimemedia.in"
+                    href={emailInquiryHref}
                     className="hover:text-[#154359] text-[#475569] transition-colors font-medium break-all"
+                    title="Send inquiry with formatted project details"
                   >
                     support@balajiprimemedia.in
                   </a>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <span className="text-[#25D366] text-sm shrink-0">💬</span>
+                  <span className="text-[#25D366] text-xs shrink-0">
+                    <svg className="w-3.5 h-3.5 fill-currentColor inline-block" viewBox="0 0 24 24">
+                      <path d="M12.04 2C6.527 2 2.05 6.477 2.05 11.99c0 1.954.563 3.778 1.536 5.32L2 22l4.832-1.53c1.482.88 3.208 1.39 5.208 1.39 5.513 0 9.99-4.477 9.99-9.99C22.03 6.477 17.553 2 12.04 2z" />
+                    </svg>
+                  </span>
                   <a
                     href="https://wa.me/917690868932"
                     target="_blank"
@@ -126,7 +144,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="text-[#185B7B] text-sm shrink-0 mt-0.5">📍</span>
+                  <span className="text-[#154359] text-xs shrink-0 mt-0.5">📍</span>
                   <span className="text-[#64748b]">Serving US, UK, Australia, EU &amp; Worldwide Clients</span>
                 </li>
               </ul>
@@ -214,7 +232,7 @@ export default function Footer() {
                   className="hover:text-[#154359] transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span className="flex items-center gap-1.5 font-medium text-[#185B7B]">
-                    <span>Client Portal</span>
+                    <span>Payment</span>
                     <span className="text-xs">💳</span>
                   </span>
                   <span className="text-slate-400 group-hover:text-[#154359] text-xs transition-colors">→</span>
@@ -402,11 +420,13 @@ export default function Footer() {
               href="https://wa.me/917690868932"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center transition-all text-xs shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="Direct WhatsApp Support"
               title="WhatsApp Balaji Prime Media (+91 76908 68932)"
             >
-              💬
+              <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                <path d="M12.04 2C6.527 2 2.05 6.477 2.05 11.99c0 1.954.563 3.778 1.536 5.32L2 22l4.832-1.53c1.482.88 3.208 1.39 5.208 1.39 5.513 0 9.99-4.477 9.99-9.99C22.03 6.477 17.553 2 12.04 2zm5.432 12.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.951 1.18-.176.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.463.132-.612.136-.134.301-.351.451-.527.151-.176.201-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.63-.926-2.233-.244-.588-.492-.508-.676-.517l-.576-.01c-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.507 0 1.48 1.077 2.908 1.228 3.109.15.2 2.119 3.235 5.132 4.538.717.31 1.277.495 1.713.633.72.228 1.375.196 1.893.119.578-.086 1.782-.727 2.032-1.429.25-.702.25-1.303.175-1.429-.075-.125-.276-.2-.577-.35z" />
+              </svg>
             </a>
 
             {/* LinkedIn - Official Blue */}
@@ -414,11 +434,13 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-[#0A66C2] hover:bg-[#084e96] text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-[#0A66C2] hover:bg-[#084e96] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="LinkedIn"
               title="LinkedIn"
             >
-              in
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />
+              </svg>
             </a>
 
             {/* X (Twitter) - Official Black */}
@@ -426,11 +448,11 @@ export default function Footer() {
               href="https://x.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="X Twitter"
               title="X (Twitter)"
             >
-              <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
             </a>
@@ -440,11 +462,11 @@ export default function Footer() {
               href="https://threads.net"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all text-xs font-bold shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="Threads"
               title="Threads"
             >
-              <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 192 192">
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 192 192">
                 <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.8228C81.4245 64.4079 89.6582 60.7443 97.222 60.7443C97.3069 60.7443 97.3917 60.7443 97.4766 60.745C112.551 60.8413 121.579 70.9209 122.951 89.7891C115.702 88.9481 107.561 88.9841 98.4414 89.9077C68.916 92.8967 52.5447 110.155 53.4776 132.842C54.4105 155.529 72.2471 169.593 96.657 169.593C116.666 169.593 131.795 160.054 138.859 143.149C144.996 156.495 156.983 163.666 172.903 163.666C186.297 163.666 195.965 157.069 200.706 144.722L185.733 138.995C182.981 146.166 177.839 149.666 172.903 149.666C163.097 149.666 157.07 142.721 154.947 129.083C159.083 122.476 161.737 114.774 162.771 106.185L147.284 104.316C146.477 111.026 144.409 117.027 141.077 122.259C136.216 109.845 136.721 98.9207 141.537 88.9883ZM122.656 123.645C118.069 133.091 108.723 138.455 96.5508 138.455C82.8837 138.455 70.3667 131.144 69.6087 112.709C68.9567 96.8834 81.3392 84.4539 99.8821 82.5768C107.502 81.8052 114.996 82.0163 122.096 83.1812C122.695 96.4808 122.882 109.972 122.656 123.645Z"/>
               </svg>
             </a>
@@ -454,11 +476,11 @@ export default function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center transition-all text-xs shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="Instagram"
               title="Instagram"
             >
-              <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
@@ -468,23 +490,25 @@ export default function Footer() {
               href="https://youtube.com"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-[#FF0000] hover:bg-[#cc0000] text-white flex items-center justify-center transition-all text-xs shadow-sm hover:scale-110"
+              className="w-8 h-8 rounded-full bg-[#FF0000] hover:bg-[#cc0000] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="YouTube"
               title="YouTube"
             >
-              <svg className="w-3.5 h-3.5 fill-currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
             </a>
 
-            {/* Direct Email - Official Gmail/Brand Red */}
+            {/* Direct Email - Official Gmail/Brand Red with Structured Template */}
             <a
-              href="mailto:support@balajiprimemedia.in"
-              className="w-8 h-8 rounded-full bg-[#EA4335] hover:bg-[#d33828] text-white flex items-center justify-center transition-all text-xs shadow-sm hover:scale-110"
+              href={emailInquiryHref}
+              className="w-8 h-8 rounded-full bg-[#EA4335] hover:bg-[#d33828] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
               aria-label="Direct Email"
-              title="Email Balaji Prime Media (support@balajiprimemedia.in)"
+              title="Email Balaji Prime Media with Project Inquiry (support@balajiprimemedia.in)"
             >
-              ✉
+              <svg className="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+              </svg>
             </a>
           </div>
 

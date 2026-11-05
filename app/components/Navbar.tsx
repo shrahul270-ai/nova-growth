@@ -48,32 +48,32 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       {/* 2-Tier Transparent Header */}
       <header className="w-full relative z-30 bg-transparent">
         
-        {/* Tier 1: Top Transparent Utility Bar (Left empty, Right has Live Support & Portal) */}
+        {/* Tier 1: Top Transparent Utility Bar (Left empty, Right has Live Support & Payment) */}
         <div className="w-full flex items-center justify-between px-3 sm:px-8 pt-2.5 sm:pt-3 pb-1 text-xs">
           {/* Left: Empty as requested */}
           <div className="hidden sm:block" />
 
-          {/* Right: Live Support + Portal Link */}
+          {/* Right: Live Support + Payment Link */}
           <div className="flex items-center gap-2 sm:gap-4 ml-auto">
             {/* Live Global Support Signal */}
             <div
-              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-medium text-[hsl(40,6%,82%)]/90 border border-white/10 bg-white/[0.04] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap backdrop-blur-xs"
+              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-[#154359] border border-[#154359]/20 bg-white/60 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap backdrop-blur-xs shadow-2xs"
               title="Global Support: EST • GMT • AEST"
             >
               <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600" />
               </span>
               <span className="hidden sm:inline">Live Support · EST · GMT · AEST</span>
               <span className="sm:hidden">Live Support</span>
             </div>
 
-            {/* Client Portal Link */}
+            {/* Payment Link */}
             <Link
               href="/pay"
-              className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[12.5px] font-medium text-[hsl(40,6%,82%)] hover:text-white transition-colors border border-white/10 bg-white/[0.04] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap hover:border-white/25"
+              className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[12.5px] font-semibold text-[#154359] hover:text-[#091427] transition-colors border border-[#154359]/20 bg-white/60 hover:bg-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap shadow-2xs"
             >
-              <span>Portal</span>
+              <span>Payment</span>
               <span className="text-[10px] sm:text-[11px]">💳</span>
             </Link>
           </div>
@@ -98,16 +98,16 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             />
           </Link>
 
-          {/* Centered Desktop Navigation Links with text-foreground/90 and hover transition */}
+          {/* Centered Desktop Navigation Links with text-[#154359] */}
           <nav
-            className="hidden lg:flex items-center gap-6 xl:gap-8"
+            className="hidden lg:flex items-center gap-6 xl:gap-8 bg-white/50 backdrop-blur-md px-6 py-2 rounded-full border border-[#154359]/15 shadow-2xs"
             aria-label="Primary"
           >
             <Link
               href="/"
               prefetch={false}
-              className={`text-[14px] font-medium transition-colors hover:text-[hsl(40,6%,95%)] ${
-                activePage === "home" ? "text-[hsl(40,6%,95%)] font-semibold" : "text-[hsl(40,6%,95%)]/75"
+              className={`text-[14px] font-semibold transition-colors hover:text-[#091427] ${
+                activePage === "home" ? "text-[#154359] font-bold underline underline-offset-4 decoration-2 decoration-[#185B7B]" : "text-[#154359]/80"
               }`}
             >
               Home
@@ -119,13 +119,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   key={link.key}
                   href={link.href}
                   prefetch={false}
-                  className={`text-[14px] font-medium transition-colors hover:text-[hsl(40,6%,95%)] flex items-center gap-1 ${
-                    isActive ? "text-[hsl(40,6%,95%)] font-semibold" : "text-[hsl(40,6%,95%)]/75"
+                  className={`text-[14px] font-semibold transition-colors hover:text-[#091427] flex items-center gap-1 ${
+                    isActive ? "text-[#154359] font-bold underline underline-offset-4 decoration-2 decoration-[#185B7B]" : "text-[#154359]/80"
                   }`}
                 >
                   <span>{link.name}</span>
                   {link.badge && (
-                    <span className="text-[9.5px] font-bold bg-white/10 text-amber-300 border border-white/15 px-1.5 py-0.5 rounded-full tracking-wide">
+                    <span className="text-[9.5px] font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.5 rounded-full tracking-wide">
                       {link.badge}
                     </span>
                   )}
@@ -134,11 +134,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Area: ONLY "Get Started" CTA (Live Support & Portal removed from here) */}
+          {/* Right Action Area: ONLY "Get Started" CTA */}
           <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/contact"
-              className="heroSecondary text-[13.5px] font-medium rounded-full px-5 py-2 transition-all shadow-sm"
+              className="bg-[#154359] hover:bg-[#091427] text-white text-[13.5px] font-semibold rounded-full px-5 py-2 transition-all shadow-sm hover:scale-105 active:scale-95"
               aria-label="Get Started with Balaji Prime Media"
             >
               <span>Get Started</span>
@@ -149,18 +149,18 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               type="button"
               id="burger"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-[40px] h-[40px] rounded-full border border-white/15 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50"
+              className="lg:hidden w-[40px] h-[40px] rounded-full border border-[#154359]/20 bg-white/60 hover:bg-white flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-2xs"
               aria-controls="menu"
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               <i
-                className={`w-4 h-[1.5px] bg-[#fafafa] rounded-full transition-transform duration-300 ease-out ${
+                className={`w-4 h-[1.5px] bg-[#154359] rounded-full transition-transform duration-300 ease-out ${
                   mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
                 }`}
               />
               <i
-                className={`w-4 h-[1.5px] bg-[#fafafa] rounded-full transition-transform duration-300 ease-out ${
+                className={`w-4 h-[1.5px] bg-[#154359] rounded-full transition-transform duration-300 ease-out ${
                   mobileMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
                 }`}
               />
@@ -168,8 +168,8 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </div>
         </div>
 
-        {/* 1px divider line with gradient from-transparent via-foreground/20 to-transparent */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(40,6%,95%)]/15 to-transparent mt-[1px]" />
+        {/* 1px divider line with gradient from-transparent via-[#154359]/20 to-transparent */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#154359]/20 to-transparent mt-[1px]" />
       </header>
 
         {/* Mobile Full-Screen Overlay Navigation Drawer */}
@@ -260,7 +260,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full h-12 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <span>Client Payment Portal 💳</span>
+                <span>Payment 💳</span>
               </Link>
             </div>
           </nav>
