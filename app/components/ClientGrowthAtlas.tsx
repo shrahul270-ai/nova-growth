@@ -468,6 +468,7 @@ export default function ClientGrowthAtlas() {
                   src={activeClient.image}
                   alt={activeClient.name}
                   fill
+                  unoptimized
                   className="object-cover"
                 />
               </div>
@@ -624,6 +625,7 @@ export default function ClientGrowthAtlas() {
                     src={activeClient.image}
                     alt={activeClient.name}
                     fill
+                    unoptimized
                     className={`object-cover transition-transform duration-700 ${
                       isCloseup ? "scale-125" : "scale-100 group-hover:scale-105"
                     }`}
@@ -904,6 +906,7 @@ export default function ClientGrowthAtlas() {
                     src={activeClient.image}
                     alt={activeClient.name}
                     fill
+                    unoptimized
                     className="object-cover scale-150"
                   />
                 </div>

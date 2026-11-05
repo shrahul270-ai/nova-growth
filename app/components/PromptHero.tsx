@@ -182,6 +182,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                 src={PORTRAIT_URL}
                 alt="Leadership Advisor, Balaji Prime Media"
                 fill
+                unoptimized
                 className="object-cover"
               />
             </div>
