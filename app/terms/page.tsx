@@ -74,7 +74,7 @@ export default function TermsOfServicePage() {
             <h2 className="text-lg font-bold text-white">6. Inquiries & Legal Notices</h2>
             <div className="bg-[#0b1220] p-4 rounded-xl border border-gray-800 space-y-1 text-xs">
               <p><strong className="text-white">Balaji Prime Media Legal Department</strong></p>
-              <p>Email: <a href="mailto:shrahul270@gmail.com" className="text-blue-400 hover:underline">shrahul270@gmail.com</a></p>
+              <p>Email: <a href="mailto:support@balajiprimemedia.in" className="text-blue-400 hover:underline">support@balajiprimemedia.in</a></p>
               <p>Website: <a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">https://balajiprimemedia.in</a></p>
             </div>
           </section>

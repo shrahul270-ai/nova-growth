@@ -1789,7 +1789,7 @@ export default function GuestPostMarketplace() {
 
             <div className="space-y-2 pt-1">
               <a
-                href={`https://wa.me/918000417058?text=${encodeURIComponent(
+                href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`
                 )}`}
                 target="_blank"

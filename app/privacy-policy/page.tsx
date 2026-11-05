@@ -86,9 +86,9 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="bg-[#0b1220] p-4 rounded-xl border border-gray-800 space-y-1 text-xs">
               <p><strong className="text-white">Balaji Prime Media</strong></p>
-              <p>Email: <a href="mailto:shrahul270@gmail.com" className="text-blue-400 hover:underline">shrahul270@gmail.com</a></p>
+              <p>Email: <a href="mailto:support@balajiprimemedia.in" className="text-blue-400 hover:underline">support@balajiprimemedia.in</a></p>
               <p>Website: <a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">https://balajiprimemedia.in</a></p>
-              <p>Direct Support: +91 80004 17058</p>
+              <p>Direct Support: +91 76908 68932</p>
             </div>
           </section>
         </div>

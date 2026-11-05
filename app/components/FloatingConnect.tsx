@@ -15,8 +15,8 @@ export default function FloatingConnect() {
   }
 
   // Agency contact details
-  const whatsappNumber = "918000417058";
-  const agencyEmail = "shrahul270@gmail.com";
+  const whatsappNumber = "917690868932";
+  const agencyEmail = "support@balajiprimemedia.in";
 
   // Close on outside click
   useEffect(() => {

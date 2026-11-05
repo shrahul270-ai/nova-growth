@@ -13,9 +13,9 @@ export default function ContactClient() {
   const [toast, setToast] = useState<string | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  // Aapki Direct Contact Details
-  const agencyEmail = "shrahul270@gmail.com"; 
-  const whatsappNumber = "+91 80004 17058"; // Agar number badalna ho toh yahan change karein
+  // Direct Contact Details
+  const agencyEmail = "support@balajiprimemedia.in"; 
+  const whatsappNumber = "+91 76908 68932";
 
   const showToast = (msg: string) => {
     setToast(msg);

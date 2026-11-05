@@ -164,7 +164,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href={`https://wa.me/918000417058?text=Hello%20Balaji%20Prime%20Media,%20I%20am%20interested%20in%20your%20${encodeURIComponent(
+                href={`https://wa.me/917690868932?text=Hello%20Balaji%20Prime%20Media,%20I%20am%20interested%20in%20your%20${encodeURIComponent(
                   service.name
                 )}%20service`}
                 target="_blank"

@@ -43,7 +43,7 @@ export default function ThreeDServiceCard({
   const whatsappMessage = encodeURIComponent(
     `Hi Balaji Prime Media, I am interested in ${service.name}.`
   );
-  const whatsappUrl = `https://wa.me/918000417058?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/917690868932?text=${whatsappMessage}`;
 
   const currentPrice = currency === "INR" ? service.priceINR : service.priceUSD;
   const currentSuffix =

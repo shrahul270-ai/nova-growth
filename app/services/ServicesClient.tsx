@@ -707,7 +707,7 @@ export default function ServicesClient() {
                     </td>
                     <td className="py-4 px-5 text-center whitespace-nowrap">
                       <a
-                        href={`https://wa.me/918000417058?text=${encodeURIComponent(
+                        href={`https://wa.me/917690868932?text=${encodeURIComponent(
                           `Hi Balaji Prime Media, I am interested in ${svc.name}.`
                         )}`}
                         target="_blank"
@@ -796,7 +796,7 @@ export default function ServicesClient() {
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#231A33]">
               <a
-                href={`https://wa.me/918000417058?text=${encodeURIComponent(
+                href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media, I would like to get a quote for ${activeModalService.name}.`
                 )}`}
                 target="_blank"

@@ -290,7 +290,7 @@ export default function BuyerDashboardPage() {
   const displayedSites = paginatedSites;
   const filteredAndSortedSites = paginatedSites;
 
-  // Handle Order Post Click (Sends to WhatsApp 8000417058 & logs order to Admin CRM)
+  // Handle Order Post Click (Sends to WhatsApp 7690868932 & logs order to Admin CRM)
   const handleOrderPost = (site: RealWebsiteSite, selectedType?: string, selectedPrice?: number) => {
     const userEmail = buyerUser?.email || "Guest Visitor";
     const userPhone = buyerUser?.phone || "Not specified";
@@ -363,7 +363,7 @@ export default function BuyerDashboardPage() {
           service: `Order (${chosenType}): ${site.domain} ($${chosenPrice} USD)`,
           domain: site.domain,
           title: `Guest Post Order: ${site.domain} ($${chosenPrice} USD)`,
-          details: `User ordered ${chosenType} for ${site.domain} ($${chosenPrice} USD). Contact sent to WhatsApp 8000417058.`,
+          details: `User ordered ${chosenType} for ${site.domain} ($${chosenPrice} USD). Contact sent to WhatsApp 7690868932.`,
           sourcePage: "/buyer-dashboard",
           clientGeo,
         }),
@@ -378,15 +378,15 @@ export default function BuyerDashboardPage() {
           email: userEmail,
           phone: userPhone,
           service: `Order (${chosenType}): ${site.domain} ($${chosenPrice} USD)`,
-          message: `Buyer placed order for ${site.domain} (${chosenType} - $${chosenPrice} USD). WhatsApp 8000417058.`,
+          message: `Buyer placed order for ${site.domain} (${chosenType} - $${chosenPrice} USD). WhatsApp 7690868932.`,
           notes: `Domain: ${site.domain} | Price: $${chosenPrice} USD | Service: ${chosenType} | Category: ${site.category || site.niche} | DR: ${site.dr} | DA: ${site.da} | PA: ${site.pa || "N/A"}`,
           clientGeo,
         }),
       }).catch(() => {});
     });
 
-    // Open WhatsApp directly with +91 8000417058
-    const waUrl = `https://wa.me/918000417058?text=${encodeURIComponent(msg)}`;
+    // Open WhatsApp directly with +91 7690868932
+    const waUrl = `https://wa.me/917690868932?text=${encodeURIComponent(msg)}`;
     window.open(waUrl, "_blank");
   };
 
@@ -1218,7 +1218,7 @@ export default function BuyerDashboardPage() {
             </div>
 
             <div className="pt-2 flex justify-between items-center text-xs text-gray-400 border-t border-gray-800">
-              <span>Orders route directly to WhatsApp: <strong className="text-white">+91 8000417058</strong></span>
+              <span>Orders route directly to WhatsApp: <strong className="text-white">+91 76908 68932</strong></span>
               <button
                 type="button"
                 onClick={() => setPricingModalSite(null)}
