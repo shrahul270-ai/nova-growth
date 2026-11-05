@@ -7,12 +7,11 @@ import Footer from "./components/Footer";
 import SeoAuditWidget from "./components/SeoAuditWidget";
 import HeaderBackgroundAnimation from "./components/HeaderBackgroundAnimation";
 import PromptHero from "./components/PromptHero";
-import FeatureCard from "./components/FeatureCard";
+import EloServiceSection from "./components/EloServiceSection";
 import MotionCta3DOrb from "./components/MotionCta3DOrb";
 import GlowRatingBento from "./components/GlowRatingBento";
 import HowWeWork3D from "./components/HowWeWork3D";
 import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
-import { Search, Code2, FileText, Mail, Link2, Settings } from "lucide-react";
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -158,129 +157,13 @@ export default function Home() {
         {/* 1. PROMPT FULL-SCREEN DARK HERO WITH BACKGROUND VIDEO, HEADLINE, SUBTITLE, CTA & MARQUEE */}
         <PromptHero onOpenConsultation={() => setContactOpen(true)} />
 
-        {/* 3. DIGITAL SOLUTIONS FOR REAL GROWTH (GLOWING FEATURE CARDS SECTION) */}
-        <section id="services" className="relative py-14 sm:py-24 px-4 sm:px-6 md:px-12 z-10 bg-[#0A0A0B] text-white overflow-hidden">
-          {/* Subtle Ambient Background Gradient Glow */}
-          <div
-            className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-950/20 rounded-full blur-[120px] pointer-events-none -z-0"
-            aria-hidden="true"
-          />
-
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-              
-              {/* Left Column Description */}
-              <div className="lg:col-span-4 flex flex-col items-start static lg:sticky lg:top-32">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-[12.5px] font-semibold text-amber-300 mb-4 backdrop-blur-md">
-                  <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                  <span>Our Services</span>
-                </div>
-
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.15] mb-5">
-                  Digital Solutions <br />
-                  for <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-[#d97706]">Real Growth</span>
-                </h2>
-
-                <p className="text-[15px] sm:text-[16px] text-gray-400 leading-relaxed mb-8">
-                  From SEO to web development, we offer end-to-end digital marketing services to help your business reach new heights.
-                </p>
-
-                <Link
-                  href="/services"
-                  className="heroSecondary px-7 py-3.5 rounded-full text-[14px] font-semibold inline-flex items-center gap-2 hover:gap-3 transition-all cursor-pointer shadow-lg shadow-black/40"
-                >
-                  <span>View All Services</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-              </div>
-
-              {/* Right Column: 6 Glowing Feature Cards in 2-Column Responsive Grid */}
-              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7">
-                
-                {/* 1. SEO Optimization */}
-                <FeatureCard
-                  title="SEO Optimization"
-                  description="Rank higher, get found, drive organic traffic."
-                  icon={<Search size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #FF3D77 0%, #FFB1CE 45%, #FF9D3C 100%)"
-                  delay={0.1}
-                  onClick={() => {
-                    setSelectedService("SEO Optimization");
-                    setContactOpen(true);
-                  }}
-                />
-
-                {/* 2. Website Development */}
-                <FeatureCard
-                  title="Website Development"
-                  description="Modern, fast & responsive websites for your brand."
-                  icon={<Code2 size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #FFFFFF 0%, #7DD3FC 45%, #06B6D4 100%)"
-                  delay={0.2}
-                  onClick={() => {
-                    setSelectedService("Website Development");
-                    setContactOpen(true);
-                  }}
-                />
-
-                {/* 3. Content Writing */}
-                <FeatureCard
-                  title="Content Writing"
-                  description="Powerful content that connects and converts."
-                  icon={<FileText size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #4361EE 0%, #E0AEFF 45%, #F72585 100%)"
-                  delay={0.3}
-                  onClick={() => {
-                    setSelectedService("Content Writing");
-                    setContactOpen(true);
-                  }}
-                />
-
-                {/* 4. Email Marketing */}
-                <FeatureCard
-                  title="Email Marketing"
-                  description="Build relationships, boost customer loyalty."
-                  icon={<Mail size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #10B981 0%, #6EE7B7 45%, #059669 100%)"
-                  delay={0.4}
-                  onClick={() => {
-                    setSelectedService("Email Marketing");
-                    setContactOpen(true);
-                  }}
-                />
-
-                {/* 5. Off Page Backlink Building */}
-                <FeatureCard
-                  title="Off Page Backlink Building"
-                  description="Stronger authority, better rankings."
-                  icon={<Link2 size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #8B5CF6 0%, #C084FC 45%, #EC4899 100%)"
-                  delay={0.5}
-                  onClick={() => {
-                    setSelectedService("Off Page Backlink Building");
-                    setContactOpen(true);
-                  }}
-                />
-
-                {/* 6. Website Maintenance */}
-                <FeatureCard
-                  title="Website Maintenance"
-                  description="Keep your site secure, updated & running smoothly."
-                  icon={<Settings size={32} strokeWidth={2.5} />}
-                  gradient="linear-gradient(137deg, #F59E0B 0%, #FBBF24 45%, #EF4444 100%)"
-                  delay={0.6}
-                  onClick={() => {
-                    setSelectedService("Website Maintenance");
-                    setContactOpen(true);
-                  }}
-                />
-
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* 3. MEASURABLE RESULTS & SERVICES SECTION (ELO ONE AESTHETIC TALL SUNSET CARDS) */}
+        <EloServiceSection
+          onSelectService={(serviceName) => {
+            setSelectedService(serviceName);
+            setContactOpen(true);
+          }}
+        />
 
         {/* INTERACTIVE INSTANT SEO AUDIT SECTION */}
         <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
