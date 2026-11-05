@@ -206,14 +206,9 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
         {/* 6 Tall Result Cards in 3-Column Responsive Grid (2-col on tablets, 1-col on mobile) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 lg:gap-8 items-stretch">
           {ELO_SERVICES.map((card, idx) => (
-            <div
+            <Link
               key={card.id}
-              onClick={() => onSelectService?.(card.targetService)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") onSelectService?.(card.targetService);
-              }}
+              href={`/services/${card.id}`}
               className="group relative rounded-[24px] sm:rounded-[28px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2.5 shadow-2xl hover:shadow-[0_25px_60px_-15px_rgba(236,96,28,0.45)] border border-white/20 select-none min-h-[490px] sm:min-h-[520px]"
               style={{
                 background: card.gradient,
@@ -289,15 +284,15 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
                   {/* Subtle dark gradient overlay at base of photo */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
 
-                  {/* "Book Service" badge on hover */}
-                  <div className="absolute bottom-2.5 right-2.5 bg-black/60 backdrop-blur-md text-white text-[11px] font-[500] px-2.5 py-1 rounded-full border border-white/20 flex items-center gap-1 shadow-sm opacity-90 group-hover:opacity-100 group-hover:bg-black/80 transition-all">
-                    <span>Schedule Strategy</span>
-                    <span className="text-xs">↗</span>
+                  {/* "View Full Details" badge on hover */}
+                  <div className="absolute bottom-2.5 right-2.5 bg-black/60 backdrop-blur-md text-white text-[11px] font-[500] px-3 py-1 rounded-full border border-white/20 flex items-center gap-1 shadow-sm opacity-90 group-hover:opacity-100 group-hover:bg-black/80 transition-all">
+                    <span>View Full Details</span>
+                    <span className="text-xs group-hover:translate-x-0.5 transition-transform">→</span>
                   </div>
                 </div>
               </div>
 
-            </div>
+            </Link>
           ))}
         </div>
 
