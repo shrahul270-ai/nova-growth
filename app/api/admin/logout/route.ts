@@ -6,6 +6,14 @@ export async function POST(_req: NextRequest) {
     message: "Logged out successfully",
   });
 
+  response.cookies.set("bpm_admin_token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 0,
+    path: "/",
+  });
+
   response.cookies.set("nova_admin_token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

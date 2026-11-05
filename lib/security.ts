@@ -234,7 +234,7 @@ export function verifyAdminRequest(req: NextRequest): {
   error?: string;
 } {
   // 1. Check HTTP-only cookie
-  const cookieToken = req.cookies.get("nova_admin_token")?.value;
+  const cookieToken = req.cookies.get("bpm_admin_token")?.value || req.cookies.get("nova_admin_token")?.value;
   if (cookieToken) {
     const check = verifySessionToken(cookieToken);
     if (check.valid) return { authenticated: true, email: check.email };

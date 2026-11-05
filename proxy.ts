@@ -84,7 +84,9 @@ export function proxy(req: NextRequest) {
 
   // 5. Protect Private Admin Upload Tool
   if (pathname === "/upload-database") {
-    const adminToken = req.cookies.get("nova_admin_token")?.value;
+    const adminToken =
+      req.cookies.get("bpm_admin_token")?.value ||
+      req.cookies.get("nova_admin_token")?.value;
     if (!adminToken) {
       const loginUrl = req.nextUrl.clone();
       loginUrl.pathname = "/admin";

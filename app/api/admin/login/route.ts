@@ -79,6 +79,14 @@ export async function POST(req: NextRequest) {
 
     const isProduction = process.env.NODE_ENV === "production";
 
+    response.cookies.set("bpm_admin_token", sessionToken, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: "/",
+    });
+
     response.cookies.set("nova_admin_token", sessionToken, {
       httpOnly: true,
       secure: isProduction,

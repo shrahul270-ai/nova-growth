@@ -70,6 +70,10 @@ body {
   font-family: var(--font-handwriting);
 }
 
+.font-firs {
+  font-family: 'TT Firs Neue', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 /* Glassmorphism & Luxury Ambient Navy & Gold */
 .glass-header {
   background: rgba(248, 250, 253, 0.92);

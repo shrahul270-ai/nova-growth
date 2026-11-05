@@ -11,6 +11,7 @@ import EloServiceSection from "./components/EloServiceSection";
 import MotionCta3DOrb from "./components/MotionCta3DOrb";
 import GlowRatingBento from "./components/GlowRatingBento";
 import HowWeWork3D from "./components/HowWeWork3D";
+import AboutFoundersSection from "./components/AboutFoundersSection";
 import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
 
 export default function Home() {
@@ -170,149 +171,8 @@ export default function Home() {
           <SeoAuditWidget />
         </section>
 
-        {/* 4. ABOUT BALAJI PRIME MEDIA / TRUSTED PARTNER */}
-        <section id="about" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-            
-            {/* Left Column: Angled Laptop & Floating Analytics */}
-            <div className="lg:col-span-6 relative flex items-center justify-center my-4 sm:my-0">
-              
-              {/* Handwritten Note Top */}
-              <div className="absolute -top-7 left-2 sm:left-12 z-20 flex flex-col items-center">
-                <span className="handwriting text-xl sm:text-2xl font-bold text-[#334155] -rotate-3">
-                  Your Success
-                </span>
-                <span className="handwriting text-xl sm:text-2xl font-bold text-[#334155] -rotate-3">
-                  Our Mission
-                </span>
-                <svg className="w-6 h-6 text-[#64748b] rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-
-              {/* Floating Metric 1 */}
-              <div className="absolute top-6 left-1 sm:top-8 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 animate-float-gentle text-xs">
-                <span className="text-[#d97706] font-bold text-[11px] sm:text-xs">↗ 15%</span>
-                <span className="text-[10px] sm:text-[11px] text-[#64748b] font-medium">Conversions</span>
-              </div>
-
-              {/* Floating Metric 2 */}
-              <div className="absolute bottom-12 left-1 sm:bottom-16 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs">
-                <span className="text-[#d97706] font-bold text-[11px] sm:text-xs">↗ 20%</span>
-                <span className="text-[10px] sm:text-[11px] text-[#64748b] font-medium">Click Through Rate</span>
-              </div>
-
-              {/* Laptop Body Mockup */}
-              <div className="relative w-full max-w-[480px] bg-slate-900 rounded-t-2xl p-2.5 sm:p-3 shadow-2xl border-4 border-slate-700/80">
-                {/* Screen bezel & top camera dot */}
-                <div className="w-2 h-2 rounded-full bg-slate-600 mx-auto mb-2" />
-                
-                {/* Screen Dashboard Preview */}
-                <div className="bg-slate-50 rounded-lg p-3 sm:p-4 border border-slate-200">
-                  <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#d97706]" />
-                      <span className="text-xs font-bold text-slate-800">Organic Growth Report</span>
-                    </div>
-                    <span className="text-[10px] text-slate-500 font-medium">Live Analytics</span>
-                  </div>
-
-                  {/* Chart bars & lines visual */}
-                  <div className="grid grid-cols-6 gap-2 items-end h-20 sm:h-24 mb-3 px-2">
-                    <div className="bg-amber-200 rounded-t h-[35%]" />
-                    <div className="bg-amber-300 rounded-t h-[50%]" />
-                    <div className="bg-amber-400 rounded-t h-[65%]" />
-                    <div className="bg-amber-500 rounded-t h-[80%]" />
-                    <div className="bg-[#d97706] rounded-t h-[95%]" />
-                    <div className="bg-[#091427] rounded-t h-[100%]" />
-                  </div>
-
-                  <div className="flex items-center justify-between text-[10.5px] sm:text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
-                    <span>Target: +150%</span>
-                    <span className="text-[#d97706] font-bold">Achieved: +300%</span>
-                  </div>
-                </div>
-
-                {/* Laptop Base */}
-                <div className="w-full sm:w-[104%] sm:-ml-[2%] h-3 bg-slate-800 rounded-b-xl mt-1 shadow-md" />
-              </div>
-
-              {/* Floating Highlight Badge: +245% Organic Traffic */}
-              <div className="absolute -bottom-3 right-2 sm:-bottom-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-amber-200/80 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl shadow-xl flex items-center gap-2 sm:gap-2.5">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center font-bold text-xs shrink-0">
-                  📈
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-xs sm:text-sm font-extrabold text-[#0f172a] leading-none">+245%</span>
-                  <span className="text-[9.5px] sm:text-[10.5px] font-medium text-[#64748b]">Organic Traffic</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: About Content */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                <span>About Balaji Prime Media</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
-                Your Trusted Partner <br />
-                in <span className="text-gradient-navy-gold">Digital Growth</span>
-              </h2>
-
-              <p className="text-[15.5px] text-[#475569] leading-relaxed mb-8">
-                At Balaji Prime Media, we combine search intelligence, white-hat editorial outreach, and modern web engineering to deliver sustainable organic growth for overseas businesses.
-              </p>
-
-              {/* 4 Feature Cards (2x2 Grid) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
-                    👥
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Expert Team</span>
-                    <span className="text-[12px] text-[#64748b]">Skilled &amp; Experienced</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg shrink-0">
-                    📊
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Data Driven</span>
-                    <span className="text-[12px] text-[#64748b]">Strategy &amp; Analysis</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
-                    📋
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Transparent</span>
-                    <span className="text-[12px] text-[#64748b]">Weekly Reporting</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shrink-0">
-                    🌐
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Global</span>
-                    <span className="text-[12px] text-[#64748b]">Client Support 24/7</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </section>
+        {/* 4. ABOUT FOUNDERS / BALAJI PRIME MEDIA LEADERSHIP */}
+        <AboutFoundersSection />
 
         {/* 5. STATS BAR: OUR IMPACT IN NUMBERS */}
         <section className="relative py-8 sm:py-10 px-4 sm:px-6 md:px-12 z-10">
