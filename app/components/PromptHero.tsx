@@ -116,10 +116,10 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               <span>We Scale 100+ Global Businesses</span>
             </div>
 
-            {/* H1 Headline */}
+            {/* H1 Headline: Balaji Prime Media */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-normal leading-[1.05] tracking-tight text-white drop-shadow-lg">
-              Clear. Precise. <br />
-              <span className="font-light italic text-white/95">Automated.</span>
+              Balaji Prime <br />
+              <span className="font-light italic text-white/95">Media</span>
             </h1>
 
             {/* Supporting Brand Subline */}
@@ -127,29 +127,25 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               Balaji Prime Media empowers enterprise brands and overseas startups with white-hat search authority and exponential organic revenue acquisition.
             </p>
 
-            {/* Action Buttons */}
-            <div className="mt-7 flex flex-wrap items-center gap-3.5">
+            {/* Single Schedule Button */}
+            <div className="mt-7 flex items-center">
               <button
                 type="button"
                 onClick={onOpenConsultation}
-                className="rounded-full bg-white text-black px-6 py-3 text-xs sm:text-sm font-semibold hover:bg-white/90 transition-all flex items-center gap-2 shadow-lg cursor-pointer hover:scale-105 active:scale-95"
+                className="rounded-full bg-white text-black px-7 py-3.5 text-xs sm:text-sm font-semibold hover:bg-white/90 transition-all flex items-center gap-2 shadow-lg cursor-pointer hover:scale-105 active:scale-95"
               >
-                <span>Schedule Strategy Call</span>
+                <span>Schedule a Consult</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
-
-              <a
-                href="#services"
-                className="rounded-full border border-white/25 bg-white/10 backdrop-blur-md text-white px-5 py-3 text-xs sm:text-sm font-medium hover:bg-white/20 transition-all flex items-center gap-1.5 shadow-sm"
-              >
-                <span>Explore Solutions</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
-              </a>
             </div>
           </div>
 
           {/* Right Column: Glass Contact Card ("Talk with Leadership") */}
-          <div className="flex items-center gap-4 rounded-xl bg-white/15 p-3.5 backdrop-blur-md border border-white/15 shadow-2xl max-w-sm w-full sm:w-auto">
+          <div
+            onClick={onOpenConsultation}
+            className="flex items-center gap-4 rounded-xl bg-white/15 p-3.5 backdrop-blur-md border border-white/15 shadow-2xl max-w-sm w-full sm:w-auto cursor-pointer hover:bg-white/20 transition-all"
+            title="Schedule Consultation with Leadership"
+          >
             {/* Portrait Image */}
             <div className="relative h-24 w-20 rounded-lg overflow-hidden shrink-0 border border-white/20 bg-black/40">
               <Image
@@ -172,15 +168,6 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               <p className="text-[11.5px] text-white/75 leading-tight my-0.5">
                 Direct 1-on-1 organic growth strategy for high-intent queries.
               </p>
-
-              <button
-                type="button"
-                onClick={onOpenConsultation}
-                className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-black hover:bg-white/90 transition-all mt-1 w-fit cursor-pointer shadow-xs hover:scale-105"
-              >
-                <span>Book 15-min call</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
 
