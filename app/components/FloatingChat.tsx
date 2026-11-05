@@ -20,7 +20,7 @@ export default function FloatingChat() {
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#d97706] border-2 border-white" />
               </div>
               <div>
-                <span className="text-xs font-bold text-[#091427] block">Nova Growth Team</span>
+                <span className="text-xs font-bold text-[#091427] block">Balaji Prime Media Team</span>
                 <span className="text-[10px] text-[#d97706] font-semibold">● Online for Global Clients</span>
               </div>
             </div>

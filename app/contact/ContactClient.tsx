@@ -208,7 +208,7 @@ export default function ContactClient() {
                 </div>
                 <div className="flex gap-1.5 shrink-0">
                   <a
-                    href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
+                    href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Balaji%20Prime%20Media,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
                     onClick={() => trackInteraction({
                       action: "whatsapp",
                       title: "Direct WhatsApp Clicked",
@@ -250,7 +250,7 @@ export default function ContactClient() {
                   <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-4">
                     {/* 1. WhatsApp Button */}
                     <a
-                      href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Nova%20Growth,%20I%20just%20submitted%20a%20project%20inquiry.%20Name:%20${encodeURIComponent(formData.name)},%20Email:%20${encodeURIComponent(formData.email)},%20Service:%20${encodeURIComponent(formData.service)},%20Budget:%20${encodeURIComponent(formData.budget)}`}
+                      href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Balaji%20Prime%20Media,%20I%20just%20submitted%20a%20project%20inquiry.%20Name:%20${encodeURIComponent(formData.name)},%20Email:%20${encodeURIComponent(formData.email)},%20Service:%20${encodeURIComponent(formData.service)},%20Budget:%20${encodeURIComponent(formData.budget)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-3d inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"

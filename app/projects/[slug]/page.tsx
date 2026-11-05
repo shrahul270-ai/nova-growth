@@ -323,7 +323,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-2xl font-black text-[#0f172a]">Explore More Case Studies</h2>
-              <p className="text-xs text-gray-500 mt-1">See how other overseas companies scale with Nova Growth</p>
+              <p className="text-xs text-gray-500 mt-1">See how other overseas companies scale with Balaji Prime Media</p>
             </div>
             <Link
               href="/projects"

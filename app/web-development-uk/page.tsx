@@ -100,7 +100,7 @@ export default function WebDevelopmentUkPage() {
       <section className="py-16 px-6 md:px-12 text-center max-w-4xl mx-auto">
         <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
           <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
-            Start Your Web Project With Nova Growth
+            Start Your Web Project With Balaji Prime Media
           </h2>
           <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
             Get a detailed timeline, architecture proposal, and transparent quote within 12 hours.

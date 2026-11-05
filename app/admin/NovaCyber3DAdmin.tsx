@@ -267,7 +267,7 @@ export default function NovaCyber3DAdmin({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-lg font-black tracking-tight text-white uppercase drop-shadow-[0_2px_10px_rgba(255,255,255,0.4)]">
-                  Nova Growth
+                  Balaji Prime Media
                 </span>
                 <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#FF007F]/20 text-[#FF007F] border border-[#FF007F]/50 shadow-[0_0_12px_rgba(255,0,127,0.4)]">
                   3D Cyber Nexus

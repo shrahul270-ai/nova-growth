@@ -35,13 +35,12 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "About", href: "/about", key: "about" },
-    { name: "Services", href: "/services", key: "services" },
     { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50+" },
+    { name: "Services", href: "/services", key: "services" },
     { name: "Projects", href: "/projects", key: "projects" },
-    { name: "Pay", href: "/pay", key: "pay" },
-    { name: "Blog", href: "/blog", key: "blog" },
-    { name: "Contact", href: "/contact", key: "contact" },
+    { name: "Blogs", href: "/blog", key: "blog" },
+    { name: "About Us", href: "/about", key: "about" },
+    { name: "Contact Us", href: "/contact", key: "contact" },
   ];
 
   return (
@@ -83,30 +82,20 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         {/* Tier 2: Main Bottom Transparent Navbar (Brand Logo, Center Links, Right CTA) */}
         <div className="w-full flex items-center justify-between gap-3 sm:gap-6 px-3 sm:px-8 py-2.5 sm:py-3.5">
           
-          {/* User's Original Official Brand Logo & Name */}
+          {/* User's Official Brand Logo - Big Single Logo Image (BPM & Tagline in Logo itself) */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 sm:gap-3 group shrink min-w-0"
+            className="flex items-center group shrink-0"
             aria-label="Balaji Prime Media Home"
           >
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-lg shadow-black/50 group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 border border-white/20 shrink-0">
-              <Image
-                src="/images/logo-symbol.png"
-                alt="Balaji Prime Media Official Logo"
-                width={44}
-                height={44}
-                priority
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="flex flex-col text-left truncate">
-              <span className="text-[13px] sm:text-[16.5px] font-extrabold tracking-tight text-[hsl(40,6%,95%)] leading-none truncate group-hover:text-amber-300 transition-colors">
-                BALAJI PRIME MEDIA
-              </span>
-              <span className="text-[7.5px] sm:text-[9.5px] font-bold tracking-[0.12em] sm:tracking-[0.16em] text-[#d97706] uppercase mt-0.5 sm:mt-1 truncate">
-                Digital Growth &amp; SEO Agency
-              </span>
-            </div>
+            <Image
+              src="/images/bpm-complete-logo.png"
+              alt="BPM - Digital Growth & SEO Agency"
+              width={220}
+              height={205}
+              priority
+              className="h-14 sm:h-17 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300 filter drop-shadow-[0_4px_22px_rgba(251,191,36,0.5)]"
+            />
           </Link>
 
           {/* Centered Desktop Navigation Links with text-foreground/90 and hover transition */}
@@ -194,20 +183,15 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2.5"
+                className="flex items-center"
               >
-                <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center p-1 shrink-0 shadow-sm">
-                  <Image
-                    src="/images/logo-symbol.png"
-                    alt="Balaji Prime Media Official Logo"
-                    width={32}
-                    height={32}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <span className="text-[14px] font-extrabold text-white tracking-tight">
-                  BALAJI PRIME MEDIA
-                </span>
+                <Image
+                  src="/images/bpm-complete-logo.png"
+                  alt="BPM - Digital Growth & SEO Agency"
+                  width={160}
+                  height={150}
+                  className="h-13 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)]"
+                />
               </Link>
 
               <button

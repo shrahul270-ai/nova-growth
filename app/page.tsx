@@ -347,7 +347,7 @@ export default function Home() {
           <SeoAuditWidget />
         </section>
 
-        {/* 4. ABOUT NOVA GROWTH / TRUSTED PARTNER */}
+        {/* 4. ABOUT BALAJI PRIME MEDIA / TRUSTED PARTNER */}
         <section id="about" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             

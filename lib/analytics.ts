@@ -1,4 +1,4 @@
-// Google Analytics 4 (GA4) Analytics Utilities for Nova Growth
+// Google Analytics 4 (GA4) Analytics Utilities for Balaji Prime Media
 
 export const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-EEX0Q71HLR";

@@ -24,7 +24,7 @@ export default function Footer() {
           name: "Newsletter Subscriber",
           service: "Weekly SEO & Digital Growth Insights",
           sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
-          message: "User subscribed to Nova Growth newsletter via footer form.",
+          message: "User subscribed to Balaji Prime Media newsletter via footer form.",
         }),
       });
       setSubscribed(true);
@@ -74,35 +74,15 @@ export default function Footer() {
           
           {/* COLUMN 1: Brand & Direct Contact (span 4) */}
           <div className="lg:col-span-4 space-y-4 text-left animate-shipcraft-col-1">
-            {/* Brand Logo with Website's Exact Logo */}
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-lg shadow-black/50 p-1.5 group-hover:scale-105 transition-all shrink-0 border border-white/20">
-                <Image
-                  src="/images/logo-symbol.png"
-                  alt="Balaji Prime Media Official Logo"
-                  width={44}
-                  height={44}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="flex flex-col text-left">
-                <span className="text-xl font-black text-white tracking-tight leading-none group-hover:text-purple-100 transition-colors">
-                  BALAJI PRIME{" "}
-                  <span
-                    className="bg-clip-text text-transparent font-black"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)",
-                    }}
-                  >
-                    MEDIA
-                  </span>
-                </span>
-                <span className="text-[9.5px] font-bold tracking-widest text-[#c084fc] uppercase mt-1">
-                  Digital Growth &amp; SEO Agency
-                </span>
-              </div>
+            {/* Brand Logo - Big Single Logo Image (No separate text) */}
+            <Link href="/" className="inline-flex items-center group">
+              <Image
+                src="/images/bpm-complete-logo.png"
+                alt="BPM - Digital Growth & SEO Agency"
+                width={240}
+                height={225}
+                className="h-16 sm:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300 filter drop-shadow-[0_4px_24px_rgba(251,191,36,0.5)]"
+              />
             </Link>
 
             {/* Dark Pill with Media Gradient Border */}
@@ -317,7 +297,7 @@ export default function Footer() {
               </form>
               {subscribed ? (
                 <p className="text-[11px] text-[#c084fc] font-semibold mt-1.5 flex items-center gap-1">
-                  <span>✓ Subscribed to Nova Growth!</span>
+                  <span>✓ Subscribed to Balaji Prime Media!</span>
                 </p>
               ) : (
                 <p className="text-[10px] text-[#717171] mt-1.5">
@@ -398,7 +378,7 @@ export default function Footer() {
               rel="opener"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="Direct WhatsApp Support"
-              title="WhatsApp Nova Growth"
+              title="WhatsApp Balaji Prime Media"
             >
               💬
             </a>
@@ -452,7 +432,7 @@ export default function Footer() {
               href="mailto:shrahul270@gmail.com"
               className="w-8 h-8 rounded-full border border-[#a855f7]/30 bg-[#18122B]/80 hover:border-[#a855f7] hover:bg-[#a855f7]/20 text-[#c084fc] hover:text-white flex items-center justify-center transition-all text-xs shadow-sm hover:shadow-[0_0_15px_rgba(168,85,247,0.4)]"
               aria-label="Direct Email"
-              title="Email Nova Growth"
+              title="Email Balaji Prime Media"
             >
               ✉
             </a>

@@ -24,7 +24,7 @@ export default function BlogClient() {
     e.preventDefault();
     if (!newsletterEmail) return;
     setNewsletterSuccess(true);
-    showToast("🎉 Successfully subscribed to Nova Growth Insights!");
+    showToast("🎉 Successfully subscribed to Balaji Prime Media Insights!");
   };
 
   const filteredPosts = blogPosts.filter((post) => {

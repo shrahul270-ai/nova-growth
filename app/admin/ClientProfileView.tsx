@@ -256,7 +256,7 @@ export default function ClientProfileView({
   const whatsappUrl = cleanPhone
     ? `https://wa.me/${cleanPhone.startsWith("91") || cleanPhone.length > 10 ? cleanPhone : `91${cleanPhone}`}?text=Hello%20${encodeURIComponent(
         activeClient?.name || "there"
-      )},%20reaching%20out%20from%20Nova%20Growth%20Agency%20regarding%20your%20inquiry.`
+      )},%20reaching%20out%20from%20Balaji%20Prime%20Media%20regarding%20your%20inquiry.`
     : null;
 
   // Copy Complete Client Dossier Summary
@@ -265,7 +265,7 @@ export default function ClientProfileView({
 
     const summaryText = `
 =========================================
-NOVA GROWTH - CLIENT 360° DOSSIER
+BALAJI PRIME MEDIA - CLIENT 360° DOSSIER
 =========================================
 Name: ${activeClient.name}
 Email: ${activeClient.email || "N/A"}
@@ -471,7 +471,7 @@ ${activeClient.notes.join("\n") || "No notes"}
 
                 {activeClient.email && (
                   <a
-                    href={`mailto:${activeClient.email}?subject=Nova%20Growth%20Agency%20Update`}
+                    href={`mailto:${activeClient.email}?subject=Balaji%20Prime%20Media%20Update`}
                     className="bg-gray-800 hover:bg-gray-700 text-white font-bold px-3.5 py-2.5 rounded-xl border border-gray-700 transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
                     <span>✉️</span>

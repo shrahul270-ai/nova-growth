@@ -61,7 +61,7 @@ export default function AnalyticsDashboardView({ stats, records = [] }: Analytic
               Data Analytics &amp; Search Engine Performance
             </h2>
             <p className="text-gray-400 text-xs sm:text-sm mt-1 max-w-2xl">
-              Real-time website traffic intelligence, event tracking conversions, and Google Search Console sitemap indexing status for Nova Growth.
+              Real-time website traffic intelligence, event tracking conversions, and Google Search Console sitemap indexing status for Balaji Prime Media.
             </p>
           </div>
 

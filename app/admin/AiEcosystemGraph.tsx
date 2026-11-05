@@ -44,11 +44,11 @@ export default function AiEcosystemGraph({ stats, onSelectNode }: AiEcosystemGra
   const [activeFilter, setActiveFilter] = useState<"all" | "revenue" | "leads" | "publishers">("all");
   const [isPaused, setIsPaused] = useState(false);
 
-  // Nodes Definition (Tailored specifically for Nova Growth Digital Agency)
+  // Nodes Definition (Tailored specifically for Balaji Prime Media Agency)
   const initialNodes: NodeData[] = [
     {
       id: "core",
-      label: "Nova Growth Engine",
+      label: "Balaji Prime Media Engine",
       category: "core",
       x: 0,
       y: 0,

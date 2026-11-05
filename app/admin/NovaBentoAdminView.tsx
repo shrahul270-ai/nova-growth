@@ -66,7 +66,7 @@ export default function NovaBentoAdminView({
               setActiveDockItem("home");
               setSelectedSubTab("Overview");
             }}
-            title="Nova Growth Core"
+            title="Balaji Prime Media Core"
             className="w-10 h-10 rounded-[18px] bg-[#1d1f24] hover:bg-[#272a31] flex items-center justify-center text-white transition-all shadow-inner group"
           >
             <svg
@@ -221,7 +221,7 @@ export default function NovaBentoAdminView({
           </button>
 
           {/* User Profile Avatar with Online Badge */}
-          <div className="relative mt-1 cursor-pointer" title="Nova Growth Admin (Online)">
+          <div className="relative mt-1 cursor-pointer" title="Balaji Prime Media Admin (Online)">
             <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-black text-xs ring-2 ring-white/10">
               NG
             </div>

@@ -1,4 +1,4 @@
-# Nova Growth Enterprise Robots.txt
+# Balaji Prime Media Official Robots.txt
 User-agent: *
 Allow: /
 Disallow: /admin
@@ -34,4 +34,4 @@ Disallow: /
 User-agent: Scrapy
 Disallow: /
 
-Sitemap: https://novagrowth.agency/sitemap.xml
+Sitemap: https://balajiprimemedia.in/sitemap.xml

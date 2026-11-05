@@ -1671,7 +1671,7 @@ export default function GuestPostMarketplace() {
 
             <div className="space-y-1">
               <p className="text-xs text-gray-400 leading-relaxed">
-                Paste up to <strong className="text-amber-400 font-bold">{BULK_SEARCH_LIMIT} domains or keywords</strong> (one per line or comma-separated) to check availability in Nova Growth&apos;s database.
+                Paste up to <strong className="text-amber-400 font-bold">{BULK_SEARCH_LIMIT} domains or keywords</strong> (one per line or comma-separated) to check availability in Balaji Prime Media&apos;s database.
               </p>
               <div className="flex items-center justify-between text-[11px] pt-0.5">
                 <span className="text-gray-400">Limit: Max {BULK_SEARCH_LIMIT} domains</span>
@@ -1790,7 +1790,7 @@ export default function GuestPostMarketplace() {
             <div className="space-y-2 pt-1">
               <a
                 href={`https://wa.me/918000417058?text=${encodeURIComponent(
-                  `Hi Nova Growth! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`
+                  `Hi Balaji Prime Media! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

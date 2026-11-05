@@ -81,13 +81,13 @@ export default function AboutPage() {
       <section id="about-purpose" className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           <div>
-            <div className="mb-5 inline-block">
+            <div className="mb-5 inline-block p-3 sm:p-4 rounded-2xl bg-[#080d1a] border border-amber-500/25 shadow-md">
               <Image
-                src="/images/logo.png"
-                alt="Balaji Prime Media Official Brand Identity"
+                src="/images/bpm-complete-logo.png"
+                alt="BPM - Digital Growth & SEO Agency"
                 width={260}
-                height={80}
-                className="h-11 sm:h-12 w-auto object-contain"
+                height={240}
+                className="h-16 sm:h-20 w-auto object-contain"
               />
             </div>
             <div>

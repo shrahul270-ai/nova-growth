@@ -54,7 +54,7 @@ export default function AdminDatabasePage() {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Active View State (Nova Growth Agency CRM)
+  // Active View State (Balaji Prime Media Agency CRM)
   const [activeTab, setActiveTab] = useState<
     | "dashboard"
     | "ai_graph"
@@ -575,7 +575,7 @@ export default function AdminDatabasePage() {
               </div>
               <div className="leading-tight">
                 <span className={`text-sm font-black ${isDarkUi ? "text-white" : "text-slate-900"} tracking-tight block`}>
-                  Nova Growth
+                  Balaji Prime Media
                 </span>
                 <span className="text-[10px] text-[#d97706] font-bold uppercase tracking-wider block">
                   {isDarkUi ? "AI Command Center" : "Admin Panel"}

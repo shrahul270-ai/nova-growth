@@ -83,7 +83,7 @@ export default function FloatingConnect() {
 
       {/* 2. Send Quick Email Button (Left) */}
       <a
-        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("Direct Agency Inquiry - Nova Growth")}`}
+        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent("Direct Agency Inquiry - Balaji Prime Media")}`}
         target="_blank"
         rel="opener"
         onClick={handleEmailClick}

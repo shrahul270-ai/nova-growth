@@ -48,7 +48,7 @@ export default function GooglePreferredSourceButton({
           href={googleDeepLink}
           target="_blank"
           rel="noopener noreferrer"
-          title="Add Nova Growth as a Preferred Source on Google"
+          title="Add Balaji Prime Media as a Preferred Source on Google"
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-[#091427] text-xs font-bold transition-all shadow-2xs hover:shadow-xs group cursor-pointer"
         >
           {/* Google 4-Color 'G' Icon */}
@@ -130,11 +130,11 @@ export default function GooglePreferredSourceButton({
           </div>
 
           <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-            See Nova Growth First in <span className="text-[#f59e0b]">Google AI &amp; Search</span>
+            See Balaji Prime Media First in <span className="text-[#f59e0b]">Google AI &amp; Search</span>
           </h3>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-            Add Nova Growth as your <strong>Preferred Source</strong> on Google. Whenever you search for SEO, Next.js, or growth strategies, Google will prioritize our playbooks with an official &ldquo;Preferred&rdquo; badge in Google Search &amp; AI Overviews.
+            Add Balaji Prime Media as your <strong>Preferred Source</strong> on Google. Whenever you search for SEO, Next.js, or growth strategies, Google will prioritize our playbooks with an official &ldquo;Preferred&rdquo; badge in Google Search &amp; AI Overviews.
           </p>
         </div>
 
@@ -207,7 +207,7 @@ export default function GooglePreferredSourceButton({
             </div>
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
               <span className="font-bold text-white block mb-1">2. AI Overviews Boost</span>
-              <span>Google AI answers prioritize quotes, stats, and tactical advice from Nova Growth.</span>
+              <span>Google AI answers prioritize quotes, stats, and tactical advice from Balaji Prime Media.</span>
             </div>
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
               <span className="font-bold text-white block mb-1">3. Official Badge</span>

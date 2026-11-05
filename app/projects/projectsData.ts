@@ -57,7 +57,7 @@ export const caseStudiesData: CaseStudyData[] = [
     visual: "👗",
     bgGradient: "from-rose-50 to-amber-50",
     overview:
-      "Luxe Fashion is a fast-growing premium apparel brand based in California. Operating on a bloated monolithic CMS, they struggled with high customer acquisition costs on paid social and sub-optimal mobile conversion rates. Nova Growth re-engineered their entire digital presence with a headless Next.js frontend and an aggressive collection page SEO taxonomy.",
+      "Luxe Fashion is a fast-growing premium apparel brand based in California. Operating on a bloated monolithic CMS, they struggled with high customer acquisition costs on paid social and sub-optimal mobile conversion rates. Balaji Prime Media re-engineered their entire digital presence with a headless Next.js frontend and an aggressive collection page SEO taxonomy.",
     challenge: {
       heading: "The Challenge: Bloated Architecture & Skyrocketing Ad Costs",
       points: [
@@ -95,7 +95,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["Next.js App Router", "Shopify Storefront API", "Tailwind CSS", "TypeScript", "Klaviyo", "Vercel Edge"],
     testimonial: {
       quote:
-        "Nova Growth transformed our entire business model. We went from burning tens of thousands every month on Facebook ads to generating 6-figure organic revenue predictably from Google search. Their team understands the US e-commerce market inside out.",
+        "Balaji Prime Media transformed our entire business model. We went from burning tens of thousands every month on Facebook ads to generating 6-figure organic revenue predictably from Google search. Their team understands the US e-commerce market inside out.",
       author: "Brianna Montgomery",
       role: "VP of E-Commerce & Growth",
       company: "Luxe Fashion Apparel, Los Angeles"
@@ -130,7 +130,7 @@ export const caseStudiesData: CaseStudyData[] = [
     solution: {
       heading: "The Solution: Gamified Micro-Interactions & Streamlined CRO",
       description:
-        "Nova Growth completely redesigned the user onboarding experience into a 3-step interactive questionnaire, paired with smooth 60fps animations and localized App Store Optimization.",
+        "Balaji Prime Media completely redesigned the user onboarding experience into a 3-step interactive questionnaire, paired with smooth 60fps animations and localized App Store Optimization.",
       keyPoints: [
         "Crafted custom dark-mode aesthetic with amber glow micro-interactions using React Native and Reanimated.",
         "Reduced signup friction to under 90 seconds with one-tap Apple / Google Authentication.",
@@ -155,7 +155,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["React Native", "TypeScript", "Tailwind CSS", "Node.js", "Firebase", "Stripe Billing"],
     testimonial: {
       quote:
-        "The level of craft Nova Growth brought to PulseFit Pro is exceptional. Their team doesn't just write code; they understand product psychology and conversion funnels. The app shot up into the App Store top charts within weeks.",
+        "The level of craft Balaji Prime Media brought to PulseFit Pro is exceptional. Their team doesn't just write code; they understand product psychology and conversion funnels. The app shot up into the App Store top charts within weeks.",
       author: "Marcus Sterling",
       role: "Co-Founder & Chief Product Officer",
       company: "Pulse Technologies, Austin"
@@ -215,7 +215,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["Local SEO Schema", "Google Business Profile API", "Ahrefs", "Semrush", "Next.js", "CallRail"],
     testimonial: {
       quote:
-        "Our phone rings continuously every day with private patient inquiries. Nova Growth took us from page 3 to the number 1 spot on Google Maps across London. Their transparency and results are unmatched.",
+        "Our phone rings continuously every day with private patient inquiries. Balaji Prime Media took us from page 3 to the number 1 spot on Google Maps across London. Their transparency and results are unmatched.",
       author: "Dr. Alistair Finch",
       role: "Clinical Director",
       company: "Apex Dental Group, London"
@@ -275,7 +275,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["Next.js App Router", "TypeScript", "Sanity Headless CMS", "HubSpot API", "Vercel", "Ahrefs"],
     testimonial: {
       quote:
-        "Nova Growth built our organic customer acquisition flywheel from scratch. Our sales team now opens their calendar to qualified enterprise demos every morning, all coming organically from Google.",
+        "Balaji Prime Media built our organic customer acquisition flywheel from scratch. Our sales team now opens their calendar to qualified enterprise demos every morning, all coming organically from Google.",
       author: "David Chen",
       role: "VP of Growth & Marketing",
       company: "CloudSync Technologies, San Francisco"
@@ -335,7 +335,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["React", "Next.js", "Tailwind CSS", "Mapbox GL", "WhatsApp Business API", "Google Ads"],
     testimonial: {
       quote:
-        "International property buyers demand absolute elegance and instant speed. Nova Growth delivered a website that represents the prestige of Dubai luxury real estate and consistently brings us multi-million-dollar foreign transactions.",
+        "International property buyers demand absolute elegance and instant speed. Balaji Prime Media delivered a website that represents the prestige of Dubai luxury real estate and consistently brings us multi-million-dollar foreign transactions.",
       author: "Tariq Mansoor",
       role: "Managing Director",
       company: "Horizon Real Estate, Dubai"
@@ -370,7 +370,7 @@ export const caseStudiesData: CaseStudyData[] = [
     solution: {
       heading: "The Solution: Bank-Grade Security & High-Intent Currency Calculators",
       description:
-        "Nova Growth designed and engineered a streamlined 2-minute KYC verification flow, coupled with live programmatic exchange rate widgets that dominate high-volume search queries.",
+        "Balaji Prime Media designed and engineered a streamlined 2-minute KYC verification flow, coupled with live programmatic exchange rate widgets that dominate high-volume search queries.",
       keyPoints: [
         "Built interactive real-time currency conversion widgets that update with live interbank exchange rates.",
         "Engineered accessible, bank-grade encrypted signup flows that reduced KYC drop-off by 55%.",
@@ -395,7 +395,7 @@ export const caseStudiesData: CaseStudyData[] = [
     tech: ["Next.js App Router", "TypeScript", "Tailwind CSS", "PostgreSQL", "Stripe Connect", "Cloudflare Workers"],
     testimonial: {
       quote:
-        "In the fintech industry, trust is everything. Nova Growth engineered a platform that looks and feels as secure and fast as the world's biggest digital banks. Their SEO strategy cut our customer acquisition cost in half.",
+        "In the fintech industry, trust is everything. Balaji Prime Media engineered a platform that looks and feels as secure and fast as the world's biggest digital banks. Their SEO strategy cut our customer acquisition cost in half.",
       author: "Elena Rostova",
       role: "Head of Product & Growth",
       company: "VenturePay Financial, Toronto"

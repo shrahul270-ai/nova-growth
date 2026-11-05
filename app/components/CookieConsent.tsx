@@ -116,7 +116,7 @@ export default function CookieConsent() {
             </div>
 
             <p className="text-xs text-gray-300 leading-relaxed">
-              Nova Growth uses essential cookies and analytics to ensure optimal site performance,
+              Balaji Prime Media uses essential cookies and analytics to ensure optimal site performance,
               measure campaign reach, and provide a personalized experience across our services.
             </p>
 

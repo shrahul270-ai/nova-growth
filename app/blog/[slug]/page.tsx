@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Nova Growth",
+      "name": "Balaji Prime Media",
       "logo": {
         "@type": "ImageObject",
         "url": "https://balajiprimemedia.in/logo.png",

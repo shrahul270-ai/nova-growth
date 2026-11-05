@@ -325,7 +325,7 @@ export default function BuyerDashboardPage() {
     }
 
     const msg = [
-      `*New Guest Post Order Inquiry - Nova Growth*`,
+      `*New Guest Post Order Inquiry - Balaji Prime Media*`,
       ``,
       `*Website Domain:* ${site.domain}`,
       `*Service Required:* ${chosenType}`,
@@ -481,7 +481,7 @@ export default function BuyerDashboardPage() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
             <h1 className="text-base sm:text-lg font-black text-white tracking-tight">
-              Nova Growth Buyer Marketplace
+              Balaji Prime Media Buyer Marketplace
             </h1>
           </div>
         </div>

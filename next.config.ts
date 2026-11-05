@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: "host",
-            value: "nova-growth-six.vercel.app",
+            value: "(?<subdomain>.*)\\.vercel\\.app",
           },
         ],
         destination: "https://balajiprimemedia.in/:path*",
