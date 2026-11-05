@@ -26,24 +26,27 @@ const PORTRAIT_URL =
 
 export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
 
-  // Smooth native playback with zero decoder lag & GPU parallax
+  // Ensure video autoplays smoothly on all browsers
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
       video.muted = true;
       video.defaultMuted = true;
-      video.play().catch(() => {});
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Retry playback on user interaction if browser policy requires
+          const resume = () => {
+            video.play();
+            window.removeEventListener("touchstart", resume);
+            window.removeEventListener("click", resume);
+          };
+          window.addEventListener("touchstart", resume, { once: true });
+          window.addEventListener("click", resume, { once: true });
+        });
+      }
     }
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -51,28 +54,23 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       id="home"
       className="relative min-h-screen flex flex-col overflow-hidden bg-[#0a0a0a] text-white selection:bg-white/20 selection:text-white"
     >
-      {/* 1. CINEMATIC SCROLL-SCRUBBED VIDEO BACKGROUND (Fixed full-bleed layer) */}
+      {/* 1. CINEMATIC VIDEO BACKGROUND (High visibility, glowing 3D cables, zero opacity gating) */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* Soft dark underlay */}
-        <div className="absolute inset-0 bg-[#0a0a0a]" />
-
         <video
           ref={videoRef}
-          src={VIDEO_URL}
           playsInline
           muted
           autoPlay
           loop
           preload="auto"
-          onLoadedData={() => setIsVideoLoaded(true)}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-            isVideoLoaded ? "opacity-75 sm:opacity-85" : "opacity-0"
-          }`}
-        />
+          className="absolute inset-0 w-full h-full object-cover opacity-90 sm:opacity-95"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+          <source src={VIDEO_URL} type="video/mp4" />
+        </video>
 
-        {/* Cinematic Vignette & Soft Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-[#0a0a0a]/90 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(10,10,10,0.7)_100%)] pointer-events-none" />
+        {/* Soft subtle contrast gradient so text is readable while 3D cables glow brightly */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none" />
       </div>
 
       {/* 2. NAVBAR (Kept intact with full logo and active links) */}
