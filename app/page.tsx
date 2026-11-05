@@ -11,79 +11,19 @@ import FeatureCard from "./components/FeatureCard";
 import MotionCta3DOrb from "./components/MotionCta3DOrb";
 import GlowRatingBento from "./components/GlowRatingBento";
 import HowWeWork3D from "./components/HowWeWork3D";
+import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
 import { Search, Code2, FileText, Mail, Link2, Settings } from "lucide-react";
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [selectedService, setSelectedService] = useState<string>("All Services");
+  const [selectedService, setSelectedService] = useState<string>("All Services / Full Growth Plan");
   const [toast, setToast] = useState<string | null>(null);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
   const [activeProcessStep, setActiveProcessStep] = useState<number>(0);
 
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setContactOpen(false);
-      }
-    };
-    if (contactOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [contactOpen]);
-
-  const [modalName, setModalName] = useState("");
-  const [modalEmail, setModalEmail] = useState("");
-  const [modalPhone, setModalPhone] = useState("");
-  const [modalWebsite, setModalWebsite] = useState("");
-
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormStatus("submitting");
-
-    try {
-      await fetch("/api/db/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "consultation_modal",
-          name: modalName || "Strategy Call Inquirer",
-          email: modalEmail,
-          phone: modalPhone,
-          website: modalWebsite,
-          service: selectedService,
-          sourceUrl: "/",
-          message: `Consultation requested for ${selectedService}`,
-        }),
-      });
-      setFormStatus("success");
-      showToast("💾 Strategy call request saved to database!");
-      setTimeout(() => {
-        setContactOpen(false);
-        setFormStatus("idle");
-        setModalName("");
-        setModalEmail("");
-        setModalPhone("");
-        setModalWebsite("");
-      }, 2000);
-    } catch (err) {
-      console.error("Consultation submit error:", err);
-      setFormStatus("success");
-      setTimeout(() => {
-        setContactOpen(false);
-        setFormStatus("idle");
-      }, 2000);
-    }
   };
 
 
@@ -771,142 +711,12 @@ export default function Home() {
         {/* 9. FOOTER */}
         <Footer />
 
-        {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
-        {contactOpen && (
-          <div
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setContactOpen(false);
-            }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/60 backdrop-blur-sm animate-fadeIn overflow-y-auto"
-          >
-            <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-gray-100 relative max-h-[90vh] overflow-y-auto my-auto">
-              
-              {/* Sticky Top Header with Clear Close Button */}
-              <div className="sticky -top-5 -mt-2 -mx-2 px-2 pt-2 pb-3 bg-white/95 backdrop-blur-md border-b border-gray-100 flex items-center justify-between mb-4 z-20">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
-                  <span>Global Client Inquiry</span>
-                </div>
-                <button
-                  onClick={() => setContactOpen(false)}
-                  aria-label="Close modal"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-700 text-xs font-bold transition-all cursor-pointer border border-gray-200 shadow-xs"
-                >
-                  <span className="text-sm">✕</span>
-                  <span>Close</span>
-                </button>
-              </div>
-
-              <h3 className="text-2xl font-black text-[#0f172a] tracking-tight">
-                Get Your Free Growth Strategy
-              </h3>
-              <p className="text-xs sm:text-sm text-[#64748b] mt-1 mb-5">
-                Tell us about your business goals. We review client inquiries and reply within 12 hours.
-              </p>
-
-              {formStatus === "success" ? (
-                <div className="bg-amber-50 border border-amber-200 text-[#091427] p-6 rounded-2xl text-center">
-                  <div className="text-4xl mb-2">🎉</div>
-                  <h4 className="text-lg font-bold">Thank you! Request Received</h4>
-                  <p className="text-xs text-[#54647c] mt-1 mb-4">Our strategist will review your website and reach out via email shortly.</p>
-                  <button
-                    onClick={() => {
-                      setContactOpen(false);
-                      setFormStatus("idle");
-                    }}
-                    className="px-5 py-2.5 rounded-xl bg-[#091427] text-white text-xs font-bold hover:bg-[#0f213d] transition-colors"
-                  >
-                    Done &amp; Close Window
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 text-left">
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Your Name</label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="e.g. John Miller"
-                      value={modalName}
-                      onChange={(e) => setModalName(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Corporate / Work Email (Gmail) *</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="name@company.com"
-                      value={modalEmail}
-                      onChange={(e) => setModalEmail(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Phone / WhatsApp Number *</label>
-                    <input
-                      required
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      value={modalPhone}
-                      onChange={(e) => setModalPhone(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Website URL or Niche</label>
-                    <input
-                      type="text"
-                      placeholder="https://yourwebsite.com or Startup niche"
-                      value={modalWebsite}
-                      onChange={(e) => setModalWebsite(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Target Service</label>
-                    <select
-                      value={selectedService}
-                      onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-base sm:text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none bg-white"
-                    >
-                      <option value="All Services">All Services / Full Growth Plan</option>
-                      <option value="SEO Optimization">SEO Optimization (High Intent)</option>
-                      <option value="Website Development">Website Development (Next.js / Shopify)</option>
-                      <option value="Content Writing">Content Writing &amp; Strategy</option>
-                      <option value="Email Marketing">Email Marketing &amp; Automation</option>
-                      <option value="Off Page Backlink Building">Off Page Backlink Building</option>
-                      <option value="Website Maintenance">Website Maintenance &amp; Speed Fix</option>
-                    </select>
-                  </div>
-
-                  <div className="pt-2 flex flex-col gap-2">
-                    <button
-                      type="submit"
-                      disabled={formStatus === "submitting"}
-                      className="w-full bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-[#091427]/20 cursor-pointer"
-                    >
-                      {formStatus === "submitting" ? "Sending Request..." : "Book Free Strategy Call →"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setContactOpen(false)}
-                      className="w-full py-2.5 text-center text-xs font-bold text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer"
-                    >
-                      ✕ Cancel / Keep Browsing
-                    </button>
-                  </div>
-                </form>
-              )}
-
-            </div>
-          </div>
-        )}
+        {/* INTERACTIVE SCHEDULE CONSULTATION MODAL WITH CALENDAR & GLASS FORM */}
+        <ScheduleConsultationModal
+          isOpen={contactOpen}
+          onClose={() => setContactOpen(false)}
+          initialService={selectedService}
+        />
 
       </div>
     </>
