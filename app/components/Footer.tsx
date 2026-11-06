@@ -517,31 +517,30 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
-      <div className="relative pt-10 pb-8 sm:pb-12 md:pb-14 overflow-hidden border-t border-slate-300/80 min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col justify-center">
+      <div className="relative pt-10 pb-8 sm:pb-12 md:pb-14 overflow-hidden border-t border-slate-300/80 min-h-[220px] sm:min-h-[260px] md:min-h-[300px] flex flex-col justify-center bg-[#070314]">
         
         {/* Subtle rim light halos behind the hands */}
         <div
           aria-hidden="true"
-          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(21,67,89,0.1)_0%,transparent_75%)] pointer-events-none z-0"
+          className="absolute left-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_left_bottom,rgba(204,255,0,0.06)_0%,transparent_75%)] pointer-events-none z-0"
         />
         <div
           aria-hidden="true"
-          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(24,91,123,0.1)_0%,transparent_75%)] pointer-events-none z-0"
+          className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(168,85,247,0.1)_0%,transparent_75%)] pointer-events-none z-0"
         />
 
-        {/* Giant Thin Wordmark - BEHIND THE HANDS (z-0) */}
+        {/* Giant Outlined Wordmark - BEHIND THE HANDS (z-0) - Exactly like chopskip image */}
         <div
           aria-hidden="true"
           className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0 overflow-hidden"
         >
           <span
-            className="sinking-wordmark font-thin uppercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap opacity-25 tracking-widest scale-y-105 bg-clip-text text-transparent"
+            className="neon-outline-wordmark font-black lowercase text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap tracking-tight select-none opacity-90"
             style={{
-              backgroundImage:
-                "linear-gradient(to bottom, rgba(21, 67, 89, 0.45) 0%, rgba(24, 91, 123, 0.2) 60%, transparent 100%)",
+              fontFamily: "var(--font-urbanist), var(--font-inter), sans-serif",
             }}
           >
-            BALAJI PRIME
+            balaji prime
           </span>
         </div>
 
@@ -551,7 +550,7 @@ export default function Footer() {
           <img
             src="/images/footer/marble-hand-left.png"
             alt="Carrara Marble Hand Left"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(21,67,89,0.2)] transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(204,255,0,0.15)] transition-all"
           />
         </div>
 
@@ -561,27 +560,27 @@ export default function Footer() {
           <img
             src="/images/footer/marble-hand-right.png"
             alt="Carrara Marble Hand Right"
-            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(21,67,89,0.2)] transition-all"
+            className="w-full h-auto object-contain filter drop-shadow-[0_0_24px_rgba(204,255,0,0.15)] transition-all"
           />
         </div>
 
         {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) - z-30 */}
         <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-4">
-          <p className="text-[#154359] font-bold text-sm sm:text-base tracking-tight">
+          <p className="text-white font-bold text-sm sm:text-base tracking-tight drop-shadow-sm">
             Build a real agency-grade brand, fast.
           </p>
-          <p className="text-xs text-[#64748b]">
+          <p className="text-xs text-slate-400">
             &copy; 2026 Balaji Prime Media. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#64748b] pt-1">
-            <Link href="/privacy-policy" className="hover:text-[#154359] transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400 pt-1">
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <span className="text-slate-300">•</span>
-            <Link href="/terms" className="hover:text-[#154359] transition-colors">
+            <span className="text-slate-600">•</span>
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <span className="text-slate-300">•</span>
+            <span className="text-slate-600">•</span>
             <button
               type="button"
               onClick={() => {
@@ -589,7 +588,7 @@ export default function Footer() {
                   window.dispatchEvent(new Event("open-cookie-settings"));
                 }
               }}
-              className="hover:text-[#154359] text-[#64748b] transition-colors cursor-pointer font-medium"
+              className="hover:text-white text-slate-400 transition-colors cursor-pointer font-medium"
             >
               Cookie Settings
             </button>
