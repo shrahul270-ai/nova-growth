@@ -23,17 +23,17 @@ export default function AIVoiceWidget() {
   const [transcript, setTranscript] = useState("");
   const [inputText, setInputText] = useState("");
   const [prompts, setPrompts] = useState<string[]>([
-    "Guest Posting packages",
-    "Pricing & DR Tiers",
-    "Free SEO Audit",
-    "Schedule Meeting",
+    "Website Development ($699)",
+    "SEO Optimization ($449/mo)",
+    "Free Instant SEO Audit",
+    "Pricing & Packages",
   ]);
 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We assist UK, US, and global brands in scaling organic rankings with manual DR 50–90+ editorial outreach and Next.js web development. How can I help you today?",
+      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We build high-speed Next.js websites, run full-funnel SEO campaigns, and scale organic revenue for businesses in the UK, US, and worldwide. How can I help you today?",
       timestamp: "Just now",
     },
   ]);

@@ -6,12 +6,10 @@ interface ChatHistoryItem {
   content: string;
 }
 
-// Check if user input is predominantly Hindi or Hinglish
+// Check if user input is in Hindi or Hinglish
 function isHindiOrHinglish(text: string): boolean {
-  // Check for Devanagari script
   if (/[\u0900-\u097F]/.test(text)) return true;
 
-  // Check common Hindi / Hinglish keywords
   const hinglishTokens = [
     "kya", "kaise", "kitna", "kitne", "kitni", "batao", "bataiye", "bata",
     "chahiye", "hai", "ho", "hun", "hain", "karna", "kare", "karein", "karo",
@@ -20,373 +18,476 @@ function isHindiOrHinglish(text: string): boolean {
     "kaun", "kaha", "kahan", "kab", "kyu", "kyun", "paisa", "paise", "rupaye",
     "kharcha", "madad", "baat", "bhejo", "dekhna", "milega", "dost", "bhai",
     "yaar", "sir", "maam", "aap", "tum", "mera", "meri", "mere", "hamara",
-    "kaam", "chal", "raha", "rahi", "bolo", "boliye", "kuch"
+    "kaam", "chal", "raha", "rahi", "kuch", "dikhao", "dikha", "dikhayein", "ka"
   ];
 
   const words = text.toLowerCase().split(/\s+/);
   return words.some((w) => hinglishTokens.includes(w));
 }
 
-// Conversational AI Engine for Balaji Prime Media
+// Intelligent, Specialized Context Engine for Balaji Prime Media
 function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[]) {
   const query = userMessage.toLowerCase().trim();
   const isHindi = isHindiOrHinglish(query);
 
-  // 1. Lead detail provided (email / phone)
+  // 1. Contact / Lead Info Provided (Email or Phone Number)
   const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(userMessage);
   const hasPhone = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4,}/.test(userMessage);
   if (hasEmail || hasPhone) {
     if (isHindi) {
       return {
-        reply: "Bahut shukriya! Maine aapki details save kar li hain. Balaji Prime Media ki senior SEO team aapse 2 ghante ke andar connect karegi. Aap chahein to WhatsApp (+91 76908 68932) par bhi turant message kar sakte hain.",
+        reply: "Bahut shukriya! Maine aapki contact details save kar li hain. Balaji Prime Media ki senior team 2 ghante ke andar aapse sampark karegi. Aap chahein to turant WhatsApp (+91 76908 68932) par bhi message bhej sakte hain.",
         suggestedPrompts: [
-          "WhatsApp par baat karein (+91 76908 68932)",
-          "Free SEO Audit karein",
-          "Guest Posting Database dekhein"
+          "WhatsApp (+91 76908 68932) par chat karein",
+          "Services & Pricing dekhein",
+          "Free Website Audit karein"
         ],
         leadCaptured: true
       };
     }
     return {
-      reply: "Thank you for sharing your contact details! I have securely recorded your inquiry. A senior growth strategist from Balaji Prime Media will review your requirements and reach out shortly. What is your website domain so we can prepare an initial audit?",
+      reply: "Thank you for sharing your contact details! I have securely recorded your inquiry. A senior growth strategist from Balaji Prime Media will review your requirements and reach out within 2 hours. What is your website domain or project scope?",
       suggestedPrompts: [
-        "Schedule a Meeting Now",
-        "Chat on WhatsApp Immediately"
+        "Chat on WhatsApp Immediately",
+        "Explore Services & Pricing",
+        "Schedule Strategy Meeting"
       ],
       leadCaptured: true
     };
   }
 
-  // 2. Testing speech / "Suno" / "Bolo" / "Can you hear me" / "Aawaz aa rahi hai"
+  // 2. Testing speech / "Suno" / "Bolo" / "Can you hear me"
   if (
-    query.match(/\b(suno|sun rahe|sun rahi|awaz|aawaz|bol|bolo|boliye|can you hear|hear me|testing|test|are you there)\b/i)
+    query.match(/\b(suno|sun rahe|sun rahi|awaz|aawaz|bol|bolo|boliye|can you hear|hear me|testing|test)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Haan ji, main bilkul sun raha hoon! Kahiye, Balaji Prime Media aur hamare DR 50-90+ Guest Posting ya SEO services ke baare me aap kya jaan-na chahte hain?",
+        reply: "Haan ji, main bilkul sun raha hoon! Kahiye, Balaji Prime Media ki services (SEO, Website Development, Content, ya Digital Marketing) me aapko kis cheez me madad chahiye?",
         suggestedPrompts: [
-          "Aap kya services dete ho?",
-          "Guest Posting pricing kya hai?",
-          "WhatsApp par baat karni hai"
+          "Website Development ke baare me batao",
+          "SEO Optimization packages",
+          "Pricing & Rates batao"
         ]
       };
     }
     return {
-      reply: "Yes, I can hear you clearly! I am your Balaji Prime Media AI Concierge. How can I assist you with your digital growth or guest posting outreach today?",
+      reply: "Yes, I can hear you loud and clear! I'm your Balaji Prime Media AI Concierge. How can I assist you with your web development, SEO, or digital marketing project?",
       suggestedPrompts: [
-        "Explore 40,000+ Guest Posting Sites",
-        "What are your packages & pricing?",
-        "Book a Strategy Meeting"
-      ]
-    };
-  }
-
-  // 3. Who are you / Identity / Tum kaun ho / Kya naam hai
-  if (
-    query.match(/\b(who are you|what is your name|who r u|tum kaun ho|aap kaun ho|kaun ho|kya naam hai|naam kya hai|kya ho tum)\b/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Main Balaji Prime Media ka official 24/7 AI Voice Concierge hoon. Balaji Prime Media ek global SEO aur digital growth agency hai jo UK, US aur worldwide businesses ko 40,000+ verified DR 50-90+ websites par guest posting aur technical web development provide karti hai.",
-        suggestedPrompts: [
-          "Aapki services kya kya hain?",
-          "Guest posting ke rates batao",
-          "Founder se meeting book karein"
-        ]
-      };
-    }
-    return {
-      reply: "I am the official 24/7 AI Concierge for Balaji Prime Media. We are a global digital growth agency specializing in manual DR 50–90+ editorial outreach across 40,000+ indexed publications, Core Web Vitals engineering, and organic revenue scaling.",
-      suggestedPrompts: [
-        "What services do you provide?",
-        "Explore Guest Posting Database",
-        "Book Strategy Consultation"
-      ]
-    };
-  }
-
-  // 4. Greetings / Namaste / Hi / Hello / Kaise ho
-  if (
-    query.match(/^(hi|hello|hey|greetings|good morning|good afternoon|good evening|namaste|pranam|kaisa|kaise ho|kya haal)/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Namaste! Main bahut badhiya hoon, aap bataiye kaise hain? Balaji Prime Media me aapka swagat hai. Aaj main aapki website ranking, guest posting ya web development me kya madad kar sakta hoon?",
-        suggestedPrompts: [
-          "Guest Posting packages dekhna hai",
-          "Website ka Free SEO Audit chahiye",
-          "Services ki detail batao"
-        ]
-      };
-    }
-    return {
-      reply: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We assist UK, US, and global brands in scaling organic search traffic with manual DR 50–90+ editorial outreach and technical web engineering. How may I assist your business today?",
-      suggestedPrompts: [
-        "What services do you offer?",
-        "Explore Guest Posting Database",
-        "Free Website Audit",
+        "Website Development Services",
+        "SEO Optimization Programs",
         "Pricing & Packages"
       ]
     };
   }
 
-  // 5. What do you do / Services / Kya karte ho / Kaam kya hai
+  // 3. Free SEO / Website Speed Audit
   if (
-    query.match(/\b(services|service|kya karte ho|kya service|kya kaam|kaam kya|what do you do|what services|offerings)\b/i)
+    query.match(/\b(audit|speed audit|speed test|free audit|check website|analyze website|pagespeed)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum 3 main services offer karte hain: 1) 40,000+ verified high-authority sites par genuine DR 50 se 90+ Guest Posting aur dofollow backlinks, 2) Technical SEO aur Google PageSpeed/Core Web Vitals optimization, aur 3) Superfast Next.js Website Development. Aapko kisme interest hai?",
+        reply: "Aap hamari website ke /audit page par jakar apni website ka Free AI Instant SEO & Speed Audit sirf 10 seconds me kar sakte hain. Isme Google PageSpeed, Core Web Vitals aur search ranking issues ka complete detailed score milta hai.",
         suggestedPrompts: [
-          "Guest Posting details batao",
-          "Website Speed & SEO Audit",
-          "Direct WhatsApp par connect karein"
+          "Free AI Website Audit karein (/audit)",
+          "Mera domain check karo",
+          "WhatsApp par audit report mangein"
         ]
       };
     }
     return {
-      reply: "We deliver 3 core solutions: 1) Manual Editorial Guest Posting across 40,000+ DR 50–90+ publications (Forbes, TechCrunch, etc.), 2) Technical SEO & Core Web Vitals optimization, and 3) Custom high-speed Next.js web development. Which service fits your current roadmap?",
+      reply: "You can run a complimentary AI-powered SEO and Speed Audit on our /audit page in under 10 seconds. It evaluates your Core Web Vitals, mobile responsiveness, and technical ranking health.",
+      suggestedPrompts: [
+        "Run Free Website Audit (/audit)",
+        "Schedule Leadership Call",
+        "Chat with SEO Engineer"
+      ]
+    };
+  }
+
+  // 4. Website Maintenance, Security & Bug Fixes (Check BEFORE generic "website")
+  if (
+    query.match(/\b(maintenance|security|bug|bugs|fix|fixing|updates|slow website|hacked|backup|sla|monthly maintenance|support plan)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hum 24/7 website maintenance, security updates, daily backups, speed monitoring aur urgent bug fixes provide karte hain taaki aapki website hamesha 100% live aur safe rahe. Maintenance retainer $149 (₹9,999/month) se shuru hota hai.",
+        suggestedPrompts: [
+          "Maintenance Retainer ($149/mo)",
+          "Website Speed & Security Audit",
+          "WhatsApp par urgent support lein"
+        ]
+      };
+    }
+    return {
+      reply: "Our Website Maintenance & Security SLA includes 24/7 uptime monitoring, security patches, performance optimization, daily backups, and prompt bug fixes. Monthly support retainers start at $149 (₹9,999/month).",
+      suggestedPrompts: [
+        "Website Support Pricing ($149/mo)",
+        "Request Emergency Bug Fix",
+        "Contact Support Team"
+      ]
+    };
+  }
+
+  // 5. Content Writing / Copywriting / Blogs / Articles
+  if (
+    query.match(/\b(content|writing|article|articles|blog|blogs|copywriting|writer|editorial|scripts|sales copy)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hum high-converting SEO articles, blog posts aur website sales copy likhte hain jo search engines aur real readers dono ke liye optimized hoti hain. Content writing packages $119 (₹7,999) se shuru hote hain. Aapko kis topic ya industry ke liye content chahiye?",
+        suggestedPrompts: [
+          "Content Writing Pricing ($119)",
+          "SEO Blog Strategy samjhein",
+          "Samples dekhein",
+          "WhatsApp par topic discuss karein"
+        ]
+      };
+    }
+    return {
+      reply: "We craft authoritative, high-converting SEO content, thought leadership blogs, and commercial sales copy designed to capture top Google rankings and engage buyers. Content packages start at $119 (₹7,999). What niche or industry is your project in?",
+      suggestedPrompts: [
+        "Content Writing Pricing ($119)",
+        "Review Content Samples",
+        "Discuss Scope on WhatsApp"
+      ]
+    };
+  }
+
+  // 6. Email Marketing & Revenue Automation
+  if (
+    query.match(/\b(email marketing|automation|drip|newsletter|crm|klaviyo|mailchimp|leads nurturing)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hamari Email Marketing service me automated welcome drips, customer retention flows, newsletter campaigns aur CRM integration shamil hain jo leads ko paying customers me badalti hain. Packages $269 (₹18,999) se shuru hote hain.",
+        suggestedPrompts: [
+          "Email Automation Pricing ($269)",
+          "Flows & Campaigns Strategy",
+          "WhatsApp par baat karein"
+        ]
+      };
+    }
+    return {
+      reply: "We design automated email sequences, retention drip campaigns, and CRM workflows that turn dormant leads into paying customers. Email marketing automation packages start at $269 (₹18,999). What platform do you currently use for email?",
+      suggestedPrompts: [
+        "Email Marketing Pricing ($269)",
+        "Automation Architecture",
+        "Book a Strategy Consultation"
+      ]
+    };
+  }
+
+  // 7. Guest Posting & Backlinks (ONLY when explicitly requested!)
+  if (
+    query.match(/\b(guest post|guest posting|backlink|backlinks|link building|dofollow|da |dr |domain rating|outreach|pbn)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hum genuine high-authority websites (DR 50 se DR 90+) par 100% manual outreach se permanent contextual dofollow guest posts provide karte hain—zero PBNs aur zero spam networks. Pricing vetted sites ke mutabiq $30 se shuru hoti hai. Aap hamare /guest-posting page par real-time database dekh sakte hain.",
+        suggestedPrompts: [
+          "Guest Posting Database dekhein (/guest-posting)",
+          "DR 50–90+ Pricing & Tiers",
+          "WhatsApp par sample list mangein"
+        ]
+      };
+    }
+    return {
+      reply: "We provide genuine manual editorial guest posting across vetted DR 50 to DR 90+ publications with permanent contextual dofollow links, full editorial review, and zero private blog networks. Placements start from $30 depending on authority and niche. You can inspect our database at /guest-posting.",
       suggestedPrompts: [
         "Explore Guest Posting Database",
-        "Run Free Website Audit",
-        "Schedule Leadership Call"
-      ]
-    };
-  }
-
-  // 6. Pricing / Cost / Rates / Kitna paisa / Kitna charge
-  if (
-    query.match(/\b(price|pricing|cost|rate|rates|charge|charges|package|packages|budget|how much|kitna paisa|kitne paise|kitna charge|kharcha|fees)\b/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Humare guest post packages genuine DR 50-60 publications ke liye around $30-$50 se start hote hain, aur enterprise DR 70-90+ sites requirements ke hisaab se customized hain. Aapke specific niche aur domain ke liye best custom quote lene ke liye WhatsApp (+91 76908 68932) par message karein.",
-        suggestedPrompts: [
-          "WhatsApp par instant quote lein",
-          "Guest Posting Marketplace dekhein",
-          "Schedule Meeting"
-        ]
-      };
-    }
-    return {
-      reply: "Our guest posting placements on genuine DR 50–90+ publications range from boutique packages starting around $30–$50 to comprehensive enterprise organic growth campaigns. We tailor every bundle to your niche and target keywords. Would you like a custom proposal for your domain?",
-      suggestedPrompts: [
-        "View Guest Posting Database",
-        "Book a Strategy Meeting",
-        "Free SEO Audit"
-      ]
-    };
-  }
-
-  // 7. Guest Posting & Backlinks & DR
-  if (
-    query.match(/\b(guest post|guest posting|backlink|backlinks|dr |dr50|dr70|dr90|da |domain rating|outreach|link building|dofollow|pbn)\b/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Balaji Prime Media ke paas 40,000+ verified sites ka direct inventory hai jisme DR 50 se lekar DR 92+ tak real publications shamil hain. Sabhi links 100% manual outreach se permanent contextual dofollow hote hain—zero PBNs aur zero spam! Aap website par /guest-posting page par pura database filter karke dekh sakte hain.",
-        suggestedPrompts: [
-          "40,000+ Database dekhein",
-          "Sample sites ki list bhejo",
-          "WhatsApp par direct list mangein"
-        ]
-      };
-    }
-    return {
-      reply: "Balaji Prime Media provides manual outreach access to 40,000+ indexed sites ranging from DR 50 to DR 92+. Every placement includes permanent contextual dofollow links, editorial content review, and zero private blog networks (PBNs). Would you like to explore our real-time database or request a sample list?",
-      suggestedPrompts: [
-        "Explore 40,000+ Database",
         "What DR tiers are available?",
-        "How fast are links published?"
+        "Request Verified Site List"
       ]
     };
   }
 
-  // 8. SEO Audit / Speed / Core Web Vitals
+  // 8. Projects / Case Studies / Portfolio / Past Work
   if (
-    query.match(/\b(audit|speed|core web vitals|next\.js|ranking|traffic|google rank|slow website|seo report)\b/i)
+    query.match(/\b(project|projects|portfolio|case study|case studies|samples|previous work|kaam dikhao)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Humari website ke /audit page par aap sirf 10 seconds me apni website ka Free Instant SEO Audit kar sakte hain. Isme aapko PageSpeed, Core Web Vitals, organic ranking issues aur backlinks ka complete analysis turant mil jayega.",
+        reply: "Humne E-Commerce brands, SaaS platforms, Fitness apps aur Tech startups ke liye high-performing websites aur SEO campaigns deliver kiye hain. Aap hamari website ke /projects ya /work page par jaakar complete case studies aur results dekh sakte hain.",
         suggestedPrompts: [
-          "Free Website Audit karein (/audit)",
-          "Mere domain ka analysis chahiye",
-          "WhatsApp par SEO audit mangein"
+          "Projects & Case Studies dekhein (/projects)",
+          "Work Portfolio dekhein (/work)",
+          "WhatsApp par direct demo dekhein"
         ]
       };
     }
     return {
-      reply: "We offer an instant, complimentary AI Website Audit that analyzes your Core Web Vitals, organic search visibility, and backlink profile in under 10 seconds. You can run it directly on our /audit page, or share your website domain here.",
+      reply: "We have delivered high-converting Next.js architectures and 3x organic traffic campaigns for e-commerce, SaaS, fashion, and technology brands. You can explore our verified case studies on our /projects and /work pages.",
       suggestedPrompts: [
-        "Run Free Website Audit",
-        "Audit my domain now",
-        "Schedule Leadership Call"
+        "View Recent Case Studies (/projects)",
+        "Explore Work Portfolio (/work)",
+        "Schedule Strategy Consultation"
       ]
     };
   }
 
-  // 9. Meeting / Talk with Founder / Human / Call
+  // 9. Website Development / Next.js / Web Design / App
   if (
-    query.match(/\b(meeting|call|talk|schedule|founder|consultation|human|baat karni|phone par baat|zoom|google meet)\b/i)
+    query.match(/\b(website|web dev|web development|next\.js|nextjs|react|frontend|backend|coding|redesign|landing page|e-commerce|ecommerce|shopify|wordpress|app development|ui\/ux|design)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Aap Balaji Prime Media ke senior leadership ke sath direct 1-on-1 strategy call hamare /schedule-meeting page par book kar sakte hain, ya turant WhatsApp (+91 76908 68932) par call/chat kar sakte hain. Aap kaunsa time prefer karenge?",
+        reply: "Hum modern, ultra-fast Next.js aur React websites banate hain jinka Google PageSpeed score 95+ aur loading time sub-second hota hai. Hamare packages custom responsive design, SEO-friendly architecture aur CMS ke sath $699 (₹49,999) se shuru hote hain. Aapko kis tarah ki website banwani hai?",
+        suggestedPrompts: [
+          "Website Development Pricing ($699)",
+          "Next.js vs WordPress me kya fark hai?",
+          "Live Projects & Portfolio dekhein",
+          "WhatsApp par website discuss karein"
+        ]
+      };
+    }
+    return {
+      reply: "We build ultra-fast, conversion-optimized Next.js and React web applications with 99+ Google PageSpeed scores, sub-second TTFB, and bespoke responsive UI/UX. Our full-stack web development packages start at $699 (₹49,999). What type of website or platform are you planning to build?",
+      suggestedPrompts: [
+        "Website Development Details ($699)",
+        "View Past Projects & Work",
+        "Free Website Speed Audit",
+        "Discuss on WhatsApp (+91 76908 68932)"
+      ]
+    };
+  }
+
+  // 10. Search Engine Optimization (SEO) / Google Ranking / Keywords / Traffic
+  if (
+    query.match(/\b(seo|search engine|ranking|rank|keywords|traffic|organic traffic|serp|google rank|on-page|technical seo|indexing|google search console|search visibility)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hamari Comprehensive SEO service me Full Technical Crawl Audit, commercial keyword research, on-page optimization, Core Web Vitals remediation aur transparent monthly ranking reports shamil hain. Hamara ongoing monthly SEO retainer $449 (₹29,999/month) se shuru hota hai. Aapki website ka link kya hai?",
+        suggestedPrompts: [
+          "Monthly SEO Retainer ($449/mo)",
+          "Free AI SEO Audit karein (/audit)",
+          "Keywords research kaise hoti hai?",
+          "WhatsApp par SEO team se baat karein"
+        ]
+      };
+    }
+    return {
+      reply: "Our precision SEO practice combines technical crawl optimization, semantic keyword mapping, and Core Web Vitals tuning to capture high-intent transactional search traffic. Monthly ongoing SEO retainers start at $449 (₹29,999/month). What is your website domain so we can run an initial analysis?",
+      suggestedPrompts: [
+        "SEO Optimization Details ($449/mo)",
+        "Run Free Instant Website Audit",
+        "Book a Strategy Meeting",
+        "Chat with SEO Lead on WhatsApp"
+      ]
+    };
+  }
+
+  // 11. Pricing / Cost / Rates across all services
+  if (
+    query.match(/\b(price|pricing|cost|rates|charges|package|packages|budget|how much|kitna paisa|kitne paise|kitna charge|kharcha|fees|rate card)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hamare transparent agency packages is prakaar hain:\n• SEO Optimization: $449/mo (₹29,999)\n• Custom Website Development (Next.js): $699 (₹49,999)\n• Content Writing: $119 (₹7,999)\n• Email Marketing: $269 (₹18,999)\n• Website Maintenance: $149/mo (₹9,999)\nAapko kis service ke liye custom proposal chahiye?",
+        suggestedPrompts: [
+          "Website Development Quote ($699)",
+          "SEO Optimization Retainer ($449)",
+          "WhatsApp par custom quote lein (+91 76908 68932)"
+        ]
+      };
+    }
+    return {
+      reply: "Here is an overview of our transparent agency packages:\n• Full-Funnel SEO Optimization: $449/mo (₹29,999)\n• Custom Next.js Web Development: $699 (₹49,999)\n• Professional Content Writing: $119 (₹7,999)\n• Email Marketing Automation: $269 (₹18,999)\n• 24/7 Website Maintenance: $149/mo (₹9,999)\nWhich service would you like a detailed proposal for?",
+      suggestedPrompts: [
+        "Web Development Proposal",
+        "SEO Monthly Retainer",
+        "Get Custom Quote on WhatsApp"
+      ]
+    };
+  }
+
+  // 12. Meeting / Strategy Call / Founder / Talk with team
+  if (
+    query.match(/\b(meeting|call|schedule|consultation|talk|founder|zoom|google meet|baat karni|phone par baat)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Aap hamare senior strategist ke sath direct 1-on-1 strategy call /schedule-meeting page par book kar sakte hain, ya turant WhatsApp (+91 76908 68932) par call/chat kar sakte hain. Kaunsa time aapko suit karega?",
         suggestedPrompts: [
           "Meeting Book Karein (/schedule-meeting)",
-          "WhatsApp par call karein",
-          "Direct Email bhejein"
+          "WhatsApp par direct message karein",
+          "Email support@balajiprimemedia.in"
         ]
       };
     }
     return {
-      reply: "You can schedule a direct 1-on-1 strategy consultation with Balaji Prime Media leadership on our /schedule-meeting page, or message us immediately on WhatsApp at +91 76908 68932. What day or time zone works best for you?",
+      reply: "You can book a direct 1-on-1 strategy consultation with Balaji Prime Media leadership on our /schedule-meeting page, or connect with us immediately via WhatsApp at +91 76908 68932. What day works best for you?",
       suggestedPrompts: [
-        "Open Meeting Scheduler",
-        "Chat on WhatsApp",
-        "Send Quick Email"
+        "Book a Strategy Meeting (/schedule-meeting)",
+        "Message on WhatsApp (+91 76908 68932)",
+        "Email Senior Team"
       ]
     };
   }
 
-  // 10. Contact / Phone / Email / WhatsApp
+  // 13. UK / US / Global Services (UK Web Development / USA SEO)
   if (
-    query.match(/\b(contact|email|whatsapp|phone|number|mobile|support|sampark|kaha baat)\b/i)
+    query.match(/\b(uk|united kingdom|london|manchester|us|usa|america|worldwide|australia|international|foreign)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Aap humse 24/7 in channels par contact kar sakte hain:\n• WhatsApp / Call: +91 76908 68932\n• Email: support@balajiprimemedia.in\n• Office: Jaipur, Rajasthan (Serving UK, US & Worldwide clients).",
+        reply: "Ji haan! Hum UK, US aur global clients ke liye dedicated services dete hain jaise UK Web Development (/web-development-uk) aur US Enterprise SEO (/seo-services-usa). Hum international time zones me operate karte hain aur GBP, USD aur EUR me billing provide karte hain.",
         suggestedPrompts: [
-          "WhatsApp par chat karein",
-          "Email support@balajiprimemedia.in",
+          "UK Web Development dekhein (/web-development-uk)",
+          "USA SEO Services dekhein (/seo-services-usa)",
+          "International Clients ke sath discussion karein"
+        ]
+      };
+    }
+    return {
+      reply: "We actively serve enterprise clients across the UK, USA, Australia, and Europe with dedicated timezone support. Explore our dedicated UK Web Development solutions (/web-development-uk) and USA SEO Growth programs (/seo-services-usa) with seamless multi-currency invoicing in GBP, USD, and EUR.",
+      suggestedPrompts: [
+        "Explore UK Web Development",
+        "Explore USA SEO Services",
+        "Schedule Strategy Meeting"
+      ]
+    };
+  }
+
+  // 14. Contact details / Office location / WhatsApp / Email
+  if (
+    query.match(/\b(contact|email|whatsapp|phone|number|mobile|address|office|location|kaha hai|kaha par)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Balaji Prime Media ki contact details:\n• WhatsApp & Phone: +91 76908 68932 (24/7)\n• Email: support@balajiprimemedia.in\n• Office: Jaipur, Rajasthan (Serving UK, US & Worldwide clients).\nAap hamare /contact page par bhi form bhar sakte hain.",
+        suggestedPrompts: [
+          "WhatsApp (+91 76908 68932) par chat karein",
+          "Email bhejein",
+          "Contact Page dekhein (/contact)"
+        ]
+      };
+    }
+    return {
+      reply: "You can reach Balaji Prime Media 24/7:\n• WhatsApp & Phone: +91 76908 68932\n• Email: support@balajiprimemedia.in\n• Headquarters: Jaipur, Rajasthan (Operating across UK, US, and APAC time zones).\nOr visit our /contact page.",
+      suggestedPrompts: [
+        "Chat on WhatsApp (+91 76908 68932)",
+        "Email support@balajiprimemedia.in",
+        "Visit Contact Page"
+      ]
+    };
+  }
+
+  // 15. Payment Methods / Billing
+  if (
+    query.match(/\b(pay|payment|paypal|stripe|wise|wire transfer|upi|bank transfer|invoice|invoicing)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Hum sabhi international aur domestic payment modes accept karte hain: Stripe, PayPal, Wise, Direct Bank Wire Transfer, aur UPI. Aap hamare /pay page par jaakar direct checkout bhi kar sakte hain.",
+        suggestedPrompts: [
+          "Payment Page dekhein (/pay)",
+          "WhatsApp par invoice mangein",
           "Meeting schedule karein"
         ]
       };
     }
     return {
-      reply: "You can reach Balaji Prime Media instantly via WhatsApp or phone at +91 76908 68932, or email our advisory team at support@balajiprimemedia.in. We operate across UK, US, and APAC business hours.",
+      reply: "We support secure international payments through Stripe, PayPal, Wise, Wire Transfer, and UPI with invoicing in USD, GBP, EUR, and INR. You can also make a payment directly on our /pay page.",
       suggestedPrompts: [
-        "Chat on WhatsApp (+91 76908 68932)",
-        "Email support@balajiprimemedia.in",
-        "Book a Zoom Call"
+        "Go to /pay Page",
+        "Request Invoice on WhatsApp",
+        "Talk to Billing Team"
       ]
     };
   }
 
-  // 11. Payment methods / Payment gateway
+  // 16. Identity / Who are you / Tum kaun ho
   if (
-    query.match(/\b(pay|payment|paypal|stripe|wise|wire transfer|upi|invoice|bank transfer)\b/i)
+    query.match(/\b(who are you|who r u|tum kaun ho|aap kaun ho|kaun ho|kya naam hai|naam kya hai|kya ho tum)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum international aur Indian sabhi payment options support karte hain: Stripe, PayPal, Wise, Direct Wire Transfer, aur UPI. Invoicing USD, GBP, EUR aur INR sabhi me available hai. Aap hamare /pay page par jaakar direct secure payment kar sakte hain.",
+        reply: "Main Balaji Prime Media ka 24/7 AI Voice Concierge hoon. Balaji Prime Media ek full-service digital growth agency hai jo UK, US aur worldwide clients ko Custom Next.js Web Development, SEO, Content Writing aur Digital Marketing solutions deti hai.",
         suggestedPrompts: [
-          "Payment page dekhein (/pay)",
-          "PayPal / Wise details mangein",
-          "WhatsApp par invoice mangein"
+          "Aapki services kya kya hain?",
+          "Pricing & Packages batao",
+          "Founder se meeting book karein"
         ]
       };
     }
     return {
-      reply: "We support secure global payments via Stripe, PayPal, Wise, Direct Wire Transfer, and UPI with multi-currency invoicing in USD, GBP, EUR, and INR. You can also visit our dedicated /pay page for immediate checkout.",
+      reply: "I am the official 24/7 AI Concierge for Balaji Prime Media. We are a full-service digital growth agency providing custom Next.js web development, full-funnel SEO, content strategy, and digital marketing to UK, US, and international businesses.",
       suggestedPrompts: [
-        "Visit /pay Page",
-        "Request Wise / Wire Details",
+        "What services do you offer?",
+        "Explore Pricing & Packages",
+        "Schedule Strategy Meeting"
+      ]
+    };
+  }
+
+  // 17. Greetings / Namaste / Hi / Hello
+  if (
+    query.match(/^(hi|hello|hey|namaste|pranam|kaisa|kaise ho|kya haal|good morning|good afternoon|good evening)/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Namaste! Balaji Prime Media me aapka swagat hai. Main aapka AI Voice Assistant hoon. Aaj main aapki website development, SEO, content writing ya digital marketing me kis tarah madad kar sakta hoon?",
+        suggestedPrompts: [
+          "Website Development ke baare me batao",
+          "SEO Packages dekhein",
+          "Pricing & Rates kya hain?"
+        ]
+      };
+    }
+    return {
+      reply: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We help UK, US, and worldwide brands scale with custom Next.js web engineering, full-funnel SEO, and digital marketing. How can I assist you today?",
+      suggestedPrompts: [
+        "Website Development Services",
+        "SEO Growth Programs",
+        "Pricing & Packages"
+      ]
+    };
+  }
+
+  // 18. Polite / Acknowledgement (Ok, Thanks, Good, etc.)
+  if (
+    query.match(/\b(ok|okay|theek hai|thik hai|shukriya|thanks|thank you|good|nice|badhiya|wah|great)\b/i)
+  ) {
+    if (isHindi) {
+      return {
+        reply: "Bahut shukriya! Agar aapko hamari kisi bhi service ya project ke baare me koi aur jankari chahiye, to zaroor batayein. Main hamesha yahan aapki madad ke liye hoon.",
+        suggestedPrompts: [
+          "Services & Pricing dekhein",
+          "Free AI Website Audit karein",
+          "WhatsApp par baat karein"
+        ]
+      };
+    }
+    return {
+      reply: "You're very welcome! If you have any further questions about our web development, SEO strategies, or project pricing, feel free to ask anytime.",
+      suggestedPrompts: [
+        "Explore Services & Pricing",
+        "Run Free Website Audit",
         "Connect on WhatsApp"
       ]
     };
   }
 
-  // 12. UK / US / International / Worldwide inquiries
-  if (
-    query.match(/\b(uk|united kingdom|london|us|usa|america|worldwide|australia|international|foreign|abroad)\b/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Haan ji! Hamare bohot saare enterprise clients United Kingdom (London, Manchester), USA aur Europe se hain. Hum international time zones me 24/7 kaam karte hain aur pure worldwide publications par outreach deliver karte hain.",
-        suggestedPrompts: [
-          "UK Publications list dekhein",
-          "US High DR sites dekhein",
-          "WhatsApp par discuss karein"
-        ]
-      };
-    }
-    return {
-      reply: "We actively serve prominent clients across the UK (London, Manchester), the US, Australia, and Europe. All outreach is conducted directly with high-authority regional and global editorial publications. What industry or region are you targeting?",
-      suggestedPrompts: [
-        "SaaS & Tech Placements",
-        "FinTech & Business Outlets",
-        "Talk to Human Strategist"
-      ]
-    };
-  }
-
-  // 13. Guarantees / Safety / Google Updates / Indexing
-  if (
-    query.match(/\b(guarantee|safe|safety|google update|penalty|index|indexing|time|kitna time|duration)\b/i)
-  ) {
-    if (isHindi) {
-      return {
-        reply: "Hamare sabhi guest posts 100% white-hat aur manual outreach hote hain, isliye yeh Google algorithm updates aur penalties se bilkul safe hain. Articles 24 se 72 ghante ke andar publish ho jate hain aur fast indexing guarantee rehti hai.",
-        suggestedPrompts: [
-          "Case Studies dekhein",
-          "Live Placements ke sample dekhein",
-          "Senior Strategist se baat karein"
-        ]
-      };
-    }
-    return {
-      reply: "All Balaji Prime Media link building is 100% white-hat editorial outreach, keeping your domain safe through all Google core algorithm updates. Placements are typically published within 24–72 hours with permanent dofollow tags and verified Google indexing.",
-      suggestedPrompts: [
-        "View Case Studies",
-        "Sample Live Placements",
-        "Speak with Growth Strategist"
-      ]
-    };
-  }
-
-  // 14. Conversational / Polite Acknowledgement
-  if (query.match(/\b(ok|okay|theek hai|thik hai|shukriya|thanks|thank you|good|nice|badhiya|wah|great)\b/i)) {
-    if (isHindi) {
-      return {
-        reply: "Bahut shukriya! Agar aapko guest posting, website audit ya custom package ke bare me koi bhi aur jankari chahiye, to main hamesha yahan hoon. Aap chahein to WhatsApp (+91 76908 68932) par bhi hume reach kar sakte hain.",
-        suggestedPrompts: [
-          "Guest Posting Database dekhein",
-          "Free SEO Audit karein",
-          "Meeting schedule karein"
-        ]
-      };
-    }
-    return {
-      reply: "You're very welcome! If you need any assistance regarding guest posting lists, our free instant SEO audit, or custom growth plans, I'm always here to help.",
-      suggestedPrompts: [
-        "Explore 40,000+ Publications",
-        "Run Free Website Audit",
-        "Chat on WhatsApp"
-      ]
-    };
-  }
-
-  // 15. Intelligent contextual fallback (Never repeats the exact same sentence mindlessly)
+  // 19. Context-Aware Natural Fallback (DOES NOT mention guest posting unless asked)
   if (isHindi) {
     return {
-      reply: `Main aapki baat samajh gaya. Aapne "${userMessage}" ke baare me pucha hai. Balaji Prime Media aapko 40,000+ High DR 50-90+ Guest Posting sites, Complete Technical SEO aur Fast Website Development provide karta hai. Kya aap hamari site list dekhna chahte hain ya WhatsApp (+91 76908 68932) par direct discuss karna pasand karenge?`,
+      reply: `Main aapke sawal "${userMessage}" ko samajh gaya. Balaji Prime Media ek full-service digital agency hai jo Custom Next.js Web Development, SEO Optimization, Content Writing aur Digital Marketing provide karti hai. Aap is project ke baare me kya specifics jaan-na chahte hain?`,
       suggestedPrompts: [
-        "Guest Posting list dekhein",
-        "Pricing & Packages batao",
-        "WhatsApp (+91 76908 68932) par connect karein",
-        "Free SEO Audit karein"
+        "Website Development Details ($699)",
+        "SEO Optimization Retainer ($449/mo)",
+        "WhatsApp (+91 76908 68932) par discuss karein",
+        "Free SEO & Speed Audit karein"
       ]
     };
   }
 
   return {
-    reply: `Regarding "${userMessage}": Balaji Prime Media specializes in manual DR 50–90+ editorial outreach across 40,000+ publications, high-performance SEO, and conversion-focused web engineering for worldwide businesses. Would you like to view our live publication list or speak directly with our senior team?`,
+    reply: `Regarding "${userMessage}": Balaji Prime Media provides custom Next.js web development, technical & semantic SEO, content marketing, and digital growth services for businesses in the UK, US, and globally. Would you like to discuss your project scope or see our packages?`,
     suggestedPrompts: [
-      "Explore 40,000+ Guest Posting Sites",
-      "Free Website Audit",
-      "Pricing & Packages",
+      "Custom Web Development ($699)",
+      "SEO Growth Retainer ($449/mo)",
+      "Free Instant Website Audit",
       "Chat on WhatsApp (+91 76908 68932)"
     ]
   };
@@ -405,7 +506,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check optional Gemini API Key if user configured it
+    // Optional Gemini API Key integration if available in environment
     const geminiKey = process.env.GEMINI_API_KEY;
     if (geminiKey) {
       try {
@@ -420,14 +521,22 @@ export async function POST(req: NextRequest) {
                   role: "user",
                   parts: [
                     {
-                      text: `You are the official 24/7 AI Voice Concierge for Balaji Prime Media (BPM), a global digital growth and SEO agency serving UK, US, and worldwide clients.
-Core offerings: 40,000+ verified DR 50-90+ editorial guest posting, Next.js technical SEO, Core Web Vitals optimization.
-Contact: WhatsApp +91 76908 68932, Email: support@balajiprimemedia.in.
-Instructions:
-- If user speaks or asks in Hindi or Hinglish, answer warmly in natural Hinglish!
-- If user asks in English, answer in polite UK/US English.
-- Keep reply to 2-3 concise conversational sentences suitable for voice synthesis.
-- Never repeat canned boilerplate; directly answer the user's question.
+                      text: `You are the official 24/7 AI Voice Concierge for Balaji Prime Media (BPM), a full-service digital agency.
+Our core services:
+1. Custom Next.js / React Website Development ($699 / ₹49,999)
+2. Search Engine Optimization (SEO) ($449 / ₹29,999/mo)
+3. Content Writing & Copywriting ($119 / ₹7,999)
+4. Email Marketing & Revenue Automation ($269 / ₹18,999)
+5. Website Maintenance & 24/7 Support ($149 / ₹9,999/mo)
+6. Off-Page Link Building & Guest Posting ($279 / ₹19,999)
+Contact: WhatsApp & Phone: +91 76908 68932, Email: support@balajiprimemedia.in.
+
+CRITICAL RULES:
+- ONLY talk about guest posting if the user specifically asked for guest posts or backlinks! NEVER force or mention 40,000 guest posting if the user is asking about websites, development, SEO, content, speed, pricing, or general inquiries.
+- Directly and accurately answer what the user asked.
+- If user speaks Hindi/Hinglish, reply warmly in natural Hinglish!
+- If user speaks English, reply in polite UK/US English.
+- Keep reply to 2-3 concise sentences suitable for voice speech synthesis.
 
 User query: "${message}"`
                     }
@@ -450,19 +559,20 @@ User query: "${message}"`
               success: true,
               reply: generatedText.trim(),
               suggestedPrompts: [
-                "Explore 40,000+ Guest Posting Sites",
+                "Website Development ($699)",
+                "SEO Optimization ($449/mo)",
                 "Free Website Audit",
-                "Schedule a Call with Leadership",
+                "Chat on WhatsApp"
               ],
             });
           }
         }
       } catch (geminiErr) {
-        console.warn("Gemini API fallback to Local AI Engine:", geminiErr);
+        console.warn("Gemini fallback to Local Engine:", geminiErr);
       }
     }
 
-    // High-performance intelligent bilingual conversational engine
+    // Precise, Multi-Service Local Conversational Engine
     const response = generateDynamicResponse(message, history);
 
     return NextResponse.json({
@@ -476,7 +586,7 @@ User query: "${message}"`
         success: false,
         error: "Failed to process AI response",
         reply:
-          "Main Balaji Prime Media ka AI Voice Concierge hoon. Hamari team 24/7 uplabdh hai. Aap direct WhatsApp (+91 76908 68932) ya email (support@balajiprimemedia.in) par connect kar sakte hain.",
+          "Main Balaji Prime Media ka AI Voice Concierge hoon. Hamari team Website Development, SEO aur Digital Marketing ke liye 24/7 uplabdh hai. Aap direct WhatsApp (+91 76908 68932) par connect kar sakte hain.",
       },
       { status: 500 }
     );
