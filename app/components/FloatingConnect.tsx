@@ -95,12 +95,14 @@ export default function FloatingConnect() {
         </svg>
       </a>
 
-      {/* 3. Direct Phone Call (Upper Diagonal) */}
+      {/* 3. Threads (Upper Diagonal) */}
       <a
-        href={`tel:+${whatsappNumber}`}
-        onClick={() => handleInteraction("phone", "Direct Call Clicked", `+${whatsappNumber}`)}
-        aria-label="Direct Phone Call"
-        className={`${buttonBase} bg-[#0284c7] text-white shadow-[#0284c7]/40`}
+        href="https://threads.net"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => handleInteraction("other", "Threads Clicked", "Footer Connect Widget")}
+        aria-label="Threads"
+        className={`${buttonBase} bg-black text-white shadow-black/50 border-white/40`}
         style={{
           transform: isOpen ? "translate(-50px, -116px) scale(1)" : "translate(0px, 0px) scale(0)",
           opacity: isOpen ? 1 : 0,
@@ -109,10 +111,10 @@ export default function FloatingConnect() {
         }}
       >
         <span className="absolute right-full mr-2.5 whitespace-nowrap bg-[#091427]/95 text-white text-[10.5px] font-bold px-2 py-0.5 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-white/10">
-          Call (+91 76908 68932)
+          Threads
         </span>
-        <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
-          <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+        <svg className="w-4.5 h-4.5 fill-white" viewBox="0 0 192 192">
+          <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.8228C81.4245 64.4079 89.6582 60.7443 97.222 60.7443C97.3069 60.7443 97.3917 60.7443 97.4766 60.745C112.551 60.8413 121.579 70.9209 122.951 89.7891C115.702 88.9481 107.561 88.9841 98.4414 89.9077C68.916 92.8967 52.5447 110.155 53.4776 132.842C54.4105 155.529 72.2471 169.593 96.657 169.593C116.666 169.593 131.795 160.054 138.859 143.149C144.996 156.495 156.983 163.666 172.903 163.666C186.297 163.666 195.965 157.069 200.706 144.722L185.733 138.995C182.981 146.166 177.839 149.666 172.903 149.666C163.097 149.666 157.07 142.721 154.947 129.083C159.083 122.476 161.737 114.774 162.771 106.185L147.284 104.316C146.477 111.026 144.409 117.027 141.077 122.259C136.216 109.845 136.721 98.9207 141.537 88.9883ZM122.656 123.645C118.069 133.091 108.723 138.455 96.5508 138.455C82.8837 138.455 70.3667 131.144 69.6087 112.709C68.9567 96.8834 81.3392 84.4539 99.8821 82.5768C107.502 81.8052 114.996 82.0163 122.096 83.1812C122.695 96.4808 122.882 109.972 122.656 123.645Z"/>
         </svg>
       </a>
 
