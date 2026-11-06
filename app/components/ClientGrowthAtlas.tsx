@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ClientCase {
   id: string;
@@ -487,13 +488,13 @@ export default function ClientGrowthAtlas() {
                 {activeClient.feature[1]}
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-medium underline underline-offset-3 hover:opacity-80 transition-opacity"
               >
                 <span>Book your growth roadmap</span>
                 <svg className="w-3.5 h-3.5"><use href="#i-arrow" /></svg>
-              </a>
+              </Link>
             </div>
           </aside>
 
@@ -932,8 +933,8 @@ export default function ClientGrowthAtlas() {
                 </svg>
               </button>
 
-              <a
-                href="#contact"
+              <Link
+                href="/schedule-meeting"
                 className="mt-3 w-full py-2.5 px-4 rounded-[3px] text-center font-mono text-[12px] uppercase tracking-wider font-semibold block transition-all shadow-xs"
                 style={{
                   backgroundColor: isDusk ? "#e08a4f" : "#b4532a",
@@ -941,7 +942,7 @@ export default function ClientGrowthAtlas() {
                 }}
               >
                 Replicate These Results for Your Brand →
-              </a>
+              </Link>
             </div>
           </article>
 

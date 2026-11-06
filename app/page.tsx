@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -25,6 +25,13 @@ export default function Home() {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
   };
+
+  // Clean #contact hash if present so the home page URL stays clean: balajiprimemedia.in
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#contact") {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }, []);
 
 
 
@@ -316,7 +323,7 @@ export default function Home() {
         />
 
         {/* 8. BOTTOM CALL-TO-ACTION BANNER (3D MOTIONSITE UPGRADE) */}
-        <section id="contact" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
+        <section id="cta" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10">
           <div className="max-w-7xl mx-auto">
             <div
               className="relative rounded-3xl p-7 sm:p-10 md:p-14 overflow-hidden border border-purple-500/25 shadow-2xl backdrop-blur-xl"

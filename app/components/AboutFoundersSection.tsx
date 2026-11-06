@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 interface StatCardData {
@@ -76,8 +77,8 @@ export default function AboutFoundersSection() {
               Our founders&apos; mission is to empower global brands, fast-growing startups, and enterprise clients to achieve measurable ROI and undisputed visibility across search engines worldwide.
             </p>
             <div>
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="group inline-flex items-center gap-4 mt-6 text-[14px] font-medium text-[#154359]"
               >
                 <span>Balaji Prime Media roadmap</span>
@@ -90,7 +91,7 @@ export default function AboutFoundersSection() {
                 >
                   <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} />
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
