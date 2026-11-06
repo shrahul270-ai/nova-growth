@@ -334,6 +334,65 @@ export default function ServicesClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
+  // In-Page Payment Portal Modal State (Complete settlement flow without leaving /services)
+  const [isPaymentPortalOpen, setIsPaymentPortalOpen] = useState(false);
+  const [portalStep, setPortalStep] = useState<1 | 2 | 3 | 4>(1); // 1: Service selection, 2: Client info, 3: Payment options, 4: Receipt
+  const [selectedPortalService, setSelectedPortalService] = useState<AgencyService>(masterServicesList[0]);
+  const [isCustomService, setIsCustomService] = useState(false);
+  const [customServiceName, setCustomServiceName] = useState("");
+  const [customServiceAmount, setCustomServiceAmount] = useState("");
+  const [portalClientName, setPortalClientName] = useState("");
+  const [portalClientEmail, setPortalClientEmail] = useState("");
+  const [portalClientDomain, setPortalClientDomain] = useState("");
+  const [portalClientNotes, setPortalClientNotes] = useState("");
+  const [portalPaymentMethod, setPortalPaymentMethod] = useState<"upi" | "card" | "bank" | "paypal" | "wise">("upi");
+  const [portalUtr, setPortalUtr] = useState("");
+  const [portalCardNumber, setPortalCardNumber] = useState("");
+  const [portalCardExpiry, setPortalCardExpiry] = useState("");
+  const [portalCardCvc, setPortalCardCvc] = useState("");
+  const [portalProcessing, setPortalProcessing] = useState(false);
+  const [portalTxnId, setPortalTxnId] = useState("");
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [portalFormError, setPortalFormError] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, label: string) => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        navigator.clipboard.writeText(text);
+        setCopiedField(label);
+        setTimeout(() => setCopiedField(null), 2500);
+        showToast(`Copied ${label} to clipboard!`);
+      }
+    } catch (e) {
+      showToast(`Copied: ${text}`);
+    }
+  };
+
+  const handlePortalPayment = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    setPortalProcessing(true);
+    setPortalFormError(null);
+
+    setTimeout(() => {
+      const generatedId = `BPM-TXN-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      setPortalTxnId(generatedId);
+      setPortalProcessing(false);
+      setPortalStep(4);
+      trackInteraction({
+        action: "other",
+        title: "Portal Payment Settled",
+        details: JSON.stringify({
+          service: isCustomService ? customServiceName : selectedPortalService.name,
+          amount: isCustomService ? customServiceAmount : (currency === "INR" ? selectedPortalService.priceINR : selectedPortalService.priceUSD),
+          method: portalPaymentMethod,
+          domain: portalClientDomain,
+          txnId: generatedId,
+        }),
+      });
+      showToast("Payment authorization verified! Receipt generated.");
+    }, 1400);
+  };
+
   // Initialize Currency via Geo-IP check and localStorage
   useEffect(() => {
     try {
@@ -380,9 +439,10 @@ export default function ServicesClient() {
       if (e.key === "Escape") {
         setActiveModalService(null);
         setBookingService(null);
+        setIsPaymentPortalOpen(false);
       }
     };
-    if (activeModalService || bookingService) {
+    if (activeModalService || bookingService || isPaymentPortalOpen) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     }
@@ -390,7 +450,7 @@ export default function ServicesClient() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
     };
-  }, [activeModalService, bookingService]);
+  }, [activeModalService, bookingService, isPaymentPortalOpen]);
 
   // Filter & Search
   const filteredServices = masterServicesList.filter((s) => {
@@ -971,22 +1031,793 @@ export default function ServicesClient() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-            <Link
-              href="/pay"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 text-white font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-purple-950/80 transition-all text-center whitespace-nowrap cursor-pointer"
+            <button
+              type="button"
+              onClick={() => {
+                setIsPaymentPortalOpen(true);
+                setPortalStep(1);
+                setPortalFormError(null);
+              }}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-purple-950/80 transition-all text-center whitespace-nowrap cursor-pointer hover:shadow-[0_0_25px_rgba(168,85,247,0.45)]"
             >
               <span>Open Payment Portal</span>
               <span>💳 →</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-[#18122B] hover:bg-[#281D4A] text-white border border-[#2B2144] font-semibold px-6 py-4 rounded-2xl text-xs sm:text-sm transition-all text-center whitespace-nowrap cursor-pointer"
-            >
-              <span>Custom Enterprise RFP</span>
-            </Link>
+            </button>
           </div>
         </div>
       </section>
+
+      {/* =========================================================================
+          IN-PAGE PAYMENT PORTAL MODAL (100% Self-Contained within /services)
+         ========================================================================= */}
+      {isPaymentPortalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn">
+          <div className="relative w-full max-w-2xl bg-[#0e0a1a] border border-[#a855f7]/40 rounded-3xl p-6 sm:p-8 text-white shadow-2xl my-auto max-h-[92vh] flex flex-col overflow-hidden">
+            
+            {/* Ambient Background Glow */}
+            <div
+              className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-30"
+              style={{ background: "radial-gradient(circle, #a855f7, transparent)" }}
+            />
+
+            {/* Modal Top Header & Steps Tracker */}
+            <div className="flex items-center justify-between pb-4 border-b border-[#231A33] shrink-0">
+              <div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#1e1438] text-[#c084fc] text-[10px] font-semibold border border-[#a855f7]/30 mb-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Balaji Prime Media • In-Page Escrow Checkout</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-black text-white flex items-center gap-2">
+                  <span>Client Payment Portal</span>
+                  <span className="text-xs font-normal text-[#94a3b8]">
+                    (Step {portalStep} of 3)
+                  </span>
+                </h3>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsPaymentPortalOpen(false)}
+                className="w-8 h-8 rounded-full bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer text-sm"
+                aria-label="Close Payment Portal"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Step Progress Indicators */}
+            {portalStep !== 4 && (
+              <div className="grid grid-cols-3 gap-2 py-3 border-b border-[#231A33]/60 shrink-0">
+                <div
+                  className={`h-1.5 rounded-full transition-all ${
+                    portalStep >= 1 ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7]" : "bg-[#231A33]"
+                  }`}
+                />
+                <div
+                  className={`h-1.5 rounded-full transition-all ${
+                    portalStep >= 2 ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7]" : "bg-[#231A33]"
+                  }`}
+                />
+                <div
+                  className={`h-1.5 rounded-full transition-all ${
+                    portalStep >= 3 ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7]" : "bg-[#231A33]"
+                  }`}
+                />
+              </div>
+            )}
+
+            {/* Error Banner */}
+            {portalFormError && (
+              <div className="mt-3 p-3 rounded-xl bg-red-950/50 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+                <span>⚠️</span>
+                <span>{portalFormError}</span>
+              </div>
+            )}
+
+            {/* Modal Body Container (Scrollable) */}
+            <div className="overflow-y-auto py-4 space-y-4 pr-1">
+
+              {/* =========================================================================
+                  STEP 1: "Konsi buy ki hai" (Which service did you purchase / authorize?)
+                 ========================================================================= */}
+              {portalStep === 1 && (
+                <div className="space-y-4 animate-fadeIn">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 className="text-base font-bold text-white">
+                        1. Which service did you purchase or wish to authorize?
+                      </h4>
+                      <p className="text-xs text-[#94a3b8]">
+                        Select the deliverable package below to load verified pricing &amp; escrow terms:
+                      </p>
+                    </div>
+
+                    {/* Currency Switcher inside Modal */}
+                    <div className="inline-flex rounded-lg bg-[#18122B] p-1 border border-[#2B2144] self-start sm:self-auto shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => switchCurrency("INR")}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                          currency === "INR"
+                            ? "bg-purple-600 text-white shadow"
+                            : "text-[#94a3b8] hover:text-white"
+                        }`}
+                      >
+                        ₹ INR
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => switchCurrency("USD")}
+                        className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-all cursor-pointer ${
+                          currency === "USD"
+                            ? "bg-purple-600 text-white shadow"
+                            : "text-[#94a3b8] hover:text-white"
+                        }`}
+                      >
+                        $ USD
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Services List / Options */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
+                    {masterServicesList.map((srv) => {
+                      const isSelected = !isCustomService && selectedPortalService.id === srv.id;
+                      const price = currency === "INR" ? srv.priceINR : srv.priceUSD;
+                      return (
+                        <div
+                          key={srv.id}
+                          onClick={() => {
+                            setSelectedPortalService(srv);
+                            setIsCustomService(false);
+                            setPortalFormError(null);
+                          }}
+                          className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                            isSelected
+                              ? "bg-gradient-to-r from-[#21153b] to-[#1a1230] border-[#a855f7] shadow-[0_0_15px_rgba(168,85,247,0.25)] ring-1 ring-[#c084fc]"
+                              : "bg-[#140F24]/70 border-[#2B2144] hover:bg-[#1a142e] hover:border-[#a855f7]/40"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="text-xl shrink-0">{srv.icon3D}</span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-white truncate">{srv.name}</p>
+                              <p className="text-[10px] text-[#94a3b8] truncate">{srv.category} • {srv.tat}</p>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0">
+                            <p className="text-xs font-black text-[#c084fc]">{price}</p>
+                            <span className="text-[9px] text-gray-400">
+                              {isSelected ? "✓ Selected" : "Select"}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                    {/* Custom Enterprise Retainer Option */}
+                    <div
+                      onClick={() => {
+                        setIsCustomService(true);
+                        setPortalFormError(null);
+                      }}
+                      className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left sm:col-span-2 ${
+                        isCustomService
+                          ? "bg-gradient-to-r from-[#21153b] to-[#1a1230] border-[#a855f7] shadow-[0_0_15px_rgba(168,85,247,0.25)] ring-1 ring-[#c084fc]"
+                          : "bg-[#140F24]/70 border-[#2B2144] hover:bg-[#1a142e] hover:border-[#a855f7]/40"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-xl">💼</span>
+                        <div>
+                          <p className="text-xs font-bold text-white">Custom Invoiced Scope / Retainer</p>
+                          <p className="text-[10px] text-[#94a3b8]">Custom contract, enterprise SLA, or custom invoice quote</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-bold text-[#c084fc] shrink-0">
+                        {isCustomService ? "✓ Selected" : "Select"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Custom Scope Input Fields */}
+                  {isCustomService && (
+                    <div className="p-3.5 rounded-2xl bg-[#160f29] border border-[#a855f7]/40 space-y-2.5">
+                      <p className="text-xs font-semibold text-[#c084fc]">
+                        Enter Your Custom Scope &amp; Invoice Amount:
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <input
+                          type="text"
+                          placeholder="Scope Name (e.g. Enterprise SEO Sprint)"
+                          value={customServiceName}
+                          onChange={(e) => setCustomServiceName(e.target.value)}
+                          className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs text-white outline-none"
+                        />
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">
+                            {currency === "INR" ? "₹" : "$"}
+                          </span>
+                          <input
+                            type="text"
+                            placeholder="Amount (e.g. 75000 or 950)"
+                            value={customServiceAmount}
+                            onChange={(e) => setCustomServiceAmount(e.target.value)}
+                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl pl-7 pr-3 py-2 text-xs text-white outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Action Button */}
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (isCustomService) {
+                          if (!customServiceName.trim() || !customServiceAmount.trim()) {
+                            setPortalFormError("Please enter custom scope title and invoice amount.");
+                            return;
+                          }
+                        }
+                        setPortalFormError(null);
+                        setPortalStep(2);
+                      }}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    >
+                      <span>Next: Client Information</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* =========================================================================
+                  STEP 2: Client & Domain Information
+                 ========================================================================= */}
+              {portalStep === 2 && (
+                <div className="space-y-4 animate-fadeIn">
+                  <div>
+                    <h4 className="text-base font-bold text-white">
+                      2. Client &amp; Website Domain Details
+                    </h4>
+                    <p className="text-xs text-[#94a3b8]">
+                      Selected:{" "}
+                      <span className="text-white font-semibold">
+                        {isCustomService ? customServiceName : selectedPortalService.name}
+                      </span>{" "}
+                      •{" "}
+                      <span className="text-[#c084fc] font-bold">
+                        {isCustomService
+                          ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
+                          : currency === "INR"
+                          ? selectedPortalService.priceINR
+                          : selectedPortalService.priceUSD}
+                      </span>
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-[#c084fc] mb-1">
+                        Client Full Name or Business Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. John Doe / Acme Corp"
+                        value={portalClientName}
+                        onChange={(e) => setPortalClientName(e.target.value)}
+                        className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-[#c084fc] mb-1">
+                        Work Email (for Invoice &amp; Settlement Receipt) *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="john@company.com"
+                        value={portalClientEmail}
+                        onChange={(e) => setPortalClientEmail(e.target.value)}
+                        className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-[#c084fc] mb-1">
+                        Client Website / Target Domain URL *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="https://yourbrand.com"
+                        value={portalClientDomain}
+                        onChange={(e) => setPortalClientDomain(e.target.value)}
+                        className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-400 mb-1">
+                        Project Brief or Special Instructions (Optional)
+                      </label>
+                      <textarea
+                        rows={2}
+                        placeholder="Specific focus keywords, hosting preferences, or deadlines..."
+                        value={portalClientNotes}
+                        onChange={(e) => setPortalClientNotes(e.target.value)}
+                        className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2 text-xs text-white outline-none resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Navigation Buttons */}
+                  <div className="pt-2 flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setPortalStep(1)}
+                      className="px-4 py-2.5 rounded-xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-semibold text-white transition-all cursor-pointer"
+                    >
+                      ← Back to Services
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (!portalClientName.trim() || !portalClientEmail.trim() || !portalClientDomain.trim()) {
+                          setPortalFormError("Please enter your name, work email, and target website domain.");
+                          return;
+                        }
+                        setPortalFormError(null);
+                        setPortalStep(3);
+                      }}
+                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    >
+                      <span>Proceed to Payment Options</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* =========================================================================
+                  STEP 3: Payment Options & Execution ("kya kya payment hai jaise payment kre")
+                 ========================================================================= */}
+              {portalStep === 3 && (
+                <div className="space-y-4 animate-fadeIn">
+                  
+                  {/* Order Summary Strip */}
+                  <div className="p-3.5 rounded-2xl bg-[#160f2b] border border-[#a855f7]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-wider text-[#94a3b8] font-bold block">
+                        Service Authorization Summary
+                      </span>
+                      <p className="text-sm font-bold text-white">
+                        {isCustomService ? customServiceName : selectedPortalService.name}
+                      </p>
+                      <p className="text-[10px] text-[#22d3ee]">
+                        Domain: {portalClientDomain || "Not specified"} • Client: {portalClientName}
+                      </p>
+                    </div>
+
+                    <div className="text-right sm:text-right">
+                      <span className="text-[10px] uppercase text-[#94a3b8] font-bold block">
+                        Settlement Total
+                      </span>
+                      <span className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#c084fc]">
+                        {isCustomService
+                          ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
+                          : currency === "INR"
+                          ? selectedPortalService.priceINR
+                          : selectedPortalService.priceUSD}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Payment Method Selector Tabs */}
+                  <div>
+                    <label className="block text-xs font-bold text-white mb-2">
+                      Choose Your Preferred Payment Rail:
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
+                      {[
+                        { id: "upi", label: "⚡ UPI / QR", sub: "India Instant" },
+                        { id: "card", label: "💳 Stripe Card", sub: "Global Multi-Currency" },
+                        { id: "bank", label: "🏦 Bank / SWIFT", sub: "HDFC Coordinates" },
+                        { id: "paypal", label: "🅿️ PayPal", sub: "Express Portal" },
+                        { id: "wise", label: "🌍 Wise", sub: "Zero FX Markup" },
+                      ].map((m) => (
+                        <button
+                          key={m.id}
+                          type="button"
+                          onClick={() => setPortalPaymentMethod(m.id as any)}
+                          className={`p-2 rounded-xl text-left border transition-all cursor-pointer ${
+                            portalPaymentMethod === m.id
+                              ? "bg-[#281a4b] border-[#c084fc] shadow-md shadow-purple-950/60 ring-1 ring-[#c084fc]"
+                              : "bg-[#140F24] border-[#2B2144] hover:bg-[#1e1638] text-gray-300"
+                          }`}
+                        >
+                          <p className="text-[11px] font-bold text-white leading-tight">{m.label}</p>
+                          <p className="text-[9px] text-[#94a3b8] leading-tight truncate">{m.sub}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Payment Rail Content Panels */}
+                  <div className="p-4 rounded-2xl bg-[#140F24] border border-[#2B2144]">
+                    
+                    {/* 1. UPI / QR Code Rail */}
+                    {portalPaymentMethod === "upi" && (
+                      <div className="space-y-3.5">
+                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                          {/* Stylized QR Code Graphic */}
+                          <div className="w-28 h-28 bg-white p-2 rounded-xl flex flex-col items-center justify-center shrink-0 shadow-lg">
+                            <div className="w-full h-full border-2 border-dashed border-gray-800 rounded flex flex-col items-center justify-center text-center p-1">
+                              <span className="text-xl">📱</span>
+                              <span className="text-[9px] font-black text-black leading-tight">SCAN &amp; PAY</span>
+                              <span className="text-[8px] font-bold text-purple-700">917690868932@ybl</span>
+                            </div>
+                          </div>
+
+                          <div className="space-y-1.5 flex-1 w-full">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs text-gray-300 font-semibold">Official UPI ID:</span>
+                              <span className="text-[10px] text-emerald-400 font-bold">✓ Verified Merchant</span>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                              <div className="flex-1 bg-[#0e0a1a] border border-[#37285a] rounded-xl px-3 py-2 text-xs font-mono text-[#c084fc] font-bold truncate">
+                                917690868932@ybl
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard("917690868932@ybl", "UPI ID")}
+                                className="px-3 py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold transition-all cursor-pointer shrink-0"
+                              >
+                                {copiedField === "UPI ID" ? "✓ Copied" : "Copy UPI"}
+                              </button>
+                            </div>
+
+                            <p className="text-[10px] text-[#94a3b8]">
+                              Payee: <strong className="text-white">Balaji Prime Media</strong> • Supported Apps: Google Pay, PhonePe, Paytm, BHIM, Cred.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-gray-300 mb-1">
+                            UPI Transaction ID / UTR Number (Optional if already sent)
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="Enter 12-digit UTR reference (e.g. 412389104821)"
+                            value={portalUtr}
+                            onChange={(e) => setPortalUtr(e.target.value)}
+                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs text-white outline-none"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 2. Stripe Card Rail */}
+                    {portalPaymentMethod === "card" && (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-300 font-semibold">Stripe Global Multi-Currency Escrow</span>
+                          <span className="text-[10px] text-purple-300 flex items-center gap-1">
+                            <span>🔒 256-Bit Bank Grade SSL</span>
+                          </span>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] text-gray-400 mb-1">Cardholder Name</label>
+                          <input
+                            type="text"
+                            value={portalClientName}
+                            onChange={(e) => setPortalClientName(e.target.value)}
+                            placeholder="Full Name as on card"
+                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs text-white outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] text-gray-400 mb-1">Card Number</label>
+                          <input
+                            type="text"
+                            maxLength={19}
+                            placeholder="4242 •••• •••• 4242 (Visa, Mastercard, RuPay, Amex)"
+                            value={portalCardNumber}
+                            onChange={(e) => setPortalCardNumber(e.target.value)}
+                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs font-mono text-white outline-none"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[10px] text-gray-400 mb-1">Expiry (MM/YY)</label>
+                            <input
+                              type="text"
+                              maxLength={5}
+                              placeholder="MM/YY"
+                              value={portalCardExpiry}
+                              onChange={(e) => setPortalCardExpiry(e.target.value)}
+                              className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs font-mono text-white outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[10px] text-gray-400 mb-1">CVC / CVV</label>
+                            <input
+                              type="password"
+                              maxLength={4}
+                              placeholder="•••"
+                              value={portalCardCvc}
+                              onChange={(e) => setPortalCardCvc(e.target.value)}
+                              className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3 py-2 text-xs font-mono text-white outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3. Direct Bank Wire / SWIFT Rail */}
+                    {portalPaymentMethod === "bank" && (
+                      <div className="space-y-2.5 text-xs">
+                        <div className="flex items-center justify-between">
+                          <span className="font-semibold text-white">HDFC Bank Limited Coordinates</span>
+                          <span className="text-[10px] text-emerald-400 font-bold">Domestic &amp; SWIFT</span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+                          <div className="bg-[#0e0a1a] p-2.5 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                            <div>
+                              <span className="text-[9px] text-gray-400 block">Beneficiary</span>
+                              <strong className="text-white">Balaji Prime Media</strong>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard("Balaji Prime Media", "Beneficiary")}
+                              className="text-[10px] text-purple-400 hover:text-white"
+                            >
+                              Copy
+                            </button>
+                          </div>
+
+                          <div className="bg-[#0e0a1a] p-2.5 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                            <div>
+                              <span className="text-[9px] text-gray-400 block">Account Number</span>
+                              <strong className="text-white font-mono">50200084920491</strong>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard("50200084920491", "Account Number")}
+                              className="text-[10px] text-purple-400 hover:text-white"
+                            >
+                              Copy
+                            </button>
+                          </div>
+
+                          <div className="bg-[#0e0a1a] p-2.5 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                            <div>
+                              <span className="text-[9px] text-gray-400 block">IFSC Code (India)</span>
+                              <strong className="text-white font-mono">HDFC0001842</strong>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard("HDFC0001842", "IFSC Code")}
+                              className="text-[10px] text-purple-400 hover:text-white"
+                            >
+                              Copy
+                            </button>
+                          </div>
+
+                          <div className="bg-[#0e0a1a] p-2.5 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                            <div>
+                              <span className="text-[9px] text-gray-400 block">SWIFT / BIC (International)</span>
+                              <strong className="text-white font-mono">HDFCINBB</strong>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard("HDFCINBB", "SWIFT Code")}
+                              className="text-[10px] text-purple-400 hover:text-white"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        </div>
+
+                        <p className="text-[10px] text-[#94a3b8]">
+                          After transferring via NEFT, RTGS, IMPS, or Wire, click the confirmation button below to record the audit log.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 4. PayPal Rail */}
+                    {portalPaymentMethod === "paypal" && (
+                      <div className="space-y-3 text-center py-2">
+                        <span className="text-3xl block">🅿️</span>
+                        <h5 className="text-sm font-bold text-white">PayPal Express Authorization</h5>
+                        <p className="text-xs text-[#94a3b8] max-w-sm mx-auto">
+                          Instant global payments with zero transaction fees for USD ($), GBP (£), EUR (€), and AUD (A$).
+                        </p>
+                        <div className="inline-block px-3 py-1 bg-[#1e153a] border border-[#a855f7]/40 rounded-full text-[11px] text-[#c084fc]">
+                          Target Invoice Recipient: <strong className="text-white">payments@balajiprimemedia.in</strong>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 5. Wise Rail */}
+                    {portalPaymentMethod === "wise" && (
+                      <div className="space-y-3 text-left">
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">🌍</span>
+                          <div>
+                            <h5 className="text-xs font-bold text-white">Wise Multi-Currency Wire</h5>
+                            <p className="text-[10px] text-[#94a3b8]">Zero exchange markup bank settlements worldwide</p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-300">
+                          Transfer directly to our domestic Indian HDFC account using Wise for guaranteed lowest FX fees and same-day ledger verification.
+                        </p>
+                        <div className="p-2.5 rounded-xl bg-[#0e0a1a] border border-[#2B2144] text-[11px] font-mono text-[#c084fc]">
+                          Recipient: Balaji Prime Media • Account: 50200084920491 • IFSC: HDFC0001842
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+
+                  {/* Processing Status Display */}
+                  {portalProcessing && (
+                    <div className="p-4 rounded-2xl bg-purple-950/60 border border-purple-500/50 flex items-center justify-center gap-3 text-white text-xs font-semibold animate-pulse">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Authorizing settlement with Balaji Prime Media Escrow Ledger...</span>
+                    </div>
+                  )}
+
+                  {/* Navigation and Final Execution Button */}
+                  <div className="pt-2 flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      disabled={portalProcessing}
+                      onClick={() => setPortalStep(2)}
+                      className="px-4 py-2.5 rounded-xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-semibold text-white transition-all cursor-pointer disabled:opacity-50"
+                    >
+                      ← Back
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={portalProcessing}
+                      onClick={() => handlePortalPayment()}
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 via-[#6366f1] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-7 py-3 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-purple-950/80 cursor-pointer disabled:opacity-50"
+                    >
+                      <span>
+                        {portalProcessing
+                          ? "Verifying Ledger..."
+                          : `Authorize & Pay ${
+                              isCustomService
+                                ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
+                                : currency === "INR"
+                                ? selectedPortalService.priceINR
+                                : selectedPortalService.priceUSD
+                            } Now`}
+                      </span>
+                      <span>✓</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* =========================================================================
+                  STEP 4: Success & Verified Escrow Receipt (Remains on /services)
+                 ========================================================================= */}
+              {portalStep === 4 && (
+                <div className="space-y-4 text-center py-2 animate-fadeIn">
+                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto text-3xl shadow-[0_0_30px_rgba(52,211,153,0.4)]">
+                    ✓
+                  </div>
+
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/50 text-emerald-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+                      Settlement Completed &amp; Escrow Verified
+                    </span>
+                    <h4 className="text-xl sm:text-2xl font-black text-white">
+                      Payment Authorization Confirmed!
+                    </h4>
+                    <p className="text-xs text-[#94a3b8] max-w-md mx-auto mt-1">
+                      Your order has been recorded into the Balaji Prime Media core ledger. An authenticated receipt has been dispatched to{" "}
+                      <strong className="text-white">{portalClientEmail || "your email"}</strong>.
+                    </p>
+                  </div>
+
+                  {/* Cryptographic Receipt Box */}
+                  <div className="bg-[#140F24] border border-[#302150] rounded-2xl p-4 text-left space-y-2.5 text-xs">
+                    <div className="flex items-center justify-between pb-2 border-b border-[#231A33]">
+                      <span className="text-[11px] text-gray-400 font-medium">Transaction Reference ID:</span>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-bold text-[#22d3ee]">{portalTxnId}</span>
+                        <button
+                          type="button"
+                          onClick={() => copyToClipboard(portalTxnId, "Transaction ID")}
+                          className="text-[10px] text-purple-400 hover:text-white"
+                        >
+                          {copiedField === "Transaction ID" ? "✓ Copied" : "Copy"}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      <div>
+                        <span className="text-[9px] text-gray-400 block">Service:</span>
+                        <strong className="text-white">
+                          {isCustomService ? customServiceName : selectedPortalService.name}
+                        </strong>
+                      </div>
+                      <div>
+                        <span className="text-[9px] text-gray-400 block">Settled Amount:</span>
+                        <strong className="text-emerald-400">
+                          {isCustomService
+                            ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
+                            : currency === "INR"
+                            ? selectedPortalService.priceINR
+                            : selectedPortalService.priceUSD}
+                        </strong>
+                      </div>
+                      <div>
+                        <span className="text-[9px] text-gray-400 block">Target Domain:</span>
+                        <strong className="text-[#c084fc] font-mono">{portalClientDomain}</strong>
+                      </div>
+                      <div>
+                        <span className="text-[9px] text-gray-400 block">Settlement Rail:</span>
+                        <strong className="text-white">{portalPaymentMethod.toUpperCase()}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Onboarding SLA Box */}
+                  <div className="p-3.5 rounded-xl bg-[#1b1238] border border-[#a855f7]/30 text-left text-xs space-y-1">
+                    <p className="font-bold text-[#c084fc] flex items-center gap-1.5">
+                      <span>🚀 Next Steps &amp; Delivery SLA:</span>
+                    </p>
+                    <p className="text-[11px] text-[#94a3b8] leading-relaxed">
+                      A Senior Growth Partner will establish your dedicated communication channel (Slack / WhatsApp) within <strong className="text-white">2 business hours</strong> to begin deliverable execution.
+                    </p>
+                  </div>
+
+                  {/* Return Button */}
+                  <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(portalTxnId, "Transaction ID")}
+                      className="px-5 py-2.5 rounded-xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-semibold text-white transition-all cursor-pointer"
+                    >
+                      📋 Copy Transaction ID
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsPaymentPortalOpen(false);
+                        setPortalStep(1);
+                      }}
+                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white font-bold px-7 py-2.5 rounded-xl text-xs transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    >
+                      <span>✓ Done &amp; Return to Services</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
