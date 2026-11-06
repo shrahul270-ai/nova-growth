@@ -63,14 +63,31 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
   return (
     <div
       id="home"
-      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#060218] text-white font-inter"
-      style={{
-        backgroundImage: `url("${BG_IMAGE_URL}")`,
-        backgroundPosition: "center center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
+      className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-gradient-to-b from-[#050114] via-[#090424] to-[#060218] text-white font-inter"
     >
+      {/* 1. Subtle glowing violet dot-matrix grid (matching the footer style the client loved) */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.14)_1px,transparent_1px)] [background-size:28px_28px] opacity-80 pointer-events-none" />
+
+      {/* 2. Top-center volumetric luxury purple aurora flare */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-[radial-gradient(ellipse_at_center,rgba(160,104,255,0.24)_0%,rgba(124,58,237,0.14)_45%,transparent_70%)] pointer-events-none blur-2xl"
+      />
+
+      {/* 3. Left-side indigo ambient light cone */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/4 -left-20 w-[650px] h-[650px] bg-[radial-gradient(circle,rgba(99,102,241,0.18)_0%,transparent_65%)] pointer-events-none blur-3xl"
+      />
+
+      {/* 4. Right-side cosmic flare behind rotating orbits */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/3 right-0 w-[750px] h-[750px] bg-[radial-gradient(circle,rgba(217,70,239,0.15)_0%,transparent_65%)] pointer-events-none blur-3xl"
+      />
+
+      {/* 5. Delicate modern horizontal accent line */}
+      <div className="absolute top-[280px] left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/25 to-transparent pointer-events-none" />
       {/* =========================================================================
           1. NAVBAR (World-Class Floating Glass Navbar for UK, US & Worldwide Clients)
          ========================================================================= */}

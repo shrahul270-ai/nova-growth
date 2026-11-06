@@ -63,7 +63,7 @@ export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps
       <header className="sticky top-0 z-50 w-full transition-all duration-300">
         
         {/* Tier 1: Micro-utility Bar (London, New York Live Time & Verified Global Signals) */}
-        <div className="w-full bg-[#050214]/90 backdrop-blur-md border-b border-purple-500/15 py-1.5 px-4 sm:px-8">
+        <div className="w-full bg-black/40 backdrop-blur-md border-b border-purple-500/15 py-1.5 px-4 sm:px-8">
           <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium text-slate-300">
             
             {/* Left: Global Presence & Time Zones for UK/US Clients */}
@@ -111,8 +111,8 @@ export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps
           <div
             className={`max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 border ${
               scrolled
-                ? "bg-[#08031d]/90 backdrop-blur-2xl border-purple-500/30 shadow-[0_15px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(160,104,255,0.15)]"
-                : "bg-[#0a0524]/75 backdrop-blur-xl border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+                ? "bg-[#090422]/95 backdrop-blur-2xl border-purple-500/40 shadow-[0_15px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(160,104,255,0.2)]"
+                : "bg-gradient-to-r from-[#0c062a]/80 via-[#110838]/80 to-[#0c062a]/80 backdrop-blur-2xl border-purple-500/25 shadow-[0_12px_40px_rgba(0,0,0,0.65),0_0_20px_rgba(160,104,255,0.12)]"
             }`}
           >
             {/* Official Brand Logo */}
