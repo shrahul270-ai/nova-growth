@@ -9,8 +9,18 @@ interface NavbarProps {
   onJoinClick?: () => void;
 }
 
-export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps) {
+export default function Navbar({ activePage = "home" }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Detect scroll to enhance glass blur & elevation
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile menu on resize to desktop (min-width: 1024px)
   useEffect(() => {
@@ -36,8 +46,8 @@ export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "Services", href: "/services", key: "services", hasChevron: true },
-    { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50+" },
+    { name: "Services", href: "/services", key: "services" },
+    { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50–90+" },
     { name: "Projects", href: "/projects", key: "projects" },
     { name: "SEO Audit", href: "/audit", key: "audit", badge: "Free" },
     { name: "Blog", href: "/blog", key: "blog" },
@@ -48,45 +58,210 @@ export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps
   return (
     <>
       {/* =========================================================================
-          NAVBAR: Full width, py-5 px-8, flex row with justify-between
-          Below navbar: 1px divider line with gradient from-transparent via-foreground/20 to-transparent
+          2-TIER LUXURY FLOATING NAVBAR (User's Exact 2-Tier Architecture)
          ========================================================================= */}
-      <header className="w-full relative z-40 bg-transparent">
-        <div className="w-full py-4 sm:py-5 px-5 sm:px-8 flex items-center justify-between gap-4">
-          
-          {/* LEFT: Logo Image (height ~34px) */}
-          <Link
-            href="/"
-            className="flex items-center group shrink-0"
-            aria-label="Balaji Prime Media Home"
-          >
-            <Image
-              src="/images/bpm-complete-logo.png"
-              alt="Balaji Prime Media"
-              width={200}
-              height={180}
-              priority
-              className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_2px_12px_rgba(160,104,255,0.4)]"
-            />
-          </Link>
+      <header className="sticky top-0 z-50 w-full transition-all duration-300">
+        
+        {/* Tier 1: Micro-utility Bar (London, New York Live Time & Verified Global Signals) */}
+        <div className="w-full bg-black/40 backdrop-blur-md border-b border-purple-500/15 py-1.5 px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium text-slate-300">
+            
+            {/* Left: Global Presence & Time Zones for UK/US Clients */}
+            <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar py-0.5">
+              <div className="inline-flex items-center gap-1.5 text-slate-300 font-medium">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="text-white font-semibold">Global Studio:</span>
+                <span className="hidden sm:inline text-slate-300">London (GMT) • New York (EST) • Dubai (GST)</span>
+                <span className="sm:hidden text-slate-300">UK · US · Worldwide</span>
+              </div>
+              <span className="hidden md:inline text-purple-400/40">|</span>
+              <span className="hidden md:inline text-purple-300/90 font-mono text-[10.5px]">
+                ✦ 15,000+ Verified Placements
+              </span>
+            </div>
 
-          {/* CENTER: Nav items with hover transition */}
-          <nav
-            className="hidden lg:flex items-center gap-6 xl:gap-8"
-            aria-label="Primary Navigation"
+            {/* Right: Quick Payment & Direct Priority Line */}
+            <div className="flex items-center gap-3 shrink-0 ml-auto">
+              <Link
+                href="/pay"
+                className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 px-2.5 py-0.5 rounded-full text-[11px] font-medium shadow-xs"
+              >
+                <span>Client Pay</span>
+                <span className="text-[10px]">💳</span>
+              </Link>
+
+              <a
+                href="https://wa.me/917690868932?text=Hello%20Balaji%20Prime%20Media%2C%20I%20am%20interested%20in%20scaling%20our%20international%20SEO%20and%20web%20growth."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+              >
+                <span>WhatsApp VIP</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Tier 2: Main Floating Glass Pill Navbar */}
+        <div className="w-full px-3 sm:px-6 lg:px-8 pt-2.5 pb-2">
+          <div
+            className={`max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 border ${
+              scrolled
+                ? "bg-[#090422]/95 backdrop-blur-2xl border-purple-500/40 shadow-[0_15px_50px_rgba(0,0,0,0.85),0_0_30px_rgba(160,104,255,0.2)]"
+                : "bg-gradient-to-r from-[#0c062a]/85 via-[#110838]/85 to-[#0c062a]/85 backdrop-blur-2xl border-purple-500/25 shadow-[0_12px_40px_rgba(0,0,0,0.65),0_0_20px_rgba(160,104,255,0.12)]"
+            }`}
           >
+            {/* Official Brand Logo */}
+            <Link
+              href="/"
+              className="flex items-center group shrink-0"
+              aria-label="Balaji Prime Media Home"
+            >
+              <div className="relative">
+                <Image
+                  src="/images/bpm-complete-logo.png"
+                  alt="Balaji Prime Media - Global SEO & Digital Growth Agency"
+                  width={210}
+                  height={190}
+                  priority
+                  className="h-11 sm:h-13 md:h-14 w-auto object-contain transition-all duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_16px_rgba(160,104,255,0.45)]"
+                />
+              </div>
+            </Link>
+
+            {/* Centered Desktop Navigation Links */}
+            <nav
+              className="hidden lg:flex items-center gap-1 xl:gap-2"
+              aria-label="Primary"
+            >
+              <Link
+                href="/"
+                prefetch={false}
+                className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 ${
+                  activePage === "home"
+                    ? "text-white bg-white/[0.12] shadow-[0_0_15px_rgba(160,104,255,0.3)] border border-purple-400/30"
+                    : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span>Home</span>
+              </Link>
+
+              {navLinks.map((link) => {
+                const isActive = activePage === link.key;
+                return (
+                  <Link
+                    key={link.key}
+                    href={link.href}
+                    prefetch={false}
+                    className={`relative px-3 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                      isActive
+                        ? "text-white bg-white/[0.12] shadow-[0_0_15px_rgba(160,104,255,0.3)] border border-purple-400/30"
+                        : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="text-[9.5px] font-bold bg-gradient-to-r from-purple-500/25 to-indigo-500/25 text-[#c084fc] border border-purple-500/40 px-2 py-0.5 rounded-full tracking-wide">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right Action Button: "Get Started" linking to /guest-posting */}
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              <Link
+                href="/guest-posting"
+                className="group relative inline-flex items-center justify-center px-5 sm:px-7 py-2.5 rounded-full text-[13px] sm:text-[14px] font-bold text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.5)] hover:shadow-[0_0_36px_rgba(160,104,255,0.8)]"
+                style={{
+                  background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
+                }}
+              >
+                <span>Get Started</span>
+              </Link>
+
+              {/* Minimalist 2-Bar Luxury Burger Button for Mobile */}
+              <button
+                type="button"
+                id="burger"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden w-[42px] h-[42px] rounded-full border border-purple-500/30 bg-white/[0.06] hover:bg-white/[0.12] flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-sm"
+                aria-controls="menu"
+                aria-expanded={mobileMenuOpen}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                <i
+                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                    mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
+                  }`}
+                />
+                <i
+                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                    mobileMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Full-Screen Overlay Navigation Drawer */}
+      {mobileMenuOpen && (
+        <nav
+          id="menu"
+          className="fixed inset-0 bg-[#070319]/98 backdrop-blur-3xl z-50 flex flex-col justify-between overflow-y-auto lg:hidden p-6 animate-fadeIn border-l border-purple-500/20"
+        >
+          {/* Top Bar inside Drawer */}
+          <div className="flex items-center justify-between pb-5 border-b border-purple-500/20">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center"
+            >
+              <Image
+                src="/images/bpm-complete-logo.png"
+                alt="Balaji Prime Media"
+                width={170}
+                height={155}
+                className="h-11 w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.45)]"
+              />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg font-bold border border-white/15 hover:bg-white/20 transition-colors cursor-pointer"
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col gap-2 py-4">
+            <p className="text-[10px] font-bold tracking-widest text-[#A068FF] uppercase mb-1">
+              Global Navigation
+            </p>
             <Link
               href="/"
               prefetch={false}
-              className={`text-[14px] font-medium transition-colors hover:text-white ${
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between py-3 px-3.5 rounded-2xl text-[16.5px] font-semibold transition-colors ${
                 activePage === "home"
-                  ? "text-white font-semibold"
-                  : "text-[hsl(40,6%,95%)]/90"
+                  ? "bg-purple-950/60 text-white border border-purple-500/30"
+                  : "text-slate-300 hover:text-white hover:bg-white/5"
               }`}
             >
-              Home
+              <span>Home</span>
+              <span className="text-white/40 text-sm">→</span>
             </Link>
-
             {navLinks.map((link) => {
               const isActive = activePage === link.key;
               return (
@@ -94,138 +269,55 @@ export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps
                   key={link.key}
                   href={link.href}
                   prefetch={false}
-                  className={`text-[14px] font-medium transition-colors hover:text-white flex items-center gap-1.5 ${
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center justify-between py-3 px-3.5 rounded-2xl text-[16.5px] font-semibold transition-colors ${
                     isActive
-                      ? "text-white font-semibold"
-                      : "text-[hsl(40,6%,95%)]/90"
+                      ? "bg-purple-950/60 text-white border border-purple-500/30"
+                      : "text-slate-300 hover:text-white hover:bg-white/5"
                   }`}
                 >
-                  <span>{link.name}</span>
-                  {link.badge && (
-                    <span className="text-[9px] font-bold bg-[#A068FF]/20 text-[#d8b4fe] border border-purple-500/40 px-1.5 py-0.5 rounded-full">
-                      {link.badge}
-                    </span>
-                  )}
-                  {link.hasChevron && (
-                    <svg
-                      className="w-3.5 h-3.5 opacity-60"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="text-[10px] font-bold bg-[#1E1638] text-[#c084fc] border border-purple-500/30 px-2 py-0.5 rounded-full">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-white/40 text-sm">→</span>
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          {/* RIGHT: Quick Pay + Action CTA Button (rounded-full px-5 py-2.5) */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Mobile Footer CTAs */}
+          <div className="pt-4 border-t border-purple-500/20 flex flex-col gap-3">
             <Link
-              href="/pay"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-slate-300 hover:text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 px-3 py-1.5 rounded-full transition-colors"
-            >
-              <span>Pay</span>
-              <span className="text-[10px]">💳</span>
-            </Link>
-
-            <button
-              type="button"
-              onClick={onJoinClick}
-              className="inline-flex items-center justify-center rounded-full px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-[13.5px] font-semibold text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(160,104,255,0.4)] cursor-pointer"
+              href="/guest-posting"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full h-12 rounded-full text-white font-bold text-sm flex items-center justify-center shadow-lg shadow-purple-950/80 transition-all cursor-pointer"
               style={{
-                background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
+                background: "linear-gradient(135deg, #A068FF 0%, #7928CA 100%)",
               }}
             >
-              <span>Start Project</span>
-            </button>
-
-            {/* Minimal Mobile Burger */}
-            <button
-              type="button"
-              id="burger"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-10 h-10 rounded-full border border-white/15 bg-white/5 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors"
-              aria-label="Toggle menu"
-            >
-              <span className={`w-4 h-[1.5px] bg-white transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-[3px]" : ""}`} />
-              <span className={`w-4 h-[1.5px] bg-white transition-transform ${mobileMenuOpen ? "-rotate-45 -translate-y-[2.5px]" : ""}`} />
-            </button>
-          </div>
-        </div>
-
-        {/* BELOW NAVBAR: 1px divider line with gradient from-transparent via-foreground/20 to-transparent, offset mt-[3px] */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[hsl(40,6%,95%)]/20 to-transparent mt-[3px]" />
-      </header>
-
-      {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && (
-        <nav className="fixed inset-0 bg-[#070319]/98 backdrop-blur-3xl z-50 flex flex-col justify-between p-6 lg:hidden animate-fadeIn">
-          <div className="flex items-center justify-between pb-4 border-b border-white/10">
-            <Image
-              src="/images/bpm-complete-logo.png"
-              alt="Balaji Prime Media"
-              width={160}
-              height={140}
-              className="h-9 w-auto object-contain"
-            />
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-9 h-9 rounded-full bg-white/10 text-white flex items-center justify-center text-sm font-bold"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-2 py-4">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2.5 text-base font-semibold text-white"
-            >
-              Home
+              <span>Get Started</span>
             </Link>
-            {navLinks.map((link) => (
+            <div className="grid grid-cols-2 gap-2">
               <Link
-                key={link.key}
-                href={link.href}
+                href="/pay"
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-base font-semibold text-slate-300 hover:text-white flex items-center justify-between"
+                className="h-11 rounded-full bg-white/[0.06] border border-white/15 text-white font-semibold text-xs flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <span>{link.name}</span>
-                {link.badge && (
-                  <span className="text-[10px] font-bold bg-purple-900/50 text-purple-200 px-2 py-0.5 rounded-full">
-                    {link.badge}
-                  </span>
-                )}
+                <span>Client Pay 💳</span>
               </Link>
-            ))}
-          </div>
-
-          <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onJoinClick?.();
-              }}
-              className="w-full h-11 rounded-full text-white font-bold text-sm bg-gradient-to-r from-[#A068FF] to-[#7928CA]"
-            >
-              Start Project
-            </button>
-            <Link
-              href="/pay"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full h-10 rounded-full border border-white/15 bg-white/5 text-white text-xs font-semibold flex items-center justify-center"
-            >
-              Client Pay 💳
-            </Link>
+              <Link
+                href="/audit"
+                onClick={() => setMobileMenuOpen(false)}
+                className="h-11 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-200 font-semibold text-xs flex items-center justify-center hover:bg-purple-900/50 transition-colors"
+              >
+                <span>Free SEO Audit ⚡</span>
+              </Link>
+            </div>
           </div>
         </nav>
       )}

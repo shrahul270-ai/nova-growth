@@ -127,12 +127,12 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-10 sm:py-14 my-auto overflow-visible">
         
-        {/* Main Giant Headline: "Power AI" text-[220px], General Sans */}
+        {/* Main Giant Headline: "Balaji Prime Media", General Sans */}
         <h1
-          className="font-normal tracking-[-0.024em] leading-[1.02] text-[75px] sm:text-[130px] md:text-[175px] lg:text-[220px] select-none"
+          className="font-normal tracking-[-0.024em] leading-[1.04] text-[40px] sm:text-[70px] md:text-[100px] lg:text-[130px] xl:text-[148px] select-none text-center"
           style={{ fontFamily: "'General Sans', system-ui, sans-serif" }}
         >
-          <span style={{ color: "hsl(40, 6%, 95%)" }}>Power </span>
+          <span style={{ color: "hsl(40, 6%, 95%)" }}>Balaji </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -140,35 +140,34 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               WebkitBackgroundClip: "text",
             }}
           >
-            AI
+            Prime Media
           </span>
         </h1>
 
-        {/* Subtitle: "The most powerful AI ever deployed in talent acquisition" */}
+        {/* Subtitle: "The most powerful AI ever deployed in organic search & talent acquisition" */}
         <p
-          className="text-base sm:text-lg leading-8 max-w-md sm:max-w-lg mt-[9px] text-center"
+          className="text-base sm:text-lg leading-8 max-w-md sm:max-w-xl mt-[9px] text-center"
           style={{
             color: "hsl(40, 6%, 82%)",
             opacity: 0.85,
           }}
         >
-          The most powerful AI ever deployed in organic search &amp; talent acquisition
+          The most powerful AI ever deployed in organic search &amp; digital growth
         </p>
 
         {/* =========================================================================
             USER REQUESTED ACTION ROW:
-            1. "Start Project >" button + "< Balaji Prime Media" cursor (from Image 1)
+            1. "Get Started >" button (links to /guest-posting) + "< Balaji Prime Media" cursor
            ========================================================================= */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-5 relative z-20">
           
-          {/* Start Project Button */}
+          {/* Get Started Button (Links to /guest-posting) */}
           <div className="btn-border-wrap shrink-0">
-            <button
-              type="button"
-              onClick={onOpenConsultation}
+            <Link
+              href="/guest-posting"
               className="marketeam-start-btn cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.45)] hover:shadow-[0_0_35px_rgba(160,104,255,0.7)]"
             >
-              <span>Start Project</span>
+              <span>Get Started</span>
               <svg
                 className="w-[18px] h-[18px] text-white"
                 fill="none"
@@ -182,7 +181,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
 
           {/* Purple pointer arrow + Balaji Prime Media Cursor Badge */}
