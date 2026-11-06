@@ -185,9 +185,9 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                 <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
               </svg>
 
-              {/* David pill badge */}
-              <div className="bg-[#A068FF] text-white text-[15px] sm:text-[16px] font-medium px-4 py-2 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)]">
-                David
+              {/* Balaji Prime Media pill badge */}
+              <div className="bg-[#A068FF] text-white text-[14px] sm:text-[15px] font-semibold px-4 py-2 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)] tracking-wide">
+                Balaji Prime Media
               </div>
             </div>
           </div>
