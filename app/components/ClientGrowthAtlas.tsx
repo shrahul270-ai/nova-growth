@@ -6,948 +6,391 @@ import Link from "next/link";
 
 interface ClientCase {
   id: string;
-  no: string;
-  category: string;
+  code: string;
   name: string;
   domain: string;
+  liveUrl: string;
   industry: string;
-  urlDisplay: string;
+  location: string;
   image: string;
-  scale: string;
-  tags: string[];
-  lede: string;
-  era: {
-    start: string;
-    mid: string;
-    peak: string;
-    markerPos: number; // percentage 0-100
+  tags: { text: string; color: string }[];
+  overview: string;
+  challenge: string;
+  solution: string;
+  techStack: string[];
+  metrics: {
+    value: string;
     label: string;
-  };
-  traits: [string, string, string][];
-  haunt: string;
-  caption: string;
-  closeup: string;
-  lensPos: string;
-  stats: {
-    highlight: string;
-    label: string;
-    metric2: string;
-    metric2Label: string;
-  };
-  feature: [string, string];
+    sub: string;
+    color: string;
+  }[];
 }
 
 const CLIENT_CASES: ClientCase[] = [
   {
     id: "nordhaus",
-    no: "BPM-001",
-    category: "Real Estate & Architecture",
+    code: "CASE #01",
     name: "Nordhaus Estates",
     domain: "nordhaus-estates.com",
-    industry: "Luxury Architecture & Showrooms",
-    urlDisplay: "https://nordhaus-estates.com",
+    liveUrl: "https://nordhaus-estates.com",
+    industry: "Luxury Architecture & Real Estate",
+    location: "Munich, Zurich & Vienna (DACH Region)",
     image:
       "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d469e4d7-94ba-4457-ad51-b589766069f0.webp",
-    scale: "1:1 Viewport • Next.js 15 SSR",
-    tags: ["+663% Inbound Leads", "Next.js Architecture", "High-DR Backlinks", "DA 64 Scaled"],
-    lede:
-      "A high-end European architectural showroom struggling with invisible local rankings and sub-second page performance. Balaji Prime Media engineered a full headless Next.js digital experience paired with 45+ vetted editorial placements in international design publications.",
-    era: {
-      start: "M1: Full SEO Audit",
-      mid: "M3: Content Clustering",
-      peak: "M6: #1 SERP Dominance",
-      markerPos: 84,
-      label: "Month 6 • +663% Conversion Surge",
-    },
-    traits: [
-      ["t-wing", "PageSpeed Score", "99 / 100 Mobile"],
-      ["t-ruler", "Organic Traffic", "184,000 / month (+320%)"],
-      ["t-time", "Qualified Leads", "+663% Inbound Inquiries"],
-      ["t-diet", "Key Commercial Terms", "82 in Top 3 Google Ranks"],
-      ["t-range", "Core Geographies", "Munich, Zurich, Vienna"],
+    tags: [
+      { text: "+663% Inbound Leads", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+      { text: "Next.js 15 Architecture", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40" },
+      { text: "High-DR Backlinks", color: "bg-purple-500/20 text-purple-300 border-purple-500/40" },
+      { text: "DA 64 Scaled", color: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
     ],
-    haunt: "High-net-worth real estate buyers across DACH & Scandinavian territories.",
-    caption: "From local showroom to Europe's top digital property experience.",
-    closeup: "Interactive 3D blueprint explorer with instant lead-booking integration.",
-    lensPos: "45% 35%",
-    stats: {
-      highlight: "+663%",
-      label: "Online Inbound Leads",
-      metric2: "+32%",
-      metric2Label: "Organic Traffic Growth",
-    },
-    feature: [
-      "Leads multiplied 6.6x.",
-      "Custom architectural interactive showroom built on Next.js 15 and ranked #1 on Google.",
+    overview:
+      "A premier European luxury architectural showroom needing international visibility across Germany, Austria, and Switzerland.",
+    challenge:
+      "Suffered from slow 4.6s legacy WordPress page speed, poor mobile indexing, and zero rank for high-intent German & English commercial terms.",
+    solution:
+      "Engineered an ultra-fast headless Next.js digital experience with multi-currency dynamic quoting and 45+ high-authority editorial placements in verified design publications.",
+    techStack: ["Next.js 15 SSR", "Tailwind CSS", "Headless CMS", "Google SERP Optimization"],
+    metrics: [
+      { value: "+663%", label: "Inbound Client Leads", sub: "Month 6 vs baseline", color: "text-emerald-400" },
+      { value: "99 / 100", label: "Mobile Speed Score", sub: "Core Web Vitals Pass", color: "text-cyan-400" },
+      { value: "184,000", label: "Monthly Organic Visits", sub: "+320% traffic surge", color: "text-purple-400" },
+      { value: "82 Terms", label: "Google Top 3 Positions", sub: "High commercial intent", color: "text-amber-400" },
     ],
   },
   {
     id: "hotel-mira",
-    no: "BPM-002",
-    category: "Alpine Luxury & Hospitality",
-    name: "Hotel Mira",
+    code: "CASE #02",
+    name: "Hotel Mira Zermatt",
     domain: "hotelmira-alps.ch",
-    industry: "Chalet Hotel & Wellness",
-    urlDisplay: "https://hotelmira-alps.ch/suites",
+    liveUrl: "https://hotelmira-alps.ch",
+    industry: "Alpine Luxury Hotel & Spa",
+    location: "Swiss Alps & International Guests",
     image:
       "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/c42a7f3d-d802-4377-8cc6-9c209cdfad5f.webp",
-    scale: "Custom Direct Booking Engine",
-    tags: ["+240% Visitors", "Direct Bookings", "Local Map Pack #1", "No OTA Commission"],
-    lede:
-      "An alpine chalet boutique hotel paying exorbitant 22% OTA commissions to Booking.com and Expedia. Balaji Prime Media restructured their digital ecosystem, optimized multi-language schema, and executed high-authority travel editorial backlinks, enabling 70% direct guest acquisition.",
-    era: {
-      start: "Phase 1: OTA Audit",
-      mid: "Phase 2: Speed Optimization",
-      peak: "Phase 3: Direct Inquiries",
-      markerPos: 76,
-      label: "Month 4 • +180% Direct Reservations",
-    },
-    traits: [
-      ["t-wing", "Direct Bookings", "+180% Direct Inquiries"],
-      ["t-ruler", "Organic Visitors", "+240% Monthly Traffic"],
-      ["t-time", "Commission Saved", "€145,000+ in Year 1"],
-      ["t-diet", "Local 3-Pack Rank", "#1 for Luxury Alpine Chalet"],
-      ["t-range", "Target Languages", "English, German, French, Italian"],
+    tags: [
+      { text: "+240% Direct Bookings", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+      { text: "Zero OTA Commission", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40" },
+      { text: "#1 Local Map Pack", color: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
+      { text: "Multilingual SEO", color: "bg-purple-500/20 text-purple-300 border-purple-500/40" },
     ],
-    haunt: "Discerning luxury travelers searching for authentic boutique retreats.",
-    caption: "Glowing chalets at sunset, powered by commission-free direct reservations.",
-    closeup: "One-click interactive room availability engine integrated with live calendar.",
-    lensPos: "65% 40%",
-    stats: {
-      highlight: "+240%",
-      label: "Website Visitors",
-      metric2: "+180%",
-      metric2Label: "Direct Inquiries",
-    },
-    feature: [
-      "Zero reliance on OTAs.",
-      "Boutique hotel transformed into a high-converting direct guest magnet.",
+    overview:
+      "A boutique chalet resort paying heavy 22% OTA commissions to Booking.com, seeking direct bookings from UK, US, and EU affluent travelers.",
+    challenge:
+      "High dependency on middleman booking channels, weak direct organic conversions, and slow photo-heavy suite galleries.",
+    solution:
+      "Delivered a lightning-fast Next.js direct booking portal, localized SEO in English, German, and French, with schema-rich room rich snippets.",
+    techStack: ["Next.js 15", "Edge Caching", "Stripe Checkout", "Multilingual Schema"],
+    metrics: [
+      { value: "+240%", label: "Direct Guest Bookings", sub: "70% commission savings", color: "text-emerald-400" },
+      { value: "0.4s", label: "Instant Page Load", sub: "Sub-second CDN latency", color: "text-cyan-400" },
+      { value: "11,200+", label: "Direct Monthly Inquiries", sub: "Zero commission leads", color: "text-purple-400" },
+      { value: "DA 58", label: "Domain Authority", sub: "+31 points in 7 months", color: "text-amber-400" },
     ],
   },
   {
-    id: "belle-peau",
-    no: "BPM-003",
-    category: "Medical Aesthetics & Spa",
-    name: "Studio Belle Peau",
-    domain: "bellepeau-medspa.com",
-    industry: "Candle-lit Spa & Dermatology",
-    urlDisplay: "https://bellepeau-medspa.com",
+    id: "studio-bella",
+    code: "CASE #03",
+    name: "Studio Bella Medical",
+    domain: "studiobella-aesthetics.co.uk",
+    liveUrl: "https://studiobella-aesthetics.co.uk",
+    industry: "High-End Medical Aesthetic Clinic",
+    location: "London (Mayfair) & Manchester, UK",
     image:
-      "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e791074d-795e-4b42-ad94-a6b113ecb72d.webp",
-    scale: "HIPAA Compliant Client Portal",
-    tags: ["+362% Qualified Leads", "Fully Booked", "Google Map Dominance", "SEO Outreach"],
-    lede:
-      "A luxury clinical aesthetic studio that opened right before an algorithmic search disruption. Balaji Prime Media crafted a tailored local entity authority blueprint, securing tier-1 lifestyle backlinks and implementing automated treatment booking flows.",
-    era: {
-      start: "Week 2: Keyword Blueprint",
-      mid: "Week 6: Medical Backlinks",
-      peak: "Week 12: Waitlist Reached",
-      markerPos: 92,
-      label: "Month 3 • 100% Calendar Capacity",
-    },
-    traits: [
-      ["t-wing", "Lead Quality", "+362% Pre-Qualified Consults"],
-      ["t-ruler", "Online Bookings", "+75% Automated Checkout"],
-      ["t-time", "Booking Lead Time", "Zero wait, fully booked 6 wks out"],
-      ["t-diet", "Average Ticket Size", "+42% Higher Package Sales"],
-      ["t-range", "Client Retention", "78% Repeat Visit Rate"],
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/76508d4b-ba8c-4f7f-85ff-8d59cc909241.webp",
+    tags: [
+      { text: "4-Week Patient Waitlist", color: "bg-purple-500/20 text-purple-300 border-purple-500/40" },
+      { text: "London Top 3 SERP", color: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
+      { text: "HIPAA / GDPR Compliant", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40" },
+      { text: "+410% Private Consults", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
     ],
-    haunt: "Affluent local professionals seeking high-touch medical spa treatments.",
-    caption: "From zero digital footprint to 6-week client waiting lists.",
-    closeup: "Interactive treatment selector with live real-time doctor availability.",
-    lensPos: "30% 50%",
-    stats: {
-      highlight: "+362%",
-      label: "Qualified Leads",
-      metric2: "+75%",
-      metric2Label: "Online Bookings",
-    },
-    feature: [
-      "From invisible to fully booked.",
-      "Tier-1 lifestyle editorial outreach that keeps spa appointment books overflowed.",
+    overview:
+      "Harley Street standard aesthetic clinic needing high-intent patient acquisition for non-invasive cosmetic and dermatological treatments.",
+    challenge:
+      "Intense UK competition in private cosmetic healthcare with paid Google Ads CPC reaching over £28 per click.",
+    solution:
+      "Ranked #1 for competitive UK cosmetic queries through medical-reviewed E-E-A-T content hubs, physician author schema, and NHS-trusted backlinks.",
+    techStack: ["Next.js App Router", "Sanity CMS", "Framer Motion", "E-E-A-T Medical SEO"],
+    metrics: [
+      { value: "+410%", label: "Private Consults Booked", sub: "4-week clinic waitlist", color: "text-purple-400" },
+      { value: "£28k/mo", label: "Ad Spend Saved", sub: "Replaced with pure SEO", color: "text-emerald-400" },
+      { value: "#1 Rank", label: "Top London Queries", sub: "14 core treatments in Top 3", color: "text-cyan-400" },
+      { value: "98%", label: "Patient Booking UX", sub: "Mobile conversion rate", color: "text-amber-400" },
     ],
   },
   {
     id: "aether-cloud",
-    no: "BPM-004",
-    category: "Enterprise B2B SaaS",
-    name: "Aether Cloud Analytics",
-    domain: "aethercloud.io",
-    industry: "Cloud Infrastructure Observability",
-    urlDisplay: "https://aethercloud.io/enterprise",
+    code: "CASE #04",
+    name: "Aether Cloud Platform",
+    domain: "aethercloud-systems.io",
+    liveUrl: "https://aethercloud-systems.io",
+    industry: "Enterprise B2B Cloud & Security SaaS",
+    location: "Austin, Texas & San Francisco, USA",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-    scale: "Multi-Region Edge Architecture",
-    tags: ["$4.2M Pipeline", "Technical SEO", "B2B Lead Flow", "SOC2 Compliant"],
-    lede:
-      "A fast-growing DevSecOps SaaS platform needing enterprise organic pipeline for series B funding. Balaji Prime Media engineered 120+ programmatic comparison pages, high-authority developer documentation SEO, and high-impact whitepaper distribution.",
-    era: {
-      start: "Q1: Architecture Audit",
-      mid: "Q2: Programmatic Pages",
-      peak: "Q3: Pipeline Expansion",
-      markerPos: 88,
-      label: "Q3 • $4.2M Inbound Sales Pipeline",
-    },
-    traits: [
-      ["t-wing", "Sales Pipeline", "$4.2M Verified Inbound"],
-      ["t-ruler", "Developer Signups", "24,000 Free Tier Accounts"],
-      ["t-time", "Crawl Budget", "99.8% Indexation Velocity"],
-      ["t-diet", "Key Commercial Queries", "Rank #1 for 48 Dev terms"],
-      ["t-range", "Global Scale", "US, UK, Germany, Singapore"],
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f52e5d79-2423-4558-a579-2ef429b6e6f4.webp",
+    tags: [
+      { text: "$4.2M Enterprise Pipeline", color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" },
+      { text: "Global US SERP Dominance", color: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40" },
+      { text: "Programmatic Tech SEO", color: "bg-purple-500/20 text-purple-300 border-purple-500/40" },
+      { text: "SOC2 Type II Ready", color: "bg-amber-500/20 text-amber-300 border-amber-500/40" },
     ],
-    haunt: "CTOs and VP Engineering looking for next-generation cloud infrastructure.",
-    caption: "Engineering commercial authority that closed multi-million dollar contracts.",
-    closeup: "Interactive live telemetry sandbox preview with zero latency.",
-    lensPos: "50% 50%",
-    stats: {
-      highlight: "$4.2M",
-      label: "Inbound Pipeline",
-      metric2: "24,000+",
-      metric2Label: "Developer Signups",
-    },
-    feature: [
-      "Dominating developer search.",
-      "High-intent programmatic SEO that drives Fortune 500 sales demo calls.",
+    overview:
+      "Fast-growing B2B cybersecurity SaaS requiring qualified CTO and VP Engineering demo signups across North American enterprises.",
+    challenge:
+      "Technical jargon without search volume mapping; zero organic ranking against incumbents like Palo Alto Networks and Datadog.",
+    solution:
+      "Constructed programmatic comparison hubs, deployed technical documentation SEO, and earned high-tier backlinks from TechCrunch, HackerNews, and Forbes.",
+    techStack: ["Next.js Enterprise", "TypeScript", "MDX Docs Engine", "Programmatic SEO"],
+    metrics: [
+      { value: "$4.2M", label: "Sales Pipeline Sourced", sub: "Direct SEO attribution", color: "text-emerald-400" },
+      { value: "340+", label: "Enterprise Demos", sub: "Quarterly qualified bookings", color: "text-cyan-400" },
+      { value: "+580%", label: "Organic Search Growth", sub: "US developer traffic", color: "text-purple-400" },
+      { value: "DA 71", label: "Authority Score", sub: "Top 1% tech industry profile", color: "text-amber-400" },
     ],
   },
 ];
 
 export default function ClientGrowthAtlas() {
-  const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [isDusk, setIsDusk] = useState<boolean>(true);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const [rotationAngle, setRotationAngle] = useState<number>(0);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [isLeaving, setIsLeaving] = useState<boolean>(false);
-  const [isCloseup, setIsCloseup] = useState<boolean>(false);
-
-  const activeClient = CLIENT_CASES[activeIdx];
-
-  const handleSelectTab = (idx: number) => {
-    if (idx === activeIdx) return;
-    setIsLeaving(true);
-    setTimeout(() => {
-      setActiveIdx(idx);
-      setIsLeaving(false);
-      setRotationAngle(0);
-      setZoomLevel(1);
-      setIsCloseup(false);
-    }, 200);
-  };
-
-  const handleRotate = (deg: number) => {
-    setRotationAngle((prev) => prev + deg);
-  };
+  const [activeTab, setActiveTab] = useState(0);
+  const client = CLIENT_CASES[activeTab];
 
   return (
-    <section
-      id="growth-analyzer"
-      className="relative w-full overflow-hidden transition-colors duration-600"
-      style={{
-        backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-        color: isDusk ? "#f1e7d6" : "#241c14",
-        fontFamily: "'Instrument Sans', 'Segoe UI', system-ui, sans-serif",
-      }}
-    >
-      {/* SVG Icon Sprite */}
-      <svg width="0" height="0" className="absolute pointer-events-none" aria-hidden="true">
-        <symbol id="i-home" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M4 11.5 12 5l8 6.5V20h-5.5v-5h-5v5H4z" />
-        </symbol>
-        <symbol id="i-star" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="m12 3.8 2.5 5.3 5.7.7-4.2 4 1.1 5.7-5.1-2.8-5.1 2.8L8 13.8l-4.2-4 5.7-.7z" />
-        </symbol>
-        <symbol id="i-claw" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M12 20c-1.5-3-1-7 1.5-10.5M12 20c-3.5-1.5-6-5-6.5-9.5M12 20c3.5-1.5 6-5 6.5-9.5M13.5 9.5 15 4M5.5 10.5 3.5 6M18.5 10.5 20.5 6" />
-        </symbol>
-        <symbol id="i-plus" viewBox="0 0 24 24">
-          <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" d="m15.5 15.5 4.5 4.5M10.5 8v5M8 10.5h5" />
-        </symbol>
-        <symbol id="i-search" viewBox="0 0 24 24">
-          <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" d="m15.5 15.5 4.5 4.5" />
-        </symbol>
-        <symbol id="i-expand" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />
-        </symbol>
-        <symbol id="i-sun" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="3.8" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6" />
-        </symbol>
-        <symbol id="i-ccw" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M5 12a7 7 0 1 0 2.3-5.2L5 9M5 4.5V9h4.5" />
-        </symbol>
-        <symbol id="i-cw" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M19 12a7 7 0 1 1-2.3-5.2L19 9M19 4.5V9h-4.5" />
-        </symbol>
-        <symbol id="i-arrow" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M4 12h15M14 7l5 5-5 5" />
-        </symbol>
-        <symbol id="i-chev" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="m9 5 7 7-7 7" />
-        </symbol>
-        <symbol id="t-wing" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 8c4-3 9-3 12 0 2-1.5 4-1.5 6 0-1 4-4 6.5-8 6.5-5 0-8.5-2.5-10-6.5zM8 11.5l3 3M12 10.5l2.5 3.5" />
-        </symbol>
-        <symbol id="t-ruler" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="m3.5 15.5 12-12 5 5-12 12zM7.5 11.5l2 2M10.5 8.5l2 2M13.5 5.5l2 2" />
-        </symbol>
-        <symbol id="t-time" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M7 3h10M7 21h10M8 3c0 4 4 5.5 4 9s-4 5-4 9M16 3c0 4-4 5.5-4 9s4 5 4 9" />
-        </symbol>
-        <symbol id="t-diet" viewBox="0 0 24 24">
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M3 12c3-4 7-5 11-3.5 2 .7 3.5 2 5 3.5-1.5 1.5-3 2.8-5 3.5C10 17 6 16 3 12zM19 12l2.5-2.5v5zM8 11.5h.01" />
-        </symbol>
-        <symbol id="t-range" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.3 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.3-3.5-8.5s1-6 3.5-8.5z" />
-        </symbol>
-      </svg>
+    <section className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 border-t border-purple-500/20 bg-gradient-to-b from-[#09041a] via-[#060216] to-[#0a0520] text-white">
+      {/* Background Volumetric Violet Glow */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(160,104,255,0.12)_0%,transparent_70%)] pointer-events-none"
+      />
 
-      {/* Main Container */}
-      <div className="relative min-h-screen py-10 sm:py-16 px-4 sm:px-8 max-w-[1560px] mx-auto flex flex-col justify-center">
-        
-        {/* Section Header Top Tag */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-6 border-b border-[var(--line)]"
-          style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }}
-        >
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4">
           <div>
-            <span
-              className="inline-block text-[10.5px] font-mono tracking-[0.2em] uppercase font-bold px-2.5 py-1 rounded-[3px] mb-2"
-              style={{
-                backgroundColor: isDusk ? "#3b2415" : "#f3dfcd",
-                color: isDusk ? "#e08a4f" : "#b4532a",
-              }}
-            >
-              Enterprise Growth Analyzer • Field Guide Vol. I
-            </span>
-            <h2
-              className="text-2xl sm:text-4xl font-serif font-light tracking-tight"
-              style={{
-                fontFamily: "'Fraunces', 'Iowan Old Style', Georgia, serif",
-                color: isDusk ? "#f1e7d6" : "#241c14",
-              }}
-            >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/70 border border-purple-500/30 text-[12px] font-semibold text-purple-300 mb-3 backdrop-blur-md shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
+              <span>Verified Global Portfolio</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
               Client Results &amp; Website Showcase
             </h2>
+            <p className="text-sm sm:text-base text-slate-300 mt-2 max-w-2xl leading-relaxed">
+              Real international websites engineered by Balaji Prime Media with verifiable organic traffic, top Google SERP rankings, and measurable revenue growth.
+            </p>
           </div>
 
-          {/* Quick Sun Toggle on Top Bar */}
-          <div className="mt-4 sm:mt-0 flex items-center gap-3">
-            <span className="text-xs font-mono text-muted" style={{ color: isDusk ? "#a89880" : "#7a6b58" }}>
-              Lighting: {isDusk ? "Dusk Mode" : "Daylight Mode"}
-            </span>
-            <button
-              onClick={() => setIsDusk(!isDusk)}
-              className="w-9 h-9 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-105"
-              style={{
-                backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-                borderColor: isDusk ? "#e08a4f" : "#b4532a",
-                color: isDusk ? "#e08a4f" : "#b4532a",
-              }}
-              title="Toggle Day/Dusk Lighting"
-              aria-label="Toggle Lighting Mode"
-            >
-              <svg className="w-5 h-5"><use href="#i-sun" /></svg>
-            </button>
-          </div>
-        </div>
-
-        {/* 3-Column Museum Plate Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* 4.1 LEFT SIDEBAR (Atlas Sections & Categories) */}
-          <aside
-            className="lg:col-span-3 flex flex-col p-5 rounded-[3px] border h-full justify-between"
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 text-white text-[13px] font-bold px-5 py-2.5 rounded-full transition-all self-start md:self-auto cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.4)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] hover:scale-105 active:scale-95"
             style={{
-              backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-              borderColor: isDusk ? "#3d3225" : "#d6c9ae",
+              background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
             }}
           >
-            <div>
-              <div className="mb-5">
-                <span
-                  className="block text-xl font-serif tracking-tight"
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                >
-                  Growth Atlas
+            <span>Start Your Growth Plan →</span>
+          </Link>
+        </div>
+
+        {/* Client Selection Navigation Tabs */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8">
+          {CLIENT_CASES.map((item, index) => {
+            const isActive = activeTab === index;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveTab(index)}
+                className={`p-3 sm:p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer border flex flex-col justify-between ${
+                  isActive
+                    ? "bg-gradient-to-b from-[#1a0f3d] to-[#12082b] border-[#A068FF] shadow-[0_10px_30px_rgba(160,104,255,0.35)] scale-[1.02]"
+                    : "bg-[#0c0624]/70 hover:bg-[#150a35]/60 border-white/10 hover:border-white/20 text-slate-400 hover:text-white"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[10px] font-mono font-bold tracking-wider text-[#A068FF]">
+                    {item.code}
+                  </span>
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      isActive ? "bg-emerald-400 animate-ping" : "bg-white/20"
+                    }`}
+                  />
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                  {item.name}
+                </h3>
+                <p className="text-[11px] text-slate-400 truncate mt-0.5">
+                  {item.industry}
+                </p>
+                <span className="text-[11px] font-bold text-emerald-400 mt-2">
+                  {item.tags[0].text}
                 </span>
-                <span
-                  className="block text-[9.5px] font-mono tracking-[0.18em] uppercase mt-1"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                >
-                  Client Portfolio • Index
-                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Main Interactive Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          
+          {/* Left Column: Live Website Mockup & Browser Frame (7 Cols) */}
+          <div className="lg:col-span-7 bg-[#0c0624]/90 rounded-3xl border border-purple-500/25 p-4 sm:p-6 shadow-2xl backdrop-blur-xl flex flex-col">
+            
+            {/* Realistic Browser Window Chrome */}
+            <div className="bg-[#080318] rounded-2xl border border-white/10 overflow-hidden shadow-inner">
+              
+              {/* Browser Address Bar Header */}
+              <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-white/[0.04] border-b border-white/10">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                </div>
+
+                {/* Safe URL Pill */}
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/50 border border-white/10 text-[11px] text-slate-300 font-mono max-w-[280px] sm:max-w-sm truncate">
+                  <span className="text-emerald-400">🔒</span>
+                  <span className="text-slate-400">https://</span>
+                  <span className="text-white font-semibold">{client.domain}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                    200 OK
+                  </span>
+                </div>
               </div>
 
-              {/* Navigation List */}
-              <ul className="grid gap-1.5 text-[13.5px]">
-                <li
-                  className="flex items-center justify-between px-3 py-2 rounded-[3px] font-medium transition-all"
-                  style={{
-                    backgroundColor: isDusk ? "#3b2415" : "#f3dfcd",
-                    color: isDusk ? "#e08a4f" : "#b4532a",
-                    boxShadow: `inset 3px 0 0 ${isDusk ? "#e08a4f" : "#b4532a"}`,
-                  }}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <svg className="w-4 h-4"><use href="#i-star" /></svg>
-                    <span>Featured Clients</span>
-                  </span>
-                  <span className="text-[10px] font-mono">4 Case Studies</span>
-                </li>
-
-                <li
-                  className="flex items-center justify-between px-3 py-2 rounded-[3px] text-muted hover:bg-black/5 transition-all cursor-pointer"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                  onClick={() => handleSelectTab(0)}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <svg className="w-4 h-4"><use href="#i-home" /></svg>
-                    <span>Real Estate</span>
-                  </span>
-                  <span className="text-[10px] font-mono">+663% Leads</span>
-                </li>
-
-                <li
-                  className="flex items-center justify-between px-3 py-2 rounded-[3px] text-muted hover:bg-black/5 transition-all cursor-pointer"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                  onClick={() => handleSelectTab(1)}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <svg className="w-4 h-4"><use href="#i-claw" /></svg>
-                    <span>Alpine Chalets</span>
-                  </span>
-                  <span className="text-[10px] font-mono">+240% Direct</span>
-                </li>
-
-                <li
-                  className="flex items-center justify-between px-3 py-2 rounded-[3px] text-muted hover:bg-black/5 transition-all cursor-pointer"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                  onClick={() => handleSelectTab(2)}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <svg className="w-4 h-4"><use href="#t-wing" /></svg>
-                    <span>Medical Aesthetic Spa</span>
-                  </span>
-                  <span className="text-[10px] font-mono">Waitlisted</span>
-                </li>
-
-                <li
-                  className="flex items-center justify-between px-3 py-2 rounded-[3px] text-muted hover:bg-black/5 transition-all cursor-pointer"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                  onClick={() => handleSelectTab(3)}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <svg className="w-4 h-4"><use href="#t-ruler" /></svg>
-                    <span>B2B Cloud SaaS</span>
-                  </span>
-                  <span className="text-[10px] font-mono">$4.2M Pipe</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Bottom Pinned Feature Card */}
-            <div
-              className="mt-6 p-4 rounded-[3px] border relative"
-              style={{
-                backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                borderLeft: `3px solid ${isDusk ? "#e08a4f" : "#b4532a"}`,
-              }}
-            >
-              <span
-                className="block text-[9.5px] font-mono uppercase tracking-[0.2em] font-medium"
-                style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-              >
-                Active Specimen
-              </span>
-
-              <div className="relative w-full h-24 my-2.5 rounded-[2px] overflow-hidden border border-[var(--line)]">
+              {/* Live Website Preview Graphic with Floating Metric Badges */}
+              <div className="relative w-full h-[280px] sm:h-[380px] md:h-[420px] overflow-hidden group">
                 <Image
-                  src={activeClient.image}
-                  alt={activeClient.name}
+                  src={client.image}
+                  alt={`${client.name} live website screenshot`}
                   fill
                   unoptimized
-                  className="object-cover"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 />
+
+                {/* Ambient dark gradient vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080318] via-transparent to-black/20 pointer-events-none" />
+
+                {/* Floating Metric Pill 1 (Top Left) */}
+                <div className="absolute top-4 left-4 bg-[#09041a]/90 backdrop-blur-md border border-purple-500/40 rounded-xl px-3 py-1.5 shadow-xl flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-xs font-bold text-white">{client.tags[0].text}</span>
+                </div>
+
+                {/* Floating Metric Pill 2 (Bottom Right) */}
+                <div className="absolute bottom-4 right-4 bg-[#09041a]/90 backdrop-blur-md border border-purple-500/40 rounded-xl px-3 py-1.5 shadow-xl flex items-center gap-2">
+                  <span className="text-cyan-400 text-xs">⚡</span>
+                  <span className="text-xs font-bold text-cyan-300">{client.tags[1].text}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Tech Badges Row */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">
+                  Tech Stack:
+                </span>
+                {client.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-[11px] font-medium px-2.5 py-0.5 rounded-lg bg-white/[0.06] border border-white/10 text-purple-200"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
 
-              <h4
-                className="font-serif text-[17px] font-normal leading-tight"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              >
-                {activeClient.name}
-              </h4>
+              <div className="text-[11px] text-slate-400 flex items-center gap-1">
+                <span>📍 Location:</span>
+                <span className="text-white font-medium">{client.location}</span>
+              </div>
+            </div>
+          </div>
 
-              <p
-                className="text-[12px] leading-relaxed mt-1"
-                style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-              >
-                {activeClient.feature[1]}
+          {/* Right Column: In-Depth Client Case Details & Verifiable Metrics (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            
+            {/* Overview & Story Card */}
+            <div className="bg-[#0c0624]/90 rounded-3xl border border-purple-500/25 p-5 sm:p-6 shadow-xl backdrop-blur-xl">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#A068FF]">
+                  {client.industry}
+                </span>
+                <span className="text-xs text-slate-400 font-mono">
+                  {client.domain}
+                </span>
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                {client.name}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                {client.overview}
               </p>
+
+              {/* Challenge & Solution Blocks */}
+              <div className="mt-4 space-y-3 pt-3 border-t border-white/10">
+                <div className="bg-rose-950/20 border border-rose-500/20 rounded-xl p-3">
+                  <span className="text-[11px] font-bold text-rose-400 uppercase tracking-wider block mb-1">
+                    ⚠️ The Challenge:
+                  </span>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {client.challenge}
+                  </p>
+                </div>
+
+                <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-3">
+                  <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+                    🚀 Balaji Prime Media Solution:
+                  </span>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {client.solution}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Verifiable Key Performance Metrics (4 Grid Cards) */}
+            <div className="grid grid-cols-2 gap-3">
+              {client.metrics.map((metric) => (
+                <div
+                  key={metric.label}
+                  className="bg-[#0c0624]/90 rounded-2xl border border-purple-500/25 p-3.5 sm:p-4 shadow-lg backdrop-blur-xl flex flex-col justify-between"
+                >
+                  <span className={`text-xl sm:text-2xl font-black ${metric.color} tracking-tight`}>
+                    {metric.value}
+                  </span>
+                  <span className="text-xs font-bold text-white mt-1">
+                    {metric.label}
+                  </span>
+                  <span className="text-[10px] text-slate-400 mt-0.5">
+                    {metric.sub}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Action Strip */}
+            <div className="bg-gradient-to-r from-[#170c38] to-[#0f0729] rounded-2xl border border-purple-500/30 p-4 flex items-center justify-between gap-3 shadow-lg">
+              <div>
+                <p className="text-xs font-bold text-white">
+                  Want identical growth for your domain?
+                </p>
+                <p className="text-[11px] text-purple-300 mt-0.5">
+                  Full Next.js stack + high-intent SEO ranking.
+                </p>
+              </div>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-medium underline underline-offset-3 hover:opacity-80 transition-opacity"
+                className="shrink-0 bg-white hover:bg-slate-100 text-[#070319] text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <span>Book your growth roadmap</span>
-                <svg className="w-3.5 h-3.5"><use href="#i-arrow" /></svg>
+                Book Strategy →
               </Link>
             </div>
-          </aside>
-
-          {/* 4.2 CENTRE: SPECIMEN STAGE & INTERACTIVE WEBSITE ANALYZER */}
-          <main className="lg:col-span-5 flex flex-col gap-4">
-            
-            {/* Tabs Row at Top */}
-            <div className="flex gap-2 overflow-x-auto pb-1" role="tablist">
-              {CLIENT_CASES.map((item, idx) => {
-                const isSelected = idx === activeIdx;
-                return (
-                  <button
-                    key={item.id}
-                    role="tab"
-                    aria-selected={isSelected}
-                    onClick={() => handleSelectTab(idx)}
-                    className="relative flex-1 min-w-[110px] p-2.5 text-center rounded-[3px] border transition-all cursor-pointer text-left"
-                    style={{
-                      backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-                      borderColor: isSelected
-                        ? (isDusk ? "#f1e7d6" : "#241c14")
-                        : (isDusk ? "#3d3225" : "#d6c9ae"),
-                      transform: isSelected ? "translateY(-2px)" : "none",
-                    }}
-                  >
-                    <span
-                      className="block text-[9px] font-mono"
-                      style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                    >
-                      {item.no}
-                    </span>
-                    <b
-                      className="block font-serif text-[13.5px] truncate mt-0.5"
-                      style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                    >
-                      {item.name}
-                    </b>
-                    <span
-                      className="block text-[10.5px] italic font-serif truncate"
-                      style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                    >
-                      {item.category.split("&")[0]}
-                    </span>
-
-                    {/* Active Bottom Bar */}
-                    {isSelected && (
-                      <span
-                        className="absolute bottom-0 left-0 right-0 h-[2px]"
-                        style={{ backgroundColor: isDusk ? "#e08a4f" : "#b4532a" }}
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Stage Frame (Museum Plate with Corner Brackets & Website Preview) */}
-            <div
-              className={`relative w-full h-[460px] sm:h-[500px] rounded-[3px] border overflow-hidden p-4 flex flex-col justify-between transition-all duration-300 ${
-                isExpanded ? "scale-[1.02] shadow-2xl z-30" : ""
-              }`}
-              style={{
-                backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-                borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-              }}
-            >
-              {/* Corner Specimen Brackets (Museum Plate Archival Look) */}
-              <div className="absolute inset-2 pointer-events-none z-10">
-                <span className="absolute top-0 left-0 w-3.5 h-3.5 border-t border-l" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }} />
-                <span className="absolute top-0 right-0 w-3.5 h-3.5 border-t border-r" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }} />
-                <span className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b border-l" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }} />
-                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b border-r" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }} />
-              </div>
-
-              {/* Top Hint & Scale */}
-              <div className="flex items-center justify-between text-[10px] font-mono z-20"
-                style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-              >
-                <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>CLIENT SPECIMEN • LIVE AUDIT TELEMETRY</span>
-                </div>
-                <span>DRAG TO INSPECT • SCALE {zoomLevel}X</span>
-              </div>
-
-              {/* Central Website Analyzer Device Frame */}
-              <div
-                className="relative my-auto w-full max-w-[480px] mx-auto rounded-lg border shadow-xl overflow-hidden transition-all duration-500 group"
-                style={{
-                  backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                  borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  transform: `scale(${zoomLevel}) rotate(${rotationAngle}deg)`,
-                  transformOrigin: "center center",
-                }}
-              >
-                {/* Browser Mockup Chrome Header */}
-                <div
-                  className="flex items-center justify-between px-3 py-2 border-b"
-                  style={{
-                    backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  }}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
-                  </div>
-
-                  {/* Browser URL Input */}
-                  <div
-                    className="flex items-center gap-2 px-3 py-1 rounded-[3px] text-[11px] font-mono border"
-                    style={{
-                      backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                      borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                      color: isDusk ? "#f1e7d6" : "#241c14",
-                    }}
-                  >
-                    <span className="text-emerald-500 font-bold">🔒</span>
-                    <span className="truncate max-w-[180px]">{activeClient.urlDisplay}</span>
-                  </div>
-
-                  <span className="text-[10px] font-mono text-muted">200 OK</span>
-                </div>
-
-                {/* Website Preview Image with Animated Overlay */}
-                <div className="relative w-full h-[220px] sm:h-[240px] bg-slate-900 overflow-hidden">
-                  <Image
-                    src={activeClient.image}
-                    alt={activeClient.name}
-                    fill
-                    unoptimized
-                    className={`object-cover transition-transform duration-700 ${
-                      isCloseup ? "scale-125" : "scale-100 group-hover:scale-105"
-                    }`}
-                  />
-
-                  {/* Live Floating Metric Badges on Device */}
-                  <div className="absolute top-3 left-3 bg-black/85 backdrop-blur-md border border-white/20 text-white px-2.5 py-1 rounded-[3px] text-[11px] font-mono flex items-center gap-2 shadow-lg">
-                    <span className="text-amber-400 font-bold">{activeClient.stats.highlight}</span>
-                    <span className="text-[10px] text-gray-300">{activeClient.stats.label}</span>
-                  </div>
-
-                  <div className="absolute bottom-3 right-3 bg-black/85 backdrop-blur-md border border-white/20 text-white px-2.5 py-1 rounded-[3px] text-[11px] font-mono flex items-center gap-2 shadow-lg">
-                    <span className="text-emerald-400 font-bold">{activeClient.stats.metric2}</span>
-                    <span className="text-[10px] text-gray-300">{activeClient.stats.metric2Label}</span>
-                  </div>
-                </div>
-
-                {/* Bottom Status bar */}
-                <div
-                  className="px-3 py-1.5 flex items-center justify-between text-[10px] font-mono border-t"
-                  style={{
-                    backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                    color: isDusk ? "#a89880" : "#7a6b58",
-                  }}
-                >
-                  <span>Architecture: Next.js 15 SSR</span>
-                  <span className="text-emerald-600 font-semibold">Core Web Vitals: 99/100</span>
-                </div>
-              </div>
-
-              {/* Stage Interactive Tool Rail (Left vertical toolbar) */}
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-                <button
-                  onClick={() => setZoomLevel((z) => Math.min(1.4, Number((z + 0.15).toFixed(2))))}
-                  className="w-8 h-8 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer shadow-xs hover:border-[var(--accent)]"
-                  style={{
-                    backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  }}
-                  title="Zoom In"
-                >
-                  <svg className="w-4 h-4"><use href="#i-plus" /></svg>
-                </button>
-
-                <button
-                  onClick={() => setZoomLevel((z) => Math.max(0.8, Number((z - 0.15).toFixed(2))))}
-                  className="w-8 h-8 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer shadow-xs hover:border-[var(--accent)]"
-                  style={{
-                    backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  }}
-                  title="Zoom Out"
-                >
-                  <svg className="w-4 h-4"><use href="#i-search" /></svg>
-                </button>
-
-                <button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="w-8 h-8 rounded-[3px] border flex items-center justify-center transition-all cursor-pointer shadow-xs hover:border-[var(--accent)]"
-                  style={{
-                    backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  }}
-                  title="Expand View"
-                >
-                  <svg className="w-4 h-4"><use href="#i-expand" /></svg>
-                </button>
-              </div>
-
-              {/* Bottom Turn Controls */}
-              <div className="flex items-center justify-between z-20 pt-2 border-t"
-                style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }}
-              >
-                {/* Scale Bar */}
-                <div className="text-[10px] font-mono" style={{ color: isDusk ? "#a89880" : "#7a6b58" }}>
-                  <div className="w-16 h-1 border-b border-l border-r mb-0.5" style={{ borderColor: isDusk ? "#a89880" : "#7a6b58" }} />
-                  <span>{activeClient.scale}</span>
-                </div>
-
-                {/* 360 Turn Buttons */}
-                <div
-                  className="flex items-center gap-1 p-1 rounded-[3px] border text-[11px] font-mono shadow-xs"
-                  style={{
-                    backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                    borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  }}
-                >
-                  <button
-                    onClick={() => handleRotate(-10)}
-                    className="px-2 py-0.5 hover:bg-black/10 rounded-[2px] transition-colors cursor-pointer"
-                    title="Turn Left"
-                  >
-                    <svg className="w-3.5 h-3.5"><use href="#i-ccw" /></svg>
-                  </button>
-                  <button
-                    onClick={() => setRotationAngle(0)}
-                    className="px-2 py-0.5 hover:bg-black/10 rounded-[2px] transition-colors cursor-pointer font-bold"
-                  >
-                    360°
-                  </button>
-                  <button
-                    onClick={() => handleRotate(10)}
-                    className="px-2 py-0.5 hover:bg-black/10 rounded-[2px] transition-colors cursor-pointer"
-                    title="Turn Right"
-                  >
-                    <svg className="w-3.5 h-3.5"><use href="#i-cw" /></svg>
-                  </button>
-                </div>
-
-                <div className="text-[10px] font-mono" style={{ color: isDusk ? "#a89880" : "#7a6b58" }}>
-                  <span>REF: {activeClient.no}</span>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Stage Caption */}
-            <p
-              className="text-center font-serif italic text-[15px] sm:text-[17px] font-light leading-snug"
-              style={{
-                fontFamily: "'Fraunces', Georgia, serif",
-                color: isDusk ? "#f1e7d6" : "#241c14",
-              }}
-            >
-              &ldquo;{activeClient.caption}&rdquo;
-            </p>
-          </main>
-
-          {/* 4.3 RIGHT: CATALOGUE CARD (Museum Plate Rule with Full Case Study Details) */}
-          <article
-            className={`lg:col-span-4 p-6 sm:p-7 rounded-[3px] border flex flex-col justify-between transition-opacity duration-300 ${
-              isLeaving ? "opacity-20 translate-y-1" : "opacity-100 translate-y-0"
-            }`}
-            style={{
-              backgroundColor: isDusk ? "#211a13" : "#f8f2e6",
-              borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-              boxShadow: isDusk
-                ? "inset 0 0 0 4px #211a13, inset 0 0 0 5px #3d3225"
-                : "inset 0 0 0 4px #f8f2e6, inset 0 0 0 5px #d6c9ae",
-            }}
-          >
-            <div>
-              {/* Row 0: Eyebrow */}
-              <div
-                className="text-[10px] font-mono uppercase tracking-[0.18em]"
-                style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-              >
-                {activeClient.category} • Specimen {activeClient.no}
-              </div>
-
-              {/* Row 1: Client Name & Industry */}
-              <h1
-                className="font-serif text-3xl sm:text-4xl font-light tracking-tight leading-[0.98] mt-2"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              >
-                {activeClient.name}
-              </h1>
-              <span
-                className="block font-serif italic text-[13px] mt-1.5"
-                style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-              >
-                {activeClient.industry}
-              </span>
-
-              {/* Row 2: Tags */}
-              <div className="flex flex-wrap gap-1.5 mt-3.5">
-                {activeClient.tags.map((tag, tIdx) => (
-                  <span
-                    key={tIdx}
-                    className="text-[10.5px] font-mono px-2 py-0.5 rounded-[2px] border"
-                    style={{
-                      backgroundColor: isDusk ? "#17120d" : "#ebe1cd",
-                      borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                      color: isDusk ? "#e08a4f" : "#b4532a",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Row 3: Lede */}
-              <p
-                className="text-[13px] leading-relaxed mt-4"
-                style={{ color: isDusk ? "#f1e7d6" : "#241c14" }}
-              >
-                {activeClient.lede}
-              </p>
-
-              {/* Row 4: Era / Performance Timeline */}
-              <div className="mt-4 pt-3 border-t" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }}>
-                <span
-                  className="block text-[9.5px] font-mono uppercase tracking-[0.16em] mb-1.5"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                >
-                  Growth Velocity Timeline
-                </span>
-                
-                {/* 3-segment progress bar */}
-                <div
-                  className="relative w-full h-1.5 rounded-[2px] grid grid-cols-3 gap-1"
-                  style={{ backgroundColor: isDusk ? "#17120d" : "#ebe1cd" }}
-                >
-                  <span className="h-full rounded-[1px] bg-emerald-500/80" />
-                  <span className="h-full rounded-[1px] bg-emerald-500/80" />
-                  <span className="h-full rounded-[1px]" style={{ backgroundColor: isDusk ? "#e08a4f" : "#b4532a" }} />
-                </div>
-
-                <div
-                  className="flex items-center justify-between text-[9px] font-mono uppercase mt-2 tracking-wider"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                >
-                  <span>{activeClient.era.start}</span>
-                  <span className="text-center font-bold" style={{ color: isDusk ? "#e08a4f" : "#b4532a" }}>
-                    {activeClient.era.label}
-                  </span>
-                  <span>{activeClient.era.peak}</span>
-                </div>
-              </div>
-
-              {/* Row 5: Field Notes Header */}
-              <h3
-                className="text-[10px] font-mono uppercase tracking-[0.2em] font-semibold mt-5 pt-3 border-t"
-                style={{
-                  borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                  color: isDusk ? "#a89880" : "#7a6b58",
-                }}
-              >
-                Verified Field Metrics
-              </h3>
-
-              {/* Row 6: Traits list with dotted leaders */}
-              <dl className="grid gap-2 mt-2 text-[12.5px]">
-                {activeClient.traits.map(([icon, label, value], trIdx) => (
-                  <div key={trIdx} className="flex items-baseline gap-2">
-                    <svg className="w-3.5 h-3.5 shrink-0 opacity-70"><use href={`#${icon}`} /></svg>
-                    <dt className="shrink-0" style={{ color: isDusk ? "#a89880" : "#7a6b58" }}>
-                      {label}
-                    </dt>
-                    <span className="flex-1 border-b border-dotted" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }} />
-                    <dd className="shrink-0 font-medium font-mono text-[11.5px]">
-                      {value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-
-              {/* Row 7: Haunts */}
-              <div className="mt-4 pt-3 border-t" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }}>
-                <span
-                  className="block text-[9.5px] font-mono uppercase tracking-[0.16em] mb-1"
-                  style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                >
-                  Core Target Territory
-                </span>
-                <p className="text-[12px] leading-snug" style={{ color: isDusk ? "#f1e7d6" : "#241c14" }}>
-                  {activeClient.haunt}
-                </p>
-              </div>
-            </div>
-
-            {/* Row 9: Close-up Detail Lens Button & CTA */}
-            <div className="mt-5 pt-4 border-t" style={{ borderColor: isDusk ? "#3d3225" : "#d6c9ae" }}>
-              <button
-                onClick={() => setIsCloseup(!isCloseup)}
-                className="w-full grid grid-cols-[56px_1fr_20px] gap-3 p-2.5 rounded-[3px] border text-left items-center transition-all cursor-pointer hover:border-[var(--accent)]"
-                style={{
-                  backgroundColor: isCloseup
-                    ? (isDusk ? "#3b2415" : "#f3dfcd")
-                    : (isDusk ? "#17120d" : "#ebe1cd"),
-                  borderColor: isDusk ? "#3d3225" : "#d6c9ae",
-                }}
-              >
-                {/* Lens thumbnail */}
-                <div className="relative w-14 h-14 rounded-[2px] overflow-hidden border border-[var(--line)]">
-                  <Image
-                    src={activeClient.image}
-                    alt={activeClient.name}
-                    fill
-                    unoptimized
-                    className="object-cover scale-150"
-                  />
-                </div>
-
-                <div>
-                  <b className="block font-serif text-[14px] leading-tight">
-                    {isCloseup ? "Reset Lens View" : "Examine Close-up UI"}
-                  </b>
-                  <small
-                    className="block text-[11px] leading-tight mt-0.5"
-                    style={{ color: isDusk ? "#a89880" : "#7a6b58" }}
-                  >
-                    {activeClient.closeup}
-                  </small>
-                </div>
-
-                <svg
-                  className={`w-4 h-4 transition-transform duration-300 ${
-                    isCloseup ? "rotate-90" : ""
-                  }`}
-                >
-                  <use href="#i-chev" />
-                </svg>
-              </button>
-
-              <Link
-                href="/schedule-meeting"
-                className="mt-3 w-full py-2.5 px-4 rounded-[3px] text-center font-mono text-[12px] uppercase tracking-wider font-semibold block transition-all shadow-xs"
-                style={{
-                  backgroundColor: isDusk ? "#e08a4f" : "#b4532a",
-                  color: isDusk ? "#17120d" : "#ffffff",
-                }}
-              >
-                Replicate These Results for Your Brand →
-              </Link>
-            </div>
-          </article>
-
+          </div>
         </div>
-
       </div>
     </section>
   );

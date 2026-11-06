@@ -23,17 +23,19 @@ export default function AIVoiceWidget() {
   const [transcript, setTranscript] = useState("");
   const [inputText, setInputText] = useState("");
   const [prompts, setPrompts] = useState<string[]>([
+    "What services do you offer?",
     "Website Development ($699)",
     "SEO Optimization ($449/mo)",
+    "40K+ Guest Posting Market",
     "Free Instant SEO Audit",
-    "Pricing & Packages",
+    "Client Case Studies",
   ]);
 
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We build high-speed Next.js websites, run full-funnel SEO campaigns, and scale organic revenue for businesses in the UK, US, and worldwide. How can I help you today?",
+      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 Official Website AI Assistant. You can ask me anything about our website, our Next.js development packages, SEO plans, 40,000+ publisher marketplace, pricing, and live client results. How can I help you explore today?",
       timestamp: "Just now",
     },
   ]);
@@ -319,19 +321,19 @@ export default function AIVoiceWidget() {
               setIsSpeaking(false);
             }
           }}
-          className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#7c3aed] via-[#A068FF] to-[#22d3ee] p-[2.5px] shadow-[0_8px_30px_rgba(160,104,255,0.6)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
+          className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#7c3aed] via-[#A068FF] to-[#22d3ee] p-[2.5px] shadow-[0_8px_30px_rgba(160,104,255,0.7)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
           aria-label={isOpen ? "Close AI Voice Assistant" : "Talk to BPM AI"}
         >
-          {/* Ambient Rotating Glow */}
+          {/* Ambient Rotating Glowing AI Aura */}
           <span
-            className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#A068FF] via-[#22d3ee] to-[#7c3aed] opacity-75 blur-sm group-hover:opacity-100 transition-opacity animate-spin"
-            style={{ animationDuration: "6s" }}
+            className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#A068FF] via-[#22d3ee] to-[#7c3aed] opacity-80 blur-sm group-hover:opacity-100 transition-opacity animate-spin"
+            style={{ animationDuration: "5s" }}
           />
 
-          {/* Inner Dark Glass Orb */}
-          <div className="relative w-full h-full rounded-full bg-[#09041a] flex items-center justify-center overflow-hidden border border-white/20">
+          {/* Inner Dark Glass AI Orb */}
+          <div className="relative w-full h-full rounded-full bg-[#080216] flex items-center justify-center overflow-hidden border border-white/30">
             {/* Pulsing Core */}
-            <span className="absolute inset-2 rounded-full bg-gradient-to-tr from-[#7c3aed]/40 to-[#22d3ee]/40 animate-pulse" />
+            <span className="absolute inset-1.5 rounded-full bg-gradient-to-tr from-[#7c3aed]/50 to-[#22d3ee]/50 animate-pulse" />
 
             {/* Icon */}
             {isOpen ? (
@@ -348,10 +350,12 @@ export default function AIVoiceWidget() {
               </svg>
             ) : (
               <div className="relative z-10 flex flex-col items-center justify-center">
+                {/* AI Sparkle Badge */}
+                <span className="text-[11px] leading-none mb-0.5 filter drop-shadow">✨</span>
                 <svg
-                  className="w-6 h-6 text-white fill-none stroke-current"
+                  className="w-5 h-5 text-white fill-none stroke-current"
                   viewBox="0 0 24 24"
-                  strokeWidth="2"
+                  strokeWidth="2.2"
                 >
                   <path
                     strokeLinecap="round"
@@ -366,7 +370,7 @@ export default function AIVoiceWidget() {
                   <line x1="12" y1="19" x2="12" y2="23" strokeLinecap="round" />
                   <line x1="8" y1="23" x2="16" y2="23" strokeLinecap="round" />
                 </svg>
-                {/* Audio Waves */}
+                {/* Audio Frequency Waves */}
                 <div className="flex items-center gap-0.5 mt-0.5">
                   <span className="w-0.5 h-1.5 bg-[#22d3ee] rounded-full animate-pulse" />
                   <span className="w-0.5 h-2.5 bg-[#A068FF] rounded-full animate-pulse delay-75" />
@@ -377,22 +381,29 @@ export default function AIVoiceWidget() {
           </div>
         </button>
 
-        {/* Floating Pill Label */}
+        {/* Floating Pill Label Explaining Website Info */}
         {!isOpen && (
           <div
             onClick={() => setIsOpen(true)}
-            className="hidden sm:flex items-center gap-2 bg-[#0d0727]/90 hover:bg-[#150a3a] text-white text-xs font-semibold px-3.5 py-2 rounded-full border border-purple-500/30 shadow-xl backdrop-blur-md cursor-pointer transition-all hover:scale-105 group"
+            className="hidden sm:flex items-center gap-2.5 bg-[#0a0420]/95 hover:bg-[#120738] text-white text-xs font-semibold px-4 py-2.5 rounded-full border border-purple-500/40 shadow-[0_4px_25px_rgba(160,104,255,0.4)] backdrop-blur-md cursor-pointer transition-all hover:scale-105 group"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22d3ee] opacity-80" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22d3ee]" />
             </span>
-            <span className="tracking-wide group-hover:text-[#A068FF] transition-colors">
-              Talk to BPM AI
-            </span>
-            <span className="text-[10px] text-[#22d3ee] bg-[#22d3ee]/10 px-1.5 py-0.2 rounded-md font-bold uppercase">
-              24/7 Global
-            </span>
+            <div className="flex flex-col text-left">
+              <div className="flex items-center gap-1.5">
+                <span className="tracking-wide text-white group-hover:text-[#A068FF] transition-colors font-bold text-[12px]">
+                  BPM AI Assistant
+                </span>
+                <span className="text-[9px] text-[#22d3ee] bg-[#22d3ee]/15 px-1.5 py-0.5 rounded font-extrabold uppercase border border-[#22d3ee]/30">
+                  Website Guide
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-300 font-normal">
+                Ask anything about our website &amp; services
+              </span>
+            </div>
           </div>
         )}
       </div>
@@ -418,7 +429,7 @@ export default function AIVoiceWidget() {
               <div className="flex items-center gap-2.5">
                 <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] p-[1.5px] shadow-[0_0_15px_rgba(160,104,255,0.7)] flex items-center justify-center">
                   <div className="w-full h-full rounded-full bg-[#09041a] flex items-center justify-center">
-                    <span className="text-sm">🎙️</span>
+                    <span className="text-sm">✨</span>
                   </div>
                 </div>
 
@@ -430,7 +441,7 @@ export default function AIVoiceWidget() {
                     </span>
                   </h3>
                   <p className="text-[10.5px] text-slate-300">
-                    UK, US &amp; Global Client 24/7 Desk
+                    Official Website &amp; Agency Knowledge Guide
                   </p>
                 </div>
               </div>
@@ -507,6 +518,16 @@ export default function AIVoiceWidget() {
               >
                 <span>💬 Chat Mode</span>
               </button>
+            </div>
+
+            {/* Dedicated Website Knowledge Banner */}
+            <div className="bg-[#180a3c]/80 border-b border-purple-500/30 px-3.5 py-2 flex items-start gap-2 backdrop-blur-md">
+              <span className="text-xs shrink-0 mt-0.5">✨</span>
+              <p className="text-[11px] text-purple-200 leading-snug">
+                {lang === "hi"
+                  ? "Balaji Prime Media Official AI Guide — Website ki har details (Services, Pricing, SEO Packages, 40K+ Marketplace, Case Studies) yahan poochhein."
+                  : "Official Website AI Guide — Ask anything about this website, our digital services, Next.js web dev ($699), SEO ($449/mo), 40K+ guest posting, and client case studies."}
+              </p>
             </div>
 
             {/* BODY: Mode = Voice */}
