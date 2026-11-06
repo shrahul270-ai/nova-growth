@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import LoginModal from "./LoginModal";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -12,30 +11,16 @@ interface NavbarProps {
 
 export default function Navbar({ activePage = "home" }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [buyerUser, setBuyerUser] = useState<{ email: string; name?: string } | null>(null);
 
-  // Sync buyer session on mount & when changed
+  // Close mobile menu on resize to desktop (min-width: 1024px)
   useEffect(() => {
-    const checkUser = () => {
-      try {
-        const stored = localStorage.getItem("nova_buyer_session");
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (parsed && parsed.email) {
-            setBuyerUser(parsed);
-            return;
-          }
-        }
-        setBuyerUser(null);
-      } catch {
-        setBuyerUser(null);
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
       }
     };
-
-    checkUser();
-    window.addEventListener("buyer-session-changed", checkUser);
-    return () => window.removeEventListener("buyer-session-changed", checkUser);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Close mobile menu on resize to desktop (min-width: 1024px)
@@ -161,29 +146,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Area: Log In Modal Trigger + Join Now (links to /guest-posting) */}
-          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-            {buyerUser ? (
-              <Link
-                href="/buyer-dashboard"
-                className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-white/95 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-sm transition-all"
-                title="Open Buyer Dashboard"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>{buyerUser.name || buyerUser.email.split("@")[0]}</span>
-              </Link>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setIsLoginModalOpen(true)}
-                className="marketeam-login-link text-white/95 hover:text-[#A068FF] text-[15px] font-medium hidden sm:inline-block transition-colors cursor-pointer bg-transparent border-none p-0"
-                aria-label="Open Login Modal"
-              >
-                Log In
-              </button>
-            )}
-
-            {/* Join Now with Rotating Conic-Gradient Border -> Navigates to /guest-posting */}
+          {/* Right Action Area: ONLY "Join Now" CTA (Links to /guest-posting) */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Join Now with Rotating Conic-Gradient Border */}
             <div className="btn-border-wrap">
               <Link
                 href="/guest-posting"
@@ -305,27 +270,6 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               >
                 <span>Join Now</span>
               </Link>
-              {buyerUser ? (
-                <Link
-                  href="/buyer-dashboard"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full h-11 rounded-full bg-white/10 border border-white/20 text-white font-semibold text-sm flex items-center justify-center gap-2"
-                >
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span>Dashboard ({buyerUser.email.split("@")[0]})</span>
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setIsLoginModalOpen(true);
-                  }}
-                  className="w-full h-11 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer"
-                >
-                  <span>Log In</span>
-                </button>
-              )}
               <Link
                 href="/pay"
                 onClick={() => setMobileMenuOpen(false)}
@@ -336,15 +280,6 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
           </nav>
         )}
-
-      {/* Global Interactive Login / Signup / Forgot Password Modal */}
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onSuccess={(user) => {
-          setBuyerUser(user);
-        }}
-      />
     </>
   );
 }
