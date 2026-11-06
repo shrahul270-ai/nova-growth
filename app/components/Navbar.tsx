@@ -9,18 +9,17 @@ interface NavbarProps {
   onJoinClick?: () => void;
 }
 
-export default function Navbar({ activePage = "home" }: NavbarProps) {
+export default function Navbar({ activePage = "home", onJoinClick }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Close mobile menu on resize to desktop (min-width: 1024px)
+  // Detect scroll to enhance glass blur & elevation
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setMobileMenuOpen(false);
-      }
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Close mobile menu on resize to desktop (min-width: 1024px)
@@ -47,82 +46,231 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50+" },
     { name: "Services", href: "/services", key: "services" },
+    { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50–90+" },
     { name: "Projects", href: "/projects", key: "projects" },
-    { name: "Blogs", href: "/blog", key: "blog" },
-    { name: "About Us", href: "/about", key: "about" },
-    { name: "Contact Us", href: "/contact", key: "contact" },
+    { name: "SEO Audit", href: "/audit", key: "audit", badge: "Free" },
+    { name: "Blog", href: "/blog", key: "blog" },
+    { name: "About", href: "/about", key: "about" },
+    { name: "Contact", href: "/contact", key: "contact" },
   ];
 
   return (
     <>
-      {/* 2-Tier Transparent Header */}
-      <header className="w-full relative z-30 bg-transparent">
+      {/* =========================================================================
+          WORLD-CLASS LUXURY FLOATING HEADER (Engineered for UK, US & Worldwide Enterprise Clients)
+         ========================================================================= */}
+      <header className="sticky top-0 z-50 w-full transition-all duration-300">
         
-        {/* Tier 1: Top Transparent Utility Bar (Left empty, Right has Live Support & Payment) */}
-        <div className="w-full flex items-center justify-between px-3 sm:px-8 pt-2.5 sm:pt-3 pb-1 text-xs">
-          {/* Left: Empty as requested */}
-          <div className="hidden sm:block" />
-
-          {/* Right: Live Support + Payment Link */}
-          <div className="flex items-center gap-2 sm:gap-4 ml-auto">
-            {/* Live Global Support Signal */}
-            <div
-              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-[#154359] border border-[#154359]/20 bg-white/60 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap backdrop-blur-xs shadow-2xs"
-              title="Global Support: EST • GMT • AEST"
-            >
-              <span className="relative flex h-1.5 w-1.5 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600" />
+        {/* Tier 1: Micro-utility Bar (London, New York Live Time & Verified Global Signals) */}
+        <div className="w-full bg-[#050214]/90 backdrop-blur-md border-b border-purple-500/15 py-1.5 px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium text-slate-300">
+            
+            {/* Left: Global Presence & Time Zones for UK/US Clients */}
+            <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar py-0.5">
+              <div className="inline-flex items-center gap-1.5 text-slate-300 font-medium">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="text-white font-semibold">Global Studio:</span>
+                <span className="hidden sm:inline text-slate-300">London (GMT) • New York (EST) • Dubai (GST)</span>
+                <span className="sm:hidden text-slate-300">UK · US · Worldwide</span>
+              </div>
+              <span className="hidden md:inline text-purple-400/40">|</span>
+              <span className="hidden md:inline text-purple-300/90 font-mono text-[10.5px]">
+                ✦ 15,000+ Verified Placements
               </span>
-              <span className="hidden sm:inline">Live Support · EST · GMT · AEST</span>
-              <span className="sm:hidden">Live Support</span>
             </div>
 
-            {/* Payment Link */}
-            <Link
-              href="/pay"
-              className="inline-flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[12.5px] font-semibold text-[#154359] hover:text-[#091427] transition-colors border border-[#154359]/20 bg-white/60 hover:bg-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full whitespace-nowrap shadow-2xs"
-            >
-              <span>Payment</span>
-              <span className="text-[10px] sm:text-[11px]">💳</span>
-            </Link>
+            {/* Right: Quick Payment & Direct Priority Line */}
+            <div className="flex items-center gap-3 shrink-0 ml-auto">
+              <Link
+                href="/pay"
+                className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 px-2.5 py-0.5 rounded-full text-[11px] font-medium shadow-xs"
+              >
+                <span>Client Pay</span>
+                <span className="text-[10px]">💳</span>
+              </Link>
+
+              <a
+                href="https://wa.me/917690868932?text=Hello%20Balaji%20Prime%20Media%2C%20I%20am%20interested%20in%20scaling%20our%20international%20SEO%20and%20web%20growth."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+              >
+                <span>WhatsApp VIP</span>
+                <span>↗</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Tier 2: Main Bottom Transparent Navbar (Brand Logo, Center Links, Right CTA) */}
-        <div className="w-full flex items-center justify-between gap-3 sm:gap-6 px-3 sm:px-8 py-2.5 sm:py-3.5">
-          
-          {/* User's Official Brand Logo - Big Single Logo Image (BPM & Tagline in Logo itself) */}
-          <Link
-            href="/"
-            className="flex items-center group shrink-0"
-            aria-label="Balaji Prime Media Home"
+        {/* Tier 2: Main Floating Glass Pill Navbar */}
+        <div className="w-full px-3 sm:px-6 lg:px-8 pt-2.5 pb-2">
+          <div
+            className={`max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 border ${
+              scrolled
+                ? "bg-[#08031d]/90 backdrop-blur-2xl border-purple-500/30 shadow-[0_15px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(160,104,255,0.15)]"
+                : "bg-[#0a0524]/75 backdrop-blur-xl border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.6)]"
+            }`}
           >
-            <Image
-              src="/images/bpm-complete-logo.png"
-              alt="BPM - Digital Growth & SEO Agency"
-              width={220}
-              height={205}
-              priority
-              className="h-14 sm:h-17 md:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300 filter drop-shadow-[0_4px_22px_rgba(251,191,36,0.5)]"
-            />
-          </Link>
+            {/* Official Brand Logo */}
+            <Link
+              href="/"
+              className="flex items-center group shrink-0"
+              aria-label="Balaji Prime Media Home"
+            >
+              <div className="relative">
+                <Image
+                  src="/images/bpm-complete-logo.png"
+                  alt="Balaji Prime Media - Global SEO & Digital Growth Agency"
+                  width={210}
+                  height={190}
+                  priority
+                  className="h-11 sm:h-13 md:h-14 w-auto object-contain transition-all duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_16px_rgba(160,104,255,0.45)]"
+                />
+              </div>
+            </Link>
 
-          {/* Centered Desktop Navigation Links with text-[#154359] */}
-          <nav
-            className="hidden lg:flex items-center gap-6 xl:gap-8 bg-white/50 backdrop-blur-md px-6 py-2 rounded-full border border-[#154359]/15 shadow-2xs"
-            aria-label="Primary"
-          >
+            {/* Centered Desktop Navigation Links */}
+            <nav
+              className="hidden lg:flex items-center gap-1 xl:gap-2"
+              aria-label="Primary"
+            >
+              <Link
+                href="/"
+                prefetch={false}
+                className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 ${
+                  activePage === "home"
+                    ? "text-white bg-white/[0.12] shadow-[0_0_15px_rgba(160,104,255,0.3)] border border-purple-400/30"
+                    : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span>Home</span>
+              </Link>
+
+              {navLinks.map((link) => {
+                const isActive = activePage === link.key;
+                return (
+                  <Link
+                    key={link.key}
+                    href={link.href}
+                    prefetch={false}
+                    className={`relative px-3 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                      isActive
+                        ? "text-white bg-white/[0.12] shadow-[0_0_15px_rgba(160,104,255,0.3)] border border-purple-400/30"
+                        : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="text-[9.5px] font-bold bg-gradient-to-r from-purple-500/25 to-indigo-500/25 text-[#c084fc] border border-purple-500/40 px-2 py-0.5 rounded-full tracking-wide">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right Action Buttons */}
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              {/* "Start Project" High-Converting Luxury CTA */}
+              <button
+                type="button"
+                onClick={onJoinClick}
+                className="group relative inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-[13px] sm:text-[13.5px] font-bold text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.5)] hover:shadow-[0_0_36px_rgba(160,104,255,0.8)]"
+                style={{
+                  background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
+                }}
+              >
+                <span>Start Project</span>
+                <svg
+                  className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Minimalist 2-Bar Luxury Burger Button for Mobile */}
+              <button
+                type="button"
+                id="burger"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden w-[42px] h-[42px] rounded-full border border-purple-500/30 bg-white/[0.06] hover:bg-white/[0.12] flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-sm"
+                aria-controls="menu"
+                aria-expanded={mobileMenuOpen}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                <i
+                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                    mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
+                  }`}
+                />
+                <i
+                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                    mobileMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Full-Screen Overlay Navigation Drawer */}
+      {mobileMenuOpen && (
+        <nav
+          id="menu"
+          className="fixed inset-0 bg-[#070319]/98 backdrop-blur-3xl z-50 flex flex-col justify-between overflow-y-auto lg:hidden p-6 animate-fadeIn border-l border-purple-500/20"
+        >
+          {/* Top Bar inside Drawer */}
+          <div className="flex items-center justify-between pb-5 border-b border-purple-500/20">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center"
+            >
+              <Image
+                src="/images/bpm-complete-logo.png"
+                alt="Balaji Prime Media"
+                width={170}
+                height={155}
+                className="h-11 w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.45)]"
+              />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg font-bold border border-white/15 hover:bg-white/20 transition-colors cursor-pointer"
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col gap-2 py-4">
+            <p className="text-[10px] font-bold tracking-widest text-[#A068FF] uppercase mb-1">
+              Global Navigation
+            </p>
             <Link
               href="/"
               prefetch={false}
-              className={`text-[14px] font-semibold transition-colors hover:text-[#091427] ${
-                activePage === "home" ? "text-[#154359] font-bold underline underline-offset-4 decoration-2 decoration-[#185B7B]" : "text-[#154359]/80"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center justify-between py-3 px-3.5 rounded-2xl text-[16.5px] font-semibold transition-colors ${
+                activePage === "home"
+                  ? "bg-purple-950/60 text-white border border-purple-500/30"
+                  : "text-slate-300 hover:text-white hover:bg-white/5"
               }`}
             >
-              Home
+              <span>Home</span>
+              <span className="text-white/40 text-sm">→</span>
             </Link>
             {navLinks.map((link) => {
               const isActive = activePage === link.key;
@@ -131,155 +279,61 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   key={link.key}
                   href={link.href}
                   prefetch={false}
-                  className={`text-[14px] font-semibold transition-colors hover:text-[#091427] flex items-center gap-1 ${
-                    isActive ? "text-[#154359] font-bold underline underline-offset-4 decoration-2 decoration-[#185B7B]" : "text-[#154359]/80"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center justify-between py-3 px-3.5 rounded-2xl text-[16.5px] font-semibold transition-colors ${
+                    isActive
+                      ? "bg-purple-950/60 text-white border border-purple-500/30"
+                      : "text-slate-300 hover:text-white hover:bg-white/5"
                   }`}
                 >
-                  <span>{link.name}</span>
-                  {link.badge && (
-                    <span className="text-[9.5px] font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.5 rounded-full tracking-wide">
-                      {link.badge}
-                    </span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="text-[10px] font-bold bg-[#1E1638] text-[#c084fc] border border-purple-500/30 px-2 py-0.5 rounded-full">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-white/40 text-sm">→</span>
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          {/* Right Action Area: ONLY "Join Now" CTA (Links to /guest-posting) */}
-          <div className="flex items-center gap-3 shrink-0">
-            {/* Join Now with Rotating Conic-Gradient Border */}
-            <div className="btn-border-wrap">
-              <Link
-                href="/guest-posting"
-                className="marketeam-join-btn text-decoration-none"
-                aria-label="Join Now - Guest Posting"
-              >
-                Join Now
-              </Link>
-            </div>
-
-            {/* Minimalist 2-Bar Burger Button for Mobile */}
+          {/* Mobile Footer CTAs */}
+          <div className="pt-4 border-t border-purple-500/20 flex flex-col gap-3">
             <button
               type="button"
-              id="burger"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-[40px] h-[40px] rounded-full border border-[#154359]/20 bg-white/60 hover:bg-white flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-2xs"
-              aria-controls="menu"
-              aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onJoinClick?.();
+              }}
+              className="w-full h-12 rounded-full text-white font-bold text-sm flex items-center justify-center shadow-lg shadow-purple-950/80 transition-all cursor-pointer"
+              style={{
+                background: "linear-gradient(135deg, #A068FF 0%, #7928CA 100%)",
+              }}
             >
-              <i
-                className={`w-4 h-[1.5px] bg-[#154359] rounded-full transition-transform duration-300 ease-out ${
-                  mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
-                }`}
-              />
-              <i
-                className={`w-4 h-[1.5px] bg-[#154359] rounded-full transition-transform duration-300 ease-out ${
-                  mobileMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
-                }`}
-              />
+              <span>Start Project with Leadership</span>
             </button>
-          </div>
-        </div>
-
-        {/* 1px divider line with gradient from-transparent via-[#154359]/20 to-transparent */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#154359]/20 to-transparent mt-[1px]" />
-      </header>
-
-        {/* Mobile Full-Screen Overlay Navigation Drawer */}
-        {mobileMenuOpen && (
-          <nav
-            id="menu"
-            className="fixed inset-0 bg-[#07050E]/98 backdrop-blur-3xl z-50 flex flex-col justify-between overflow-y-auto lg:hidden p-6 animate-fadeIn"
-          >
-            {/* Top Bar inside Drawer */}
-            <div className="flex items-center justify-between pb-5 border-b border-white/10">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center"
-              >
-                <Image
-                  src="/images/bpm-complete-logo.png"
-                  alt="BPM - Digital Growth & SEO Agency"
-                  width={160}
-                  height={150}
-                  className="h-13 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(251,191,36,0.4)]"
-                />
-              </Link>
-
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg font-bold border border-white/15 hover:bg-white/20 transition-colors cursor-pointer"
-                aria-label="Close menu"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Navigation Links */}
-            <div className="flex flex-col gap-2 py-4">
-              <p className="text-[10px] font-bold tracking-widest text-[#a855f7] uppercase mb-1">
-                Navigation
-              </p>
-              <Link
-                href="/"
-                prefetch={false}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between py-3 px-3 rounded-xl text-[17px] font-semibold transition-colors ${
-                  activePage === "home" ? "bg-white/10 text-white" : "text-[#cbd5e1] hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <span>Home</span>
-                <span className="text-white/40 text-sm">→</span>
-              </Link>
-              {navLinks.map((link) => {
-                const isActive = activePage === link.key;
-                return (
-                  <Link
-                    key={link.key}
-                    href={link.href}
-                    prefetch={false}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-3 px-3 rounded-xl text-[17px] font-semibold transition-colors ${
-                      isActive ? "bg-white/10 text-white" : "text-[#cbd5e1] hover:text-white hover:bg-white/5"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span>{link.name}</span>
-                      {link.badge && (
-                        <span className="text-[10px] font-bold bg-[#1E1638] text-[#c084fc] border border-[#a855f7]/30 px-2 py-0.5 rounded-full">
-                          {link.badge}
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-white/40 text-sm">→</span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Mobile Footer CTAs */}
-            <div className="pt-4 border-t border-white/10 flex flex-col gap-3">
-              <Link
-                href="/guest-posting"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-12 rounded-full bg-black text-white border border-[#A068FF] font-bold text-sm flex items-center justify-center shadow-lg shadow-purple-950/80 hover:bg-[#A068FF] transition-colors"
-              >
-                <span>Join Now</span>
-              </Link>
+            <div className="grid grid-cols-2 gap-2">
               <Link
                 href="/pay"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 rounded-full bg-white/5 border border-white/15 text-white font-semibold text-sm flex items-center justify-center hover:bg-white/10 transition-colors"
+                className="h-11 rounded-full bg-white/[0.06] border border-white/15 text-white font-semibold text-xs flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <span>Payment 💳</span>
+                <span>Client Pay 💳</span>
+              </Link>
+              <Link
+                href="/audit"
+                onClick={() => setMobileMenuOpen(false)}
+                className="h-11 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-200 font-semibold text-xs flex items-center justify-center hover:bg-purple-900/50 transition-colors"
+              >
+                <span>Free SEO Audit ⚡</span>
               </Link>
             </div>
-          </nav>
-        )}
+          </div>
+        </nav>
+      )}
     </>
   );
 }

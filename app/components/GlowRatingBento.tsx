@@ -107,7 +107,10 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
   }
 
   return (
-    <section className="relative w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 overflow-hidden bg-[#ececeb] text-[#222]">
+    <section className="relative w-full py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 overflow-hidden bg-[#060216] text-white border-t border-purple-500/20">
+      {/* Subtle glowing violet dot matrix grid */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.1)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
+
       {/* Dynamic Keyframes for MotionSites AI Glass Sheen and Radar Beam */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes radarSweepBeam {
@@ -164,47 +167,47 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
         
         {/* SECTION HEADER (EXACT DETAILS PRESERVED) */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-600/30 text-xs font-semibold text-amber-900 mb-4 backdrop-blur-md shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-xs font-semibold text-purple-300 mb-4 backdrop-blur-md shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#c084fc]" />
             <span>⭐️ Verified Pilot Case Studies &amp; Client Feedback</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
             Trusted by Ambitious Global Founders
           </h2>
 
-          <p className="text-[15px] sm:text-base text-[#4a4a4a] mt-3 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[15px] sm:text-base text-slate-300 mt-3 max-w-2xl mx-auto leading-relaxed">
             See how our high-intent SEO and Next.js development deliver real organic revenue across the US, UK, and Europe.
           </p>
 
           {/* Region Filter Buttons */}
-          <div className="inline-flex items-center gap-1.5 p-1 mt-6 rounded-full bg-white/80 border border-slate-300 shadow-sm backdrop-blur-md">
+          <div className="inline-flex items-center gap-1.5 p-1 mt-6 rounded-full bg-white/[0.06] border border-purple-500/30 shadow-md backdrop-blur-md">
             <button
               onClick={() => setFilter("all")}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 filter === "all"
-                  ? "bg-[#111] text-white shadow-sm"
-                  : "text-slate-600 hover:text-black"
+                  ? "bg-gradient-to-r from-[#A068FF] to-[#7928CA] text-white shadow-[0_0_15px_rgba(160,104,255,0.4)]"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               All Case Studies
             </button>
             <button
               onClick={() => setFilter("usa")}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 filter === "usa"
-                  ? "bg-[#111] text-white shadow-sm"
-                  : "text-slate-600 hover:text-black"
+                  ? "bg-gradient-to-r from-[#A068FF] to-[#7928CA] text-white shadow-[0_0_15px_rgba(160,104,255,0.4)]"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               USA Founders 🇺🇸
             </button>
             <button
               onClick={() => setFilter("uk")}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 filter === "uk"
-                  ? "bg-[#111] text-white shadow-sm"
-                  : "text-slate-600 hover:text-black"
+                  ? "bg-gradient-to-r from-[#A068FF] to-[#7928CA] text-white shadow-[0_0_15px_rgba(160,104,255,0.4)]"
+                  : "text-slate-300 hover:text-white"
               }`}
             >
               UK Founders 🇬🇧

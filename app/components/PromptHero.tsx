@@ -127,10 +127,10 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           <h1
             className="font-urbanist text-[34px] sm:text-[46px] lg:text-[64px] font-semibold leading-[1.08] lg:leading-[64px] tracking-[-1.5px] min-h-[160px] sm:min-h-[190px] lg:min-h-[260px]"
           >
-            <span className="text-black">{blackSegment}</span>
-            <span className="text-white">{whiteSegment}</span>
+            <span className="text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">{blackSegment}</span>
+            <span className="bg-gradient-to-r from-[#d8b4fe] via-[#f0abfc] to-[#ffffff] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(160,104,255,0.7)]">{whiteSegment}</span>
             {/* Blinking Purple Cursor during/after typing */}
-            <span className="inline-block w-1 h-[0.85em] bg-[#A068FF] ml-1 align-baseline animate-pulse" />
+            <span className="inline-block w-1.5 h-[0.85em] bg-[#A068FF] ml-1 align-baseline animate-pulse shadow-[0_0_12px_rgba(160,104,255,0.9)]" />
           </h1>
 
           {/* Action Row: Start Project Button + Balaji Prime Media Cursor (Always side-by-side in same row) */}

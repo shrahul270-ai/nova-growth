@@ -147,20 +147,28 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden selection:bg-[#d97706] selection:text-white">
+      <div className="relative min-h-screen bg-[#060216] text-white overflow-hidden selection:bg-[#A068FF] selection:text-white font-inter">
+        {/* Subtle glowing violet dot matrix grid matching the footer */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.08)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
+
+        {/* Ambient luxury violet aurora glows */}
+        <div
+          aria-hidden="true"
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(160,104,255,0.12)_0%,transparent_70%)] pointer-events-none"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute top-2/3 right-0 w-[600px] h-[400px] bg-[radial-gradient(circle,rgba(99,102,241,0.12)_0%,transparent_70%)] pointer-events-none"
+        />
+
         {/* Floating Interactive Toast Notification */}
         {toast && (
-          <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
+          <div className="fixed top-24 right-6 z-50 bg-[#0c0624] text-white border border-purple-500/50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-ping" />
             <span>{toast}</span>
             <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
           </div>
         )}
-        {/* Soft Organic Iridescent Background Shapes (Animated via globals.css) */}
-        <div className="curved-ribbon-left" aria-hidden="true" />
-        <div className="curved-ribbon-right" aria-hidden="true" />
-        <div className="curved-ribbon-mid-left" aria-hidden="true" />
-        <div className="curved-ribbon-bottom" aria-hidden="true" />
 
         {/* 1. PROMPT FULL-SCREEN DARK HERO WITH BACKGROUND VIDEO, HEADLINE, SUBTITLE, CTA & MARQUEE */}
         <PromptHero onOpenConsultation={() => setContactOpen(true)} />
@@ -181,63 +189,66 @@ export default function Home() {
         {/* 4. ABOUT FOUNDERS / BALAJI PRIME MEDIA LEADERSHIP */}
         <AboutFoundersSection />
 
-        {/* 6. RECENT PROJECTS SECTION */}
-        <section id="projects" className="relative py-10 sm:py-14 px-4 sm:px-6 md:px-12 z-10">
+        {/* 6. RECENT PROJECTS SECTION (Luxury Obsidian & Violet Aesthetic) */}
+        <section id="projects" className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 border-t border-purple-500/20">
           <div className="max-w-7xl mx-auto">
             
             {/* Top row with heading & button */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-4">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4">
               <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                  <span>Our Work</span>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-[12px] font-semibold text-purple-300 mb-4 backdrop-blur-md shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
+                  <span>Our Featured Work</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
                   Recent Projects
                 </h2>
-                <p className="text-[15px] text-[#475569] mt-2">
-                  We&apos;ve helped businesses across industries achieve real results with our digital solutions.
+                <p className="text-[15px] sm:text-base text-slate-300 mt-2.5 leading-relaxed">
+                  We&apos;ve helped businesses across the US, UK, and worldwide achieve undeniable results with high-intent SEO and Next.js engineering.
                 </p>
               </div>
 
               <Link
                 href="/projects"
-                className="btn-3d inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[13.5px] font-bold px-6 py-3 rounded-full transition-all self-start md:self-auto cursor-pointer"
+                className="inline-flex items-center gap-2 text-white text-[13.5px] font-bold px-6 py-3 rounded-full transition-all self-start md:self-auto cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.4)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] hover:scale-105 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
+                }}
               >
                 <span>View All Projects</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </Link>
             </div>
 
-            {/* 3 Interactive Project Showcase Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* 3 Interactive Project Showcase Cards in Dark Obsidian Luxury */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
               
               {/* Project 1: Fashion Brand Website */}
               <Link
                 href="/projects/fashion-brand"
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
               >
-                <div className="relative bg-gradient-to-tr from-rose-50 to-amber-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-rose-100/50">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
+                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
+                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
                     E-Commerce Website
                   </div>
-                  <div className="w-40 h-44 bg-white rounded-xl shadow-md border border-gray-200 p-2 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform">
-                    <span className="text-3xl mb-1">👗</span>
-                    <span className="text-xs font-bold text-slate-800">Luxe Fashion US</span>
-                    <span className="text-[10px] text-[#d97706] font-semibold mt-1">+340% Sales</span>
+                  <div className="w-44 h-48 bg-[#0d0724] rounded-2xl shadow-2xl border border-purple-500/30 p-3 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform duration-300">
+                    <span className="text-4xl mb-2">👗</span>
+                    <span className="text-sm font-bold text-white">Luxe Fashion US</span>
+                    <span className="text-xs text-[#34d399] font-bold mt-1.5">+340% Sales Growth</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
                       Fashion Brand Website
                     </h3>
-                    <p className="text-[13px] text-[#64748b]">Web Development + SEO</p>
+                    <p className="text-[13px] text-slate-400 mt-0.5">Web Development + SEO</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
                     ↗
                   </div>
                 </div>
@@ -246,27 +257,27 @@ export default function Home() {
               {/* Project 2: Fitness App */}
               <Link
                 href="/projects/fitness-app"
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
               >
-                <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
-                    Mobile App
+                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
+                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
+                    Mobile &amp; Web Platform
                   </div>
-                  <div className="w-28 h-44 bg-slate-950 rounded-2xl shadow-md border-2 border-[#d97706]/40 p-2 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform">
-                    <span className="text-3xl mb-1">⚡</span>
-                    <span className="text-xs font-bold text-[#f59e0b]">PulseFit Pro</span>
-                    <span className="text-[9px] text-amber-200 font-medium mt-1">50K+ Downloads</span>
+                  <div className="w-32 h-48 bg-[#09041a] rounded-2xl shadow-2xl border-2 border-purple-500/40 p-3 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform duration-300">
+                    <span className="text-4xl mb-2">⚡</span>
+                    <span className="text-sm font-bold text-[#fcd34d]">PulseFit Pro</span>
+                    <span className="text-[10px] text-purple-300 font-semibold mt-1">50K+ Active Users</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
-                      Fitness App
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
+                      Fitness App Architecture
                     </h3>
-                    <p className="text-[13px] text-[#64748b]">UI/UX Design + Development</p>
+                    <p className="text-[13px] text-slate-400 mt-0.5">UI/UX Design + Next.js App</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-slate-100 text-[#091427] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
                     ↗
                   </div>
                 </div>
@@ -275,32 +286,32 @@ export default function Home() {
               {/* Project 3: Local Business Growth */}
               <Link
                 href="/projects/local-growth"
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-3d overflow-hidden flex flex-col justify-between cursor-pointer transition-all hover:border-[#d97706]/50"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
               >
-                <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
-                    SEO
+                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
+                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
+                    Enterprise SEO &amp; Maps
                   </div>
-                  <div className="w-44 h-36 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col justify-center text-left group-hover:scale-105 transition-transform">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold text-slate-800">Apex Dental UK</span>
-                      <span className="text-[#d97706] text-xs font-bold">#1 Google</span>
+                  <div className="w-48 h-40 bg-[#0d0724] rounded-2xl shadow-2xl border border-purple-500/30 p-3.5 flex flex-col justify-center text-left group-hover:scale-105 transition-transform duration-300">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-bold text-white">Apex Dental UK</span>
+                      <span className="text-[#34d399] text-xs font-extrabold">#1 Google</span>
                     </div>
-                    <span className="text-[10px] text-slate-500">Local Area Map Rankings</span>
-                    <div className="w-full bg-amber-100 h-2 rounded-full mt-2 overflow-hidden">
-                      <div className="bg-[#d97706] h-full w-[85%]" />
+                    <span className="text-[10.5px] text-slate-400">London Map Rankings</span>
+                    <div className="w-full bg-purple-950 h-2.5 rounded-full mt-3 overflow-hidden border border-purple-500/30">
+                      <div className="bg-gradient-to-r from-[#A068FF] to-[#34d399] h-full w-[92%]" />
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between px-2 pt-1">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
-                      Local Business Growth
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
+                      London Enterprise SEO
                     </h3>
-                    <p className="text-[13px] text-[#64748b]">SEO + Content Marketing</p>
+                    <p className="text-[13px] text-slate-400 mt-0.5">High-Intent Organic Strategy</p>
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
                     ↗
                   </div>
                 </div>
@@ -359,12 +370,12 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => setContactOpen(true)}
-                    className="group relative inline-flex items-center gap-2.5 text-white text-[14.5px] font-bold px-8 py-4 rounded-full shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 transition-all hover:scale-105 cursor-pointer overflow-hidden"
+                    className="group relative inline-flex items-center gap-2.5 text-white text-[14.5px] font-bold px-8 py-4 rounded-full shadow-xl shadow-purple-500/25 hover:shadow-purple-500/50 transition-all hover:scale-105 cursor-pointer overflow-hidden"
                     style={{
                       background:
-                        "linear-gradient(135deg, #f59e0b 0%, #d97706 60%, #b45309 100%)",
+                        "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
                       boxShadow:
-                        "0 12px 28px -4px rgba(217, 119, 6, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.35)",
+                        "0 12px 30px -4px rgba(160, 104, 255, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.35)",
                     }}
                   >
                     <span>Book a Free Consultation</span>

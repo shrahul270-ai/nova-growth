@@ -214,7 +214,7 @@ const CLIENT_CASES: ClientCase[] = [
 
 export default function ClientGrowthAtlas() {
   const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [isDusk, setIsDusk] = useState<boolean>(false);
+  const [isDusk, setIsDusk] = useState<boolean>(true);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
