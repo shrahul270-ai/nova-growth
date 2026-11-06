@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import FloatingConnect from "./components/FloatingConnect";
+import AIVoiceWidget from "./components/AIVoiceWidget";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
 import AnimatedBackground from "./components/AnimatedBackground";
@@ -133,6 +134,8 @@ export default function RootLayout({
         {children}
         {/* Sabhi pages par 3D animated connect popup */}
         <FloatingConnect />
+        {/* UK & Worldwide 24/7 AI Voice & Chat Concierge */}
+        <AIVoiceWidget />
         {/* GDPR/CCPA Compliant Cookie Consent Banner */}
         <CookieConsent />
       </body>
