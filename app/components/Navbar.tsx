@@ -146,17 +146,29 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Button: "Scale Your Traffic" linking to /guest-posting */}
+            {/* Right Action Button: "Get Started" with Hero-styled animated glowing border and chevron */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <Link
-                href="/guest-posting"
-                className="group relative inline-flex items-center justify-center px-5 sm:px-6 py-2 rounded-full text-[12.5px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.5)] hover:shadow-[0_0_36px_rgba(160,104,255,0.8)]"
-                style={{
-                  background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
-                }}
-              >
-                <span>Scale Your Traffic</span>
-              </Link>
+              <div className="btn-border-wrap shrink-0">
+                <Link
+                  href="/guest-posting"
+                  className="marketeam-start-btn !py-1.5 !px-4 sm:!px-5 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)]"
+                >
+                  <span>Get Started</span>
+                  <svg
+                    className="w-3.5 h-3.5 text-white shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
+              </div>
 
               {/* Minimalist 2-Bar Burger Button for Mobile */}
               <button
@@ -279,16 +291,28 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
           {/* Mobile Footer CTA */}
           <div className="pt-4 border-t border-purple-500/20 flex flex-col gap-3">
-            <Link
-              href="/guest-posting"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full h-12 rounded-full text-white font-bold text-sm flex items-center justify-center shadow-lg shadow-purple-950/80 transition-all cursor-pointer"
-              style={{
-                background: "linear-gradient(135deg, #A068FF 0%, #7928CA 100%)",
-              }}
-            >
-              <span>Scale Your Traffic</span>
-            </Link>
+            <div className="btn-border-wrap w-full">
+              <Link
+                href="/guest-posting"
+                onClick={() => setMobileMenuOpen(false)}
+                className="marketeam-start-btn w-full justify-center !py-3 !text-sm cursor-pointer shadow-lg shadow-purple-950/80"
+              >
+                <span>Get Started</span>
+                <svg
+                  className="w-4 h-4 text-white shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         </nav>
       )}
