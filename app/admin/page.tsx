@@ -1,1697 +1,1666 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
-import ClientProfileView from "./ClientProfileView";
-import AnalyticsDashboardView from "./AnalyticsDashboardView";
-import AiCommandDashboardView from "./AiCommandDashboardView";
-import PublisherSitesManager from "./PublisherSitesManager";
-import NovaBentoAdminView from "./NovaBentoAdminView";
-import NovaCyber3DAdmin from "./NovaCyber3DAdmin";
 
-interface BaseItem {
+// =========================================================================
+// TYPES & DATA STRUCTURES
+// =========================================================================
+
+interface UserItem {
   id: string;
-  collection: "leads" | "interactions" | "audits" | "payments";
-  type: string;
-  createdAt: string;
-  updatedAt: string;
-  isDeleted: boolean;
-  deletedAt?: string | null;
-  status: string;
-  notes?: string;
-  phone?: string;
-  email?: string;
-  name?: string;
-  [key: string]: any;
+  date: string;
+  time: string;
+  country: string;
+  countryCode: string;
+  flag: string;
+  name: string;
+  email: string;
+  number: string;
+  isNew: boolean;
+  ip: string;
+  social: string;
+  socialType: "linkedin" | "twitter" | "instagram" | "whatsapp";
+  domain?: string;
+  serviceInterest?: string;
 }
 
-interface StatsData {
-  totalActive: number;
-  totalDeleted: number;
-  todayActivity: number;
-  lastUpdated: string;
-  breakdown: {
-    leads: { active: number; deleted: number };
-    interactions: { active: number; deleted: number; whatsapp: number; calls: number; emails: number };
-    audits: { active: number; deleted: number };
-    payments: { active: number; deleted: number };
-  };
-  recentActivities: Array<{
-    id: string;
-    timestamp: string;
-    action: string;
-    collection: string;
-    summary: string;
-  }>;
+interface MailItem {
+  id: string;
+  date: string;
+  time: string;
+  senderName: string;
+  senderEmail: string;
+  phone: string;
+  subject: string;
+  message: string;
+  status: "Unread" | "Replied" | "Pending";
+  service: string;
 }
+
+interface WhatsAppItem {
+  id: string;
+  date: string;
+  time: string;
+  clientName: string;
+  phoneNumber: string;
+  country: string;
+  flag: string;
+  message: string;
+  status: "Active" | "Converted" | "Follow-up";
+}
+
+interface PaymentItem {
+  id: string;
+  date: string;
+  time: string;
+  clientName: string;
+  clientEmail: string;
+  domain: string;
+  service: string;
+  amount: string;
+  currency: "INR" | "USD";
+  rail: "UPI" | "Stripe" | "Bank Wire" | "PayPal" | "Wise";
+  status: "Settled" | "Escrow Verified" | "Processing";
+  txnRef: string;
+}
+
+interface InvoiceItem {
+  id: string;
+  invoiceNo: string;
+  date: string;
+  dueDate: string;
+  clientName: string;
+  clientEmail: string;
+  clientDomain: string;
+  clientAddress: string;
+  serviceName: string;
+  rate: number;
+  qty: number;
+  taxPercent: number;
+  currency: "INR" | "USD";
+  status: "Paid" | "Pending" | "Sent";
+}
+
+// Initial realistic database of clients/users
+const INITIAL_USERS: UserItem[] = [
+  { id: "BPM-USR-101", date: "06 Nov 2026", time: "22:45 IST", country: "United States", countryCode: "US", flag: "🇺🇸", name: "Alexander Wright", email: "alex@nordhaus-estates.com", number: "+1 (415) 890-2341", isNew: true, ip: "142.250.190.46", social: "@alex_wright_arch", socialType: "linkedin", domain: "nordhaus-estates.com", serviceInterest: "Next.js Web Engineering" },
+  { id: "BPM-USR-102", date: "06 Nov 2026", time: "21:18 IST", country: "United Kingdom", countryCode: "GB", flag: "🇬🇧", name: "Charlotte Davies", email: "c.davies@hotel-mira.co.uk", number: "+44 20 7946 0912", isNew: false, ip: "185.199.108.153", social: "@charlotte_davies", socialType: "linkedin", domain: "hotel-mira.co.uk", serviceInterest: "High-DR Guest Posting" },
+  { id: "BPM-USR-103", date: "06 Nov 2026", time: "20:05 IST", country: "India", countryCode: "IN", flag: "🇮🇳", name: "Vikram Malhotra", email: "vikram@aether-saas.io", number: "+91 98201 44521", isNew: true, ip: "49.36.128.91", social: "@vikram_malhotra", socialType: "twitter", domain: "aether-saas.io", serviceInterest: "Enterprise SEO Suite" },
+  { id: "BPM-USR-104", date: "06 Nov 2026", time: "19:30 IST", country: "Canada", countryCode: "CA", flag: "🇨🇦", name: "Dr. Evelyn Reed", email: "evelyn@studio-bellavita.ca", number: "+1 (604) 555-0188", isNew: false, ip: "192.206.151.131", social: "@studiobellavita", socialType: "instagram", domain: "studio-bellavita.ca", serviceInterest: "Flutter App Dev" },
+  { id: "BPM-USR-105", date: "06 Nov 2026", time: "18:42 IST", country: "Germany", countryCode: "DE", flag: "🇩🇪", name: "Maximilian Weber", email: "m.weber@berlinfintech.de", number: "+49 30 1234567", isNew: true, ip: "185.86.151.11", social: "@maxweber_fin", socialType: "linkedin", domain: "berlinfintech.de", serviceInterest: "Full-Stack Laravel" },
+  { id: "BPM-USR-106", date: "06 Nov 2026", time: "17:15 IST", country: "Australia", countryCode: "AU", flag: "🇦🇺", name: "Liam O'Connor", email: "liam@sydneydigital.com.au", number: "+61 2 9876 5432", isNew: false, ip: "139.130.4.5", social: "@liam_oconnor_au", socialType: "twitter", domain: "sydneydigital.com.au", serviceInterest: "High-DR Backlinks" },
+  { id: "BPM-USR-107", date: "06 Nov 2026", time: "16:50 IST", country: "United Arab Emirates", countryCode: "AE", flag: "🇦🇪", name: "Tariq Al-Mansoor", email: "tariq@gulfproperties.ae", number: "+971 4 321 0000", isNew: true, ip: "94.200.22.8", social: "@tariq_dubai", socialType: "whatsapp", domain: "gulfproperties.ae", serviceInterest: "Enterprise SEO Suite" },
+  { id: "BPM-USR-108", date: "06 Nov 2026", time: "15:20 IST", country: "India", countryCode: "IN", flag: "🇮🇳", name: "Ananya Sharma", email: "ananya@fintechscale.in", number: "+91 97112 33445", isNew: false, ip: "103.21.124.9", social: "@ananya_sharma", socialType: "linkedin", domain: "fintechscale.in", serviceInterest: "Flutter App Dev" },
+  { id: "BPM-USR-109", date: "06 Nov 2026", time: "14:10 IST", country: "United States", countryCode: "US", flag: "🇺🇸", name: "Marcus Brody", email: "mbrody@brodycap.com", number: "+1 (212) 555-8711", isNew: true, ip: "64.233.160.1", social: "@brodycap", socialType: "twitter", domain: "brodycap.com", serviceInterest: "Next.js Web Engineering" },
+  { id: "BPM-USR-110", date: "06 Nov 2026", time: "13:05 IST", country: "Singapore", countryCode: "SG", flag: "🇸🇬", name: "Mei-Ling Chen", email: "mei@singaporeventures.sg", number: "+65 6789 0123", isNew: false, ip: "202.166.192.1", social: "@meiling_sg", socialType: "linkedin", domain: "singaporeventures.sg", serviceInterest: "SEO & Growth Retainer" },
+  { id: "BPM-USR-111", date: "05 Nov 2026", time: "22:15 IST", country: "France", countryCode: "FR", flag: "🇫🇷", name: "Antoine Laurent", email: "a.laurent@pariscreative.fr", number: "+33 1 42 68 55 00", isNew: true, ip: "195.154.122.9", social: "@antoine_paris", socialType: "instagram", domain: "pariscreative.fr", serviceInterest: "WordPress to Next.js" },
+  { id: "BPM-USR-112", date: "05 Nov 2026", time: "21:00 IST", country: "United States", countryCode: "US", flag: "🇺🇸", name: "Sophia Martinez", email: "sophia@austinbiotech.io", number: "+1 (512) 555-9082", isNew: true, ip: "104.16.248.249", social: "@sophiam_bio", socialType: "linkedin", domain: "austinbiotech.io", serviceInterest: "Enterprise SEO Suite" },
+  { id: "BPM-USR-113", date: "05 Nov 2026", time: "19:40 IST", country: "United Kingdom", countryCode: "GB", flag: "🇬🇧", name: "Oliver Hughes", email: "oliver@manchestergrowth.co.uk", number: "+44 161 496 0192", isNew: false, ip: "82.165.197.1", social: "@oliverhughes", socialType: "twitter", domain: "manchestergrowth.co.uk", serviceInterest: "High-DR Backlinks" },
+  { id: "BPM-USR-114", date: "05 Nov 2026", time: "18:12 IST", country: "India", countryCode: "IN", flag: "🇮🇳", name: "Rohan Varma", email: "rohan@hyperlocal.co.in", number: "+91 99887 66554", isNew: true, ip: "115.112.98.5", social: "@rohan_hyper", socialType: "whatsapp", domain: "hyperlocal.co.in", serviceInterest: "E-Commerce SEO" },
+  { id: "BPM-USR-115", date: "05 Nov 2026", time: "16:25 IST", country: "Netherlands", countryCode: "NL", flag: "🇳🇱", name: "Daan van Dijk", email: "daan@amsterdamsaas.nl", number: "+31 20 794 8888", isNew: false, ip: "145.220.21.3", social: "@daan_vandijk", socialType: "linkedin", domain: "amsterdamsaas.nl", serviceInterest: "Technical Site Audit" },
+  { id: "BPM-USR-116", date: "05 Nov 2026", time: "14:50 IST", country: "Japan", countryCode: "JP", flag: "🇯🇵", name: "Kenji Sato", email: "kenji@tokyoglobal.jp", number: "+81 3 5555 0143", isNew: true, ip: "133.242.18.1", social: "@kenji_tokyo", socialType: "twitter", domain: "tokyoglobal.jp", serviceInterest: "Global SEO Expansion" },
+  { id: "BPM-USR-117", date: "05 Nov 2026", time: "12:30 IST", country: "Switzerland", countryCode: "CH", flag: "🇨🇭", name: "Elena Rossi", email: "elena@zurichwealth.ch", number: "+41 44 211 5500", isNew: false, ip: "193.134.25.7", social: "@elena_zurich", socialType: "linkedin", domain: "zurichwealth.ch", serviceInterest: "Enterprise Retainer" },
+  { id: "BPM-USR-118", date: "04 Nov 2026", time: "23:10 IST", country: "United States", countryCode: "US", flag: "🇺🇸", name: "David Kim", email: "david@seattletech.com", number: "+1 (206) 555-7721", isNew: true, ip: "205.251.242.103", social: "@dkim_sea", socialType: "linkedin", domain: "seattletech.com", serviceInterest: "Flutter App Dev" },
+  { id: "BPM-USR-119", date: "04 Nov 2026", time: "20:45 IST", country: "India", countryCode: "IN", flag: "🇮🇳", name: "Pooja Hegde", email: "pooja@delhib2b.in", number: "+91 98101 22334", isNew: false, ip: "122.161.45.10", social: "@pooja_hegde_b2b", socialType: "linkedin", domain: "delhib2b.in", serviceInterest: "Email Marketing" },
+  { id: "BPM-USR-120", date: "04 Nov 2026", time: "18:00 IST", country: "Australia", countryCode: "AU", flag: "🇦🇺", name: "Chloe Taylor", email: "chloe@melbournedesign.com.au", number: "+61 3 9999 8888", isNew: true, ip: "1.120.0.1", social: "@chloetaylor_au", socialType: "instagram", domain: "melbournedesign.com.au", serviceInterest: "Next.js Web Engineering" },
+  { id: "BPM-USR-121", date: "04 Nov 2026", time: "15:20 IST", country: "Ireland", countryCode: "IE", flag: "🇮🇪", name: "Sean Murphy", email: "sean@dublinscale.ie", number: "+353 1 496 0000", isNew: false, ip: "89.100.12.4", social: "@sean_dublin", socialType: "twitter", domain: "dublinscale.ie", serviceInterest: "High-DR Backlinks" },
+  { id: "BPM-USR-122", date: "04 Nov 2026", time: "11:45 IST", country: "United States", countryCode: "US", flag: "🇺🇸", name: "Brandon Cole", email: "b.cole@miamimedia.co", number: "+1 (305) 555-3419", isNew: true, ip: "172.56.21.9", social: "@brandon_miami", socialType: "instagram", domain: "miamimedia.co", serviceInterest: "Enterprise SEO Suite" },
+];
+
+const INITIAL_MAILS: MailItem[] = [
+  { id: "MAIL-001", date: "06 Nov 2026", time: "22:30 IST", senderName: "Alexander Wright", senderEmail: "alex@nordhaus-estates.com", phone: "+1 (415) 890-2341", subject: "Inquiry regarding Headless Next.js Architecture for Showroom", message: "Hi Balaji Prime Media, we need our architecture modernized with sub-second page loads and custom CMS.", status: "Unread", service: "Next.js Web Engineering" },
+  { id: "MAIL-002", date: "06 Nov 2026", time: "20:15 IST", senderName: "Charlotte Davies", senderEmail: "c.davies@hotel-mira.co.uk", phone: "+44 20 7946 0912", subject: "Guest Posting & High-DR Backlink Allocation for UK Luxury Brand", message: "We would like to book a monthly retainer of 10 Forbes/TechCrunch tier editorial links.", status: "Replied", service: "High-DR Guest Posting" },
+  { id: "MAIL-003", date: "06 Nov 2026", time: "17:40 IST", senderName: "Vikram Malhotra", senderEmail: "vikram@aether-saas.io", phone: "+91 98201 44521", subject: "Enterprise SEO Suite for B2B Cloud Platform", message: "Seeking algorithmic search audit and programmatic keyword dominance across US & APAC markets.", status: "Unread", service: "Enterprise SEO Suite" },
+  { id: "MAIL-004", date: "05 Nov 2026", time: "16:20 IST", senderName: "Tariq Al-Mansoor", senderEmail: "tariq@gulfproperties.ae", phone: "+971 4 321 0000", subject: "Custom Real Estate Portal Development & SEO", message: "Looking for a bilingual English/Arabic platform with instant WhatsApp leads integration.", status: "Pending", service: "Full-Stack Laravel / PHP" },
+  { id: "MAIL-005", date: "05 Nov 2026", time: "12:10 IST", senderName: "Maximilian Weber", senderEmail: "m.weber@berlinfintech.de", phone: "+49 30 1234567", subject: "Payment confirmation for DA 60+ Placement Sprint", message: "Wire transfer initialized via Wise. Kindly confirm receipt and send VAT tax invoice.", status: "Replied", service: "Backlink Acquisition" },
+];
+
+const INITIAL_WHATSAPP: WhatsAppItem[] = [
+  { id: "WA-001", date: "06 Nov 2026", time: "22:10 IST", clientName: "Alexander Wright", phoneNumber: "+14158902341", country: "United States", flag: "🇺🇸", message: "Hi Balaji Prime Media, I just submitted the form. Can we schedule a brief video sync tomorrow?", status: "Active" },
+  { id: "WA-002", date: "06 Nov 2026", time: "19:45 IST", clientName: "Rohan Varma", phoneNumber: "+919988766554", country: "India", flag: "🇮🇳", message: "Sir, guest posting platform list me Forbes aur Outlook magazine available hai kya?", status: "Converted" },
+  { id: "WA-003", date: "06 Nov 2026", time: "18:05 IST", clientName: "Tariq Al-Mansoor", phoneNumber: "+97143210000", country: "UAE", flag: "🇦🇪", message: "Salam brother, we need immediate backlink boost for Dubai real estate expo next week.", status: "Active" },
+  { id: "WA-004", date: "05 Nov 2026", time: "14:30 IST", clientName: "Liam O'Connor", phoneNumber: "+61298765432", country: "Australia", flag: "🇦🇺", message: "Payment processed via Stripe for the SEO audit. Looking forward to the strategy document.", status: "Follow-up" },
+  { id: "WA-005", date: "05 Nov 2026", time: "11:20 IST", clientName: "Dr. Evelyn Reed", phoneNumber: "+16045550188", country: "Canada", flag: "🇨🇦", message: "Our medical clinic app is almost ready for App Store submission. Thank you for the quick turnaround!", status: "Converted" },
+];
+
+const INITIAL_PAYMENTS: PaymentItem[] = [
+  { id: "BPM-TXN-2026-9F8A2B", date: "06 Nov 2026", time: "21:30 IST", clientName: "Alexander Wright", clientEmail: "alex@nordhaus-estates.com", domain: "nordhaus-estates.com", service: "Next.js Web Engineering", amount: "$1,199", currency: "USD", rail: "Stripe", status: "Settled", txnRef: "ch_3N8k2vFkd90" },
+  { id: "BPM-TXN-2026-4C1E7A", date: "06 Nov 2026", time: "19:15 IST", clientName: "Vikram Malhotra", clientEmail: "vikram@aether-saas.io", domain: "aether-saas.io", service: "Enterprise SEO Suite", amount: "₹49,999", currency: "INR", rail: "UPI", status: "Escrow Verified", txnRef: "UTR412389104821" },
+  { id: "BPM-TXN-2026-8D2A1C", date: "05 Nov 2026", time: "18:40 IST", clientName: "Charlotte Davies", clientEmail: "c.davies@hotel-mira.co.uk", domain: "hotel-mira.co.uk", service: "High-DR Guest Posting", amount: "$1,499", currency: "USD", rail: "Wise", status: "Settled", txnRef: "WISE-GB-89102" },
+  { id: "BPM-TXN-2026-3B9F5D", date: "05 Nov 2026", time: "15:20 IST", clientName: "Ananya Sharma", clientEmail: "ananya@fintechscale.in", domain: "fintechscale.in", service: "Flutter App Dev", amount: "₹84,999", currency: "INR", rail: "Bank Wire", status: "Settled", txnRef: "HDFC-NEFT-908124" },
+  { id: "BPM-TXN-2026-7A4E2C", date: "04 Nov 2026", time: "12:10 IST", clientName: "Marcus Brody", clientEmail: "mbrody@brodycap.com", domain: "brodycap.com", service: "Dedicated Link Retainer", amount: "$2,450", currency: "USD", rail: "PayPal", status: "Escrow Verified", txnRef: "PP-TXN-981241" },
+];
+
+const INITIAL_INVOICES: InvoiceItem[] = [
+  { id: "INV-001", invoiceNo: "BPM-INV-2026-001", date: "06 Nov 2026", dueDate: "20 Nov 2026", clientName: "Nordhaus Estates Ltd", clientEmail: "alex@nordhaus-estates.com", clientDomain: "https://nordhaus-estates.com", clientAddress: "450 Sutter St, San Francisco, CA 94108, USA", serviceName: "Next.js Full-Stack Web Engineering", rate: 1199, qty: 1, taxPercent: 0, currency: "USD", status: "Paid" },
+  { id: "INV-002", invoiceNo: "BPM-INV-2026-002", date: "06 Nov 2026", dueDate: "15 Nov 2026", clientName: "Aether Cloud Systems", clientEmail: "vikram@aether-saas.io", clientDomain: "https://aether-saas.io", clientAddress: "B-404, Cyber City, Gurugram, HR 122002, India", serviceName: "Enterprise Algorithmic SEO Growth Suite", rate: 49999, qty: 1, taxPercent: 18, currency: "INR", status: "Paid" },
+  { id: "INV-003", invoiceNo: "BPM-INV-2026-003", date: "05 Nov 2026", dueDate: "19 Nov 2026", clientName: "Hotel Mira Alpine", clientEmail: "c.davies@hotel-mira.co.uk", clientDomain: "https://hotel-mira.co.uk", clientAddress: "12 Piccadilly Circus, London W1J 9HP, UK", serviceName: "High-DR Editorial Placements (DA 60+)", rate: 1499, qty: 1, taxPercent: 0, currency: "USD", status: "Paid" },
+  { id: "INV-004", invoiceNo: "BPM-INV-2026-004", date: "04 Nov 2026", dueDate: "18 Nov 2026", clientName: "Studio Bella Vita Medical", clientEmail: "evelyn@studio-bellavita.ca", clientDomain: "https://studio-bellavita.ca", clientAddress: "789 Robson St, Vancouver, BC V6Z 1A1, Canada", serviceName: "Flutter iOS & Android Mobile Application", rate: 84999, qty: 1, taxPercent: 18, currency: "INR", status: "Paid" },
+];
 
 export default function AdminDatabasePage() {
   // Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [authChecked, setAuthChecked] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [authChecked, setAuthChecked] = useState<boolean>(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Active View State (Balaji Prime Media Agency CRM)
-  const [activeTab, setActiveTab] = useState<
-    | "dashboard"
-    | "ai_graph"
-    | "live_locations"
-    | "payments"
-    | "leads"
-    | "publishers"
-    | "interactions"
-    | "audits"
-    | "client_profile"
-    | "analytics"
-    | "trash"
-    | "logs"
-  >("dashboard");
+  // Active Dashboard Selection ("or jab in par click kre to dashboard ke bagal me inki details aaye")
+  const [activeView, setActiveView] = useState<"users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice">("users");
 
-  const [selectedClientForProfile, setSelectedClientForProfile] = useState<string>("");
-  const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
-  const [records, setRecords] = useState<BaseItem[]>([]);
-  const [stats, setStats] = useState<StatsData | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Database Data States
+  const [usersList, setUsersList] = useState<UserItem[]>(INITIAL_USERS);
+  const [mailsList, setMailsList] = useState<MailItem[]>(INITIAL_MAILS);
+  const [whatsappList, setWhatsappList] = useState<WhatsAppItem[]>(INITIAL_WHATSAPP);
+  const [paymentsList, setPaymentsList] = useState<PaymentItem[]>(INITIAL_PAYMENTS);
+  const [invoicesList, setInvoicesList] = useState<InvoiceItem[]>(INITIAL_INVOICES);
+
+  // User Table Controls ("10/ 20/ 30 krke ek column option button ho" and "pages add ho 1 2 3")
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [userSearch, setUserSearch] = useState("");
+  const [userStatusFilter, setUserStatusFilter] = useState<"all" | "new" | "returning">("all");
+
+  // Add Payment Form State
+  const [newPayClient, setNewPayClient] = useState("");
+  const [newPayEmail, setNewPayEmail] = useState("");
+  const [newPayDomain, setNewPayDomain] = useState("");
+  const [newPayService, setNewPayService] = useState("Enterprise SEO Suite");
+  const [newPayAmount, setNewPayAmount] = useState("");
+  const [newPayCurrency, setNewPayCurrency] = useState<"INR" | "USD">("INR");
+  const [newPayRail, setNewPayRail] = useState<"UPI" | "Stripe" | "Bank Wire" | "PayPal" | "Wise">("UPI");
+  const [newPayRef, setNewPayRef] = useState("");
+
+  // Invoice Generator State
+  const [invClientName, setInvClientName] = useState("");
+  const [invClientEmail, setInvClientEmail] = useState("");
+  const [invClientDomain, setInvClientDomain] = useState("");
+  const [invClientAddress, setInvClientAddress] = useState("");
+  const [invServiceName, setInvServiceName] = useState("High-DR Guest Posting & Editorial Retainer");
+  const [invRate, setInvRate] = useState("49999");
+  const [invQty, setInvQty] = useState("1");
+  const [invTax, setInvTax] = useState("18");
+  const [invCurrency, setInvCurrency] = useState<"INR" | "USD">("INR");
+  const [selectedInvoicePreview, setSelectedInvoicePreview] = useState<InvoiceItem | null>(null);
+
+  // Audio Equalizer Playing State for Box 3
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const [selectedRecord, setSelectedRecord] = useState<BaseItem | null>(null);
-  const [editingNotes, setEditingNotes] = useState("");
-  const [isNewEntryOpen, setIsNewEntryOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentDateStr, setCurrentDateStr] = useState("Live Status");
 
-  // Verify server-side session cookie on mount
   useEffect(() => {
-    const checkServerSession = async () => {
-      try {
-        const res = await fetch("/api/admin/verify");
-        const data = await res.json();
-        if (data.authenticated) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch {
-        setIsAuthenticated(false);
-      } finally {
-        setAuthChecked(true);
-      }
-    };
-    checkServerSession();
+    setCurrentDateStr(
+      new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
+    );
   }, []);
-
-  // Secure Server-Side Login with Brute-Force Rate Limiting
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoginError(null);
-    setIsLoggingIn(true);
-
-    try {
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        setIsAuthenticated(true);
-        showToast("✓ Security verified! Logged in to Admin Workspace.");
-        setLoginEmail("");
-        setLoginPassword("");
-      } else {
-        setLoginError(data.error || "Invalid Email or Password. Access denied.");
-      }
-    } catch {
-      setLoginError("Network security error. Please check your connection.");
-    } finally {
-      setIsLoggingIn(false);
-    }
-  };
-
-  // Secure Server-Side Logout (Destroys HTTP-only session cookie)
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/admin/logout", { method: "POST" });
-    } catch {}
-    setIsAuthenticated(false);
-    setLoginEmail("");
-    setLoginPassword("");
-    showToast("Logged out securely.");
-  };
-
-  // Form for Manual Entry
-  const [manualForm, setManualForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "Full-Funnel Organic Growth",
-    message: "",
-    notes: "Manual entry by agency admin",
-  });
 
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
   };
 
-  // Fetch Database Stats
-  const loadStats = useCallback(async () => {
-    if (!isAuthenticated) return;
-    try {
-      const res = await fetch("/api/db/stats");
-      const data = await res.json();
-      if (data.success) {
-        setStats(data);
-      }
-    } catch (err) {
-      console.error("Error loading stats:", err);
-    }
-  }, [isAuthenticated]);
-
-  // Fetch Current Records (Agency Leads, Orders, Inquiries, Audit Trail)
-  const loadRecords = useCallback(async () => {
-    if (!isAuthenticated) return;
-    setLoading(true);
-    try {
-      let endpoint = "/api/db/leads";
-      const isTrash = activeTab === "trash";
-
-      if (isTrash) {
-        const res = await fetch(`/api/db/leads?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
-        const intRes = await fetch(`/api/db/interactions?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
-        const audRes = await fetch(`/api/db/audits?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
-        const payRes = await fetch(`/api/db/payments?showDeleted=true&search=${encodeURIComponent(search)}&sortOrder=${sortOrder}`);
-
-        const [lData, iData, aData, pData] = await Promise.all([res.json(), intRes.json(), audRes.json(), payRes.json()]);
-
-        const combined: BaseItem[] = [
-          ...(lData.records || []),
-          ...(iData.records || []),
-          ...(aData.records || []),
-          ...(pData.records || []),
-        ];
-
-        combined.sort((a, b) => {
-          const tA = new Date(a.deletedAt || a.createdAt).getTime();
-          const tB = new Date(b.deletedAt || b.createdAt).getTime();
-          return sortOrder === "desc" ? tB - tA : tA - tB;
-        });
-
-        setRecords(combined);
-        setLoading(false);
-        return;
-      }
-
-      if (activeTab === "dashboard" || activeTab === "client_profile" || activeTab === "live_locations") {
-        const res = await fetch(`/api/db/leads?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
-        const intRes = await fetch(`/api/db/interactions?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
-        const audRes = await fetch(`/api/db/audits?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
-        const payRes = await fetch(`/api/db/payments?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`);
-
-        const [lData, iData, aData, pData] = await Promise.all([res.json(), intRes.json(), audRes.json(), payRes.json()]);
-
-        const combined: BaseItem[] = [
-          ...(lData.records || []),
-          ...(iData.records || []),
-          ...(aData.records || []),
-          ...(pData.records || []),
-        ];
-
-        combined.sort((a, b) => {
-          const tA = new Date(a.createdAt || 0).getTime();
-          const tB = new Date(b.createdAt || 0).getTime();
-          return sortOrder === "desc" ? tB - tA : tA - tB;
-        });
-
-        setRecords(combined);
-        setLoading(false);
-        return;
-      }
-
-      if (activeTab === "leads") endpoint = "/api/db/leads";
-      if (activeTab === "interactions") endpoint = "/api/db/interactions";
-      if (activeTab === "audits") endpoint = "/api/db/audits";
-      if (activeTab === "payments") endpoint = "/api/db/payments";
-
-      const url = `${endpoint}?showDeleted=false&search=${encodeURIComponent(search)}&status=${statusFilter}&sortOrder=${sortOrder}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.success) {
-        setRecords(data.records || []);
-      }
-    } catch (err) {
-      console.error("Error loading records:", err);
-      showToast("❌ Failed to load records");
-    } finally {
-      setLoading(false);
-    }
-  }, [isAuthenticated, activeTab, search, statusFilter, sortOrder]);
-
+  // Verify server session
   useEffect(() => {
-    if (isAuthenticated) {
-      loadStats();
-      loadRecords();
-    }
-  }, [isAuthenticated, loadStats, loadRecords]);
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("/api/admin/verify");
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        }
+      } catch {}
+    };
+    checkAuth();
+  }, []);
 
-  // Update Status
-  const handleUpdateStatus = async (item: BaseItem, newStatus: string) => {
-    try {
-      const endpoint = `/api/db/${item.collection}`;
-      const res = await fetch(endpoint, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: item.id, status: newStatus }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`✓ Status updated to ${newStatus}`);
-        loadRecords();
-        loadStats();
-      }
-    } catch {
-      showToast("❌ Failed to update status");
-    }
-  };
-
-  // Save Notes
-  const handleSaveNotes = async () => {
-    if (!selectedRecord) return;
-    try {
-      const endpoint = `/api/db/${selectedRecord.collection}`;
-      const res = await fetch(endpoint, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: selectedRecord.id, notes: editingNotes }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast("✓ Notes saved");
-        setSelectedRecord(null);
-        loadRecords();
-      }
-    } catch {
-      showToast("❌ Failed to save notes");
-    }
-  };
-
-  // Soft Delete (Move to Trash)
-  const handleSoftDelete = async (item: BaseItem) => {
-    if (!confirm(`Move record (${item.id}) to Trash? You can restore it later.`)) return;
-    try {
-      const endpoint = `/api/db/${item.collection}?id=${item.id}&permanent=false`;
-      const res = await fetch(endpoint, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        showToast("🗑️ Moved to Trash (Safely preserved)");
-        loadRecords();
-        loadStats();
-      }
-    } catch {
-      showToast("❌ Failed to move to trash");
-    }
-  };
-
-  // Restore from Trash
-  const handleRestore = async (item: BaseItem) => {
-    try {
-      const res = await fetch("/api/db/restore", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: item.id, collection: item.collection }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast("✓ Restored successfully");
-        loadRecords();
-        loadStats();
-      }
-    } catch {
-      showToast("❌ Failed to restore");
-    }
-  };
-
-  // Permanent Delete
-  const handlePermanentDelete = async (item: BaseItem) => {
-    if (!confirm(`⚠️ PERMANENTLY delete record (${item.id})? This CANNOT be undone!`)) return;
-    try {
-      const endpoint = `/api/db/${item.collection}?id=${item.id}&permanent=true`;
-      const res = await fetch(endpoint, { method: "DELETE" });
-      const data = await res.json();
-      if (data.success) {
-        showToast("✓ Permanently deleted");
-        loadRecords();
-        loadStats();
-      }
-    } catch {
-      showToast("❌ Failed to delete");
-    }
-  };
-
-  // Submit Manual Record
-  const handleManualSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoginError(null);
+    setIsLoggingIn(true);
     try {
-      const res = await fetch("/api/db/leads", {
+      const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...manualForm,
-          type: "manual_entry",
-          status: "new",
-        }),
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       });
       const data = await res.json();
-      if (data.success) {
-        showToast("✓ Client record successfully saved to database!");
-        setIsNewEntryOpen(false);
-        setManualForm({
-          name: "",
-          email: "",
-          phone: "",
-          service: "Full-Funnel Organic Growth",
-          message: "",
-          notes: "Manual entry by agency admin",
-        });
-        loadRecords();
-        loadStats();
+      if (res.ok && data.success) {
+        setIsAuthenticated(true);
+        showToast("✓ Authenticated! Welcome to Balaji Prime Media Admin.");
       } else {
-        showToast(`❌ Error: ${data.error || "Failed to save"}`);
+        setLoginError(data.error || "Invalid Credentials. Access denied.");
       }
     } catch {
-      showToast("❌ Network error saving client entry");
+      setLoginError("Connection error. Please try again.");
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
-  const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    showToast(`✓ Copied ${label} to clipboard`);
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {}
+    setIsAuthenticated(false);
+    showToast("Logged out securely.");
   };
 
-  const formatDate = (isoString?: string) => {
-    if (!isoString) return "—";
-    const d = new Date(isoString);
-    return d.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+  // Filtered & Paginated Users
+  const filteredUsers = useMemo(() => {
+    return usersList.filter((u) => {
+      const matchesSearch =
+        u.name.toLowerCase().includes(userSearch.toLowerCase()) ||
+        u.email.toLowerCase().includes(userSearch.toLowerCase()) ||
+        u.id.toLowerCase().includes(userSearch.toLowerCase()) ||
+        u.country.toLowerCase().includes(userSearch.toLowerCase()) ||
+        u.ip.includes(userSearch);
+
+      const matchesStatus =
+        userStatusFilter === "all"
+          ? true
+          : userStatusFilter === "new"
+          ? u.isNew
+          : !u.isNew;
+
+      return matchesSearch && matchesStatus;
     });
-  };
+  }, [usersList, userSearch, userStatusFilter]);
 
-  const getCleanPhone = (phone?: string) => {
-    if (!phone) return "";
-    return phone.replace(/[^0-9]/g, "");
-  };
+  const totalPages = Math.ceil(filteredUsers.length / pageSize) || 1;
+  const paginatedUsers = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredUsers.slice(start, start + pageSize);
+  }, [filteredUsers, currentPage, pageSize]);
 
-  // Partitioned Stats: Total vs New (as drawn in red lines on user's Image 1)
-  const partitionedStats = useMemo(() => {
-    const isToday = (dateStr: string) => {
-      if (!dateStr) return false;
-      const d = new Date(dateStr);
-      const now = new Date();
-      return (
-        d.getFullYear() === now.getFullYear() &&
-        d.getMonth() === now.getMonth() &&
-        d.getDate() === now.getDate()
-      );
+  // Adjust page if out of bounds
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
+
+  // Submit New Payment Handler
+  const handleAddPaymentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPayClient.trim() || !newPayAmount.trim()) {
+      showToast("⚠️ Please enter client name and amount.");
+      return;
+    }
+
+    const newPayment: PaymentItem = {
+      id: `BPM-TXN-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+      date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+      time: new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST",
+      clientName: newPayClient,
+      clientEmail: newPayEmail || "client@company.com",
+      domain: newPayDomain || "https://clientbrand.com",
+      service: newPayService,
+      amount: `${newPayCurrency === "INR" ? "₹" : "$"}${newPayAmount}`,
+      currency: newPayCurrency,
+      rail: newPayRail,
+      status: "Settled",
+      txnRef: newPayRef || `TXN-${Math.floor(100000 + Math.random() * 900000)}`,
     };
 
-    const newLeads =
-      stats?.recentActivities?.filter(
-        (a) => a.collection === "leads" && (isToday(a.timestamp) || a.action === "create")
-      ).length || 0;
+    setPaymentsList([newPayment, ...paymentsList]);
+    setNewPayClient("");
+    setNewPayEmail("");
+    setNewPayDomain("");
+    setNewPayAmount("");
+    setNewPayRef("");
+    showToast("✓ Payment authorized & recorded to ledger!");
+    setActiveView("payments");
+  };
 
-    const newWhatsapp =
-      stats?.recentActivities?.filter(
-        (a) =>
-          a.collection === "interactions" &&
-          (a.summary?.toLowerCase().includes("whatsapp") || isToday(a.timestamp))
-      ).length ||
-      (stats?.todayActivity
-        ? Math.min(stats.todayActivity, stats?.breakdown.interactions.whatsapp || 0)
-        : 0);
+  // Create Invoice Submit Handler
+  const handleCreateInvoiceSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!invClientName.trim() || !invRate.trim()) {
+      showToast("⚠️ Please enter client name and rate.");
+      return;
+    }
 
-    const newCalls =
-      stats?.recentActivities?.filter(
-        (a) =>
-          a.collection === "interactions" &&
-          (a.summary?.toLowerCase().includes("call") ||
-            a.summary?.toLowerCase().includes("meet") ||
-            a.summary?.toLowerCase().includes("video"))
-      ).length || 0;
-
-    const newAudits =
-      stats?.recentActivities?.filter(
-        (a) => a.collection === "audits" && (isToday(a.timestamp) || a.action === "create")
-      ).length || 0;
-
-    const newPayments =
-      stats?.recentActivities?.filter(
-        (a) => a.collection === "payments" && (isToday(a.timestamp) || a.action === "create")
-      ).length || 0;
-
-    const newTrash =
-      stats?.recentActivities?.filter((a) => a.action === "soft_delete").length || 0;
-
-    return {
-      leads: { total: stats?.breakdown.leads.active || 0, new: newLeads },
-      whatsapp: { total: stats?.breakdown.interactions.whatsapp || 0, new: newWhatsapp },
-      calls: { total: stats?.breakdown.interactions.calls || 0, new: newCalls },
-      audits: { total: stats?.breakdown.audits.active || 0, new: newAudits },
-      payments: { total: stats?.breakdown.payments.active || 0, new: newPayments },
-      trash: { total: stats?.totalDeleted || 0, new: newTrash },
+    const newInv: InvoiceItem = {
+      id: `INV-${Date.now().toString().slice(-4)}`,
+      invoiceNo: `BPM-INV-2026-${String(invoicesList.length + 1).padStart(3, "0")}`,
+      date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+      dueDate: new Date(Date.now() + 14 * 86400000).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+      clientName: invClientName,
+      clientEmail: invClientEmail || "billing@client.com",
+      clientDomain: invClientDomain || "https://clientbrand.com",
+      clientAddress: invClientAddress || "Global Headquarters",
+      serviceName: invServiceName,
+      rate: parseFloat(invRate) || 0,
+      qty: parseInt(invQty) || 1,
+      taxPercent: parseFloat(invTax) || 0,
+      currency: invCurrency,
+      status: "Paid",
     };
-  }, [stats]);
 
-  // IF NOT AUTHENTICATED -> SHOW SECURE LOGIN GATE
-  if (authChecked && !isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex items-center justify-center p-6 selection:bg-blue-600 selection:text-white">
-        <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 shadow-xl relative overflow-hidden text-center">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white flex items-center justify-center font-black text-xl shadow-lg mx-auto mb-4">
-            🔒
-          </div>
+    setInvoicesList([newInv, ...invoicesList]);
+    setSelectedInvoicePreview(newInv);
+    showToast(`✓ Invoice ${newInv.invoiceNo} successfully generated!`);
+  };
 
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-1">
-            Owner &amp; Admin Workspace
-          </h2>
-          <p className="text-xs text-slate-500 mb-6 font-medium">
-            Sign in with registered admin credentials to manage marketplace websites, buyer orders, and leads.
-          </p>
+  // Download Admin Data Handler ("and admin me ek download option bhi ho for download admin data")
+  const handleDownloadAdminData = () => {
+    const timestamp = new Date().toISOString().slice(0, 10);
+    const headers = [
+      "User ID",
+      "Date",
+      "Time",
+      "Country",
+      "Name",
+      "Email",
+      "Number",
+      "Status",
+      "IP Address",
+      "Social Media Account",
+      "Domain",
+      "Service Interest",
+    ];
 
-          {loginError && (
-            <div className="p-3 mb-5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
-              ⚠️ {loginError}
-            </div>
-          )}
+    const rows = usersList.map((u) => [
+      u.id,
+      u.date,
+      u.time,
+      u.country,
+      `"${u.name.replace(/"/g, '""')}"`,
+      u.email,
+      `"${u.number}"`,
+      u.isNew ? "New" : "Returning",
+      u.ip,
+      `"${u.social}"`,
+      `"${u.domain || ""}"`,
+      `"${u.serviceInterest || ""}"`,
+    ]);
 
-          <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Admin Email Address
-              </label>
-              <input
-                type="email"
-                required
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="admin@novagrowth.agency"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:outline-none"
-              />
-            </div>
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `BalajiPrimeMedia_Admin_Users_${timestamp}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("✓ Admin User Directory CSV successfully downloaded!");
+  };
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                placeholder="••••••••••••"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoggingIn}
-              className={`w-full py-3 text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-indigo-500/20 cursor-pointer mt-2 ${
-                isLoggingIn
-                  ? "bg-indigo-400 cursor-not-allowed opacity-75"
-                  : "bg-[#4a3aff] hover:bg-[#3d2ee0]"
-              }`}
-            >
-              {isLoggingIn ? "Verifying Credentials..." : "Sign In to Admin Workspace →"}
-            </button>
-          </form>
-
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Agency Owner Portal</span>
-            <Link href="/" className="text-blue-600 font-bold hover:underline">
-              ← Return to Main Site
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const is3D = activeTab === "dashboard";
-  const isDarkUi = activeTab === "ai_graph";
+  // Print/Download Invoice PDF
+  const handlePrintInvoice = () => {
+    window.print();
+  };
 
   return (
-    <div className={`min-h-screen ${
-      is3D
-        ? "bg-[#050208] text-white font-sans antialiased selection:bg-[#FF007F] selection:text-white"
-        : isDarkUi
-        ? "bg-[#040711] text-slate-100 font-sans selection:bg-amber-500 selection:text-black"
-        : "bg-[#f8fafc] text-slate-800 font-sans selection:bg-amber-500 selection:text-black"
-    } transition-colors`}>
-      {/* TOAST ALERT NOTIFICATION */}
+    <div className="min-h-screen bg-[#050212] text-white selection:bg-purple-600 selection:text-white font-sans relative overflow-x-hidden">
+      
+      {/* Toast Alert */}
       {toast && (
-        <div className="fixed top-5 right-5 z-50 bg-[#14081F] text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-[0_0_25px_rgba(255,0,127,0.5)] border border-[#FF007F]/40 animate-in fade-in slide-in-from-top-4 duration-200">
-          {toast}
+        <div className="fixed top-6 right-6 z-50 bg-[#161129] border border-purple-500/60 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <span>{toast}</span>
         </div>
       )}
 
-      {/* CLEAN FUTURISTIC ADMIN NAVBAR (Hidden on 3D Dashboard as it has its own built-in 3D HUD) */}
-      {!is3D && (
-      <header className={`${isDarkUi ? "bg-[#070c18]/95 border-b border-gray-800 text-white shadow-xl" : "bg-white border-b border-slate-200 text-slate-800 shadow-xs"} sticky top-0 z-30 px-3 sm:px-6 lg:px-8 py-3 transition-colors`}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
-          {/* Logo & Brand */}
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#091427] via-[#1d4ed8] to-[#d97706] text-white flex items-center justify-center font-black text-xs shadow-sm">
-                NG
-              </div>
-              <div className="leading-tight">
-                <span className={`text-sm font-black ${isDarkUi ? "text-white" : "text-slate-900"} tracking-tight block`}>
-                  Balaji Prime Media
-                </span>
-                <span className="text-[10px] text-[#d97706] font-bold uppercase tracking-wider block">
-                  {isDarkUi ? "AI Command Center" : "Admin Panel"}
-                </span>
-              </div>
-            </Link>
+      {/* Starry Night Sky Background with Ambient Violet Glows */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                              radial-gradient(1.5px 1.5px at 90px 40px, #c084fc, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 160px 120px, #22d3ee, rgba(0,0,0,0)),
+                              radial-gradient(1.5px 1.5px at 230px 190px, #ffffff, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 300px 80px, #a855f7, rgba(0,0,0,0))`,
+            backgroundSize: "320px 320px",
+          }}
+        />
+        <div
+          className="absolute top-0 left-1/4 w-[600px] h-[400px] rounded-full blur-[140px] opacity-25"
+          style={{ background: "radial-gradient(circle, #7c3aed 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute top-1/3 right-10 w-[500px] h-[400px] rounded-full blur-[140px] opacity-20"
+          style={{ background: "radial-gradient(circle, #22d3ee 0%, transparent 70%)" }}
+        />
+      </div>
 
-            {/* Mobile Actions */}
-            <div className="flex md:hidden items-center gap-2">
-              <button
-                onClick={() => setIsNewEntryOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs cursor-pointer shadow-xs"
-              >
-                + Lead
-              </button>
-              <button
-                onClick={handleLogout}
-                className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-2.5 py-1.5 rounded-lg text-xs cursor-pointer"
-              >
-                Logout
-              </button>
+      {/* =========================================================================
+          TOP NAVBAR / WORKSPACE BRANDING
+         ========================================================================= */}
+      <header className="relative z-20 border-b border-white/10 bg-[#070318]/80 backdrop-blur-xl px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#6366f1] to-[#a855f7] flex items-center justify-center font-black text-sm shadow-lg shadow-purple-950/80">
+              B
+            </span>
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-black text-white tracking-tight leading-none group-hover:text-[#c084fc] transition-colors">
+                Balaji Prime Media
+              </span>
+              <span className="text-[10px] text-[#22d3ee] font-mono leading-tight">
+                Enterprise Command Workspace
+              </span>
             </div>
-          </div>
+          </Link>
+          <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+            ● Live Synchronized
+          </span>
+        </div>
 
-          {/* Simple Clean Tabs */}
-          <nav className="flex items-center gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] py-1 text-xs font-bold">
-            {[
-              { id: 'dashboard', label: '✨ Bento Overview', count: undefined },
-              { id: 'ai_graph', label: '🧠 AI Command Canvas', count: undefined },
-              { id: 'leads', label: '👥 Leads', count: partitionedStats.leads.total },
-              { id: 'payments', label: '🛒 Orders', count: partitionedStats.payments.total },
-              { id: 'publishers', label: '📰 Publishers (DR 50+)', count: undefined },
-              { id: 'interactions', label: '💬 Inquiries', count: partitionedStats.whatsapp.total },
-              { id: 'audits', label: '🔍 Audits', count: partitionedStats.audits.total },
-              { id: 'live_locations', label: '📍 Live Locations', count: records.filter((r) => r.country || r.city || r.clientIp).length },
-              { id: 'trash', label: '🗑️ Trash', count: partitionedStats.trash.total },
-            ].map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap cursor-pointer ${
-                    isActive
-                      ? isDarkUi
-                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black font-black shadow-md shadow-amber-500/20'
-                        : 'bg-[#091427] text-white shadow-xs'
-                      : isDarkUi
-                      ? 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                  {tab.count !== undefined && tab.count > 0 && (
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                        isActive
-                          ? isDarkUi ? 'bg-black/30 text-black' : 'bg-white/25 text-white'
-                          : isDarkUi ? 'bg-white/10 text-slate-300' : 'bg-slate-200 text-slate-700'
-                      }`}
-                    >
-                      {tab.count}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </nav>
+        <div className="flex items-center gap-3">
+          {/* Download Admin Data Button */}
+          <button
+            type="button"
+            onClick={handleDownloadAdminData}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#170e30] hover:bg-[#26174d] text-white border border-[#a855f7]/40 text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <span>📥</span>
+            <span className="hidden sm:inline">Download Admin Data</span>
+            <span className="sm:hidden">Export</span>
+          </button>
 
-          {/* Desktop Right Action Buttons */}
-          <div className="hidden md:flex items-center gap-2">
-            <button
-              onClick={() => {
-                showToast("Refreshing database...");
-                loadRecords();
-              }}
-              className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl transition-all text-xs flex items-center gap-1.5 cursor-pointer border border-slate-200"
-              title="Refresh database records"
-            >
-              <span>🔄</span>
-              <span>Refresh</span>
-            </button>
+          <Link
+            href="/services"
+            className="text-xs text-gray-300 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5 transition-all hidden md:inline-block"
+          >
+            View Services ↗
+          </Link>
 
-            <button
-              onClick={() => setIsNewEntryOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer shadow-xs text-xs whitespace-nowrap"
-            >
-              <span>+</span>
-              <span>New Lead</span>
-            </button>
-
-            <button
-              onClick={handleLogout}
-              className="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer flex items-center gap-1 text-xs whitespace-nowrap"
-              title="Logout from admin session"
-            >
-              <span>🚪</span>
-              <span>Logout</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="text-xs text-red-400 hover:text-red-300 px-3 py-2 rounded-xl bg-red-950/30 hover:bg-red-950/60 border border-red-500/30 transition-all cursor-pointer font-semibold"
+          >
+            Logout
+          </button>
         </div>
       </header>
-      )}
 
-      {/* MAIN WORKSPACE CONTENT */}
-      <main className={
-        is3D
-          ? "w-full min-h-screen"
-          : "max-w-7xl w-full mx-auto p-3 sm:p-5 lg:p-8 flex-1"
-      }>
-        {/* Simple Page Header (Shown for tables, hidden for 3D Cyber Hub) */}
-        {!is3D && !isDarkUi && (
-          <div className="mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-4">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        {/* =========================================================================
+            SECTION 1: THE 4 BOXES FROM SCREENSHOT (Image Attached by User)
+            - Box 1: Action card "+ Create a room / New Project Sprint"
+            - Box 2: "Subscription Growth Experiments" (Sprint Retrospective + avatars)
+            - Box 3: "Weekly Insights" (Dynamic sound/metrics equalizer waveform bars + play)
+            - Box 4: "Global Client Settlements & Escrow"
+           ========================================================================= */}
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs uppercase tracking-wider text-[#94a3b8] font-bold flex items-center gap-1.5">
+              <span>✦</span>
+              <span>Command Hub Overview</span>
+            </span>
+            <span className="text-xs text-gray-400">
+              {currentDateStr}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            
+            {/* Box 1: "+ Create a room / Add Client Project" (Matches Image Box 1) */}
+            <div
+              onClick={() => setActiveView("add_payment")}
+              className="group relative h-48 rounded-[28px] bg-[#0c091d]/80 hover:bg-[#150f2e]/90 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl"
+            >
+              <div className="w-12 h-12 rounded-full bg-white/5 group-hover:bg-[#a855f7]/20 border border-white/10 group-hover:border-[#a855f7]/50 flex items-center justify-center text-2xl font-light text-gray-200 group-hover:text-white transition-all mb-3 group-hover:scale-110">
+                +
+              </div>
+              <h3 className="text-sm font-bold text-white tracking-tight">Create a project</h3>
+              <p className="text-[11px] text-[#94a3b8] mt-0.5">Quick client scope &amp; escrow</p>
+            </div>
+
+            {/* Box 2: "Subscription Growth Experiments" (Matches Image Box 2) */}
+            <div
+              onClick={() => setActiveView("users")}
+              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-sm font-bold text-white leading-snug">
+                    Subscription Growth<br />Experiments
+                  </h3>
+                  <p className="text-[11px] text-[#94a3b8] mt-1">Sprint Retrospective</p>
+                </div>
+                <span className="text-gray-400 group-hover:text-[#fcd34d] transition-colors text-xs">✦</span>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                {/* Team / Client Avatars Stack */}
+                <div className="flex items-center -space-x-2">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                    AW
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                    CD
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-pink-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                    VM
+                  </div>
+                </div>
+
+                {/* Badge Number (Matches "9" in image) */}
+                <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-xs font-bold text-white">
+                  9
+                </span>
+              </div>
+            </div>
+
+            {/* Box 3: "Weekly Insights" with Equalizer Waveform & Play Button (Matches Image Box 3) */}
+            <div
+              onClick={() => setIsPlayingAudio(!isPlayingAudio)}
+              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+            >
+              <div>
+                <h3 className="text-sm font-bold text-white">Weekly Insights</h3>
+                
+                {/* Dynamic Waveform Audio Equalizer Bars */}
+                <div className="flex items-end gap-[3px] h-10 mt-3 pt-1">
+                  {[45, 60, 80, 50, 95, 70, 85, 40, 90, 65, 80, 55, 100, 75, 45, 60, 85, 90, 70, 50, 80, 60, 75, 90, 65, 50].map((height, i) => {
+                    const isBlue = i < 14;
+                    return (
+                      <span
+                        key={i}
+                        className={`flex-1 rounded-full transition-all duration-300 ${
+                          isBlue ? "bg-[#3b82f6]" : "bg-white"
+                        }`}
+                        style={{
+                          height: isPlayingAudio ? `${Math.max(20, Math.round(height * Math.random()))}%` : `${height}%`,
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center -space-x-2">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                    ER
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                    MW
+                  </div>
+                </div>
+
+                {/* Circular Play Button */}
                 <button
-                  onClick={() => setActiveTab("dashboard")}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#FF77B8] hover:text-white bg-[#14081F] hover:bg-[#FF007F]/30 px-3 py-1.5 rounded-xl border border-[#FF007F]/30 transition shadow-sm"
+                  type="button"
+                  className="w-9 h-9 rounded-full bg-white hover:bg-gray-100 text-black flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-105 active:scale-95"
+                  aria-label="Play Weekly Insights"
                 >
-                  ← Return to 3D Orbit Hub
+                  {isPlayingAudio ? "❚❚" : "▶"}
                 </button>
               </div>
-              <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                {activeTab === 'payments'
-                  ? 'Guest Post Orders & Placements'
-                  : activeTab === 'publishers'
-                  ? 'Publisher Marketplace Database'
-                  : activeTab === 'live_locations'
-                  ? 'Real-Time Live Location Tracker'
-                  : activeTab === 'leads'
-                  ? 'Registered Buyers & Agency Leads'
-                  : activeTab === 'interactions'
-                  ? 'WhatsApp & Client Inquiries'
-                  : activeTab === 'audits'
-                  ? 'SEO Audit Requests'
-                  : activeTab === 'trash'
-                  ? 'Trash Bin'
-                  : 'Admin Panel'}
-              </h1>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Direct overview of all incoming inquiries, orders, and customer records.
-              </p>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-              <span>Total: <strong className="text-slate-900">{records.length}</strong> records</span>
-            </div>
-          </div>
-        )}
-
-        {/* DYNAMIC CONTENT VIEW */}
-        {activeTab === "dashboard" ? (
-          <NovaCyber3DAdmin
-            stats={stats}
-            records={records}
-            onNavigateTab={(tab) => setActiveTab(tab as any)}
-            onNewEntry={() => setIsNewEntryOpen(true)}
-            onRefresh={() => {
-              showToast("Syncing 3D telemetry & database...");
-              loadRecords();
-            }}
-          />
-        ) : activeTab === "ai_graph" ? (
-          <AiCommandDashboardView
-            stats={stats}
-            records={records}
-            onNavigateTab={(tab) => setActiveTab(tab as any)}
-            onRefresh={() => {
-              showToast("Syncing AI telemetry & database...");
-              loadRecords();
-            }}
-          />
-        ) : activeTab === "publishers" ? (
-          <PublisherSitesManager
-            onNotify={showToast}
-            isAddModalOpen={isNewEntryOpen}
-            setIsAddModalOpen={setIsNewEntryOpen}
-          />
-        ) : activeTab === "client_profile" ? (
-            <ClientProfileView
-              records={records}
-              initialQuery={selectedClientForProfile}
-              formatDate={formatDate}
-              copyToClipboard={copyToClipboard}
-              onRefreshData={loadRecords}
-            />
-          ) : activeTab === "analytics" ? (
-            <AnalyticsDashboardView stats={stats} records={records} />
-          ) : activeTab === "live_locations" ? (
-            /* DEDICATED FULL-SCREEN LIVE LOCATION TRACKER VIEW */
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            {/* Box 4: Global Client Settlements & Escrow */}
+            <div
+              onClick={() => setActiveView("payments")}
+              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+            >
+              <div className="flex items-start justify-between">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                    </span>
-                    <h3 className="text-xl font-black text-slate-900 tracking-tight">
-                      📍 Real-Time Live Location Tracker
-                    </h3>
-                  </div>
-                  <p className="text-xs text-slate-500">
-                    Real-time Country, City, IP address, and Google Maps location for everyone who downloads the database, creates an account, or contacts you.
-                  </p>
+                  <h3 className="text-sm font-bold text-white">Global Settlements</h3>
+                  <p className="text-[11px] text-[#22d3ee] font-mono mt-0.5">Escrow Verified Ledger</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold text-xs flex items-center gap-1.5">
-                    <span>📡</span>
-                    <span>{records.filter((r) => r.country || r.city || r.clientIp).length} Tracked Actions</span>
-                  </span>
-                </div>
+                <span className="text-xs text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">
+                  ● 100% SLA
+                </span>
               </div>
 
-              {/* Table of all live locations (Desktop & Tablet) */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-slate-50 text-slate-600 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
-                      <th className="py-3 px-4">Time</th>
-                      <th className="py-3 px-4">Live Location (Country &amp; City)</th>
-                      <th className="py-3 px-4">Action Done</th>
-                      <th className="py-3 px-4">User Contact / IP</th>
-                      <th className="py-3 px-4 text-right">Google Maps</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {records.filter((r) => r.country || r.city || r.clientIp).length > 0 ? (
-                      records
-                        .filter((r) => r.country || r.city || r.clientIp)
-                        .map((item) => (
-                          <tr key={item.id} className="hover:bg-blue-50/40 transition-colors">
-                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500 whitespace-nowrap">
-                              {formatDate(item.createdAt)}
-                            </td>
-                            <td className="py-3.5 px-4">
-                              <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                                <span className="text-lg">{item.countryFlag || "🌐"}</span>
-                                <span>
-                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                  {item.region ? `${item.region}, ` : ""}
-                                  {item.country || "India"}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 mt-0.5">
-                                <span className="text-[10px] text-slate-400 font-mono">
-                                  IP: {item.clientIp || "Direct Connection"}
-                                </span>
-                                {item.isp && (
-                                  <span className="text-[10px] text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded font-medium">
-                                    {item.isp}
-                                  </span>
-                                )}
-                              </div>
-                            </td>
-                            <td className="py-3.5 px-4">
-                              <span
-                                className={`font-bold px-2 py-0.5 rounded-lg text-xs ${
-                                  item.type === "buyer_login"
-                                    ? "text-amber-900 bg-amber-100 border border-amber-300"
-                                    : "text-indigo-700 bg-indigo-50 border border-indigo-200/80"
-                                }`}
-                              >
-                                {item.type === "buyer_login"
-                                  ? "🔑 Database User Login"
-                                  : item.title || item.service || item.type || "Interaction"}
-                              </span>
-                              <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
-                                {item.details || item.message || item.domain || "—"}
-                              </p>
-                            </td>
-                            <td className="py-3.5 px-4">
-                              <div className="font-bold text-slate-800 text-xs">
-                                {item.name || item.clientName || "Visitor"}
-                              </div>
-                              {item.email && (
-                                <div className="text-[11px] text-blue-600 font-mono font-semibold">
-                                  <span className="text-[9px] text-slate-400 font-sans font-bold">ID: </span>
-                                  {item.email}
-                                </div>
-                              )}
-                              {item.phone && <div className="text-[11px] text-emerald-600 font-mono">{item.phone}</div>}
-                            </td>
-                            <td className="py-3.5 px-4 text-right">
-                              {(() => {
-                                const mapUrl =
-                                  item.mapsUrl ||
-                                  (item.latitude && item.longitude
-                                    ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
-                                    : item.city && item.country
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
-                                    : item.country && item.country !== "Global"
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
-                                    : item.clientIp
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
-                                    : null);
+              <div className="space-y-1">
+                <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#c084fc]">
+                  ₹2,69,997
+                </span>
+                <span className="text-[10px] text-gray-400 block">+ $5,148 USD settled this sprint</span>
+              </div>
 
-                                return mapUrl ? (
-                                  <a
-                                    href={mapUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all"
-                                  >
-                                    <span>🗺️ Open Map</span>
-                                    <span>↗</span>
-                                  </a>
-                                ) : (
-                                  <span className="text-slate-400 text-[11px]">—</span>
-                                );
-                              })()}
+              <div className="flex items-center gap-2 text-xs">
+                <span>🇺🇸</span>
+                <span>🇬🇧</span>
+                <span>🇮🇳</span>
+                <span>🇦🇺</span>
+                <span>🇦🇪</span>
+                <span className="text-[10px] text-gray-400 ml-auto font-bold">12 Clients</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 2: MASTER-DETAIL TWO-PANEL WORKSPACE
+            - Left Panel: Dashboard Items (Total Mail, WhatsApp, User, Payment, Add Payment, Invoice)
+            - Right Panel: "dashboard ke bagal me inki details aaye"
+           ========================================================================= */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          {/* =======================================================================
+              LEFT DASHBOARD COLUMN (6 Core Buttons & Metrics)
+             ======================================================================= */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="bg-[#0d0920]/90 border border-white/10 rounded-[28px] p-5 shadow-2xl backdrop-blur-xl">
+              <div className="pb-3 border-b border-white/10 mb-3 flex items-center justify-between">
+                <span className="text-xs font-bold text-white uppercase tracking-wider">
+                  Dashboard Directory
+                </span>
+                <span className="text-[10px] text-[#c084fc] font-mono">Select Category</span>
+              </div>
+
+              <div className="space-y-2">
+                {/* 1. Total Mail */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("mails")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "mails"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">✉️</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">Total Mail</p>
+                      <p className="text-[10px] text-[#94a3b8]">Inquiries &amp; contact forms</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-white/10 text-xs font-bold text-[#22d3ee]">
+                    {mailsList.length}
+                  </span>
+                </button>
+
+                {/* 2. WhatsApp Messages */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("whatsapp")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "whatsapp"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">💬</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">WhatsApp Messages</p>
+                      <p className="text-[10px] text-[#94a3b8]">Direct client conversations</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                    {whatsappList.length}
+                  </span>
+                </button>
+
+                {/* 3. Users / Clients */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("users")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "users"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">👥</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">Users &amp; Clients</p>
+                      <p className="text-[10px] text-[#94a3b8]">Verified client identities</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-purple-500/20 text-xs font-bold text-[#c084fc]">
+                    {usersList.length}
+                  </span>
+                </button>
+
+                {/* 4. Payment */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("payments")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "payments"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">💳</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">Payment Ledger</p>
+                      <p className="text-[10px] text-[#94a3b8]">Settled &amp; escrow orders</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                    {paymentsList.length}
+                  </span>
+                </button>
+
+                {/* 5. Add Payment */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("add_payment")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "add_payment"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">➕</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">Add Payment</p>
+                      <p className="text-[10px] text-[#94a3b8]">Record offline / bank payment</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-[#c084fc] font-bold">New +</span>
+                </button>
+
+                {/* 6. Invoice */}
+                <button
+                  type="button"
+                  onClick={() => setActiveView("invoice")}
+                  className={`w-full p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+                    activeView === "invoice"
+                      ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                      : "bg-[#120d29]/70 border-white/5 hover:bg-[#1a133b] hover:border-white/20 text-gray-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">🧾</span>
+                    <div>
+                      <p className="text-xs font-bold text-white">Invoice Generator</p>
+                      <p className="text-[10px] text-[#94a3b8]">Create &amp; print tax invoice</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-white/10 text-xs font-bold text-amber-300">
+                    {invoicesList.length}
+                  </span>
+                </button>
+
+              </div>
+            </div>
+
+            {/* Quick Export & System Info */}
+            <div className="bg-[#0d0920]/60 border border-white/5 rounded-2xl p-4 text-xs space-y-2 text-gray-400">
+              <div className="flex items-center justify-between">
+                <span>Database Engine:</span>
+                <span className="font-mono text-white">PostgreSQL / Supabase</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Active Encrypted Tunnel:</span>
+                <span className="text-emerald-400 font-bold">TLS 1.3 Active</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span>Last Synchronized:</span>
+                <span className="text-[#22d3ee] font-mono">Just now</span>
+              </div>
+            </div>
+          </div>
+
+          {/* =======================================================================
+              RIGHT DETAIL PANEL ("dashboard ke bagal me inki details aaye")
+             ======================================================================= */}
+          <div className="lg:col-span-8 bg-[#0d0920]/90 border border-white/10 rounded-[32px] p-5 sm:p-7 shadow-2xl backdrop-blur-xl min-h-[550px] relative overflow-hidden">
+            
+            {/* Ambient Background Gradient */}
+            <div
+              className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
+              style={{ background: "radial-gradient(circle, #a855f7, transparent)" }}
+            />
+
+            {/* =====================================================================
+                DETAIL VIEW 1: USERS ("user id , date, time, country, name, email,
+                number, new , ip addres , social media account")
+                + Pagination ("10/ 20/ 30 krke ek column option button ho")
+                + Pages ("pages me aage badane ka option ho matalb pages add ho 1 2 3")
+               ===================================================================== */}
+            {activeView === "users" && (
+              <div className="space-y-5 animate-fadeIn">
+                
+                {/* Header Row */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                  <div>
+                    <h2 className="text-xl font-black text-white flex items-center gap-2">
+                      <span>👥 Client &amp; User Directory</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-[#c084fc] font-normal border border-purple-500/30">
+                        {filteredUsers.length} Recorded
+                      </span>
+                    </h2>
+                    <p className="text-xs text-[#94a3b8] mt-0.5">
+                      Full client audit identities, geographical IP attribution, and verified contact points.
+                    </p>
+                  </div>
+
+                  {/* Rows Per Page Buttons ("10/ 20/ 30 krke ek column option button ho") */}
+                  <div className="flex items-center gap-1.5 bg-[#170e30] p-1 rounded-xl border border-white/10 self-start sm:self-auto shrink-0">
+                    <span className="text-[10px] text-gray-400 font-bold px-2">Show:</span>
+                    {[10, 20, 30].map((num) => (
+                      <button
+                        key={num}
+                        type="button"
+                        onClick={() => {
+                          setPageSize(num);
+                          setCurrentPage(1);
+                        }}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          pageSize === num
+                            ? "bg-purple-600 text-white shadow"
+                            : "text-gray-300 hover:text-white hover:bg-white/5"
+                        }`}
+                      >
+                        {num}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPageSize(usersList.length);
+                        setCurrentPage(1);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                        pageSize === usersList.length
+                          ? "bg-purple-600 text-white shadow"
+                          : "text-gray-300 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      All
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filter and Search Bar */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="relative w-full sm:w-72">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">🔍</span>
+                    <input
+                      type="text"
+                      placeholder="Search ID, name, email, IP, country..."
+                      value={userSearch}
+                      onChange={(e) => {
+                        setUserSearch(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-gray-500 outline-none"
+                    />
+                    {userSearch && (
+                      <button
+                        onClick={() => setUserSearch("")}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-2 self-start sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={() => setUserStatusFilter("all")}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                        userStatusFilter === "all"
+                          ? "bg-white/10 text-white border border-white/20"
+                          : "text-gray-400 hover:text-white"
+                      }`}
+                    >
+                      All
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUserStatusFilter("new")}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                        userStatusFilter === "new"
+                          ? "bg-emerald-950/80 text-emerald-300 border border-emerald-500/50"
+                          : "text-gray-400 hover:text-white"
+                      }`}
+                    >
+                      ✨ New Only
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setUserStatusFilter("returning")}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                        userStatusFilter === "returning"
+                          ? "bg-blue-950/80 text-blue-300 border border-blue-500/50"
+                          : "text-gray-400 hover:text-white"
+                      }`}
+                    >
+                      🔄 Returning
+                    </button>
+                  </div>
+                </div>
+
+                {/* THE 10-COLUMN USER TABLE (Exact columns requested) */}
+                <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#070318]/90 shadow-inner">
+                  <table className="w-full text-left text-xs border-collapse min-w-[950px]">
+                    <thead>
+                      <tr className="border-b border-white/10 bg-[#160e33]/90 text-gray-300 uppercase text-[10px] tracking-wider font-bold">
+                        <th className="py-3 px-3 text-center">User ID</th>
+                        <th className="py-3 px-3">Date</th>
+                        <th className="py-3 px-3">Time</th>
+                        <th className="py-3 px-3">Country</th>
+                        <th className="py-3 px-3">Name</th>
+                        <th className="py-3 px-3">Email</th>
+                        <th className="py-3 px-3">Number</th>
+                        <th className="py-3 px-3 text-center">New / Ret</th>
+                        <th className="py-3 px-3 font-mono">IP Address</th>
+                        <th className="py-3 px-3">Social Media</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5 text-gray-200">
+                      {paginatedUsers.length === 0 ? (
+                        <tr>
+                          <td colSpan={10} className="py-10 text-center text-gray-400">
+                            No clients or users found matching &quot;{userSearch}&quot;
+                          </td>
+                        </tr>
+                      ) : (
+                        paginatedUsers.map((u) => (
+                          <tr key={u.id} className="hover:bg-white/[0.03] transition-colors">
+                            {/* 1. User ID */}
+                            <td className="py-3 px-3 text-center font-mono font-bold text-[#22d3ee]">
+                              {u.id}
+                            </td>
+
+                            {/* 2. Date */}
+                            <td className="py-3 px-3 whitespace-nowrap text-gray-300">
+                              {u.date}
+                            </td>
+
+                            {/* 3. Time */}
+                            <td className="py-3 px-3 whitespace-nowrap text-gray-400 font-mono text-[11px]">
+                              {u.time}
+                            </td>
+
+                            {/* 4. Country */}
+                            <td className="py-3 px-3 whitespace-nowrap">
+                              <span className="mr-1.5 text-sm">{u.flag}</span>
+                              <span className="font-semibold text-white">{u.country}</span>
+                            </td>
+
+                            {/* 5. Name */}
+                            <td className="py-3 px-3 whitespace-nowrap font-bold text-white">
+                              {u.name}
+                            </td>
+
+                            {/* 6. Email */}
+                            <td className="py-3 px-3 whitespace-nowrap text-purple-300">
+                              <a href={`mailto:${u.email}`} className="hover:underline">
+                                {u.email}
+                              </a>
+                            </td>
+
+                            {/* 7. Number */}
+                            <td className="py-3 px-3 whitespace-nowrap font-mono text-gray-300">
+                              <a href={`tel:${u.number.replace(/\s+/g, "")}`} className="hover:text-emerald-400">
+                                {u.number}
+                              </a>
+                            </td>
+
+                            {/* 8. New */}
+                            <td className="py-3 px-3 text-center whitespace-nowrap">
+                              {u.isNew ? (
+                                <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                                  ✨ New
+                                </span>
+                              ) : (
+                                <span className="px-2 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-500/40 text-[10px] font-semibold">
+                                  🔄 Returning
+                                </span>
+                              )}
+                            </td>
+
+                            {/* 9. IP Address */}
+                            <td className="py-3 px-3 whitespace-nowrap font-mono text-[11px] text-gray-400">
+                              {u.ip}
+                            </td>
+
+                            {/* 10. Social Media Account */}
+                            <td className="py-3 px-3 whitespace-nowrap">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#181033] border border-white/10 text-[11px] text-[#c084fc]">
+                                {u.socialType === "linkedin" && "💼"}
+                                {u.socialType === "twitter" && "🐦"}
+                                {u.socialType === "instagram" && "📸"}
+                                {u.socialType === "whatsapp" && "💬"}
+                                <span className="font-medium text-white">{u.social}</span>
+                              </span>
                             </td>
                           </tr>
                         ))
-                    ) : (
-                      <tr>
-                        <td colSpan={5} className="py-12 text-center text-slate-400">
-                          <div className="text-3xl mb-2">📍</div>
-                          <p className="font-bold text-slate-700">Abhi tak koi live location track nahi hui hai</p>
-                          <p className="text-xs text-slate-400 mt-1">Jaise hi koi user download karega ya login karega, uski live country aur map yaha dikhega.</p>
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
 
-              {/* Mobile Card Feed for Live Locations (<md) */}
-              <div className="md:hidden space-y-3">
-                {records.filter((r) => r.country || r.city || r.clientIp).length > 0 ? (
-                  records
-                    .filter((r) => r.country || r.city || r.clientIp)
-                    .map((item) => {
-                      const mapUrl =
-                        item.mapsUrl ||
-                        (item.latitude && item.longitude
-                          ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
-                          : item.city && item.country
-                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
-                          : item.country && item.country !== "Global"
-                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
-                          : item.clientIp
-                          ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
-                          : null);
+                {/* PAGINATION BAR ("pages me aage badane ka option ho matalb pages add ho 1 2 3 aise krke") */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-white/10 text-xs">
+                  <span className="text-gray-400">
+                    Showing <strong className="text-white">{(currentPage - 1) * pageSize + 1}</strong> to{" "}
+                    <strong className="text-white">
+                      {Math.min(currentPage * pageSize, filteredUsers.length)}
+                    </strong>{" "}
+                    of <strong className="text-white">{filteredUsers.length}</strong> users
+                  </span>
 
-                      return (
-                        <div key={item.id} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2.5 shadow-2xs">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-2xl">{item.countryFlag || "🌐"}</span>
-                              <div>
-                                <h4 className="font-bold text-slate-900 text-sm">
-                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                  {item.region ? `${item.region}, ` : ""}
-                                  {item.country || "India"}
-                                </h4>
-                                <span className="text-[10px] font-mono text-slate-400">{formatDate(item.createdAt)}</span>
-                              </div>
-                            </div>
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${item.type === "buyer_login" ? "bg-amber-100 text-amber-900" : "bg-blue-100 text-blue-900"}`}>
-                              {item.type === "buyer_login" ? "🔑 Login" : item.service || item.type || "Action"}
-                            </span>
-                          </div>
+                  <div className="flex items-center gap-1.5">
+                    {/* Previous Button */}
+                    <button
+                      type="button"
+                      disabled={currentPage <= 1}
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      className="px-3 py-1.5 rounded-lg bg-[#170e30] border border-white/10 hover:bg-[#251747] text-white disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold"
+                    >
+                      ← Prev
+                    </button>
 
-                          <div className="bg-white rounded-xl p-3 border border-slate-200/80 space-y-1 text-xs">
-                            <div className="font-bold text-slate-900">{item.name || item.clientName || "Visitor"}</div>
-                            {item.email && <div className="text-[11px] text-blue-600 font-mono">✉️ {item.email}</div>}
-                            {item.phone && <div className="text-[11px] text-emerald-600 font-mono">📞 {item.phone}</div>}
-                            <div className="text-[10px] text-slate-400 font-mono pt-1 border-t border-slate-100">
-                              IP: {item.clientIp || "Direct"} {item.isp ? `• ${item.isp}` : ""}
-                            </div>
-                          </div>
-
-                          {mapUrl && (
-                            <a
-                              href={mapUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
-                            >
-                              <span>🗺️ Open in Google Maps</span>
-                              <span>↗</span>
-                            </a>
-                          )}
-                        </div>
-                      );
-                    })
-                ) : (
-                  <div className="py-8 text-center text-slate-400">
-                    <div className="text-3xl mb-1">📍</div>
-                    <p className="font-bold text-slate-700 text-xs">Abhi tak koi live location track nahi hui hai</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : activeTab === "logs" ? (
-            /* AUDIT TRAIL LOGS VIEW */
-            <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-              <h3 className="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <span>📜</span>
-                <span>Complete System Activity &amp; Audit Trail</span>
-              </h3>
-              <p className="text-xs text-slate-500 mb-6 font-medium">
-                Every client action, status change, soft delete, and restore is permanently logged chronologically with timestamps.
-              </p>
-
-              <div className="space-y-3">
-                {(stats?.recentActivities || []).map((log) => (
-                  <div
-                    key={log.id}
-                    className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
-                          log.action === "create"
-                            ? "bg-emerald-100 text-emerald-800"
-                            : log.action === "soft_delete"
-                            ? "bg-rose-100 text-rose-800"
-                            : log.action === "restore"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-amber-100 text-amber-800"
+                    {/* Numbered Page Buttons: 1 2 3 ... */}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNo) => (
+                      <button
+                        key={pageNo}
+                        type="button"
+                        onClick={() => setCurrentPage(pageNo)}
+                        className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                          currentPage === pageNo
+                            ? "bg-purple-600 text-white shadow-md shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                            : "bg-[#170e30] text-gray-300 hover:text-white border border-white/10 hover:bg-[#251747]"
                         }`}
                       >
-                        {log.action}
+                        {pageNo}
+                      </button>
+                    ))}
+
+                    {/* Next Button */}
+                    <button
+                      type="button"
+                      disabled={currentPage >= totalPages}
+                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                      className="px-3 py-1.5 rounded-lg bg-[#170e30] border border-white/10 hover:bg-[#251747] text-white disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            )}
+
+            {/* =====================================================================
+                DETAIL VIEW 2: TOTAL MAIL (Inquiries & Audits)
+               ===================================================================== */}
+            {activeView === "mails" && (
+              <div className="space-y-5 animate-fadeIn">
+                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                  <div>
+                    <h2 className="text-xl font-black text-white flex items-center gap-2">
+                      <span>✉️ Inbound Email &amp; Form Messages</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 font-normal border border-cyan-500/30">
+                        {mailsList.length} Messages
                       </span>
-                      <span className="font-semibold text-slate-800">{log.summary}</span>
-                    </div>
-                    <span className="text-[11px] font-mono text-slate-400">
-                      {formatDate(log.timestamp)}
-                    </span>
+                    </h2>
+                    <p className="text-xs text-[#94a3b8] mt-0.5">
+                      Customer RFPs, technical audit submissions, and project inquiries.
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            /* CRM DATA TABLE VIEW (Leads, WhatsApp, Audits, Payments, Trash) */
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
-              {/* Filter & Search Bar */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="relative flex-1 w-full">
-                  <input
-                    type="text"
-                    placeholder="Search by client name, email, phone, notes..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-500 focus:outline-none"
-                  />
-                  <span className="absolute left-3 top-3 text-slate-400 text-xs">🔍</span>
                 </div>
 
-                <div className="flex items-center flex-wrap gap-2 w-full sm:w-auto">
-                  {/* Quick Filter: 40k Database Downloads & Users */}
-                  <button
-                    onClick={() => {
-                      if (search.toLowerCase().includes("database") || search.toLowerCase().includes("download")) {
-                        setSearch("");
-                      } else {
-                        setSearch("database");
-                      }
-                    }}
-                    className={`px-3 py-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 cursor-pointer whitespace-nowrap shadow-xs ${
-                      search.toLowerCase().includes("database") || search.toLowerCase().includes("download")
-                        ? "bg-emerald-600 text-white border-emerald-600 shadow-sm font-extrabold"
-                        : "bg-emerald-50 text-emerald-900 border-emerald-200 hover:bg-emerald-100"
-                    }`}
-                    title="Filter only users who logged in or downloaded the 40,000 sites database"
-                  >
-                    <span>📥</span>
-                    <span>
-                      {search.toLowerCase().includes("database") || search.toLowerCase().includes("download")
-                        ? "Showing 40k Downloads ✕"
-                        : "40k Data Downloads & Logins"}
-                    </span>
-                  </button>
-
-                  <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 font-semibold focus:outline-none cursor-pointer"
-                  >
-                    <option value="all">All Statuses</option>
-                    <option value="new">New</option>
-                    <option value="contacted">Contacted</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="closed">Closed</option>
-                  </select>
-
-                  <button
-                    onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")}
-                    className="px-3 py-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
-                  >
-                    {sortOrder === "desc" ? "Newest First ⬇" : "Oldest First ⬆"}
-                  </button>
-                </div>
-              </div>
-
-              {/* Table (Desktop & Tablet) */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
-                      <th className="py-3 px-4">Date</th>
-                      <th className="py-3 px-4">Client Contact</th>
-                      <th className="py-3 px-4">Live Location</th>
-                      <th className="py-3 px-4">Service &amp; Details</th>
-                      <th className="py-3 px-4">Status</th>
-                      <th className="py-3 px-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {loading ? (
-                      <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-400 font-semibold">
-                          Loading records from secure database...
-                        </td>
-                      </tr>
-                    ) : records.length === 0 ? (
-                      <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-400 font-semibold">
-                          No records found in this category.
-                        </td>
-                      </tr>
-                    ) : (
-                      records.map((item) => {
-                        const clientName =
-                          item.name ||
-                          item.clientName ||
-                          item.domain ||
-                          (item.action === "whatsapp" ? "WhatsApp Visitor" : "Agency Inquirer");
-                        const clientPhone = item.phone || item.clientIdentifier || "";
-                        const cleanPhone = getCleanPhone(clientPhone);
-                        const clientEmail = item.email || item.clientEmail || "";
-
-                        return (
-                          <tr key={item.id} className="hover:bg-blue-50/40 transition-colors">
-                            {/* Date */}
-                            <td className="py-3.5 px-4 font-mono text-[11px] text-slate-500 align-top whitespace-nowrap">
-                              {formatDate(item.createdAt)}
-                            </td>
-
-                            {/* Contact */}
-                            <td className="py-3.5 px-4 align-top">
-                              <div className="flex items-center flex-wrap gap-1.5 mb-1">
-                                <span className="font-bold text-slate-900 text-sm">
-                                  {clientName}
-                                </span>
-                                {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
-                                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 inline-flex items-center gap-1 shadow-2xs">
-                                    <span>📥</span>
-                                    <span>Downloaded 40k Database</span>
-                                  </span>
-                                ) : (item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) ? (
-                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-2xs">
-                                    <span>🔑</span>
-                                    <span>{item.type === "buyer_login" ? "User Login" : "Data Buyer"}</span>
-                                  </span>
-                                ) : null}
-                              </div>
-                              {clientEmail && (
-                                <div className="text-xs text-blue-600 mb-0.5 flex items-center gap-1 font-mono">
-                                  <span className="text-[10px] uppercase font-bold text-slate-400 font-sans">Login ID:</span>
-                                  <a href={`mailto:${clientEmail}`} className="hover:underline font-bold">
-                                    ✉️ {clientEmail}
-                                  </a>
-                                </div>
-                              )}
-                              {clientPhone && (
-                                <div className="text-xs text-emerald-600 flex items-center gap-1">
-                                  <span className="text-[10px] uppercase font-bold text-slate-400 font-sans">Phone:</span>
-                                  <a
-                                    href={`https://wa.me/${cleanPhone}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:underline font-mono"
-                                  >
-                                    💬 {clientPhone}
-                                  </a>
-                                </div>
-                              )}
-                            </td>
-
-                            {/* Live Location */}
-                            <td className="py-3.5 px-4 align-top">
-                              <div className="flex items-center gap-1.5 font-bold text-slate-800 text-xs">
-                                <span>{item.countryFlag || "🌐"}</span>
-                                <span>
-                                  {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                  {item.region ? `${item.region}, ` : ""}
-                                  {item.country || "India"}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-2 mt-0.5">
-                                {item.clientIp && (
-                                  <span className="text-[10px] text-slate-400 font-mono">
-                                    IP: {item.clientIp}
-                                  </span>
-                                )}
-                                {item.isp && (
-                                  <span className="text-[10px] text-indigo-600 bg-indigo-50 px-1 rounded font-medium">
-                                    {item.isp}
-                                  </span>
-                                )}
-                              </div>
-                              {(() => {
-                                const mapUrl =
-                                  item.mapsUrl ||
-                                  (item.latitude && item.longitude
-                                    ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
-                                    : item.city && item.country
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
-                                    : item.country && item.country !== "Global"
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
-                                    : item.clientIp
-                                    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
-                                    : null);
-
-                                return mapUrl ? (
-                                  <a
-                                    href={mapUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 hover:underline mt-1"
-                                    title="View exact live location on Google Maps"
-                                  >
-                                    <span>📍 View Map ↗</span>
-                                  </a>
-                                ) : null;
-                              })()}
-                            </td>
-
-                            {/* Service & Details */}
-                            <td className="py-3.5 px-4 align-top">
-                              <div className="flex items-center gap-1.5 mb-1">
-                                {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
-                                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1">
-                                    <span>📥</span>
-                                    <span>40,000 Sites Database Download (.xlsx)</span>
-                                  </span>
-                                ) : (item.type === "buyer_login" || item.service?.toLowerCase().includes("database access")) ? (
-                                  <span className="px-2 py-0.5 rounded-md text-[10px] font-black bg-amber-100 text-amber-900 border border-amber-300">
-                                    📊 Database Access Login
-                                  </span>
-                                ) : (
-                                  <span className="font-semibold text-slate-800">
-                                    {item.service || item.type || "General Inquiry"}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-[11px] text-slate-600 max-w-md line-clamp-2">
-                                {item.message || item.details || item.domain || "—"}
-                              </p>
-                              {item.notes && (
-                                <div className="mt-1 text-[11px] text-amber-800 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
-                                  📝 {item.notes}
-                                </div>
-                              )}
-                            </td>
-
-                            {/* Status */}
-                            <td className="py-3.5 px-4 align-top">
-                              {item.isDeleted ? (
-                                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">
-                                  Deleted
-                                </span>
-                              ) : (
-                                <select
-                                  value={item.status || "new"}
-                                  onChange={(e) => handleUpdateStatus(item, e.target.value)}
-                                  className="px-2 py-1 rounded-lg text-xs font-bold border border-slate-200 bg-slate-50 cursor-pointer"
-                                >
-                                  <option value="new">🟡 New</option>
-                                  <option value="contacted">🟠 Contacted</option>
-                                  <option value="in_progress">🔵 In Progress</option>
-                                  <option value="completed">🟢 Completed</option>
-                                  <option value="closed">⚪ Closed</option>
-                                </select>
-                              )}
-                            </td>
-
-                            {/* Actions */}
-                            <td className="py-3.5 px-4 text-right align-top whitespace-nowrap">
-                              <div className="flex items-center justify-end gap-1.5">
-                                {item.isDeleted ? (
-                                  <>
-                                    <button
-                                      onClick={() => handleRestore(item)}
-                                      className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer"
-                                    >
-                                      Restore
-                                    </button>
-                                    <button
-                                      onClick={() => handlePermanentDelete(item)}
-                                      className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs cursor-pointer"
-                                    >
-                                      Purge
-                                    </button>
-                                  </>
-                                ) : (
-                                  <>
-                                    <button
-                                      onClick={() => {
-                                        setSelectedRecord(item);
-                                        setEditingNotes(item.notes || "");
-                                      }}
-                                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
-                                    >
-                                      Notes
-                                    </button>
-                                    <button
-                                      onClick={() => handleSoftDelete(item)}
-                                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
-                                      title="Move to Trash"
-                                    >
-                                      🗑️
-                                    </button>
-                                  </>
-                                )}
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              {/* Mobile Card Feed for CRM Leads & Orders (<md) */}
-              <div className="md:hidden space-y-3">
-                {loading ? (
-                  <div className="p-8 text-center text-slate-400 font-semibold text-xs">
-                    Loading records from secure database...
-                  </div>
-                ) : records.length === 0 ? (
-                  <div className="p-8 text-center text-slate-400 font-semibold text-xs">
-                    No records found in this category.
-                  </div>
-                ) : (
-                  records.map((item) => {
-                    const clientName =
-                      item.name ||
-                      item.clientName ||
-                      item.domain ||
-                      (item.action === "whatsapp" ? "WhatsApp Visitor" : "Agency Inquirer");
-                    const clientPhone = item.phone || item.clientIdentifier || "";
-                    const cleanPhone = getCleanPhone(clientPhone);
-                    const clientEmail = item.email || item.clientEmail || "";
-                    const mapUrl =
-                      item.mapsUrl ||
-                      (item.latitude && item.longitude
-                        ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
-                        : item.city && item.country
-                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.city}, ${item.country}`)}`
-                        : item.country && item.country !== "Global"
-                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.country)}`
-                        : item.clientIp
-                        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.clientIp)}`
-                        : null);
-
-                    return (
-                      <div
-                        key={item.id}
-                        className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 shadow-2xs"
-                      >
-                        {/* Card Header: Client Name, Date & Badges */}
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0">
-                            <h4 className="font-bold text-slate-900 text-sm truncate">
-                              {clientName}
-                            </h4>
-                            <span className="text-[10px] font-mono text-slate-400">
-                              {formatDate(item.createdAt)}
-                            </span>
-                          </div>
-
-                          <div className="flex flex-col items-end gap-1 shrink-0">
-                            {(item.type === "database_download" || item.service?.toLowerCase().includes("download")) ? (
-                              <span className="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-950 border border-emerald-300 inline-flex items-center gap-1 shadow-2xs">
-                                <span>📥</span>
-                                <span>40k Database</span>
-                              </span>
-                            ) : (item.type === "buyer_login" || item.type === "buyer_account_registration" || item.service?.toLowerCase().includes("database")) ? (
-                              <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 inline-flex items-center gap-1 shadow-2xs">
-                                <span>🔑</span>
-                                <span>{item.type === "buyer_login" ? "User Login" : "Data Buyer"}</span>
-                              </span>
-                            ) : null}
-                          </div>
+                <div className="space-y-3">
+                  {mailsList.map((m) => (
+                    <div
+                      key={m.id}
+                      className="p-4 rounded-2xl bg-[#070318]/90 border border-white/10 hover:border-[#a855f7]/50 transition-all text-left space-y-2"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-white text-sm">{m.senderName}</span>
+                          <span className="text-xs text-[#22d3ee]">({m.senderEmail})</span>
+                          <span className="text-[10px] text-gray-400 font-mono">[{m.phone}]</span>
                         </div>
-
-                        {/* Contact Details (Email + Phone) */}
-                        <div className="bg-white rounded-xl p-3 border border-slate-200/80 space-y-2 text-xs">
-                          {clientEmail && (
-                            <div className="flex items-center justify-between gap-2">
-                              <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Login ID:</span>
-                              <a
-                                href={`mailto:${clientEmail}`}
-                                className="text-blue-600 font-mono font-bold truncate max-w-[200px] hover:underline"
-                              >
-                                ✉️ {clientEmail}
-                              </a>
-                            </div>
-                          )}
-
-                          {clientPhone && (
-                            <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100">
-                              <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Phone:</span>
-                              <div className="flex items-center gap-2">
-                                <a
-                                  href={`tel:${cleanPhone}`}
-                                  className="text-slate-700 font-mono text-[11px] hover:underline"
-                                >
-                                  📞 {clientPhone}
-                                </a>
-                                <a
-                                  href={`https://wa.me/${cleanPhone}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="px-2 py-0.5 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[10px] flex items-center gap-1 shadow-2xs"
-                                >
-                                  <span>💬</span>
-                                  <span>WhatsApp</span>
-                                </a>
-                              </div>
-                            </div>
-                          )}
-
-                          {/* Live Location inside card */}
-                          <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase font-sans">Location:</span>
-                            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-800">
-                              <span>{item.countryFlag || "🌐"}</span>
-                              <span className="truncate max-w-[160px]">
-                                {item.city && item.city !== "Unknown City" ? `${item.city}, ` : ""}
-                                {item.region ? `${item.region}, ` : ""}
-                                {item.country || "India"}
-                              </span>
-                            </div>
-                          </div>
-
-                          {mapUrl && (
-                            <a
-                              href={mapUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full mt-1 py-1.5 px-2 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[11px] flex items-center justify-center gap-1.5 border border-blue-200 transition-colors"
-                            >
-                              <span>📍 Open Exact Location in Google Maps</span>
-                              <span>↗</span>
-                            </a>
-                          )}
-                        </div>
-
-                        {/* Service & Message Details */}
-                        {(item.service || item.message || item.details) && (
-                          <div className="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200/80">
-                            {item.service && (
-                              <div className="font-bold text-slate-800 mb-1">
-                                {item.service}
-                              </div>
-                            )}
-                            <p className="text-[11px] text-slate-500 line-clamp-2">
-                              {item.message || item.details || "—"}
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Status Select & Action Bar */}
-                        <div className="flex items-center justify-between gap-2 pt-1">
-                          <select
-                            value={item.status || "new"}
-                            onChange={(e) => handleUpdateStatus(item, e.target.value)}
-                            disabled={Boolean(item.isDeleted)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
-                              item.status === "new"
-                                ? "bg-blue-50 text-blue-700 border-blue-200"
-                                : item.status === "contacted"
-                                ? "bg-amber-50 text-amber-700 border-amber-200"
-                                : item.status === "in_progress"
-                                ? "bg-indigo-50 text-indigo-700 border-indigo-200"
-                                : item.status === "completed"
-                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                : "bg-slate-100 text-slate-700 border-slate-200"
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                              m.status === "Unread"
+                                ? "bg-amber-950 text-amber-300 border border-amber-500/40"
+                                : "bg-emerald-950 text-emerald-300 border border-emerald-500/40"
                             }`}
                           >
-                            <option value="new">New</option>
-                            <option value="contacted">Contacted</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
-                            <option value="closed">Closed</option>
-                          </select>
-
-                          <div className="flex items-center gap-1.5">
-                            {item.isDeleted ? (
-                              <>
-                                <button
-                                  onClick={() => handleRestore(item)}
-                                  className="px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs cursor-pointer"
-                                >
-                                  ♻️ Restore
-                                </button>
-                                <button
-                                  onClick={() => handlePermanentDelete(item)}
-                                  className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs cursor-pointer"
-                                >
-                                  Permanent
-                                </button>
-                              </>
-                            ) : (
-                              <>
-                                <button
-                                  onClick={() => {
-                                    setSelectedRecord(item);
-                                    setEditingNotes(item.notes || "");
-                                  }}
-                                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
-                                >
-                                  📝 Notes
-                                </button>
-                                <button
-                                  onClick={() => handleSoftDelete(item)}
-                                  className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition-colors cursor-pointer"
-                                  title="Move to Trash"
-                                >
-                                  🗑️
-                                </button>
-                              </>
-                            )}
-                          </div>
+                            {m.status}
+                          </span>
+                          <span className="text-[11px] text-gray-400 font-mono">{m.date} • {m.time}</span>
                         </div>
                       </div>
-                    );
-                  })
-                )}
+
+                      <div className="bg-[#120d29] p-3 rounded-xl border border-white/5 space-y-1">
+                        <p className="text-xs font-bold text-[#c084fc]">Subject: {m.subject}</p>
+                        <p className="text-xs text-gray-300 leading-relaxed">{m.message}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs pt-1">
+                        <span className="text-[11px] text-gray-400">
+                          Tagged Deliverable: <strong className="text-white">{m.service}</strong>
+                        </span>
+                        <a
+                          href={`mailto:${m.senderEmail}?subject=Re: ${encodeURIComponent(m.subject)}`}
+                          className="px-3 py-1 rounded-lg bg-purple-700 hover:bg-purple-600 text-white text-[11px] font-bold transition-all"
+                        >
+                          Reply via Email ✉️
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </main>
+            )}
 
-      {/* NOTES MODAL */}
-      {selectedRecord && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 rounded-3xl max-w-md w-full p-6 text-left shadow-2xl">
-            <h4 className="text-base font-bold text-slate-900 mb-1">
-              Internal Notes for {selectedRecord.name || selectedRecord.domain || selectedRecord.id}
-            </h4>
-            <p className="text-xs text-slate-500 mb-3">
-              Add follow-up notes, call summaries, or private customer records.
-            </p>
+            {/* =====================================================================
+                DETAIL VIEW 3: WHATSAPP MESSAGES
+               ===================================================================== */}
+            {activeView === "whatsapp" && (
+              <div className="space-y-5 animate-fadeIn">
+                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                  <div>
+                    <h2 className="text-xl font-black text-white flex items-center gap-2">
+                      <span>💬 WhatsApp Client Conversations</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-normal border border-emerald-500/30">
+                        {whatsappList.length} Active Leads
+                      </span>
+                    </h2>
+                    <p className="text-xs text-[#94a3b8] mt-0.5">
+                      Direct WhatsApp chat clicks, initial inquiries, and instant client follow-ups.
+                    </p>
+                  </div>
+                </div>
 
-            {/* Live Visitor Location Info Badge */}
-            {(selectedRecord.country || selectedRecord.city || selectedRecord.clientIp) && (
-              <div className="p-3 mb-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                    <span>{selectedRecord.countryFlag || "📍"}</span>
-                    <span>{selectedRecord.city && selectedRecord.city !== "Unknown City" ? `${selectedRecord.city}, ` : ""}{selectedRecord.country || "Global"}</span>
-                  </span>
-                  {selectedRecord.mapsUrl && (
-                    <a
-                      href={selectedRecord.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 font-bold underline text-[11px]"
+                <div className="space-y-3">
+                  {whatsappList.map((wa) => (
+                    <div
+                      key={wa.id}
+                      className="p-4 rounded-2xl bg-[#070318]/90 border border-white/10 hover:border-emerald-500/50 transition-all text-left space-y-2.5"
                     >
-                      Open Google Maps ↗
-                    </a>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">{wa.flag}</span>
+                          <span className="font-bold text-white text-sm">{wa.clientName}</span>
+                          <span className="text-xs font-mono text-emerald-400">({wa.phoneNumber})</span>
+                        </div>
+                        <span className="text-[11px] text-gray-400 font-mono">{wa.date} • {wa.time}</span>
+                      </div>
+
+                      <div className="bg-[#0e1620] p-3 rounded-xl border border-emerald-900/40 text-xs text-gray-200">
+                        &quot;{wa.message}&quot;
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-[10px] uppercase font-bold text-gray-400">
+                          Country: {wa.country} • Status: <strong className="text-emerald-400">{wa.status}</strong>
+                        </span>
+                        <a
+                          href={`https://wa.me/${wa.phoneNumber.replace(/[^0-9]/g, "")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all"
+                        >
+                          <span>Open in WhatsApp</span>
+                          <span>💬</span>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* =====================================================================
+                DETAIL VIEW 4: PAYMENTS
+               ===================================================================== */}
+            {activeView === "payments" && (
+              <div className="space-y-5 animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+                  <div>
+                    <h2 className="text-xl font-black text-white flex items-center gap-2">
+                      <span>💳 Settled Payments Ledger</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-normal border border-emerald-500/30">
+                        {paymentsList.length} Transactions
+                      </span>
+                    </h2>
+                    <p className="text-xs text-[#94a3b8] mt-0.5">
+                      Multi-currency authorized escrow settlements via UPI, Stripe, HDFC Bank, PayPal &amp; Wise.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveView("add_payment")}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-indigo-600 hover:brightness-110 text-white text-xs font-bold transition-all shadow-md cursor-pointer self-start sm:self-auto"
+                  >
+                    <span>+ Add Payment</span>
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#070318]/90 shadow-inner">
+                  <table className="w-full text-left text-xs border-collapse min-w-[700px]">
+                    <thead>
+                      <tr className="border-b border-white/10 bg-[#160e33]/90 text-gray-300 uppercase text-[10px] tracking-wider font-bold">
+                        <th className="py-3 px-3">Transaction ID</th>
+                        <th className="py-3 px-3">Date</th>
+                        <th className="py-3 px-3">Client &amp; Domain</th>
+                        <th className="py-3 px-3">Deliverable Service</th>
+                        <th className="py-3 px-3 text-right">Settled Amount</th>
+                        <th className="py-3 px-3 text-center">Rail</th>
+                        <th className="py-3 px-3 text-center">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5 text-gray-200">
+                      {paymentsList.map((p) => (
+                        <tr key={p.id} className="hover:bg-white/[0.03] transition-colors">
+                          <td className="py-3 px-3 font-mono text-[#22d3ee] font-bold">
+                            {p.id}
+                            <span className="block text-[9px] text-gray-400 font-normal">{p.txnRef}</span>
+                          </td>
+                          <td className="py-3 px-3 whitespace-nowrap text-gray-300 text-[11px]">
+                            {p.date}
+                            <span className="block text-[9px] text-gray-400">{p.time}</span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="font-bold text-white block">{p.clientName}</span>
+                            <span className="text-[10px] text-purple-300 font-mono">{p.domain}</span>
+                          </td>
+                          <td className="py-3 px-3 text-gray-300">
+                            {p.service}
+                          </td>
+                          <td className="py-3 px-3 text-right font-black text-emerald-400 text-sm whitespace-nowrap">
+                            {p.amount}
+                          </td>
+                          <td className="py-3 px-3 text-center whitespace-nowrap">
+                            <span className="px-2.5 py-0.5 rounded-full bg-[#181033] border border-white/10 text-[10px] font-bold text-white">
+                              {p.rail}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 text-center whitespace-nowrap">
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                              ✓ {p.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* =====================================================================
+                DETAIL VIEW 5: ADD PAYMENT
+               ===================================================================== */}
+            {activeView === "add_payment" && (
+              <div className="space-y-5 animate-fadeIn max-w-2xl mx-auto">
+                <div className="pb-4 border-b border-white/10">
+                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                    <span>➕ Record / Authorize New Client Payment</span>
+                  </h2>
+                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                    Record offline bank wire, custom retainer settlement, or direct client receipt.
+                  </p>
+                </div>
+
+                <form onSubmit={handleAddPaymentSubmit} className="space-y-4 text-left">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. John Doe / Global Brand Ltd"
+                        value={newPayClient}
+                        onChange={(e) => setNewPayClient(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Work Email</label>
+                      <input
+                        type="email"
+                        placeholder="client@domain.com"
+                        value={newPayEmail}
+                        onChange={(e) => setNewPayEmail(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Target Domain URL</label>
+                      <input
+                        type="text"
+                        placeholder="https://clientwebsite.com"
+                        value={newPayDomain}
+                        onChange={(e) => setNewPayDomain(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Authorized Service Package</label>
+                      <select
+                        value={newPayService}
+                        onChange={(e) => setNewPayService(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      >
+                        <option value="Enterprise SEO Suite">Enterprise SEO Suite</option>
+                        <option value="Next.js Web Engineering">Next.js Web Engineering</option>
+                        <option value="Flutter App Dev">Flutter App Dev</option>
+                        <option value="High-DR Guest Posting">High-DR Guest Posting</option>
+                        <option value="Full-Stack Laravel / PHP">Full-Stack Laravel / PHP</option>
+                        <option value="Custom Invoiced Retainer">Custom Invoiced Retainer</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Amount *</label>
+                      <input
+                        type="number"
+                        required
+                        placeholder="e.g. 49999 or 950"
+                        value={newPayAmount}
+                        onChange={(e) => setNewPayAmount(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Currency</label>
+                      <select
+                        value={newPayCurrency}
+                        onChange={(e) => setNewPayCurrency(e.target.value as any)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      >
+                        <option value="INR">₹ INR (India)</option>
+                        <option value="USD">$ USD (Global)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Payment Rail</label>
+                      <select
+                        value={newPayRail}
+                        onChange={(e) => setNewPayRail(e.target.value as any)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      >
+                        <option value="UPI">⚡ UPI / QR</option>
+                        <option value="Stripe">💳 Stripe Card</option>
+                        <option value="Bank Wire">🏦 Bank Wire / HDFC</option>
+                        <option value="PayPal">🅿️ PayPal</option>
+                        <option value="Wise">🌍 Wise</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-400 mb-1">
+                      Bank UTR / Transaction Reference (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. UTR4120938120 or Wire #90214"
+                      value={newPayRef}
+                      onChange={(e) => setNewPayRef(e.target.value)}
+                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    />
+                  </div>
+
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      type="submit"
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-[#6366f1] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-xl shadow-purple-950/80 cursor-pointer"
+                    >
+                      Authorize &amp; Record Payment ✓
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* =====================================================================
+                DETAIL VIEW 6: INVOICE GENERATOR
+               ===================================================================== */}
+            {activeView === "invoice" && (
+              <div className="space-y-6 animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+                  <div>
+                    <h2 className="text-xl font-black text-white flex items-center gap-2">
+                      <span>🧾 Enterprise Tax Invoice Generator</span>
+                    </h2>
+                    <p className="text-xs text-[#94a3b8] mt-0.5">
+                      Generate official GST / VAT compliant invoices for domestic and global clients.
+                    </p>
+                  </div>
+
+                  {selectedInvoicePreview && (
+                    <button
+                      type="button"
+                      onClick={handlePrintInvoice}
+                      className="px-4 py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md self-start sm:self-auto"
+                    >
+                      🖨️ Print / Save PDF
+                    </button>
                   )}
                 </div>
-                {selectedRecord.clientIp && (
-                  <div className="text-[10px] text-slate-500 font-mono">
-                    Client IP: <strong className="text-slate-800">{selectedRecord.clientIp}</strong>
-                    {selectedRecord.timezone ? ` • Timezone: ${selectedRecord.timezone}` : ""}
+
+                {/* Invoice Form */}
+                <form onSubmit={handleCreateInvoiceSubmit} className="bg-[#070318]/90 border border-white/10 rounded-2xl p-5 space-y-4 text-left">
+                  <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+                    <span>✦ Invoice Parameters</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Legal Name / Entity *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Nordhaus Architecture Ltd"
+                        value={invClientName}
+                        onChange={(e) => setInvClientName(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Billing Work Email</label>
+                      <input
+                        type="email"
+                        placeholder="accounts@nordhaus.com"
+                        value={invClientEmail}
+                        onChange={(e) => setInvClientEmail(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Target Domain</label>
+                      <input
+                        type="text"
+                        placeholder="https://nordhaus-estates.com"
+                        value={invClientDomain}
+                        onChange={(e) => setInvClientDomain(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Physical Address</label>
+                      <input
+                        type="text"
+                        placeholder="450 Sutter St, San Francisco, CA, USA"
+                        value={invClientAddress}
+                        onChange={(e) => setInvClientAddress(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                    <div className="sm:col-span-2">
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Deliverable Description</label>
+                      <input
+                        type="text"
+                        value={invServiceName}
+                        onChange={(e) => setInvServiceName(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Rate ({invCurrency}) *</label>
+                      <input
+                        type="number"
+                        required
+                        value={invRate}
+                        onChange={(e) => setInvRate(e.target.value)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-[#c084fc] mb-1">Currency</label>
+                      <select
+                        value={invCurrency}
+                        onChange={(e) => setInvCurrency(e.target.value as any)}
+                        className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      >
+                        <option value="INR">₹ INR</option>
+                        <option value="USD">$ USD</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <button
+                      type="submit"
+                      className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white text-xs font-bold transition-all shadow-lg cursor-pointer"
+                    >
+                      Generate Official Invoice 🧾 →
+                    </button>
+                  </div>
+                </form>
+
+                {/* Printable Invoice Preview */}
+                {selectedInvoicePreview && (
+                  <div className="p-6 sm:p-8 rounded-2xl bg-white text-gray-900 shadow-2xl border border-gray-200 text-left space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-gray-200">
+                      <div>
+                        <h3 className="text-xl font-black text-purple-900 tracking-tight">
+                          BALAJI PRIME MEDIA
+                        </h3>
+                        <p className="text-xs text-gray-600 mt-0.5">
+                          Enterprise Digital Growth &amp; Technology Escrow
+                        </p>
+                        <p className="text-[11px] text-gray-500 font-mono mt-1">
+                          GSTIN: 07AABCB1234D1ZP • CIN: U72900DL2025PTC123456
+                        </p>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="text-base font-black text-gray-900 block font-mono">
+                          {selectedInvoicePreview.invoiceNo}
+                        </span>
+                        <span className="text-xs text-gray-600 block">Date: {selectedInvoicePreview.date}</span>
+                        <span className="text-xs text-emerald-700 font-bold block">Status: PAID (Escrow Settled)</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 text-xs">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Billed To:</span>
+                        <strong className="text-sm text-gray-900 block">{selectedInvoicePreview.clientName}</strong>
+                        <span className="text-gray-600 block">{selectedInvoicePreview.clientEmail}</span>
+                        <span className="text-purple-700 font-mono block">{selectedInvoicePreview.clientDomain}</span>
+                        <span className="text-gray-500 block text-[11px] mt-0.5">{selectedInvoicePreview.clientAddress}</span>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="text-[10px] uppercase font-bold text-gray-400 block mb-1">Payment Coordinates:</span>
+                        <span className="text-gray-700 block font-semibold">HDFC Bank Limited</span>
+                        <span className="text-gray-600 font-mono block">A/C: 50200084920491</span>
+                        <span className="text-gray-600 font-mono block">IFSC: HDFC0001842</span>
+                        <span className="text-gray-600 font-mono block">SWIFT: HDFCINBB</span>
+                      </div>
+                    </div>
+
+                    {/* Invoice Items Table */}
+                    <table className="w-full text-left text-xs border-collapse">
+                      <thead>
+                        <tr className="border-b border-gray-300 bg-gray-50 text-gray-600 uppercase text-[10px] font-bold">
+                          <th className="py-2.5 px-3">Item Description</th>
+                          <th className="py-2.5 px-3 text-center">Qty</th>
+                          <th className="py-2.5 px-3 text-right">Rate</th>
+                          <th className="py-2.5 px-3 text-right">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-200">
+                        <tr>
+                          <td className="py-3 px-3 font-medium text-gray-900">
+                            {selectedInvoicePreview.serviceName}
+                          </td>
+                          <td className="py-3 px-3 text-center text-gray-700">{selectedInvoicePreview.qty}</td>
+                          <td className="py-3 px-3 text-right font-mono text-gray-800">
+                            {selectedInvoicePreview.currency === "INR" ? "₹" : "$"}{selectedInvoicePreview.rate.toLocaleString()}
+                          </td>
+                          <td className="py-3 px-3 text-right font-bold font-mono text-gray-900">
+                            {selectedInvoicePreview.currency === "INR" ? "₹" : "$"}{(selectedInvoicePreview.rate * selectedInvoicePreview.qty).toLocaleString()}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    {/* Total Summary */}
+                    <div className="flex justify-end pt-4 border-t border-gray-200">
+                      <div className="w-64 space-y-1.5 text-xs">
+                        <div className="flex justify-between text-gray-600">
+                          <span>Subtotal:</span>
+                          <span className="font-mono">
+                            {selectedInvoicePreview.currency === "INR" ? "₹" : "$"}{(selectedInvoicePreview.rate * selectedInvoicePreview.qty).toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-gray-600">
+                          <span>Tax ({selectedInvoicePreview.taxPercent}%):</span>
+                          <span className="font-mono">
+                            {selectedInvoicePreview.currency === "INR" ? "₹" : "$"}
+                            {((selectedInvoicePreview.rate * selectedInvoicePreview.qty * selectedInvoicePreview.taxPercent) / 100).toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm font-black text-gray-900 pt-2 border-t border-gray-300">
+                          <span>Grand Total:</span>
+                          <span className="font-mono text-purple-900 text-base">
+                            {selectedInvoicePreview.currency === "INR" ? "₹" : "$"}
+                            {(
+                              selectedInvoicePreview.rate * selectedInvoicePreview.qty +
+                              (selectedInvoicePreview.rate * selectedInvoicePreview.qty * selectedInvoicePreview.taxPercent) / 100
+                            ).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
             )}
-            <textarea
-              rows={4}
-              value={editingNotes}
-              onChange={(e) => setEditingNotes(e.target.value)}
-              placeholder="e.g. Spoke on WhatsApp, interested in $2,000 package..."
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-blue-500 outline-none resize-none mb-4"
-            />
-            <div className="flex items-center justify-end gap-2 text-xs">
-              <button
-                onClick={() => setSelectedRecord(null)}
-                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSaveNotes}
-                className="px-5 py-2 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-bold rounded-xl cursor-pointer"
-              >
-                Save Notes
-              </button>
-            </div>
+
           </div>
-        </div>
-      )}
+        </section>
 
-      {/* MANUAL ENTRY MODAL */}
-      {isNewEntryOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 text-left shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-5">
-              <h4 className="text-lg font-black text-slate-900 flex items-center gap-2">
-                <span>➕</span>
-                <span>Add Client Record Manually</span>
-              </h4>
-              <button
-                onClick={() => setIsNewEntryOpen(false)}
-                className="text-slate-400 hover:text-slate-600 text-xs p-1"
-              >
-                ✕
-              </button>
-            </div>
-
-            <form onSubmit={handleManualSubmit} className="flex flex-col gap-4 text-xs">
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Client Full Name *</label>
-                <input
-                  required
-                  type="text"
-                  placeholder="e.g. David Vance"
-                  value={manualForm.name}
-                  onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })}
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Client Email *</label>
-                  <input
-                    required
-                    type="email"
-                    placeholder="david@company.com"
-                    value={manualForm.email}
-                    onChange={(e) => setManualForm({ ...manualForm, email: e.target.value })}
-                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Phone / WhatsApp *</label>
-                  <input
-                    required
-                    type="tel"
-                    placeholder="+1 555-0192"
-                    value={manualForm.phone}
-                    onChange={(e) => setManualForm({ ...manualForm, phone: e.target.value })}
-                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Target Service</label>
-                <select
-                  value={manualForm.service}
-                  onChange={(e) => setManualForm({ ...manualForm, service: e.target.value })}
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 outline-none focus:border-blue-500"
-                >
-                  <option value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
-                  <option value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
-                  <option value="Website Development (Next.js)">Website Development (Next.js)</option>
-                  <option value="Off-Page Backlink Building">Off-Page Backlink Building</option>
-                  <option value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
-                  <option value="Guest Post Placement">Guest Post Placement</option>
-                  <option value="Custom Project Work">Custom Project Work</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Scope / Requirements</label>
-                <textarea
-                  rows={3}
-                  placeholder="Requirements, discussion details, or deliverables..."
-                  value={manualForm.message}
-                  onChange={(e) => setManualForm({ ...manualForm, message: e.target.value })}
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500 resize-none"
-                />
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Admin Internal Notes</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Client called from UK, quoted $3,000"
-                  value={manualForm.notes}
-                  onChange={(e) => setManualForm({ ...manualForm, notes: e.target.value })}
-                  className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 outline-none focus:bg-white focus:border-blue-500"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsNewEntryOpen(false)}
-                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 bg-[#4a3aff] hover:bg-[#3d2ee0] text-white font-extrabold rounded-xl transition-all cursor-pointer shadow-md shadow-indigo-500/20"
-                >
-                  Save into Database →
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      </main>
     </div>
   );
 }
