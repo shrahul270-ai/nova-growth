@@ -140,8 +140,9 @@ const INITIAL_INVOICES: InvoiceItem[] = [
 ];
 
 export default function AdminDatabasePage() {
-  // Authentication State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  // Theme State ("color dark se light krne ka bhi option rakho dark and light wala")
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const isDark = theme === "dark";
 
   // Active Dashboard Selection ("or jab in par click kre to dashboard ke bagal me inki details aaye")
   const [activeView, setActiveView] = useState<"users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice">("users");
@@ -186,11 +187,28 @@ export default function AdminDatabasePage() {
   const [toast, setToast] = useState<string | null>(null);
   const [currentDateStr, setCurrentDateStr] = useState("Live Status");
 
+  // Load saved theme from localStorage
   useEffect(() => {
+    try {
+      const savedTheme = localStorage.getItem("bpm_admin_theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        setTheme(savedTheme);
+      }
+    } catch {}
+
     setCurrentDateStr(
       new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
     );
   }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("bpm_admin_theme", nextTheme);
+    } catch {}
+    showToast(`Switched to ${nextTheme === "light" ? "☀️ Light Mode" : "🌙 Dark Mode"}`);
+  };
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -201,7 +219,6 @@ export default function AdminDatabasePage() {
     try {
       await fetch("/api/admin/logout", { method: "POST" });
     } catch {}
-    setIsAuthenticated(false);
     showToast("Logged out securely.");
   };
 
@@ -350,73 +367,127 @@ export default function AdminDatabasePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050212] text-white selection:bg-purple-600 selection:text-white font-sans flex flex-col lg:flex-row relative">
+    <div
+      className={`min-h-screen font-sans flex flex-col lg:flex-row relative transition-colors duration-300 ${
+        isDark
+          ? "bg-[#050212] text-white selection:bg-purple-600 selection:text-white"
+          : "bg-[#f8fafc] text-slate-800 selection:bg-purple-600 selection:text-white"
+      }`}
+    >
       
       {/* Toast Alert */}
       {toast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#161129] border border-purple-500/60 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+        <div
+          className={`fixed top-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md border ${
+            isDark
+              ? "bg-[#161129] border-purple-500/60 text-white"
+              : "bg-white border-purple-300 text-slate-900 shadow-purple-100"
+          }`}
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
           <span>{toast}</span>
         </div>
       )}
 
-      {/* Starry Night Sky Background with Ambient Violet Glows */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage: `radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-                              radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                              radial-gradient(1.5px 1.5px at 90px 40px, #c084fc, rgba(0,0,0,0)),
-                              radial-gradient(1px 1px at 160px 120px, #22d3ee, rgba(0,0,0,0)),
-                              radial-gradient(1.5px 1.5px at 230px 190px, #ffffff, rgba(0,0,0,0)),
-                              radial-gradient(1px 1px at 300px 80px, #a855f7, rgba(0,0,0,0))`,
-            backgroundSize: "320px 320px",
-          }}
-        />
-        <div
-          className="absolute top-0 left-1/3 w-[600px] h-[400px] rounded-full blur-[140px] opacity-25"
-          style={{ background: "radial-gradient(circle, #7c3aed 0%, transparent 70%)" }}
-        />
-        <div
-          className="absolute top-1/2 right-10 w-[500px] h-[400px] rounded-full blur-[140px] opacity-20"
-          style={{ background: "radial-gradient(circle, #22d3ee 0%, transparent 70%)" }}
-        />
-      </div>
+      {/* Background Starry or Soft Canvas */}
+      {isDark ? (
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: `radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                                radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                                radial-gradient(1.5px 1.5px at 90px 40px, #c084fc, rgba(0,0,0,0)),
+                                radial-gradient(1px 1px at 160px 120px, #22d3ee, rgba(0,0,0,0)),
+                                radial-gradient(1.5px 1.5px at 230px 190px, #ffffff, rgba(0,0,0,0)),
+                                radial-gradient(1px 1px at 300px 80px, #a855f7, rgba(0,0,0,0))`,
+              backgroundSize: "320px 320px",
+            }}
+          />
+          <div
+            className="absolute top-0 left-1/3 w-[600px] h-[400px] rounded-full blur-[140px] opacity-25"
+            style={{ background: "radial-gradient(circle, #7c3aed 0%, transparent 70%)" }}
+          />
+          <div
+            className="absolute top-1/2 right-10 w-[500px] h-[400px] rounded-full blur-[140px] opacity-20"
+            style={{ background: "radial-gradient(circle, #22d3ee 0%, transparent 70%)" }}
+          />
+        </div>
+      ) : (
+        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-100/30 via-slate-50 to-slate-100 opacity-90" />
+      )}
 
       {/* =========================================================================
           FULL-HEIGHT LEFT SIDEBAR ("puri left me dashbord wala bana ho uppar niche tak")
          ========================================================================= */}
-      <aside className="w-full lg:w-72 xl:w-80 shrink-0 lg:min-h-screen border-b lg:border-b-0 lg:border-r border-white/10 bg-[#070318]/95 backdrop-blur-2xl flex flex-col justify-between z-30 lg:sticky lg:top-0 lg:h-screen overflow-y-auto">
+      <aside
+        className={`w-full lg:w-72 xl:w-80 shrink-0 lg:min-h-screen border-b lg:border-b-0 lg:border-r flex flex-col justify-between z-30 lg:sticky lg:top-0 lg:h-screen overflow-y-auto transition-colors duration-300 ${
+          isDark
+            ? "border-white/10 bg-[#070318]/95 backdrop-blur-2xl"
+            : "border-slate-200 bg-white/95 backdrop-blur-2xl shadow-lg"
+        }`}
+      >
         
         {/* Top Branding Section */}
-        <div className="p-6 border-b border-white/10">
-          <Link href="/" className="flex items-center gap-3 group">
-            <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6366f1] via-[#7c3aed] to-[#a855f7] flex items-center justify-center font-black text-base shadow-lg shadow-purple-950/80 group-hover:scale-105 transition-transform">
-              B
-            </span>
-            <div className="flex flex-col text-left">
-              <span className="text-sm font-black text-white tracking-tight leading-none group-hover:text-[#c084fc] transition-colors">
-                Balaji Prime Media
+        <div className={`p-6 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3 group">
+              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6366f1] via-[#7c3aed] to-[#a855f7] flex items-center justify-center font-black text-base text-white shadow-lg shadow-purple-950/40 group-hover:scale-105 transition-transform">
+                B
               </span>
-              <span className="text-[10px] text-[#22d3ee] font-mono leading-tight mt-1">
-                Admin Command Suite
-              </span>
-            </div>
-          </Link>
+              <div className="flex flex-col text-left">
+                <span
+                  className={`text-sm font-black tracking-tight leading-none group-hover:text-[#7c3aed] transition-colors ${
+                    isDark ? "text-white" : "text-slate-900"
+                  }`}
+                >
+                  Balaji Prime Media
+                </span>
+                <span className="text-[10px] text-cyan-500 font-mono leading-tight mt-1">
+                  Admin Command Suite
+                </span>
+              </div>
+            </Link>
+
+            {/* Quick Theme Toggle Icon Button in Sidebar */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className={`p-2 rounded-xl border text-sm transition-all cursor-pointer hover:scale-110 active:scale-90 ${
+                isDark
+                  ? "bg-[#181033] border-purple-500/40 text-amber-300 hover:bg-[#251847]"
+                  : "bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200"
+              }`}
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {isDark ? "☀️" : "🌙"}
+            </button>
+          </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border ${
+                isDark
+                  ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                  : "bg-emerald-50 border-emerald-300 text-emerald-700"
+              }`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
               <span>Live Synchronized</span>
             </span>
-            <span className="text-[10px] text-gray-400 font-mono">v2.4 Core</span>
+            <span className={`text-[10px] font-mono ${isDark ? "text-gray-400" : "text-slate-400"}`}>
+              v2.4 Core
+            </span>
           </div>
         </div>
 
         {/* Navigation Categories ("dashbard me total mail and whatsapp meaage and user and payment and payemt add and invoice") */}
         <div className="p-4 space-y-1.5 flex-1">
-          <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider px-3 pb-1 block">
+          <span
+            className={`text-[10px] uppercase font-bold tracking-wider px-3 pb-1 block ${
+              isDark ? "text-gray-400" : "text-slate-400"
+            }`}
+          >
             Core Operations
           </span>
 
@@ -426,18 +497,32 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("mails")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "mails"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">✉️</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">Total Mail</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">RFPs &amp; inquiries</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Total Mail
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  RFPs &amp; inquiries
+                </p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-[11px] font-bold text-cyan-300">
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-cyan-500/15 border-cyan-500/30 text-cyan-300"
+                  : "bg-cyan-50 border-cyan-300 text-cyan-700"
+              }`}
+            >
               {mailsList.length}
             </span>
           </button>
@@ -448,18 +533,32 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("whatsapp")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "whatsapp"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">💬</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">WhatsApp Messages</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">Direct chat leads</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  WhatsApp Messages
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Direct chat leads
+                </p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-bold text-emerald-400">
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
+                  : "bg-emerald-50 border-emerald-300 text-emerald-700"
+              }`}
+            >
               {whatsappList.length}
             </span>
           </button>
@@ -470,18 +569,32 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("users")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "users"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">👥</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">Users &amp; Clients</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">Client directory</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Users &amp; Clients
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Client directory
+                </p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-[11px] font-bold text-[#c084fc]">
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-purple-500/20 border-purple-500/30 text-[#c084fc]"
+                  : "bg-purple-50 border-purple-300 text-purple-700"
+              }`}
+            >
               {usersList.length}
             </span>
           </button>
@@ -492,23 +605,41 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("payments")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "payments"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">💳</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">Payment Ledger</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">Settled orders</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Payment Ledger
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Settled orders
+                </p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-[11px] font-bold text-emerald-400">
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
+                  : "bg-emerald-50 border-emerald-300 text-emerald-700"
+              }`}
+            >
               {paymentsList.length}
             </span>
           </button>
 
-          <span className="text-[10px] uppercase font-bold text-gray-400 tracking-wider px-3 pt-3 pb-1 block">
+          <span
+            className={`text-[10px] uppercase font-bold tracking-wider px-3 pt-3 pb-1 block ${
+              isDark ? "text-gray-400" : "text-slate-400"
+            }`}
+          >
             Actions &amp; Billing
           </span>
 
@@ -518,18 +649,32 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("add_payment")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "add_payment"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">➕</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">Add Payment</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">Record settlement</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Add Payment
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Record settlement
+                </p>
               </div>
             </div>
-            <span className="text-[10px] font-bold text-[#c084fc] bg-purple-950/60 px-2 py-0.5 rounded-md border border-purple-500/30">
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-md border ${
+                isDark
+                  ? "bg-purple-950/60 border-purple-500/30 text-[#c084fc]"
+                  : "bg-purple-100 border-purple-300 text-purple-700"
+              }`}
+            >
               New +
             </span>
           </button>
@@ -540,30 +685,48 @@ export default function AdminDatabasePage() {
             onClick={() => setActiveView("invoice")}
             className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
               activeView === "invoice"
-                ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                : "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-lg">🧾</span>
               <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">Invoice Generator</p>
-                <p className="text-[10px] text-[#94a3b8] truncate">Tax invoice &amp; PDF</p>
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Invoice Generator
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Tax invoice &amp; PDF
+                </p>
               </div>
             </div>
-            <span className="px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-[10px] font-bold text-amber-300">
+            <span
+              className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${
+                isDark
+                  ? "bg-amber-500/15 border-amber-500/30 text-amber-300"
+                  : "bg-amber-50 border-amber-300 text-amber-700"
+              }`}
+            >
               {invoicesList.length}
             </span>
           </button>
         </div>
 
         {/* Bottom Sidebar Footer Controls */}
-        <div className="p-4 border-t border-white/10 space-y-2.5">
+        <div className={`p-4 border-t space-y-2.5 ${isDark ? "border-white/10" : "border-slate-200"}`}>
           {/* Download Admin Data Button */}
           <button
             type="button"
             onClick={handleDownloadAdminData}
-            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-900/60 to-indigo-900/60 hover:from-purple-800 hover:to-indigo-800 border border-[#a855f7]/40 text-white text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+            className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
+              isDark
+                ? "bg-gradient-to-r from-purple-900/70 to-indigo-900/70 hover:from-purple-800 border-[#a855f7]/40 text-white"
+                : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 border-purple-500 text-white shadow-purple-200"
+            }`}
           >
             <span>📥</span>
             <span>Download Admin Data</span>
@@ -572,7 +735,7 @@ export default function AdminDatabasePage() {
           <div className="flex items-center justify-between pt-1 text-xs">
             <Link
               href="/services"
-              className="text-gray-400 hover:text-white transition-colors"
+              className={`transition-colors ${isDark ? "text-gray-400 hover:text-white" : "text-slate-500 hover:text-slate-900 font-medium"}`}
             >
               Public Services ↗
             </Link>
@@ -580,7 +743,7 @@ export default function AdminDatabasePage() {
             <button
               type="button"
               onClick={handleLogout}
-              className="text-red-400 hover:text-red-300 font-semibold cursor-pointer"
+              className={`font-semibold cursor-pointer ${isDark ? "text-red-400 hover:text-red-300" : "text-red-600 hover:text-red-700"}`}
             >
               Logout ⎋
             </button>
@@ -593,13 +756,17 @@ export default function AdminDatabasePage() {
          ========================================================================= */}
       <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto relative z-10">
         
-        {/* Top Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        {/* Top Header Bar with Theme Switcher */}
+        <div
+          className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b ${
+            isDark ? "border-white/10" : "border-slate-200"
+          }`}
+        >
           <div>
-            <h1 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+            <h1 className={`text-xl sm:text-2xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
               <span>Balaji Prime Media</span>
-              <span className="text-gray-500 font-normal">/</span>
-              <span className="text-[#c084fc] capitalize">
+              <span className={isDark ? "text-gray-500 font-normal" : "text-slate-400 font-normal"}>/</span>
+              <span className="text-[#7c3aed] capitalize">
                 {activeView === "users" && "User Directory"}
                 {activeView === "mails" && "Total Mail"}
                 {activeView === "whatsapp" && "WhatsApp Inquiries"}
@@ -608,13 +775,33 @@ export default function AdminDatabasePage() {
                 {activeView === "invoice" && "Invoice Generator"}
               </span>
             </h1>
-            <p className="text-xs text-[#94a3b8] mt-0.5">
+            <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
               Live database records, multi-currency escrow ledger, and active client sprint metrics.
             </p>
           </div>
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
-            <span className="text-xs text-gray-400 font-mono bg-[#140e2b] px-3 py-1.5 rounded-xl border border-white/10">
+            {/* Live Theme Switcher Button */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95 ${
+                isDark
+                  ? "bg-[#181033] border-purple-500/40 text-amber-300 hover:bg-[#251847]"
+                  : "bg-white border-slate-300 text-slate-800 hover:bg-slate-50 shadow-slate-100"
+              }`}
+              title="Toggle Dark / Light Theme"
+            >
+              <span>{isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}</span>
+            </button>
+
+            <span
+              className={`text-xs font-mono px-3 py-1.5 rounded-xl border ${
+                isDark
+                  ? "bg-[#140e2b] border-white/10 text-gray-400"
+                  : "bg-white border-slate-200 text-slate-600 shadow-sm"
+              }`}
+            >
               📅 {currentDateStr}
             </span>
           </div>
@@ -629,7 +816,11 @@ export default function AdminDatabasePage() {
            ========================================================================= */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs uppercase tracking-wider text-[#94a3b8] font-bold flex items-center gap-1.5">
+            <span
+              className={`text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 ${
+                isDark ? "text-[#94a3b8]" : "text-slate-500"
+              }`}
+            >
               <span>✦</span>
               <span>Command Radar Overview</span>
             </span>
@@ -640,26 +831,46 @@ export default function AdminDatabasePage() {
             {/* Box 1: "+ Create a room / Add Client Project" (Matches Image Box 1) */}
             <div
               onClick={() => setActiveView("add_payment")}
-              className="group relative h-48 rounded-[28px] bg-[#0c091d]/80 hover:bg-[#150f2e]/90 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl"
+              className={`group relative h-48 rounded-[28px] border p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl ${
+                isDark
+                  ? "bg-[#0c091d]/80 hover:bg-[#150f2e]/90 border-white/10 hover:border-[#a855f7]/60"
+                  : "bg-white hover:bg-slate-50 border-slate-200 hover:border-purple-300 shadow-slate-200/60"
+              }`}
             >
-              <div className="w-12 h-12 rounded-full bg-white/5 group-hover:bg-[#a855f7]/20 border border-white/10 group-hover:border-[#a855f7]/50 flex items-center justify-center text-2xl font-light text-gray-200 group-hover:text-white transition-all mb-3 group-hover:scale-110">
+              <div
+                className={`w-12 h-12 rounded-full border flex items-center justify-center text-2xl font-light transition-all mb-3 group-hover:scale-110 ${
+                  isDark
+                    ? "bg-white/5 group-hover:bg-[#a855f7]/20 border-white/10 group-hover:border-[#a855f7]/50 text-gray-200 group-hover:text-white"
+                    : "bg-purple-50 group-hover:bg-purple-100 border-purple-200 text-purple-700"
+                }`}
+              >
                 +
               </div>
-              <h3 className="text-sm font-bold text-white tracking-tight">Create a project</h3>
-              <p className="text-[11px] text-[#94a3b8] mt-0.5">Quick client scope &amp; escrow</p>
+              <h3 className={`text-sm font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+                Create a project
+              </h3>
+              <p className={`text-[11px] mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                Quick client scope &amp; escrow
+              </p>
             </div>
 
             {/* Box 2: "Subscription Growth Experiments" (Matches Image Box 2) */}
             <div
               onClick={() => setActiveView("users")}
-              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+              className={`relative h-48 rounded-[28px] border p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group ${
+                isDark
+                  ? "bg-[#0c091d]/80 border-white/10 hover:border-[#a855f7]/60"
+                  : "bg-white border-slate-200 hover:border-purple-300 shadow-slate-200/60"
+              }`}
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-white leading-snug">
+                  <h3 className={`text-sm font-bold leading-snug ${isDark ? "text-white" : "text-slate-900"}`}>
                     Subscription Growth<br />Experiments
                   </h3>
-                  <p className="text-[11px] text-[#94a3b8] mt-1">Sprint Retrospective</p>
+                  <p className={`text-[11px] mt-1 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                    Sprint Retrospective
+                  </p>
                 </div>
                 <span className="text-gray-400 group-hover:text-[#fcd34d] transition-colors text-xs">✦</span>
               </div>
@@ -667,19 +878,25 @@ export default function AdminDatabasePage() {
               <div className="flex items-center justify-between pt-2">
                 {/* Team / Client Avatars Stack */}
                 <div className="flex items-center -space-x-2">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
                     AW
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
                     CD
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-pink-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-400 to-pink-500 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
                     VM
                   </div>
                 </div>
 
                 {/* Badge Number (Matches "9" in image) */}
-                <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-xs font-bold text-white">
+                <span
+                  className={`w-8 h-8 rounded-full border flex items-center justify-center text-xs font-bold ${
+                    isDark
+                      ? "bg-white/10 border-white/10 text-white"
+                      : "bg-slate-100 border-slate-200 text-slate-800"
+                  }`}
+                >
                   9
                 </span>
               </div>
@@ -688,10 +905,16 @@ export default function AdminDatabasePage() {
             {/* Box 3: "Weekly Insights" with Equalizer Waveform & Play Button (Matches Image Box 3) */}
             <div
               onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+              className={`relative h-48 rounded-[28px] border p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group ${
+                isDark
+                  ? "bg-[#0c091d]/80 border-white/10 hover:border-[#a855f7]/60"
+                  : "bg-white border-slate-200 hover:border-purple-300 shadow-slate-200/60"
+              }`}
             >
               <div>
-                <h3 className="text-sm font-bold text-white">Weekly Insights</h3>
+                <h3 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Weekly Insights
+                </h3>
                 
                 {/* Dynamic Waveform Audio Equalizer Bars */}
                 <div className="flex items-end gap-[3px] h-10 mt-3 pt-1">
@@ -701,7 +924,11 @@ export default function AdminDatabasePage() {
                       <span
                         key={i}
                         className={`flex-1 rounded-full transition-all duration-300 ${
-                          isBlue ? "bg-[#3b82f6]" : "bg-white"
+                          isBlue
+                            ? "bg-[#3b82f6]"
+                            : isDark
+                            ? "bg-white"
+                            : "bg-slate-300"
                         }`}
                         style={{
                           height: isPlayingAudio ? `${Math.max(20, Math.round(height * Math.random()))}%` : `${height}%`,
@@ -714,10 +941,10 @@ export default function AdminDatabasePage() {
 
               <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center -space-x-2">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
                     ER
                   </div>
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 border-2 border-[#0c091d] flex items-center justify-center text-[10px] font-bold text-white">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 border-2 border-slate-800 flex items-center justify-center text-[10px] font-bold text-white">
                     MW
                   </div>
                 </div>
@@ -725,7 +952,11 @@ export default function AdminDatabasePage() {
                 {/* Circular Play Button */}
                 <button
                   type="button"
-                  className="w-9 h-9 rounded-full bg-white hover:bg-gray-100 text-black flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-105 active:scale-95"
+                  className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-black shadow-lg transition-transform hover:scale-105 active:scale-95 cursor-pointer ${
+                    isDark
+                      ? "bg-white hover:bg-gray-100 text-black"
+                      : "bg-slate-900 hover:bg-slate-800 text-white"
+                  }`}
                   aria-label="Play Weekly Insights"
                 >
                   {isPlayingAudio ? "❚❚" : "▶"}
@@ -736,23 +967,37 @@ export default function AdminDatabasePage() {
             {/* Box 4: Global Client Settlements & Escrow */}
             <div
               onClick={() => setActiveView("payments")}
-              className="relative h-48 rounded-[28px] bg-[#0c091d]/80 border border-white/10 hover:border-[#a855f7]/60 p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group"
+              className={`relative h-48 rounded-[28px] border p-6 flex flex-col justify-between cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl group ${
+                isDark
+                  ? "bg-[#0c091d]/80 border-white/10 hover:border-[#a855f7]/60"
+                  : "bg-white border-slate-200 hover:border-purple-300 shadow-slate-200/60"
+              }`}
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-white">Global Settlements</h3>
-                  <p className="text-[11px] text-[#22d3ee] font-mono mt-0.5">Escrow Verified Ledger</p>
+                  <h3 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
+                    Global Settlements
+                  </h3>
+                  <p className="text-[11px] text-cyan-600 font-mono mt-0.5">Escrow Verified Ledger</p>
                 </div>
-                <span className="text-xs text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-500/40">
+                <span className="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-300">
                   ● 100% SLA
                 </span>
               </div>
 
               <div className="space-y-1">
-                <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#c084fc]">
+                <span
+                  className={`text-2xl font-black ${
+                    isDark
+                      ? "text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#c084fc]"
+                      : "text-emerald-600"
+                  }`}
+                >
                   ₹2,69,997
                 </span>
-                <span className="text-[10px] text-gray-400 block">+ $5,148 USD settled this sprint</span>
+                <span className={`text-[10px] block ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                  + $5,148 USD settled this sprint
+                </span>
               </div>
 
               <div className="flex items-center gap-2 text-xs">
@@ -761,7 +1006,9 @@ export default function AdminDatabasePage() {
                 <span>🇮🇳</span>
                 <span>🇦🇺</span>
                 <span>🇦🇪</span>
-                <span className="text-[10px] text-gray-400 ml-auto font-bold">12 Clients</span>
+                <span className={`text-[10px] ml-auto font-bold ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                  12 Clients
+                </span>
               </div>
             </div>
 
@@ -771,13 +1018,21 @@ export default function AdminDatabasePage() {
         {/* =========================================================================
             2. DETAILS PANEL (Right side of the full-height left dashboard)
            ========================================================================= */}
-        <section className="bg-[#0d0920]/90 border border-white/10 rounded-[32px] p-5 sm:p-7 shadow-2xl backdrop-blur-xl min-h-[550px] relative overflow-hidden">
+        <section
+          className={`border rounded-[32px] p-5 sm:p-7 shadow-2xl backdrop-blur-xl min-h-[550px] relative overflow-hidden transition-colors duration-300 ${
+            isDark
+              ? "bg-[#0d0920]/90 border-white/10"
+              : "bg-white border-slate-200 shadow-slate-200/50"
+          }`}
+        >
           
-          {/* Ambient Background Glow */}
-          <div
-            className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
-            style={{ background: "radial-gradient(circle, #a855f7, transparent)" }}
-          />
+          {/* Ambient Glow */}
+          {isDark && (
+            <div
+              className="absolute -top-24 -right-24 w-64 h-64 rounded-full pointer-events-none blur-3xl opacity-20"
+              style={{ background: "radial-gradient(circle, #a855f7, transparent)" }}
+            />
+          )}
 
           {/* =====================================================================
               DETAIL VIEW 1: USERS ("user id , date, time, country, name, email,
@@ -789,22 +1044,38 @@ export default function AdminDatabasePage() {
             <div className="space-y-5 animate-fadeIn">
               
               {/* Header Row */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+              <div
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b ${
+                  isDark ? "border-white/10" : "border-slate-200"
+                }`}
+              >
                 <div>
-                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                     <span>👥 Client &amp; User Directory</span>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-[#c084fc] font-normal border border-purple-500/30">
+                    <span
+                      className={`text-xs px-2.5 py-0.5 rounded-full font-normal border ${
+                        isDark
+                          ? "bg-purple-500/20 text-[#c084fc] border-purple-500/30"
+                          : "bg-purple-50 text-purple-700 border-purple-200"
+                      }`}
+                    >
                       {filteredUsers.length} Recorded
                     </span>
                   </h2>
-                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                  <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                     Full client audit identities, geographical IP attribution, and verified contact points.
                   </p>
                 </div>
 
                 {/* Rows Per Page Buttons ("10/ 20/ 30 krke ek column option button ho") */}
-                <div className="flex items-center gap-1.5 bg-[#170e30] p-1 rounded-xl border border-white/10 self-start sm:self-auto shrink-0">
-                  <span className="text-[10px] text-gray-400 font-bold px-2">Show:</span>
+                <div
+                  className={`flex items-center gap-1.5 p-1 rounded-xl border self-start sm:self-auto shrink-0 ${
+                    isDark ? "bg-[#170e30] border-white/10" : "bg-slate-100 border-slate-200"
+                  }`}
+                >
+                  <span className={`text-[10px] font-bold px-2 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                    Show:
+                  </span>
                   {[10, 20, 30].map((num) => (
                     <button
                       key={num}
@@ -816,7 +1087,9 @@ export default function AdminDatabasePage() {
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                         pageSize === num
                           ? "bg-purple-600 text-white shadow"
-                          : "text-gray-300 hover:text-white hover:bg-white/5"
+                          : isDark
+                          ? "text-gray-300 hover:text-white hover:bg-white/5"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-white"
                       }`}
                     >
                       {num}
@@ -831,7 +1104,9 @@ export default function AdminDatabasePage() {
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       pageSize === usersList.length
                         ? "bg-purple-600 text-white shadow"
-                        : "text-gray-300 hover:text-white hover:bg-white/5"
+                        : isDark
+                        ? "text-gray-300 hover:text-white hover:bg-white/5"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white"
                     }`}
                   >
                     All
@@ -851,7 +1126,11 @@ export default function AdminDatabasePage() {
                       setUserSearch(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-gray-500 outline-none"
+                    className={`w-full rounded-xl pl-8 pr-3 py-2 text-xs outline-none border transition-colors ${
+                      isDark
+                        ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white placeholder-gray-500"
+                        : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900 placeholder-slate-400"
+                    }`}
                   />
                   {userSearch && (
                     <button
@@ -867,10 +1146,14 @@ export default function AdminDatabasePage() {
                   <button
                     type="button"
                     onClick={() => setUserStatusFilter("all")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border ${
                       userStatusFilter === "all"
-                        ? "bg-white/10 text-white border border-white/20"
-                        : "text-gray-400 hover:text-white"
+                        ? isDark
+                          ? "bg-white/10 text-white border-white/20"
+                          : "bg-purple-100 text-purple-900 border-purple-300 font-bold"
+                        : isDark
+                        ? "text-gray-400 hover:text-white border-transparent"
+                        : "text-slate-600 hover:text-slate-900 border-transparent"
                     }`}
                   >
                     All
@@ -878,10 +1161,12 @@ export default function AdminDatabasePage() {
                   <button
                     type="button"
                     onClick={() => setUserStatusFilter("new")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border ${
                       userStatusFilter === "new"
-                        ? "bg-emerald-950/80 text-emerald-300 border border-emerald-500/50"
-                        : "text-gray-400 hover:text-white"
+                        ? "bg-emerald-500 text-white border-emerald-600 font-bold"
+                        : isDark
+                        ? "text-gray-400 hover:text-white border-transparent"
+                        : "text-slate-600 hover:text-slate-900 border-transparent"
                     }`}
                   >
                     ✨ New Only
@@ -889,10 +1174,12 @@ export default function AdminDatabasePage() {
                   <button
                     type="button"
                     onClick={() => setUserStatusFilter("returning")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border ${
                       userStatusFilter === "returning"
-                        ? "bg-blue-950/80 text-blue-300 border border-blue-500/50"
-                        : "text-gray-400 hover:text-white"
+                        ? "bg-blue-600 text-white border-blue-700 font-bold"
+                        : isDark
+                        ? "text-gray-400 hover:text-white border-transparent"
+                        : "text-slate-600 hover:text-slate-900 border-transparent"
                     }`}
                   >
                     🔄 Returning
@@ -901,10 +1188,20 @@ export default function AdminDatabasePage() {
               </div>
 
               {/* THE 10-COLUMN USER TABLE (Exact columns requested) */}
-              <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#070318]/90 shadow-inner">
+              <div
+                className={`overflow-x-auto rounded-2xl border shadow-inner ${
+                  isDark ? "border-white/10 bg-[#070318]/90" : "border-slate-200 bg-white"
+                }`}
+              >
                 <table className="w-full text-left text-xs border-collapse min-w-[950px]">
                   <thead>
-                    <tr className="border-b border-white/10 bg-[#160e33]/90 text-gray-300 uppercase text-[10px] tracking-wider font-bold">
+                    <tr
+                      className={`border-b uppercase text-[10px] tracking-wider font-bold ${
+                        isDark
+                          ? "border-white/10 bg-[#160e33]/90 text-gray-300"
+                          : "border-slate-200 bg-slate-100 text-slate-700"
+                      }`}
+                    >
                       <th className="py-3 px-3 text-center">User ID</th>
                       <th className="py-3 px-3">Date</th>
                       <th className="py-3 px-3">Time</th>
@@ -917,7 +1214,11 @@ export default function AdminDatabasePage() {
                       <th className="py-3 px-3">Social Media</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 text-gray-200">
+                  <tbody
+                    className={`divide-y ${
+                      isDark ? "divide-white/5 text-gray-200" : "divide-slate-100 text-slate-700"
+                    }`}
+                  >
                     {paginatedUsers.length === 0 ? (
                       <tr>
                         <td colSpan={10} className="py-10 text-center text-gray-400">
@@ -926,43 +1227,48 @@ export default function AdminDatabasePage() {
                       </tr>
                     ) : (
                       paginatedUsers.map((u) => (
-                        <tr key={u.id} className="hover:bg-white/[0.03] transition-colors">
+                        <tr
+                          key={u.id}
+                          className={`transition-colors ${
+                            isDark ? "hover:bg-white/[0.03]" : "hover:bg-slate-50"
+                          }`}
+                        >
                           {/* 1. User ID */}
-                          <td className="py-3 px-3 text-center font-mono font-bold text-[#22d3ee]">
+                          <td className="py-3 px-3 text-center font-mono font-bold text-cyan-600">
                             {u.id}
                           </td>
 
                           {/* 2. Date */}
-                          <td className="py-3 px-3 whitespace-nowrap text-gray-300">
+                          <td className="py-3 px-3 whitespace-nowrap">
                             {u.date}
                           </td>
 
                           {/* 3. Time */}
-                          <td className="py-3 px-3 whitespace-nowrap text-gray-400 font-mono text-[11px]">
+                          <td className={`py-3 px-3 whitespace-nowrap font-mono text-[11px] ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                             {u.time}
                           </td>
 
                           {/* 4. Country */}
                           <td className="py-3 px-3 whitespace-nowrap">
                             <span className="mr-1.5 text-sm">{u.flag}</span>
-                            <span className="font-semibold text-white">{u.country}</span>
+                            <span className={`font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>{u.country}</span>
                           </td>
 
                           {/* 5. Name */}
-                          <td className="py-3 px-3 whitespace-nowrap font-bold text-white">
+                          <td className={`py-3 px-3 whitespace-nowrap font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                             {u.name}
                           </td>
 
                           {/* 6. Email */}
-                          <td className="py-3 px-3 whitespace-nowrap text-purple-300">
+                          <td className="py-3 px-3 whitespace-nowrap text-purple-600">
                             <a href={`mailto:${u.email}`} className="hover:underline">
                               {u.email}
                             </a>
                           </td>
 
                           {/* 7. Number */}
-                          <td className="py-3 px-3 whitespace-nowrap font-mono text-gray-300">
-                            <a href={`tel:${u.number.replace(/\s+/g, "")}`} className="hover:text-emerald-400">
+                          <td className="py-3 px-3 whitespace-nowrap font-mono">
+                            <a href={`tel:${u.number.replace(/\s+/g, "")}`} className="hover:text-emerald-500">
                               {u.number}
                             </a>
                           </td>
@@ -970,29 +1276,35 @@ export default function AdminDatabasePage() {
                           {/* 8. New */}
                           <td className="py-3 px-3 text-center whitespace-nowrap">
                             {u.isNew ? (
-                              <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold">
                                 ✨ New
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-500/40 text-[10px] font-semibold">
+                              <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300 text-[10px] font-semibold">
                                 🔄 Returning
                               </span>
                             )}
                           </td>
 
                           {/* 9. IP Address */}
-                          <td className="py-3 px-3 whitespace-nowrap font-mono text-[11px] text-gray-400">
+                          <td className={`py-3 px-3 whitespace-nowrap font-mono text-[11px] ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                             {u.ip}
                           </td>
 
                           {/* 10. Social Media Account */}
                           <td className="py-3 px-3 whitespace-nowrap">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#181033] border border-white/10 text-[11px] text-[#c084fc]">
+                            <span
+                              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border text-[11px] font-medium ${
+                                isDark
+                                  ? "bg-[#181033] border-white/10 text-[#c084fc]"
+                                  : "bg-purple-50 border-purple-200 text-purple-700"
+                              }`}
+                            >
                               {u.socialType === "linkedin" && "💼"}
                               {u.socialType === "twitter" && "🐦"}
                               {u.socialType === "instagram" && "📸"}
                               {u.socialType === "whatsapp" && "💬"}
-                              <span className="font-medium text-white">{u.social}</span>
+                              <span>{u.social}</span>
                             </span>
                           </td>
                         </tr>
@@ -1003,13 +1315,17 @@ export default function AdminDatabasePage() {
               </div>
 
               {/* PAGINATION BAR ("pages me aage badane ka option ho matalb pages add ho 1 2 3 aise krke") */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-white/10 text-xs">
-                <span className="text-gray-400">
-                  Showing <strong className="text-white">{(currentPage - 1) * pageSize + 1}</strong> to{" "}
-                  <strong className="text-white">
+              <div
+                className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t text-xs ${
+                  isDark ? "border-white/10 text-gray-400" : "border-slate-200 text-slate-500"
+                }`}
+              >
+                <span>
+                  Showing <strong className={isDark ? "text-white" : "text-slate-900"}>{(currentPage - 1) * pageSize + 1}</strong> to{" "}
+                  <strong className={isDark ? "text-white" : "text-slate-900"}>
                     {Math.min(currentPage * pageSize, filteredUsers.length)}
                   </strong>{" "}
-                  of <strong className="text-white">{filteredUsers.length}</strong> users
+                  of <strong className={isDark ? "text-white" : "text-slate-900"}>{filteredUsers.length}</strong> users
                 </span>
 
                 <div className="flex items-center gap-1.5">
@@ -1017,7 +1333,11 @@ export default function AdminDatabasePage() {
                     type="button"
                     disabled={currentPage <= 1}
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    className="px-3 py-1.5 rounded-lg bg-[#170e30] border border-white/10 hover:bg-[#251747] text-white disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold"
+                    className={`px-3 py-1.5 rounded-lg border disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold ${
+                      isDark
+                        ? "bg-[#170e30] border-white/10 hover:bg-[#251747] text-white"
+                        : "bg-slate-100 border-slate-200 hover:bg-slate-200 text-slate-700"
+                    }`}
                   >
                     ← Prev
                   </button>
@@ -1030,7 +1350,9 @@ export default function AdminDatabasePage() {
                       className={`w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                         currentPage === pageNo
                           ? "bg-purple-600 text-white shadow-md shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                          : "bg-[#170e30] text-gray-300 hover:text-white border border-white/10 hover:bg-[#251747]"
+                          : isDark
+                          ? "bg-[#170e30] text-gray-300 hover:text-white border-white/10 hover:bg-[#251747]"
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200"
                       }`}
                     >
                       {pageNo}
@@ -1041,7 +1363,11 @@ export default function AdminDatabasePage() {
                     type="button"
                     disabled={currentPage >= totalPages}
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                    className="px-3 py-1.5 rounded-lg bg-[#170e30] border border-white/10 hover:bg-[#251747] text-white disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold"
+                    className={`px-3 py-1.5 rounded-lg border disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all font-semibold ${
+                      isDark
+                        ? "bg-[#170e30] border-white/10 hover:bg-[#251747] text-white"
+                        : "bg-slate-100 border-slate-200 hover:bg-slate-200 text-slate-700"
+                    }`}
                   >
                     Next →
                   </button>
@@ -1056,15 +1382,15 @@ export default function AdminDatabasePage() {
              ===================================================================== */}
           {activeView === "mails" && (
             <div className="space-y-5 animate-fadeIn">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className={`flex items-center justify-between pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
                 <div>
-                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                     <span>✉️ Inbound Email &amp; Form Messages</span>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-cyan-300 font-normal border border-cyan-500/30">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 font-bold border border-cyan-300">
                       {mailsList.length} Messages
                     </span>
                   </h2>
-                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                  <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                     Customer RFPs, technical audit submissions, and project inquiries.
                   </p>
                 </div>
@@ -1074,40 +1400,44 @@ export default function AdminDatabasePage() {
                 {mailsList.map((m) => (
                   <div
                     key={m.id}
-                    className="p-4 rounded-2xl bg-[#070318]/90 border border-white/10 hover:border-[#a855f7]/50 transition-all text-left space-y-2"
+                    className={`p-4 rounded-2xl border transition-all text-left space-y-2 ${
+                      isDark
+                        ? "bg-[#070318]/90 border-white/10 hover:border-[#a855f7]/50"
+                        : "bg-slate-50/80 border-slate-200 hover:border-purple-300"
+                    }`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white text-sm">{m.senderName}</span>
-                        <span className="text-xs text-[#22d3ee]">({m.senderEmail})</span>
-                        <span className="text-[10px] text-gray-400 font-mono">[{m.phone}]</span>
+                        <span className={`font-bold text-sm ${isDark ? "text-white" : "text-slate-900"}`}>{m.senderName}</span>
+                        <span className="text-xs text-cyan-600">({m.senderEmail})</span>
+                        <span className={`text-[10px] font-mono ${isDark ? "text-gray-400" : "text-slate-400"}`}>[{m.phone}]</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span
                           className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                             m.status === "Unread"
-                              ? "bg-amber-950 text-amber-300 border border-amber-500/40"
-                              : "bg-emerald-950 text-emerald-300 border border-emerald-500/40"
+                              ? "bg-amber-100 text-amber-800 border border-amber-300"
+                              : "bg-emerald-100 text-emerald-800 border border-emerald-300"
                           }`}
                         >
                           {m.status}
                         </span>
-                        <span className="text-[11px] text-gray-400 font-mono">{m.date} • {m.time}</span>
+                        <span className={`text-[11px] font-mono ${isDark ? "text-gray-400" : "text-slate-400"}`}>{m.date} • {m.time}</span>
                       </div>
                     </div>
 
-                    <div className="bg-[#120d29] p-3 rounded-xl border border-white/5 space-y-1">
-                      <p className="text-xs font-bold text-[#c084fc]">Subject: {m.subject}</p>
-                      <p className="text-xs text-gray-300 leading-relaxed">{m.message}</p>
+                    <div className={`p-3 rounded-xl border space-y-1 ${isDark ? "bg-[#120d29] border-white/5 text-gray-300" : "bg-white border-slate-200 text-slate-700 shadow-sm"}`}>
+                      <p className="text-xs font-bold text-purple-700">Subject: {m.subject}</p>
+                      <p className="text-xs leading-relaxed">{m.message}</p>
                     </div>
 
                     <div className="flex items-center justify-between text-xs pt-1">
-                      <span className="text-[11px] text-gray-400">
-                        Tagged Deliverable: <strong className="text-white">{m.service}</strong>
+                      <span className={`text-[11px] ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                        Tagged Deliverable: <strong className={isDark ? "text-white" : "text-slate-800"}>{m.service}</strong>
                       </span>
                       <a
                         href={`mailto:${m.senderEmail}?subject=Re: ${encodeURIComponent(m.subject)}`}
-                        className="px-3 py-1 rounded-lg bg-purple-700 hover:bg-purple-600 text-white text-[11px] font-bold transition-all"
+                        className="px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-bold transition-all shadow-sm"
                       >
                         Reply via Email ✉️
                       </a>
@@ -1123,15 +1453,15 @@ export default function AdminDatabasePage() {
              ===================================================================== */}
           {activeView === "whatsapp" && (
             <div className="space-y-5 animate-fadeIn">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className={`flex items-center justify-between pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
                 <div>
-                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                     <span>💬 WhatsApp Client Conversations</span>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-normal border border-emerald-500/30">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">
                       {whatsappList.length} Active Leads
                     </span>
                   </h2>
-                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                  <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                     Direct WhatsApp chat clicks, initial inquiries, and instant client follow-ups.
                   </p>
                 </div>
@@ -1141,30 +1471,34 @@ export default function AdminDatabasePage() {
                 {whatsappList.map((wa) => (
                   <div
                     key={wa.id}
-                    className="p-4 rounded-2xl bg-[#070318]/90 border border-white/10 hover:border-emerald-500/50 transition-all text-left space-y-2.5"
+                    className={`p-4 rounded-2xl border transition-all text-left space-y-2.5 ${
+                      isDark
+                        ? "bg-[#070318]/90 border-white/10 hover:border-emerald-500/50"
+                        : "bg-slate-50/80 border-slate-200 hover:border-emerald-400"
+                    }`}
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="text-base">{wa.flag}</span>
-                        <span className="font-bold text-white text-sm">{wa.clientName}</span>
-                        <span className="text-xs font-mono text-emerald-400">({wa.phoneNumber})</span>
+                        <span className={`font-bold text-sm ${isDark ? "text-white" : "text-slate-900"}`}>{wa.clientName}</span>
+                        <span className="text-xs font-mono text-emerald-600">({wa.phoneNumber})</span>
                       </div>
-                      <span className="text-[11px] text-gray-400 font-mono">{wa.date} • {wa.time}</span>
+                      <span className={`text-[11px] font-mono ${isDark ? "text-gray-400" : "text-slate-400"}`}>{wa.date} • {wa.time}</span>
                     </div>
 
-                    <div className="bg-[#0e1620] p-3 rounded-xl border border-emerald-900/40 text-xs text-gray-200">
+                    <div className={`p-3 rounded-xl border text-xs ${isDark ? "bg-[#0e1620] border-emerald-900/40 text-gray-200" : "bg-white border-emerald-200 text-slate-800 shadow-sm"}`}>
                       &quot;{wa.message}&quot;
                     </div>
 
                     <div className="flex items-center justify-between pt-1">
-                      <span className="text-[10px] uppercase font-bold text-gray-400">
-                        Country: {wa.country} • Status: <strong className="text-emerald-400">{wa.status}</strong>
+                      <span className={`text-[10px] uppercase font-bold ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                        Country: {wa.country} • Status: <strong className="text-emerald-600">{wa.status}</strong>
                       </span>
                       <a
                         href={`https://wa.me/${wa.phoneNumber.replace(/[^0-9]/g, "")}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-sm"
                       >
                         <span>Open in WhatsApp</span>
                         <span>💬</span>
@@ -1181,15 +1515,15 @@ export default function AdminDatabasePage() {
              ===================================================================== */}
           {activeView === "payments" && (
             <div className="space-y-5 animate-fadeIn">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+              <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
                 <div>
-                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                     <span>💳 Settled Payments Ledger</span>
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-normal border border-emerald-500/30">
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">
                       {paymentsList.length} Transactions
                     </span>
                   </h2>
-                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                  <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                     Multi-currency authorized escrow settlements via UPI, Stripe, HDFC Bank, PayPal &amp; Wise.
                   </p>
                 </div>
@@ -1203,10 +1537,18 @@ export default function AdminDatabasePage() {
                 </button>
               </div>
 
-              <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#070318]/90 shadow-inner">
+              <div
+                className={`overflow-x-auto rounded-2xl border shadow-inner ${
+                  isDark ? "border-white/10 bg-[#070318]/90" : "border-slate-200 bg-white"
+                }`}
+              >
                 <table className="w-full text-left text-xs border-collapse min-w-[700px]">
                   <thead>
-                    <tr className="border-b border-white/10 bg-[#160e33]/90 text-gray-300 uppercase text-[10px] tracking-wider font-bold">
+                    <tr
+                      className={`border-b uppercase text-[10px] tracking-wider font-bold ${
+                        isDark ? "border-white/10 bg-[#160e33]/90 text-gray-300" : "border-slate-200 bg-slate-100 text-slate-700"
+                      }`}
+                    >
                       <th className="py-3 px-3">Transaction ID</th>
                       <th className="py-3 px-3">Date</th>
                       <th className="py-3 px-3">Client &amp; Domain</th>
@@ -1216,34 +1558,38 @@ export default function AdminDatabasePage() {
                       <th className="py-3 px-3 text-center">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 text-gray-200">
+                  <tbody className={`divide-y ${isDark ? "divide-white/5 text-gray-200" : "divide-slate-100 text-slate-700"}`}>
                     {paymentsList.map((p) => (
-                      <tr key={p.id} className="hover:bg-white/[0.03] transition-colors">
-                        <td className="py-3 px-3 font-mono text-[#22d3ee] font-bold">
+                      <tr key={p.id} className={`transition-colors ${isDark ? "hover:bg-white/[0.03]" : "hover:bg-slate-50"}`}>
+                        <td className="py-3 px-3 font-mono text-cyan-600 font-bold">
                           {p.id}
-                          <span className="block text-[9px] text-gray-400 font-normal">{p.txnRef}</span>
+                          <span className={`block text-[9px] font-normal ${isDark ? "text-gray-400" : "text-slate-400"}`}>{p.txnRef}</span>
                         </td>
-                        <td className="py-3 px-3 whitespace-nowrap text-gray-300 text-[11px]">
+                        <td className={`py-3 px-3 whitespace-nowrap text-[11px] ${isDark ? "text-gray-300" : "text-slate-600"}`}>
                           {p.date}
-                          <span className="block text-[9px] text-gray-400">{p.time}</span>
+                          <span className={`block text-[9px] ${isDark ? "text-gray-400" : "text-slate-400"}`}>{p.time}</span>
                         </td>
                         <td className="py-3 px-3">
-                          <span className="font-bold text-white block">{p.clientName}</span>
-                          <span className="text-[10px] text-purple-300 font-mono">{p.domain}</span>
+                          <span className={`font-bold block ${isDark ? "text-white" : "text-slate-900"}`}>{p.clientName}</span>
+                          <span className="text-[10px] text-purple-600 font-mono">{p.domain}</span>
                         </td>
-                        <td className="py-3 px-3 text-gray-300">
+                        <td className="py-3 px-3">
                           {p.service}
                         </td>
-                        <td className="py-3 px-3 text-right font-black text-emerald-400 text-sm whitespace-nowrap">
+                        <td className="py-3 px-3 text-right font-black text-emerald-600 text-sm whitespace-nowrap">
                           {p.amount}
                         </td>
                         <td className="py-3 px-3 text-center whitespace-nowrap">
-                          <span className="px-2.5 py-0.5 rounded-full bg-[#181033] border border-white/10 text-[10px] font-bold text-white">
+                          <span
+                            className={`px-2.5 py-0.5 rounded-full border text-[10px] font-bold ${
+                              isDark ? "bg-[#181033] border-white/10 text-white" : "bg-slate-100 border-slate-200 text-slate-800"
+                            }`}
+                          >
                             {p.rail}
                           </span>
                         </td>
                         <td className="py-3 px-3 text-center whitespace-nowrap">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold">
                             ✓ {p.status}
                           </span>
                         </td>
@@ -1260,11 +1606,11 @@ export default function AdminDatabasePage() {
              ===================================================================== */}
           {activeView === "add_payment" && (
             <div className="space-y-5 animate-fadeIn max-w-2xl mx-auto">
-              <div className="pb-4 border-b border-white/10">
-                <h2 className="text-xl font-black text-white flex items-center gap-2">
+              <div className={`pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+                <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                   <span>➕ Record / Authorize New Client Payment</span>
                 </h2>
-                <p className="text-xs text-[#94a3b8] mt-0.5">
+                <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                   Record offline bank wire, custom retainer settlement, or direct client receipt.
                 </p>
               </div>
@@ -1272,47 +1618,55 @@ export default function AdminDatabasePage() {
               <form onSubmit={handleAddPaymentSubmit} className="space-y-4 text-left">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Full Name *</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Client Full Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. John Doe / Global Brand Ltd"
                       value={newPayClient}
                       onChange={(e) => setNewPayClient(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Work Email</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Work Email</label>
                     <input
                       type="email"
                       placeholder="client@domain.com"
                       value={newPayEmail}
                       onChange={(e) => setNewPayEmail(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Target Domain URL</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Target Domain URL</label>
                     <input
                       type="text"
                       placeholder="https://clientwebsite.com"
                       value={newPayDomain}
                       onChange={(e) => setNewPayDomain(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Authorized Service Package</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Authorized Service Package</label>
                     <select
                       value={newPayService}
                       onChange={(e) => setNewPayService(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     >
                       <option value="Enterprise SEO Suite">Enterprise SEO Suite</option>
                       <option value="Next.js Web Engineering">Next.js Web Engineering</option>
@@ -1326,23 +1680,27 @@ export default function AdminDatabasePage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Amount *</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Amount *</label>
                     <input
                       type="number"
                       required
                       placeholder="e.g. 49999 or 950"
                       value={newPayAmount}
                       onChange={(e) => setNewPayAmount(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Currency</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Currency</label>
                     <select
                       value={newPayCurrency}
                       onChange={(e) => setNewPayCurrency(e.target.value as any)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     >
                       <option value="INR">₹ INR (India)</option>
                       <option value="USD">$ USD (Global)</option>
@@ -1350,11 +1708,13 @@ export default function AdminDatabasePage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Payment Rail</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Payment Rail</label>
                     <select
                       value={newPayRail}
                       onChange={(e) => setNewPayRail(e.target.value as any)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     >
                       <option value="UPI">⚡ UPI / QR</option>
                       <option value="Stripe">💳 Stripe Card</option>
@@ -1366,7 +1726,7 @@ export default function AdminDatabasePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-gray-400 mb-1">
+                  <label className={`block text-xs font-semibold mb-1 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                     Bank UTR / Transaction Reference (Optional)
                   </label>
                   <input
@@ -1374,14 +1734,16 @@ export default function AdminDatabasePage() {
                     placeholder="e.g. UTR4120938120 or Wire #90214"
                     value={newPayRef}
                     onChange={(e) => setNewPayRef(e.target.value)}
-                    className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                      isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                    }`}
                   />
                 </div>
 
                 <div className="pt-2 flex justify-end">
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-[#6366f1] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-xl shadow-purple-950/80 cursor-pointer"
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-[#6366f1] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-xl shadow-purple-950/40 cursor-pointer"
                   >
                     Authorize &amp; Record Payment ✓
                   </button>
@@ -1395,12 +1757,12 @@ export default function AdminDatabasePage() {
              ===================================================================== */}
           {activeView === "invoice" && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
+              <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
                 <div>
-                  <h2 className="text-xl font-black text-white flex items-center gap-2">
+                  <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
                     <span>🧾 Enterprise Tax Invoice Generator</span>
                   </h2>
-                  <p className="text-xs text-[#94a3b8] mt-0.5">
+                  <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
                     Generate official GST / VAT compliant invoices for domestic and global clients.
                   </p>
                 </div>
@@ -1409,7 +1771,7 @@ export default function AdminDatabasePage() {
                   <button
                     type="button"
                     onClick={handlePrintInvoice}
-                    className="px-4 py-2 rounded-xl bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold transition-all cursor-pointer shadow-md self-start sm:self-auto"
+                    className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all cursor-pointer shadow-md self-start sm:self-auto"
                   >
                     🖨️ Print / Save PDF
                   </button>
@@ -1417,88 +1779,107 @@ export default function AdminDatabasePage() {
               </div>
 
               {/* Invoice Form */}
-              <form onSubmit={handleCreateInvoiceSubmit} className="bg-[#070318]/90 border border-white/10 rounded-2xl p-5 space-y-4 text-left">
-                <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
+              <form
+                onSubmit={handleCreateInvoiceSubmit}
+                className={`border rounded-2xl p-5 space-y-4 text-left ${
+                  isDark ? "bg-[#070318]/90 border-white/10" : "bg-slate-50 border-slate-200"
+                }`}
+              >
+                <h3 className={`text-sm font-bold flex items-center gap-1.5 ${isDark ? "text-white" : "text-slate-900"}`}>
                   <span>✦ Invoice Parameters</span>
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Legal Name / Entity *</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Client Legal Name / Entity *</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Nordhaus Architecture Ltd"
                       value={invClientName}
                       onChange={(e) => setInvClientName(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Billing Work Email</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Billing Work Email</label>
                     <input
                       type="email"
                       placeholder="accounts@nordhaus.com"
                       value={invClientEmail}
                       onChange={(e) => setInvClientEmail(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Target Domain</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Target Domain</label>
                     <input
                       type="text"
                       placeholder="https://nordhaus-estates.com"
                       value={invClientDomain}
                       onChange={(e) => setInvClientDomain(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Client Physical Address</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Client Physical Address</label>
                     <input
                       type="text"
                       placeholder="450 Sutter St, San Francisco, CA, USA"
                       value={invClientAddress}
                       onChange={(e) => setInvClientAddress(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Deliverable Description</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Deliverable Description</label>
                     <input
                       type="text"
                       value={invServiceName}
                       onChange={(e) => setInvServiceName(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Rate ({invCurrency}) *</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Rate ({invCurrency}) *</label>
                     <input
                       type="number"
                       required
                       value={invRate}
                       onChange={(e) => setInvRate(e.target.value)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1">Currency</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Currency</label>
                     <select
                       value={invCurrency}
                       onChange={(e) => setInvCurrency(e.target.value as any)}
-                      className="w-full bg-[#120d29] border border-white/10 focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
                     >
                       <option value="INR">₹ INR</option>
                       <option value="USD">$ USD</option>
