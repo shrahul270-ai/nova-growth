@@ -146,7 +146,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Button: "Explore Marketplace" linking to /guest-posting */}
+            {/* Right Action Button: "Scale Your Traffic" linking to /guest-posting */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <Link
                 href="/guest-posting"
@@ -155,7 +155,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
                 }}
               >
-                <span>Start Project</span>
+                <span>Scale Your Traffic</span>
               </Link>
 
               {/* Minimalist 2-Bar Burger Button for Mobile */}
@@ -287,7 +287,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 background: "linear-gradient(135deg, #A068FF 0%, #7928CA 100%)",
               }}
             >
-              <span>Start Project</span>
+              <span>Scale Your Traffic</span>
             </Link>
           </div>
         </nav>

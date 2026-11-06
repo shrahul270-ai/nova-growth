@@ -157,17 +157,17 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
 
         {/* =========================================================================
             USER REQUESTED ACTION ROW:
-            1. "Start Project >" button (links to /guest-posting) + "< Balaji Prime Media" cursor
+            1. "Scale Your Traffic >" button (links to /guest-posting) + "< Balaji Prime Media" cursor
            ========================================================================= */}
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-5 relative z-20">
           
-          {/* Start Project Button (Links to /guest-posting) */}
+          {/* Scale Your Traffic Button (Links to /guest-posting) */}
           <div className="btn-border-wrap shrink-0">
             <Link
               href="/guest-posting"
               className="marketeam-start-btn cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.45)] hover:shadow-[0_0_35px_rgba(160,104,255,0.7)]"
             >
-              <span>Start Project</span>
+              <span>Scale Your Traffic</span>
               <svg
                 className="w-[18px] h-[18px] text-white"
                 fill="none"
