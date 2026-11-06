@@ -296,51 +296,9 @@ export default function GuestPostingClient() {
           </h2>
 
           {/* Lede: Two lines */}
-          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto mb-7 leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
             Find answers to the most common questions about Balaji Prime Media&apos;s guest posting platforms, editorial rules, lifetime warranties, and link building deliverables.
           </p>
-
-          {/* Action Button: White Community / Brief Button */}
-          <div className="mb-14">
-            <a
-              href="/contact"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-[11px] bg-white text-[#0B2400] hover:bg-neutral-100 font-bold text-sm tracking-tight transition-all duration-200 hover:-translate-y-0.5 shadow-xl hover:shadow-[0_0_24px_rgba(255,255,255,0.4)]"
-            >
-              <span>Schedule Strategy Call</span>
-              <span className="text-base">→</span>
-            </a>
-          </div>
-
-          {/* Glass Search Bar: 74px tall, Lexend 300 font */}
-          <div className="max-w-[880px] mx-auto mb-12">
-            <div className="relative flex items-center h-[68px] sm:h-[74px] rounded-full bg-white/[0.04] backdrop-blur-[24px] border border-white/15 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] focus-within:border-[#F0A24C] focus-within:ring-2 focus-within:ring-[#F0A24C]/30 transition-all">
-              <svg
-                className="w-5 h-5 sm:w-6 sm:h-6 text-[#F0A24C] shrink-0 mr-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.2"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for your queries (e.g. Do-Follow, Indexing, Permanent, Pricing)..."
-                className="w-full bg-transparent text-white placeholder-white/40 text-sm sm:text-base font-['Lexend',sans-serif] font-[300] outline-none"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="text-xs text-white/50 hover:text-white px-2 py-1 rounded bg-white/10"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-          </div>
 
           {/* 4 Pill-Shaped Category Cards (2×2 Grid) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-[1040px] mx-auto mb-14 text-left">
@@ -386,20 +344,19 @@ export default function GuestPostingClient() {
           </div>
 
           {/* Active Filter Pill Alert */}
-          {(selectedCategory || searchQuery) && (
+          {selectedCategory && (
             <div className="flex items-center justify-center gap-3 mb-8">
               <span className="text-xs text-white/60">
-                Showing results for {selectedCategory ? `category: ${selectedCategory}` : ""} {searchQuery ? `"${searchQuery}"` : ""}
+                Showing questions for: <span className="text-white font-semibold">{selectedCategory}</span>
               </span>
               <button
                 type="button"
                 onClick={() => {
                   setSelectedCategory(null);
-                  setSearchQuery("");
                 }}
-                className="text-xs text-[#F0A24C] hover:underline font-semibold"
+                className="text-xs text-[#F0A24C] hover:underline font-semibold cursor-pointer"
               >
-                Reset filters
+                View all questions
               </button>
             </div>
           )}
