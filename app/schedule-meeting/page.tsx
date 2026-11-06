@@ -283,7 +283,7 @@ export default function ScheduleMeetingPage() {
                 {/* 3. Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                    <label className="block text-xs font-semibold text-[#154359] mb-1.5 cursor-pointer">
                       Your Full Name *
                     </label>
                     <input
@@ -292,11 +292,11 @@ export default function ScheduleMeetingPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Sarah Jenkins"
-                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                    <label className="block text-xs font-semibold text-[#154359] mb-1.5 cursor-pointer">
                       Work Email Address *
                     </label>
                     <input
@@ -305,7 +305,7 @@ export default function ScheduleMeetingPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. sarah@company.com"
-                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all cursor-pointer"
                     />
                   </div>
                 </div>
@@ -313,7 +313,7 @@ export default function ScheduleMeetingPage() {
                 {/* 4. Website Domain & Primary Goal */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                    <label className="block text-xs font-semibold text-[#154359] mb-1.5 cursor-pointer">
                       Website URL
                     </label>
                     <input
@@ -321,11 +321,11 @@ export default function ScheduleMeetingPage() {
                       value={website}
                       onChange={(e) => setWebsite(e.target.value)}
                       placeholder="https://example.com"
-                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                      className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all cursor-pointer"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                    <label className="block text-xs font-semibold text-[#154359] mb-1.5 cursor-pointer">
                       Primary Growth Goal
                     </label>
                     <select
@@ -344,7 +344,7 @@ export default function ScheduleMeetingPage() {
 
                 {/* 5. Additional Notes */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                  <label className="block text-xs font-semibold text-[#154359] mb-1.5 cursor-pointer">
                     Any specific details you want audited prior to the call?
                   </label>
                   <textarea
@@ -352,7 +352,7 @@ export default function ScheduleMeetingPage() {
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="e.g. Recently launched a redesign, traffic dropped after Google core update, or target competitor sites..."
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all cursor-pointer"
                   />
                 </div>
 

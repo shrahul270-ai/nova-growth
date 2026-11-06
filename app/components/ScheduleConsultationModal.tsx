@@ -407,7 +407,7 @@ export default function ScheduleConsultationModal({
                   <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
                     {/* Name */}
                     <div>
-                      <label className="text-xs font-medium text-slate-300 block mb-1">
+                      <label className="text-xs font-medium text-slate-300 block mb-1 cursor-pointer">
                         Full Name *
                       </label>
                       <input
@@ -416,13 +416,13 @@ export default function ScheduleConsultationModal({
                         placeholder="e.g. Rahul Sharma"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all cursor-pointer"
                       />
                     </div>
 
                     {/* Email */}
                     <div>
-                      <label className="text-xs font-medium text-slate-300 block mb-1">
+                      <label className="text-xs font-medium text-slate-300 block mb-1 cursor-pointer">
                         Work / Personal Email *
                       </label>
                       <input
@@ -431,14 +431,14 @@ export default function ScheduleConsultationModal({
                         placeholder="test@gmail.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all cursor-pointer"
                       />
                     </div>
 
                     {/* Phone & Website (Side by side on larger screens) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="text-xs font-medium text-slate-300 block mb-1">
+                        <label className="text-xs font-medium text-slate-300 block mb-1 cursor-pointer">
                           WhatsApp / Phone *
                         </label>
                         <input
@@ -447,11 +447,11 @@ export default function ScheduleConsultationModal({
                           placeholder="+91 98765 43210"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all"
+                          className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all cursor-pointer"
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-medium text-slate-300 block mb-1">
+                        <label className="text-xs font-medium text-slate-300 block mb-1 cursor-pointer">
                           Website or Brand URL
                         </label>
                         <input
@@ -459,14 +459,14 @@ export default function ScheduleConsultationModal({
                           placeholder="https://yoursite.com"
                           value={website}
                           onChange={(e) => setWebsite(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all"
+                          className="w-full px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/15 text-white placeholder-slate-400/60 text-sm focus:border-amber-400 focus:bg-white/[0.08] focus:ring-1 focus:ring-amber-400/40 outline-none transition-all cursor-pointer"
                         />
                       </div>
                     </div>
 
                     {/* Target Service Select */}
                     <div>
-                      <label className="text-xs font-medium text-slate-300 block mb-1">
+                      <label className="text-xs font-medium text-slate-300 block mb-1 cursor-pointer">
                         Primary Goal / Service Focus
                       </label>
                       <select
