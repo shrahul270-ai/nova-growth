@@ -72,7 +72,6 @@ const FAQS: FAQItem[] = [
 
 export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({ "faq-1": true, "faq-2": true });
 
   const toggleItem = (id: string) => {
@@ -80,11 +79,7 @@ export default function FAQPage() {
   };
 
   const filteredFaqs = FAQS.filter((item) => {
-    const matchesCategory = activeCategory === "all" || item.category === activeCategory;
-    const matchesSearch =
-      item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.answer.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return activeCategory === "all" || item.category === activeCategory;
   });
 
   return (
@@ -100,7 +95,7 @@ export default function FAQPage() {
       {/* Hero Header */}
       <section className="relative z-10 pt-16 sm:pt-24 pb-12 max-w-5xl mx-auto px-4 sm:px-6 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-300 text-[11px] font-semibold uppercase tracking-wider text-[#185B7B] shadow-xs mb-4">
-          <HelpCircle className="w-3.5 h-3.5 text-[#ec601c]" />
+          <HelpCircle className="w-3.5 h-3.5 text-[#A068FF]" />
           <span>Knowledge &amp; Clarity</span>
         </div>
 
@@ -111,20 +106,8 @@ export default function FAQPage() {
           Clear, direct answers about our white-hat search methodology, editorial outreach, Next.js engineering standards, pricing, and client reporting.
         </p>
 
-        {/* Search Input */}
-        <div className="mt-8 max-w-xl mx-auto relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search questions (e.g. Turnaround time, Next.js, Backlinks)..."
-            className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-full bg-white border border-slate-300 shadow-sm focus:outline-none focus:border-[#154359] transition-all text-[#154359] placeholder-[#94a3b8]"
-          />
-        </div>
-
         {/* Category Filter Pills */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           {[
             { id: "all", label: "All Questions" },
             { id: "seo", label: "SEO & Rankings" },
@@ -183,15 +166,14 @@ export default function FAQPage() {
             })
           ) : (
             <div className="text-center py-12 bg-white/70 rounded-2xl border border-slate-200">
-              <p className="text-sm text-[#475569]">No questions matched your search query.</p>
+              <p className="text-sm text-[#475569]">No questions in this category.</p>
               <button
                 onClick={() => {
-                  setSearchQuery("");
                   setActiveCategory("all");
                 }}
                 className="mt-3 text-xs font-semibold text-[#185B7B] hover:underline cursor-pointer"
               >
-                Clear search filters
+                View all questions
               </button>
             </div>
           )}
@@ -215,18 +197,11 @@ export default function FAQPage() {
               href="https://wa.me/917690868932"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all shadow-xs flex items-center gap-1.5"
+              className="px-6 py-3 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-105"
             >
               <span>WhatsApp Direct</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
-            <Link
-              href="/schedule-meeting"
-              className="px-5 py-2.5 rounded-full bg-[#154359] text-white text-xs font-bold hover:bg-[#091427] transition-all shadow-xs flex items-center gap-1.5"
-            >
-              <span>Schedule Call</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
         </div>
       </section>
