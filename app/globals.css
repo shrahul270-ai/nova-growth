@@ -1,7 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Urbanist:wght@500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
+  --font-urbanist: 'Urbanist', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-quantico: 'Quantico', 'Arial Narrow', sans-serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-handwriting: 'Caveat', cursive;
   --bg-main: #f8fafd;
@@ -1515,6 +1518,422 @@ body {
 .animate-aurora-breathe {
   animation: auroraBreathe 6s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   MARKETEAM HERO & ORBITS STYLES
+   ========================================================================== */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rotateBorder {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
+.font-urbanist {
+  font-family: 'Urbanist', sans-serif !important;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.btn-border-wrap {
+  position: relative;
+  border-radius: 50px;
+  display: inline-flex;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+.btn-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50px;
+  padding: 3px;
+  background: conic-gradient(from var(--border-angle, 0deg), #A068FF, #070319, #A068FF, #070319, #A068FF);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotateBorder 3s linear infinite;
+  pointer-events: none;
+}
+
+.marketeam-nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #000000;
+  font-size: 15px;
+  font-weight: 400;
+  transition: color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.marketeam-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.marketeam-nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.marketeam-login-link {
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.marketeam-login-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.marketeam-login-link:hover::after {
+  transform: scaleX(1);
+}
+
+.marketeam-join-btn {
+  position: relative;
+  border-radius: 50px;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 500;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  font-family: 'Inter', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marketeam-join-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #A068FF;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.marketeam-join-btn:hover::after {
+  transform: translateX(0);
+}
+
+.marketeam-start-btn {
+  position: relative;
+  border-radius: 50px;
+  background-color: #060218;
+  color: #ffffff;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 25px -8px rgba(160, 104, 255, 0.4);
+}
+
+.marketeam-start-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #A068FF;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.marketeam-start-btn:hover::after {
+  transform: translateX(0);
+}
+
+/* Orbits Rotation Animations */
+@keyframes spinLeftOrbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes spinRightOrbit {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes counterSpinLeftOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counterSpinRightOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.marketeam-orbit-1 {
+  animation: spinLeftOrbit 30s linear infinite;
+}
+.marketeam-orbit-2 {
+  animation: spinRightOrbit 40s linear infinite;
+}
+.marketeam-orbit-3 {
+  animation: spinRightOrbit 50s linear infinite;
+}
+.marketeam-orbit-4 {
+  animation: spinLeftOrbit 60s linear infinite;
+}
+
+.marketeam-counter-1 {
+  animation: counterSpinLeftOrbit 30s linear infinite;
+}
+.marketeam-counter-2 {
+  animation: counterSpinRightOrbit 40s linear infinite;
+}
+.marketeam-counter-3 {
+  animation: counterSpinRightOrbit 50s linear infinite;
+}
+.marketeam-counter-4 {
+  animation: counterSpinLeftOrbit 60s linear infinite;
+}
+
+.orbit-circle-base {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.orbit-gradient-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(217, 161, 255, 0) 0%, rgba(217, 161, 255, 1) 43%, rgba(217, 161, 255, 0) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes avatarFlyIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-180deg);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+.avatar-flyin {
+  animation: avatarFlyIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Entrance Animations */
+@keyframes markFadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes markFadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes markScaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-mark-fade-down {
+  animation: markFadeDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-mark-fade-up {
+  animation: markFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-mark-scale-in {
+  animation: markScaleIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+/* Logo Ticker Infinite Scroll */
+@keyframes tickerScrollLoop {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track-strip {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  animation: tickerScrollLoop 20s linear infinite;
+}
+
+.ticker-mask-strip {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+/* ==========================================================================
+   TARGO HERO STYLES
+   ========================================================================== */
+.font-quantico {
+  font-family: 'Quantico', 'Arial Narrow', sans-serif !important;
+}
+
+.targo-hero-section {
+  position: relative;
+  min-height: 100svh;
+  background-color: #F2F1F0;
+  overflow: hidden;
+  font-family: 'Quantico', 'Arial Narrow', sans-serif;
+}
+
+.targo-hero-video {
+  position: absolute;
+  top: 0;
+  right: -20%;
+  width: 99%;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.targo-scrim-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, #F2F1F0 0%, #F2F1F0 55%, rgba(242, 241, 240, 0.85) 78%, rgba(242, 241, 240, 0) 100%);
+  z-index: 2;
+}
+
+.targo-headline {
+  font-family: 'Quantico', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.98;
+  color: #2b3033;
+  padding: min(clamp(40px, 9vw, 120px), 9vh) 20px min(clamp(24px, 4vw, 44px), 5vh) clamp(20px, 9vw, 118px);
+  font-size: min(clamp(34px, 7.6vw, 80px), 9.2vh);
+}
+
+.targo-indent-block {
+  margin-left: min(238px, 28vw);
+}
+
+.targo-cta-container {
+  padding-left: calc(clamp(20px, 9vw, 118px) + min(238px, 28vw));
+  padding-bottom: min(clamp(36px, 6vw, 80px), 7vh);
+}
+
+.targo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #15BCDF;
+  border: 1px solid #0fa3c2;
+  color: #1a1c1e;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 18px 34px;
+  font-size: clamp(13px, 2.2vw, 16px);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  box-shadow: 0 0 0 1px rgba(21, 188, 223, 0.35), 0 10px 30px -12px rgba(15, 163, 194, 0.6);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: 'Quantico', 'Arial Narrow', sans-serif;
+}
+
+.targo-cta-btn:hover {
+  background-color: #3fd0ef;
+  box-shadow: 0 0 0 1px rgba(63, 208, 239, 0.5), 0 14px 34px -10px rgba(15, 163, 194, 0.85);
+  transform: translateY(-1px);
+}
+
+.targo-cta-btn .targo-trailing-line {
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background-color: #1a1c1e;
+  margin-left: 14px;
+}
+
+/* Mobile adjustments (<= 700px) */
+@media (max-width: 700px) {
+  .targo-hero-video {
+    top: 0;
+    left: -12%;
+    right: auto;
+    width: 119%;
+  }
+
+  .targo-scrim-overlay {
+    display: none !important;
+  }
+
+  .targo-headline {
+    margin-top: 360px;
+    padding: 0 20px 28px 20px;
+    font-size: clamp(34px, 10vw, 56px);
+  }
+
+  .targo-cta-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+  }
+}
+
 
 
 
