@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { trackInteraction } from "@/lib/tracker";
 
@@ -15,20 +15,33 @@ export default function AIVoiceWidget() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<"voice" | "chat">("voice");
+  const [lang, setLang] = useState<"en" | "hi">("en");
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [inputText, setInputText] = useState("");
+  const [prompts, setPrompts] = useState<string[]>([
+    "Guest Posting packages",
+    "Pricing & DR Tiers",
+    "Free SEO Audit",
+    "Schedule Meeting",
+  ]);
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
       sender: "ai",
-      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We help UK, US, and worldwide brands scale organic revenue through manual DR 50–90+ editorial outreach and technical Next.js engineering. How may I assist your business today?",
+      text: "Hello! Welcome to Balaji Prime Media. I am your 24/7 AI Concierge. We assist UK, US, and global brands in scaling organic rankings with manual DR 50–90+ editorial outreach and Next.js web development. How can I help you today?",
       timestamp: "Just now",
     },
   ]);
+
+  const messagesRef = useRef<Message[]>(messages);
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
@@ -44,83 +57,220 @@ export default function AIVoiceWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isThinking]);
 
-  // Setup Web Speech Recognition
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const SpeechRecognition =
-        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-
-      if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = true;
-        recognition.lang = "en-GB"; // UK & International English
-
-        recognition.onstart = () => {
-          setIsListening(true);
-        };
-
-        recognition.onresult = (event: any) => {
-          let currentTranscript = "";
-          for (let i = event.resultIndex; i < event.results.length; ++i) {
-            currentTranscript += event.results[i][0].transcript;
-          }
-          setTranscript(currentTranscript);
-          if (event.results[0].isFinal) {
-            handleUserMessage(currentTranscript);
-          }
-        };
-
-        recognition.onerror = (event: any) => {
-          console.warn("Speech recognition error:", event.error);
-          setIsListening(false);
-        };
-
-        recognition.onend = () => {
-          setIsListening(false);
-        };
-
-        recognitionRef.current = recognition;
-      }
-    }
-  }, []);
-
   // Text-to-Speech synthesis
-  const speakText = (text: string) => {
-    if (isMuted || typeof window === "undefined" || !("speechSynthesis" in window)) {
-      return;
-    }
-
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "en-GB";
-      utterance.rate = 1.0;
-      utterance.pitch = 1.05;
-
-      // Select high-quality British/International voice if available
-      const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(
-        (v) =>
-          (v.lang === "en-GB" || v.lang === "en_GB") &&
-          (v.name.includes("Google") || v.name.includes("Natural") || v.name.includes("Female") || v.name.includes("Daniel"))
-      ) || voices.find((v) => v.lang.startsWith("en"));
-
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
+  const speakText = useCallback(
+    (text: string) => {
+      if (isMuted || typeof window === "undefined" || !("speechSynthesis" in window)) {
+        return;
       }
 
-      utterance.onstart = () => setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
 
-      speechSynthRef.current = utterance;
-      window.speechSynthesis.speak(utterance);
-    } catch (err) {
-      console.warn("Speech synthesis error:", err);
-      setIsSpeaking(false);
-    }
-  };
+        // Check if reply contains Hindi / Hinglish
+        const isHindi =
+          /[\u0900-\u097F]/.test(text) ||
+          /\b(namaste|shukriya|aap|hum|kya|hai|hain|karna|hoga|bataiye|dhanyawad)\b/i.test(text);
+
+        utterance.lang = isHindi ? "hi-IN" : "en-GB";
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (isHindi) {
+          const hiVoice =
+            voices.find((v) => v.lang.startsWith("hi")) ||
+            voices.find((v) => v.lang.includes("IN") || v.lang.startsWith("en-IN"));
+          if (hiVoice) utterance.voice = hiVoice;
+        } else {
+          const enVoice =
+            voices.find(
+              (v) =>
+                (v.lang === "en-GB" || v.lang === "en_GB") &&
+                (v.name.includes("Google") || v.name.includes("Natural") || v.name.includes("Female") || v.name.includes("Daniel"))
+            ) ||
+            voices.find((v) => v.lang.startsWith("en-US") || v.lang.startsWith("en"));
+          if (enVoice) utterance.voice = enVoice;
+        }
+
+        utterance.onstart = () => setIsSpeaking(true);
+        utterance.onend = () => setIsSpeaking(false);
+        utterance.onerror = () => setIsSpeaking(false);
+
+        speechSynthRef.current = utterance;
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn("Speech synthesis error:", err);
+        setIsSpeaking(false);
+      }
+    },
+    [isMuted]
+  );
+
+  // Send message to AI endpoint
+  const handleUserMessage = useCallback(
+    async (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed) return;
+
+      // Track interaction
+      trackInteraction({
+        action: "other",
+        title: "AI Voice Bot Query",
+        details: trimmed,
+      });
+
+      // Add user message to UI
+      const userMsg: Message = {
+        id: String(Date.now()),
+        sender: "user",
+        text: trimmed,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      };
+
+      setMessages((prev) => [...prev, userMsg]);
+      setInputText("");
+      setTranscript("");
+      setIsThinking(true);
+
+      try {
+        const historySnapshot = messagesRef.current.slice(-4).map((m) => ({
+          role: m.sender === "ai" ? "assistant" : "user",
+          content: m.text,
+        }));
+
+        const res = await fetch("/api/ai/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: trimmed,
+            history: historySnapshot,
+          }),
+        });
+
+        const data = await res.json();
+        const aiReply =
+          data?.reply ||
+          "Main Balaji Prime Media ka AI Voice Concierge hoon. Hamari senior outreach team 24/7 WhatsApp (+91 76908 68932) par available hai.";
+
+        if (Array.isArray(data?.suggestedPrompts) && data.suggestedPrompts.length > 0) {
+          setPrompts(data.suggestedPrompts);
+        }
+
+        const aiMsg: Message = {
+          id: String(Date.now() + 1),
+          sender: "ai",
+          text: aiReply,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        };
+
+        setMessages((prev) => [...prev, aiMsg]);
+        setIsThinking(false);
+
+        // Voice output
+        speakText(aiReply);
+
+        // Auto-capture lead if contact details detected
+        const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(trimmed);
+        const hasPhone = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4,}/.test(trimmed);
+        if (hasEmail || hasPhone || data?.leadCaptured) {
+          fetch("/api/db/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "ai_voice_bot",
+              name: "AI Voice Inquirer",
+              email: hasEmail ? trimmed.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] : "",
+              phone: hasPhone ? trimmed.match(/(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4,}/)?.[0] : "",
+              service: "UK / Global SEO & Guest Posting Consultation",
+              message: `User query through AI Voice Concierge: "${trimmed}"`,
+              sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
+            }),
+          }).catch(() => {});
+        }
+      } catch {
+        setIsThinking(false);
+        const fallbackReply =
+          "Balaji Prime Media ki senior team 24/7 uplabdh hai. Aap direct WhatsApp (+91 76908 68932) ya email support@balajiprimemedia.in par sampark kar sakte hain.";
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: String(Date.now() + 2),
+            sender: "ai",
+            text: fallbackReply,
+            timestamp: "Just now",
+          },
+        ]);
+        speakText(fallbackReply);
+      }
+    },
+    [speakText]
+  );
+
+  // Setup Web Speech Recognition with dynamic language
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) return;
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = lang === "hi" ? "hi-IN" : "en-IN"; // en-IN understands English and Hinglish seamlessly
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      let interimTranscript = "";
+      let finalTranscript = "";
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const item = event.results[i];
+        if (item.isFinal) {
+          finalTranscript += item[0].transcript;
+        } else {
+          interimTranscript += item[0].transcript;
+        }
+      }
+
+      if (interimTranscript) {
+        setTranscript(interimTranscript);
+      }
+
+      if (finalTranscript.trim()) {
+        const queryText = finalTranscript.trim();
+        setTranscript(queryText);
+        setIsListening(false);
+        try {
+          recognition.stop();
+        } catch {}
+        handleUserMessage(queryText);
+      }
+    };
+
+    recognition.onerror = (event: any) => {
+      console.warn("Speech recognition notice:", event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+
+    return () => {
+      try {
+        recognition.abort();
+      } catch {}
+    };
+  }, [lang, handleUserMessage]);
 
   const toggleListening = () => {
     if (isSpeaking) {
@@ -140,97 +290,6 @@ export default function AIVoiceWidget() {
       } catch (err) {
         console.warn("Error starting speech recognition:", err);
       }
-    }
-  };
-
-  // Send message to AI endpoint
-  const handleUserMessage = async (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed) return;
-
-    // Track interaction
-    trackInteraction({
-      action: "other",
-      title: "AI Voice Bot Query",
-      details: trimmed,
-    });
-
-    // Add user message to UI
-    const userMsg: Message = {
-      id: String(Date.now()),
-      sender: "user",
-      text: trimmed,
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
-    setInputText("");
-    setTranscript("");
-    setIsThinking(true);
-
-    try {
-      const res = await fetch("/api/ai/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: trimmed,
-          history: messages.slice(-4).map((m) => ({
-            role: m.sender === "ai" ? "assistant" : "user",
-            content: m.text,
-          })),
-        }),
-      });
-
-      const data = await res.json();
-      const aiReply =
-        data?.reply ||
-        "I am here to assist you with our DR 50–90+ guest posting outreach and SEO roadmap. You can reach our senior team 24/7 on WhatsApp at +91 76908 68932.";
-
-      const aiMsg: Message = {
-        id: String(Date.now() + 1),
-        sender: "ai",
-        text: aiReply,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-      };
-
-      setMessages((prev) => [...prev, aiMsg]);
-      setIsThinking(false);
-
-      // Auto-speak reply if in voice mode or not muted
-      speakText(aiReply);
-
-      // If user shared contact, auto-save to database leads
-      const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(trimmed);
-      const hasPhone = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4,}/.test(trimmed);
-      if (hasEmail || hasPhone || data?.leadCaptured) {
-        fetch("/api/db/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: "ai_voice_bot",
-            name: "Worldwide AI Inquirer",
-            email: hasEmail ? trimmed.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] : "",
-            phone: hasPhone ? trimmed.match(/(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4,}/)?.[0] : "",
-            service: "UK / Global SEO & Guest Posting Consultation",
-            message: `User message through AI Concierge: "${trimmed}"`,
-            sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
-          }),
-        }).catch(() => {});
-      }
-    } catch {
-      setIsThinking(false);
-      const fallbackReply =
-        "Our editorial outreach team is standing by. You can message us immediately on WhatsApp at +91 76908 68932 or email support@balajiprimemedia.in.";
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: String(Date.now() + 2),
-          sender: "ai",
-          text: fallbackReply,
-          timestamp: "Just now",
-        },
-      ]);
-      speakText(fallbackReply);
     }
   };
 
@@ -263,15 +322,18 @@ export default function AIVoiceWidget() {
           className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#7c3aed] via-[#A068FF] to-[#22d3ee] p-[2.5px] shadow-[0_8px_30px_rgba(160,104,255,0.6)] hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer"
           aria-label={isOpen ? "Close AI Voice Assistant" : "Talk to BPM AI"}
         >
-          {/* Ambient Rotating Conic Glow */}
-          <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#A068FF] via-[#22d3ee] to-[#7c3aed] opacity-75 blur-sm group-hover:opacity-100 transition-opacity animate-spin" style={{ animationDuration: "6s" }} />
+          {/* Ambient Rotating Glow */}
+          <span
+            className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#A068FF] via-[#22d3ee] to-[#7c3aed] opacity-75 blur-sm group-hover:opacity-100 transition-opacity animate-spin"
+            style={{ animationDuration: "6s" }}
+          />
 
           {/* Inner Dark Glass Orb */}
           <div className="relative w-full h-full rounded-full bg-[#09041a] flex items-center justify-center overflow-hidden border border-white/20">
             {/* Pulsing Core */}
             <span className="absolute inset-2 rounded-full bg-gradient-to-tr from-[#7c3aed]/40 to-[#22d3ee]/40 animate-pulse" />
 
-            {/* Icon: When open show X, when closed show 3D Mic & Audio waves */}
+            {/* Icon */}
             {isOpen ? (
               <svg
                 className="w-6 h-6 text-white stroke-[3] relative z-10"
@@ -286,14 +348,25 @@ export default function AIVoiceWidget() {
               </svg>
             ) : (
               <div className="relative z-10 flex flex-col items-center justify-center">
-                {/* 3D Mic Icon with Soundwaves */}
-                <svg className="w-6 h-6 text-white fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                <svg
+                  className="w-6 h-6 text-white fill-none stroke-current"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19 10v2a7 7 0 0 1-14 0v-2"
+                  />
                   <line x1="12" y1="19" x2="12" y2="23" strokeLinecap="round" />
                   <line x1="8" y1="23" x2="16" y2="23" strokeLinecap="round" />
                 </svg>
-                {/* Mini audio indicator bars */}
+                {/* Audio Waves */}
                 <div className="flex items-center gap-0.5 mt-0.5">
                   <span className="w-0.5 h-1.5 bg-[#22d3ee] rounded-full animate-pulse" />
                   <span className="w-0.5 h-2.5 bg-[#A068FF] rounded-full animate-pulse delay-75" />
@@ -304,13 +377,12 @@ export default function AIVoiceWidget() {
           </div>
         </button>
 
-        {/* Floating Pill Label ("Talk to BPM AI" with Online Dot) */}
+        {/* Floating Pill Label */}
         {!isOpen && (
           <div
             onClick={() => setIsOpen(true)}
             className="hidden sm:flex items-center gap-2 bg-[#0d0727]/90 hover:bg-[#150a3a] text-white text-xs font-semibold px-3.5 py-2 rounded-full border border-purple-500/30 shadow-xl backdrop-blur-md cursor-pointer transition-all hover:scale-105 group"
           >
-            {/* Live Green Online Dot */}
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -342,30 +414,39 @@ export default function AIVoiceWidget() {
             <div className="h-1 w-full bg-gradient-to-r from-[#7c3aed] via-[#A068FF] to-[#22d3ee]" />
 
             {/* Header */}
-            <div className="p-4 sm:p-5 flex items-center justify-between border-b border-white/10 bg-white/[0.02]">
-              <div className="flex items-center gap-3">
-                {/* Mini Glowing Orb */}
-                <div className="relative w-10 h-10 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] p-[1.5px] shadow-[0_0_15px_rgba(160,104,255,0.7)] flex items-center justify-center">
+            <div className="p-3.5 sm:p-4 flex items-center justify-between border-b border-white/10 bg-white/[0.02]">
+              <div className="flex items-center gap-2.5">
+                <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] p-[1.5px] shadow-[0_0_15px_rgba(160,104,255,0.7)] flex items-center justify-center">
                   <div className="w-full h-full rounded-full bg-[#09041a] flex items-center justify-center">
-                    <span className="text-base">🎙️</span>
+                    <span className="text-sm">🎙️</span>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-1.5">
+                  <h3 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
                     <span>BPM AI Voice Concierge</span>
-                    <span className="text-[9.5px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold px-1.5 py-0.2 rounded-full">
-                      Live
+                    <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold px-1.5 py-0.2 rounded-full">
+                      Online
                     </span>
                   </h3>
-                  <p className="text-[11px] text-slate-300">
-                    UK, US &amp; Global Client Advisory
+                  <p className="text-[10.5px] text-slate-300">
+                    UK, US &amp; Global Client 24/7 Desk
                   </p>
                 </div>
               </div>
 
-              {/* Mode Toggle & Close Button */}
+              {/* Language Switch & Controls */}
               <div className="flex items-center gap-1.5">
+                {/* Language Switch Pill */}
+                <button
+                  type="button"
+                  onClick={() => setLang(lang === "en" ? "hi" : "en")}
+                  className="px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-bold text-slate-200 transition-colors flex items-center gap-1 border border-white/10"
+                  title="Switch Language"
+                >
+                  <span>{lang === "en" ? "🇬🇧 EN" : "🇮🇳 HI"}</span>
+                </button>
+
                 {/* Mute toggle button */}
                 <button
                   type="button"
@@ -376,7 +457,7 @@ export default function AIVoiceWidget() {
                     }
                     setIsMuted(!isMuted);
                   }}
-                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors text-xs ${
+                  className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors text-xs ${
                     isMuted ? "bg-red-500/20 text-red-300" : "bg-white/10 text-white hover:bg-white/20"
                   }`}
                   title={isMuted ? "Unmute Voice" : "Mute Voice"}
@@ -392,7 +473,7 @@ export default function AIVoiceWidget() {
                     setIsSpeaking(false);
                     setIsOpen(false);
                   }}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-sm"
+                  className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xs"
                   aria-label="Close"
                 >
                   ✕
@@ -430,19 +511,18 @@ export default function AIVoiceWidget() {
 
             {/* BODY: Mode = Voice */}
             {mode === "voice" && (
-              <div className="flex-1 flex flex-col items-center justify-between p-6 text-center overflow-y-auto">
-                <div className="space-y-1">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#22d3ee]">
-                    Interactive Voice Conversation
+              <div className="flex-1 flex flex-col items-center justify-between p-5 text-center overflow-y-auto">
+                <div className="space-y-0.5">
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-[#22d3ee]">
+                    {lang === "hi" ? "हिंदी / Hinglish Voice Desk" : "UK & International Voice Desk"}
                   </p>
-                  <p className="text-[13px] text-slate-300">
-                    Ask about UK/US outreach, DR 50–90+ sites, or pricing.
+                  <p className="text-xs text-slate-300">
+                    Mic par tap karein aur apna sawal bolein.
                   </p>
                 </div>
 
                 {/* 3D Reactive Audio Sphere Visualizer */}
-                <div className="relative my-8 flex items-center justify-center">
-                  {/* Outer soundwave rings */}
+                <div className="relative my-6 flex items-center justify-center">
                   {(isListening || isSpeaking) && (
                     <>
                       <span className="absolute w-44 h-44 rounded-full border border-[#22d3ee]/30 animate-ping opacity-60 pointer-events-none" />
@@ -450,7 +530,6 @@ export default function AIVoiceWidget() {
                     </>
                   )}
 
-                  {/* Main Interactive Mic Orb */}
                   <button
                     type="button"
                     onClick={toggleListening}
@@ -468,8 +547,16 @@ export default function AIVoiceWidget() {
                         viewBox="0 0 24 24"
                         strokeWidth="2"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M19 10v2a7 7 0 0 1-14 0v-2"
+                        />
                         <line x1="12" y1="19" x2="12" y2="23" strokeLinecap="round" />
                         <line x1="8" y1="23" x2="16" y2="23" strokeLinecap="round" />
                       </svg>
@@ -481,12 +568,14 @@ export default function AIVoiceWidget() {
                 </div>
 
                 {/* Real-time Voice Caption Box */}
-                <div className="w-full bg-white/[0.05] border border-white/10 rounded-2xl p-3.5 min-h-[64px] flex items-center justify-center text-xs text-slate-200">
+                <div className="w-full bg-white/[0.05] border border-white/10 rounded-2xl p-3 min-h-[64px] flex items-center justify-center text-xs text-slate-200">
                   {isListening && transcript && (
                     <p className="text-white font-medium italic">"{transcript}"</p>
                   )}
                   {isListening && !transcript && (
-                    <p className="text-emerald-300 animate-pulse font-medium">Listening to your voice... Speak now</p>
+                    <p className="text-emerald-300 animate-pulse font-medium">
+                      Aapki aawaz sun raha hoon... Kahiye
+                    </p>
                   )}
                   {isSpeaking && (
                     <p className="text-[#22d3ee] font-medium flex items-center gap-1.5">
@@ -494,39 +583,52 @@ export default function AIVoiceWidget() {
                     </p>
                   )}
                   {isThinking && (
-                    <p className="text-amber-300 animate-pulse font-medium">Analyzing agency database...</p>
+                    <p className="text-amber-300 animate-pulse font-medium">Sawal samajh raha hoon...</p>
                   )}
                   {!isListening && !isSpeaking && !isThinking && (
                     <p className="text-slate-400">
-                      Tap the microphone above to start talking, or switch to Chat Mode below.
+                      Mic button par click karke bolein, ya niche kisi bhi topic par tap karein.
                     </p>
                   )}
                 </div>
 
                 {/* Quick Voice Prompt Chips */}
-                <div className="w-full pt-4 flex flex-wrap gap-1.5 justify-center">
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("What are your guest posting packages?")}
-                    className="text-[11px] bg-white/[0.06] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    Pricing &amp; DR Tiers
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("Tell me about UK and US guest posting")}
-                    className="text-[11px] bg-white/[0.06] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    UK &amp; US Placements
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("How do I book a meeting with leadership?")}
-                    className="text-[11px] bg-white/[0.06] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    Book a Strategy Call
-                  </button>
+                <div className="w-full pt-3 flex flex-wrap gap-1.5 justify-center">
+                  {prompts.slice(0, 3).map((prompt, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleQuickPrompt(prompt)}
+                      className="text-[11px] bg-white/[0.06] hover:bg-white/15 text-slate-200 px-2.5 py-1 rounded-full border border-white/10 transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
                 </div>
+
+                {/* Quick text input row even in Voice mode */}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleUserMessage(inputText);
+                  }}
+                  className="w-full mt-3 flex items-center gap-2"
+                >
+                  <input
+                    type="text"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder={lang === "hi" ? "Ya yahan likh kar puchein..." : "Or type your inquiry..."}
+                    className="flex-1 bg-white/[0.06] border border-white/15 focus:border-[#A068FF] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={!inputText.trim()}
+                    className="px-3 py-2 rounded-xl bg-[#A068FF] text-white text-xs font-bold disabled:opacity-40"
+                  >
+                    Send
+                  </button>
+                </form>
               </div>
             )}
 
@@ -534,7 +636,7 @@ export default function AIVoiceWidget() {
             {mode === "chat" && (
               <div className="flex-1 flex flex-col justify-between overflow-hidden">
                 {/* Scrollable Chat Area */}
-                <div className="flex-1 p-4 overflow-y-auto space-y-3">
+                <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3">
                   {messages.map((m) => (
                     <div
                       key={m.id}
@@ -569,29 +671,18 @@ export default function AIVoiceWidget() {
                   <div ref={messagesEndRef} />
                 </div>
 
-                {/* Quick Suggestion Pills */}
+                {/* Dynamic Suggestion Pills */}
                 <div className="px-3 py-1.5 flex gap-1.5 overflow-x-auto no-scrollbar border-t border-white/5 bg-black/10">
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("What are your guest posting DR tiers?")}
-                    className="whitespace-nowrap text-[10.5px] bg-white/[0.05] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    DR 50–90+ List
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("Can you run a free SEO audit on my website?")}
-                    className="whitespace-nowrap text-[10.5px] bg-white/[0.05] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    Free SEO Audit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleQuickPrompt("I want to discuss our budget with your team")}
-                    className="whitespace-nowrap text-[10.5px] bg-white/[0.05] hover:bg-white/10 text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/10 transition-colors"
-                  >
-                    Talk with Leadership
-                  </button>
+                  {prompts.map((prompt, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleQuickPrompt(prompt)}
+                      className="whitespace-nowrap text-[10.5px] bg-white/[0.05] hover:bg-white/15 text-slate-200 px-2.5 py-1 rounded-full border border-white/10 transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
                 </div>
 
                 {/* Chat Input Bar */}
@@ -606,7 +697,11 @@ export default function AIVoiceWidget() {
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Type your inquiry or website domain..."
+                    placeholder={
+                      lang === "hi"
+                        ? "Apna sawal ya website yahan likhein..."
+                        : "Type your inquiry or website domain..."
+                    }
                     className="flex-1 bg-white/[0.06] border border-white/15 focus:border-[#A068FF] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none transition-colors"
                   />
 
@@ -639,7 +734,7 @@ export default function AIVoiceWidget() {
 
             {/* Bottom Escalation Strip (WhatsApp + Call Direct) */}
             <div className="p-2.5 bg-black/40 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400 px-4">
-              <span>Need human assistance immediately?</span>
+              <span>Need human assistance?</span>
               <div className="flex items-center gap-2.5">
                 <a
                   href="https://wa.me/917690868932?text=Hi%20Balaji%20Prime%20Media,%20I%20am%20chatting%20with%20your%20AI%20and%20want%20to%20talk%20to%20a%20strategist."
