@@ -48,13 +48,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
   return (
     <>
       {/* =========================================================================
-          2-TIER TRANSPARENT NAVBAR (User's Exact Specification)
+          2-TIER TRANSPARENT NAVBAR (Tightly Connected & Slightly Lowered)
          ========================================================================= */}
-      <header className="sticky top-0 z-50 w-full bg-transparent transition-all duration-300">
+      <header className="sticky top-0 z-50 w-full bg-transparent pt-1 sm:pt-2 transition-all duration-300">
         
-        {/* Tier 1: Top Micro-utility Bar (Transparent, WhatsApp removed, Payment added) */}
-        <div className="w-full bg-transparent border-b border-white/10 py-1.5 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto flex items-center justify-between text-[11.5px] font-medium text-slate-300">
+        {/* Tier 1: Top Micro-utility Bar (Tightly attached to Tier 2) */}
+        <div className="w-full bg-transparent border-b border-white/10 py-1 px-4 sm:px-8">
+          <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium text-slate-300">
             
             {/* Left: Global Support Signal */}
             <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar py-0.5">
@@ -68,11 +68,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </div>
             </div>
 
-            {/* Right: Payment link only (WhatsApp VIP completely removed as requested) */}
+            {/* Right: Payment link only */}
             <div className="flex items-center gap-3 shrink-0 ml-auto">
               <Link
                 href="/pay"
-                className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.08] hover:bg-white/[0.16] border border-white/15 px-3 py-0.5 rounded-full text-[11.5px] font-semibold shadow-xs"
+                className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.08] hover:bg-white/[0.16] border border-white/15 px-3 py-0.5 rounded-full text-[11px] font-semibold shadow-xs"
               >
                 <span>Payment</span>
                 <span className="text-[11px]">💳</span>
@@ -81,9 +81,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Tier 2: Main Transparent Floating Navbar */}
-        <div className="w-full px-3 sm:px-6 lg:px-8 pt-2 pb-2">
-          <div className="max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4 border border-white/10 bg-black/25 backdrop-blur-md shadow-lg shadow-black/20">
+        {/* Tier 2: Main Transparent Floating Navbar (Immediately below Tier 1 with no empty gap) */}
+        <div className="w-full px-3 sm:px-6 lg:px-8 pt-1 pb-1">
+          <div className="max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2 flex items-center justify-between gap-4 border border-white/10 bg-black/30 backdrop-blur-md shadow-lg shadow-black/25">
             
             {/* Official Brand Logo */}
             <Link
@@ -146,16 +146,16 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Button: "Get Started" linking to /guest-posting */}
+            {/* Right Action Button: "Explore Marketplace" linking to /guest-posting */}
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <Link
                 href="/guest-posting"
-                className="group relative inline-flex items-center justify-center px-5 sm:px-6 py-2.5 rounded-full text-[13px] sm:text-[13.5px] font-bold text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.5)] hover:shadow-[0_0_36px_rgba(160,104,255,0.8)]"
+                className="group relative inline-flex items-center justify-center px-5 sm:px-6 py-2 rounded-full text-[12.5px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98] cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.5)] hover:shadow-[0_0_36px_rgba(160,104,255,0.8)]"
                 style={{
                   background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
                 }}
               >
-                <span>Get Started</span>
+                <span>Start Project</span>
               </Link>
 
               {/* Minimalist 2-Bar Burger Button for Mobile */}
@@ -287,7 +287,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 background: "linear-gradient(135deg, #A068FF 0%, #7928CA 100%)",
               }}
             >
-              <span>Get Started</span>
+              <span>Start Project</span>
             </Link>
           </div>
         </nav>

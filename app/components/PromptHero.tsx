@@ -127,9 +127,9 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-10 sm:py-14 my-auto overflow-visible">
         
-        {/* Main Giant Headline: "Balaji Prime Media", General Sans */}
+        {/* Main Clean Headline: "Balaji Prime Media", General Sans */}
         <h1
-          className="font-normal tracking-[-0.024em] leading-[1.04] text-[40px] sm:text-[70px] md:text-[100px] lg:text-[130px] xl:text-[148px] select-none text-center"
+          className="font-normal tracking-[-0.024em] leading-[1.08] text-[32px] sm:text-[46px] md:text-[58px] lg:text-[72px] xl:text-[82px] select-none text-center"
           style={{ fontFamily: "'General Sans', system-ui, sans-serif" }}
         >
           <span style={{ color: "hsl(40, 6%, 95%)" }}>Balaji </span>
@@ -146,7 +146,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
 
         {/* Subtitle: "The most powerful AI ever deployed in organic search & talent acquisition" */}
         <p
-          className="text-base sm:text-lg leading-8 max-w-md sm:max-w-xl mt-[9px] text-center"
+          className="text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center"
           style={{
             color: "hsl(40, 6%, 82%)",
             opacity: 0.85,
@@ -157,17 +157,17 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
 
         {/* =========================================================================
             USER REQUESTED ACTION ROW:
-            1. "Get Started >" button (links to /guest-posting) + "< Balaji Prime Media" cursor
+            1. "Start Project >" button (links to /guest-posting) + "< Balaji Prime Media" cursor
            ========================================================================= */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-5 relative z-20">
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-5 relative z-20">
           
-          {/* Get Started Button (Links to /guest-posting) */}
+          {/* Start Project Button (Links to /guest-posting) */}
           <div className="btn-border-wrap shrink-0">
             <Link
               href="/guest-posting"
               className="marketeam-start-btn cursor-pointer shadow-[0_0_24px_rgba(160,104,255,0.45)] hover:shadow-[0_0_35px_rgba(160,104,255,0.7)]"
             >
-              <span>Get Started</span>
+              <span>Start Project</span>
               <svg
                 className="w-[18px] h-[18px] text-white"
                 fill="none"
