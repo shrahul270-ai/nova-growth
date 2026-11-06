@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T11:57:42.792Z",
+  "lastUpdated": "2026-11-06T12:29:41.695Z",
   "leads": [
     {
       "id": "lead_mvjbwqnl_py3zja",
@@ -268,6 +268,35 @@
     }
   ],
   "interactions": [
+    {
+      "type": "other_click",
+      "action": "other",
+      "title": "AI Voice Bot Opened",
+      "name": "",
+      "phone": "",
+      "email": "",
+      "details": "Trigger clicked on bottom-left",
+      "clientIdentifier": "",
+      "sourcePage": "/",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Antigravity/2.28.2 Chrome/152.0.7977.130 Electron/44.5.1 Safari/537.36",
+      "notes": "",
+      "country": "India",
+      "countryCode": "IN",
+      "countryFlag": "🇮🇳",
+      "city": "Jaipur",
+      "region": "Rajasthan",
+      "timezone": "Asia/Kolkata",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=India",
+      "locationSummary": "India 🇮🇳",
+      "id": "intr_mw4x7dqw_0pcg70",
+      "collection": "interactions",
+      "status": "new",
+      "createdAt": "2026-11-06T11:58:01.304Z",
+      "updatedAt": "2026-11-06T11:58:01.304Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
     {
       "type": "other_click",
       "action": "other",
@@ -1027,6 +1056,62 @@
   ],
   "audits": [
     {
+      "type": "seo_audit",
+      "domain": "chatgpt.com",
+      "url": "https://chatgpt.com/",
+      "clientIp": "::1",
+      "userAgent": "node",
+      "scores": {
+        "seo": 74,
+        "speed": 79,
+        "security": 100,
+        "ranking": 83,
+        "rankingPosition": "Rank #4 - #10",
+        "rankingTier": "Page 1 Google Contender"
+      },
+      "metrics": {
+        "responseTimeMs": 409,
+        "wordCount": 283,
+        "isHttps": true,
+        "issuesCount": 4
+      },
+      "id": "audit_mw4yc3k9_81qet2",
+      "collection": "audits",
+      "status": "new",
+      "createdAt": "2026-11-06T12:29:41.001Z",
+      "updatedAt": "2026-11-06T12:29:41.001Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
+      "type": "seo_audit",
+      "domain": "chatgpt.com",
+      "url": "https://chatgpt.com/",
+      "clientIp": "::1",
+      "userAgent": "node",
+      "scores": {
+        "seo": 72,
+        "speed": 90,
+        "security": 100,
+        "ranking": 84,
+        "rankingPosition": "Rank #4 - #10",
+        "rankingTier": "Page 1 Google Contender"
+      },
+      "metrics": {
+        "responseTimeMs": 290,
+        "wordCount": 283,
+        "isHttps": true,
+        "issuesCount": 4
+      },
+      "id": "audit_mw4y2umt_sz2see",
+      "collection": "audits",
+      "status": "new",
+      "createdAt": "2026-11-06T12:22:29.525Z",
+      "updatedAt": "2026-11-06T12:22:29.525Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
       "id": "audit_mvkqu5eq_f8vx1j",
       "collection": "audits",
       "type": "seo_audit",
@@ -1059,6 +1144,30 @@
   ],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mw4yc3k9_ltm29k",
+      "timestamp": "2026-11-06T12:29:41.001Z",
+      "action": "create",
+      "collection": "audits",
+      "recordId": "audit_mw4yc3k9_81qet2",
+      "summary": "SEO Audit performed for domain chatgpt.com"
+    },
+    {
+      "id": "log_mw4y2umt_q2hnkf",
+      "timestamp": "2026-11-06T12:22:29.525Z",
+      "action": "create",
+      "collection": "audits",
+      "recordId": "audit_mw4y2umt_sz2see",
+      "summary": "SEO Audit performed for domain chatgpt.com"
+    },
+    {
+      "id": "log_mw4x7dqw_p2qb3f",
+      "timestamp": "2026-11-06T11:58:01.304Z",
+      "action": "create",
+      "collection": "interactions",
+      "recordId": "intr_mw4x7dqw_0pcg70",
+      "summary": "Client interaction recorded: AI Voice Bot Opened (other)"
+    },
     {
       "id": "log_mw4x6yxx_1g3by7",
       "timestamp": "2026-11-06T11:57:42.117Z",

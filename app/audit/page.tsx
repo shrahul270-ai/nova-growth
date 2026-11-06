@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function AuditPage() {
   return (
-    <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
+    <div className="relative min-h-screen bg-[#070319] text-white overflow-hidden">
       <Navbar activePage="services" />
 
       {/* 1. Full-Width Dedicated Header Banner with 3D Glowing Wave Animation */}
@@ -37,26 +37,28 @@ export default function AuditPage() {
           <div className="flex items-center justify-between mb-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xs font-bold text-gray-600 hover:text-[#d97706] transition-colors group bg-white border border-gray-200 px-3.5 py-1.5 rounded-full shadow-2xs"
+              className="inline-flex items-center gap-2 text-xs font-bold text-slate-300 hover:text-white transition-colors group bg-white/10 hover:bg-white/15 border border-white/20 px-3.5 py-1.5 rounded-full shadow-sm cursor-pointer"
             >
               <span className="group-hover:-translate-x-1 transition-transform font-black">←</span>
               <span>Back to Home</span>
             </Link>
-            <div className="text-[11px] text-gray-400">
-              <Link href="/" className="hover:underline">Home</Link> / <span className="text-[#091427] font-semibold">Free SEO Audit</span>
+            <div className="text-[11px] text-slate-400">
+              <Link href="/" className="hover:underline text-slate-300">Home</Link> / <span className="text-[#A068FF] font-semibold">Free SEO Audit</span>
             </div>
           </div>
 
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-xs font-bold text-[#22d3ee] mb-4">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Real-Time Technical &amp; On-Page Audit</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#0f172a] tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
               Instant Website &amp; <br />
-              <span className="text-gradient-navy-gold">SEO Health Diagnostic</span>
+              <span className="bg-gradient-to-r from-[#A068FF] via-[#c084fc] to-[#22d3ee] bg-clip-text text-transparent">
+                SEO Health Diagnostic
+              </span>
             </h1>
-            <p className="text-xs sm:text-sm text-[#54647c] mt-2 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-slate-300 mt-2.5 max-w-xl mx-auto">
               Scan page speed, metadata, Core Web Vitals, and indexing health in seconds.
             </p>
           </div>
@@ -70,28 +72,28 @@ export default function AuditPage() {
           <SeoAuditWidget />
         </div>
 
-        {/* Feature Highlights */}
+        {/* Feature Highlights (Luxury Dark Purple Theme) */}
         <div className="max-w-4xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs">
+          <div className="bg-gradient-to-b from-[#130a38]/80 to-[#0c0624]/90 p-6 rounded-3xl border border-purple-500/30 shadow-xl backdrop-blur-md">
             <span className="text-2xl mb-2 block">🏆</span>
-            <h3 className="text-sm font-bold text-[#091427] mb-1">Google Ranking Forecast</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <h3 className="text-sm font-bold text-white mb-1">Google Ranking Forecast</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
               Calculates your live SERP placement tier based on on-page depth, schema structured data, and technical indexing signals.
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs">
+          <div className="bg-gradient-to-b from-[#130a38]/80 to-[#0c0624]/90 p-6 rounded-3xl border border-purple-500/30 shadow-xl backdrop-blur-md">
             <span className="text-2xl mb-2 block">⚡</span>
-            <h3 className="text-sm font-bold text-[#091427] mb-1">Live Server Latency (TTFB)</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <h3 className="text-sm font-bold text-white mb-1">Live Server Latency (TTFB)</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
               Measures real millisecond Time to First Byte across global infrastructure to identify server and hosting bottlenecks.
             </p>
           </div>
 
-          <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs">
+          <div className="bg-gradient-to-b from-[#130a38]/80 to-[#0c0624]/90 p-6 rounded-3xl border border-purple-500/30 shadow-xl backdrop-blur-md">
             <span className="text-2xl mb-2 block">🔍</span>
-            <h3 className="text-sm font-bold text-[#091427] mb-1">Technical Crawlability</h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <h3 className="text-sm font-bold text-white mb-1">Technical Crawlability</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
               Live checks for robots.txt files, XML sitemaps, canonical tags, and mobile-friendly responsive viewports.
             </p>
           </div>
