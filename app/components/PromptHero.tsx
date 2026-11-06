@@ -13,10 +13,6 @@ interface PromptHeroProps {
 const BG_IMAGE_URL =
   "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260624_111401_56af5012-2263-45d3-849a-8688084d7c2a.png&w=1280&q=85";
 
-// Marketeam Header Logo
-const LOGO_URL =
-  "https://polo-pecan-73837341.figma.site/_assets/v11/17ae538989a509947a8de3892c644664895e69b1.png";
-
 // User's Leadership Portrait Image (Preserved from user request & uploaded image)
 const PORTRAIT_URL =
   "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260728_050334_5b076e26-0ce7-4898-b432-d764190e448f.png&w=1280&q=85";
@@ -30,13 +26,8 @@ const TICKER_LOGOS = [
   "https://polo-pecan-73837341.figma.site/_assets/v11/63f99030ceb459e3c9ab9e429cfa2353491d3816.svg",
 ];
 
-// Full text for typewriter heading
-const HEADLINE_TEXT =
-  "Unlock Top Marketing Talent You Thought Was Out of Reach -- Now Just One Click Away!";
-const BLACK_CHAR_LIMIT = 67; // First 67 chars in #000000, rest in #ffffff
-
 // Custom CountUp Hook
-function useCountUp(target: number = 20, durationMs: number = 2000, delayMs: number = 1200) {
+function useCountUp(target: number = 20, durationMs: number = 2000, delayMs: number = 600) {
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
@@ -47,7 +38,6 @@ function useCountUp(target: number = 20, durationMs: number = 2000, delayMs: num
       const step = (timestamp: number) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / durationMs, 1);
-        // easeOutCubic
         const easeVal = 1 - Math.pow(1 - progress, 3);
         setCount(Math.round(easeVal * target));
 
@@ -68,35 +58,7 @@ function useCountUp(target: number = 20, durationMs: number = 2000, delayMs: num
 }
 
 export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
-  // Typewriter state
-  const [typedLength, setTypedLength] = useState<number>(0);
-  const [typingComplete, setTypingComplete] = useState<boolean>(false);
-  const specialistCount = useCountUp(20, 2000, 1200);
-
-  // Typewriter logic: 35ms per char, starts after 400ms delay
-  useEffect(() => {
-    let currentIdx = 0;
-    const startTimeout = setTimeout(() => {
-      const interval = setInterval(() => {
-        currentIdx++;
-        setTypedLength(currentIdx);
-        if (currentIdx >= HEADLINE_TEXT.length) {
-          clearInterval(interval);
-          setTypingComplete(true);
-        }
-      }, 35);
-
-      return () => clearInterval(interval);
-    }, 400);
-
-    return () => clearTimeout(startTimeout);
-  }, []);
-
-  const blackSegment = HEADLINE_TEXT.slice(0, Math.min(typedLength, BLACK_CHAR_LIMIT));
-  const whiteSegment =
-    typedLength > BLACK_CHAR_LIMIT
-      ? HEADLINE_TEXT.slice(BLACK_CHAR_LIMIT, typedLength)
-      : "";
+  const specialistCount = useCountUp(20, 2000, 600);
 
   return (
     <div
@@ -110,47 +72,52 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       }}
     >
       {/* =========================================================================
-          1. NAVBAR (User's Official BPM Navbar & Logo with Log In + Join Now buttons)
+          1. NAVBAR (World-Class Floating Glass Navbar for UK, US & Worldwide Clients)
          ========================================================================= */}
       <div className="relative z-50 w-full animate-mark-fade-down">
         <Navbar activePage="home" onJoinClick={onOpenConsultation} />
       </div>
 
       {/* =========================================================================
-          2. HERO MAIN CONTENT: Left Column (Headline & CTAs) | Right Column (Orbits)
+          2. HERO MAIN CONTENT: Left Column (World-Class Agency Headline) | Right Column (Orbits)
          ========================================================================= */}
-      <div className="w-full max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-16 pt-6 sm:pt-10 pb-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 relative z-20">
+      <div className="w-full max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-16 pt-4 sm:pt-8 pb-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 relative z-20">
         
-        {/* HERO LEFT (flex: 0 1 680px, padding-top: 40px) */}
-        <div className="w-full lg:max-w-[680px] lg:flex-[0_1_680px] lg:pt-10 flex flex-col items-start animate-mark-fade-up">
-          {/* TYPEWRITER HEADLINE: Urbanist 64px, weight 600, line-height 64px, letter-spacing -1.5px */}
-          <h1
-            className="font-urbanist text-[34px] sm:text-[46px] lg:text-[64px] font-semibold leading-[1.08] lg:leading-[64px] tracking-[-1.5px] min-h-[160px] sm:min-h-[190px] lg:min-h-[260px]"
-          >
-            <span className="text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">{blackSegment}</span>
-            <span className="bg-gradient-to-r from-[#d8b4fe] via-[#f0abfc] to-[#ffffff] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(160,104,255,0.7)]">{whiteSegment}</span>
-            {/* Blinking Purple Cursor during/after typing */}
-            <span className="inline-block w-1.5 h-[0.85em] bg-[#A068FF] ml-1 align-baseline animate-pulse shadow-[0_0_12px_rgba(160,104,255,0.9)]" />
+        {/* HERO LEFT COLUMN */}
+        <div className="w-full lg:max-w-[700px] lg:flex-[0_1_700px] lg:pt-6 flex flex-col items-start animate-mark-fade-up">
+          
+          {/* Top International Credibility Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-purple-500/30 text-purple-200 text-xs font-semibold mb-6 backdrop-blur-md shadow-xs">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>Trusted by Fast-Growing Brands in USA, UK &amp; Europe</span>
+            <span className="text-purple-400">✦</span>
+          </div>
+
+          {/* WORLD-CLASS AUTHORITY HEADLINE (Designed for US & UK Enterprise Buyers) */}
+          <h1 className="font-urbanist text-[38px] sm:text-[52px] lg:text-[68px] font-extrabold leading-[1.05] tracking-[-1.5px] text-left">
+            <span className="text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)] block">
+              Scale Your Organic
+            </span>
+            <span className="bg-gradient-to-r from-[#A068FF] via-[#d8b4fe] to-[#38bdf8] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(160,104,255,0.7)] block">
+              Revenue Globally.
+            </span>
           </h1>
 
-          {/* Action Row: Start Project Button + Balaji Prime Media Cursor (Always side-by-side in same row) */}
-          <div className="mt-8 sm:mt-10 flex flex-nowrap items-center gap-3 sm:gap-5 relative w-full max-w-full overflow-visible">
-            {/* START PROJECT BUTTON (Appears with delay 3.2s) */}
-            <div
-              className={`btn-border-wrap shrink-0 transition-opacity duration-700 ${
-                typingComplete ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-              style={{
-                transitionDelay: "3200ms",
-              }}
-            >
+          {/* HIGH-CONVERTING SUBTITLE */}
+          <p className="mt-5 text-[16px] sm:text-[18px] text-slate-300 leading-relaxed max-w-xl text-left font-normal">
+            Balaji Prime Media engineers enterprise SEO campaigns, manual DR 50–90+ editorial outreach, and sub-second Next.js web applications that convert high-intent global search traffic into paying customers.
+          </p>
+
+          {/* Action Row: Start Project Button + Balaji Prime Media Cursor + Free Audit */}
+          <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4 relative w-full overflow-visible">
+            {/* START PROJECT BUTTON */}
+            <div className="btn-border-wrap shrink-0">
               <button
                 type="button"
                 onClick={onOpenConsultation}
-                className="marketeam-start-btn"
+                className="marketeam-start-btn cursor-pointer"
               >
                 <span>Start Project</span>
-                {/* 18x18 Right-Arrow Chevron SVG */}
                 <svg
                   className="w-[18px] h-[18px] text-white"
                   fill="none"
@@ -167,16 +134,8 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               </button>
             </div>
 
-            {/* CURSOR ELEMENT: Purple Pointer Arrow + "Balaji Prime Media" Pill Badge (Delay 3.6s) */}
-            <div
-              className={`shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap transition-all duration-700 ${
-                typingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-              style={{
-                transitionDelay: "3600ms",
-              }}
-            >
-              {/* Purple pointer arrow filled #A068FF */}
+            {/* CURSOR ELEMENT: Purple Pointer Arrow + "Balaji Prime Media" Pill Badge */}
+            <div className="shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap">
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 -rotate-45 drop-shadow-[0_2px_8px_rgba(160,104,255,0.8)] shrink-0"
                 viewBox="0 0 24 24"
@@ -185,20 +144,27 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                 <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
               </svg>
 
-              {/* Balaji Prime Media pill badge */}
-              <div className="bg-[#A068FF] text-white text-[13px] sm:text-[15px] font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)] tracking-wide whitespace-nowrap select-none">
+              <div className="bg-[#A068FF] text-white text-[13px] sm:text-[14px] font-semibold px-3.5 py-1.5 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)] tracking-wide whitespace-nowrap select-none">
                 Balaji Prime Media
               </div>
             </div>
+
+            {/* Free SEO Audit Secondary Link */}
+            <Link
+              href="/audit"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 px-3.5 py-2 rounded-full transition-all backdrop-blur-md"
+            >
+              <span>Instant SEO Audit</span>
+              <span className="text-[#fcd34d]">⚡</span>
+            </Link>
           </div>
 
           {/* =========================================================================
-              CRITICAL: TALK WITH LEADERSHIP FROSTED CARD ("and ye mat hatana")
-              Preserved in full fidelity with user portrait and interactive click
+              CRITICAL: TALK WITH LEADERSHIP FROSTED CARD (Preserved 100% with portrait)
              ========================================================================= */}
           <div
             onClick={onOpenConsultation}
-            className="mt-8 sm:mt-10 flex items-center gap-3.5 sm:gap-4 rounded-2xl bg-white/10 p-3 sm:p-3.5 backdrop-blur-xl border border-white/20 hover:border-[#A068FF]/70 shadow-2xl max-w-sm w-full cursor-pointer hover:bg-white/15 transition-all hover:scale-[1.02] active:scale-[0.99] group"
+            className="mt-8 flex items-center gap-3.5 sm:gap-4 rounded-2xl bg-white/10 p-3 sm:p-3.5 backdrop-blur-xl border border-white/20 hover:border-[#A068FF]/70 shadow-2xl max-w-sm w-full cursor-pointer hover:bg-white/15 transition-all hover:scale-[1.02] active:scale-[0.99] group"
             title="Schedule Direct Strategy Consultation with Leadership"
             role="button"
             tabIndex={0}
@@ -252,95 +218,77 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
               style={{
                 transform: "translate(-50%, -50%) rotate(30deg) translate(399px) rotate(-30deg)",
-                animationDelay: "1.4s",
-              }}
-            >
-              <div className="marketeam-counter-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/c76d8a0b99676de31c014344bfaf75bad090758d.png"
-                  alt="Specialist"
-                  className="w-[58px] h-[58px] rounded-full object-cover shadow-[0_0_20px_rgba(160,104,255,0.7)] border border-purple-300/40"
-                />
-              </div>
-            </div>
-
-            {/* Avatar 7: at 95deg, 399px radius, 88px, square border-radius 24px, orange glow */}
-            <div
-              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
-              style={{
-                transform: "translate(-50%, -50%) rotate(95deg) translate(399px) rotate(-95deg)",
-                animationDelay: "1.9s",
-              }}
-            >
-              <div className="marketeam-counter-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/7b1b5f039de7b54cc9913e96c1923c3b15a157fa.png"
-                  alt="Specialist"
-                  className="w-[88px] h-[88px] rounded-[24px] object-cover shadow-[0_0_24px_rgba(255,140,0,0.7)] border border-amber-300/40"
-                />
-              </div>
-            </div>
-
-            {/* Avatar 8: at 220deg, 399px radius, 88px, square border-radius 24px, pink glow */}
-            <div
-              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
-              style={{
-                transform: "translate(-50%, -50%) rotate(220deg) translate(399px) rotate(-220deg)",
                 animationDelay: "2.1s",
               }}
             >
               <div className="marketeam-counter-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/9ae171d8895199349755c43fbff00e122221a027.png"
-                  alt="Specialist"
-                  className="w-[88px] h-[88px] rounded-[24px] object-cover shadow-[0_0_24px_rgba(255,105,180,0.7)] border border-pink-300/40"
-                />
-              </div>
-            </div>
-
-            {/* Avatar 9: at 320deg, 399px radius, 58px, round, purple glow */}
-            <div
-              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
-              style={{
-                transform: "translate(-50%, -50%) rotate(320deg) translate(399px) rotate(-320deg)",
-                animationDelay: "2.3s",
-              }}
-            >
-              <div className="marketeam-counter-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/926c9eb7b4bc1df846fa0e39f0b0dc3fefd80671.png"
+                  src="https://polo-pecan-73837341.figma.site/_assets/v11/0b368c812d4d9bbbf84e4f4453b5fae6c6bbf451.png"
                   alt="Specialist"
                   className="w-[58px] h-[58px] rounded-full object-cover shadow-[0_0_20px_rgba(160,104,255,0.7)] border border-purple-300/40"
                 />
               </div>
             </div>
+
+            {/* Avatar 5: at 210deg, 399px radius, 58px, cyan glow */}
+            <div
+              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
+              style={{
+                transform: "translate(-50%, -50%) rotate(210deg) translate(399px) rotate(-210deg)",
+                animationDelay: "1.7s",
+              }}
+            >
+              <div className="marketeam-counter-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://polo-pecan-73837341.figma.site/_assets/v11/d4ad9b3c582531a787355cbe8309df73950bce08.png"
+                  alt="Specialist"
+                  className="w-[58px] h-[58px] rounded-full object-cover shadow-[0_0_20px_rgba(0,255,255,0.7)] border border-cyan-300/40"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* ORBIT 3 (649px diameter, spins right 50s) */}
+          {/* ORBIT 3 (627px diameter, spins right 50s) */}
           <div
-            className="orbit-circle-base marketeam-orbit-3 w-[649px] h-[649px]"
+            className="orbit-circle-base marketeam-orbit-3 w-[627px] h-[627px]"
             style={{ pointerEvents: "none" }}
           >
             <div className="orbit-gradient-border" />
 
-            {/* Avatar 5: at 130deg, 325px radius, 88px, round, pink glow */}
+            {/* Avatar 3: at 90deg, 314px radius, 58px, yellow glow */}
             <div
               className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
               style={{
-                transform: "translate(-50%, -50%) rotate(130deg) translate(325px) rotate(-130deg)",
-                animationDelay: "1.6s",
+                transform: "translate(-50%, -50%) rotate(90deg) translate(314px) rotate(-90deg)",
+                animationDelay: "1.1s",
               }}
             >
               <div className="marketeam-counter-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/018736aa5d0275c4ce56cfebaf2ae3007d81ca1e.png"
+                  src="https://polo-pecan-73837341.figma.site/_assets/v11/faea9787ff9e47aa1f31f9fc069a7c36a88bdf21.png"
                   alt="Specialist"
-                  className="w-[88px] h-[88px] rounded-full object-cover shadow-[0_0_24px_rgba(255,105,180,0.7)] border border-pink-300/40"
+                  className="w-[58px] h-[58px] rounded-full object-cover shadow-[0_0_20px_rgba(255,215,0,0.7)] border border-amber-300/40"
+                />
+              </div>
+            </div>
+
+            {/* Avatar 2: at 180deg, 314px radius, 58px, square border-radius 20px, purple glow */}
+            <div
+              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
+              style={{
+                transform: "translate(-50%, -50%) rotate(180deg) translate(314px) rotate(-180deg)",
+                animationDelay: "0.9s",
+              }}
+            >
+              <div className="marketeam-counter-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://polo-pecan-73837341.figma.site/_assets/v11/ce4ef8d4aa485df5832a82d02951e73708a3d606.png"
+                  alt="Specialist"
+                  className="w-[58px] h-[58px] rounded-[20px] object-cover shadow-[0_0_20px_rgba(160,104,255,0.7)] border border-purple-300/40"
                 />
               </div>
             </div>
@@ -353,30 +301,12 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           >
             <div className="orbit-gradient-border" />
 
-            {/* Avatar 2: at 60deg, 251px radius, 58px, round, yellow glow */}
+            {/* Large Avatar 7: at 60deg, 251px radius, 78px, pink glow */}
             <div
               className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
               style={{
                 transform: "translate(-50%, -50%) rotate(60deg) translate(251px) rotate(-60deg)",
-                animationDelay: "0.8s",
-              }}
-            >
-              <div className="marketeam-counter-2">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://polo-pecan-73837341.figma.site/_assets/v11/ca755f7f93c1126fb8bdbf99ab364a33aa9ab272.png"
-                  alt="Specialist"
-                  className="w-[58px] h-[58px] rounded-full object-cover shadow-[0_0_20px_rgba(255,214,0,0.7)] border border-yellow-300/40"
-                />
-              </div>
-            </div>
-
-            {/* Avatar 3: at 180deg, 251px radius, 78px, round, pink glow */}
-            <div
-              className="absolute top-1/2 left-1/2 avatar-flyin pointer-events-auto"
-              style={{
-                transform: "translate(-50%, -50%) rotate(180deg) translate(251px) rotate(-180deg)",
-                animationDelay: "1.1s",
+                animationDelay: "1.5s",
               }}
             >
               <div className="marketeam-counter-2">
