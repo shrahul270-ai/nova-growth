@@ -121,8 +121,8 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div className="w-full max-w-[1920px] mx-auto px-6 sm:px-12 lg:px-16 pt-6 sm:pt-10 pb-12 flex-1 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 relative z-20">
         
-        {/* HERO LEFT (flex: 0 1 600px, padding-top: 40px) */}
-        <div className="w-full lg:max-w-[620px] lg:flex-[0_1_600px] lg:pt-10 flex flex-col items-start animate-mark-fade-up">
+        {/* HERO LEFT (flex: 0 1 680px, padding-top: 40px) */}
+        <div className="w-full lg:max-w-[680px] lg:flex-[0_1_680px] lg:pt-10 flex flex-col items-start animate-mark-fade-up">
           {/* TYPEWRITER HEADLINE: Urbanist 64px, weight 600, line-height 64px, letter-spacing -1.5px */}
           <h1
             className="font-urbanist text-[34px] sm:text-[46px] lg:text-[64px] font-semibold leading-[1.08] lg:leading-[64px] tracking-[-1.5px] min-h-[160px] sm:min-h-[190px] lg:min-h-[260px]"
@@ -133,11 +133,11 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
             <span className="inline-block w-1 h-[0.85em] bg-[#A068FF] ml-1 align-baseline animate-pulse" />
           </h1>
 
-          {/* Action Row: Start Project Button + David Cursor */}
-          <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-6 relative w-full">
+          {/* Action Row: Start Project Button + Balaji Prime Media Cursor (Always side-by-side in same row) */}
+          <div className="mt-8 sm:mt-10 flex flex-nowrap items-center gap-3 sm:gap-5 relative w-full max-w-full overflow-visible">
             {/* START PROJECT BUTTON (Appears with delay 3.2s) */}
             <div
-              className={`btn-border-wrap transition-opacity duration-700 ${
+              className={`btn-border-wrap shrink-0 transition-opacity duration-700 ${
                 typingComplete ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
               style={{
@@ -167,9 +167,9 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               </button>
             </div>
 
-            {/* CURSOR ELEMENT: Purple Pointer Arrow + "David" Pill Badge (Delay 3.6s) */}
+            {/* CURSOR ELEMENT: Purple Pointer Arrow + "Balaji Prime Media" Pill Badge (Delay 3.6s) */}
             <div
-              className={`inline-flex items-center gap-1.5 transition-all duration-700 ${
+              className={`shrink-0 inline-flex items-center gap-1.5 whitespace-nowrap transition-all duration-700 ${
                 typingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{
@@ -178,7 +178,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
             >
               {/* Purple pointer arrow filled #A068FF */}
               <svg
-                className="w-5 h-5 -rotate-45 drop-shadow-[0_2px_8px_rgba(160,104,255,0.8)]"
+                className="w-4 h-4 sm:w-5 sm:h-5 -rotate-45 drop-shadow-[0_2px_8px_rgba(160,104,255,0.8)] shrink-0"
                 viewBox="0 0 24 24"
                 fill="#A068FF"
               >
@@ -186,7 +186,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
               </svg>
 
               {/* Balaji Prime Media pill badge */}
-              <div className="bg-[#A068FF] text-white text-[14px] sm:text-[15px] font-semibold px-4 py-2 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)] tracking-wide">
+              <div className="bg-[#A068FF] text-white text-[13px] sm:text-[15px] font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-[20px] shadow-[0_4px_16px_rgba(160,104,255,0.5)] tracking-wide whitespace-nowrap select-none">
                 Balaji Prime Media
               </div>
             </div>
