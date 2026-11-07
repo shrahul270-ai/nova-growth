@@ -228,27 +228,48 @@ export default function Home() {
               {/* Project 1: Fashion Brand Website */}
               <Link
                 href="/projects/fashion-brand"
-                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_20px_50px_rgba(160,104,255,0.25)] hover:-translate-y-1.5 backdrop-blur-xl"
               >
-                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
-                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
-                    E-Commerce Website
+                <div>
+                  <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
+                    <img
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85"
+                      alt="Luxe Fashion US"
+                      className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />
+                    
+                    <div className="absolute top-3.5 left-3.5 bg-black/70 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
+                      E-Commerce Website
+                    </div>
+                    <div className="absolute top-3.5 right-3.5 bg-black/60 backdrop-blur-md text-[11px] font-semibold px-2.5 py-1 rounded-full text-gray-200 border border-white/10">
+                      🇺🇸 Los Angeles
+                    </div>
+
+                    <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between">
+                      <div className="bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-purple-500/30">
+                        <span className="text-[10px] text-gray-400 font-medium block">Verified Outcome</span>
+                        <span className="text-sm font-black text-emerald-400">+340% Sales Growth</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-44 h-48 bg-[#0d0724] rounded-2xl shadow-2xl border border-purple-500/30 p-3 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform duration-300">
-                    <span className="text-4xl mb-2">👗</span>
-                    <span className="text-sm font-bold text-white">Luxe Fashion US</span>
-                    <span className="text-xs text-[#34d399] font-bold mt-1.5">+340% Sales Growth</span>
+
+                  <div className="px-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                      Luxe Fashion US
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                      Headless Next.js storefront &amp; collection page SEO delivering $1.4M incremental revenue.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between px-2 pt-1">
-                  <div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
-                      Fashion Brand Website
-                    </h3>
-                    <p className="text-[13px] text-slate-400 mt-0.5">Web Development + SEO</p>
+                <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between px-1">
+                  <div className="flex gap-1.5">
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">Next.js</span>
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">Shopify</span>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/70 text-purple-300 border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-all shadow-xs">
                     ↗
                   </div>
                 </div>
@@ -257,27 +278,48 @@ export default function Home() {
               {/* Project 2: Fitness App */}
               <Link
                 href="/projects/fitness-app"
-                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_20px_50px_rgba(160,104,255,0.25)] hover:-translate-y-1.5 backdrop-blur-xl"
               >
-                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
-                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
-                    Mobile &amp; Web Platform
+                <div>
+                  <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
+                    <img
+                      src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=85"
+                      alt="PulseFit Pro"
+                      className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />
+                    
+                    <div className="absolute top-3.5 left-3.5 bg-black/70 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
+                      Mobile &amp; Web Platform
+                    </div>
+                    <div className="absolute top-3.5 right-3.5 bg-black/60 backdrop-blur-md text-[11px] font-semibold px-2.5 py-1 rounded-full text-gray-200 border border-white/10">
+                      🇺🇸 Austin, TX
+                    </div>
+
+                    <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between">
+                      <div className="bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-purple-500/30">
+                        <span className="text-[10px] text-gray-400 font-medium block">App Store Ranking</span>
+                        <span className="text-sm font-black text-amber-400">50K+ Active Users</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-32 h-48 bg-[#09041a] rounded-2xl shadow-2xl border-2 border-purple-500/40 p-3 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform duration-300">
-                    <span className="text-4xl mb-2">⚡</span>
-                    <span className="text-sm font-bold text-[#fcd34d]">PulseFit Pro</span>
-                    <span className="text-[10px] text-purple-300 font-semibold mt-1">50K+ Active Users</span>
+
+                  <div className="px-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                      PulseFit Pro
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                      Sub-90s onboarding funnel with 60fps micro-interactions and Stripe subscription billing.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between px-2 pt-1">
-                  <div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
-                      Fitness App Architecture
-                    </h3>
-                    <p className="text-[13px] text-slate-400 mt-0.5">UI/UX Design + Next.js App</p>
+                <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between px-1">
+                  <div className="flex gap-1.5">
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">React Native</span>
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">Stripe</span>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/70 text-purple-300 border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-all shadow-xs">
                     ↗
                   </div>
                 </div>
@@ -286,32 +328,48 @@ export default function Home() {
               {/* Project 3: Local Business Growth */}
               <Link
                 href="/projects/local-growth"
-                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_15px_45px_rgba(160,104,255,0.25)] hover:-translate-y-1"
+                className="group bg-gradient-to-b from-[#0f092e]/90 to-[#08041c]/90 rounded-3xl border border-purple-500/25 p-5 overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:shadow-[0_20px_50px_rgba(160,104,255,0.25)] hover:-translate-y-1.5 backdrop-blur-xl"
               >
-                <div className="relative bg-gradient-to-tr from-[#1b0d3a] via-[#12082b] to-[#0a051d] rounded-2xl h-60 flex items-center justify-center p-4 overflow-hidden mb-5 border border-purple-500/20">
-                  <div className="absolute top-3.5 left-3.5 bg-black/60 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
-                    Enterprise SEO &amp; Maps
+                <div>
+                  <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
+                    <img
+                      src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=85"
+                      alt="Apex Dental UK"
+                      className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />
+                    
+                    <div className="absolute top-3.5 left-3.5 bg-black/70 backdrop-blur-md text-[11px] font-bold px-3 py-1 rounded-full text-purple-200 border border-purple-500/30 shadow-xs">
+                      Enterprise SEO &amp; Maps
+                    </div>
+                    <div className="absolute top-3.5 right-3.5 bg-black/60 backdrop-blur-md text-[11px] font-semibold px-2.5 py-1 rounded-full text-gray-200 border border-white/10">
+                      🇬🇧 London, UK
+                    </div>
+
+                    <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between">
+                      <div className="bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-purple-500/30">
+                        <span className="text-[10px] text-gray-400 font-medium block">Google Maps Rank</span>
+                        <span className="text-sm font-black text-cyan-300">#1 Across 18 Boroughs</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-48 h-40 bg-[#0d0724] rounded-2xl shadow-2xl border border-purple-500/30 p-3.5 flex flex-col justify-center text-left group-hover:scale-105 transition-transform duration-300">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-bold text-white">Apex Dental UK</span>
-                      <span className="text-[#34d399] text-xs font-extrabold">#1 Google</span>
-                    </div>
-                    <span className="text-[10.5px] text-slate-400">London Map Rankings</span>
-                    <div className="w-full bg-purple-950 h-2.5 rounded-full mt-3 overflow-hidden border border-purple-500/30">
-                      <div className="bg-gradient-to-r from-[#A068FF] to-[#34d399] h-full w-[92%]" />
-                    </div>
+
+                  <div className="px-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                      Apex Dental UK
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                      Hyper-local citation architecture &amp; automated SMS reviews ranking in central London.
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between px-2 pt-1">
-                  <div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#c084fc] transition-colors">
-                      London Enterprise SEO
-                    </h3>
-                    <p className="text-[13px] text-slate-400 mt-0.5">High-Intent Organic Strategy</p>
+                <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between px-1">
+                  <div className="flex gap-1.5">
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">Local SEO</span>
+                    <span className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md">Schema</span>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-purple-950/70 text-[#c084fc] border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-colors shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-purple-950/70 text-purple-300 border border-purple-500/30 flex items-center justify-center group-hover:bg-[#A068FF] group-hover:text-white transition-all shadow-xs">
                     ↗
                   </div>
                 </div>
