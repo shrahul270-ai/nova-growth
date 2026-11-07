@@ -1,1061 +1,1283 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ececeb">
-<title>Built for Intelligent Performance</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<script>
-document.documentElement.classList.add("entrance-active");
-window.__entranceFailsafe = setTimeout(() => document.documentElement.classList.remove("entrance-active"), 3200);
-</script>
-<style>
-:root {
-  --paper: #ececeb;
-  --ink: #222222;
-  --copy: #4a4a4a;
-  --glass-line: rgba(255,255,255,.36);
-  --card-ref-w: 429;
-  --card-ref-h: 554;
-  --card-radius: 17;
-  --card-count: 3;
-  --gap: clamp(8px, 1.5vw, 23px);
-  --gutter: clamp(14px, 3.6vw, 54px);
-  --content-max: calc(var(--card-count) * var(--card-ref-w) * 1px + (var(--card-count) - 1) * var(--gap));
-  --pad-top: clamp(20px, 9.6vh, 94px);
-  --pad-bottom: clamp(16px, 3vh, 52px);
-  --masthead-gap: clamp(16px, 3vw, 40px);
-  --cards-offset: clamp(14px, 9.4vh, 92px);
-}
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  min-width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  color: var(--ink);
-  background: var(--paper);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
-button, a { font: inherit; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marika Lindfors</title>
 
-/* STAGE */
-.stage {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  height: 100svh;
-  overflow: hidden;
-  padding: var(--pad-top) var(--gutter) var(--pad-bottom);
-  background: linear-gradient(rgba(236,236,234,.10), rgba(236,236,234,.10)),
-              url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/5c3ec08f-2dbf-4c0a-8588-f6106a789443.webp") center / cover no-repeat,
-              #ececeb;
-}
+  <!-- Google Fonts: Inter Tight -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet" />
 
-.stage-motion {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-}
-.stage-motion--wide { display: block; }
-.stage-motion--narrow { display: none; }
+  <style>
+    @font-face {
+      font-family: "Inter Tight";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("https://fonts.gstatic.com/s/intertight/v9/NGSwv5HMAFg6IuGlBNMjxLsH8ag.woff2") format("woff2");
+    }
 
-.paper-texture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  display: none;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.filter-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
+    :root {
+      --u: calc(100vw / 1500);
+    }
+    @media (max-width: 649px) {
+      :root {
+        --u: calc(100vw / 390);
+      }
+    }
 
-.masthead, .cards {
-  width: min(100%, var(--content-max));
-  margin-inline: auto;
-}
+    html, body {
+      background: #000;
+      color: #fff;
+      height: 100%;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-/* MASTHEAD */
-.masthead {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0, clamp(260px, 32vw, 483px));
-  gap: var(--masthead-gap);
-  align-items: start;
-  z-index: 2;
-  flex: 0 0 auto;
-}
+    body {
+      font-family: "Inter Tight", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-.headline {
-  margin: 0;
-  max-width: 100%;
-  color: #202020;
-  font-size: clamp(24px, min(3.1vw, 5.9vh), 47px);
-  font-weight: 400;
-  letter-spacing: .015em;
-  line-height: 1.223;
-}
-.headline__line {
-  display: flex;
-  white-space: nowrap;
-  align-items: center;
-}
+    canvas#gl {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
-.dot-word {
-  display: inline-block;
-  flex: 0 0 auto;
-  width: 4.851em;
-  height: .766em;
-  margin-left: .319em;
-  color: #ad314d;
-  transform: translateY(.085em);
-}
-.dot-svg {
-  display: block;
-  overflow: visible;
-  color: inherit;
-}
+    /* Corner Navigation */
+    .ui a, .ui button {
+      position: fixed;
+      z-index: 5;
+      color: #fff;
+      font-family: "Inter Tight", system-ui, sans-serif;
+      font-weight: 500;
+      font-size: max(9px, calc(10 * var(--u)));
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      text-decoration: none;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.6s ease 0.2s;
+    }
+    body.ready .ui a,
+    body.ready .ui button {
+      opacity: 1;
+    }
 
-.intro {
-  container-type: inline-size;
-  width: 100%;
-  margin: .34em 0 0;
-  color: var(--copy);
-  font-size: clamp(13px, min(1.36vw, 2.6vh), 20.6px);
-  font-weight: 400;
-  letter-spacing: -.017em;
-  line-height: 1.62;
-}
-.desktop-break { display: none; }
-@container (min-width: 26.5em) {
-  .desktop-break { display: inline; }
-}
+    .ui .tl {
+      left: calc(80 * var(--u));
+      top: calc(40 * var(--u));
+    }
+    .ui .tr {
+      right: calc(80 * var(--u));
+      top: calc(40 * var(--u));
+    }
+    .ui .bl {
+      left: calc(80 * var(--u));
+      bottom: calc(40 * var(--u));
+    }
+    .ui .br {
+      right: calc(80 * var(--u));
+      bottom: calc(40 * var(--u));
+    }
 
-/* CARDS SECTION */
-.cards {
-  flex: 1 1 auto;
-  container-type: size;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap);
-  min-height: 0;
-  margin-top: var(--cards-offset);
-  --card-w: min(
-    (100cqw - (var(--card-count) - 1) * var(--gap)) / var(--card-count),
-    100cqh * var(--card-ref-w) / var(--card-ref-h),
-    var(--card-ref-w) * 1px
-  );
-}
+    .ui .bl span {
+      opacity: 0.5;
+    }
 
-.card {
-  container-type: inline-size;
-  position: relative;
-  flex: 0 0 auto;
-  overflow: hidden;
-  width: var(--card-w);
-  aspect-ratio: 429/554;
-  border: 1px solid var(--glass-line);
-  border-radius: calc(var(--card-w) * 17 / 429);
-  background-origin: border-box;
-  color: #fff;
-  --u: calc(100cqw / 429);
-  box-shadow: 0 2px 4px rgba(50,28,39,.30), inset 0 1px 0 rgba(255,255,255,.24);
-}
+    @media (max-width: 649px) {
+      .ui .tl {
+        left: calc(40 * var(--u));
+        top: calc(25 * var(--u));
+      }
+      .ui .tr {
+        right: calc(40 * var(--u));
+        top: calc(25 * var(--u));
+      }
+      .ui .bl {
+        left: calc(40 * var(--u));
+        bottom: calc(25 * var(--u));
+      }
+      .ui .br {
+        right: calc(40 * var(--u));
+        bottom: calc(25 * var(--u));
+      }
+    }
 
-.card__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  pointer-events: none;
-}
+    /* Loader (three dashes) */
+    .loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 6px;
+      z-index: 4;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    body.ready .loader {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader i {
+      height: 2px;
+      background: #fff;
+      display: block;
+      animation: dash 1s ease-in-out infinite;
+    }
+    .loader i:nth-child(1) {
+      width: 44px;
+      animation-delay: 0s;
+    }
+    .loader i:nth-child(2) {
+      width: 44px;
+      animation-delay: 0.12s;
+    }
+    .loader i:nth-child(3) {
+      width: 38px;
+      animation-delay: 0.24s;
+    }
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  background:
-    linear-gradient(102deg, rgba(255,255,255,.10), transparent 28%, rgba(255,255,255,.08) 62%, transparent 88%),
-    radial-gradient(ellipse 85% 34% at 54% 7%, rgba(255,255,255,.24), transparent 72%);
-}
+    @keyframes dash {
+      0%, 100% {
+        opacity: 0.25;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
 
-.card__grain {
-  position: absolute;
-  z-index: 2;
-  inset: -8%;
-  width: 116%;
-  height: 116%;
-  opacity: .46;
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-}
+    /* Phone Veil */
+    .veil {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      display: none;
+      background:
+        linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.77) 5%, rgba(0,0,0,0.42) 10%, rgba(0,0,0,0.14) 15%, rgba(0,0,0,0.02) 20%, transparent 26%),
+        linear-gradient(to top, #000 0%, rgba(0,0,0,0.77) 5%, rgba(0,0,0,0.42) 10%, rgba(0,0,0,0.14) 15%, rgba(0,0,0,0.02) 20%, transparent 26%);
+    }
+    @media (max-width: 649px) {
+      .veil {
+        display: block;
+      }
+    }
 
-/* CARD 1 — SPEED */
-.card--speed {
-  background:
-    radial-gradient(ellipse 34% 24% at 50% 2%, rgba(255,220,211,.10) 0%, transparent 76%),
-    radial-gradient(ellipse 44% 34% at 106% 20%, rgba(255,222,211,.10) 0%, transparent 74%),
-    radial-gradient(ellipse 40% 27% at 50% 82%, rgba(255,214,208,.08) 0%, transparent 74%),
-    radial-gradient(ellipse 43% 31% at -7% 61%, rgba(127,31,53,.06) 0%, transparent 74%),
-    radial-gradient(ellipse 47% 34% at 107% 82%, rgba(119,29,49,.07) 0%, transparent 74%),
-    linear-gradient(180deg, rgba(255,246,241,.43) 0%, rgba(255,237,235,.19) 9%, transparent 22%),
-    radial-gradient(ellipse 44% 34% at 50% 111%, rgba(55,0,20,.16) 0%, transparent 74%),
-    radial-gradient(ellipse 105% 32% at 50% 80%, rgba(255,218,204,.20) 0%, rgba(255,205,196,.10) 48%, transparent 78%),
-    radial-gradient(ellipse 55% 22% at -5% 39%, rgba(240,250,200,.15) 0%, transparent 76%),
-    radial-gradient(ellipse 64% 49% at -8% 106%, rgba(255,222,199,.48) 0%, rgba(255,204,192,.25) 49%, transparent 78%),
-    radial-gradient(ellipse 64% 49% at 108% 106%, rgba(255,222,199,.43) 0%, rgba(255,204,192,.22) 49%, transparent 78%),
-    radial-gradient(ellipse 52% 54% at -8% 44%, rgba(255,216,207,.20) 0%, transparent 77%),
-    radial-gradient(ellipse 68% 45% at -4% -3%, rgba(255,235,232,.73) 0%, rgba(255,226,226,.41) 46%, transparent 77%),
-    radial-gradient(ellipse 70% 45% at 104% -4%, rgba(255,238,233,.78) 0%, rgba(255,226,226,.42) 48%, transparent 78%),
-    radial-gradient(ellipse 93% 47% at 106% 58%, rgba(245,247,241,.73) 0%, rgba(246,231,229,.42) 48%, transparent 76%),
-    radial-gradient(ellipse 74% 40% at -8% 73%, rgba(255,210,190,.48) 0%, rgba(255,194,181,.25) 48%, transparent 77%),
-    radial-gradient(ellipse 77% 36% at 57% 58%, rgba(255,226,218,.30) 0%, rgba(255,206,207,.15) 50%, transparent 78%),
-    radial-gradient(ellipse 54% 30% at 50% 17%, rgba(106,8,51,.22) 0%, transparent 78%),
-    linear-gradient(180deg, #bd4468 0%, #ad355b 38%, #a63b50 72%, #8c1320 100%);
-  background-origin: border-box;
-}
-.card--speed::before {
-  background:
-    linear-gradient(103deg, rgba(255,255,255,.08), transparent 31%, rgba(255,255,255,.055) 63%, transparent 88%),
-    radial-gradient(ellipse 92% 19% at 51% 0%, rgba(255,255,255,.08), transparent 78%);
-}
-.card--speed .card__grain { opacity: .54; }
-.card--speed .card__title { top: 6.3%; color: #fff; font-size: calc(22.7 * var(--u)); }
+    /* Screen reader list */
+    .sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 
-.gauge {
-  position: absolute;
-  z-index: 2;
-  top: 27.63%;
-  left: 10.5%;
-  width: 79%;
-  height: 59%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.metric--speed {
-  top: 48.6%;
-}
-.metric--speed .dot-number {
-  width: 31.2%;
-}
-.metric--speed .dot-svg {
-  transform: translate(calc(4 * var(--u)), calc(2 * var(--u))) scale(.925, 1.018);
-  transform-origin: left top;
-}
-.metric--speed .metric__unit {
-  margin-left: 1%;
-  font-size: calc(30.6 * var(--u));
-  transform: translateY(calc(5 * var(--u)));
-}
-.card--speed .caption {
-  top: 64.75%;
-  font-size: calc(20.33 * var(--u));
-}
-.card--speed .learn-more {
-  top: 83.9%;
-  width: calc(111 * var(--u));
-  height: calc(44 * var(--u));
-}
-
-/* CARD 2 — CONTEXT */
-.card--context {
-  background:
-    radial-gradient(ellipse 118% 66% at 48% -8%, rgba(221,232,255,.065), transparent 74%),
-    radial-gradient(ellipse 106% 52% at 48% 112%, rgba(255,155,139,.075), transparent 73%),
-    radial-gradient(ellipse 82% 15% at 50% 29%, rgba(240,204,244,.24), transparent 81%),
-    radial-gradient(ellipse 64% 18% at 50% 61%, rgba(239,177,208,.17), transparent 81%),
-    radial-gradient(ellipse 43% 42% at -5% 30%, rgba(228,220,255,.53), transparent 78%),
-    radial-gradient(ellipse 43% 42% at 105% 30%, rgba(245,200,210,.54), transparent 78%),
-    radial-gradient(ellipse 70% 48% at 70% 110%, rgba(238,204,201,.62), transparent 77%),
-    radial-gradient(ellipse 70% 23% at 78% 1%, rgba(251,208,226,.56), transparent 78%),
-    radial-gradient(ellipse 78% 25% at 15% 8%, rgba(218,211,255,.54), transparent 79%),
-    radial-gradient(ellipse 38% 31% at 80% 90%, rgba(230,190,191,.38), transparent 74%),
-    radial-gradient(ellipse 45% 26% at 47% 78%, rgba(236,184,183,.45), transparent 73%),
-    linear-gradient(164deg, #c9b5e1 0%, #ad80ca 29%, #9d4f72 64%, #793246 100%);
-  background-origin: border-box;
-}
-.card--context .card__title {
-  font-size: calc(23 * var(--u));
-  line-height: 1.48;
-}
-.card--context .card__grain { opacity: .68; }
-.card--context::before {
-  mix-blend-mode: multiply;
-  opacity: .54;
-  background:
-    radial-gradient(ellipse 18% 23% at 20% 32%, rgba(103,41,148,.24), transparent 76%),
-    radial-gradient(ellipse 20% 24% at 81% 30%, rgba(121,34,113,.22), transparent 76%),
-    radial-gradient(ellipse 66% 9% at 50% 30%, rgba(103,33,125,.26), transparent 82%),
-    radial-gradient(ellipse 68% 8% at 50% 69%, rgba(86,27,64,.23), transparent 83%),
-    linear-gradient(103deg, rgba(255,255,255,.08), transparent 31%, rgba(255,255,255,.05) 63%, transparent 88%);
-}
-
-.context-backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-.context-backdrop svg {
-  width: 100%;
-  height: 100%;
-  mask: linear-gradient(180deg, #000 0%, #000 54%, rgba(0,0,0,.72) 58%, rgba(0,0,0,.18) 62%, transparent 65%);
-}
-
-.context-window {
-  position: absolute;
-  z-index: 3;
-  top: 32.4%;
-  left: 20.4%;
-  width: 59%;
-  height: 30.1%;
-  overflow: hidden;
-  border: none;
-  border-radius: calc(10 * var(--u));
-  background:
-    linear-gradient(0deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.15) 45%, rgba(255,255,255,0) 80%),
-    linear-gradient(270deg, rgba(213,62,152,.62) 0px, rgba(213,62,152,0) calc(5 * var(--u))),
-    radial-gradient(ellipse 118% 70% at 60% 8%, rgba(255,203,252,.34), transparent 74%),
-    linear-gradient(105deg, rgba(250,232,250,.72) 0%, rgba(238,120,214,.68) 51%, rgba(222,86,177,.82) 100%);
-  box-shadow: 0 calc(13 * var(--u)) calc(25 * var(--u)) rgba(70,17,69,.31), inset 0 1px 0 rgba(255,255,255,.12);
-  backdrop-filter: blur(calc(9 * var(--u))) saturate(1.08);
-}
-.context-window .window-grain {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .24;
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-}
-.window-lines {
-  position: absolute;
-  top: 9%;
-  left: 6.7%;
-  width: 87%;
-  height: 24%;
-  pointer-events: none;
-}
-.window-line-1 {
-  height: calc(6 * var(--u));
-  border-radius: calc(2.5 * var(--u));
-  background: rgba(255,255,255,.72);
-  width: 29%;
-  margin-bottom: calc(3 * var(--u));
-}
-.window-line-2 {
-  width: 100%;
-  height: calc(22 * var(--u));
-  border-radius: calc(6 * var(--u));
-  background: linear-gradient(90deg, rgba(255,240,253,.72), rgba(255,170,242,.75) 42%, rgba(255,108,235,.78));
-}
-.window-line-3 {
-  width: 86%;
-  height: calc(6 * var(--u));
-  border-radius: calc(2.5 * var(--u));
-  background: rgba(255,255,255,.72);
-  margin-top: calc(3 * var(--u));
-  opacity: .64;
-}
-
-.metric--context {
-  top: 48.0%;
-  transform: translateX(2.1cqw);
-}
-.metric--context .dot-number {
-  width: 30.5%;
-}
-.metric--context .dot-svg {
-  transform: translate(calc(-1 * var(--u)), calc(-.5 * var(--u))) scale(.96, 1.02);
-  transform-origin: center;
-}
-.card--context .caption {
-  top: 65.72%;
-  color: rgba(255,255,255,.84);
-  font-size: calc(19.1 * var(--u));
-  letter-spacing: calc(-.28 * var(--u));
-  line-height: 1.38;
-}
-.card--context .learn-more {
-  top: 83.9%;
-  height: calc(44 * var(--u));
-}
-
-/* CARD 3 — CONNECTIONS */
-.card--connections {
-  background:
-    radial-gradient(ellipse 54% 14% at 56% 0%, rgba(255,206,190,.16), transparent 76%),
-    radial-gradient(ellipse 38% 24% at 102% 8%, rgba(255,190,164,.24), transparent 75%),
-    radial-gradient(ellipse 28% 24% at -5% 66%, rgba(255,192,174,.30), transparent 74%),
-    radial-gradient(ellipse 46% 30% at 104% 32%, rgba(255,146,52,.42), transparent 74%),
-    radial-gradient(ellipse 80% 36% at 62% 57%, rgba(255,141,36,.62), transparent 72%),
-    radial-gradient(ellipse 58% 30% at 6% 103%, rgba(199,49,45,.38), transparent 76%),
-    radial-gradient(ellipse 60% 32% at 97% 101%, rgba(190,40,44,.42), transparent 76%),
-    linear-gradient(177deg, #d84736 0%, #dd523c 24%, #e8703d 52%, #de5641 78%, #d34239 100%);
-  background-origin: border-box;
-}
-.card--connections .card__grain { opacity: .58; }
-.card--connections::before {
-  background:
-    linear-gradient(102deg, rgba(255,255,255,.07), transparent 30%, rgba(255,255,255,.05) 62%, transparent 88%),
-    radial-gradient(ellipse 84% 26% at 54% 4%, rgba(255,255,255,.11), transparent 74%);
-}
-
-.connections-map {
-  position: absolute;
-  z-index: 2;
-  top: 21.7%;
-  left: 0;
-  width: 100%;
-  height: 43%;
-  opacity: .78;
-  pointer-events: none;
-}
-.connections-map svg {
-  width: 100%;
-  height: 100%;
-  mask: linear-gradient(180deg, #000 0%, #000 50%, rgba(0,0,0,.46) 67%, rgba(0,0,0,.15) 83%, transparent 96%);
-}
-
-.metric--connections {
-  top: 48.5%;
-  transform: translateX(2.1cqw);
-}
-.metric--connections .dot-number {
-  width: 23%;
-}
-.metric--connections .metric__unit {
-  margin-left: 1.3%;
-  font-size: calc(30.46 * var(--u));
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: calc(-.8 * var(--u));
-}
-
-/* SHARED CARD TYPE / CONTROLS */
-.card__title {
-  position: absolute;
-  z-index: 4;
-  top: 6.1%;
-  left: 5%;
-  width: 90%;
-  margin: 0;
-  color: rgba(255,255,255,.96);
-  font-size: calc(22.95 * var(--u));
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.48;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(72,28,48,.14);
-}
-
-.metric {
-  position: absolute;
-  z-index: 5;
-  left: 0;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  color: rgba(255,255,255,.97);
-  filter: drop-shadow(0 1px 1px rgba(104,27,54,.08));
-}
-
-.caption {
-  position: absolute;
-  z-index: 5;
-  top: 65.1%;
-  left: 10%;
-  width: 80%;
-  margin: 0;
-  color: rgba(255,255,255,.87);
-  font-size: calc(19.95 * var(--u));
-  font-weight: 400;
-  letter-spacing: calc(-.36 * var(--u));
-  line-height: 1.45;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(60,21,35,.16);
-}
-
-.learn-more {
-  position: absolute;
-  z-index: 6;
-  top: 83.75%;
-  left: 50%;
-  width: calc(111 * var(--u));
-  height: calc(45 * var(--u));
-  transform: translateX(-50%);
-  border: 0;
-  border-radius: 999px;
-  color: #2d2d2d;
-  background: rgba(255,255,255,.97);
-  box-shadow: 0 1px 0 rgba(255,255,255,.50) inset, 0 1px 3px rgba(58,25,39,.08);
-  font-size: calc(14 * var(--u));
-  font-weight: 400;
-  letter-spacing: calc(-.25 * var(--u));
-  cursor: pointer;
-  transition: transform .18s ease, box-shadow .18s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.learn-more:hover {
-  transform: translateX(-50%) translateY(calc(-2 * var(--u)));
-  box-shadow: 0 8px 20px rgba(58,25,39,.16);
-}
-.learn-more:focus-visible {
-  outline: 3px solid rgba(255,255,255,.78);
-  outline-offset: 3px;
-}
-
-/* ================================================== */
-/* ENTRANCE ANIMATIONS */
-/* ================================================== */
-@keyframes headline-reveal {
-  from { opacity: 0; translate: 0 .52em; clip-path: inset(0 0 56% 0); }
-  to   { opacity: 1; translate: none; clip-path: inset(-8% -2% -8% -2%); }
-}
-@keyframes support-reveal {
-  from { opacity: 0; translate: 0 8px; }
-  to   { opacity: 1; translate: none; }
-}
-@keyframes card-establish {
-  from { opacity: .52; translate: 0 10px; scale: .985; }
-  to   { opacity: 1; translate: none; scale: none; }
-}
-@keyframes card-title-reveal {
-  from { opacity: 0; translate: 0 calc(8 * var(--u)); clip-path: inset(0 0 48% 0); }
-  to   { opacity: 1; translate: none; clip-path: inset(-8% -2% -8% -2%); }
-}
-@keyframes gauge-resolve {
-  from { opacity: 0; translate: 0 calc(9 * var(--u)); scale: .972; clip-path: inset(0 7% 18% 7%); }
-  to   { opacity: 1; translate: none; scale: none; clip-path: inset(-3%); }
-}
-@keyframes panel-resolve {
-  from { opacity: 0; translate: 0 calc(10 * var(--u)); scale: .972; clip-path: inset(8% 4% 8% 4%); }
-  to   { opacity: 1; translate: none; scale: none; clip-path: inset(-3%); }
-}
-@keyframes network-resolve {
-  from { opacity: 0; translate: 0 calc(6 * var(--u)); clip-path: inset(45% 0 45% 0); }
-  to   { opacity: .78; translate: none; clip-path: inset(0); }
-}
-@keyframes metric-resolve {
-  from { opacity: 0; translate: 0 calc(7 * var(--u)); scale: .985; filter: blur(2.5px); }
-  to   { opacity: 1; translate: none; scale: none; filter: none; }
-}
-@keyframes control-settle {
-  from { opacity: 0; translate: 0 calc(6 * var(--u)); scale: .975; }
-  to   { opacity: 1; translate: none; scale: none; }
-}
-
-html.entrance-active .headline__line {
-  will-change: opacity, translate, clip-path;
-  animation: headline-reveal .84s cubic-bezier(.16,1,.3,1) both;
-}
-html.entrance-active .headline__line:nth-child(1) { animation-delay: .08s; }
-html.entrance-active .headline__line:nth-child(2) { animation-delay: .17s; }
-
-html.entrance-active .intro {
-  will-change: opacity, translate;
-  animation: support-reveal .72s cubic-bezier(.22,1,.36,1) .25s both;
-}
-
-html.entrance-active .card--speed { --entrance-delay: .46s; }
-html.entrance-active .card--context { --entrance-delay: .58s; }
-html.entrance-active .card--connections { --entrance-delay: .70s; }
-
-html.entrance-active .card {
-  will-change: opacity, translate, scale;
-  animation: card-establish .76s cubic-bezier(.16,1,.3,1) var(--entrance-delay) both;
-}
-
-html.entrance-active .card__title {
-  will-change: opacity, translate, clip-path;
-  animation: card-title-reveal .62s cubic-bezier(.22,1,.36,1) calc(var(--entrance-delay) + .14s) both;
-}
-html.entrance-active .gauge {
-  will-change: opacity, translate, scale, clip-path;
-  animation: gauge-resolve .82s cubic-bezier(.16,1,.3,1) calc(var(--entrance-delay) + .30s) both;
-}
-html.entrance-active .context-window {
-  will-change: opacity, translate, scale, clip-path;
-  animation: panel-resolve .82s cubic-bezier(.16,1,.3,1) calc(var(--entrance-delay) + .30s) both;
-}
-html.entrance-active .connections-map {
-  will-change: opacity, translate, clip-path;
-  animation: network-resolve .82s cubic-bezier(.16,1,.3,1) calc(var(--entrance-delay) + .30s) both;
-}
-html.entrance-active .metric {
-  will-change: opacity, translate, scale, filter;
-  animation: metric-resolve .66s cubic-bezier(.16,1,.3,1) calc(var(--entrance-delay) + .48s) both;
-}
-html.entrance-active .caption {
-  will-change: opacity, translate;
-  animation: support-reveal .54s cubic-bezier(.22,1,.36,1) calc(var(--entrance-delay) + .64s) both;
-}
-html.entrance-active .learn-more {
-  will-change: opacity, translate, scale;
-  animation: control-settle .52s cubic-bezier(.16,1,.3,1) calc(var(--entrance-delay) + .80s) both;
-}
-
-/* RESPONSIVE */
-@media (min-width:768px) and (max-width:1180px) and (max-aspect-ratio:6/7) {
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
-    justify-content: center;
-    align-content: center;
-    --card-w: min( (100cqw - var(--gap))/2 , (100cqh - var(--gap))/2 * 429/554 , 429px );
+  <!-- Import Map for Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
   }
-  .card:last-child {
-    grid-column: 1/-1;
-    justify-self: center;
-  }
-}
-
-@media (max-width: 767px) {
-  html, body {
-    height: auto;
-    overflow: visible;
-  }
-  .stage {
-    height: auto;
-    min-height: 100svh;
-    overflow: visible;
-    background:
-      linear-gradient(rgba(236,236,234,.08), rgba(236,236,234,.08)),
-      url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0f4926a4-e660-4df2-9195-2bfb3e341bdd.webp") center top / 100% 100% no-repeat,
-      #e8e8e8;
-  }
-  .stage-motion--wide { display: none; }
-  .stage-motion--narrow { display: block; }
-
-  .masthead {
-    grid-template-columns: minmax(0,1fr);
-  }
-  .cards {
-    container-type: inline-size;
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: center;
-    --card-w: min(100cqw, 429px);
-  }
-  html.entrance-active .card {
-    --entrance-delay: .40s !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .stage-motion, .card__media { display: none; }
-  html.entrance-active * {
-    animation: none !important;
-    transition-duration: .01ms !important;
-  }
-}
-</style>
+  </script>
 </head>
 <body>
+  <canvas id="gl" aria-hidden="true"></canvas>
 
-<!-- SVG FILTERS DEFINITIONS -->
-<div class="filter-defs" aria-hidden="true">
-  <svg>
-    <defs>
-      <!-- Card Grain Filter -->
-      <filter id="cardNoise">
-        <feTurbulence type="fractalNoise" baseFrequency=".54" numOctaves="3" seed="27" stitchTiles="stitch" />
-        <feColorMatrix type="saturate" values="0" />
-        <feComponentTransfer>
-          <feFuncR type="linear" slope="1.8" intercept="-.25" />
-          <feFuncG type="linear" slope="1.8" intercept="-.25" />
-          <feFuncB type="linear" slope="1.8" intercept="-.25" />
-          <feFuncA type="table" tableValues="0 .52" />
-        </feComponentTransfer>
-      </filter>
+  <nav class="ui" aria-label="Site">
+    <a class="tl" href="/">Marika Lindfors</a>
+    <button class="tr" type="button">Profile</button>
+    <a class="bl" href="/services">Featured <span>/</span> <span>Full</span></a>
+    <button class="br" type="button">Newsletter</button>
+  </nav>
 
-      <!-- Panel Noise Filter for Card 2 Window -->
-      <filter id="panelNoiseF">
-        <feTurbulence type="fractalNoise" baseFrequency=".54" numOctaves="3" seed="13" stitchTiles="stitch" />
-        <feColorMatrix type="saturate" values="0" />
-        <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 .45" />
-        </feComponentTransfer>
-      </filter>
+  <div class="loader" aria-hidden="true">
+    <i></i><i></i><i></i>
+  </div>
 
-      <!-- Radar Filters for Card 1 -->
-      <filter id="radarSoft"><feGaussianBlur stdDeviation="1.35" /></filter>
-      <filter id="radarHalo"><feGaussianBlur stdDeviation="5.2" /></filter>
-      <filter id="gaugeBlur"><feGaussianBlur stdDeviation="11" /></filter>
-      <filter id="tileSoft"><feGaussianBlur stdDeviation="3.4" /></filter>
-      <filter id="groutSoft"><feGaussianBlur stdDeviation="6.5" /></filter>
+  <div class="veil" aria-hidden="true"></div>
 
-      <!-- Paper Noise Filter -->
-      <filter id="paperNoise">
-        <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="5" seed="8" />
-        <feColorMatrix type="saturate" values="0" />
-      </filter>
-      <pattern id="paperFiber" width="100" height="100" patternTransform="rotate(17)">
-        <rect width="100" height="100" filter="url(#paperNoise)" />
-      </pattern>
-    </defs>
-  </svg>
-</div>
+  <main class="sr" id="list" aria-label="Featured work">
+    <article><h2>Living Portrait</h2></article>
+    <article><h2>Moss Island</h2></article>
+    <article><h2>Flower Valley</h2></article>
+    <article><h2>Runway Lookbook</h2></article>
+    <article><h2>Shelf Hero</h2></article>
+    <article><h2>Solar Fog</h2></article>
+    <article><h2>Honey Bee</h2></article>
+    <article><h2>Spider Web</h2></article>
+  </main>
 
-<main class="stage">
-  <!-- Desktop Wide Looping Video -->
-  <video class="stage-motion stage-motion--wide" autoplay muted loop playsinline preload="auto" aria-hidden="true"
-    poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/5c3ec08f-2dbf-4c0a-8588-f6106a789443.webp"
-    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_125226_45cb4f38-aa7e-47e1-885d-ae0b69745369.mp4"></video>
+  <script type="module">
+    import * as THREE from "three";
 
-  <!-- Mobile Narrow Looping Video -->
-  <video class="stage-motion stage-motion--narrow" autoplay muted loop playsinline preload="none" aria-hidden="true"
-    poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0f4926a4-e660-4df2-9195-2bfb3e341bdd.webp"
-    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_125242_daae1570-386d-4bd5-8896-80499e2371e0.mp4"></video>
+    const CARDS_DATA = [
+      {
+        caption: "Living Portrait",
+        videoPath: "aaaf/living-portrait-hero",
+        posterId: "hf_20261031_044539_b7fde132-8c25-4dda-ab05-4e4be99bf3d3",
+        aspect: 1.745,
+        targetUrl: "/services/seo-optimization"
+      },
+      {
+        caption: "Moss Island",
+        videoPath: "aaaf/mossline-hero",
+        posterId: "hf_20261106_032528_99eb9a00-a553-40b6-8b97-017e918971c6",
+        aspect: 1.700,
+        targetUrl: "/services/website-development"
+      },
+      {
+        caption: "Flower Valley",
+        videoPath: "aaaf/fernhollow",
+        posterId: "hf_20261103_061637_11907771-15ce-494b-81a4-9051861d6ce5",
+        aspect: 1.735,
+        targetUrl: "/services/content-writing"
+      },
+      {
+        caption: "Runway Lookbook",
+        videoPath: "aaaf/vell-lookbook",
+        posterId: "hf_20261102_044911_1ad79156-a8dc-475a-8891-8408a9b61320",
+        aspect: 1.837,
+        targetUrl: "/services/email-marketing"
+      },
+      {
+        caption: "Shelf Hero",
+        videoPath: "aaaf/vasari-vhs-hero",
+        posterId: "hf_20261029_012401_8f947ed0-7b82-47d6-bdcd-b1ce1af0bf5f",
+        aspect: 1.526,
+        targetUrl: "/services/backlink-building"
+      },
+      {
+        caption: "Solar Fog",
+        videoPath: "aaaf/lumen-roof-hero",
+        posterId: "hf_20261102_041507_8e9c2d22-8be2-4652-8bbe-1f4556ea463a",
+        aspect: 1.658,
+        targetUrl: "/services/website-maintenance"
+      },
+      {
+        caption: "Honey Bee",
+        videoPath: "designs/honey-bee-melli-landing",
+        posterId: "hf_20261017_154537_1384fa6d-282d-46e2-8748-a70be1cf681a",
+        aspect: 1.330,
+        targetUrl: "/services"
+      },
+      {
+        caption: "Spider Web",
+        videoPath: "aaaf/found-spider",
+        posterId: "hf_20261104_020746_7eebb7cf-e21b-4288-8211-0cb9d0728f48",
+        aspect: 1.610,
+        targetUrl: "/services"
+      }
+    ];
 
-  <div class="paper-texture" aria-hidden="true"></div>
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  <!-- MASTHEAD -->
-  <header class="masthead">
-    <h1 class="headline">
-      <span class="headline__line">
-        Built for&nbsp;<span class="dot-word" data-dots="Intelligent" aria-label="Intelligent"></span>
-      </span>
-      <span class="headline__line">Performance</span>
-    </h1>
+    const canvas = document.getElementById("gl");
+    let vw = window.innerWidth;
+    let vh = window.innerHeight;
+    let isMobile = vw <= 649;
+    let U = isMobile ? vw / 390 : vw / 1500;
 
-    <p class="intro">
-      Every capability is engineered for speed, scale and<br class="desktop-break"> contextual understanding, giving your AI the foundation<br class="desktop-break"> to reason, adapt and perform in production.
-    </p>
-  </header>
+    const fovDeg = 53.4;
+    const fovRad = (fovDeg * Math.PI) / 180;
+    const cameraDist = 41.18;
+    const H = Math.tan(fovRad / 2) * cameraDist;
+    let W = H * (vw / vh);
+    let k = (2 * H) / vh;
 
-  <!-- CARDS ROW -->
-  <section class="cards" aria-label="Performance capabilities">
+    const camera = new THREE.PerspectiveCamera(fovDeg, vw / vh, 0.1, 2000);
+    camera.position.set(0, 0, cameraDist);
+    camera.lookAt(0, 0, 0);
 
-    <!-- CARD 1: SPEED -->
-    <article class="card card--speed">
-      <video class="card__media" autoplay muted loop playsinline preload="auto" aria-hidden="true"
-        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/167977c6-8539-46b1-9a15-8dba566f50b8.png"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130045_1a612b69-4854-4b34-8043-ccb91f2c60af.mp4"></video>
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
 
-      <!-- SVG Noise Overlay -->
-      <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="100%" height="100%" filter="url(#cardNoise)" />
-      </svg>
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      powerPreference: "high-performance"
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(vw, vh);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-      <h2 class="card__title">Inference Speed<br>AI Response Latency</h2>
+    let refTarget = new THREE.WebGLRenderTarget(
+      Math.floor(vw * 0.5 * Math.min(window.devicePixelRatio || 1, 2)),
+      Math.floor(vh * 0.5 * Math.min(window.devicePixelRatio || 1, 2)),
+      {
+        colorSpace: THREE.SRGBColorSpace,
+        depthBuffer: true,
+        stencilBuffer: false
+      }
+    );
 
-      <!-- GAUGE SVG -->
-      <svg class="gauge" viewBox="0 0 326 326" aria-hidden="true">
-        <defs>
-          <linearGradient id="gaugeArc" gradientUnits="userSpaceOnUse" x1="7" y1="136" x2="312" y2="109">
-            <stop offset="0" stop-color="#ff9ab7" stop-opacity=".06" />
-            <stop offset="0.08" stop-color="#ff8caf" stop-opacity=".44" />
-            <stop offset="0.34" stop-color="#ff6796" stop-opacity=".94" />
-            <stop offset="0.58" stop-color="#ff6796" stop-opacity="1" />
-            <stop offset="0.82" stop-color="#ffe7ed" stop-opacity=".74" />
-            <stop offset="0.94" stop-color="#fff8fa" stop-opacity=".28" />
-            <stop offset="1" stop-color="#fff" stop-opacity="0" />
-          </linearGradient>
+    const mirrorCamera = camera.clone();
 
-          <linearGradient id="gaugeShadow" gradientUnits="userSpaceOnUse" x1="11" y1="136" x2="308" y2="110">
-            <stop offset="0" stop-color="#6e1639" stop-opacity=".04" />
-            <stop offset="0.09" stop-color="#6e1639" stop-opacity=".17" />
-            <stop offset="0.52" stop-color="#72163d" stop-opacity=".18" />
-            <stop offset="0.78" stop-color="#7b1a43" stop-opacity=".1" />
-            <stop offset="1" stop-color="#7b1a43" stop-opacity="0" />
-          </linearGradient>
+    let cardH = isMobile ? (vw - 40 * U) / 1.7 : Math.min(0.435 * vh, 550 * U);
+    let floorY = -cardH * k * 0.5 - 0.06 * H;
+    let floorRun = 6.0 * H;
+    let floorNear = Math.min(cameraDist * (1.0 - Math.abs(floorY) / H) + 0.2 * H, cameraDist * 0.8);
+    let mirrorCamY = 2 * (floorY - 0.07 * H) - camera.position.y;
+    mirrorCamera.position.set(0, mirrorCamY, cameraDist);
+    mirrorCamera.lookAt(0, mirrorCamY, 0);
 
-          <radialGradient id="radarBeam" cx="163" cy="163" r="145" gradientUnits="userSpaceOnUse">
-            <stop offset="0.3" stop-color="#650f35" stop-opacity="0" />
-            <stop offset="0.45" stop-color="#650f35" stop-opacity=".025" />
-            <stop offset="0.7" stop-color="#650f35" stop-opacity=".065" />
-            <stop offset="0.9" stop-color="#650f35" stop-opacity=".08" />
-            <stop offset="1" stop-color="#650f35" stop-opacity=".05" />
-          </radialGradient>
+    const cellSize = 0.22 * H;
 
-          <linearGradient id="radarBeamEdge" x1="238" y1="33" x2="190.5" y2="115.4" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ffe7ef" stop-opacity=".19" />
-            <stop offset="0.48" stop-color="#ffd1df" stop-opacity=".11" />
-            <stop offset="0.82" stop-color="#ffc6d7" stop-opacity=".045" />
-            <stop offset="1" stop-color="#ffc6d7" stop-opacity="0" />
-          </linearGradient>
-        </defs>
+    const floorGeo = new THREE.PlaneGeometry(1, 1, 48, 24);
+    floorGeo.rotateX(-Math.PI / 2);
 
-        <path d="M11.34 136.26A154 154 0 0 1 307.71 110.33" fill="none" stroke-width="3.2" stroke-linecap="round" stroke="url(#gaugeShadow)" />
-        <path d="M6.91 135.48A158.5 158.5 0 0 1 311.94 108.79" fill="none" stroke-width="2.2" stroke-linecap="round" stroke="url(#gaugeArc)" />
-        <path d="M19.22 137.65A146 146 0 0 1 236 36.56" fill="none" stroke-width="1.15" stroke="rgba(255,166,194,.31)" />
-        <path d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="#6a1238" opacity=".022" filter="url(#radarHalo)" />
-        <path d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="url(#radarBeam)" filter="url(#radarSoft)" />
-        <path d="M238 33.1L190.5 115.4" stroke="url(#radarBeamEdge)" stroke-width="1.25" stroke-linecap="round" filter="url(#radarSoft)" />
-        
-        <g id="gaugeTicks"></g>
-        <ellipse cx="225" cy="166" rx="92" ry="76" fill="#fff" opacity=".055" filter="url(#gaugeBlur)" />
-      </svg>
+    const floorMat = new THREE.ShaderMaterial({
+      transparent: true,
+      depthTest: false,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      uniforms: {
+        u_reflection: { value: refTarget.texture },
+        u_repeat: { value: new THREE.Vector2(1, 1) },
+        u_alpha: { value: 0.0 },
+        u_sheetW: { value: W },
+        u_leanA: { value: -0.12 * W },
+        u_leanW: { value: W },
+        u_runO: { value: floorRun },
+        u_mirrorProj: { value: mirrorCamera.projectionMatrix },
+        u_mirrorView: { value: mirrorCamera.matrixWorldInverse }
+      },
+      vertexShader: `
+        uniform float u_leanA;
+        uniform float u_leanW;
+        uniform float u_runO;
 
-      <!-- METRIC -->
-      <div class="metric metric--speed">
-        <span class="dot-number" data-dots="118"></span>
-        <span class="metric__unit">ms</span>
-      </div>
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        varying float vFar;
 
-      <p class="caption">Average global<br>response</p>
-      <button type="button" class="learn-more">Learn More</button>
-    </article>
+        float rampFn(float s) {
+          return s * (1.5 - 0.5 * s * s);
+        }
 
-    <!-- CARD 2: CONTEXT -->
-    <article class="card card--context">
-      <video class="card__media" autoplay muted loop playsinline preload="auto" aria-hidden="true"
-        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0446d1d5-e65e-4db5-8090-3e30d09afc43.png"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130054_dd005674-d693-4d81-80a5-357f7f10b3a3.mp4"></video>
+        void main() {
+          vUv = uv;
+          vec4 wp = modelMatrix * vec4(position, 1.0);
+          
+          if (abs(u_leanW) > 0.001) {
+            float s = clamp(wp.x / u_leanW, -1.0, 1.0);
+            wp.z += u_leanA * rampFn(s);
+          }
 
-      <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="100%" height="100%" filter="url(#cardNoise)" />
-      </svg>
+          vWorldPos = wp.xyz;
+          vFar = -wp.z / u_runO;
+          gl_Position = projectionMatrix * viewMatrix * wp;
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D u_reflection;
+        uniform vec2 u_repeat;
+        uniform float u_alpha;
+        uniform float u_sheetW;
+        uniform mat4 u_mirrorProj;
+        uniform mat4 u_mirrorView;
 
-      <!-- TILE WALL SVG BACKDROP -->
-      <div class="context-backdrop" aria-hidden="true">
-        <svg viewBox="0 0 429 554" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="tTLf" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#d4b0ee" stop-opacity=".05" />
-              <stop offset="1" stop-color="#c6bbff" stop-opacity=".18" />
-            </linearGradient>
-            <linearGradient id="tTCf" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#d5c2ff" stop-opacity=".22" />
-              <stop offset="0.33" stop-color="#e0bdff" stop-opacity=".26" />
-              <stop offset="0.66" stop-color="#f2a0ee" stop-opacity=".32" />
-              <stop offset="1" stop-color="#ff96da" stop-opacity=".34" />
-            </linearGradient>
-            <linearGradient id="tTRf" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ffe8da" stop-opacity=".56" />
-              <stop offset="0.5" stop-color="#f9c6d0" stop-opacity=".26" />
-              <stop offset="1" stop-color="#eba4bf" stop-opacity=".08" />
-            </linearGradient>
-            <linearGradient id="tMRf" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#e858b8" stop-opacity=".52" />
-              <stop offset="0.5" stop-color="#e6459c" stop-opacity=".46" />
-              <stop offset="1" stop-color="#de74ba" stop-opacity=".16" />
-            </linearGradient>
-          </defs>
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        varying float vFar;
 
-          <!-- Top Row -->
-          <rect x="-24" y="22" width="106" height="149" rx="15" fill="url(#tTLf)" filter="url(#tileSoft)" />
-          <rect x="88" y="22" width="247" height="150" rx="15" fill="url(#tTCf)" filter="url(#tileSoft)" />
-          <rect x="346" y="22" width="111" height="147" rx="15" fill="url(#tTRf)" filter="url(#tileSoft)" />
+        void main() {
+          float fade = 1.0 - smoothstep(0.2, 0.95, vFar);
+          float shadow = 1.0 - 0.55 * exp(-14.0 * abs(vFar));
 
-          <!-- Middle Row -->
-          <rect x="-24" y="177" width="108" height="174" rx="15" fill="url(#tTLf)" filter="url(#tileSoft)" />
-          <rect x="88" y="177" width="247" height="174" rx="15" fill="url(#tTCf)" filter="url(#tileSoft)" />
-          <rect x="344" y="175" width="113" height="176" rx="15" fill="url(#tMRf)" filter="url(#tileSoft)" />
+          vec2 g = vec2(vUv.x * u_repeat.x, vFar * u_repeat.y);
+          vec2 fw = 1.5 * fwidth(g);
+          float lx = 1.0 - smoothstep(0.0, fw.x, abs(fract(g.x) - 0.5));
+          float ly = 1.0 - smoothstep(0.0, fw.y, abs(fract(g.y) - 0.5));
+          float line = max(lx, ly);
 
-          <!-- Grout Lines -->
-          <rect x="81" y="30" width="8" height="150" fill="rgba(86,27,64,.23)" filter="url(#groutSoft)" />
-          <rect x="338" y="30" width="8" height="322" fill="rgba(86,27,64,.23)" filter="url(#groutSoft)" />
-          <rect x="0" y="167" width="429" height="12" fill="rgba(86,27,64,.23)" filter="url(#groutSoft)" />
-        </svg>
-      </div>
+          vec3 col = vec3(0.0);
+          col += line * 0.08 * fade * shadow;
 
-      <h2 class="card__title">Context Window<br>Long-form Understanding</h2>
+          vec3 wp = vWorldPos;
+          float lightX = -0.6 * u_sheetW;
+          wp.x -= (wp.x - lightX) * 0.35 * abs(vFar);
+          vec4 clipRef = u_mirrorProj * u_mirrorView * vec4(wp, 1.0);
+          vec2 refUv = (clipRef.xy / clipRef.w) * 0.5 + 0.5;
 
-      <!-- CONTEXT WINDOW GLASS PANEL -->
-      <div class="context-window" aria-hidden="true">
-        <svg class="window-grain" viewBox="0 0 252 166" preserveAspectRatio="none">
-          <rect width="100%" height="100%" filter="url(#panelNoiseF)" />
-        </svg>
-        <div class="window-lines">
-          <div class="window-line-1"></div>
-          <div class="window-line-2"></div>
-          <div class="window-line-3"></div>
-        </div>
-      </div>
+          float edgeX = smoothstep(0.0, 0.1, refUv.x) * (1.0 - smoothstep(0.9, 1.0, refUv.x));
+          float edgeY = smoothstep(0.0, 0.1, refUv.y) * (1.0 - smoothstep(0.9, 1.0, refUv.y));
+          float edges = edgeX * edgeY;
+          float weight = vFar >= 0.0 ? exp(-6.0 * vFar) : exp(2.2 * vFar);
 
-      <!-- METRIC -->
-      <div class="metric metric--context">
-        <span class="dot-number" data-dots="2.4"></span>
-        <span class="metric__unit">M</span>
-      </div>
+          if (refUv.x >= 0.0 && refUv.x <= 1.0 && refUv.y >= 0.0 && refUv.y <= 1.0) {
+            vec4 refCol = texture2D(u_reflection, refUv);
+            col += refCol.rgb * line * 0.5 * weight * edges * fade;
+          }
 
-      <p class="caption">Tokens processed<br>simultaneously</p>
-      <button type="button" class="learn-more">Learn More</button>
-    </article>
+          float alpha = u_alpha * fade;
+          if (alpha <= 0.001) discard;
+          gl_FragColor = vec4(col, alpha);
+        }
+      `
+    });
 
-    <!-- CARD 3: CONNECTIONS -->
-    <article class="card card--connections">
-      <video class="card__media" autoplay muted loop playsinline preload="auto" aria-hidden="true"
-        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/da8d0242-4dee-4f6d-813f-a5887e86ad77.png"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130103_7550f407-f14b-40a6-9616-7a26d7a8bd9f.mp4"></video>
+    const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+    floorMesh.renderOrder = -1;
+    scene.add(floorMesh);
 
-      <svg class="card__grain" viewBox="0 0 429 554" preserveAspectRatio="none" aria-hidden="true">
-        <rect width="100%" height="100%" filter="url(#cardNoise)" />
-      </svg>
+    function updateFloorGeometry() {
+      floorY = -cardH * k * 0.5 - 0.06 * H;
+      floorRun = 6.0 * H;
+      floorNear = Math.min(cameraDist * (1.0 - Math.abs(floorY) / H) + 0.2 * H, cameraDist * 0.8);
+      
+      const floorWidth = W * 2 * 4;
+      const floorDepth = floorNear + floorRun;
+      floorMesh.scale.set(floorWidth, 1, floorDepth);
+      floorMesh.position.set(0, floorY, (floorNear - floorRun) / 2);
 
-      <!-- CONNECTIONS MAP SVG -->
-      <div class="connections-map" aria-hidden="true">
-        <svg viewBox="0 0 429 238" preserveAspectRatio="none">
-          <!-- White Strokes width 1 -->
-          <path d="M0 5H128c27 0 36 7 39 26 2 16 9 22 24 22h106c16 0 23-8 25-25 2-16 10-23 31-23h76" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".20" />
-          <path d="M0 117h46c15 0 22 8 26 25 5 23 12 31 31 31h174c18 0 25-8 30-31 4-17 11-25 26-25h96" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".30" />
-          <path d="M0 173h87c15 0 22 7 27 25 4 15 11 22 28 22h140c17 0 25-7 29-22 5-18 12-25 28-25h90" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".34" />
-          <path d="M0 228h120c17 0 25-5 28-18 4-15 10-20 28-20h81c18 0 25 6 28 20 4 13 11 18 28 18h116" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".16" />
-          <path d="M0 5H429M0 61H429M0 117H429" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".26" />
-          <path d="M0 173H429" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".09" />
+      floorMat.uniforms.u_repeat.value.set(floorWidth / cellSize, floorRun / cellSize);
+      floorMat.uniforms.u_sheetW.value = W;
+      floorMat.uniforms.u_leanA.value = -0.12 * W;
+      floorMat.uniforms.u_leanW.value = W;
+      floorMat.uniforms.u_runO.value = floorRun;
 
-          <!-- Warm Strokes width 1.15 -->
-          <path d="M0 61h95c14 0 22-6 27-20 4-13 12-20 27-20h115c15 0 23 6 27 20 5 14 13 20 28 20h110" fill="none" stroke="#fff8dd" stroke-width="1.15" stroke-opacity=".52" />
-          <path d="M0 117h88c15 0 22-8 25-25 4-24 12-31 31-31h129c20 0 27 7 31 31 3 17 10 25 26 25h99" fill="none" stroke="#fff8dd" stroke-width="1.15" stroke-opacity=".94" />
+      mirrorCamY = 2 * (floorY - 0.07 * H) - camera.position.y;
+      mirrorCamera.position.set(0, mirrorCamY, cameraDist);
+      mirrorCamera.lookAt(0, mirrorCamY, 0);
+      mirrorCamera.updateMatrixWorld();
+      mirrorCamera.updateProjectionMatrix();
 
-          <!-- Nodes r=6.5 -->
-          <circle cx="45" cy="117" r="6.5" fill="#fff" />
-          <circle cx="133" cy="61" r="6.5" fill="#fff4a7" />
-          <circle cx="189" cy="61" r="6.5" fill="#fff1a4" />
-          <circle cx="319" cy="61" r="6.5" fill="#fff4a6" />
-          <circle cx="319" cy="117" r="6.5" fill="#fff2a0" />
-        </svg>
-      </div>
+      floorMat.uniforms.u_mirrorProj.value = mirrorCamera.projectionMatrix;
+      floorMat.uniforms.u_mirrorView.value = mirrorCamera.matrixWorldInverse;
 
-      <h2 class="card__title">Intelligent Connections<br>Cross-Source Context</h2>
+      floorMesh.visible = !isMobile;
+    }
 
-      <!-- METRIC -->
-      <div class="metric metric--connections">
-        <span class="dot-number" data-dots="16"></span>
-        <span class="metric__unit">K</span>
-      </div>
+    const cardGeo = new THREE.PlaneGeometry(1, 1, 96, 24);
 
-      <p class="caption">Connected data<br>sources</p>
-      <button type="button" class="learn-more">Learn More</button>
-    </article>
+    const cardVertexShader = `
+      uniform float u_sheetW;
+      uniform float u_sheetD;
+      uniform float u_sheetT;
+      uniform float u_sheetC;
+      uniform float u_sheetP;
+      uniform float u_sheetV;
+      uniform float u_leanA;
+      uniform float u_leanW;
+      uniform float u_diag;
+      uniform float u_axis;
+      uniform float u_dent;
+      uniform float u_hover;
+      uniform vec2 u_res;
 
-  </section>
-</main>
+      varying vec2 vUv;
+      varying vec3 vWorldPos;
+      varying vec3 vNormal;
+      varying float vDepthDark;
 
-<script>
-// ==================================================
-// LED DOT TYPE GENERATOR
-// ==================================================
-const GLYPHS = {
-  "0": ["01110","10001","10011","10101","11001","10001","01110"],
-  "1": ["010","110","010","010","010","010","111"],
-  "2": ["01110","10001","00001","00010","00100","01000","11111"],
-  "3": ["11110","00001","00001","01110","00001","00001","11110"],
-  "4": ["00010","00110","01010","10010","11111","00010","00010"],
-  "5": ["11111","10000","10000","11110","00001","00001","11110"],
-  "6": ["01110","10000","10000","11110","10001","10001","01110"],
-  "7": ["11111","00001","00010","00100","01000","01000","01000"],
-  "8": ["01110","10001","10001","01110","10001","10001","01110"],
-  "9": ["01110","10001","10001","01111","00001","00001","01110"],
-  ".": ["0","0","0","0","0","0","1"],
-  "I": ["111","010","010","010","010","010","111"],
-  "a": ["00000","00000","01110","00001","01111","10001","01111"],
-  "e": ["00000","00000","01110","10001","11111","10000","01110"],
-  "g": ["00000","00000","01111","10001","01111","00001","01110"],
-  "i": ["1","0","1","1","1","1","1"],
-  "l": ["10","10","10","10","10","10","01"],
-  "n": ["00000","00000","11110","10001","10001","10001","10001"],
-  "t": ["010","010","111","010","010","010","001"],
-  "r": ["00000","00000","10110","11001","10000","10000","10000"],
-};
+      const float PI = 3.141592653589793;
+      const float BANK = -0.16;
+      const float REAR_Y = 0.1;
+      const float REAR_Z = 0.2;
+      const float VTWIST = 1.8;
+      const float TAIL = 1.0;
+      const float SHIFT = -0.2;
 
-function renderDotWord(element) {
-  const text = element.getAttribute("data-dots");
-  if (!text) return;
+      float qFn(float wx) {
+        return (wx / u_sheetW) * u_sheetT + SHIFT;
+      }
 
-  const isDotWord = element.classList.contains("dot-word");
-  const isContext = element.closest(".metric--context") !== null;
+      float shapeFn(float q) {
+        return mix(1.0 - q * q, sin(PI * q), u_sheetC) * exp(-TAIL * q * q);
+      }
 
-  const pitchX = isDotWord ? 4 : 5;
-  const pitchY = 4;
-  const gap = 1;
-  const dotRadius = isDotWord ? 1.8 : (isContext ? 2.32 : 1.55);
+      float shapeSlopeFn(float q) {
+        float bowlP = -2.0 * q * (1.0 + TAIL * (1.0 - q * q));
+        float essP = PI * cos(PI * q) - 2.0 * TAIL * q * sin(PI * q);
+        return mix(bowlP, essP, u_sheetC) * exp(-q * q);
+      }
 
-  let currentX = 0;
-  const circles = [];
+      float zFn(float wx) {
+        return -u_sheetD * shapeFn(qFn(wx));
+      }
 
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    const rows = GLYPHS[char];
-    if (!rows) continue;
+      float rollFn(float wx) {
+        return (BANK * shapeSlopeFn(qFn(wx)) / PI) * u_sheetC;
+      }
 
-    const charWidth = rows[0].length;
-    for (let r = 0; r < 7; r++) {
-      const rowStr = rows[r];
-      for (let c = 0; c < rowStr.length; c++) {
-        if (rowStr[c] === "1") {
-          const cx = currentX + c * pitchX + 1.55;
-          const cy = r * pitchY + 1.55;
-          circles.push(`<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${dotRadius}" />`);
+      float rampFn(float s) {
+        return s * (1.5 - 0.5 * s * s);
+      }
+
+      float leanSlopeFn(float s) {
+        float ms = min(abs(s), 1.0);
+        return 1.5 * (1.0 - ms * ms);
+      }
+
+      void main() {
+        vUv = uv;
+        vec3 p = position;
+
+        vec2 quv = 2.0 * uv - 1.0;
+        float dome = (1.0 - quv.x * quv.x) * (1.0 - quv.y * quv.y);
+        p.z -= u_hover * u_dent * u_res.y * dome;
+
+        vec4 wp = modelMatrix * vec4(p, 1.0);
+
+        if (u_axis > 0.5) {
+          float tmp = wp.x;
+          wp.x = wp.y;
+          wp.y = tmp;
+        }
+
+        float wx = wp.x;
+        float rollAngle = rollFn(wx);
+        if (u_sheetV > 0.0) {
+          rollAngle += VTWIST * u_sheetV * smoothstep(0.3, 0.9, abs(wx / u_sheetW)) * sign(wx / u_sheetW);
+        }
+        float cosA = cos(rollAngle);
+        float sinA = sin(rollAngle);
+        float newY = wp.y * cosA - wp.z * sinA;
+        float newZ = wp.y * sinA + wp.z * cosA;
+        wp.y = newY;
+        wp.z = newZ;
+
+        wp.z += zFn(wx);
+        wp.y += u_diag * wx;
+
+        if (u_sheetV > 0.0) {
+          float m = 1.0 - smoothstep(-1.0, 0.3, wx / u_sheetW);
+          wp.y += REAR_Y * u_sheetW * u_sheetV * m;
+          wp.z += REAR_Z * u_sheetW * u_sheetV * m;
+        }
+
+        if (abs(u_leanW) > 0.001) {
+          float s = clamp(wx / u_leanW, -1.0, 1.0);
+          wp.z += u_leanA * rampFn(s);
+        }
+
+        if (u_axis > 0.5) {
+          float tmp2 = wp.x;
+          wp.x = wp.y;
+          wp.y = tmp2;
+        }
+
+        vWorldPos = wp.xyz;
+
+        float q = qFn(wx);
+        float dzdx = -u_sheetD * shapeSlopeFn(q) * (u_sheetT / u_sheetW);
+        if (abs(u_leanW) > 0.001) {
+          float s = clamp(wx / u_leanW, -1.0, 1.0);
+          dzdx += (u_leanA / u_leanW) * leanSlopeFn(s);
+        }
+        float dDomedx = -4.0 * quv.x * (1.0 - quv.y * quv.y) / max(u_res.x, 0.001);
+        dzdx -= u_hover * u_dent * u_res.y * dDomedx;
+
+        vec3 n = normalize(vec3(-dzdx, 0.0, 1.0));
+        float nY = n.y * cosA - n.z * sinA;
+        float nZ = n.y * sinA + n.z * cosA;
+        n.y = nY;
+        n.z = nZ;
+        if (u_axis > 0.5) {
+          float tmpN = n.x;
+          n.x = n.y;
+          n.y = tmpN;
+        }
+        vNormal = normalize((modelMatrix * vec4(n, 0.0)).xyz);
+
+        if (u_sheetD > 0.001) {
+          float dTerm = clamp((u_sheetD - zFn(wx)) / (2.0 * u_sheetD), 0.0, 1.0);
+          vDepthDark = clamp(dTerm + u_hover * dome * 0.1, 0.0, 1.0);
+        } else {
+          vDepthDark = 0.0;
+        }
+
+        gl_Position = projectionMatrix * viewMatrix * wp;
+      }
+    `;
+
+    const cardFragmentShader = `
+      uniform sampler2D u_media;
+      uniform sampler2D u_overlay;
+      uniform vec4 u_crop;
+      uniform float u_shade;
+      uniform float u_shadeS;
+      uniform float u_corner;
+      uniform float u_aspect;
+      uniform float u_alpha;
+      uniform vec3 u_cameraPos;
+
+      varying vec2 vUv;
+      varying vec3 vWorldPos;
+      varying vec3 vNormal;
+      varying float vDepthDark;
+
+      float sdRoundedBox(vec2 p, vec2 b, float r) {
+        vec2 q = abs(p) - b + r;
+        return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r;
+      }
+
+      void main() {
+        vec2 mediaUv = u_crop.xy + vUv * u_crop.zw;
+        vec4 mediaCol = texture2D(u_media, mediaUv);
+        vec4 overCol = texture2D(u_overlay, vUv);
+        vec3 rgb = mix(mediaCol.rgb, overCol.rgb, overCol.a);
+
+        if (u_shade > 0.0) {
+          float dFactor = u_shade * 0.8 * pow(vDepthDark, u_shadeS);
+          rgb = mix(rgb, vec3(0.059), dFactor);
+        }
+
+        vec3 L = normalize(vec3(-0.4, 0.5, 1.0));
+        vec3 N = normalize(vNormal);
+        float diff = dot(N, L) * 0.5 + 0.5;
+        rgb *= (1.0 - 0.12 * (1.0 - diff));
+
+        vec3 V = normalize(u_cameraPos - vWorldPos);
+        vec3 H = normalize(L + V);
+        float spec = pow(max(dot(N, H), 0.0), 48.0) * 0.35;
+        rgb += vec3(spec);
+
+        vec2 p = (vUv - 0.5) * vec2(u_aspect, 1.0);
+        vec2 halfSize = vec2(u_aspect, 1.0) * 0.5;
+        float dist = sdRoundedBox(p, halfSize, u_corner);
+        float cornerAlpha = 1.0 - smoothstep(-fwidth(dist), fwidth(dist), dist);
+
+        float finalAlpha = cornerAlpha * u_alpha;
+        if (finalAlpha <= 0.001) discard;
+
+        gl_FragColor = vec4(rgb, finalAlpha);
+      }
+    `;
+
+    const cards = [];
+    const dummyTex = new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1);
+    dummyTex.needsUpdate = true;
+
+    for (let i = 0; i < CARDS_DATA.length; i++) {
+      const data = CARDS_DATA[i];
+      const mat = new THREE.ShaderMaterial({
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+        uniforms: {
+          u_media: { value: dummyTex },
+          u_overlay: { value: dummyTex },
+          u_crop: { value: new THREE.Vector4(0, 0, 1, 1) },
+          u_sheetW: { value: W },
+          u_sheetD: { value: 0 },
+          u_sheetT: { value: 1.15 },
+          u_sheetC: { value: 1.0 },
+          u_sheetP: { value: 1.0 },
+          u_sheetV: { value: 0.0 },
+          u_leanA: { value: -0.12 * W },
+          u_leanW: { value: W },
+          u_diag: { value: 0.03 },
+          u_axis: { value: 0.0 },
+          u_dent: { value: 0.035 },
+          u_hover: { value: 0.0 },
+          u_shade: { value: 1.0 },
+          u_shadeS: { value: 1.0 },
+          u_corner: { value: (20 * U) / cardH },
+          u_aspect: { value: data.aspect },
+          u_alpha: { value: 0.0 },
+          u_cameraPos: { value: camera.position },
+          u_res: { value: new THREE.Vector2(1, 1) }
+        },
+        vertexShader: cardVertexShader,
+        fragmentShader: cardFragmentShader
+      });
+
+      const mesh = new THREE.Mesh(cardGeo, mat);
+      mesh.frustumCulled = false;
+      mesh.renderOrder = 0;
+      scene.add(mesh);
+
+      cards.push({
+        data,
+        mesh,
+        material: mat,
+        video: null,
+        videoTex: null,
+        posterTex: null,
+        overlayTex: null,
+        overlayCanvas: null,
+        mediaAspect: 16 / 9,
+        videoReady: false,
+        hoverVal: 0,
+        alphaVal: 0,
+        w: 0,
+        h: 0,
+        basePos: 0,
+        currentPos: 0,
+        screenRect: { x: 0, y: 0, w: 0, h: 0 }
+      });
+    }
+
+    function createOverlay(card) {
+      const s = (2 * Math.min(window.devicePixelRatio || 1, 2)) / 1.5;
+      const cvs = document.createElement("canvas");
+      cvs.width = Math.max(1, Math.round(card.w * s));
+      cvs.height = Math.max(1, Math.round(card.h * s));
+      const ctx = cvs.getContext("2d");
+
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+
+      const fSize = (isMobile ? 16 : 18) * U * s;
+      ctx.font = `400 ${fSize}px "Inter Tight", sans-serif`;
+      ctx.letterSpacing = "-0.05em";
+      ctx.fillStyle = "#ffffff";
+      ctx.textBaseline = "alphabetic";
+
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+      ctx.shadowBlur = 12 * U * s;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+
+      const leftInset = (isMobile ? 10 : 20) * U * s;
+      const baselineY = cvs.height - (10 * U + 0.22 * (isMobile ? 16 : 18) * U) * s;
+      ctx.fillText(card.data.caption, leftInset, baselineY);
+
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+
+      const pillRadius = 12.5 * U * s;
+      const pillRight = (isMobile ? 10 : 20) * U * s;
+      const pillBottom = 10 * U * s;
+      const pillCX = cvs.width - pillRight - pillRadius;
+      const pillCY = cvs.height - pillBottom - pillRadius;
+
+      ctx.beginPath();
+      ctx.arc(pillCX, pillCY, pillRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "#000000";
+      ctx.fill();
+
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 1.4 * U * s;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      const a = 4.5 * U * s;
+      ctx.beginPath();
+      if (!isMobile) {
+        ctx.moveTo(pillCX - a, pillCY);
+        ctx.lineTo(pillCX + a, pillCY);
+        ctx.moveTo(pillCX, pillCY - a);
+        ctx.lineTo(pillCX, pillCY + a);
+      } else {
+        ctx.moveTo(pillCX - a, pillCY);
+        ctx.lineTo(pillCX + a, pillCY);
+        ctx.moveTo(pillCX + 0.2 * a, pillCY - 0.8 * a);
+        ctx.lineTo(pillCX + a, pillCY);
+        ctx.lineTo(pillCX + 0.2 * a, pillCY + 0.8 * a);
+      }
+      ctx.stroke();
+
+      if (card.overlayTex) card.overlayTex.dispose();
+      card.overlayTex = new THREE.CanvasTexture(cvs);
+      card.overlayTex.colorSpace = THREE.SRGBColorSpace;
+      card.overlayTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      card.overlayTex.generateMipmaps = true;
+      card.overlayTex.minFilter = THREE.LinearMipmapLinearFilter;
+      card.overlayTex.magFilter = THREE.LinearFilter;
+      card.overlayCanvas = cvs;
+
+      card.material.uniforms.u_overlay.value = card.overlayTex;
+    }
+
+    function updateCrop(card) {
+      const ma = card.mediaAspect;
+      const a = card.data.aspect;
+      let sx = 1.0;
+      let sy = 1.0;
+      if (a > ma) {
+        sy = ma / a;
+        sx = 1.0;
+      } else {
+        sx = a / ma;
+        sy = 1.0;
+      }
+      const ox = (1.0 - sx) / 2.0;
+      const oy = (1.0 - sy) / 2.0;
+      card.material.uniforms.u_crop.value.set(ox, oy, sx, sy);
+    }
+
+    async function setupCardMedia(card) {
+      const posterUrl = `https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2F${card.data.posterId}.png&w=1280&q=85`;
+      const videoUrl = `https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/${card.data.videoPath}.mp4`;
+
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = posterUrl;
+
+      await new Promise((resolve) => {
+        img.onload = () => {
+          if (img.naturalWidth && img.naturalHeight) {
+            card.mediaAspect = img.naturalWidth / img.naturalHeight;
+          }
+          const tex = new THREE.Texture(img);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+          tex.needsUpdate = true;
+          card.posterTex = tex;
+          card.material.uniforms.u_media.value = tex;
+          updateCrop(card);
+          resolve();
+        };
+        img.onerror = () => resolve();
+      });
+
+      if (!prefersReducedMotion) {
+        const video = document.createElement("video");
+        video.crossOrigin = "anonymous";
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "");
+        video.setAttribute("muted", "");
+        video.preload = "auto";
+        video.src = videoUrl;
+
+        card.video = video;
+
+        const onFirstFrame = () => {
+          if (card.videoReady) return;
+          card.videoReady = true;
+          if (video.videoWidth && video.videoHeight) {
+            card.mediaAspect = video.videoWidth / video.videoHeight;
+          }
+          const vTex = new THREE.VideoTexture(video);
+          vTex.colorSpace = THREE.SRGBColorSpace;
+          vTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+          card.videoTex = vTex;
+          card.material.uniforms.u_media.value = vTex;
+          updateCrop(card);
+        };
+
+        if ("requestVideoFrameCallback" in HTMLVideoElement.prototype) {
+          video.requestVideoFrameCallback(onFirstFrame);
+        } else {
+          video.addEventListener("playing", onFirstFrame, { once: true });
         }
       }
     }
-    currentX += charWidth * pitchX + gap;
-  }
 
-  element.innerHTML = `<svg class="dot-svg" viewBox="0 0 ${currentX} 28" fill="currentColor" aria-hidden="true">${circles.join("")}</svg>`;
-}
+    let target = isMobile ? -0.177 * vh : 100;
+    let current = target;
+    let pending = 0;
+    let loopL = 0;
+    let lastWheelTime = 0;
+    let lastWheelDelta = 0;
+    let lastWheelBurst = 0;
 
-document.querySelectorAll("[data-dots]").forEach(renderDotWord);
+    function pushScroll(delta) {
+      target += delta;
+      if (!isMobile) {
+        target = current + Math.tanh((target - current) / vw) * vw;
+      }
+    }
 
-// ==================================================
-// GAUGE TICKS GENERATION
-// ==================================================
-const gaugeTicksG = document.getElementById("gaugeTicks");
-if (gaugeTicksG) {
-  const ticks = [];
-  for (let i = 0; i <= 22; i++) {
-    const angle = (190 + i * 5) * Math.PI / 180;
-    const outer = 142;
-    const inner = i % 5 === 0 ? 129 : 133;
-    const x1 = 163 + outer * Math.cos(angle);
-    const y1 = 163 + outer * Math.sin(angle);
-    const x2 = 163 + inner * Math.cos(angle);
-    const y2 = 163 + inner * Math.sin(angle);
-    const sw = i % 5 === 0 ? 1.5 : 1;
-    ticks.push(`<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" stroke="rgba(255,188,210,.34)" stroke-width="${sw}" stroke-linecap="round" />`);
-  }
-  gaugeTicksG.innerHTML = ticks.join("");
-}
+    window.addEventListener(
+      "wheel",
+      (e) => {
+        if (e.ctrlKey) return;
+        let delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (e.deltaMode === 1) delta *= 16;
+        else if (e.deltaMode === 2) delta *= vh;
 
-// ==================================================
-// ENTRANCE ANIMATION CLEANUP
-// ==================================================
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  document.documentElement.classList.remove("entrance-active");
-  clearTimeout(window.__entranceFailsafe);
-} else {
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  const triggerEl = isMobile
-    ? document.querySelector(".card--speed .learn-more")
-    : document.querySelector(".card--connections .learn-more");
+        const now = performance.now();
+        const dtWheel = now - lastWheelTime;
+        if (dtWheel < 30) lastWheelBurst = now;
+        const isBigFlick =
+          Math.abs(delta) >= 40 &&
+          dtWheel >= 30 &&
+          now - lastWheelBurst >= 500;
 
-  if (triggerEl) {
-    triggerEl.addEventListener("animationend", () => {
-      clearTimeout(window.__entranceFailsafe);
-      document.documentElement.classList.remove("entrance-active");
-    }, { once: true });
-  }
-}
-</script>
+        lastWheelTime = now;
+        lastWheelDelta = delta;
+
+        if (isBigFlick) {
+          pending += delta * 1.25 * 2;
+        } else {
+          pushScroll(delta * 1.25);
+        }
+      },
+      { passive: true }
+    );
+
+    let touchY = 0;
+    let lastTouchDelta = 0;
+    window.addEventListener(
+      "touchstart",
+      (e) => {
+        if (e.touches.length > 0) {
+          touchY = e.touches[0].clientY;
+          lastTouchDelta = 0;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        if (e.touches.length > 0) {
+          const y = e.touches[0].clientY;
+          const dy = touchY - y;
+          touchY = y;
+          lastTouchDelta = dy;
+          pushScroll(dy * 3.25);
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      () => {
+        if (Math.abs(lastTouchDelta) > 1) {
+          pushScroll(lastTouchDelta * 35);
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("keydown", (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      let handled = false;
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        pushScroll(100);
+        handled = true;
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        pushScroll(-100);
+        handled = true;
+      } else if (e.key === "PageDown") {
+        pushScroll(0.9 * vh);
+        handled = true;
+      } else if (e.key === "PageUp") {
+        pushScroll(-0.9 * vh);
+        handled = true;
+      } else if (e.key === " ") {
+        pushScroll((e.shiftKey ? -0.9 : 0.9) * vh);
+        handled = true;
+      }
+      if (handled) e.preventDefault();
+    });
+
+    const pointer = new THREE.Vector2(-9999, -9999);
+    let hoveredCard = null;
+
+    window.addEventListener("pointermove", (e) => {
+      if (isMobile || prefersReducedMotion) return;
+      pointer.x = (e.clientX / vw) * 2 - 1;
+      pointer.y = -(e.clientY / vh) * 2 + 1;
+    });
+
+    window.addEventListener("pointerleave", () => {
+      pointer.set(-9999, -9999);
+    });
+
+    window.addEventListener("click", () => {
+      if (hoveredCard && hoveredCard.data.targetUrl) {
+        window.location.href = hoveredCard.data.targetUrl;
+      }
+    });
+
+    function computeLayout() {
+      vw = window.innerWidth;
+      vh = window.innerHeight;
+      const prevMobile = isMobile;
+      isMobile = vw <= 649;
+      U = isMobile ? vw / 390 : vw / 1500;
+
+      W = H * (vw / vh);
+      k = (2 * H) / vh;
+
+      camera.aspect = vw / vh;
+      camera.updateProjectionMatrix();
+
+      mirrorCamera.aspect = vw / vh;
+      mirrorCamera.updateProjectionMatrix();
+
+      renderer.setSize(vw, vh);
+      refTarget.setSize(
+        Math.floor(vw * 0.5 * Math.min(window.devicePixelRatio || 1, 2)),
+        Math.floor(vh * 0.5 * Math.min(window.devicePixelRatio || 1, 2))
+      );
+
+      if (prevMobile !== isMobile) {
+        target = isMobile ? -0.177 * vh : 100;
+        current = target;
+        pending = 0;
+      }
+
+      if (!isMobile) {
+        cardH = Math.min(0.435 * vh, 550 * U);
+        const gap = 10 * U;
+        let runningSum = 0;
+        for (let i = 0; i < cards.length; i++) {
+          const c = cards[i];
+          c.h = cardH;
+          c.w = cardH * c.data.aspect;
+          c.basePos = runningSum;
+          runningSum += c.w + gap;
+
+          c.mesh.scale.set(c.w * k, c.h * k, 1);
+          c.material.uniforms.u_sheetW.value = W;
+          c.material.uniforms.u_sheetT.value = 1.15;
+          c.material.uniforms.u_sheetC.value = 1.0;
+          c.material.uniforms.u_leanA.value = -0.12 * W;
+          c.material.uniforms.u_leanW.value = W;
+          c.material.uniforms.u_diag.value = 0.03;
+          c.material.uniforms.u_axis.value = 0.0;
+          c.material.uniforms.u_shade.value = 1.0;
+          c.material.uniforms.u_shadeS.value = 1.0;
+          c.material.uniforms.u_corner.value = (20 * U) / cardH;
+          c.material.uniforms.u_res.value.set(c.w * k, c.h * k);
+
+          createOverlay(c);
+          updateCrop(c);
+        }
+        loopL = runningSum;
+      } else {
+        const cardW = vw - 40 * U;
+        const gap = 20 * U;
+        let runningSum = 0;
+        for (let i = 0; i < cards.length; i++) {
+          const c = cards[i];
+          c.w = cardW;
+          c.h = cardW / c.data.aspect;
+          c.basePos = runningSum;
+          runningSum += c.h + gap;
+
+          c.mesh.scale.set(c.w * k, c.h * k, 1);
+          c.material.uniforms.u_sheetW.value = H;
+          c.material.uniforms.u_sheetT.value = 1.0;
+          c.material.uniforms.u_sheetC.value = 0.0;
+          c.material.uniforms.u_leanA.value = 0.0;
+          c.material.uniforms.u_leanW.value = 0.0;
+          c.material.uniforms.u_diag.value = 0.0;
+          c.material.uniforms.u_axis.value = 1.0;
+          c.material.uniforms.u_shade.value = 0.0;
+          c.material.uniforms.u_shadeS.value = 0.6;
+          c.material.uniforms.u_corner.value = (15 * U) / c.h;
+          c.material.uniforms.u_res.value.set(c.w * k, c.h * k);
+
+          createOverlay(c);
+          updateCrop(c);
+        }
+        loopL = runningSum;
+      }
+
+      updateFloorGeometry();
+    }
+
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(computeLayout, 100);
+    });
+
+    computeLayout();
+
+    let isReady = false;
+    async function boot() {
+      try {
+        await Promise.all([
+          document.fonts.load('400 18px "Inter Tight"'),
+          ...cards.map(setupCardMedia)
+        ]);
+      } catch (err) {
+        console.warn("Bootstrap fallback:", err);
+      }
+      document.body.classList.add("ready");
+      isReady = true;
+    }
+
+    setTimeout(() => {
+      if (!isReady) {
+        document.body.classList.add("ready");
+        isReady = true;
+      }
+    }, 8000);
+
+    boot();
+
+    let lastTime = performance.now();
+    let floorAlpha = 0;
+
+    function renderFrame(now) {
+      requestAnimationFrame(renderFrame);
+
+      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+
+      if (Math.abs(pending) > 0.05) {
+        const easeStep = pending * (1 - Math.pow(1 - 0.22, Math.min(dt * 60, 4)));
+        pushScroll(easeStep);
+        pending -= easeStep;
+      } else if (pending !== 0) {
+        pushScroll(pending);
+        pending = 0;
+      }
+
+      const ratio = Math.min(dt * 60, 2);
+      if (prefersReducedMotion) {
+        current = target;
+      } else {
+        current += (target - current) * 0.1 * ratio;
+        current = Math.round(current * 100) / 100;
+      }
+
+      const N = isMobile ? 245 : 550;
+      const t = Math.tanh((target - current) / N);
+      const vel = t * Math.abs(t);
+      const r = prefersReducedMotion ? 0 : Math.min(1.0, Math.abs(vel));
+
+      let sheetD = 0;
+      let sheetV = 0;
+      if (!isMobile) {
+        sheetD = W * 0.2 * (1.0 + 1.1 * r);
+        sheetV = r;
+      } else {
+        sheetD = H * 0.18 * 1.1 * r;
+        sheetV = 0;
+      }
+
+      if (isReady && floorAlpha < 0.9) {
+        floorAlpha = Math.min(0.9, floorAlpha + dt / 0.8 * 0.9);
+        floorMat.uniforms.u_alpha.value = floorAlpha;
+      }
+
+      const wrapLeft = -(loopL - vw) / 2;
+      const wrapTop = -(loopL - vh) / 2;
+
+      let bestHovered = null;
+
+      for (let i = 0; i < cards.length; i++) {
+        const c = cards[i];
+
+        if (isReady && c.alphaVal < 1.0) {
+          c.alphaVal = Math.min(1.0, c.alphaVal + dt / 0.6);
+          c.material.uniforms.u_alpha.value = c.alphaVal;
+        }
+
+        if (!isMobile) {
+          let x = c.basePos - current;
+          x = ((((x - wrapLeft) % loopL) + loopL) % loopL) + wrapLeft;
+
+          const y = (vh - c.h) / 2;
+          c.screenRect = { x, y, w: c.w, h: c.h };
+
+          const worldX = (x + c.w / 2 - vw / 2) * k;
+          const worldY = -(y + c.h / 2 - vh / 2) * k;
+
+          c.mesh.position.set(worldX, worldY, 0);
+
+          if (c.video) {
+            const onScreen = !document.hidden && x + c.w > -0.5 * vw && x < 1.5 * vw;
+            if (onScreen && c.video.paused) {
+              c.video.play().catch(() => {});
+            } else if (!onScreen && !c.video.paused) {
+              c.video.pause();
+            }
+          }
+
+          const screenXMin = (x / vw) * 2 - 1;
+          const screenXMax = ((x + c.w) / vw) * 2 - 1;
+          const screenYMin = -((y + c.h) / vh) * 2 + 1;
+          const screenYMax = -(y / vh) * 2 + 1;
+
+          if (
+            pointer.x >= screenXMin &&
+            pointer.x <= screenXMax &&
+            pointer.y >= screenYMin &&
+            pointer.y <= screenYMax
+          ) {
+            bestHovered = c;
+          }
+        } else {
+          let y = c.basePos - current;
+          y = ((((y - wrapTop) % loopL) + loopL) % loopL) + wrapTop;
+
+          const x = (vw - c.w) / 2;
+          c.screenRect = { x, y, w: c.w, h: c.h };
+
+          const worldX = (x + c.w / 2 - vw / 2) * k;
+          const worldY = -(y + c.h / 2 - vh / 2) * k;
+
+          c.mesh.position.set(worldX, worldY, 0);
+
+          if (c.video) {
+            const onScreen = !document.hidden && y + c.h > -0.5 * vh && y < 1.5 * vh;
+            if (onScreen && c.video.paused) {
+              c.video.play().catch(() => {});
+            } else if (!onScreen && !c.video.paused) {
+              c.video.pause();
+            }
+          }
+        }
+
+        const isThisHovered = bestHovered === c && !prefersReducedMotion && !isMobile;
+        const targetHover = isThisHovered ? 1.0 : 0.0;
+        const easeSpeed = isThisHovered ? 1 - Math.exp(-8 * dt) : 1 - Math.exp(-6 * dt);
+        c.hoverVal += (targetHover - c.hoverVal) * easeSpeed;
+        c.material.uniforms.u_hover.value = c.hoverVal;
+
+        c.material.uniforms.u_sheetD.value = sheetD;
+        c.material.uniforms.u_sheetV.value = sheetV;
+        c.material.uniforms.u_cameraPos.value = camera.position;
+      }
+
+      hoveredCard = bestHovered;
+      canvas.style.cursor = hoveredCard ? "pointer" : "default";
+
+      if (!isMobile) {
+        floorMesh.visible = false;
+        renderer.setRenderTarget(refTarget);
+        renderer.clear();
+        renderer.render(scene, mirrorCamera);
+        renderer.setRenderTarget(null);
+        floorMesh.visible = true;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    requestAnimationFrame(renderFrame);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cards.forEach((c) => {
+          if (c.video && !c.video.paused) c.video.pause();
+        });
+      }
+    });
+  </script>
 </body>
 </html>

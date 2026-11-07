@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import ServicesRibbonCanvas from "./ServicesRibbonCanvas";
 
 export interface EloServiceItem {
   id: string;
@@ -173,6 +174,8 @@ interface EloServiceSectionProps {
 }
 
 export default function EloServiceSection({ onSelectService }: EloServiceSectionProps) {
+  const [viewMode, setViewMode] = useState<"ribbon" | "grid">("ribbon");
+
   const headlineWords = [
     "How", "businesses", "achieved", "measurable", "results", "with", "Balaji", "Prime", "Media"
   ];
@@ -202,7 +205,7 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#A068FF]/30 text-[12px] font-semibold text-[#c084fc] mb-5 backdrop-blur-md shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
             <span className="tracking-wide uppercase font-medium">Measurable Results &amp; Services</span>
@@ -221,13 +224,47 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
           </h2>
 
           {/* Lead Text */}
-          <p className="text-[15px] sm:text-base md:text-[17px] font-normal text-gray-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[15px] sm:text-base md:text-[17px] font-normal text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
             Our clients come from very different industries, but the goal is always the same: measurable results.
-            The projects below show the results that are actually possible.
+            Explore our services in interactive 3D WebGL ribbon or classical layout.
           </p>
+
+          {/* View Switcher Toggle */}
+          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-black/60 border border-white/20 backdrop-blur-md shadow-xl">
+            <button
+              type="button"
+              onClick={() => setViewMode("ribbon")}
+              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                viewMode === "ribbon"
+                  ? "bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white shadow-lg shadow-purple-900/50 scale-100"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <span>✨ 3D WebGL Ribbon</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("grid")}
+              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                viewMode === "grid"
+                  ? "bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white shadow-lg shadow-purple-900/50 scale-100"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <span>⊞ Grid View</span>
+            </button>
+          </div>
         </div>
 
+        {/* 3D WebGL Ribbon Stage */}
+        {viewMode === "ribbon" && (
+          <div className="mb-12">
+            <ServicesRibbonCanvas onSelectService={onSelectService} />
+          </div>
+        )}
+
         {/* 6 Tall Result Cards in 3-Column Responsive Grid */}
+        {viewMode === "grid" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 lg:gap-8 items-stretch">
           {ELO_SERVICES.map((card, idx) => (
             <Link
@@ -320,6 +357,7 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
             </Link>
           ))}
         </div>
+        )}
 
         {/* Button: Glowing Dark Pill "View All Services & Full Pricing" */}
         <div className="mt-14 sm:mt-16 text-center">
