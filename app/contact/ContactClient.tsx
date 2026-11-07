@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import NextLayerContactHero from "../components/NextLayerContactHero";
@@ -12,9 +13,9 @@ export default function ContactClient() {
   const [toast, setToast] = useState<string | null>(null);
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  // Direct Contact Details
+  // Direct Contact & Payment Details
   const agencyEmail = "support@balajiprimemedia.in"; 
-  const whatsappNumber = "+91 76908 68932";
+  const upiId = "917690868932@ybl";
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -26,7 +27,7 @@ export default function ContactClient() {
     setCopiedItem(label);
     showToast(`📋 Copied ${label} to clipboard!`);
     trackInteraction({
-      action: label === "Phone" ? "phone" : "email",
+      action: label === "UPI ID" ? "other" : "email",
       title: `Copied ${label} to clipboard`,
       details: text,
       sourcePage: "/contact",
@@ -41,7 +42,6 @@ export default function ContactClient() {
     website: "",
     timezone: "US / Eastern (EST)",
     service: "Full-Funnel Organic Growth",
-    budget: "$2,500 - $5,000 / month",
     message: "",
   });
 
@@ -63,7 +63,6 @@ export default function ContactClient() {
           website: formData.website,
           timezone: formData.timezone,
           service: formData.service,
-          budget: formData.budget,
           message: formData.message,
           sourceUrl: "/contact",
           clientGeo,
@@ -75,7 +74,6 @@ export default function ContactClient() {
       showToast("💾 Inquiry successfully saved to database!");
     } catch (err) {
       console.error("Form submit error:", err);
-      // Fallback: still show success to user if offline
       setFormState("success");
     }
   };
@@ -97,78 +95,95 @@ export default function ContactClient() {
         </div>
       )}
 
-      {/* 1. Cinematic HLS Video Call-To-Action Header with Liquid Glassmorphism & Agency Details */}
+      {/* 1. Cinematic HLS Video Call-To-Action Header (Buttons Removed as requested) */}
       <NextLayerContactHero />
 
-      {/* 2. Main Contact Section (Form & Cards) */}
+      {/* 2. Main Contact Section (Payment Scanner + Polished Form) */}
       <section id="contact-form" className="relative py-12 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto scroll-mt-20">
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Direct Info & Trust Badges */}
+          {/* Left Column: Instant Payment & Retainer Scanner + Trust Protocols */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            <div className="bg-[#0e0921]/90 rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl backdrop-blur-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/30 text-[11px] font-semibold text-purple-300 mb-4">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Global Partnership Protocol</span>
+            {/* Payment & Retainer QR Scanner Card */}
+            <div className="bg-[#0e0921]/95 rounded-3xl p-6 sm:p-7 border border-purple-500/30 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-36 h-36 bg-purple-600/15 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="flex items-center justify-between mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/70 border border-purple-500/40 text-[11px] font-semibold text-purple-300">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Instant Retainer &amp; Invoice Settlement</span>
+                </div>
+                <span className="text-xs text-gray-400 font-mono">256-Bit Escrow</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white mb-3 tracking-tight">
-                Why Global Brands Choose Balaji Prime Media
-              </h2>
-              <p className="text-xs text-gray-400 leading-relaxed mb-6 font-light">
-                We eliminate the friction of offshore agency partnerships with strict SLAs, fluent communication, and time-zone aligned support.
+
+              <h3 className="text-lg font-bold text-white mb-1">
+                Scan to Authorize or Pay
+              </h3>
+              <p className="text-xs text-gray-400 leading-relaxed mb-5 font-light">
+                Scan via any UPI, Google Pay, PhonePe, Paytm or banking app to instantly initiate service deliverables.
               </p>
 
-              <div className="space-y-4">
-                <div className="flex items-start gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="w-9 h-9 rounded-xl bg-purple-950 text-purple-300 border border-purple-500/30 flex items-center justify-center text-sm font-bold shrink-0">
-                    ⚡
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-bold text-white">12-Hour Response Time SLA</h3>
-                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                      All overseas emails and inquiries receive detailed replies within 12 business hours.
-                    </p>
-                  </div>
+              {/* QR Code Card Display */}
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-[#140e2e] border border-white/10 shadow-inner mb-4">
+                {/* High-Contrast Crisp QR Code */}
+                <div className="w-32 h-32 bg-white p-2 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-lg border-2 border-purple-500/40">
+                  <img
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=917690868932@ybl&pn=Balaji%20Prime%20Media&cu=INR"
+                    alt="Scan to Pay - Balaji Prime Media"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
 
-                <div className="flex items-start gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="w-9 h-9 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-500/30 flex items-center justify-center text-sm font-bold shrink-0">
-                    🌍
+                <div className="flex-1 w-full space-y-2 text-left">
+                  <div className="text-[11px] text-gray-300">
+                    Beneficiary: <strong className="text-white block">Balaji Prime Media</strong>
                   </div>
-                  <div>
-                    <h3 className="text-xs font-bold text-white">Time-Zone Aligned Execution</h3>
-                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                      Direct project management operating across US (EST/PST), UK (GMT), and UAE (GST) hours.
-                    </p>
-                  </div>
-                </div>
 
-                <div className="flex items-start gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-500/30 flex items-center justify-center text-sm font-bold shrink-0">
-                    🔒
-                  </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Strict Mutual NDA Protection</h3>
-                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
-                      Your business data, competitive metrics, and proprietary code remain 100% confidential.
-                    </p>
+                    <span className="block text-[10px] text-gray-400 mb-0.5">Official UPI ID:</span>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-[#0b071a] border border-purple-500/30 rounded-lg px-2.5 py-1.5 text-xs font-mono text-purple-300 font-bold truncate">
+                        {upiId}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(upiId, 'UPI ID')}
+                        className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white text-[11px] font-bold transition-all cursor-pointer shrink-0"
+                      >
+                        {copiedItem === 'UPI ID' ? '✓ Copied' : 'Copy'}
+                      </button>
+                    </div>
                   </div>
+
+                  <p className="text-[10px] text-gray-400 pt-1 leading-tight">
+                    Supported: GPay, PhonePe, Paytm, BHIM, Cred &amp; Net Banking.
+                  </p>
                 </div>
+              </div>
+
+              {/* Multi-Currency Link */}
+              <div className="pt-2 flex items-center justify-between text-xs border-t border-white/5">
+                <span className="text-[11px] text-gray-400">Paying from US, UK, EU, UAE?</span>
+                <Link
+                  href="/services#payment-portal"
+                  className="text-[11px] font-bold text-cyan-300 hover:text-cyan-200 underline transition-colors"
+                >
+                  Global Payment Portal →
+                </Link>
               </div>
             </div>
 
-            {/* Fast Connect Box */}
+            {/* Direct Official Contact Box (Live Support Removed) */}
             <div className="bg-[#0e0921]/90 rounded-3xl p-6 sm:p-7 border border-white/10 shadow-xl backdrop-blur-xl space-y-4">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span>Direct Contact Channels</span>
+                <span>Official Agency Inquiries</span>
               </h3>
 
-              {/* Direct Email */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-300 py-1.5 gap-2 sm:gap-0 border-b border-white/5 pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-300 py-1.5 gap-2 sm:gap-0">
                 <div>
-                  <span className="block text-gray-400 text-[10px]">Official Agency Email:</span>
+                  <span className="block text-gray-400 text-[10px]">Direct Email:</span>
                   <span className="font-semibold text-white text-xs">{agencyEmail}</span>
                 </div>
                 <button
@@ -176,96 +191,62 @@ export default function ContactClient() {
                   onClick={() => copyToClipboard(agencyEmail, 'Email')}
                   className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 text-[10px] font-bold text-cyan-300 transition-colors cursor-pointer self-start sm:self-auto"
                 >
-                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy 📋'}
+                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy Email 📋'}
                 </button>
               </div>
 
-              {/* Direct WhatsApp */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-300 py-1.5 gap-2 sm:gap-0">
-                <div>
-                  <span className="block text-gray-400 text-[10px]">Direct WhatsApp:</span>
-                  <span className="font-semibold text-white text-xs">{whatsappNumber}</span>
+              <div className="pt-2 border-t border-white/5 space-y-2 text-xs text-gray-400 font-light">
+                <div className="flex items-center gap-2 text-gray-300">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span>12-Hour SLA turnaround on all enterprise inquiries</span>
                 </div>
-                <div className="flex gap-1.5 shrink-0">
-                  <a
-                    href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Balaji%20Prime%20Media,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project.`}
-                    onClick={() => trackInteraction({
-                      action: "whatsapp",
-                      title: "Direct WhatsApp Clicked",
-                      details: whatsappNumber,
-                      sourcePage: "/contact",
-                    })}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-xs"
-                  >
-                    WhatsApp 💬
-                  </a>
-
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(whatsappNumber, 'Phone')}
-                    className="px-2.5 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 text-[10px] font-bold text-white transition-colors cursor-pointer"
-                  >
-                    {copiedItem === 'Phone' ? '✓' : 'Copy 📋'}
-                  </button>
+                <div className="flex items-center gap-2 text-gray-300">
+                  <span className="text-cyan-400 font-bold">✓</span>
+                  <span>Dedicated accounts for US, UK, Canada, Australia, and UAE</span>
                 </div>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Interactive Proposal & Inquiry Form */}
+          {/* Right Column: Polished Inquiry Form (Monthly Budget Removed & Clean Design) */}
           <div className="lg:col-span-7">
-            <div className="bg-[#0e0921]/90 rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl backdrop-blur-xl">
+            <div className="bg-[#0e0921]/95 rounded-3xl p-7 sm:p-10 border border-white/10 shadow-2xl backdrop-blur-xl">
+              
+              <div className="mb-6">
+                <span className="text-xs font-bold uppercase tracking-wider text-purple-300 bg-purple-950/70 border border-purple-500/35 px-3 py-1 rounded-full">
+                  Discovery &amp; Strategy
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-white mt-3 tracking-tight">
+                  Start Your Project
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1.5 font-light">
+                  Tell us about your requirements. We evaluate scope and reply with a custom growth plan within 12 hours.
+                </p>
+              </div>
+
               {formState === "success" ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-4 font-bold shadow-lg">
                     ✓
                   </div>
-                  <h3 className="text-2xl font-black text-white">Proposal Request Received!</h3>
+                  <h3 className="text-2xl font-black text-white">Inquiry Received!</h3>
                   <p className="text-sm text-gray-300 max-w-md mx-auto mt-2 mb-6">
-                    Thank you, {formData.name || "there"}. Our lead growth strategist is reviewing your requirements and will reach out to <span className="font-semibold text-cyan-300">{formData.email}</span> within 12 hours.
+                    Thank you, {formData.name || "there"}. Our strategy team is reviewing your requirements and will reach out to <span className="font-semibold text-cyan-300">{formData.email}</span> within 12 hours.
                   </p>
-                  <div className="flex flex-wrap items-center justify-center gap-3 mt-4 mb-4">
-                    {/* 1. WhatsApp Button */}
-                    <a
-                      href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20Balaji%20Prime%20Media,%20I%20just%20submitted%20a%20project%20inquiry.%20Name:%20${encodeURIComponent(formData.name)},%20Email:%20${encodeURIComponent(formData.email)},%20Service:%20${encodeURIComponent(formData.service)},%20Budget:%20${encodeURIComponent(formData.budget)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"
-                    >
-                      <span>Send to WhatsApp 💬</span>
-                    </a>
-
-                    {/* 2. Direct Gmail Web */}
-                    <a
-                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(agencyEmail)}&su=${encodeURIComponent(`New Project Inquiry from ${formData.name || "Client"}`)}&body=${encodeURIComponent(`Hi Balaji Prime Media Team,\n\nI have submitted an inquiry on your website:\n\nName: ${formData.name || "N/A"}\nEmail: ${formData.email || "N/A"}\nPhone: ${formData.phone || "N/A"}\nWebsite: ${formData.website || "N/A"}\nService: ${formData.service || "N/A"}\nBudget: ${formData.budget || "N/A"}\n\nMessage:\n${formData.message || "Looking forward to your proposal."}`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackInteraction({
-                        action: "email",
-                        title: "Inquiry Sent via Gmail Web",
-                        clientIdentifier: formData.email || formData.phone,
-                        details: `Client: ${formData.name} | Service: ${formData.service}`,
-                        sourcePage: "/contact",
-                      })}
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md transition-all cursor-pointer"
-                    >
-                      <span>Send via Gmail ✉️</span>
-                    </a>
-                  </div>
-
+                  
                   <button
                     onClick={() => setFormState("idle")}
-                    className="text-xs font-semibold text-gray-400 hover:text-white underline transition-colors cursor-pointer mt-4"
+                    className="text-xs font-semibold text-gray-400 hover:text-white underline transition-colors cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left font-body">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                  
+                  {/* Row 1: Full Name, Email, Phone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
                     <div>
                       <label className="text-xs font-bold text-gray-300 block mb-1.5">
                         Your Full Name *
@@ -276,7 +257,7 @@ export default function ContactClient() {
                         placeholder="e.g. Sarah Jenkins"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-base sm:text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
                       />
                     </div>
 
@@ -290,13 +271,13 @@ export default function ContactClient() {
                         placeholder="sarah@company.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-base sm:text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
                       />
                     </div>
 
                     <div>
                       <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                        Phone / WhatsApp *
+                        Phone Number *
                       </label>
                       <input
                         required
@@ -304,12 +285,13 @@ export default function ContactClient() {
                         placeholder="+1 (555) 000-0000"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-base sm:text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Row 2: Website URL, Timezone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label className="text-xs font-bold text-gray-300 block mb-1.5">
                         Company Website URL
@@ -319,13 +301,13 @@ export default function ContactClient() {
                         placeholder="https://company.com"
                         value={formData.website}
                         onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-base sm:text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-colors"
                       />
                     </div>
 
                     <div>
                       <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                        Your Primary Timezone *
+                        Primary Timezone *
                       </label>
                       <select
                         value={formData.timezone}
@@ -344,65 +326,50 @@ export default function ContactClient() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                        Target Service
-                      </label>
-                      <select
-                        value={formData.service}
-                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none cursor-pointer"
-                      >
-                        <option value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
-                        <option value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
-                        <option value="Website Development (Next.js)">Website Development (Next.js)</option>
-                        <option value="Off-Page Backlink Building">Off-Page Backlink Building</option>
-                        <option value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
-                        <option value="Website Maintenance & Speed">Website Maintenance &amp; Speed</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="text-xs font-bold text-gray-300 block mb-1.5">
-                        Monthly Budget in USD
-                      </label>
-                      <select
-                        value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none cursor-pointer"
-                      >
-                        <option value="$1,000 - $2,500 / month">$1,000 - $2,500 / month</option>
-                        <option value="$2,500 - $5,000 / month">$2,500 - $5,000 / month</option>
-                        <option value="$5,000 - $10,000+ / month">$5,000 - $10,000+ / month</option>
-                        <option value="One-Time Web Development ($3,000+)">One-Time Web Dev ($3,000+)</option>
-                      </select>
-                    </div>
+                  {/* Row 3: Target Service (Full width, clean) */}
+                  <div>
+                    <label className="text-xs font-bold text-gray-300 block mb-1.5">
+                      Target Service or Deliverable *
+                    </label>
+                    <select
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none cursor-pointer"
+                    >
+                      <option value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
+                      <option value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
+                      <option value="Website Development (Next.js)">Website Development (Next.js)</option>
+                      <option value="Off-Page Backlink Building">Off-Page Backlink Building &amp; Digital PR</option>
+                      <option value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
+                      <option value="Website Maintenance & Speed">Website Maintenance &amp; Speed Optimization</option>
+                    </select>
                   </div>
 
+                  {/* Row 4: Goals / Scope Textarea */}
                   <div>
                     <label className="text-xs font-bold text-gray-300 block mb-1.5">
                       Tell us about your goals or challenges
                     </label>
                     <textarea
                       rows={4}
-                      placeholder="e.g. We want to increase our US organic search traffic and improve our core web vitals..."
+                      placeholder="Briefly describe your objectives, target geography, or deliverables..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#140e33] border border-white/10 text-white text-xs focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none resize-none"
                     />
                   </div>
 
+                  {/* Clean Action Button (Renamed as requested) */}
                   <button
                     type="submit"
                     disabled={formState === "submitting"}
-                    className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 text-white font-bold py-4 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 active:scale-[0.99] text-white font-bold py-4 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-purple-950/80 cursor-pointer disabled:opacity-50"
                   >
-                    {formState === "submitting" ? "Sending Request..." : "Request Growth Audit & Proposal →"}
+                    {formState === "submitting" ? "Submitting Inquiry..." : "Submit Inquiry & Schedule Call →"}
                   </button>
 
                   <p className="text-[11px] text-center text-gray-400">
-                    🔒 We value privacy. 100% confidential. Strict mutual NDA guaranteed.
+                    🔒 100% Confidential. Strict Mutual NDA Guaranteed. Zero Spam.
                   </p>
                 </form>
               )}

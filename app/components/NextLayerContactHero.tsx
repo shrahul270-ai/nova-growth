@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import Hls from "hls.js";
 
 export default function NextLayerContactHero() {
@@ -29,16 +27,8 @@ export default function NextLayerContactHero() {
     }
   }, []);
 
-  const scrollToForm = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const el = document.getElementById("contact-form");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <section className="relative min-h-[640px] sm:min-h-[720px] lg:min-h-[820px] pt-36 sm:pt-44 pb-28 sm:pb-36 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black select-none flex flex-col justify-center">
+    <section className="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[720px] pt-32 sm:pt-40 pb-20 sm:pb-28 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black select-none flex flex-col justify-center">
       {/* Background HLS Video */}
       <video
         ref={videoRef}
@@ -84,34 +74,12 @@ export default function NextLayerContactHero() {
         </h1>
 
         {/* Subtext: Barlow font-body */}
-        <p className="text-white/70 font-body font-light text-sm md:text-base lg:text-lg max-w-xl mx-auto mb-9 leading-relaxed">
+        <p className="text-white/70 font-body font-light text-sm md:text-base lg:text-lg max-w-xl mx-auto mb-4 leading-relaxed">
           Book a free strategy call. See what high-intent organic SEO, modern Next.js development, and AI-powered growth can do. No commitment, no pressure. Just compounding revenue.
         </p>
 
-        {/* Two Action Buttons: Liquid Glass + Solid White */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-          {/* Primary CTA (liquid-glass-strong) */}
-          <a
-            href="#contact-form"
-            onClick={scrollToForm}
-            className="liquid-glass-strong rounded-full px-7 py-3.5 text-sm font-medium text-white flex items-center justify-center gap-2 hover:bg-white/10 active:scale-95 transition-all font-body cursor-pointer shadow-2xl w-full sm:w-auto"
-          >
-            <span>Book a Call</span>
-            <ArrowUpRight className="h-5 w-5 text-white/90" />
-          </a>
-
-          {/* Secondary CTA (Solid White) */}
-          <Link
-            href="/services"
-            className="bg-white text-black rounded-full px-7 py-3.5 text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/90 active:scale-95 transition-colors font-body cursor-pointer shadow-2xl w-full sm:w-auto"
-          >
-            <span>View Pricing</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-
         {/* Floating Trust Indicators (Agency Details) */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-body text-white/50">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-body text-white/60">
           <div className="flex items-center gap-2">
             <span className="text-emerald-400">⚡</span>
             <span>12-Hour SLA Response</span>
