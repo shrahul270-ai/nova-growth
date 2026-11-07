@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SellixServicesHeader from "../components/SellixServicesHeader";
 import ThreeDServiceCard, { AgencyService } from "../components/ThreeDServiceCard";
-import ServicesRibbonCanvas from "../components/ServicesRibbonCanvas";
+import CoverFlowServices from "../components/CoverFlowServices";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -319,7 +319,7 @@ export default function ServicesClient() {
   const [currency, setCurrency] = useState<"INR" | "USD">("USD");
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [viewStyle, setViewStyle] = useState<"grid" | "ribbon">("grid");
+  const [viewStyle, setViewStyle] = useState<"grid" | "coverflow">("coverflow");
   const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
   const [bookingService, setBookingService] = useState<AgencyService | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -650,6 +650,18 @@ export default function ServicesClient() {
             <div className="inline-flex items-center p-1 rounded-xl bg-[#140F24] border border-[#2B2144] shadow-sm">
               <button
                 type="button"
+                onClick={() => setViewStyle("coverflow")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  viewStyle === "coverflow"
+                    ? "bg-purple-600 text-white shadow-sm"
+                    : "text-[#94a3b8] hover:text-white"
+                }`}
+                title="3D Cover Flow View"
+              >
+                💿 3D Cover Flow
+              </button>
+              <button
+                type="button"
                 onClick={() => setViewStyle("grid")}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   viewStyle === "grid"
@@ -659,18 +671,6 @@ export default function ServicesClient() {
                 title="Grid Matrix View"
               >
                 ⊞ Grid
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewStyle("ribbon")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  viewStyle === "ribbon"
-                    ? "bg-purple-600 text-white shadow-sm"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-                title="3D WebGL Ribbon Curve"
-              >
-                ✨ 3D Ribbon
               </button>
             </div>
 
@@ -696,10 +696,10 @@ export default function ServicesClient() {
           </div>
         </div>
 
-        {/* 3D Ribbon Stage or Grid */}
-        {viewStyle === "ribbon" ? (
+        {/* 3D Cover Flow Stage or Grid */}
+        {viewStyle === "coverflow" ? (
           <div className="mb-14">
-            <ServicesRibbonCanvas
+            <CoverFlowServices
               onSelectService={(serviceName) => {
                 const found = masterServicesList.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()) || serviceName.toLowerCase().includes(s.name.toLowerCase()));
                 if (found) {

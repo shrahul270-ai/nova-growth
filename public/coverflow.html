@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Balaji Prime Media — 3D Cover Flow Services</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #050506;
+      --ink: #f4f4f5;
+      --mute: #8a8a90;
+      --glow: 160, 104, 255;
+      --w: 380px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+
+    #glow {
+      position: fixed;
+      left: 50%;
+      top: 44%;
+      transform: translate(-50%, -50%);
+      width: 120vmin;
+      height: 80vmin;
+      pointer-events: none;
+      background: radial-gradient(closest-side, rgba(var(--glow), 0.35), rgba(var(--glow), 0.08) 55%, transparent);
+      transition: background 1s ease;
+      z-index: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 84px;
+      padding: 0 3.2vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--mute);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--ink);
+    }
+
+    .nav-btn {
+      font-size: 13px;
+      color: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 8px 20px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all 0.2s;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+    .nav-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    #flow {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 10vh;
+      height: 56vh;
+      cursor: grab;
+      touch-action: none;
+      z-index: 10;
+    }
+    #flow:active {
+      cursor: grabbing;
+    }
+
+    .cv {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--w);
+      height: var(--w);
+      margin-left: calc(-1 * var(--w) / 2);
+      margin-top: calc(-1 * var(--w) / 2);
+      transform-style: preserve-3d;
+      transition: box-shadow 0.3s;
+    }
+
+    .cv .f {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      backface-visibility: hidden;
+      background: #0d0a1a;
+      cursor: pointer;
+    }
+
+    .cv .f img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cv .f .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none;
+    }
+
+    .cv .f .badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      backdrop-filter: blur(8px);
+    }
+
+    .cv .f .content {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+    }
+
+    .cv .f .category {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c084fc;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cv .f .title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .cv .f .action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 12px;
+      color: #d8b4fe;
+      font-weight: 500;
+    }
+
+    /* Reflection */
+    .cv .r {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin-top: 2px;
+      border-radius: 20px;
+      overflow: hidden;
+      transform: scaleY(-1);
+      transform-origin: 50% 50%;
+      opacity: 0.42;
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent 55%);
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.85), transparent 55%);
+      pointer-events: none;
+    }
+    .cv .r img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Back Face: Tracklist / Deliverables */
+    .cv .bk {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--w) * 1.5);
+      height: calc(var(--w) * 1.08);
+      margin-left: calc(-1 * var(--w) * 1.5 / 2);
+      margin-top: calc(-1 * var(--w) * 1.08 / 2);
+      transform: rotateY(180deg) scale(1.08);
+      backface-visibility: hidden;
+      background: #fbfbfc;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+      color: #222;
+      display: none;
+    }
+
+    .cv.flip .bk {
+      display: block;
+    }
+    .cv.flip .r {
+      display: none;
+    }
+
+    .bk .hd {
+      height: 17%;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(#cdd8e4, #a7b8cb 50%, #97abc1 51%, #adbed0);
+      border-bottom: 1px solid #7489a1;
+    }
+    .bk .hd .t {
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+      text-shadow: 0 -1px 0 rgba(40,60,90,.55);
+    }
+    .bk .hd .a {
+      font-size: 12px;
+      color: #41505f;
+    }
+
+    .bk ul {
+      list-style: none;
+      padding: 6px 12px;
+    }
+    .bk li {
+      height: 38px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      border-bottom: 1px solid #e3e5e8;
+      cursor: pointer;
+    }
+    .bk li:last-child {
+      border-bottom: none;
+    }
+    .bk li.hi {
+      background: linear-gradient(#6aa8f7, #3a7fe6 50%, #2a6fd9 51%, #3178df);
+      color: #fff;
+      text-shadow: 0 -1px 0 rgba(0,0,60,.35);
+    }
+
+    /* Letter Box */
+    #letter {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(10vh + 28vh + var(--w)/2 + var(--w)*0.12);
+      width: calc(var(--w) * 0.15);
+      height: calc(var(--w) * 0.15);
+      border-radius: calc(var(--w) * 0.025);
+      background: linear-gradient(#fff, #e9e9ec);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 6px 18px rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #000;
+      font-size: calc(var(--w) * 0.1);
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    /* Now-Showing Service Details */
+    #np {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(10vh + 28vh + var(--w)/2 + var(--w)*0.28);
+      width: min(540px, 85vw);
+      text-align: center;
+      z-index: 30;
+    }
+    #np .t {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: color 0.2s;
+    }
+    #np .t:hover {
+      color: #c084fc;
+    }
+    #np .a {
+      font-size: 13px;
+      color: var(--mute);
+      margin-top: 2px;
+    }
+
+    #np .cta {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    #np .cta a.btn-primary {
+      padding: 9px 24px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #9333ea, #6366f1);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+      transition: transform 0.2s;
+    }
+    #np .cta a.btn-primary:hover {
+      transform: scale(1.05);
+    }
+    #np .cta button.btn-flip {
+      padding: 9px 20px;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    /* A-Z Letter Grid */
+    #az {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 4vh;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      max-width: 680px;
+      padding: 8px 14px;
+      background: rgba(15, 12, 28, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      backdrop-filter: blur(14px);
+      z-index: 40;
+    }
+    #az button {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #az button:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+    #az button.active {
+      border: 1px solid #c084fc;
+      background: #7c3aed;
+      color: #fff;
+    }
+    #az button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    /* Headings & Hints */
+    h1 {
+      position: fixed;
+      left: 3.2vw;
+      bottom: 4vh;
+      font-size: clamp(28px, 3.8vw, 60px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: #fff;
+      z-index: 30;
+      pointer-events: none;
+    }
+    #hint {
+      position: fixed;
+      right: 3.2vw;
+      bottom: 4vh;
+      font-size: 12px;
+      color: var(--mute);
+      text-align: right;
+      line-height: 1.5;
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      h1 { display: none; }
+      #hint { display: none; }
+      #az { bottom: 2vh; max-width: 90vw; }
+    }
+  </style>
+</head>
+<body>
+  <div id="glow"></div>
+
+  <nav>
+    <a class="brand" href="/">BALAJI PRIME MEDIA</a>
+    <div class="nav-links">
+      <a class="active" href="/services">Services</a>
+      <a href="/work">Work</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <a class="nav-btn" href="/services">Full Directory</a>
+  </nav>
+
+  <h1>Every Service.<br>One Flick.</h1>
+  <div id="hint">
+    <div>Scroll, drag or ← → to browse</div>
+    <div style="color:#d8b4fe">Click card to open full details</div>
+  </div>
+
+  <div id="flow"></div>
+
+  <div id="letter">S</div>
+
+  <div id="np">
+    <a id="np-title" class="t" href="/services/seo-optimization">SEO Optimization</a>
+    <div id="np-artist" class="a">Organic Search Dominance • +240% Visitors</div>
+    <div class="cta">
+      <a id="np-btn" class="btn-primary" href="/services/seo-optimization">Open Detail Page →</a>
+      <button id="np-flip" class="btn-flip" type="button">Flip to Scope 🔄</button>
+    </div>
+  </div>
+
+  <div id="az"></div>
+
+  <script>
+    const SERVICES = [
+      {
+        id: "seo-optimization",
+        name: "Search Engine Optimization (SEO)",
+        shortTitle: "SEO Optimization",
+        category: "Organic Search Dominance",
+        tagline: "Rank #1 on Google with semantic topic authority & technical excellence.",
+        stat: "+240% Visitors",
+        price: "₹29,999",
+        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+        glow: "160, 104, 255",
+        initial: "S",
+        deliverables: [
+          { title: "Technical Crawl Inspection", desc: "Core Web Vitals & JS rendering diagnostics" },
+          { title: "Commercial Keyword Clusters", desc: "High-intent transactional keyword roadmap" },
+          { title: "On-Page Semantic Schema", desc: "JSON-LD structured data & internal link graphs" },
+          { title: "Bi-Weekly Rank Tracking", desc: "100% white-hat Google guideline compliance" }
+        ]
+      },
+      {
+        id: "website-development",
+        name: "Modern Website Development",
+        shortTitle: "Next.js Web Dev",
+        category: "High-Performance Engineering",
+        tagline: "Ultra-fast Next.js engineering with sub-second loads and headless CMS.",
+        stat: "99/100 PageSpeed",
+        price: "₹49,999",
+        coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+        glow: "56, 189, 248",
+        initial: "W",
+        deliverables: [
+          { title: "Next.js Server-Side App", desc: "Zero-CLS fluid layout with TypeScript" },
+          { title: "Tailwind UI Micro-Interactions", desc: "Sleek obsidian aesthetics & dark mode" },
+          { title: "Headless CMS Integration", desc: "Sanity / Supabase dynamic database sync" },
+          { title: "Global CDN Deployment", desc: "Cloudflare Edge caching & HTTPS hardening" }
+        ]
+      },
+      {
+        id: "content-writing",
+        name: "Editorial Content Writing",
+        shortTitle: "Content Strategy",
+        category: "Brand Authority & Copywriting",
+        tagline: "From invisible to fully booked through human-crafted editorial copy.",
+        stat: "+362% Leads",
+        price: "₹18,999",
+        coverImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+        glow: "217, 70, 239",
+        initial: "C",
+        deliverables: [
+          { title: "High-Intent SEO Articles", desc: "2,000+ word researched topical deep-dives" },
+          { title: "High-Converting Landing Pages", desc: "Direct-response copywriting with crisp CTAs" },
+          { title: "100% Human-Written Protocol", desc: "Copyscape verified zero-AI hallucination" },
+          { title: "SurferSEO Optimization", desc: "Semantic keyword frequency & entity density" }
+        ]
+      },
+      {
+        id: "email-marketing",
+        name: "Email Marketing & Automation",
+        shortTitle: "Email Automation",
+        category: "Customer Lifecycle & Retention",
+        tagline: "Automated retention sequences & enterprise SPF/DKIM authentication.",
+        stat: "42.8% Open Rate",
+        price: "₹18,999",
+        coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
+        glow: "20, 184, 166",
+        initial: "E",
+        deliverables: [
+          { title: "Drip Automation Funnels", desc: "Welcome, cart recovery & re-engagement" },
+          { title: "DKIM / SPF / DMARC Setup", desc: "100% inbox delivery & domain reputation" },
+          { title: "Responsive HTML Templates", desc: "Dark mode optimized email layouts" },
+          { title: "A/B Subject Line Testing", desc: "Open-rate maximization & list health cleaning" }
+        ]
+      },
+      {
+        id: "backlink-building",
+        name: "Off-Page Backlink Building",
+        shortTitle: "Authority Backlinks",
+        category: "Digital PR & Outreach",
+        tagline: "High-authority ethical link building and digital PR for real domain trust.",
+        stat: "DR 50–90+ Sites",
+        price: "₹24,999",
+        coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+        glow: "168, 85, 247",
+        initial: "B",
+        deliverables: [
+          { title: "Tier-1 Guest Publications", desc: "Articles placed on verified DR 60+ domains" },
+          { title: "100% Do-Follow In-Content Links", desc: "Natural anchor text distribution" },
+          { title: "Strict Anti-PBN Guarantee", desc: "No private blog networks, pure manual PR" },
+          { title: "Permanent Indexation Guarantee", desc: "Lifetime warranty on all earned placements" }
+        ]
+      },
+      {
+        id: "website-maintenance",
+        name: "Website Maintenance & Defense",
+        shortTitle: "Site Maintenance",
+        category: "DevOps & Zero-Downtime Support",
+        tagline: "Continuous 24/7 uptime monitoring & proactive vulnerability hardening.",
+        stat: "99.98% Uptime",
+        price: "₹9,999",
+        coverImage: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=1200&q=80",
+        glow: "99, 102, 241",
+        initial: "M",
+        deliverables: [
+          { title: "Hourly Automated Cloud Backups", desc: "Off-site AWS S3 disaster recovery snapshots" },
+          { title: "Malware & Firewall Hardening", desc: "Real-time threat blocking & brute-force defense" },
+          { title: "Plugin & Core Patching", desc: "Staging environment QA before live updates" },
+          { title: "Database Optimization", desc: "Query indexing & speed cache purging" }
+        ]
+      },
+      {
+        id: "flutter-app-dev",
+        name: "Flutter Mobile App Development",
+        shortTitle: "Flutter Mobile App",
+        category: "Cross-Platform iOS & Android",
+        tagline: "Single-codebase mobile applications engineered for fluid 60fps performance.",
+        stat: "60 FPS Fluid",
+        price: "₹84,999",
+        coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+        glow: "79, 70, 229",
+        initial: "F",
+        deliverables: [
+          { title: "Native Experience on Both OS", desc: "Single Dart codebase for App Store & Play Store" },
+          { title: "Firebase & Custom REST APIs", desc: "Real-time sync, push notifications & auth" },
+          { title: "In-App Purchases & Payments", desc: "Stripe, Razorpay & Apple In-App subscriptions" },
+          { title: "Bi-Weekly TestFlight Builds", desc: "Continuous testing on real physical devices" }
+        ]
+      },
+      {
+        id: "full-stack-php-dev",
+        name: "Full-Stack PHP Web Development",
+        shortTitle: "PHP & Laravel",
+        category: "Custom Web Architectures",
+        tagline: "Custom Laravel and robust PHP architectures with relational databases.",
+        stat: "RESTful APIs",
+        price: "₹49,999",
+        coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+        glow: "129, 140, 248",
+        initial: "P",
+        deliverables: [
+          { title: "Laravel MVC Architecture", desc: "Clean, maintainable, object-oriented code" },
+          { title: "Normalized MySQL Database", desc: "Foreign keys, indexes, and fast queries" },
+          { title: "Role-Based Admin Panel", desc: "Secure permissions, audit logs & CSV export" },
+          { title: "Webhook & API Integrations", desc: "Payment gateways, CRMs, and email services" }
+        ]
+      },
+      {
+        id: "generative-engine-opt",
+        name: "Generative Engine Optimization (GEO)",
+        shortTitle: "GEO (AI Search)",
+        category: "LLM Search & AI Citations",
+        tagline: "Position your brand as the primary cited authority inside ChatGPT, Perplexity & Gemini.",
+        stat: "100% AI Cited",
+        price: "₹34,999",
+        coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+        glow: "192, 132, 252",
+        initial: "G",
+        deliverables: [
+          { title: "Semantic Entity Modeling", desc: "Knowledge graph structure for AI ingestion" },
+          { title: "Citation Optimization", desc: "Rank in ChatGPT Search & Perplexity answers" },
+          { title: "Authoritative Data Hooks", desc: "Context window formatting for LLM summaries" },
+          { title: "AI Visibility Reports", desc: "Track query presence across top AI engines" }
+        ]
+      },
+      {
+        id: "answer-engine-opt",
+        name: "Answer Engine Optimization (AEO)",
+        shortTitle: "AEO (Snippet #0)",
+        category: "Position Zero & Voice Search",
+        tagline: "Win Google Featured Snippets (Position Zero), voice search, and People-Also-Ask clusters.",
+        stat: "Pos 0 Snippet",
+        price: "₹24,999",
+        coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+        glow: "244, 114, 182",
+        initial: "A",
+        deliverables: [
+          { title: "Conversational Query Structuring", desc: "Direct answer formatting for snippet algorithms" },
+          { title: "FAQ & HowTo JSON-LD Markup", desc: "Rich snippet code verified via Google Rich Results" },
+          { title: "Voice Search Phrasing", desc: "Natural language optimization for Siri & Assistant" },
+          { title: "Snippet Stealing Roadmap", desc: "Identify competitor snippets and outrank them" }
+        ]
+      },
+      {
+        id: "technical-seo-audit",
+        name: "Technical SEO & Speed Fix",
+        shortTitle: "Technical SEO",
+        category: "Diagnostics & Remediation",
+        tagline: "Zero crawl errors, JavaScript rendering audits & sub-second Core Web Vitals.",
+        stat: "0 Crawl Errors",
+        price: "₹19,999",
+        coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+        glow: "56, 189, 248",
+        initial: "T",
+        deliverables: [
+          { title: "Deep Log File Analysis", desc: "Discover how Googlebot spends crawl budget" },
+          { title: "Render-Blocking Resource Removal", desc: "Defer unused JS/CSS for 90+ mobile scores" },
+          { title: "Canonical & Redirect Loop Fixes", desc: "Clean up index bloat and orphan URLs" },
+          { title: "Robots.txt & Sitemap Rebuild", desc: "Flawless instruction architecture for search bots" }
+        ]
+      },
+      {
+        id: "conversion-rate-optimization",
+        name: "Conversion Rate Optimization (CRO)",
+        shortTitle: "Conversion CRO",
+        category: "Growth & Sales Velocity",
+        tagline: "A/B testing, heatmap user behavior analysis, and frictionless high-velocity sales funnels.",
+        stat: "+84% Conversion",
+        price: "₹29,999",
+        coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+        glow: "251, 146, 60",
+        initial: "O",
+        deliverables: [
+          { title: "Heatmap & Session Replay Audits", desc: "Detect where users bounce or hesitate" },
+          { title: "Scientific A/B Split Testing", desc: "Statistically significant variant benchmarking" },
+          { title: "Form & Checkout Streamlining", desc: "Cut drop-offs by simplifying input friction" },
+          { title: "Micro-Copy & Social Proof Tuning", desc: "Trust badges, guarantees & urgency triggers" }
+        ]
+      },
+      {
+        id: "wordpress-website-dev",
+        name: "WordPress Website Development",
+        shortTitle: "WordPress Dev",
+        category: "Speed & Custom Design",
+        tagline: "Bespoke Elementor & Gutenberg custom digital experiences tuned for conversion.",
+        stat: "<1.8s Speed",
+        price: "₹24,999",
+        coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+        glow: "96, 165, 250",
+        initial: "D",
+        deliverables: [
+          { title: "Custom Gutenberg / Elementor", desc: "Tailored to your exact corporate brand identity" },
+          { title: "Core Web Vitals Speed Tuning", desc: "Redis caching, WebP conversion & CDN setup" },
+          { title: "Dynamic CRM Lead Forms", desc: "Instant email and WhatsApp inquiry notifications" },
+          { title: "Complete On-Page SEO Base", desc: "Yoast / RankMath setup with schema markup" }
+        ]
+      },
+      {
+        id: "seo-services-usa",
+        name: "Local & Multi-Location SEO",
+        shortTitle: "Local SEO Growth",
+        category: "Geo-Targeted Visibility",
+        tagline: "Dominant Google Business Profile rankings and multi-location search presence.",
+        stat: "#1 Local 3-Pack",
+        price: "₹19,999",
+        coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+        glow: "74, 222, 128",
+        initial: "L",
+        deliverables: [
+          { title: "Google Business Profile Tuning", desc: "Categories, geotagged photos & weekly posts" },
+          { title: "Local Citation Building (NAP)", desc: "Consistent Name-Address-Phone on 80+ directories" },
+          { title: "Review Velocity Campaigns", desc: "Automated review acquisition & positive feedback" },
+          { title: "Geo-Grid Rank Tracking", desc: "Mile-by-mile ranking heatmaps across your city" }
+        ]
+      },
+      {
+        id: "guest-posting",
+        name: "High-DR Guest Posting Networks",
+        shortTitle: "Guest Posting",
+        category: "Publisher Placements",
+        tagline: "Curated verified publisher placements on genuine authority media domains.",
+        stat: "DR 60–92 Sites",
+        price: "₹14,999",
+        coverImage: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80",
+        glow: "232, 121, 249",
+        initial: "H",
+        deliverables: [
+          { title: "Real Editorial Outlets", desc: "Manual pitching to real webmasters with traffic" },
+          { title: "Native Editorial Integration", desc: "Contextual mentions that Google rewards" },
+          { title: "Dofollow Link Guarantee", desc: "Permanent do-follow links that pass PageRank" },
+          { title: "Replacement Guarantee", desc: "Free replacement if any link drops within 365 days" }
+        ]
+      },
+      {
+        id: "about",
+        name: "Brand Digital PR & Authority",
+        shortTitle: "Digital PR",
+        category: "Reputation & Brand Visibility",
+        tagline: "Syndicated press releases & tier-1 editorial publication features.",
+        stat: "Tier 1 Media",
+        price: "₹39,999",
+        coverImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
+        glow: "248, 113, 113",
+        initial: "R",
+        deliverables: [
+          { title: "Press Release Crafting", desc: "Journalist-ready AP-style brand storytelling" },
+          { title: "Syndicated Wire Distribution", desc: "Guaranteed publication on 150+ news sites" },
+          { title: "Executive Thought Leadership", desc: "Founder quotes and authoritative industry commentary" },
+          { title: "Full Coverage Clipping Book", desc: "White-label PDF report of all live features" }
+        ]
+      }
+    ];
+
+    let pos = 0;
+    let target = 0;
+    let flipped = null;
+    let flipK = 0;
+    let W = 380;
+    let isDragging = false;
+    let startX = 0;
+    let startPos = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    let moved = false;
+    let clickedCoverIdx = null;
+
+    const flowEl = document.getElementById("flow");
+    const letterEl = document.getElementById("letter");
+    const npTitle = document.getElementById("np-title");
+    const npArtist = document.getElementById("np-artist");
+    const npBtn = document.getElementById("np-btn");
+    const npFlip = document.getElementById("np-flip");
+    const azEl = document.getElementById("az");
+    const glowEl = document.getElementById("glow");
+
+    function computeW() {
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      W = Math.round(Math.min(vh * 0.36, vw * 0.34, 420));
+      W = Math.max(260, W);
+      document.documentElement.style.setProperty("--w", W + "px");
+      flowEl.style.perspective = (W * 3.4) + "px";
+    }
+
+    computeW();
+    window.addEventListener("resize", computeW);
+
+    // Build covers in DOM
+    SERVICES.forEach((s, i) => {
+      const cv = document.createElement("div");
+      cv.className = "cv";
+      cv.dataset.index = i;
+
+      cv.innerHTML = `
+        <div class="f">
+          <img src="${s.coverImage}" alt="${s.name}" loading="${i <= 2 ? 'eager' : 'lazy'}" />
+          <div class="overlay"></div>
+          <div class="badge">${s.stat}</div>
+          <div class="content">
+            <div class="category">${s.category}</div>
+            <div class="title">${s.name}</div>
+            <div class="action">
+              <span>Click for full details</span>
+              <span>${s.price}</span>
+            </div>
+          </div>
+        </div>
+        <div class="r">
+          <img src="${s.coverImage}" alt="" />
+        </div>
+        <div class="bk">
+          <div class="hd">
+            <div>
+              <div class="t">${s.name}</div>
+              <div class="a">${s.category}</div>
+            </div>
+            <a href="/services/${s.id}" style="color:#2563eb;font-weight:700;font-size:12px;text-decoration:none;background:#fff;padding:4px 10px;border-radius:20px;">Open Page ↗</a>
+          </div>
+          <ul>
+            ${s.deliverables.map((d, dIdx) => `
+              <li class="${dIdx === 0 ? 'hi' : ''}" onclick="window.location.href='/services/${s.id}'">
+                <span>${d.title}</span>
+                <span style="font-size:11px;font-weight:400">${d.desc}</span>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+      `;
+
+      flowEl.appendChild(cv);
+    });
+
+    const coverNodes = flowEl.querySelectorAll(".cv");
+
+    // Build A-Z grid
+    const letters = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")];
+    letters.forEach(char => {
+      const btn = document.createElement("button");
+      btn.textContent = char;
+      const has = char === "#" || SERVICES.some(s => s.name.toUpperCase().startsWith(char) || s.shortTitle.toUpperCase().startsWith(char));
+      if (!has) {
+        btn.disabled = true;
+      }
+      btn.onclick = () => {
+        flipped = null;
+        if (char === "#") {
+          target = 0;
+          return;
+        }
+        const idx = SERVICES.findIndex(s => s.name.toUpperCase().startsWith(char) || s.shortTitle.toUpperCase().startsWith(char));
+        if (idx !== -1) target = idx;
+      };
+      azEl.appendChild(btn);
+    });
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    // Input: Wheel
+    let wheelAccum = 0;
+    window.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      wheelAccum += delta;
+      if (Math.abs(wheelAccum) >= 60) {
+        const step = Math.sign(wheelAccum);
+        target = Math.max(0, Math.min(SERVICES.length - 1, target + step));
+        wheelAccum = 0;
+        flipped = null;
+      }
+    }, { passive: false });
+
+    // Drag / Touch
+    flowEl.addEventListener("pointerdown", (e) => {
+      flowEl.setPointerCapture(e.pointerId);
+      isDragging = true;
+      startX = e.clientX;
+      startPos = pos;
+      lastX = e.clientX;
+      lastTime = performance.now();
+      velocity = 0;
+      moved = false;
+
+      const c = e.target.closest(".cv");
+      clickedCoverIdx = c ? parseInt(c.dataset.index, 10) : null;
+    });
+
+    window.addEventListener("pointermove", (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastTime);
+      velocity = (e.clientX - lastX) / dt;
+      lastX = e.clientX;
+      lastTime = now;
+
+      if (moved) {
+        const STEP = 0.2;
+        pos = Math.max(-0.4, Math.min(SERVICES.length - 0.6, startPos - dx / (W * STEP * 2.2)));
+        flipped = null;
+      }
+    });
+
+    window.addEventListener("pointerup", (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      if (moved) {
+        target = Math.max(0, Math.min(SERVICES.length - 1, Math.round(pos - velocity * 40)));
+      } else if (clickedCoverIdx !== null) {
+        const center = Math.round(target);
+        if (clickedCoverIdx !== center) {
+          target = clickedCoverIdx;
+          flipped = null;
+        } else {
+          // Open detail page on centre cover click!
+          window.location.href = `/services/${SERVICES[clickedCoverIdx].id}`;
+        }
+      }
+    });
+
+    // Keyboard
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        target = Math.min(SERVICES.length - 1, target + 1);
+        flipped = null;
+      } else if (e.key === "ArrowLeft") {
+        target = Math.max(0, target - 1);
+        flipped = null;
+      } else if (e.key === "Enter") {
+        const center = Math.round(target);
+        window.location.href = `/services/${SERVICES[center].id}`;
+      } else if (e.key === "Escape") {
+        flipped = null;
+      }
+    });
+
+    npFlip.onclick = () => {
+      const center = Math.round(target);
+      if (flipped === center) flipped = null;
+      else flipped = center;
+    };
+
+    // Frame Loop
+    let lastT = performance.now();
+    function animate(now) {
+      const dt = Math.min((now - lastT) / 1000, 0.05);
+      lastT = now;
+
+      if (!isDragging) {
+        const diff = target - pos;
+        if (Math.abs(diff) > 0.0005) {
+          pos += diff * (1 - Math.exp(-dt * 13));
+        } else {
+          pos = target;
+        }
+      }
+
+      if (flipped !== null && flipK < 1) {
+        flipK = Math.min(1, flipK + dt / 0.62);
+      } else if (flipped === null && flipK > 0) {
+        flipK = Math.max(0, flipK - dt / 0.45);
+      }
+
+      const ANG = 72;
+      const GAP = 0.62;
+      const STEP = 0.2;
+      const DEPTH = 0.42;
+
+      coverNodes.forEach((node, i) => {
+        const d = i - pos;
+        const a = Math.abs(d);
+        const s = Math.sign(d);
+
+        if (a > 9) {
+          node.style.display = "none";
+          return;
+        }
+        node.style.display = "block";
+
+        let x = 0;
+        let rot = 0;
+        let z = 0;
+
+        if (a < 1) {
+          x = d * GAP * W;
+          rot = -d * ANG;
+          z = -a * DEPTH * W;
+        } else {
+          x = s * (GAP + (a - 1) * STEP) * W;
+          rot = -s * ANG;
+          z = -DEPTH * W;
+        }
+
+        const isFlipped = flipped === i;
+        let extraRot = 0;
+        let extraZ = 0;
+        if (isFlipped || (flipped === null && flipK > 0 && node.classList.contains("flip"))) {
+          const e = easeInOutQuad(flipK);
+          extraRot = e * 180;
+          extraZ = Math.sin(Math.min(1, flipK * 1.4) * (Math.PI / 2)) * 0.55 * W;
+        }
+
+        if (isFlipped) node.classList.add("flip");
+        else if (flipK === 0) node.classList.remove("flip");
+
+        const zIdx = isFlipped ? 999 : 500 - Math.round(a * 10);
+        node.style.zIndex = zIdx;
+        node.style.transform = `translate3d(${x}px, 0, ${z + extraZ}px) rotateY(${rot + extraRot}deg)`;
+      });
+
+      // Update Active Service UI
+      const centerIdx = Math.max(0, Math.min(SERVICES.length - 1, Math.round(pos)));
+      const cur = SERVICES[centerIdx];
+
+      letterEl.textContent = cur.initial;
+      letterEl.style.opacity = flipped !== null ? "0" : "1";
+
+      npTitle.textContent = cur.name;
+      npTitle.href = `/services/${cur.id}`;
+      npArtist.textContent = `${cur.category} • ${cur.stat}`;
+      npBtn.href = `/services/${cur.id}`;
+      npFlip.textContent = flipped === centerIdx ? "Close Scope ↺" : "Flip to Scope 🔄";
+
+      glowEl.style.background = `radial-gradient(closest-side, rgba(${cur.glow}, 0.35), rgba(${cur.glow}, 0.08) 55%, transparent)`;
+
+      // A-Z highlight
+      const activeChar = cur.initial.toUpperCase();
+      azEl.querySelectorAll("button").forEach(btn => {
+        if (btn.textContent === activeChar) btn.classList.add("active");
+        else btn.classList.remove("active");
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
