@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SellixServicesHeader from "../components/SellixServicesHeader";
 import ThreeDServiceCard, { AgencyService } from "../components/ThreeDServiceCard";
-import CoverFlowServices from "../components/CoverFlowServices";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -319,7 +318,6 @@ export default function ServicesClient() {
   const [currency, setCurrency] = useState<"INR" | "USD">("USD");
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [viewStyle, setViewStyle] = useState<"grid" | "coverflow">("coverflow");
   const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
   const [bookingService, setBookingService] = useState<AgencyService | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -644,71 +642,29 @@ export default function ServicesClient() {
             ))}
           </div>
 
-          {/* View Mode & Search Box */}
-          <div className="flex items-center gap-3 w-full lg:w-auto">
-            {/* View Mode Switcher */}
-            <div className="inline-flex items-center p-1 rounded-xl bg-[#140F24] border border-[#2B2144] shadow-sm">
+          {/* Search Box */}
+          <div className="relative w-full lg:w-72">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D7D7D] text-xs">🔍</span>
+            <input
+              type="text"
+              placeholder="Search deliverables, tech, tags..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7]/60 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-[#7D7D7D] outline-none transition-all shadow-inner"
+            />
+            {searchQuery && (
               <button
-                type="button"
-                onClick={() => setViewStyle("coverflow")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  viewStyle === "coverflow"
-                    ? "bg-purple-600 text-white shadow-sm"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-                title="3D Cover Flow View"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
               >
-                💿 3D Cover Flow
+                ✕
               </button>
-              <button
-                type="button"
-                onClick={() => setViewStyle("grid")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  viewStyle === "grid"
-                    ? "bg-purple-600 text-white shadow-sm"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-                title="Grid Matrix View"
-              >
-                ⊞ Grid
-              </button>
-            </div>
-
-            {/* Search Box */}
-            <div className="relative flex-1 lg:w-64">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D7D7D] text-xs">🔍</span>
-              <input
-                type="text"
-                placeholder="Search deliverables, tech, tags..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7]/60 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-[#7D7D7D] outline-none transition-all shadow-inner"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
+            )}
           </div>
         </div>
 
-        {/* 3D Cover Flow Stage or Grid */}
-        {viewStyle === "coverflow" ? (
-          <div className="mb-14">
-            <CoverFlowServices
-              onSelectService={(serviceName) => {
-                const found = masterServicesList.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()) || serviceName.toLowerCase().includes(s.name.toLowerCase()));
-                if (found) {
-                  setActiveModalService(found);
-                }
-              }}
-            />
-          </div>
-        ) : filteredServices.length === 0 ? (
+        {/* 3D Service Cards Responsive Grid */}
+        {filteredServices.length === 0 ? (
           <div className="text-center py-16 bg-[#140F24]/60 border border-[#2B2144] rounded-3xl p-8">
             <span className="text-4xl block mb-3">🔍</span>
             <h3 className="text-xl font-bold text-white mb-1">No services found</h3>
