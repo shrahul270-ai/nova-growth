@@ -69,29 +69,28 @@ export default function LiquidGlassProjectsHero() {
             
             {/* Top Bar inside Left Panel */}
             <div className="flex items-center justify-between w-full">
-              {/* Logo + bloom text */}
+              {/* Logo + BPM Branding */}
               <div className="flex items-center gap-2.5">
                 <img
                   src="/images/logo-original.png"
-                  alt="Bloom"
+                  alt="Balaji Prime Media"
                   className="w-8 h-8 object-contain rounded-full bg-white/10 p-0.5"
                   onError={(e) => {
-                    // Fallback to stylized circle icon if local image fails
                     (e.target as HTMLElement).style.display = "none";
                   }}
                 />
-                <span className="font-semibold text-2xl tracking-tighter text-white">
-                  bloom
+                <span className="font-semibold text-xl tracking-tight text-white">
+                  Balaji Prime Media
                 </span>
               </div>
 
-              {/* Menu Button */}
+              {/* Menu / Explore Button */}
               <button
                 type="button"
                 onClick={scrollToProjects}
                 className="liquid-glass rounded-full px-4 py-2 flex items-center gap-2 text-white text-xs font-medium hover:scale-105 transition-transform cursor-pointer"
               >
-                <span>Menu</span>
+                <span>Case Studies</span>
                 <Menu className="w-3.5 h-3.5 text-white/80" />
               </button>
             </div>
@@ -103,39 +102,38 @@ export default function LiquidGlassProjectsHero() {
               <div className="w-20 h-20 rounded-full liquid-glass flex items-center justify-center mb-6 shadow-2xl">
                 <img
                   src="/images/logo-original.png"
-                  alt="Bloom Icon"
+                  alt="Balaji Prime Media"
                   className="w-12 h-12 object-contain"
                   onError={(e) => {
-                    // Fallback floral/bloom SVG icon
                     (e.target as HTMLElement).style.display = "none";
                   }}
                 />
                 <Sparkles className="w-8 h-8 text-white/90" />
               </div>
 
-              {/* H1 Heading: "Innovating the / spirit of bloom AI" */}
+              {/* H1 Heading: Website Related */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-[500] tracking-[-0.05em] text-white leading-[1.08] max-w-xl mb-7">
-                Innovating the <br />
+                Engineering the <br />
                 <span className="font-serif-accent italic text-white/80">
-                  spirit of bloom AI
+                  future of digital growth
                 </span>
               </h1>
 
-              {/* CTA Button: "Explore Now" with Download icon */}
+              {/* CTA Button: "Explore Case Studies" */}
               <a
                 href="#projects-grid"
                 onClick={scrollToProjects}
                 className="liquid-glass-strong rounded-full px-7 py-3 text-white text-sm font-medium hover:scale-105 active:scale-95 transition-transform flex items-center gap-3 shadow-2xl cursor-pointer mb-7"
               >
-                <span>Explore Now</span>
+                <span>Explore Case Studies</span>
                 <span className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
                   <Download className="w-3.5 h-3.5 text-white" />
                 </span>
               </a>
 
-              {/* Three Pills */}
+              {/* Three Website-Related Category Pills */}
               <div className="flex flex-wrap items-center justify-center gap-2.5">
-                {["Artistic Gallery", "AI Generation", "3D Structures"].map((pill) => (
+                {["Organic Search SEO", "Next.js Engineering", "High-Authority PR"].map((pill) => (
                   <button
                     key={pill}
                     type="button"
@@ -148,20 +146,20 @@ export default function LiquidGlassProjectsHero() {
               </div>
             </div>
 
-            {/* Bottom Quote Section */}
+            {/* Bottom Quote Section: Agency Philosophy */}
             <div className="text-center pt-6">
               <div className="text-xs tracking-widest uppercase text-white/50 mb-2">
-                VISIONARY DESIGN
+                MEASURABLE EXCELLENCE
               </div>
               <p className="text-sm sm:text-base text-white/90 font-light max-w-md mx-auto mb-3">
-                &ldquo;We imagined a{" "}
-                <span className="font-serif-accent italic text-white">realm</span> with{" "}
-                <span className="font-serif-accent italic text-white">no ending</span>.&rdquo;
+                &ldquo;We turn organic search into your most{" "}
+                <span className="font-serif-accent italic text-white">compounding</span> revenue{" "}
+                <span className="font-serif-accent italic text-white">asset</span>.&rdquo;
               </p>
               <div className="flex items-center justify-center gap-3">
                 <span className="w-8 h-[1px] bg-white/20" />
                 <span className="text-[10px] tracking-widest uppercase text-white/40">
-                  MARCUS AURELIO
+                  BALAJI PRIME MEDIA
                 </span>
                 <span className="w-8 h-[1px] bg-white/20" />
               </div>
@@ -173,7 +171,7 @@ export default function LiquidGlassProjectsHero() {
         {/* ================= RIGHT PANEL (48% on desktop, hidden on mobile) ================= */}
         <div className="hidden lg:flex w-[48%] min-h-screen flex-col justify-between p-6 lg:p-8 relative">
           
-          {/* Top Bar: Social Icons pill + Account/Sparkles buttons */}
+          {/* Top Bar: Social Icons pill + Action buttons */}
           <div className="flex items-center justify-between w-full">
             {/* Social Icons Pill */}
             <div className="liquid-glass rounded-full px-4 py-2 flex items-center gap-3.5">
@@ -215,34 +213,36 @@ export default function LiquidGlassProjectsHero() {
               </button>
             </div>
 
-            {/* Account & Sparkles Actions */}
+            {/* Client Portal & Sparkles Actions */}
             <div className="flex items-center gap-2">
               <a
-                href="#projects-grid"
-                onClick={scrollToProjects}
+                href="/services"
                 className="liquid-glass rounded-full px-5 py-2 text-xs font-medium text-white hover:scale-105 transition-transform cursor-pointer"
               >
-                Account
+                All Services
               </a>
               <button
                 type="button"
                 onClick={scrollToProjects}
                 className="liquid-glass rounded-full w-9 h-9 flex items-center justify-center text-white hover:scale-105 transition-transform cursor-pointer"
-                aria-label="Feature Highlights"
+                aria-label="Highlights"
               >
                 <Sparkles className="w-4 h-4 text-white/90" />
               </button>
             </div>
           </div>
 
-          {/* Floating Community Card (Middle area) */}
+          {/* Floating Performance Ecosystem Card */}
           <div className="my-auto self-end mr-4">
-            <div className="liquid-glass rounded-2xl w-56 p-4 shadow-xl hover:scale-105 transition-transform cursor-pointer">
+            <div
+              onClick={scrollToProjects}
+              className="liquid-glass rounded-2xl w-60 p-4 shadow-xl hover:scale-105 transition-transform cursor-pointer"
+            >
               <h4 className="text-sm font-medium text-white mb-1">
-                Enter our ecosystem
+                Proven Growth Velocity
               </h4>
               <p className="text-xs text-white/60 leading-relaxed font-light">
-                Join our collective of digital botanical designers and creators.
+                Explore verified client wins delivering 3.8x ROI, sub-second loads, and #1 Google rankings.
               </p>
             </div>
           </div>
@@ -250,47 +250,56 @@ export default function LiquidGlassProjectsHero() {
           {/* Bottom Feature Section: Outer liquid-glass container with rounded-[2.5rem] */}
           <div className="liquid-glass rounded-[2.5rem] p-5 flex flex-col gap-3.5 mt-auto shadow-2xl">
             
-            {/* Two Side-by-Side Cards: Processing & Growth Archive */}
+            {/* Two Side-by-Side Cards: SEO Engine & Case Studies */}
             <div className="grid grid-cols-2 gap-3.5">
               
-              {/* Card 1: Processing */}
-              <div className="liquid-glass rounded-3xl p-4 flex items-center gap-3 hover:scale-105 transition-transform cursor-pointer">
+              {/* Card 1: SEO Architecture */}
+              <div
+                onClick={scrollToProjects}
+                className="liquid-glass rounded-3xl p-4 flex items-center gap-3 hover:scale-105 transition-transform cursor-pointer"
+              >
                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                   <Wand2 className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h5 className="text-xs font-medium text-white">Processing</h5>
-                  <p className="text-[10px] text-white/50">Neural synthesis</p>
+                  <h5 className="text-xs font-medium text-white">SEO Engine</h5>
+                  <p className="text-[10px] text-white/50">Semantic authority</p>
                 </div>
               </div>
 
               {/* Card 2: Growth Archive */}
-              <div className="liquid-glass rounded-3xl p-4 flex items-center gap-3 hover:scale-105 transition-transform cursor-pointer">
+              <div
+                onClick={scrollToProjects}
+                className="liquid-glass rounded-3xl p-4 flex items-center gap-3 hover:scale-105 transition-transform cursor-pointer"
+              >
                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
                   <BookOpen className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h5 className="text-xs font-medium text-white">Growth Archive</h5>
-                  <p className="text-[10px] text-white/50">Curated species</p>
+                  <h5 className="text-xs font-medium text-white">Client Archive</h5>
+                  <p className="text-[10px] text-white/50">Verified outcomes</p>
                 </div>
               </div>
 
             </div>
 
-            {/* Bottom Card: Advanced Plant Sculpting */}
-            <div className="liquid-glass rounded-3xl p-3.5 flex items-center justify-between gap-3 hover:scale-[1.02] transition-transform cursor-pointer">
+            {/* Bottom Card: High-Impact Web Engineering */}
+            <div
+              onClick={scrollToProjects}
+              className="liquid-glass rounded-3xl p-3.5 flex items-center justify-between gap-3 hover:scale-[1.02] transition-transform cursor-pointer"
+            >
               <div className="flex items-center gap-3.5">
                 <img
-                  src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=300&q=80"
-                  alt="Floral Sculpting"
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=300&q=80"
+                  alt="Analytics and Web Engineering"
                   className="w-24 h-16 rounded-2xl object-cover shadow-md shrink-0"
                 />
                 <div>
                   <h5 className="text-sm font-medium text-white">
-                    Advanced Plant Sculpting
+                    Full-Funnel Web &amp; Search Growth
                   </h5>
                   <p className="text-xs text-white/60 font-light line-clamp-1">
-                    Sculpt organic forms through responsive AI growth engines.
+                    Bespoke Next.js apps engineered for sub-second speeds and commercial lead conversion.
                   </p>
                 </div>
               </div>
