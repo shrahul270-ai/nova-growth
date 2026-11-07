@@ -23,73 +23,84 @@ export default function ProjectsClient() {
 
   const activeProject = caseStudiesData[activeProjectIndex] || caseStudiesData[0];
 
-  // Specific visual showcase data for the 3D curved cards matching Image 2
+  // The 6 3D Fan-out Cards mapped 1:1 to the 6 ACTUAL projects on this page
   const showcaseCards = [
     {
-      id: "card-ritual",
+      id: "card-fashion",
       projectId: "fashion-brand",
-      title: "RITUAL REGIME",
-      subtitle: "Luxury Botanical Skincare",
-      tag: "E-Commerce",
-      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=85",
+      title: "LUXE FASHION US",
+      subtitle: "Headless Next.js Storefront",
+      tag: "E-Commerce & SEO",
+      stat: "+340%",
+      statLabel: "Organic Revenue",
+      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85",
       type: "image-card",
-      tilted: "-rotate-[22deg] -translate-x-32 sm:-translate-x-44 translate-y-8 scale-90",
-      accent: "#a855f7",
-    },
-    {
-      id: "card-model",
-      projectId: "fashion-brand",
-      title: "EDITORIAL EDIT",
-      subtitle: "Haute Couture Spring",
-      tag: "Fashion US",
-      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=85",
-      type: "image-card",
-      tilted: "-rotate-[13deg] -translate-x-16 sm:-translate-x-24 translate-y-3 scale-95",
+      tilted: "-rotate-[22deg] -translate-x-36 sm:-translate-x-64 -translate-y-10 sm:-translate-y-18 scale-90",
       accent: "#ec4899",
     },
     {
-      id: "card-checkouts",
+      id: "card-fitness",
       projectId: "fitness-app",
-      title: "CHECKOUTS QUICK N SIMPLE",
-      subtitle: "Spend via Apple Pay • Sub-1s Speed",
-      tag: "CRO & Performance",
+      title: "PULSEFIT PRO",
+      subtitle: "60fps App Funnel & CRO",
+      tag: "Mobile App & SaaS",
+      stat: "50,000+",
+      statLabel: "Active Downloads",
       type: "stat-card-white",
-      stat: "+48% Lift",
-      tilted: "-rotate-[6deg] -translate-x-4 sm:-translate-x-8 translate-y-0 scale-100",
+      points: ["• One-tap Apple / Google Auth", "• Sub-90s Onboarding Funnel", "• 4.9★ App Store Ranking"],
+      tilted: "-rotate-[13deg] -translate-x-20 sm:-translate-x-36 -translate-y-18 sm:-translate-y-28 scale-95",
       accent: "#ef4444",
     },
     {
-      id: "card-collection",
-      projectId: "dubai-real-estate",
-      title: "COLLECTION EXCLUSIVE!",
-      subtitle: "Off-Plan Beachfront Villas",
-      tag: "Luxury Catalog",
-      type: "pink-badge",
-      stat: "$18.5M Pipe",
-      tilted: "rotate-[6deg] translate-x-4 sm:translate-x-8 translate-y-0 scale-100",
-      accent: "#f472b6",
-    },
-    {
-      id: "card-product",
+      id: "card-local",
       projectId: "local-growth",
-      title: "ORGANIC HYDRATION",
-      subtitle: "100% Verified Local Authority",
+      title: "APEX DENTAL UK",
+      subtitle: "London Geo-Routing & Maps",
       tag: "Local SEO 3-Pack",
-      img: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=500&q=85",
+      stat: "#1 Rank",
+      statLabel: "Across 18 Boroughs",
+      img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=85",
       type: "image-card",
-      tilted: "rotate-[13deg] translate-x-16 sm:translate-x-24 translate-y-3 scale-95",
+      tilted: "-rotate-[5deg] -translate-x-6 sm:-translate-x-12 -translate-y-22 sm:-translate-y-36 scale-100",
       accent: "#06b6d4",
     },
     {
-      id: "card-ships",
+      id: "card-saas",
+      projectId: "saas-pipeline",
+      title: "CLOUDSYNC TECH",
+      subtitle: "Programmatic Pipeline Engine",
+      tag: "Technical SEO & CRO",
+      stat: "+420%",
+      statLabel: "Demo Bookings Lift",
+      type: "pink-badge",
+      points: ["• 450+ Programmatic Pages", "• DA 32 → 64 Authority Lift", "• $180K/mo Organic Pipeline"],
+      tilted: "rotate-[5deg] translate-x-6 sm:translate-x-12 -translate-y-22 sm:-translate-y-36 scale-100",
+      accent: "#f472b6",
+    },
+    {
+      id: "card-realestate",
+      projectId: "dubai-real-estate",
+      title: "HORIZON LUXURY",
+      subtitle: "Dubai Multilingual Portal",
+      tag: "Luxury Real Estate",
+      stat: "$18.5M",
+      statLabel: "Verified Inquiries",
+      img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=85",
+      type: "image-card",
+      tilted: "rotate-[13deg] translate-x-20 sm:translate-x-36 -translate-y-18 sm:-translate-y-28 scale-95",
+      accent: "#f59e0b",
+    },
+    {
+      id: "card-fintech",
       projectId: "fintech-app",
-      title: "SHIPS GRATIS +",
-      subtitle: "Multi-Currency Escrow",
-      tag: "Bank-Grade Platform",
-      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=85",
+      title: "VENTUREPAY GLOBAL",
+      subtitle: "Bank-Grade Remittance Platform",
+      tag: "Fintech Platform",
+      stat: "100K+",
+      statLabel: "Monthly Active Users",
+      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=85",
       type: "purple-gradient",
-      stat: "100K+ MAU",
-      tilted: "rotate-[22deg] translate-x-32 sm:translate-x-44 translate-y-8 scale-90",
+      tilted: "rotate-[22deg] translate-x-36 sm:translate-x-64 -translate-y-10 sm:-translate-y-18 scale-90",
       accent: "#8b5cf6",
     },
   ];
@@ -115,12 +126,15 @@ export default function ProjectsClient() {
       <LiquidGlassProjectsHero />
 
       {/* =========================================================================
-          STREAMLINE THE SHOP PROCESS — 3D CURVED CASE STUDY SHOWCASE (Image 2 Design)
-          - Deep dark space background with ambient radial stars
-          - "⚡ Professionals at store startup" cyan badge
-          - "STREAMLINE THE SHOP PROCESS" bold master typography
-          - Glowing "See prices / Explore Case Studies" button
-          - 3D perspective curved card fan
+          STREAMLINE THE SHOP PROCESS — 3D CURVED CASE STUDY SHOWCASE
+          - Cards lifted high (-translate-y) so they are clearly and fully visible!
+          - All 6 cards now use the exact project names on this page:
+            1. LUXE FASHION US (+340% Revenue)
+            2. PULSEFIT PRO (50,000+ Downloads)
+            3. APEX DENTAL UK (#1 Rank London)
+            4. CLOUDSYNC TECH (+420% Demo Bookings)
+            5. HORIZON LUXURY ($18.5M Inquiries)
+            6. VENTUREPAY GLOBAL (100K+ MAU)
           - Centerpiece dark browser mockup window showing live interactive project
           - Clickable into case study detail pages (/projects/[slug])
           - NO WhatsApp floating button
@@ -137,15 +151,15 @@ export default function ProjectsClient() {
         />
 
         {/* Top Header Block matching Image 2 */}
-        <div className="max-w-4xl mx-auto relative z-20 mb-10 sm:mb-14">
+        <div className="max-w-4xl mx-auto relative z-20 mb-14 sm:mb-20">
           
-          {/* Cyan Glowing Pill: "⚡ Professionals at store startup" */}
+          {/* Cyan Glowing Pill */}
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#071322]/90 border border-cyan-400/50 text-cyan-300 text-xs font-semibold mb-6 shadow-[0_0_20px_rgba(34,211,238,0.35)] backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             <span className="tracking-wide">⚡ Professionals at store startup</span>
           </div>
 
-          {/* Master Heading matching Image 2 */}
+          {/* Master Heading */}
           <h2 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white leading-[1.08] mb-5 drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
             STREAMLINE THE SHOP<br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
@@ -153,12 +167,12 @@ export default function ProjectsClient() {
             </span>
           </h2>
 
-          {/* Subtitle matching Image 2 */}
+          {/* Subtitle */}
           <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-2xl mx-auto font-normal leading-relaxed mb-8 px-4">
             Restructuring store systems / E-commerce orchestrated with checkouts, performance, a sustainable expansion.
           </p>
 
-          {/* Glowing Cyan Button: "See prices" / "Explore Case Studies" */}
+          {/* Glowing Cyan Button */}
           <div className="flex justify-center">
             <a
               href="#case-studies-archive"
@@ -172,99 +186,145 @@ export default function ProjectsClient() {
         {/* =====================================================================
             3D PERSPECTIVE CAROUSEL & BROWSER WINDOW SHOWCASE
            ===================================================================== */}
-        <div className="relative max-w-6xl mx-auto pt-6 pb-12 sm:pb-16 flex flex-col items-center">
+        <div className="relative max-w-6xl mx-auto pt-10 sm:pt-16 pb-12 sm:pb-16 flex flex-col items-center">
           
-          {/* Background 3D Fan-out Cards Array (Angled in space like Image 2) */}
-          <div className="relative w-full flex items-center justify-center -mb-32 sm:-mb-44 z-10 pointer-events-none select-none">
-            <div className="relative w-full max-w-5xl h-64 sm:h-80 flex items-center justify-center overflow-visible">
+          {/* Background 3D Fan-out Cards Array: LIFTED SIGNIFICANTLY HIGHER */}
+          <div className="relative w-full flex items-center justify-center -mb-24 sm:-mb-36 z-10 select-none">
+            <div className="relative w-full max-w-5xl h-72 sm:h-96 flex items-center justify-center overflow-visible">
               
               {showcaseCards.map((card, idx) => (
                 <div
                   key={card.id}
                   onClick={() => {
                     const foundIdx = caseStudiesData.findIndex((s) => s.id === card.projectId);
-                    if (foundIdx !== -1) setActiveProjectIndex(foundIdx);
+                    if (foundIdx !== -1) {
+                      setActiveProjectIndex(foundIdx);
+                      showToast(`Active Preview: ${card.title}`);
+                    }
                   }}
-                  className={`absolute w-36 sm:w-52 h-48 sm:h-72 rounded-2xl sm:rounded-3xl border border-white/15 overflow-hidden shadow-2xl transition-all duration-500 pointer-events-auto cursor-pointer hover:scale-105 hover:z-30 hover:border-cyan-400 ${card.tilted}`}
+                  className={`absolute w-40 sm:w-56 h-56 sm:h-80 rounded-2xl sm:rounded-3xl border border-white/20 overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer hover:scale-110 hover:-translate-y-6 hover:z-30 hover:border-cyan-400 ${card.tilted}`}
                   style={{
                     backgroundColor: "#0d091b",
-                    boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+                    boxShadow: "0 25px 60px rgba(0,0,0,0.9)",
                   }}
                 >
+                  {/* Photo Cards: Luxe Fashion, Apex Dental, Horizon Luxury */}
                   {card.type === "image-card" && card.img && (
-                    <div className="relative w-full h-full">
+                    <div className="relative w-full h-full flex flex-col justify-between p-3.5 sm:p-4">
                       <img
                         src={card.img}
                         alt={card.title}
-                        className="w-full h-full object-cover brightness-75 contrast-110"
+                        className="absolute inset-0 w-full h-full object-cover brightness-[0.7] contrast-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                      <div className="absolute bottom-3 left-3 right-3 text-left">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-cyan-300 block">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                      
+                      {/* Top Tag & Metric Pill */}
+                      <div className="relative z-10 flex items-start justify-between gap-1">
+                        <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider text-cyan-300 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-md border border-cyan-400/30">
                           {card.tag}
                         </span>
-                        <h4 className="text-xs sm:text-sm font-black text-white leading-tight uppercase">
+                        <span className="text-[9px] sm:text-[10px] font-black text-white bg-emerald-500/80 backdrop-blur-md px-2 py-0.5 rounded-md">
+                          {card.stat}
+                        </span>
+                      </div>
+
+                      {/* Bottom Title & Subtitle */}
+                      <div className="relative z-10 text-left">
+                        <h4 className="text-xs sm:text-sm font-black text-white leading-tight uppercase drop-shadow-md">
                           {card.title}
                         </h4>
+                        <p className="text-[9px] sm:text-[10px] text-gray-300 leading-tight mt-1 line-clamp-1 font-light">
+                          {card.subtitle}
+                        </p>
                       </div>
                     </div>
                   )}
 
+                  {/* PulseFit Pro White Card */}
                   {card.type === "stat-card-white" && (
                     <div className="w-full h-full bg-[#fbf9f5] text-[#0f0e13] p-4 flex flex-col justify-between text-left">
                       <div>
-                        <span className="text-[9px] font-extrabold uppercase tracking-wider text-rose-600 block mb-1">
-                          {card.tag}
-                        </span>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-rose-600 block">
+                            {card.tag}
+                          </span>
+                          <span className="text-[9px] sm:text-[10px] font-black text-rose-700 bg-rose-100 px-2 py-0.5 rounded-md">
+                            {card.stat}
+                          </span>
+                        </div>
                         <h4 className="text-xs sm:text-sm font-black uppercase text-rose-600 leading-tight">
-                          CHECKOUTS<br />QUICK N SIMPLE
+                          {card.title}
                         </h4>
-                        <ul className="text-[10px] text-gray-600 mt-2 space-y-1 font-medium">
-                          <li>• Spend via Apple Pay</li>
-                          <li>• Sub-1s page load</li>
-                          <li>• Zero friction form</li>
+                        <ul className="text-[10px] text-gray-700 mt-2 space-y-1 font-semibold">
+                          {card.points?.map((pt, pIdx) => (
+                            <li key={pIdx} className="leading-tight">{pt}</li>
+                          ))}
                         </ul>
                       </div>
-                      <div className="bg-rose-50 border border-rose-200/80 px-2 py-1 rounded-lg">
-                        <span className="text-xs font-black text-rose-600">{card.stat}</span>
+                      <div className="bg-rose-50 border border-rose-200/80 px-2.5 py-1 rounded-lg text-center">
+                        <span className="text-[10px] font-bold text-rose-700">Top 10 App Store Rank</span>
                       </div>
                     </div>
                   )}
 
+                  {/* CloudSync Tech Pink Badge Card */}
                   {card.type === "pink-badge" && (
                     <div className="w-full h-full bg-gradient-to-b from-[#fce7f3] to-[#f472b6] text-[#831843] p-4 flex flex-col justify-between text-left">
                       <div>
-                        <span className="text-[9px] font-extrabold uppercase tracking-wider text-pink-900 block mb-1">
-                          {card.tag}
-                        </span>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-pink-900 block">
+                            {card.tag}
+                          </span>
+                          <span className="text-[9px] sm:text-[10px] font-black text-white bg-pink-900/80 px-2 py-0.5 rounded-md">
+                            {card.stat}
+                          </span>
+                        </div>
                         <h4 className="text-xs sm:text-sm font-black uppercase text-pink-900 leading-tight">
-                          COLLECTION<br />EXCLUSIVE!
+                          {card.title}
                         </h4>
-                        <p className="text-[10px] text-pink-800 mt-2 font-medium">
-                          Off-plan luxury villas with 3D tours
-                        </p>
+                        <ul className="text-[10px] text-pink-950 mt-2 space-y-1 font-semibold">
+                          {card.points?.map((pt, pIdx) => (
+                            <li key={pIdx} className="leading-tight">{pt}</li>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="bg-white/80 backdrop-blur-xs px-2.5 py-1 rounded-lg">
-                        <span className="text-xs font-black text-pink-900">{card.stat}</span>
+                      <div className="bg-white/80 backdrop-blur-xs px-2.5 py-1 rounded-lg text-center">
+                        <span className="text-[10px] font-bold text-pink-900">B2B SaaS Growth Engine</span>
                       </div>
                     </div>
                   )}
 
+                  {/* VenturePay Purple Gradient Card */}
                   {card.type === "purple-gradient" && (
-                    <div className="w-full h-full bg-gradient-to-b from-[#6366f1] via-[#7c3aed] to-[#4338ca] text-white p-4 flex flex-col justify-between text-left">
-                      <div>
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-purple-200 block mb-1">
-                          {card.tag}
-                        </span>
-                        <h4 className="text-sm sm:text-base font-black uppercase tracking-tight text-white leading-tight">
-                          SHIPS<br />GRATIS +
+                    <div className="relative w-full h-full p-4 flex flex-col justify-between text-left overflow-hidden">
+                      {card.img && (
+                        <img
+                          src={card.img}
+                          alt={card.title}
+                          className="absolute inset-0 w-full h-full object-cover brightness-[0.7]"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#6366f1]/80 via-[#7c3aed]/90 to-[#4338ca]" />
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-purple-200 block">
+                            {card.tag}
+                          </span>
+                          <span className="text-[9px] sm:text-[10px] font-black text-white bg-black/40 px-2 py-0.5 rounded-md">
+                            {card.stat}
+                          </span>
+                        </div>
+                        <h4 className="text-xs sm:text-sm font-black uppercase tracking-tight text-white leading-tight">
+                          {card.title}
                         </h4>
-                        <p className="text-[10px] text-purple-200 mt-2 font-light">
-                          Bank-grade cross-border remittance
+                        <p className="text-[10px] text-purple-200 mt-2 font-medium">
+                          Multi-currency escrow &amp; cross-border remittance
                         </p>
                       </div>
-                      <div className="bg-black/30 backdrop-blur-xs px-2.5 py-1 rounded-lg">
-                        <span className="text-xs font-black text-white">{card.stat}</span>
+
+                      <div className="relative z-10 bg-black/30 backdrop-blur-xs px-2.5 py-1 rounded-lg text-center">
+                        <span className="text-[10px] font-bold text-white">Bank-Grade Global Platform</span>
                       </div>
                     </div>
                   )}
@@ -275,15 +335,9 @@ export default function ProjectsClient() {
           </div>
 
           {/* ===================================================================
-              CENTERPIECE BROWSER WINDOW MOCKUP (Exact Foreground from Image 2)
-              - Window dots: Red, Amber, Green
-              - Search bar in center: "🔍 Shop Focused - Skin Care"
-              - Clean luxury storefront hero banner: "GLOW SKIN CARE"
-              - "Let your beauty be sacred." with "EXPLORE TODAY" button
-              - Bottom "Best reviewed" row
-              - Direct Link to /projects/${activeProject.id}
+              CENTERPIECE BROWSER WINDOW MOCKUP
              =================================================================== */}
-          <div className="relative z-20 w-full max-w-4xl rounded-2xl sm:rounded-3xl border border-white/20 bg-[#0e091d]/95 backdrop-blur-2xl shadow-[0_25px_70px_rgba(0,0,0,0.9)] overflow-hidden text-left">
+          <div className="relative z-20 w-full max-w-4xl rounded-2xl sm:rounded-3xl border border-white/20 bg-[#0e091d]/95 backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.95)] overflow-hidden text-left">
             
             {/* Browser Window Header Chrome Bar */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-white/10 bg-[#080514]/90">
@@ -299,7 +353,7 @@ export default function ProjectsClient() {
               <div className="flex-1 max-w-md mx-3">
                 <div className="flex items-center justify-center gap-2 bg-[#17102e] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-gray-300">
                   <span className="text-gray-400 text-[11px]">🔍</span>
-                  <span className="truncate font-mono text-[11px] text-gray-200">
+                  <span className="truncate font-mono text-[11px] text-cyan-300">
                     balajiprimemedia.in/projects/{activeProject.id}
                   </span>
                 </div>
@@ -320,7 +374,7 @@ export default function ProjectsClient() {
               <div className="flex items-center justify-between pb-4 border-b border-stone-200 mb-6">
                 <div className="text-center w-full">
                   <span className="text-base sm:text-lg font-serif tracking-[0.25em] font-bold text-stone-900 uppercase">
-                    GLOW SKIN CARE • {activeProject.shortTitle.toUpperCase()}
+                    {activeProject.shortTitle.toUpperCase()} • CLIENT OUTCOME
                   </span>
                 </div>
               </div>
@@ -329,21 +383,33 @@ export default function ProjectsClient() {
               <div className="relative rounded-2xl overflow-hidden min-h-[220px] sm:min-h-[280px] flex items-center p-6 sm:p-10 shadow-inner">
                 {/* Product Banner Background */}
                 <img
-                  src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85"
-                  alt="Glow Skin Care"
-                  className="absolute inset-0 w-full h-full object-cover brightness-[0.92] contrast-[1.05]"
+                  src={
+                    activeProject.id === "fashion-brand"
+                      ? "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85"
+                      : activeProject.id === "fitness-app"
+                      ? "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=85"
+                      : activeProject.id === "local-growth"
+                      ? "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=85"
+                      : activeProject.id === "saas-pipeline"
+                      ? "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
+                      : activeProject.id === "dubai-real-estate"
+                      ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85"
+                      : "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=85"
+                  }
+                  alt={activeProject.title}
+                  className="absolute inset-0 w-full h-full object-cover brightness-[0.88] contrast-[1.05]"
                 />
                 
                 {/* Soft warm vignette */}
-                <div className="absolute inset-0 bg-gradient-to-r from-stone-900/60 via-stone-900/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-stone-900/70 via-stone-900/35 to-transparent" />
 
                 {/* Content Overlay */}
                 <div className="relative z-10 max-w-sm text-white">
                   <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-amber-200 block mb-2">
-                    JUST ADDED • VERIFIED CLIENT OUTCOME
+                    VERIFIED CLIENT CASE STUDY • {activeProject.category}
                   </span>
                   <h3 className="text-2xl sm:text-4xl font-serif font-light leading-tight mb-4">
-                    Let your beauty<br />be sacred.
+                    {activeProject.heroMetric}
                   </h3>
                   
                   {/* Primary CTA button linking to this exact case study deep dive */}
@@ -351,7 +417,7 @@ export default function ProjectsClient() {
                     href={`/projects/${activeProject.id}`}
                     className="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white font-sans text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
                   >
-                    <span>Explore Today</span>
+                    <span>Explore Full Case Study</span>
                     <span>→</span>
                   </Link>
                 </div>
@@ -367,17 +433,17 @@ export default function ProjectsClient() {
                 </div>
               </div>
 
-              {/* Bottom "Best reviewed" row inside the browser */}
+              {/* Bottom deliverables row inside the browser */}
               <div className="pt-6">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-serif font-bold text-stone-800 uppercase tracking-wider">
-                    Best reviewed deliverables &amp; impact
+                    Core Metrics &amp; Proven Outcomes
                   </span>
                   <Link
                     href={`/projects/${activeProject.id}`}
                     className="text-[10px] text-stone-500 hover:text-stone-900 font-medium underline"
                   >
-                    See study metrics →
+                    Read complete breakdown →
                   </Link>
                 </div>
 
@@ -403,21 +469,24 @@ export default function ProjectsClient() {
             {/* Quick Interactive Project Selector Strip below the browser */}
             <div className="px-4 sm:px-6 py-3.5 bg-[#0a0618] border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
               <span className="text-gray-400 text-[11px]">
-                Showing: <strong className="text-cyan-300">{activeProject.title}</strong>
+                Active Preview: <strong className="text-cyan-300">{activeProject.title}</strong>
               </span>
 
               <div className="flex items-center gap-1.5">
                 {caseStudiesData.map((study, idx) => (
                   <button
                     key={study.id}
-                    onClick={() => setActiveProjectIndex(idx)}
-                    className={`w-7 h-7 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    onClick={() => {
+                      setActiveProjectIndex(idx);
+                      showToast(`Switched to: ${study.shortTitle}`);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       activeProjectIndex === idx
                         ? "bg-cyan-500 text-black shadow-md shadow-cyan-500/50"
                         : "bg-white/10 text-gray-300 hover:bg-white/20"
                     }`}
                   >
-                    {idx + 1}
+                    {study.shortTitle}
                   </button>
                 ))}
               </div>
@@ -439,9 +508,6 @@ export default function ProjectsClient() {
 
       {/* =========================================================================
           FULL ARCHIVE DIRECTORY (All 6 Case Studies with Interactive Filters)
-          - Every single case study can be opened directly
-          - Luxury dark mode cards matching the Streamline theme
-          - Retains all metrics, deliverables, tech stacks
          ========================================================================= */}
       <section
         id="case-studies-archive"
