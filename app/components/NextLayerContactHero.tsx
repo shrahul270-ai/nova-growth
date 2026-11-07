@@ -1,9 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import Hls from "hls.js";
 
 export default function NextLayerContactHero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const src = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+      });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      return () => {
+        hls.destroy();
+      };
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = src;
+    }
+  }, []);
+
   const scrollToForm = (e: React.MouseEvent) => {
     e.preventDefault();
     const el = document.getElementById("contact-form");
@@ -13,129 +38,94 @@ export default function NextLayerContactHero() {
   };
 
   return (
-    <section className="relative w-full min-h-[620px] sm:min-h-[720px] lg:h-screen overflow-hidden bg-[#050505] select-none flex flex-col justify-between font-manrope">
-      {/* Background Plate & Video */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
+    <section className="relative min-h-[640px] sm:min-h-[720px] lg:min-h-[820px] pt-36 sm:pt-44 pb-28 sm:pb-36 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black select-none flex flex-col justify-center">
+      {/* Background HLS Video */}
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
 
-        {/* Bottom Fade Gradient */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `linear-gradient(to bottom, 
-              rgba(5,5,5,0) 65%, 
-              rgba(5,5,5,0.3) 76%, 
-              rgba(5,5,5,0.65) 83%, 
-              rgba(5,5,5,0.85) 89%, 
-              rgba(5,5,5,0.96) 95%, 
-              #050505 100%)`,
-          }}
-        />
+      {/* Top fade (200px tall, black -> transparent) */}
+      <div
+        className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
+        style={{
+          height: "200px",
+          background: "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 45%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
 
-        {/* Side Letterbox Gradient (Subtle Edge Vignette) */}
-        <div
-          className="absolute inset-0 pointer-events-none hidden md:block"
-          style={{
-            background: `linear-gradient(to right, 
-              rgba(5,5,5,0.8) 0%, 
-              rgba(5,5,5,0.3) 12%, 
-              transparent 25%, 
-              transparent 75%, 
-              rgba(5,5,5,0.3) 88%, 
-              rgba(5,5,5,0.8) 100%)`,
-          }}
-        />
-      </div>
+      {/* Bottom fade (200px tall, transparent -> black) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
+        style={{
+          height: "200px",
+          background: "linear-gradient(to top, #000 0%, rgba(0,0,0,0.85) 45%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Top Spacer to balance transparent navbar */}
-      <div className="relative z-10 w-full h-24 sm:h-28" />
+      {/* Content Container (relative z-10) */}
+      <div className="relative z-10 max-w-4xl mx-auto my-auto">
+        
+        {/* Balaji Prime Media Trust Badge Pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass-strong text-white/90 text-xs font-body font-medium mb-6 shadow-2xl backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Balaji Prime Media • Direct Founder Discovery &amp; Strategy</span>
+        </div>
 
-      {/* Hero Content (Left-Anchored Desktop, Responsive Column) */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 md:px-12 my-auto">
-        <div className="max-w-2xl text-left">
-          {/* Main Headline */}
-          <h1 className="text-[#fafafa] font-normal tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.08] mb-5 sm:mb-6">
-            <span className="block">The Next Layer</span>
-            <span className="block">of Intelligence</span>
-          </h1>
+        {/* Heading: Instrument Serif italic */}
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading italic text-white tracking-tight leading-[0.92] max-w-3xl mx-auto mb-5 drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+          Your next website starts here.
+        </h1>
 
-          {/* Subcopy */}
-          <p className="text-[#a7a6a6] font-normal text-base sm:text-lg md:text-[19px] leading-relaxed max-w-xl mb-8 sm:mb-9">
-            <span className="block">
-              A unified digital infrastructure platform to help teams build,
-            </span>
-            <span className="block">
-              rank, and scale high-authority search presence with confidence.
-            </span>
-          </p>
+        {/* Subtext: Barlow font-body */}
+        <p className="text-white/70 font-body font-light text-sm md:text-base lg:text-lg max-w-xl mx-auto mb-9 leading-relaxed">
+          Book a free strategy call. See what high-intent organic SEO, modern Next.js development, and AI-powered growth can do. No commitment, no pressure. Just compounding revenue.
+        </p>
 
-          {/* Action Row */}
-          <div className="flex flex-wrap items-center gap-5 sm:gap-7">
-            {/* White Pill CTA */}
-            <a
-              href="#contact-form"
-              onClick={scrollToForm}
-              className="inline-flex items-center justify-center bg-white text-[#050505] font-semibold text-sm sm:text-base px-8 py-3.5 rounded-full hover:bg-white/90 hover:scale-[1.02] transition-all shadow-2xl cursor-pointer"
-            >
-              <span>Schedule Discovery Call</span>
-            </a>
+        {/* Two Action Buttons: Liquid Glass + Solid White */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          {/* Primary CTA (liquid-glass-strong) */}
+          <a
+            href="#contact-form"
+            onClick={scrollToForm}
+            className="liquid-glass-strong rounded-full px-7 py-3.5 text-sm font-medium text-white flex items-center justify-center gap-2 hover:bg-white/10 active:scale-95 transition-all font-body cursor-pointer shadow-2xl w-full sm:w-auto"
+          >
+            <span>Book a Call</span>
+            <ArrowUpRight className="h-5 w-5 text-white/90" />
+          </a>
 
-            {/* Ghost Link */}
-            <Link
-              href="/projects"
-              className="text-white hover:text-[#a7a6a6] font-medium text-sm sm:text-base transition-colors cursor-pointer"
-            >
-              View Architecture &rarr;
-            </Link>
+          {/* Secondary CTA (Solid White) */}
+          <Link
+            href="/services"
+            className="bg-white text-black rounded-full px-7 py-3.5 text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/90 active:scale-95 transition-colors font-body cursor-pointer shadow-2xl w-full sm:w-auto"
+          >
+            <span>View Pricing</span>
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        {/* Floating Trust Indicators (Agency Details) */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-body text-white/50">
+          <div className="flex items-center gap-2">
+            <span className="text-emerald-400">⚡</span>
+            <span>12-Hour SLA Response</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-cyan-400">🌍</span>
+            <span>US • UK • Canada • UAE • Australia</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-purple-400">🔒</span>
+            <span>Mutual NDA Guaranteed</span>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Partner Logos Strip */}
-      <div className="relative z-10 w-full px-5 sm:px-8 pb-8 sm:pb-10 pt-4">
-        <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-[#8b8a8a] opacity-75">
-          {/* Logo 1 */}
-          <div className="flex items-center gap-2.5">
-            <svg className="w-5 h-5 text-[#8b8a8a]" viewBox="0 0 30 31" fill="currentColor">
-              <path d="M15 2C7.82 2 2 7.82 2 15s5.82 13 13 13 13-5.82 13-13S22.18 2 15 2zm0 18c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-            </svg>
-            <span className="font-bold tracking-tight text-sm text-[#8b8a8a]">logoipsum</span>
-          </div>
-
-          {/* Logo 2 */}
-          <div className="flex items-center gap-2.5">
-            <svg className="w-5 h-5 text-[#8b8a8a]" viewBox="0 0 25 30" fill="currentColor">
-              <path d="M12.5 2C6.7 2 2 6.7 2 12.5S6.7 23 12.5 23 23 18.3 23 12.5 18.3 2 12.5 2zm0 14c-1.9 0-3.5-1.6-3.5-3.5S10.6 9 12.5 9s3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z" />
-            </svg>
-            <span className="font-bold tracking-tight text-sm text-[#8b8a8a]">
-              logoipsum<span className="inline-block w-1.5 h-1.5 rounded-full bg-[#8b8a8a] ml-0.5" />
-            </span>
-          </div>
-
-          {/* Logo 3 */}
-          <div className="flex items-center gap-2.5">
-            <svg className="w-5 h-5 text-[#8b8a8a]" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="14" cy="14" r="10" />
-              <path d="M14 4a10 10 0 0 1 0 20" />
-            </svg>
-            <span className="font-bold tracking-tight text-sm text-[#8b8a8a]">logoipsum</span>
-          </div>
-
-          {/* Logo 4 */}
-          <div className="flex items-center gap-2.5">
-            <svg className="w-5 h-5 text-[#8b8a8a]" viewBox="0 0 28 25.5" fill="currentColor">
-              <path d="M14 2L2 22h24L14 2zm0 6l7 12H7l7-12z" />
-            </svg>
-            <span className="font-bold tracking-tight text-sm text-[#8b8a8a]">logoipsum</span>
-          </div>
-        </div>
       </div>
     </section>
   );
