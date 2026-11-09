@@ -75,23 +75,12 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoginMode, setIsLoginMode] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (typeof window !== "undefined") {
       sessionStorage.setItem("bpm_admin_authenticated", "true");
       sessionStorage.setItem("bpm_admin_user", email || "admin@balajiprimemedia.in");
-    }
-    if (onLoginSuccess) {
-      onLoginSuccess();
-    }
-  };
-
-  const handleSocialClick = (provider: string) => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("bpm_admin_authenticated", "true");
-      sessionStorage.setItem("bpm_admin_user", `${provider.toLowerCase()}@aurora.space`);
     }
     if (onLoginSuccess) {
       onLoginSuccess();
@@ -126,13 +115,13 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
           {/* Brand/Logo */}
           <motion.div variants={childVariants} className="flex items-center gap-2.5">
             <Circle className="w-5 h-5 fill-white text-white" />
-            <span className="text-xl font-semibold tracking-tight text-white">Aurora</span>
+            <span className="text-xl font-semibold tracking-tight text-white">Balaji Prime Media</span>
           </motion.div>
 
           {/* Heading Block */}
           <motion.div variants={childVariants} className="space-y-2 text-left">
-            <h2 className="text-4xl font-medium tracking-tight whitespace-nowrap text-white">
-              Join Aurora
+            <h2 className="text-3xl lg:text-4xl font-medium tracking-tight text-white leading-tight">
+              Join Balaji Prime Media
             </h2>
             <p className="text-white/60 text-sm leading-relaxed px-0">
               Follow these 3 quick phases to activate your space.
@@ -159,57 +148,31 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
           {/* Header */}
           <div className="space-y-2">
             <h1 className="text-3xl font-medium tracking-tight text-white">
-              {isLoginMode ? "Admin Sign In" : "Create New Profile"}
+              Create New Profile
             </h1>
             <p className="text-white/40 text-sm">
-              {isLoginMode
-                ? "Enter your credentials to access the admin workspace."
-                : "Input your basic details to begin the journey."}
+              Input your basic details to begin the journey.
             </p>
-          </div>
-
-          {/* Social Buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <SocialButton
-              icon={Chrome}
-              label="Google"
-              onClick={() => handleSocialClick("Google")}
-            />
-            <SocialButton
-              icon={Github}
-              label="Github"
-              onClick={() => handleSocialClick("GitHub")}
-            />
-          </div>
-
-          {/* Divider */}
-          <div className="relative flex items-center justify-center">
-            <div className="w-full border-t border-white/10" />
-            <span className="absolute bg-black px-4 text-xs font-medium text-white/40 uppercase tracking-widest">
-              Or
-            </span>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLoginMode && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <InputGroup
-                  label="First Name"
-                  placeholder="e.g. Jane"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-                <InputGroup
-                  label="Last Name"
-                  placeholder="e.g. Doe"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <InputGroup
+                label="First Name"
+                placeholder="e.g. Jane"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+              <InputGroup
+                label="Last Name"
+                placeholder="e.g. Doe"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </div>
 
             <InputGroup
               label="Email"
@@ -254,36 +217,9 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
               type="submit"
               className="w-full h-14 bg-white text-black font-semibold rounded-xl hover:bg-white/90 active:scale-[0.98] mt-4 transition-all cursor-pointer"
             >
-              {isLoginMode ? "Enter Admin Dashboard" : "Create Account"}
+              Create Account
             </button>
           </form>
-
-          {/* Footer Link */}
-          <div className="text-center text-sm text-white/40 pt-2">
-            {isLoginMode ? (
-              <>
-                New to Aurora?{" "}
-                <button
-                  type="button"
-                  onClick={() => setIsLoginMode(false)}
-                  className="text-white hover:underline cursor-pointer font-medium ml-1"
-                >
-                  Create an account
-                </button>
-              </>
-            ) : (
-              <>
-                Member of the team?{" "}
-                <button
-                  type="button"
-                  onClick={() => setIsLoginMode(true)}
-                  className="text-white hover:underline cursor-pointer font-medium ml-1"
-                >
-                  Log in
-                </button>
-              </>
-            )}
-          </div>
         </motion.div>
       </div>
     </main>
