@@ -99,7 +99,7 @@ export default function ContactClient() {
       <NextLayerContactHero />
 
       {/* 2. Main Contact Section (Transparent Glassmorphic Form + Payment Scanner) */}
-      <section id="contact-form" className="relative py-12 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto scroll-mt-20">
+      <section id="contact-form" className="relative -mt-6 sm:-mt-10 pt-0 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-10">
         <style dangerouslySetInnerHTML={{ __html: `
           #contact-form input,
           #contact-form textarea {
@@ -113,22 +113,33 @@ export default function ContactClient() {
           }
           #contact-form input::placeholder,
           #contact-form textarea::placeholder {
-            color: rgba(156, 163, 175, 0.75) !important;
+            color: rgba(209, 213, 219, 0.75) !important;
           }
-          #contact-form select,
+          #contact-form select {
+            cursor: pointer !important;
+            color: #ffffff !important;
+          }
+          #contact-form select option {
+            background-color: #0c0721 !important;
+            color: #ffffff !important;
+          }
           #contact-form button,
           #contact-form label {
             cursor: pointer !important;
           }
         `}} />
-        {/* Ambient luminous violet / cyan glow orbs behind the transparent cards */}
+        {/* Rich glowing ambient violet & cyan aurora mesh lights behind the transparent cards */}
         <div
           aria-hidden="true"
-          className="absolute top-1/4 left-10 w-[600px] h-[500px] bg-[radial-gradient(circle,rgba(160,104,255,0.15)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
+          className="absolute -top-16 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.25)_0%,rgba(99,102,241,0.15)_45%,transparent_70%)] pointer-events-none blur-3xl -z-10"
         />
         <div
           aria-hidden="true"
-          className="absolute bottom-10 right-10 w-[600px] h-[500px] bg-[radial-gradient(circle,rgba(99,102,241,0.14)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
+          className="absolute top-1/4 -left-10 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(160,104,255,0.2)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute bottom-10 -right-10 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(56,189,248,0.18)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -137,8 +148,8 @@ export default function ContactClient() {
           <div className="lg:col-span-5 flex flex-col gap-6">
             
             {/* Payment & Retainer QR Scanner Card (Transparent Glassmorphism) */}
-            <div className="bg-white/[0.03] rounded-3xl p-6 sm:p-7 border border-purple-500/30 shadow-2xl backdrop-blur-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-36 h-36 bg-purple-600/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="bg-white/[0.04] rounded-3xl p-6 sm:p-7 border border-purple-500/40 shadow-2xl backdrop-blur-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-36 h-36 bg-purple-600/25 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center justify-between mb-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/70 border border-purple-500/40 text-[11px] font-semibold text-purple-300 backdrop-blur-md">
@@ -156,7 +167,7 @@ export default function ContactClient() {
               </p>
 
               {/* QR Code Card Display */}
-              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-white/[0.04] border border-white/10 shadow-inner mb-4 backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-white/[0.05] border border-white/15 shadow-inner mb-4 backdrop-blur-md">
                 {/* High-Contrast Crisp QR Code */}
                 <div className="w-32 h-32 bg-white p-2 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-lg border-2 border-purple-500/40">
                   <img
@@ -174,7 +185,7 @@ export default function ContactClient() {
                   <div>
                     <span className="block text-[10px] text-gray-400 mb-0.5">Official UPI ID:</span>
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-white/[0.06] border border-purple-500/30 rounded-lg px-2.5 py-1.5 text-xs font-mono text-purple-300 font-bold truncate">
+                      <div className="flex-1 bg-white/[0.08] border border-purple-500/40 rounded-lg px-2.5 py-1.5 text-xs font-mono text-purple-300 font-bold truncate">
                         {upiId}
                       </div>
                       <button
@@ -206,7 +217,7 @@ export default function ContactClient() {
             </div>
 
             {/* Direct Official Contact Box (Transparent Glassmorphism) */}
-            <div className="bg-white/[0.03] rounded-3xl p-6 sm:p-7 border border-white/15 shadow-xl backdrop-blur-2xl space-y-4">
+            <div className="bg-white/[0.04] rounded-3xl p-6 sm:p-7 border border-white/20 shadow-xl backdrop-blur-2xl space-y-4">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <span>Official Agency Inquiries</span>
               </h3>
@@ -241,9 +252,9 @@ export default function ContactClient() {
 
           {/* Right Column: 100% Transparent Glassmorphic Inquiry Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white/[0.03] backdrop-blur-2xl rounded-3xl p-7 sm:p-10 border border-white/15 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-white/[0.04] backdrop-blur-2xl rounded-3xl p-7 sm:p-10 border border-white/20 shadow-[0_8px_32px_0_rgba(160,104,255,0.2)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
               
               <div className="relative z-10">
                 <div className="mb-6">
@@ -288,10 +299,11 @@ export default function ContactClient() {
                           id="input-name"
                           required
                           type="text"
+                          autoComplete="name"
                           placeholder="e.g. Sarah Jenkins"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
                         />
                       </div>
 
@@ -303,10 +315,11 @@ export default function ContactClient() {
                           id="input-email"
                           required
                           type="email"
+                          autoComplete="email"
                           placeholder="sarah@company.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
                         />
                       </div>
 
@@ -318,10 +331,11 @@ export default function ContactClient() {
                           id="input-phone"
                           required
                           type="tel"
+                          autoComplete="tel"
                           placeholder="+1 (555) 000-0000"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
                         />
                       </div>
                     </div>
@@ -335,10 +349,11 @@ export default function ContactClient() {
                         <input
                           id="input-website"
                           type="text"
+                          autoComplete="url"
                           placeholder="https://company.com"
                           value={formData.website}
                           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
                         />
                       </div>
 
@@ -350,7 +365,7 @@ export default function ContactClient() {
                           id="input-timezone"
                           value={formData.timezone}
                           onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
                         >
                           <option className="bg-[#0b061c] text-white py-2" value="US / Eastern (EST)">US / Eastern (EST)</option>
                           <option className="bg-[#0b061c] text-white py-2" value="US / Pacific (PST)">US / Pacific (PST)</option>
@@ -373,7 +388,7 @@ export default function ContactClient() {
                         id="input-service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
                       >
                         <option className="bg-[#0b061c] text-white py-2" value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
                         <option className="bg-[#0b061c] text-white py-2" value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
@@ -395,7 +410,7 @@ export default function ContactClient() {
                         placeholder="Briefly describe your objectives, target geography, or deliverables..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.1] border border-white/15 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/30 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-text caret-[#c084fc] font-normal"
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-text caret-[#c084fc] font-normal"
                       />
                     </div>
 
