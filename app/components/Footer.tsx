@@ -218,7 +218,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/contact-us"
                   className="hover:text-white transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>Contact Us</span>

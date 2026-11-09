@@ -42,6 +42,7 @@ export default function ContactClient() {
     website: "",
     timezone: "US / Eastern (EST)",
     service: "Full-Funnel Organic Growth",
+    paymentRef: "",
     message: "",
   });
 
@@ -63,15 +64,18 @@ export default function ContactClient() {
           website: formData.website,
           timezone: formData.timezone,
           service: formData.service,
-          message: formData.message,
-          sourceUrl: "/contact",
+          paymentRef: formData.paymentRef,
+          message: formData.paymentRef
+            ? `[Payment UTR/Ref: ${formData.paymentRef}] ${formData.message}`
+            : formData.message,
+          sourceUrl: "/contact-us",
           clientGeo,
         }),
       });
 
       if (!res.ok) throw new Error("Failed to submit inquiry");
       setFormState("success");
-      showToast("💾 Inquiry successfully saved to database!");
+      showToast("💾 Inquiry & payment details recorded to Admin Portal!");
     } catch (err) {
       console.error("Form submit error:", err);
       setFormState("success");
@@ -106,10 +110,18 @@ export default function ContactClient() {
             color-scheme: dark !important;
           }
           #contact-form input,
+          #contact-form textarea,
+          #contact-form select,
+          #contact-form label,
+          #contact-form button,
+          #contact-form div[class*="grid"] > div {
+            cursor: pointer !important;
+          }
+          #contact-form input,
           #contact-form textarea {
             color-scheme: dark !important;
             caret-color: #ffffff !important;
-            cursor: text !important;
+            cursor: pointer !important;
             color: #ffffff !important;
             user-select: text !important;
             -webkit-user-select: text !important;
@@ -117,6 +129,7 @@ export default function ContactClient() {
           #contact-form input:focus,
           #contact-form textarea:focus {
             caret-color: #ffffff !important;
+            cursor: pointer !important;
           }
           #contact-form input::placeholder,
           #contact-form textarea::placeholder {
@@ -222,6 +235,17 @@ export default function ContactClient() {
                   Global Payment Portal →
                 </Link>
               </div>
+
+              {/* Data & Payment Routing Transparency Note */}
+              <div className="mt-4 p-3.5 rounded-2xl bg-white/[0.04] border border-cyan-400/30 text-left space-y-1.5 backdrop-blur-md">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-cyan-300">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>📍 Payment &amp; Contact Data Kahan Jata Hai?</span>
+                </div>
+                <p className="text-[10px] text-gray-300 leading-relaxed font-light">
+                  Aapka contact form aur payment UTR seedha <strong>BPM Admin Portal (/admin)</strong> me live save hota hai aur priority alert <span className="text-purple-300 font-mono">support@balajiprimemedia.in</span> par send hota hai.
+                </p>
+              </div>
             </div>
 
             {/* Direct Official Contact Box (Transparent Glassmorphism) */}
@@ -278,14 +302,43 @@ export default function ContactClient() {
                 </div>
 
                 {formState === "success" ? (
-                  <div className="text-center py-12">
+                  <div className="text-center py-8 animate-fadeIn">
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-4 font-bold shadow-lg">
                       ✓
                     </div>
-                    <h3 className="text-2xl font-black text-white">Inquiry Received!</h3>
-                    <p className="text-sm text-gray-300 max-w-md mx-auto mt-2 mb-6">
-                      Thank you, {formData.name || "there"}. Our strategy team is reviewing your requirements and will reach out to <span className="font-semibold text-cyan-300">{formData.email}</span> within 12 hours.
+                    <h3 className="text-2xl font-black text-white">Inquiry &amp; Details Received!</h3>
+                    <p className="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2 mb-5">
+                      Thank you, <strong className="text-white">{formData.name || "Client"}</strong>. Aapka contact data successfully save ho chuka hai.
                     </p>
+
+                    {/* Data Destination Transparency Card */}
+                    <div className="text-left bg-white/[0.04] border border-emerald-500/40 rounded-2xl p-5 mb-6 space-y-3 backdrop-blur-xl max-w-xl mx-auto">
+                      <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>Aapka Contact &amp; Payment Data Kahan Gaya?</span>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-[11px]">
+                        <div className="p-3 rounded-xl bg-purple-950/60 border border-purple-500/30">
+                          <span className="block font-bold text-purple-300 mb-0.5">1. Admin Database</span>
+                          <span className="text-gray-300 leading-tight block">Recorded in BPM Admin Portal under Client Leads</span>
+                        </div>
+                        <div className="p-3 rounded-xl bg-cyan-950/60 border border-cyan-500/30">
+                          <span className="block font-bold text-cyan-300 mb-0.5">2. Executive Email</span>
+                          <span className="text-gray-300 leading-tight block">Forwarded to support@balajiprimemedia.in</span>
+                        </div>
+                        <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/30">
+                          <span className="block font-bold text-emerald-300 mb-0.5">3. WhatsApp Desk</span>
+                          <span className="text-gray-300 leading-tight block">Dispatched for 12-hour priority review</span>
+                        </div>
+                      </div>
+
+                      {formData.paymentRef && (
+                        <div className="text-xs text-emerald-300 pt-2 border-t border-white/10 font-mono">
+                          Payment UTR Logged: <strong>{formData.paymentRef}</strong>
+                        </div>
+                      )}
+                    </div>
                     
                     <button
                       onClick={() => setFormState("idle")}
@@ -299,7 +352,7 @@ export default function ContactClient() {
                     
                     {/* Row 1: Full Name, Email, Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-                      <div>
+                      <div className="cursor-pointer">
                         <label htmlFor="input-name" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                           Your Full Name *
                         </label>
@@ -311,12 +364,12 @@ export default function ContactClient() {
                           placeholder="e.g. Sarah Jenkins"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
                         />
                       </div>
 
-                      <div>
+                      <div className="cursor-pointer">
                         <label htmlFor="input-email" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                           Corporate Email *
                         </label>
@@ -328,12 +381,12 @@ export default function ContactClient() {
                           placeholder="sarah@company.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
                         />
                       </div>
 
-                      <div>
+                      <div className="cursor-pointer">
                         <label htmlFor="input-phone" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                           Phone Number *
                         </label>
@@ -345,15 +398,15 @@ export default function ContactClient() {
                           placeholder="+1 (555) 000-0000"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
                         />
                       </div>
                     </div>
 
                     {/* Row 2: Website URL, Timezone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                      <div>
+                      <div className="cursor-pointer">
                         <label htmlFor="input-website" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                           Company Website URL
                         </label>
@@ -364,12 +417,12 @@ export default function ContactClient() {
                           placeholder="https://company.com"
                           value={formData.website}
                           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
                         />
                       </div>
 
-                      <div>
+                      <div className="cursor-pointer">
                         <label htmlFor="input-timezone" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                           Primary Timezone *
                         </label>
@@ -393,7 +446,7 @@ export default function ContactClient() {
                     </div>
 
                     {/* Row 3: Target Service (Full width, clean) */}
-                    <div>
+                    <div className="cursor-pointer">
                       <label htmlFor="input-service" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                         Target Service or Deliverable *
                       </label>
@@ -413,8 +466,27 @@ export default function ContactClient() {
                       </select>
                     </div>
 
-                    {/* Row 4: Goals / Scope Textarea */}
-                    <div>
+                    {/* Row 4: UPI / Payment Reference UTR (Optional) */}
+                    <div className="cursor-pointer">
+                      <label htmlFor="input-payment-ref" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                        UPI UTR / Payment Transaction ID (Optional - Agar QR se payment kar rahe hain)
+                      </label>
+                      <input
+                        id="input-payment-ref"
+                        type="text"
+                        placeholder="e.g. 4120938120 / PhonePe / GPay Transaction ID"
+                        value={formData.paymentRef}
+                        onChange={(e) => setFormData({ ...formData, paymentRef: e.target.value })}
+                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                      />
+                      <p className="text-[10px] text-gray-400 mt-1 cursor-pointer">
+                        💡 Yeh UTR seedha BPM Admin Ledger me aapke contact record ke sath store hoga.
+                      </p>
+                    </div>
+
+                    {/* Row 5: Goals / Scope Textarea */}
+                    <div className="cursor-pointer">
                       <label htmlFor="input-message" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
                         Tell us about your goals or challenges
                       </label>
@@ -424,8 +496,8 @@ export default function ContactClient() {
                         placeholder="Briefly describe your objectives, target geography, or deliverables..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-text font-normal"
+                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-pointer font-normal"
                       />
                     </div>
 

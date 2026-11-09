@@ -42,7 +42,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     { name: "Projects & Case Studies", href: "/projects", key: "projects" },
     { name: "Blogs & Insights", href: "/blog", key: "blog" },
     { name: "About Us", href: "/about", key: "about" },
-    { name: "Contact Us", href: "/contact", key: "contact" },
+    { name: "Contact Us", href: "/contact-us", key: "contact" },
   ];
 
   return (
