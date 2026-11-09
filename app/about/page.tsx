@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import VaultraAboutHeader from "../components/VaultraAboutHeader";
 import Leadership3DCards from "../components/Leadership3DCards";
 import OurPurpose3DSection from "../components/OurPurpose3DSection";
+import OurPrinciples3DSection from "../components/OurPrinciples3DSection";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -17,32 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-const pillars = [
-  {
-    icon: "📈",
-    title: "Data-Driven Engineering",
-    description:
-      "We do not guess. Every SEO campaign, code deployment, and content piece is backed by comprehensive search data, user intent metrics, and statistical significance.",
-  },
-  {
-    icon: "🌍",
-    title: "Global Mindset & Reach",
-    description:
-      "Operating seamlessly across time zones, we help brands expand their footprint into Tier-1 English-speaking markets (US, UK, Canada, Australia) and the Middle East.",
-  },
-  {
-    icon: "⚡",
-    title: "Uncompromising Performance",
-    description:
-      "We believe digital performance is a competitive advantage. Our web applications consistently score 95+ on Google PageSpeed Insights and pass all Core Web Vitals.",
-  },
-  {
-    icon: "🤝",
-    title: "Complete Transparency",
-    description:
-      "No vanity metrics. We provide live Data Studio dashboards, transparent weekly progress reports, and direct Slack communication with your lead strategist.",
-  },
-];
+
 
 
 export default function AboutPage() {
@@ -62,34 +38,8 @@ export default function AboutPage() {
       {/* 3D Glassmorphism Our Purpose Section with Cosmic Background & Purple Accents */}
       <OurPurpose3DSection />
 
-      {/* Core Pillars */}
-      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
-            Our Core Principles
-          </span>
-          <h2 className="text-3xl font-black text-[#0f172a] tracking-tight mt-2">
-            How We Deliver Consistent Excellence
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {pillars.map((pillar, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xs card-3d flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-[#d97706] border border-amber-200/60 flex items-center justify-center text-xl mb-4">
-                  {pillar.icon}
-                </div>
-                <h3 className="text-lg font-bold text-[#0f172a] mb-2">{pillar.title}</h3>
-                <p className="text-xs text-[#64748b] leading-relaxed">{pillar.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 3D Glassmorphism Our Core Principles Section with Purple Theme & Cosmic Texture */}
+      <OurPrinciples3DSection />
 
       {/* 3D Glassmorphism Cyber-Podium Leadership Showcase */}
       <Leadership3DCards />
