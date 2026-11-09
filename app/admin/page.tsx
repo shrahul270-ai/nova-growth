@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import App from "@/App";
 
 // =========================================================================
 // TYPES & DATA STRUCTURES
@@ -201,6 +202,22 @@ export default function AdminDatabasePage() {
     );
   }, []);
 
+  // Aurora Sign In / Admin Authentication Gate State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    try {
+      const auth = sessionStorage.getItem("bpm_admin_authenticated");
+      if (auth === "true") {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
@@ -219,6 +236,11 @@ export default function AdminDatabasePage() {
     try {
       await fetch("/api/admin/logout", { method: "POST" });
     } catch {}
+    try {
+      sessionStorage.removeItem("bpm_admin_authenticated");
+      sessionStorage.removeItem("bpm_admin_user");
+    } catch {}
+    setIsAuthenticated(false);
     showToast("Logged out securely.");
   };
 
@@ -365,6 +387,26 @@ export default function AdminDatabasePage() {
   const handlePrintInvoice = () => {
     window.print();
   };
+
+  // If user is not authenticated, show the Aurora Sign Up / Login interface (Admin Lock)
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center text-white/40">
+        <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <App
+        onLoginSuccess={() => {
+          setIsAuthenticated(true);
+          showToast("✓ Welcome to Admin Workspace");
+        }}
+      />
+    );
+  }
 
   return (
     <div
