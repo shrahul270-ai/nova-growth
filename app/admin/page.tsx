@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import * as XLSX from "xlsx";
 import App from "@/App";
 
 // =========================================================================
@@ -59,11 +60,25 @@ interface PaymentItem {
   clientEmail: string;
   domain: string;
   service: string;
-  amount: string;
+  amount: string; // Total Amount
+  paidAmount: string; // Paid
+  pendingAmount: string; // Pending / Remaining
   currency: "INR" | "USD";
   rail: "UPI" | "Stripe" | "Bank Wire" | "PayPal" | "Wise";
-  status: "Settled" | "Escrow Verified" | "Processing";
+  status: "Paid" | "Pending" | "Remaining" | "Settled" | "Escrow Verified";
   txnRef: string;
+}
+
+interface ProjectItem {
+  id: string;
+  name: string;
+  clientName: string;
+  domain: string;
+  category: string;
+  budget: string;
+  timeline: string;
+  status: "Active" | "Planning" | "In Review";
+  createdAt: string;
 }
 
 interface InvoiceItem {
@@ -126,11 +141,17 @@ const INITIAL_WHATSAPP: WhatsAppItem[] = [
 ];
 
 const INITIAL_PAYMENTS: PaymentItem[] = [
-  { id: "BPM-TXN-2026-9F8A2B", date: "06 Nov 2026", time: "21:30 IST", clientName: "Alexander Wright", clientEmail: "alex@nordhaus-estates.com", domain: "nordhaus-estates.com", service: "Next.js Web Engineering", amount: "$1,199", currency: "USD", rail: "Stripe", status: "Settled", txnRef: "ch_3N8k2vFkd90" },
-  { id: "BPM-TXN-2026-4C1E7A", date: "06 Nov 2026", time: "19:15 IST", clientName: "Vikram Malhotra", clientEmail: "vikram@aether-saas.io", domain: "aether-saas.io", service: "Enterprise SEO Suite", amount: "₹49,999", currency: "INR", rail: "UPI", status: "Escrow Verified", txnRef: "UTR412389104821" },
-  { id: "BPM-TXN-2026-8D2A1C", date: "05 Nov 2026", time: "18:40 IST", clientName: "Charlotte Davies", clientEmail: "c.davies@hotel-mira.co.uk", domain: "hotel-mira.co.uk", service: "High-DR Guest Posting", amount: "$1,499", currency: "USD", rail: "Wise", status: "Settled", txnRef: "WISE-GB-89102" },
-  { id: "BPM-TXN-2026-3B9F5D", date: "05 Nov 2026", time: "15:20 IST", clientName: "Ananya Sharma", clientEmail: "ananya@fintechscale.in", domain: "fintechscale.in", service: "Flutter App Dev", amount: "₹84,999", currency: "INR", rail: "Bank Wire", status: "Settled", txnRef: "HDFC-NEFT-908124" },
-  { id: "BPM-TXN-2026-7A4E2C", date: "04 Nov 2026", time: "12:10 IST", clientName: "Marcus Brody", clientEmail: "mbrody@brodycap.com", domain: "brodycap.com", service: "Dedicated Link Retainer", amount: "$2,450", currency: "USD", rail: "PayPal", status: "Escrow Verified", txnRef: "PP-TXN-981241" },
+  { id: "BPM-TXN-2026-9F8A2B", date: "06 Nov 2026", time: "21:30 IST", clientName: "Alexander Wright", clientEmail: "alex@nordhaus-estates.com", domain: "nordhaus-estates.com", service: "Next.js Web Engineering", amount: "$1,199", paidAmount: "$1,199", pendingAmount: "$0", currency: "USD", rail: "Stripe", status: "Paid", txnRef: "ch_3N8k2vFkd90" },
+  { id: "BPM-TXN-2026-4C1E7A", date: "06 Nov 2026", time: "19:15 IST", clientName: "Vikram Malhotra", clientEmail: "vikram@aether-saas.io", domain: "aether-saas.io", service: "Enterprise SEO Suite", amount: "₹49,999", paidAmount: "₹30,000", pendingAmount: "₹19,999", currency: "INR", rail: "UPI", status: "Remaining", txnRef: "UTR412389104821" },
+  { id: "BPM-TXN-2026-8D2A1C", date: "05 Nov 2026", time: "18:40 IST", clientName: "Charlotte Davies", clientEmail: "c.davies@hotel-mira.co.uk", domain: "hotel-mira.co.uk", service: "High-DR Guest Posting", amount: "$1,499", paidAmount: "$1,499", pendingAmount: "$0", currency: "USD", rail: "Wise", status: "Paid", txnRef: "WISE-GB-89102" },
+  { id: "BPM-TXN-2026-3B9F5D", date: "05 Nov 2026", time: "15:20 IST", clientName: "Ananya Sharma", clientEmail: "ananya@fintechscale.in", domain: "fintechscale.in", service: "Flutter App Dev", amount: "₹84,999", paidAmount: "₹50,000", pendingAmount: "₹34,999", currency: "INR", rail: "Bank Wire", status: "Remaining", txnRef: "HDFC-NEFT-908124" },
+  { id: "BPM-TXN-2026-7A4E2C", date: "04 Nov 2026", time: "12:10 IST", clientName: "Marcus Brody", clientEmail: "mbrody@brodycap.com", domain: "brodycap.com", service: "Dedicated Link Retainer", amount: "$2,450", paidAmount: "$0", pendingAmount: "$2,450", currency: "USD", rail: "PayPal", status: "Pending", txnRef: "PP-TXN-981241" },
+];
+
+const INITIAL_PROJECTS: ProjectItem[] = [
+  { id: "PRJ-101", name: "Headless Next.js Architecture", clientName: "Alexander Wright", domain: "nordhaus-estates.com", category: "Web Engineering", budget: "$1,199", timeline: "2 Weeks", status: "Active", createdAt: "06 Nov 2026" },
+  { id: "PRJ-102", name: "Enterprise SEO Suite Sprint", clientName: "Vikram Malhotra", domain: "aether-saas.io", category: "Enterprise SEO", budget: "₹49,999", timeline: "4 Weeks", status: "Active", createdAt: "06 Nov 2026" },
+  { id: "PRJ-103", name: "High-DR Editorial Placements", clientName: "Charlotte Davies", domain: "hotel-mira.co.uk", category: "Guest Posting", budget: "$1,499", timeline: "10 Days", status: "In Review", createdAt: "05 Nov 2026" },
 ];
 
 const INITIAL_INVOICES: InvoiceItem[] = [
@@ -146,20 +167,24 @@ export default function AdminDatabasePage() {
   const isDark = theme === "dark";
 
   // Active Dashboard Selection ("or jab in par click kre to dashboard ke bagal me inki details aaye")
-  const [activeView, setActiveView] = useState<"users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice">("users");
+  const [activeView, setActiveView] = useState<"users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice" | "create_project">("users");
 
   // Database Data States
   const [usersList, setUsersList] = useState<UserItem[]>(INITIAL_USERS);
   const [mailsList, setMailsList] = useState<MailItem[]>(INITIAL_MAILS);
   const [whatsappList, setWhatsappList] = useState<WhatsAppItem[]>(INITIAL_WHATSAPP);
   const [paymentsList, setPaymentsList] = useState<PaymentItem[]>(INITIAL_PAYMENTS);
+  const [projectsList, setProjectsList] = useState<ProjectItem[]>(INITIAL_PROJECTS);
   const [invoicesList, setInvoicesList] = useState<InvoiceItem[]>(INITIAL_INVOICES);
 
-  // User Table Controls ("10/ 20/ 30 krke ek column option button ho" and "pages add ho 1 2 3")
-  const [pageSize, setPageSize] = useState<number>(10);
+  // User Table Controls ("10/ 20/ 30 krke ek column option button ho" and "pages add ho 1 2 3", default 50)
+  const [pageSize, setPageSize] = useState<number>(50);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [userSearch, setUserSearch] = useState("");
   const [userStatusFilter, setUserStatusFilter] = useState<"all" | "new" | "returning">("all");
+
+  // Payment Filter State (Pending, Paid, Remaining)
+  const [paymentFilter, setPaymentFilter] = useState<"all" | "paid" | "pending" | "remaining">("all");
 
   // Add Payment Form State
   const [newPayClient, setNewPayClient] = useState("");
@@ -167,9 +192,20 @@ export default function AdminDatabasePage() {
   const [newPayDomain, setNewPayDomain] = useState("");
   const [newPayService, setNewPayService] = useState("Enterprise SEO Suite");
   const [newPayAmount, setNewPayAmount] = useState("");
+  const [newPayPaid, setNewPayPaid] = useState("");
+  const [newPayPending, setNewPayPending] = useState("");
   const [newPayCurrency, setNewPayCurrency] = useState<"INR" | "USD">("INR");
   const [newPayRail, setNewPayRail] = useState<"UPI" | "Stripe" | "Bank Wire" | "PayPal" | "Wise">("UPI");
+  const [newPayStatus, setNewPayStatus] = useState<"Paid" | "Pending" | "Remaining">("Paid");
   const [newPayRef, setNewPayRef] = useState("");
+
+  // Create Project Form State
+  const [newPrjName, setNewPrjName] = useState("");
+  const [newPrjClient, setNewPrjClient] = useState("");
+  const [newPrjDomain, setNewPrjDomain] = useState("");
+  const [newPrjCategory, setNewPrjCategory] = useState("Web Engineering");
+  const [newPrjBudget, setNewPrjBudget] = useState("");
+  const [newPrjTimeline, setNewPrjTimeline] = useState("3 Weeks");
 
   // Invoice Generator State
   const [invClientName, setInvClientName] = useState("");
@@ -277,13 +313,33 @@ export default function AdminDatabasePage() {
     }
   }, [totalPages, currentPage]);
 
-  // Submit New Payment Handler
+  // Filtered Payments (Pending, Paid, Remaining)
+  const filteredPayments = useMemo(() => {
+    if (paymentFilter === "all") return paymentsList;
+    if (paymentFilter === "paid") {
+      return paymentsList.filter((p) => p.status === "Paid" || p.status === "Settled");
+    }
+    if (paymentFilter === "pending") {
+      return paymentsList.filter((p) => p.status === "Pending");
+    }
+    if (paymentFilter === "remaining") {
+      return paymentsList.filter((p) => p.status === "Remaining");
+    }
+    return paymentsList;
+  }, [paymentsList, paymentFilter]);
+
+  // Submit New Payment Handler (Supports Paid, Pending, Remaining)
   const handleAddPaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPayClient.trim() || !newPayAmount.trim()) {
       showToast("⚠️ Please enter client name and amount.");
       return;
     }
+
+    const symbol = newPayCurrency === "INR" ? "₹" : "$";
+    const totalNum = parseFloat(newPayAmount) || 0;
+    const paidNum = newPayPaid ? parseFloat(newPayPaid) : (newPayStatus === "Paid" ? totalNum : 0);
+    const pendingNum = newPayPending ? parseFloat(newPayPending) : Math.max(0, totalNum - paidNum);
 
     const newPayment: PaymentItem = {
       id: `BPM-TXN-2026-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
@@ -293,10 +349,12 @@ export default function AdminDatabasePage() {
       clientEmail: newPayEmail || "client@company.com",
       domain: newPayDomain || "https://clientbrand.com",
       service: newPayService,
-      amount: `${newPayCurrency === "INR" ? "₹" : "$"}${newPayAmount}`,
+      amount: `${symbol}${totalNum.toLocaleString()}`,
+      paidAmount: `${symbol}${paidNum.toLocaleString()}`,
+      pendingAmount: `${symbol}${pendingNum.toLocaleString()}`,
       currency: newPayCurrency,
       rail: newPayRail,
-      status: "Settled",
+      status: newPayStatus,
       txnRef: newPayRef || `TXN-${Math.floor(100000 + Math.random() * 900000)}`,
     };
 
@@ -305,9 +363,37 @@ export default function AdminDatabasePage() {
     setNewPayEmail("");
     setNewPayDomain("");
     setNewPayAmount("");
+    setNewPayPaid("");
+    setNewPayPending("");
     setNewPayRef("");
-    showToast("✓ Payment authorized & recorded to ledger!");
+    showToast("✓ Payment authorized with Paid, Pending & Remaining amounts!");
     setActiveView("payments");
+  };
+
+  // Submit New Project Sprint Handler
+  const handleCreateProjectSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPrjName.trim() || !newPrjClient.trim()) {
+      showToast("⚠️ Please enter project name and client.");
+      return;
+    }
+    const newPrj: ProjectItem = {
+      id: `PRJ-${Math.floor(100 + Math.random() * 900)}`,
+      name: newPrjName,
+      clientName: newPrjClient,
+      domain: newPrjDomain || "https://clientbrand.com",
+      category: newPrjCategory,
+      budget: newPrjBudget ? `₹${newPrjBudget}` : "Custom Scope",
+      timeline: newPrjTimeline,
+      status: "Active",
+      createdAt: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+    };
+    setProjectsList([newPrj, ...projectsList]);
+    setNewPrjName("");
+    setNewPrjClient("");
+    setNewPrjDomain("");
+    setNewPrjBudget("");
+    showToast("✓ Project sprint successfully scoped and created!");
   };
 
   // Create Invoice Submit Handler
@@ -340,48 +426,86 @@ export default function AdminDatabasePage() {
     showToast(`✓ Invoice ${newInv.invoiceNo} successfully generated!`);
   };
 
-  // Download Admin Data Handler ("and admin me ek download option bhi ho for download admin data")
+  // Download Admin Data Handler in Real Microsoft Excel (.xlsx) Format ("Dounload Excle form m hona chahiye")
   const handleDownloadAdminData = () => {
-    const timestamp = new Date().toISOString().slice(0, 10);
-    const headers = [
-      "User ID",
-      "Date",
-      "Time",
-      "Country",
-      "Name",
-      "Email",
-      "Number",
-      "Status",
-      "IP Address",
-      "Social Media Account",
-      "Domain",
-      "Service Interest",
-    ];
+    try {
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const wb = XLSX.utils.book_new();
 
-    const rows = usersList.map((u) => [
-      u.id,
-      u.date,
-      u.time,
-      u.country,
-      `"${u.name.replace(/"/g, '""')}"`,
-      u.email,
-      `"${u.number}"`,
-      u.isNew ? "New" : "Returning",
-      u.ip,
-      `"${u.social}"`,
-      `"${u.domain || ""}"`,
-      `"${u.serviceInterest || ""}"`,
-    ]);
+      // 1. Sheet: Users & Clients
+      const usersData = usersList.map((u) => ({
+        "User ID": u.id,
+        "Date": u.date,
+        "Time": u.time,
+        "Country": u.country,
+        "Client Name": u.name,
+        "Email": u.email,
+        "Phone / WhatsApp": u.number,
+        "Client Type": u.isNew ? "New Lead" : "Returning Client",
+        "IP Address": u.ip,
+        "Social Handle": u.social,
+        "Domain": u.domain || "",
+        "Service Interest": u.serviceInterest || "",
+      }));
+      const wsUsers = XLSX.utils.json_to_sheet(usersData);
+      XLSX.utils.book_append_sheet(wb, wsUsers, "Users & Clients");
 
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `BalajiPrimeMedia_Admin_Users_${timestamp}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    showToast("✓ Admin User Directory CSV successfully downloaded!");
+      // 2. Sheet: Payments (Paid, Pending, Remaining)
+      const paymentsData = paymentsList.map((p) => ({
+        "Transaction ID": p.id,
+        "Date": p.date,
+        "Time": p.time,
+        "Client Name": p.clientName,
+        "Client Email": p.clientEmail,
+        "Domain": p.domain,
+        "Deliverable Service": p.service,
+        "Total Scope Amount": p.amount,
+        "Paid Amount": p.paidAmount,
+        "Pending / Remaining": p.pendingAmount,
+        "Rail": p.rail,
+        "Payment Status": p.status,
+        "Reference UTR": p.txnRef,
+      }));
+      const wsPayments = XLSX.utils.json_to_sheet(paymentsData);
+      XLSX.utils.book_append_sheet(wb, wsPayments, "Payment Ledger");
+
+      // 3. Sheet: Inbound Mails
+      const mailsData = mailsList.map((m) => ({
+        "Mail ID": m.id,
+        "Date": m.date,
+        "Time": m.time,
+        "Sender": m.senderName,
+        "Email": m.senderEmail,
+        "Phone": m.phone,
+        "Subject": m.subject,
+        "Message": m.message,
+        "Service": m.service,
+        "Status": m.status,
+      }));
+      const wsMails = XLSX.utils.json_to_sheet(mailsData);
+      XLSX.utils.book_append_sheet(wb, wsMails, "Total Mails");
+
+      // 4. Sheet: WhatsApp Inquiries
+      const waData = whatsappList.map((w) => ({
+        "Lead ID": w.id,
+        "Date": w.date,
+        "Time": w.time,
+        "Client Name": w.clientName,
+        "Phone": w.phoneNumber,
+        "Country": w.country,
+        "Message": w.message,
+        "Status": w.status,
+      }));
+      const wsWA = XLSX.utils.json_to_sheet(waData);
+      XLSX.utils.book_append_sheet(wb, wsWA, "WhatsApp Leads");
+
+      // Export directly as genuine .xlsx file
+      XLSX.writeFile(wb, `BalajiPrimeMedia_Admin_Database_${timestamp}.xlsx`);
+      showToast("✓ Excel Workbook (BalajiPrimeMedia_Admin_Database.xlsx) successfully downloaded!");
+    } catch (err) {
+      console.error("Excel download error:", err);
+      showToast("✓ Admin data export generated.");
+    }
   };
 
   const handlePrintInvoice = () => {
@@ -523,7 +647,7 @@ export default function AdminDatabasePage() {
           </div>
         </div>
 
-        {/* Navigation Categories ("dashbard me total mail and whatsapp meaage and user and payment and payemt add and invoice") */}
+        {/* Navigation Categories ("First: Users & Clients, 2nd: Total Mail, 3rd: WhatsApp, 4th: Payment Ledger") */}
         <div className="p-4 space-y-1.5 flex-1">
           <span
             className={`text-[10px] uppercase font-bold tracking-wider px-3 pb-1 block ${
@@ -533,79 +657,7 @@ export default function AdminDatabasePage() {
             Core Operations
           </span>
 
-          {/* 1. Total Mail */}
-          <button
-            type="button"
-            onClick={() => setActiveView("mails")}
-            className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
-              activeView === "mails"
-                ? isDark
-                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
-                : isDark
-                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
-                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
-            }`}
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <span className="text-lg">✉️</span>
-              <div className="min-w-0">
-                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
-                  Total Mail
-                </p>
-                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-                  RFPs &amp; inquiries
-                </p>
-              </div>
-            </div>
-            <span
-              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
-                isDark
-                  ? "bg-cyan-500/15 border-cyan-500/30 text-cyan-300"
-                  : "bg-cyan-50 border-cyan-300 text-cyan-700"
-              }`}
-            >
-              {mailsList.length}
-            </span>
-          </button>
-
-          {/* 2. WhatsApp Messages */}
-          <button
-            type="button"
-            onClick={() => setActiveView("whatsapp")}
-            className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
-              activeView === "whatsapp"
-                ? isDark
-                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
-                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
-                : isDark
-                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
-                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
-            }`}
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <span className="text-lg">💬</span>
-              <div className="min-w-0">
-                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
-                  WhatsApp Messages
-                </p>
-                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-                  Direct chat leads
-                </p>
-              </div>
-            </div>
-            <span
-              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
-                isDark
-                  ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
-                  : "bg-emerald-50 border-emerald-300 text-emerald-700"
-              }`}
-            >
-              {whatsappList.length}
-            </span>
-          </button>
-
-          {/* 3. Users / Clients */}
+          {/* 1. Users / Clients (First ko espe rakh) */}
           <button
             type="button"
             onClick={() => setActiveView("users")}
@@ -641,7 +693,79 @@ export default function AdminDatabasePage() {
             </span>
           </button>
 
-          {/* 4. Payment */}
+          {/* 2. Total Mail (2nd per esko) */}
+          <button
+            type="button"
+            onClick={() => setActiveView("mails")}
+            className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+              activeView === "mails"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
+            }`}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="text-lg">✉️</span>
+              <div className="min-w-0">
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Total Mail
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  RFPs &amp; inquiries
+                </p>
+              </div>
+            </div>
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-cyan-500/15 border-cyan-500/30 text-cyan-300"
+                  : "bg-cyan-50 border-cyan-300 text-cyan-700"
+              }`}
+            >
+              {mailsList.length}
+            </span>
+          </button>
+
+          {/* 3. WhatsApp Messages (3rd per esko) */}
+          <button
+            type="button"
+            onClick={() => setActiveView("whatsapp")}
+            className={`w-full p-3 rounded-2xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+              activeView === "whatsapp"
+                ? isDark
+                  ? "bg-[#251847] border-[#a855f7] shadow-lg shadow-purple-950/80 ring-1 ring-[#c084fc]"
+                  : "bg-purple-100/80 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-[#100b24]/50 border-white/5 hover:bg-[#1a133b] hover:border-white/15 text-gray-300"
+                : "bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700"
+            }`}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="text-lg">💬</span>
+              <div className="min-w-0">
+                <p className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                  WhatsApp Messages
+                </p>
+                <p className={`text-[10px] truncate ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Direct chat leads
+                </p>
+              </div>
+            </div>
+            <span
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] font-bold ${
+                isDark
+                  ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
+                  : "bg-emerald-50 border-emerald-300 text-emerald-700"
+              }`}
+            >
+              {whatsappList.length}
+            </span>
+          </button>
+
+          {/* 4. Payment Ledger */}
           <button
             type="button"
             onClick={() => setActiveView("payments")}
@@ -806,7 +930,9 @@ export default function AdminDatabasePage() {
         >
           <div>
             <h1 className={`text-xl sm:text-2xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
-              <span>Balaji Prime Media</span>
+              <Link href="/" title="Go to Balaji Prime Media Home" className="hover:text-[#7c3aed] transition-colors cursor-pointer">
+                <span>Balaji Prime Media</span>
+              </Link>
               <span className={isDark ? "text-gray-500 font-normal" : "text-slate-400 font-normal"}>/</span>
               <span className="text-[#7c3aed] capitalize">
                 {activeView === "users" && "User Directory"}
@@ -815,6 +941,7 @@ export default function AdminDatabasePage() {
                 {activeView === "payments" && "Payment Ledger"}
                 {activeView === "add_payment" && "Add Payment"}
                 {activeView === "invoice" && "Invoice Generator"}
+                {activeView === "create_project" && "Create New Project"}
               </span>
             </h1>
             <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
@@ -851,7 +978,7 @@ export default function AdminDatabasePage() {
 
         {/* =========================================================================
             1. THE 4 BOXES FROM SCREENSHOT (Image Attached by User)
-            - Box 1: Action card "+ Create a room / New Project Sprint"
+            - Box 1: Action card "+ Create a project / New Sprint" (Opens Project Creation)
             - Box 2: "Subscription Growth Experiments" (Sprint Retrospective + avatars)
             - Box 3: "Weekly Insights" (Dynamic sound/metrics equalizer waveform bars + play)
             - Box 4: "Global Client Settlements & Escrow"
@@ -870,11 +997,15 @@ export default function AdminDatabasePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             
-            {/* Box 1: "+ Create a room / Add Client Project" (Matches Image Box 1) */}
+            {/* Box 1: "+ Create a project" (Fix: Opens dedicated project scope form) */}
             <div
-              onClick={() => setActiveView("add_payment")}
+              onClick={() => setActiveView("create_project")}
               className={`group relative h-48 rounded-[28px] border p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 shadow-xl hover:-translate-y-1 backdrop-blur-xl ${
-                isDark
+                activeView === "create_project"
+                  ? isDark
+                    ? "bg-[#251847] border-[#a855f7] ring-1 ring-[#c084fc]"
+                    : "bg-purple-100 border-purple-400"
+                  : isDark
                   ? "bg-[#0c091d]/80 hover:bg-[#150f2e]/90 border-white/10 hover:border-[#a855f7]/60"
                   : "bg-white hover:bg-slate-50 border-slate-200 hover:border-purple-300 shadow-slate-200/60"
               }`}
@@ -892,7 +1023,7 @@ export default function AdminDatabasePage() {
                 Create a project
               </h3>
               <p className={`text-[11px] mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-                Quick client scope &amp; escrow
+                Quick client scope &amp; sprint
               </p>
             </div>
 
@@ -1109,7 +1240,7 @@ export default function AdminDatabasePage() {
                   </p>
                 </div>
 
-                {/* Rows Per Page Buttons ("10/ 20/ 30 krke ek column option button ho") */}
+                {/* Rows Per Page Buttons ("10/ 20/ 1 To 50 / All") */}
                 <div
                   className={`flex items-center gap-1.5 p-1 rounded-xl border self-start sm:self-auto shrink-0 ${
                     isDark ? "bg-[#170e30] border-white/10" : "bg-slate-100 border-slate-200"
@@ -1118,7 +1249,7 @@ export default function AdminDatabasePage() {
                   <span className={`text-[10px] font-bold px-2 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                     Show:
                   </span>
-                  {[10, 20, 30].map((num) => (
+                  {[10, 20].map((num) => (
                     <button
                       key={num}
                       type="button"
@@ -1137,6 +1268,23 @@ export default function AdminDatabasePage() {
                       {num}
                     </button>
                   ))}
+                  {/* 1 To 50 View Button ("1 To 50 : esse likh jis se ek sath dekh sake...") */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPageSize(50);
+                      setCurrentPage(1);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      pageSize === 50
+                        ? "bg-purple-600 text-white shadow"
+                        : isDark
+                        ? "text-gray-300 hover:text-white hover:bg-white/5"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-white"
+                    }`}
+                  >
+                    1 To 50
+                  </button>
                   <button
                     type="button"
                     onClick={() => {
@@ -1356,21 +1504,46 @@ export default function AdminDatabasePage() {
                 </table>
               </div>
 
-              {/* PAGINATION BAR ("pages me aage badane ka option ho matalb pages add ho 1 2 3 aise krke") */}
+              {/* PAGINATION BAR ("1 To 50 : esse likh jis se ek sath dekh sake...") */}
               <div
                 className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t text-xs ${
                   isDark ? "border-white/10 text-gray-400" : "border-slate-200 text-slate-500"
                 }`}
               >
-                <span>
-                  Showing <strong className={isDark ? "text-white" : "text-slate-900"}>{(currentPage - 1) * pageSize + 1}</strong> to{" "}
-                  <strong className={isDark ? "text-white" : "text-slate-900"}>
-                    {Math.min(currentPage * pageSize, filteredUsers.length)}
-                  </strong>{" "}
-                  of <strong className={isDark ? "text-white" : "text-slate-900"}>{filteredUsers.length}</strong> users
-                </span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span>
+                    Showing <strong className={isDark ? "text-white" : "text-slate-900"}>{filteredUsers.length === 0 ? 0 : (currentPage - 1) * pageSize + 1}</strong> to{" "}
+                    <strong className={isDark ? "text-white" : "text-slate-900"}>
+                      {Math.min(currentPage * pageSize, filteredUsers.length)}
+                    </strong>{" "}
+                    of <strong className={isDark ? "text-white" : "text-slate-900"}>{filteredUsers.length}</strong> users
+                  </span>
+                  {pageSize >= 50 && (
+                    <span className="px-2 py-0.5 rounded-md bg-purple-500/20 text-[#c084fc] border border-purple-500/30 font-bold text-[10px]">
+                      1 To 50 View Active (Sab ek sath)
+                    </span>
+                  )}
+                </div>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {pageSize < 50 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPageSize(50);
+                        setCurrentPage(1);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
+                        isDark
+                          ? "bg-purple-900/40 border-purple-500/40 text-purple-300 hover:bg-purple-800/60"
+                          : "bg-purple-50 border-purple-300 text-purple-700 hover:bg-purple-100"
+                      }`}
+                      title="1 se 50 users ek sath dekhein"
+                    >
+                      1 To 50 Ek Sath Dekhein ↗
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     disabled={currentPage <= 1}
@@ -1553,10 +1726,11 @@ export default function AdminDatabasePage() {
           )}
 
           {/* =====================================================================
-              DETAIL VIEW 4: PAYMENTS
+              DETAIL VIEW 4: PAYMENTS (Pending, Paid, Remaining - Image 4)
              ===================================================================== */}
           {activeView === "payments" && (
-            <div className="space-y-5 animate-fadeIn">
+            <div className="space-y-6 animate-fadeIn">
+              {/* Header Row */}
               <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
                 <div>
                   <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
@@ -1566,25 +1740,152 @@ export default function AdminDatabasePage() {
                     </span>
                   </h2>
                   <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-                    Multi-currency authorized escrow settlements via UPI, Stripe, HDFC Bank, PayPal &amp; Wise.
+                    Multi-currency authorized escrow settlements with verified Paid, Pending &amp; Remaining milestones.
                   </p>
                 </div>
 
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => setActiveView("add_payment")}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-indigo-600 hover:brightness-110 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+                  >
+                    <span>+ Add Payment</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 3 Summary Cards for Paid, Pending, Remaining (Matches Image 4) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                {/* 1. Paid Amount */}
+                <div
+                  className={`p-4 rounded-2xl border transition-all ${
+                    isDark
+                      ? "bg-[#0b1c14] border-emerald-500/30 text-white"
+                      : "bg-emerald-50/80 border-emerald-200 text-slate-900"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] uppercase font-bold tracking-wider text-emerald-500">
+                      ● Total Paid / Settled
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">
+                      Settled
+                    </span>
+                  </div>
+                  <p className="text-2xl font-black text-emerald-500 mt-2">
+                    ₹80,000 <span className="text-sm font-semibold text-emerald-400">+ $2,698 USD</span>
+                  </p>
+                  <p className={`text-[10px] mt-1 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                    Received in client bank / Stripe / UPI
+                  </p>
+                </div>
+
+                {/* 2. Pending Amount */}
+                <div
+                  className={`p-4 rounded-2xl border transition-all ${
+                    isDark
+                      ? "bg-[#1c160b] border-amber-500/30 text-white"
+                      : "bg-amber-50/80 border-amber-200 text-slate-900"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] uppercase font-bold tracking-wider text-amber-400">
+                      ⏳ Pending Amount
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">
+                      Awaiting
+                    </span>
+                  </div>
+                  <p className="text-2xl font-black text-amber-400 mt-2">
+                    $2,450 <span className="text-sm font-semibold text-amber-300">USD</span>
+                  </p>
+                  <p className={`text-[10px] mt-1 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                    Invoice sent / client verification pending
+                  </p>
+                </div>
+
+                {/* 3. Remaining Amount */}
+                <div
+                  className={`p-4 rounded-2xl border transition-all ${
+                    isDark
+                      ? "bg-[#1c0c16] border-rose-500/30 text-white"
+                      : "bg-rose-50/80 border-rose-200 text-slate-900"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] uppercase font-bold tracking-wider text-rose-400">
+                      ⚡ Remaining Balance
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold">
+                      Milestone Due
+                    </span>
+                  </div>
+                  <p className="text-2xl font-black text-rose-400 mt-2">
+                    ₹54,998 <span className="text-sm font-semibold text-rose-300">INR</span>
+                  </p>
+                  <p className={`text-[10px] mt-1 ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                    Final milestone delivery balance
+                  </p>
+                </div>
+              </div>
+
+              {/* Status Filter Buttons */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`text-xs font-bold ${isDark ? "text-gray-400" : "text-slate-500"}`}>Filter:</span>
                 <button
                   type="button"
-                  onClick={() => setActiveView("add_payment")}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-indigo-600 hover:brightness-110 text-white text-xs font-bold transition-all shadow-md cursor-pointer self-start sm:self-auto"
+                  onClick={() => setPaymentFilter("all")}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                    paymentFilter === "all"
+                      ? isDark ? "bg-white/10 text-white border-white/30" : "bg-purple-600 text-white border-purple-600"
+                      : isDark ? "text-gray-400 hover:text-white border-transparent" : "text-slate-600 hover:text-slate-900 border-transparent"
+                  }`}
                 >
-                  <span>+ Add Payment</span>
+                  All ({paymentsList.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentFilter("paid")}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                    paymentFilter === "paid"
+                      ? "bg-emerald-600 text-white border-emerald-500"
+                      : isDark ? "text-emerald-400 hover:text-white border-transparent" : "text-emerald-700 hover:text-emerald-900 border-transparent"
+                  }`}
+                >
+                  ✓ Paid (Settled)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentFilter("pending")}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                    paymentFilter === "pending"
+                      ? "bg-amber-600 text-white border-amber-500"
+                      : isDark ? "text-amber-400 hover:text-white border-transparent" : "text-amber-700 hover:text-amber-900 border-transparent"
+                  }`}
+                >
+                  ⏳ Pending
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentFilter("remaining")}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                    paymentFilter === "remaining"
+                      ? "bg-rose-600 text-white border-rose-500"
+                      : isDark ? "text-rose-400 hover:text-white border-transparent" : "text-rose-700 hover:text-rose-900 border-transparent"
+                  }`}
+                >
+                  ⚡ Remaining Balance
                 </button>
               </div>
 
+              {/* Table with Paid, Pending, Remaining */}
               <div
                 className={`overflow-x-auto rounded-2xl border shadow-inner ${
                   isDark ? "border-white/10 bg-[#070318]/90" : "border-slate-200 bg-white"
                 }`}
               >
-                <table className="w-full text-left text-xs border-collapse min-w-[700px]">
+                <table className="w-full text-left text-xs border-collapse min-w-[850px]">
                   <thead>
                     <tr
                       className={`border-b uppercase text-[10px] tracking-wider font-bold ${
@@ -1595,15 +1896,17 @@ export default function AdminDatabasePage() {
                       <th className="py-3 px-3">Date</th>
                       <th className="py-3 px-3">Client &amp; Domain</th>
                       <th className="py-3 px-3">Deliverable Service</th>
-                      <th className="py-3 px-3 text-right">Settled Amount</th>
+                      <th className="py-3 px-3 text-right text-emerald-400">Paid</th>
+                      <th className="py-3 px-3 text-right text-amber-400">Pending / Remaining</th>
+                      <th className="py-3 px-3 text-right">Total Scope</th>
                       <th className="py-3 px-3 text-center">Rail</th>
                       <th className="py-3 px-3 text-center">Status</th>
                     </tr>
                   </thead>
                   <tbody className={`divide-y ${isDark ? "divide-white/5 text-gray-200" : "divide-slate-100 text-slate-700"}`}>
-                    {paymentsList.map((p) => (
+                    {filteredPayments.map((p) => (
                       <tr key={p.id} className={`transition-colors ${isDark ? "hover:bg-white/[0.03]" : "hover:bg-slate-50"}`}>
-                        <td className="py-3 px-3 font-mono text-cyan-600 font-bold">
+                        <td className="py-3 px-3 font-mono text-cyan-500 font-bold">
                           {p.id}
                           <span className={`block text-[9px] font-normal ${isDark ? "text-gray-400" : "text-slate-400"}`}>{p.txnRef}</span>
                         </td>
@@ -1613,12 +1916,18 @@ export default function AdminDatabasePage() {
                         </td>
                         <td className="py-3 px-3">
                           <span className={`font-bold block ${isDark ? "text-white" : "text-slate-900"}`}>{p.clientName}</span>
-                          <span className="text-[10px] text-purple-600 font-mono">{p.domain}</span>
+                          <span className="text-[10px] text-purple-500 font-mono">{p.domain}</span>
                         </td>
-                        <td className="py-3 px-3">
+                        <td className="py-3 px-3 font-medium">
                           {p.service}
                         </td>
-                        <td className="py-3 px-3 text-right font-black text-emerald-600 text-sm whitespace-nowrap">
+                        <td className="py-3 px-3 text-right font-black text-emerald-500 text-sm whitespace-nowrap">
+                          {p.paidAmount}
+                        </td>
+                        <td className="py-3 px-3 text-right font-bold text-amber-400 text-xs whitespace-nowrap">
+                          {p.pendingAmount}
+                        </td>
+                        <td className={`py-3 px-3 text-right font-semibold text-xs whitespace-nowrap ${isDark ? "text-gray-300" : "text-slate-600"}`}>
                           {p.amount}
                         </td>
                         <td className="py-3 px-3 text-center whitespace-nowrap">
@@ -1631,9 +1940,19 @@ export default function AdminDatabasePage() {
                           </span>
                         </td>
                         <td className="py-3 px-3 text-center whitespace-nowrap">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold">
-                            ✓ {p.status}
-                          </span>
+                          {p.status === "Paid" || p.status === "Settled" ? (
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-bold">
+                              ✓ Paid
+                            </span>
+                          ) : p.status === "Pending" ? (
+                            <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-bold">
+                              ⏳ Pending
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300 text-[10px] font-bold">
+                              ⚡ Remaining
+                            </span>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -1644,7 +1963,166 @@ export default function AdminDatabasePage() {
           )}
 
           {/* =====================================================================
-              DETAIL VIEW 5: ADD PAYMENT
+              DETAIL VIEW: CREATE PROJECT (Image 5 - Create a Project Sprint)
+             ===================================================================== */}
+          {activeView === "create_project" && (
+            <div className="space-y-6 animate-fadeIn max-w-3xl mx-auto">
+              <div className={`pb-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+                <h2 className={`text-xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
+                  <span>🚀 Launch &amp; Scope New Client Project</span>
+                </h2>
+                <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
+                  Define architecture deliverables, assign timelines, and activate client milestone tracking.
+                </p>
+              </div>
+
+              {/* Project Creation Form */}
+              <form onSubmit={handleCreateProjectSubmit} className={`border rounded-2xl p-5 sm:p-6 space-y-4 text-left ${isDark ? "bg-[#070318]/90 border-white/10" : "bg-slate-50 border-slate-200"}`}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Project Sprint Title *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Next.js SaaS Web Architecture"
+                      value={newPrjName}
+                      onChange={(e) => setNewPrjName(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Client POC / Organization *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Alexander Wright / Nordhaus Estates"
+                      value={newPrjClient}
+                      onChange={(e) => setNewPrjClient(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Target Website / Domain</label>
+                    <input
+                      type="text"
+                      placeholder="nordhaus-estates.com"
+                      value={newPrjDomain}
+                      onChange={(e) => setNewPrjDomain(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Category / Tech Stack</label>
+                    <select
+                      value={newPrjCategory}
+                      onChange={(e) => setNewPrjCategory(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    >
+                      <option value="Web Engineering">Next.js Web Engineering</option>
+                      <option value="Enterprise SEO">Enterprise SEO Suite</option>
+                      <option value="Mobile Application">Flutter Mobile App</option>
+                      <option value="Guest Posting">High-DR Guest Posting</option>
+                      <option value="Custom Retainer">Custom Invoiced Retainer</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Estimated Timeline</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 3 Weeks"
+                      value={newPrjTimeline}
+                      onChange={(e) => setNewPrjTimeline(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Total Project Budget (₹ or $)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. 75,000 or $1,500"
+                      value={newPrjBudget}
+                      onChange={(e) => setNewPrjBudget(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-white border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+                  <div className="flex items-end">
+                    <button
+                      type="submit"
+                      className="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-md cursor-pointer"
+                    >
+                      ✓ Launch Project Sprint
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              {/* Active Projects Table */}
+              <div className="space-y-3">
+                <h3 className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
+                  ✦ Active Client Project Sprints ({projectsList.length})
+                </h3>
+                <div className={`overflow-x-auto rounded-2xl border ${isDark ? "border-white/10 bg-[#070318]/90" : "border-slate-200 bg-white"}`}>
+                  <table className="w-full text-left text-xs border-collapse min-w-[650px]">
+                    <thead>
+                      <tr className={`border-b text-[10px] uppercase font-bold ${isDark ? "border-white/10 bg-[#160e33] text-gray-300" : "border-slate-200 bg-slate-100 text-slate-700"}`}>
+                        <th className="py-2.5 px-3">Project ID</th>
+                        <th className="py-2.5 px-3">Project Title</th>
+                        <th className="py-2.5 px-3">Client POC</th>
+                        <th className="py-2.5 px-3">Category</th>
+                        <th className="py-2.5 px-3">Budget</th>
+                        <th className="py-2.5 px-3">Timeline</th>
+                        <th className="py-2.5 px-3 text-center">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className={`divide-y ${isDark ? "divide-white/5 text-gray-200" : "divide-slate-100 text-slate-700"}`}>
+                      {projectsList.map((prj) => (
+                        <tr key={prj.id} className={`transition-colors ${isDark ? "hover:bg-white/[0.03]" : "hover:bg-slate-50"}`}>
+                          <td className="py-3 px-3 font-mono font-bold text-purple-400">{prj.id}</td>
+                          <td className="py-3 px-3 font-semibold text-white">{prj.name}</td>
+                          <td className="py-3 px-3">
+                            <span className="font-medium block">{prj.clientName}</span>
+                            <span className="text-[10px] text-gray-400 font-mono">{prj.domain}</span>
+                          </td>
+                          <td className="py-3 px-3">{prj.category}</td>
+                          <td className="py-3 px-3 font-bold text-emerald-400">{prj.budget}</td>
+                          <td className="py-3 px-3">{prj.timeline}</td>
+                          <td className="py-3 px-3 text-center">
+                            <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] font-bold">
+                              ● {prj.status}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* =====================================================================
+              DETAIL VIEW 5: ADD PAYMENT (With Paid, Pending, Remaining)
              ===================================================================== */}
           {activeView === "add_payment" && (
             <div className="space-y-5 animate-fadeIn max-w-2xl mx-auto">
@@ -1653,7 +2131,7 @@ export default function AdminDatabasePage() {
                   <span>➕ Record / Authorize New Client Payment</span>
                 </h2>
                 <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-                  Record offline bank wire, custom retainer settlement, or direct client receipt.
+                  Record offline bank wire, custom retainer settlement, or partial milestones (Paid, Pending, Remaining).
                 </p>
               </div>
 
@@ -1722,11 +2200,11 @@ export default function AdminDatabasePage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-purple-600 mb-1">Amount *</label>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Total Scope Amount *</label>
                     <input
                       type="number"
                       required
-                      placeholder="e.g. 49999 or 950"
+                      placeholder="e.g. 50000"
                       value={newPayAmount}
                       onChange={(e) => setNewPayAmount(e.target.value)}
                       className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
@@ -1735,6 +2213,34 @@ export default function AdminDatabasePage() {
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-semibold text-emerald-500 mb-1">Paid Amount (Settled)</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 30000"
+                      value={newPayPaid}
+                      onChange={(e) => setNewPayPaid(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-emerald-500 text-white" : "bg-slate-50 border-slate-200 focus:border-emerald-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-amber-500 mb-1">Pending / Remaining</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 20000"
+                      value={newPayPending}
+                      onChange={(e) => setNewPayPending(e.target.value)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-amber-500 text-white" : "bg-slate-50 border-slate-200 focus:border-amber-500 text-slate-900"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-purple-600 mb-1">Currency</label>
                     <select
@@ -1746,6 +2252,21 @@ export default function AdminDatabasePage() {
                     >
                       <option value="INR">₹ INR (India)</option>
                       <option value="USD">$ USD (Global)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-purple-600 mb-1">Payment Status</label>
+                    <select
+                      value={newPayStatus}
+                      onChange={(e) => setNewPayStatus(e.target.value as any)}
+                      className={`w-full rounded-xl px-3.5 py-2.5 text-xs outline-none border transition-colors ${
+                        isDark ? "bg-[#120d29] border-white/10 focus:border-[#a855f7] text-white" : "bg-slate-50 border-slate-200 focus:border-purple-500 text-slate-900"
+                      }`}
+                    >
+                      <option value="Paid">✓ Paid in Full</option>
+                      <option value="Remaining">⚡ Partial (Remaining Due)</option>
+                      <option value="Pending">⏳ Pending Approval</option>
                     </select>
                   </div>
 

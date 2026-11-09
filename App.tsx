@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Circle, Eye, EyeOff } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 
@@ -113,9 +114,15 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
           className="z-10 w-full max-w-sm space-y-5 lg:space-y-6"
         >
           {/* Brand/Logo */}
-          <motion.div variants={childVariants} className="flex items-center gap-2.5">
-            <Circle className="w-5 h-5 fill-white text-white" />
-            <span className="text-xl font-semibold tracking-tight text-white">Balaji Prime Media</span>
+          <motion.div variants={childVariants}>
+            <Link
+              href="/"
+              title="Balaji Prime Media Home"
+              className="inline-flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer"
+            >
+              <Circle className="w-5 h-5 fill-white text-white" />
+              <span className="text-xl font-semibold tracking-tight text-white">Balaji Prime Media</span>
+            </Link>
           </motion.div>
 
           {/* Heading Block */}
