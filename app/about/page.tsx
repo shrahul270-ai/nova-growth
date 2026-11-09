@@ -5,6 +5,7 @@ import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import VaultraAboutHeader from "../components/VaultraAboutHeader";
+import Leadership3DCards from "../components/Leadership3DCards";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -42,26 +43,6 @@ const pillars = [
   },
 ];
 
-const team = [
-  {
-    name: "Rahul Sharma",
-    role: "Founder & Lead Digital Strategist",
-    bio: "Search specialist and founder of Balaji Prime Media with over 7 years executing technical SEO, high-DA editorial outreach, and international organic acquisition.",
-    avatar: "👨‍💼",
-  },
-  {
-    name: "Engineering Team",
-    role: "Full-Stack Web Architects",
-    bio: "Next.js & modern frontend developers focused on ultra-fast headless web architectures, Core Web Vitals optimization, and clean conversion pipelines.",
-    avatar: "👩‍💻",
-  },
-  {
-    name: "Media Relations Lead",
-    role: "Head of Editorial Outreach & Digital PR",
-    bio: "Publisher specialist managing direct relationships with 850+ vetted DR 50–90+ digital publications across the US, UK, and Europe.",
-    avatar: "👨‍🔬",
-  },
-];
 
 export default function AboutPage() {
   return (
@@ -160,33 +141,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership Team */}
-      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <span className="text-xs font-bold text-[#091427] uppercase tracking-wider">
-            Leadership
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-2">
-            Meet the Strategists Behind Balaji Prime Media
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {team.map((member, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-3xl p-6 border border-gray-100 shadow-xs card-3d text-center"
-            >
-              <div className="w-20 h-20 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-3xl mx-auto mb-4">
-                {member.avatar}
-              </div>
-              <h3 className="text-lg font-bold text-[#0f172a]">{member.name}</h3>
-              <span className="text-xs font-bold text-[#d97706] block mb-2">{member.role}</span>
-              <p className="text-xs text-[#64748b] leading-relaxed">{member.bio}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 3D Glassmorphism Cyber-Podium Leadership Showcase */}
+      <Leadership3DCards />
 
       {/* CTA */}
       <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 text-center">

@@ -254,6 +254,49 @@ export default function AdminDatabasePage() {
     }
   }, []);
 
+  // Live Data Feed Fetcher: Loads all real form submissions and payments from database & Supabase
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const fetchFeed = async () => {
+      try {
+        const res = await fetch("/api/admin/feed");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            if (Array.isArray(data.users) && data.users.length > 0) {
+              setUsersList((prev) => {
+                const newIds = new Set(data.users.map((u: any) => u.id));
+                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
+                return [...data.users, ...filteredPrev];
+              });
+            }
+            if (Array.isArray(data.mails) && data.mails.length > 0) {
+              setMailsList((prev) => {
+                const newIds = new Set(data.mails.map((m: any) => m.id));
+                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
+                return [...data.mails, ...filteredPrev];
+              });
+            }
+            if (Array.isArray(data.payments) && data.payments.length > 0) {
+              setPaymentsList((prev) => {
+                const newIds = new Set(data.payments.map((p: any) => p.id));
+                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
+                return [...data.payments, ...filteredPrev];
+              });
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Live feed fetch error:", err);
+      }
+    };
+
+    fetchFeed();
+    const interval = setInterval(fetchFeed, 8000);
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
+
   const toggleTheme = () => {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);

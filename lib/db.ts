@@ -2,11 +2,68 @@ import fs from "fs";
 import path from "path";
 import { supabase, isSupabaseConfigured } from "./supabase";
 
+// Valid column schemas for Supabase tables to prevent PGRST204 errors
+const SUPABASE_TABLE_COLUMNS: Record<string, string[]> = {
+  leads: [
+    "id", "collection", "type", "name", "email", "phone", "website",
+    "timezone", "service", "budget", "message", "status", "sourceUrl",
+    "clientIp", "userAgent", "notes", "isDeleted", "createdAt", "updatedAt", "deletedAt"
+  ],
+  payments: [
+    "id", "collection", "transactionId", "clientName", "clientEmail",
+    "companyName", "planId", "planName", "mode", "invoiceNumber",
+    "currency", "amount", "paymentMethod", "paymentStatus", "status",
+    "clientIp", "userAgent", "notes", "isDeleted", "createdAt", "updatedAt", "deletedAt"
+  ],
+  interactions: [
+    "id", "collection", "action", "title", "name", "phone", "email",
+    "details", "clientIdentifier", "sourcePage", "targetUrl", "type",
+    "status", "clientIp", "userAgent", "notes", "isDeleted", "createdAt", "updatedAt", "deletedAt"
+  ],
+  audits: [
+    "id", "collection", "type", "domain", "url", "emailSubmitted",
+    "scores", "metrics", "status", "clientIp", "userAgent", "notes",
+    "isDeleted", "createdAt", "updatedAt", "deletedAt"
+  ],
+  activity_logs: [
+    "id", "timestamp", "action", "collection", "recordId", "summary", "metadata"
+  ]
+};
+
+function sanitizeForSupabase(collection: string, record: any): any {
+  const allowed = SUPABASE_TABLE_COLUMNS[collection];
+  if (!allowed) return record;
+
+  const sanitized: Record<string, any> = {};
+  for (const col of allowed) {
+    if (record[col] !== undefined) {
+      sanitized[col] = record[col];
+    }
+  }
+
+  // Preserve extra metadata like geolocation in notes if not already populated
+  if (collection === "leads") {
+    const geoInfo = [
+      record.city && `City: ${record.city}`,
+      record.region && `Region: ${record.region}`,
+      record.country && `Country: ${record.country}`,
+      record.locationSummary && `Location: ${record.locationSummary}`,
+    ].filter(Boolean).join(" | ");
+
+    if (geoInfo) {
+      sanitized.notes = sanitized.notes ? `${sanitized.notes} [${geoInfo}]` : `[${geoInfo}]`;
+    }
+  }
+
+  return sanitized;
+}
+
 // Supabase background sync helpers (Properly awaited)
 async function pushToSupabase(collection: string, record: any): Promise<boolean> {
   if (!isSupabaseConfigured || !supabase) return false;
   try {
-    const { error } = await supabase.from(collection).upsert(record);
+    const payload = sanitizeForSupabase(collection, record);
+    const { error } = await supabase.from(collection).upsert(payload);
     if (error) {
       console.error(`[Supabase Error] Push to ${collection}:`, error.message);
       return false;
