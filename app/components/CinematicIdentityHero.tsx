@@ -5,19 +5,29 @@ import Link from "next/link";
 
 export default function CinematicIdentityHero() {
   return (
-    <section className="echo-hero relative w-full min-h-screen min-h-[100svh] overflow-hidden select-none bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white isolate flex flex-col justify-between">
-      {/* Preconnect and Fonts: Sora & JetBrains Mono */}
+    <section className="echo-hero relative w-full min-h-screen min-h-[100svh] overflow-hidden select-none bg-black text-white isolate flex flex-col justify-between">
+      {/* Preconnect and Fonts: Sora (200,300,400) & JetBrains Mono (300,400,500) */}
       <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Sora:wght@200;300;400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Sora:wght@200;300;400&display=swap"
       />
 
       <style jsx global>{`
         :root {
-          --echo-font-display: "Sora", system-ui, -apple-system, sans-serif;
+          --echo-bg: #000000;
+          --echo-text: #ffffff;
+          --echo-text-dim: rgba(255, 255, 255, 0.62);
+          --echo-text-dimmer: rgba(255, 255, 255, 0.42);
+          --echo-line: rgba(255, 255, 255, 0.14);
+          --echo-line-strong: rgba(255, 255, 255, 0.26);
+          --echo-fill-ghost: rgba(255, 255, 255, 0.05);
+          --echo-fill-solid: rgba(255, 255, 255, 0.10);
+          --echo-gutter: clamp(20px, 5vw, 100px);
+          --echo-ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+          --echo-font-display: "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
           --echo-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
         }
 
@@ -27,20 +37,20 @@ export default function CinematicIdentityHero() {
           font-family: var(--echo-font-display);
         }
 
-        /* Dual Gradient Scrim Overlay on Video - Blending into Footer Dark Purple Palette */
+        /* Dual Gradient Scrim Overlay on Video */
         .echo-scrim {
           position: absolute;
           inset: 0;
           z-index: 1;
           pointer-events: none;
           background: 
-            linear-gradient(to right, transparent 0%, transparent 40%, rgba(7, 3, 25, 0.55) 68%, rgba(10, 5, 34, 0.95) 100%),
-            linear-gradient(to bottom, rgba(10, 5, 34, 0.65) 0%, transparent 25%, transparent 75%, rgba(7, 3, 25, 0.9) 100%);
+            linear-gradient(to right, transparent 0%, transparent 45%, rgba(0, 0, 0, 0.45) 72%, rgba(0, 0, 0, 0.72) 100%),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, transparent 22%, transparent 78%, rgba(0, 0, 0, 0.65) 100%);
         }
 
         @media (max-width: 720px) {
           .echo-scrim {
-            background: linear-gradient(to bottom, rgba(10, 5, 34, 0.6) 0%, rgba(7, 3, 25, 0.4) 30%, rgba(4, 1, 18, 0.95) 100%);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 30%, rgba(0, 0, 0, 0.75) 100%);
           }
         }
 
@@ -54,11 +64,15 @@ export default function CinematicIdentityHero() {
             background-size: cover;
             background-position: center;
           }
+          * {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
 
-      {/* Edge-to-Edge Media Layer with Footer Background Tone */}
-      <div className="echo-media-layer echo-media-fallback absolute inset-0 -z-10 bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] overflow-hidden">
+      {/* Edge-to-Edge Media Layer */}
+      <div className="echo-media-layer echo-media-fallback absolute inset-0 -z-10 bg-black overflow-hidden">
         <video
           className="echo-video w-full h-full object-cover object-center"
           autoPlay
@@ -77,99 +91,89 @@ export default function CinematicIdentityHero() {
         <div className="echo-scrim" />
       </div>
 
-      {/* Ambient Cosmic Purple & Violet Circular Glows (matching footer and image) */}
-      <div 
-        className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(168,85,247,0.18)_0%,rgba(139,92,246,0.08)_45%,transparent_70%)] pointer-events-none -z-5 blur-2xl" 
-        aria-hidden="true" 
-      />
-      <div 
-        className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(139,92,246,0.15)_0%,transparent_65%)] pointer-events-none -z-5 blur-2xl" 
-        aria-hidden="true" 
-      />
-
-      {/* Row 1: Top spacing for overlaid transparent Navbar */}
+      {/* Row 1: Top spacing padding for the overlaid transparent Navbar */}
       <div className="w-full pt-[clamp(76px,10vh,100px)] pointer-events-none" />
 
-      {/* Row 2: Right-aligned Identity Showcase */}
-      <div className="relative z-10 w-full flex-1 flex items-center justify-end max-md:justify-center px-[clamp(20px,5vw,100px)] py-6 sm:py-10 overflow-visible">
-        <div className="w-[min(42vw,680px)] min-w-[340px] max-lg:w-[min(75vw,560px)] max-sm:w-full max-sm:min-w-0 flex flex-col items-start text-left">
+      {/* Row 2: Right-aligned Identity Panel */}
+      <div className="relative z-10 w-full flex-1 flex items-center justify-end max-md:justify-center px-[clamp(20px,5vw,100px)] py-6 sm:py-8 overflow-visible">
+        <div className="w-[min(38vw,620px)] min-w-[340px] max-lg:w-[min(70vw,520px)] max-sm:w-full max-sm:min-w-0 flex flex-col items-start text-left">
           
-          {/* 1) Glowing Chip: [ DIGITAL IDENTITY ] */}
+          {/* 1) Chip: [ DIGITAL IDENTITY ] */}
           <div
-            className="inline-flex items-center gap-2 text-[clamp(11px,0.72vw,13px)] tracking-[0.22em] uppercase text-purple-200 bg-purple-950/70 border border-purple-500/40 px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.3)] backdrop-blur-md"
+            className="inline-block text-[clamp(11px,0.72vw,14px)] tracking-[0.2em] uppercase text-white bg-white/[0.09] px-[clamp(14px,1.1vw,20px)] py-[clamp(8px,0.7vw,12px)] leading-none rounded-none"
             style={{ fontFamily: 'var(--echo-font-mono)' }}
           >
-            <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse" />
-            <span>Digital Identity</span>
+            [ DIGITAL IDENTITY ]
           </div>
 
-          {/* 2) H1: Balaji Prime Media (Exact Multi-color gradient as requested) */}
+          {/* 2) H1: BALAJI PRIME MEDIA */}
           <h1
-            className="text-[clamp(42px,5.4vw,88px)] font-bold tracking-tight leading-[1.05] mt-5 sm:mt-6"
+            className="text-[clamp(38px,4.8vw,90px)] font-[200] tracking-[0.03em] leading-[0.95] text-white mt-[clamp(18px,2.2vw,36px)] uppercase"
             style={{ fontFamily: 'var(--echo-font-display)' }}
           >
-            <span className="text-white">Balaji </span>
-            <span className="text-[#fbbf24]">P</span>
-            <span className="bg-gradient-to-r from-[#fb7185] via-[#e879f9] to-[#c084fc] bg-clip-text text-transparent">rime </span>
-            <span className="bg-gradient-to-r from-[#a855f7] via-[#818cf8] to-[#93c5fd] bg-clip-text text-transparent">Media</span>
+            Balaji Prime Media
           </h1>
 
-          {/* 3) Exact Subtitle from the provided image */}
+          {/* 3) Tagline */}
           <p
-            className="text-[clamp(14px,1.1vw,18px)] font-normal text-slate-300 mt-3 sm:mt-4 leading-relaxed max-w-xl"
-            style={{ fontFamily: 'var(--echo-font-display)' }}
+            className="text-[clamp(11px,0.9vw,15px)] font-[300] tracking-[0.14em] uppercase text-white/60 mt-[clamp(10px,1vw,18px)] leading-[1.4]"
+            style={{ fontFamily: 'var(--echo-font-mono)' }}
           >
-            The most powerful AI ever deployed in organic search &amp; digital growth
+            Your digital growth &amp; organic identity to the global network.
           </p>
 
           {/* 4) Clean Action CTAs (Email input completely removed) */}
-          <div className="w-full mt-7 sm:mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
+          <div className="w-full mt-[clamp(24px,3vw,44px)] flex flex-col gap-[clamp(12px,1.1vw,16px)]">
+            {/* Button 1: Talk to Our Strategists (.btn--ghost) */}
             <Link
               href="/contact-us"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 active:scale-[0.98] text-white text-xs sm:text-sm font-bold py-3.5 px-7 rounded-full shadow-[0_0_24px_rgba(168,85,247,0.5)] transition-all cursor-pointer"
+              style={{ fontFamily: 'var(--echo-font-mono)' }}
+              className="w-full text-center rounded-none border border-white/20 py-[clamp(14px,1.2vw,20px)] px-5 text-[clamp(11px,0.78vw,13px)] tracking-[0.22em] uppercase font-[400] bg-white/[0.05] hover:bg-white/[0.12] text-white transition-all duration-250 cursor-pointer"
             >
-              <span>Talk to Our Strategists</span>
-              <span>→</span>
+              Talk to Our Strategists
             </Link>
+
+            {/* Button 2: Access Client Portal (.btn--solid) */}
             <Link
               href="/admin"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 active:scale-[0.98] text-white/90 hover:text-white border border-purple-400/30 hover:border-purple-400/60 text-xs sm:text-sm font-semibold py-3.5 px-6 rounded-full backdrop-blur-md transition-all cursor-pointer"
+              style={{ fontFamily: 'var(--echo-font-mono)' }}
+              className="w-full text-center rounded-none border-0 py-[clamp(14px,1.2vw,20px)] px-5 text-[clamp(11px,0.78vw,13px)] tracking-[0.22em] uppercase font-[400] bg-white/[0.10] hover:bg-white/[0.17] text-white transition-all duration-250 cursor-pointer"
             >
-              <span>Access Client Portal</span>
+              Access Client Portal
             </Link>
           </div>
 
-          {/* 5) Direct Strategy Session Link */}
+          {/* 5) Referral Link (Centered under buttons) */}
           <Link
-            href="/schedule-meeting"
-            className="mt-5 text-xs sm:text-[13px] font-medium tracking-wide text-purple-300/80 hover:text-purple-200 hover:underline underline-offset-4 transition-colors flex items-center gap-1.5"
+            href="/contact-us"
+            style={{ fontFamily: 'var(--echo-font-mono)' }}
+            className="self-center mt-[clamp(18px,1.8vw,32px)] text-[clamp(11px,0.74vw,13px)] font-[400] tracking-[0.18em] uppercase text-white hover:text-white/60 hover:underline underline-offset-4 transition-colors"
           >
-            <span>⚡ Book an Instant Strategy Call with Leadership</span>
-            <span>→</span>
+            I&apos;ve got a client project scope →
           </Link>
 
         </div>
       </div>
 
-      {/* Row 3: Legal Footer (Pinned to bottom with Footer border & style) */}
+      {/* Row 3: Legal Footer (Pinned to bottom) */}
       <footer
-        className="relative z-10 w-full border-t border-purple-500/20 py-4 px-[clamp(20px,5vw,100px)] text-center bg-black/20 backdrop-blur-sm"
+        className="relative z-10 w-full border-t border-white/[0.14] py-[clamp(14px,1.2vw,22px)] px-[clamp(20px,5vw,100px)] text-center"
       >
         <p
-          className="text-xs sm:text-[13px] font-normal text-slate-400 leading-relaxed max-w-4xl mx-auto"
+          className="text-[clamp(11.5px,0.8vw,15px)] font-[300] text-white/60 leading-[1.5] max-w-4xl mx-auto"
           style={{ fontFamily: 'var(--echo-font-display)' }}
         >
           Connecting with Balaji Prime Media signals that you accept our{" "}
           <Link
             href="/privacy-policy"
-            className="text-purple-300 underline underline-offset-[3px] decoration-purple-400/50 hover:text-white transition-colors"
+            className="text-white underline underline-offset-[3px] decoration-1 hover:text-white/60 transition-colors"
           >
             Privacy Notice
           </Link>{" "}
           and{" "}
           <Link
             href="/terms"
-            className="text-purple-300 underline underline-offset-[3px] decoration-purple-400/50 hover:text-white transition-colors"
+            className="text-white underline underline-offset-[3px] decoration-1 hover:text-white/60 transition-colors"
           >
             Service Contract
           </Link>
