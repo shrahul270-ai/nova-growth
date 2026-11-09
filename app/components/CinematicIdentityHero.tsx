@@ -122,36 +122,6 @@ export default function CinematicIdentityHero() {
             Your digital growth &amp; organic identity to the global network.
           </p>
 
-          {/* 4) Clean Action CTAs (Email input completely removed) */}
-          <div className="w-full mt-[clamp(24px,3vw,44px)] flex flex-col gap-[clamp(12px,1.1vw,16px)]">
-            {/* Button 1: Talk to Our Strategists (.btn--ghost) */}
-            <Link
-              href="/contact-us"
-              style={{ fontFamily: 'var(--echo-font-mono)' }}
-              className="w-full text-center rounded-none border border-white/20 py-[clamp(14px,1.2vw,20px)] px-5 text-[clamp(11px,0.78vw,13px)] tracking-[0.22em] uppercase font-[400] bg-white/[0.05] hover:bg-white/[0.12] text-white transition-all duration-250 cursor-pointer"
-            >
-              Talk to Our Strategists
-            </Link>
-
-            {/* Button 2: Access Client Portal (.btn--solid) */}
-            <Link
-              href="/admin"
-              style={{ fontFamily: 'var(--echo-font-mono)' }}
-              className="w-full text-center rounded-none border-0 py-[clamp(14px,1.2vw,20px)] px-5 text-[clamp(11px,0.78vw,13px)] tracking-[0.22em] uppercase font-[400] bg-white/[0.10] hover:bg-white/[0.17] text-white transition-all duration-250 cursor-pointer"
-            >
-              Access Client Portal
-            </Link>
-          </div>
-
-          {/* 5) Referral Link (Centered under buttons) */}
-          <Link
-            href="/contact-us"
-            style={{ fontFamily: 'var(--echo-font-mono)' }}
-            className="self-center mt-[clamp(18px,1.8vw,32px)] text-[clamp(11px,0.74vw,13px)] font-[400] tracking-[0.18em] uppercase text-white hover:text-white/60 hover:underline underline-offset-4 transition-colors"
-          >
-            I&apos;ve got a client project scope →
-          </Link>
-
         </div>
       </div>
 
