@@ -539,7 +539,7 @@ export default function Footer() {
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
       {/* Seamless transition with NO separate black box or harsh line */}
-      <div className="relative pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16 overflow-hidden border-t border-white/10 min-h-[260px] sm:min-h-[320px] md:min-h-[360px] flex flex-col justify-end bg-transparent">
+      <div className="relative pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-12 md:pb-16 overflow-hidden border-t border-white/10 min-h-[280px] sm:min-h-[340px] md:min-h-[380px] flex flex-col justify-end bg-transparent">
         {/* Subtle rim light halos behind the hands */}
         <div
           aria-hidden="true"
@@ -550,13 +550,13 @@ export default function Footer() {
           className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(168,85,247,0.16)_0%,transparent_75%)] pointer-events-none z-0"
         />
 
-        {/* Giant Outlined Wordmark - Elevated ABOVE the hands (z-25) & shifted higher vertically so it is 100% visible */}
+        {/* Wordmark - Shifted further UP above the hands (top-4 sm:top-7 md:top-9) with refined, reduced text size */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 flex items-start justify-center select-none pointer-events-none z-25 overflow-hidden pt-4 sm:pt-6 md:pt-8"
+          className="absolute top-4 sm:top-7 md:top-9 inset-x-0 flex items-center justify-center select-none pointer-events-none z-25 overflow-hidden"
         >
           <span
-            className="neon-outline-wordmark font-black text-5xl sm:text-7xl md:text-9xl lg:text-[130px] xl:text-[160px] leading-none whitespace-nowrap tracking-tight select-none opacity-100 drop-shadow-[0_0_30px_rgba(184,134,255,0.7)]"
+            className="neon-outline-wordmark font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[92px] leading-none whitespace-nowrap tracking-tight select-none opacity-100 drop-shadow-[0_0_25px_rgba(184,134,255,0.7)]"
             style={{
               fontFamily: "var(--font-urbanist), var(--font-inter), sans-serif",
             }}
