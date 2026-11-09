@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white overflow-hidden selection:bg-purple-600 selection:text-white">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white overflow-x-clip selection:bg-purple-600 selection:text-white">
       {/* 100% Transparent Navbar Overlay */}
       <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="about" />
