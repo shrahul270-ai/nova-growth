@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import VaultraAboutHeader from "../components/VaultraAboutHeader";
+import CinematicIdentityHero from "../components/CinematicIdentityHero";
 import Leadership3DCards from "../components/Leadership3DCards";
 import OurPurpose3DSection from "../components/OurPurpose3DSection";
 import OurPrinciples3DSection from "../components/OurPrinciples3DSection";
@@ -29,8 +29,8 @@ export default function AboutPage() {
         <Navbar activePage="about" />
       </div>
 
-      {/* Vaultra Glowing Dotted Particle Globe Hero Header */}
-      <VaultraAboutHeader />
+      {/* Cinematic Edge-to-Edge AI Video Hero Header with Sora & JetBrains Mono */}
+      <CinematicIdentityHero />
 
       {/* 3D Glassmorphism Our Purpose Section with Cosmic Background & Purple Accents */}
       <OurPurpose3DSection />
