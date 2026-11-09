@@ -90,7 +90,7 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
   return (
     <main className="flex min-h-screen w-full bg-black selection:bg-white/30 p-2 transition-all duration-500 lg:h-screen lg:overflow-hidden lg:p-4">
       {/* 3. Left Column (Hero & Background Video) */}
-      <div className="w-[52%] hidden lg:flex relative flex-col items-center justify-end pb-32 px-12 rounded-3xl overflow-hidden shadow-2xl h-full">
+      <div className="w-[52%] hidden lg:flex relative flex-col items-center justify-center py-12 px-8 lg:px-12 rounded-3xl overflow-hidden shadow-2xl h-full">
         {/* Background Video (NO dark overlay, gradient, or tint mask) */}
         <video
           autoPlay
@@ -110,7 +110,7 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="z-10 w-full max-w-xs space-y-8"
+          className="z-10 w-full max-w-sm space-y-6 lg:space-y-8"
         >
           {/* Brand/Logo */}
           <motion.div variants={childVariants} className="flex items-center gap-2.5">
