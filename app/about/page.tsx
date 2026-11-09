@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import VaultraAboutHeader from "../components/VaultraAboutHeader";
 import Leadership3DCards from "../components/Leadership3DCards";
+import OurPurpose3DSection from "../components/OurPurpose3DSection";
 
 export const metadata: Metadata = {
   title: "About Us | Balaji Prime Media Global Digital Growth Agency",
@@ -58,59 +59,8 @@ export default function AboutPage() {
       {/* Vaultra Glowing Dotted Particle Globe Hero Header */}
       <VaultraAboutHeader />
 
-      {/* Mission & Vision Section */}
-      <section id="about-purpose" className="relative py-6 sm:py-10 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-100 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
-          <div>
-            <div className="mb-5 inline-block p-3 sm:p-4 rounded-2xl bg-[#080d1a] border border-amber-500/25 shadow-md">
-              <Image
-                src="/images/bpm-complete-logo.png"
-                alt="BPM - Digital Growth & SEO Agency"
-                width={260}
-                height={240}
-                className="h-16 sm:h-20 w-auto object-contain"
-              />
-            </div>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full">
-                Our Purpose
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0f172a] tracking-tight mt-4 mb-4">
-              We help businesses win in the world&apos;s most competitive search markets.
-            </h2>
-            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed mb-4">
-              Founded on the principle that digital marketing should be measurable, ethical, and high-ROI, Balaji Prime Media combines deep engineering discipline with data-driven outreach.
-            </p>
-            <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
-              We partner with forward-thinking founders and marketing teams who demand real business outcomes — qualified pipeline, organic revenue, and long-term brand equity — not vanity impressions.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-amber-50/80 p-4 sm:p-6 rounded-2xl border border-amber-200/70 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">850+</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Vetted Media Outlets</span>
-              <span className="text-[10px] text-gray-500">DR 50–90+ Publications</span>
-            </div>
-            <div className="bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#091427] block">100%</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Manual Outreach</span>
-              <span className="text-[10px] text-gray-500">Zero PBNs or spam</span>
-            </div>
-            <div className="bg-blue-50/70 p-4 sm:p-6 rounded-2xl border border-blue-200/60 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#1e40af] block">7-14d</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Turnaround Time</span>
-              <span className="text-[10px] text-gray-500">Fast publication</span>
-            </div>
-            <div className="bg-amber-50 p-4 sm:p-6 rounded-2xl border border-amber-200 text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[#d97706] block">95+</span>
-              <span className="text-xs font-bold text-gray-700 mt-1 block">Target PageSpeed</span>
-              <span className="text-[10px] text-gray-500">Core Web Vitals Pass</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 3D Glassmorphism Our Purpose Section with Cosmic Background & Purple Accents */}
+      <OurPurpose3DSection />
 
       {/* Core Pillars */}
       <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
