@@ -28,7 +28,7 @@ export default function NextLayerContactHero() {
   }, []);
 
   return (
-    <section className="relative pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black select-none flex flex-col justify-center">
+    <section className="relative pt-28 sm:pt-36 pb-10 sm:pb-14 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black flex flex-col justify-center">
       {/* Background HLS Video */}
       <video
         ref={videoRef}
@@ -36,7 +36,7 @@ export default function NextLayerContactHero() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80 pointer-events-none"
       />
 
       {/* Top fade (120px tall, black -> transparent) */}
@@ -60,7 +60,7 @@ export default function NextLayerContactHero() {
       />
 
       {/* Content Container (relative z-10) */}
-      <div className="relative z-10 max-w-4xl mx-auto my-auto">
+      <div className="relative z-10 max-w-4xl mx-auto my-auto select-none">
         
         {/* Balaji Prime Media Trust Badge Pill */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass-strong text-white/90 text-xs font-body font-medium mb-4 sm:mb-5 shadow-2xl backdrop-blur-md">

@@ -99,23 +99,31 @@ export default function ContactClient() {
       <NextLayerContactHero />
 
       {/* 2. Main Contact Section (Transparent Glassmorphic Form + Payment Scanner) */}
-      <section id="contact-form" className="relative -mt-6 sm:-mt-10 pt-0 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-10">
+      <section id="contact-form" className="relative pt-6 sm:pt-10 pb-20 sm:pb-28 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-20">
         <style dangerouslySetInnerHTML={{ __html: `
+          #contact-form,
+          #contact-form * {
+            color-scheme: dark !important;
+          }
           #contact-form input,
           #contact-form textarea {
-            caret-color: #c084fc !important;
+            color-scheme: dark !important;
+            caret-color: #ffffff !important;
             cursor: text !important;
             color: #ffffff !important;
+            user-select: text !important;
+            -webkit-user-select: text !important;
           }
           #contact-form input:focus,
           #contact-form textarea:focus {
-            caret-color: #c084fc !important;
+            caret-color: #ffffff !important;
           }
           #contact-form input::placeholder,
           #contact-form textarea::placeholder {
             color: rgba(209, 213, 219, 0.75) !important;
           }
           #contact-form select {
+            color-scheme: dark !important;
             cursor: pointer !important;
             color: #ffffff !important;
           }
@@ -303,7 +311,8 @@ export default function ContactClient() {
                           placeholder="e.g. Sarah Jenkins"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
                         />
                       </div>
 
@@ -319,7 +328,8 @@ export default function ContactClient() {
                           placeholder="sarah@company.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
                         />
                       </div>
 
@@ -335,7 +345,8 @@ export default function ContactClient() {
                           placeholder="+1 (555) 000-0000"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
                         />
                       </div>
                     </div>
@@ -353,7 +364,8 @@ export default function ContactClient() {
                           placeholder="https://company.com"
                           value={formData.website}
                           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text caret-[#c084fc] font-normal"
+                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-text font-normal"
                         />
                       </div>
 
@@ -365,7 +377,8 @@ export default function ContactClient() {
                           id="input-timezone"
                           value={formData.timezone}
                           onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
+                          style={{ colorScheme: "dark", cursor: "pointer" }}
+                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all"
                         >
                           <option className="bg-[#0b061c] text-white py-2" value="US / Eastern (EST)">US / Eastern (EST)</option>
                           <option className="bg-[#0b061c] text-white py-2" value="US / Pacific (PST)">US / Pacific (PST)</option>
@@ -388,7 +401,8 @@ export default function ContactClient() {
                         id="input-service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all caret-[#c084fc]"
+                        style={{ colorScheme: "dark", cursor: "pointer" }}
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all"
                       >
                         <option className="bg-[#0b061c] text-white py-2" value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
                         <option className="bg-[#0b061c] text-white py-2" value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
@@ -410,7 +424,8 @@ export default function ContactClient() {
                         placeholder="Briefly describe your objectives, target geography, or deliverables..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-text caret-[#c084fc] font-normal"
+                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "text" }}
+                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-text font-normal"
                       />
                     </div>
 
