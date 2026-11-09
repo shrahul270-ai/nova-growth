@@ -9,16 +9,16 @@ export default function OurPurpose3DSection() {
       id="about-purpose" 
       className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto"
     >
-      {/* Outer Card with exact user-provided cosmic background & purple neon glass border */}
+      {/* Outer Card with exact cosmic background & purple neon glass border */}
       <div 
         className="relative rounded-[36px] overflow-hidden border border-purple-500/30 shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_35px_rgba(168,85,247,0.18)] backdrop-blur-2xl p-6 sm:p-10 lg:p-12 text-white"
         style={{
-          backgroundColor: "#040814",
+          backgroundColor: "#070319",
           backgroundImage: "url('/images/cosmic-dot-bg.png')",
           backgroundRepeat: "repeat",
         }}
       >
-        {/* Ambient Purple & Cyan Glow Highlights */}
+        {/* Ambient Purple & Violet Glow Highlights */}
         <div 
           className="absolute -top-24 -right-24 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(168,85,247,0.22)_0%,transparent_70%)] pointer-events-none" 
           aria-hidden="true" 
@@ -49,7 +49,7 @@ export default function OurPurpose3DSection() {
               <div className="absolute -inset-1 rounded-[26px] bg-purple-500/20 blur-md -z-10" />
             </div>
 
-            {/* Glowing Pill Badge: • OUR PURPOSE (Purple instead of green) */}
+            {/* Glowing Pill Badge: • OUR PURPOSE (Purple) */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/70 border border-purple-500/50 shadow-[0_0_16px_rgba(168,85,247,0.35)] backdrop-blur-md mb-5">
               <span className="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_#c084fc] animate-pulse" />
               <span className="text-xs font-black uppercase tracking-[0.22em] text-purple-200">
@@ -86,48 +86,15 @@ export default function OurPurpose3DSection() {
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
               Founded on the principle that digital marketing should be measurable, ethical, and high-ROI, Balaji Prime Media combines deep engineering discipline with data-driven outreach.
             </p>
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-8 font-normal">
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
               We partner with forward-thinking founders and marketing teams who demand real business outcomes — qualified pipeline, organic revenue, and long-term brand growth.
             </p>
 
-            {/* 3D Pill Widget: BPM AI Assistant */}
-            <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-full bg-[#080d22]/90 border border-purple-500/50 shadow-[0_0_22px_rgba(168,85,247,0.35),inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl hover:border-purple-400 transition-all cursor-pointer group">
-              <div className="w-8 h-8 rounded-full bg-purple-950/90 border border-purple-400/60 text-purple-300 flex items-center justify-center text-sm shadow-[0_0_12px_rgba(168,85,247,0.5)]">
-                🎙️
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-bold text-white leading-tight flex items-center gap-2">
-                  BPM AI Assistant
-                  <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-900/60 text-purple-300 border border-purple-400/30">
-                    WEBSITE GUIDE
-                  </span>
-                </span>
-                <span className="text-[10.5px] text-slate-400">
-                  Ask anything about our website &amp; services
-                </span>
-              </div>
-              <div className="w-7 h-7 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-[0_0_12px_rgba(168,85,247,0.7)] group-hover:scale-110 transition-transform ml-1">
-                →
-              </div>
-            </div>
-
           </div>
 
-          {/* ================= RIGHT COLUMN: 3D CENTERPIECE & 4 GLASS STAT CARDS ================= */}
-          <div className="lg:col-span-6 relative flex flex-col items-center justify-center min-h-[380px] sm:min-h-[440px]">
+          {/* ================= RIGHT COLUMN: 4 GLASS STAT CARDS ================= */}
+          <div className="lg:col-span-6 relative flex flex-col items-center justify-center">
             
-            {/* Center Background 3D Graphic (Earth + 3D Bar Chart + Podium with Purple Hue) */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-45 lg:opacity-55 scale-95 sm:scale-100 overflow-hidden">
-              <Image
-                src="/images/purpose/purpose-3d-centerpiece-purple.png"
-                alt="3D Growth Ecosystem with Earth and Bar Chart"
-                width={420}
-                height={420}
-                className="object-contain filter drop-shadow-[0_0_35px_rgba(168,85,247,0.5)]"
-                priority
-              />
-            </div>
-
             {/* 4 Floating 3D Frosted Glass Cards (2x2 Grid) */}
             <div className="relative z-10 w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               
@@ -229,8 +196,8 @@ export default function OurPurpose3DSection() {
 
             </div>
 
-            {/* 3D Elevated Stepped Podium Base at bottom of right column */}
-            <div className="relative flex flex-col items-center w-full mt-6 pointer-events-none" aria-hidden="true">
+            {/* 3D Elevated Stepped Podium Base at bottom */}
+            <div className="relative flex flex-col items-center w-full mt-8 pointer-events-none" aria-hidden="true">
               <div className="w-56 sm:w-72 h-6 rounded-[100%] border border-purple-400/70 bg-gradient-to-r from-purple-500/30 via-fuchsia-400/40 to-purple-500/30 shadow-[0_0_25px_rgba(168,85,247,0.85)] z-10" />
               <div className="w-60 sm:w-80 h-5 -mt-3 rounded-b-[100%] bg-gradient-to-b from-[#1e1438] via-[#0f0924] to-[#04020f] border-b border-purple-400/40 shadow-2xl z-0" />
               <div className="w-72 sm:w-96 h-8 -mt-3 rounded-[100%] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.4)_0%,rgba(139,92,246,0.2)_50%,transparent_75%)] blur-md" />

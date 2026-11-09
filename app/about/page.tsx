@@ -23,10 +23,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden">
-      <div className="curved-ribbon-left" aria-hidden="true" />
-      <div className="curved-ribbon-right" aria-hidden="true" />
-
+    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white overflow-hidden selection:bg-purple-600 selection:text-white">
       {/* 100% Transparent Navbar Overlay */}
       <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="about" />
@@ -41,21 +38,21 @@ export default function AboutPage() {
       {/* 3D Glassmorphism Our Core Principles Section with Purple Theme & Cosmic Texture */}
       <OurPrinciples3DSection />
 
-      {/* 3D Glassmorphism Cyber-Podium Leadership Showcase */}
+      {/* 3D Glassmorphism Cyber-Podium Leadership Showcase (Purple Theme) */}
       <Leadership3DCards />
 
-      {/* CTA */}
-      <section className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] p-6 sm:p-10 rounded-3xl border border-[#d97706]/35 shadow-xl text-white">
-          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
+      {/* CTA (Purple Luxury Glassmorphic) */}
+      <section className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 text-center">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-[#12082b] via-[#1a0c3b] to-[#12082b] p-8 sm:p-12 rounded-3xl border border-purple-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(168,85,247,0.15)] text-white backdrop-blur-xl">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-3 tracking-tight">
             Ready to Accelerate Your Brand?
           </h2>
-          <p className="text-sm text-slate-300 max-w-xl mx-auto mb-6">
+          <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-6 leading-relaxed">
             Schedule a conversation with our growth team and discover how we can help you capture international market share.
           </p>
           <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
+            href="/contact-us"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 active:scale-[0.98] text-white text-xs sm:text-sm font-bold px-8 py-4 rounded-full shadow-lg shadow-purple-950/80 transition-all cursor-pointer"
           >
             <span>Talk to Our Strategists</span>
             <span>→</span>
