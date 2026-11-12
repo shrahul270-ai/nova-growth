@@ -5,7 +5,6 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import VexorBlogHero from "../components/VexorBlogHero";
-import GooglePreferredSourceButton from "../components/GooglePreferredSourceButton";
 import { blogPosts } from "./blogData";
 
 export default function BlogClient() {
@@ -312,11 +311,6 @@ export default function BlogClient() {
           </div>
         )}
       </section>
-
-      {/* Google Preferred Source Banner Callout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 relative z-10">
-        <GooglePreferredSourceButton variant="banner" />
-      </div>
 
       {/* Newsletter Signup in Balaji Prime Luxury Violet Theme */}
       <section className="relative py-16 px-6 md:px-12 z-10 max-w-4xl mx-auto">
