@@ -19,6 +19,7 @@ export interface CaseStudyData {
   heroMetric: string;
   visual: string;
   bgGradient: string;
+  coverImage?: string;
   overview: string;
   challenge: {
     heading: string;
@@ -56,6 +57,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "$1.4M Incremental ARR in 6 Months",
     visual: "👗",
     bgGradient: "from-rose-50 to-amber-50",
+    coverImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
     overview:
       "Luxe Fashion is a fast-growing premium apparel brand based in California. Operating on a bloated monolithic CMS, they struggled with high customer acquisition costs on paid social and sub-optimal mobile conversion rates. Balaji Prime Media re-engineered their entire digital presence with a headless Next.js frontend and an aggressive collection page SEO taxonomy.",
     challenge: {
@@ -116,6 +118,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "Top 10 App Store Fitness Ranking",
     visual: "⚡",
     bgGradient: "from-slate-900 to-[#091427]",
+    coverImage: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80",
     overview:
       "Pulse Technologies engineered an intelligent AI-driven workout tracker but needed a world-class user interface, high-converting onboarding funnel, and global App Store Optimization (ASO) to compete with category leaders like Nike Training and Strava.",
     challenge: {
@@ -176,6 +179,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "280% Surge in Private Consultations",
     visual: "📍",
     bgGradient: "from-amber-50 to-slate-50",
+    coverImage: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
     overview:
       "Apex Health & Dental operates clinics across Central and Greater London. Despite having high-tier surgical facilities, potential patients were choosing competing clinics simply because Apex did not appear in Google's local 3-Pack or on neighborhood map searches.",
     challenge: {
@@ -236,6 +240,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "$180,000+ Monthly Organic Pipeline",
     visual: "☁️",
     bgGradient: "from-blue-50/50 to-amber-50/50",
+    coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
     overview:
       "CloudSync is a venture-backed B2B SaaS startup providing automated data pipeline integrations. While their software was revolutionary, their website was suffering from JavaScript rendering issues and low domain authority, yielding almost zero organic search demos.",
     challenge: {
@@ -296,6 +301,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "4.2% Lead-to-Inquiry Conversion Rate",
     visual: "🏢",
     bgGradient: "from-amber-50/80 to-slate-50",
+    coverImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
     overview:
       "Horizon Luxury Properties is a premier Dubai real estate firm catering to foreign property investors from the UK, Europe, and India. They required an ultra-fast, prestige multilingual portal to showcase off-plan luxury penthouses and beachfront villas.",
     challenge: {
@@ -356,6 +362,7 @@ export const caseStudiesData: CaseStudyData[] = [
     heroMetric: "54% Organic Non-Brand Search Share",
     visual: "💳",
     bgGradient: "from-slate-900 to-[#091427]",
+    coverImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80",
     overview:
       "VenturePay is a global cross-border remittance and multi-currency business account platform. Competing with established fintech unicorns like Wise and Revolut, VenturePay needed bank-grade trust, sub-2-minute onboarding, and high-ranking organic authority for money transfer keywords.",
     challenge: {

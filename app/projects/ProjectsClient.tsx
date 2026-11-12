@@ -569,86 +569,116 @@ export default function ProjectsClient() {
           </div>
         </div>
 
-        {/* 6 Luxury Bento Grid Cards with Real Project Media */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* 6 Luxury Editorial Case Study Cards with Real Project Media */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredStudies.map((study) => (
-            <Link
+            <article
               key={study.id}
-              href={`/projects/${study.id}`}
-              className="bg-[#0e0921]/90 rounded-3xl border border-white/10 p-6 shadow-xl flex flex-col justify-between group cursor-pointer transition-all duration-300 hover:border-purple-500/60 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(168,85,247,0.2)] backdrop-blur-xl"
+              className="bg-[#0d0726]/85 hover:bg-[#130a38]/95 rounded-3xl border border-purple-500/25 hover:border-[#A068FF]/60 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(160,104,255,0.22)] transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
-                {/* Visual Header Mockup */}
-                <div
-                  className={`relative bg-gradient-to-tr ${study.bgGradient} rounded-2xl h-52 flex flex-col items-center justify-center p-4 overflow-hidden mb-5 border border-white/10`}
+                {/* 1. Cover Image with hover zoom (16:10 aspect ratio) */}
+                <Link
+                  href={`/projects/${study.id}`}
+                  prefetch={false}
+                  className="block relative aspect-[16/10] overflow-hidden bg-slate-950/80"
                 >
-                  {/* Category Pill */}
-                  <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-[10px] font-bold px-3 py-1 rounded-full text-white border border-white/15 shadow-xs">
+                  <img
+                    src={
+                      study.coverImage ||
+                      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                    }
+                    alt={study.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  {/* Floating Category Badge */}
+                  <span className="absolute top-3.5 left-3.5 text-[11px] font-bold bg-[#090422]/90 text-[#d8b4fe] border border-purple-500/40 px-3 py-1 rounded-full backdrop-blur-md shadow-lg">
                     {study.category}
-                  </div>
+                  </span>
 
-                  {/* Country Flag */}
-                  <div className="absolute top-3 right-3 text-xs bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-gray-200 border border-white/10">
+                  {/* Floating Country Flag Badge */}
+                  <span className="absolute top-3.5 right-3.5 text-xs bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-slate-200 border border-white/10 shadow-sm font-medium">
                     {study.country}
-                  </div>
+                  </span>
 
-                  {/* Center Visual */}
-                  <div className="text-5xl mb-2 group-hover:scale-110 transition-transform duration-300">
-                    {study.visual}
-                  </div>
-
-                  {/* Metric Callout */}
-                  <div className="bg-black/85 backdrop-blur-md px-4 py-1.5 rounded-xl border border-white/20 text-center shadow-lg">
-                    <span className="text-base font-black text-cyan-300 block leading-none">
+                  {/* Floating Bottom Metric Pill */}
+                  <div className="absolute bottom-3 left-3 bg-[#090422]/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-purple-500/40 flex items-center gap-2 shadow-xl">
+                    <span className="text-sm font-black text-cyan-300 leading-none">
                       {study.stat}
                     </span>
-                    <span className="text-[10px] text-gray-300 font-semibold">{study.statLabel}</span>
+                    <span className="text-[10px] text-slate-300 font-semibold leading-tight">
+                      {study.statLabel}
+                    </span>
+                  </div>
+                </Link>
+
+                {/* 2. Content Details */}
+                <div className="p-6">
+                  {/* Badge & Timeline Meta */}
+                  <div className="flex items-center gap-2 text-xs text-purple-300/80 mb-2.5 font-medium">
+                    <span className="text-[#A068FF] font-semibold">{study.badge}</span>
+                    <span>•</span>
+                    <span className="text-slate-400">{study.timeline}</span>
+                  </div>
+
+                  {/* Title */}
+                  <h4 className="text-xl font-bold text-white group-hover:text-[#A068FF] transition-colors leading-snug line-clamp-2 mb-2">
+                    <Link href={`/projects/${study.id}`} prefetch={false} className="hover:underline">
+                      {study.title}
+                    </Link>
+                  </h4>
+
+                  {/* Client Info */}
+                  <p className="text-xs text-slate-400 font-medium mb-3">
+                    {study.client}
+                  </p>
+
+                  {/* Overview Excerpt */}
+                  <p className="text-sm text-slate-300/80 leading-relaxed mb-5 line-clamp-3 font-normal">
+                    {study.overview}
+                  </p>
+
+                  {/* Key Metrics Grid (3 cols) */}
+                  <div className="grid grid-cols-3 gap-2 bg-[#140d2f]/70 p-3 rounded-2xl border border-purple-500/20 mb-5 text-center">
+                    {study.metrics.slice(0, 3).map((m, mIdx) => (
+                      <div key={mIdx}>
+                        <span className="text-xs sm:text-sm font-black text-cyan-300 block leading-tight">
+                          {m.value}
+                        </span>
+                        <span className="text-[9.5px] text-slate-400 leading-tight block mt-0.5">
+                          {m.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech Stack Chips */}
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    {study.tech.slice(0, 4).map((t, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-[10px] font-medium bg-white/[0.05] text-slate-300 px-2.5 py-1 rounded-lg border border-purple-500/15"
+                      >
+                        {t}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                {/* Badge */}
-                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-300 bg-purple-950/70 border border-purple-500/35 px-2.5 py-1 rounded-md">
-                  {study.badge}
-                </span>
-
-                <h4 className="text-lg font-bold text-white mt-3 mb-1 group-hover:text-cyan-300 transition-colors">
-                  {study.title}
-                </h4>
-                <p className="text-xs text-gray-400 font-medium mb-3">{study.client}</p>
-                <p className="text-xs text-gray-300 leading-relaxed mb-5 line-clamp-3 font-light">
-                  {study.overview}
-                </p>
-
-                {/* Key Metrics Grid */}
-                <div className="grid grid-cols-3 gap-2 bg-[#140d2f]/80 p-3 rounded-xl border border-white/5 mb-5 text-center">
-                  {study.metrics.slice(0, 3).map((m, mIdx) => (
-                    <div key={mIdx}>
-                      <span className="text-xs font-bold text-cyan-300 block">{m.value}</span>
-                      <span className="text-[9.5px] text-gray-400 leading-tight block">{m.label}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
-              {/* Tech Stack Chips & Action */}
-              <div>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {study.tech.map((t, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[10px] font-medium bg-white/5 text-gray-300 px-2 py-0.5 rounded-md border border-white/5"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="w-full inline-flex items-center justify-center gap-2 text-xs font-bold text-white bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-700 group-hover:brightness-110 py-3 rounded-xl transition-all shadow-md">
+              {/* 3. Card Footer Action */}
+              <div className="px-6 pb-6 pt-0 mt-auto">
+                <Link
+                  href={`/projects/${study.id}`}
+                  prefetch={false}
+                  className="w-full inline-flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-700 group-hover:brightness-110 shadow-[0_0_20px_rgba(160,104,255,0.3)] transition-all cursor-pointer"
+                >
                   <span>View Full Case Study</span>
-                  <span>→</span>
-                </div>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
       </section>
