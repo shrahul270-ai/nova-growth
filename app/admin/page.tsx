@@ -4,9 +4,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import App from "@/App";
+import BrandLogo from "@/app/components/BrandLogo";
 import SaasluCrmOverview from "./SaasluCrmOverview";
 import LiveDateWidget from "./LiveDateWidget";
-import WebsiteCmsView from "./WebsiteCmsView";
 
 // =========================================================================
 // TYPES & DATA STRUCTURES
@@ -172,7 +172,7 @@ export default function AdminDatabasePage() {
 
   // Active Dashboard Selection (Default: "overview" matching Saaslu CRM Dashboard)
   const [activeView, setActiveView] = useState<
-    "overview" | "users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice" | "create_project" | "website_cms"
+    "overview" | "users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice" | "create_project"
   >("overview");
 
   // Database Data States
@@ -643,32 +643,16 @@ export default function AdminDatabasePage() {
         }`}
       >
         
-        {/* Top Branding Section (Matching Saaslu Star Theme) */}
-        <div className={`p-5 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 via-orange-500 to-purple-600 flex items-center justify-center font-black text-lg text-white shadow-lg shadow-purple-950/40 group-hover:scale-105 transition-transform">
-                ✦
-              </span>
-              <div className="flex flex-col text-left">
-                <span
-                  className={`text-sm font-black tracking-tight leading-none group-hover:text-[#7c3aed] transition-colors ${
-                    isDark ? "text-white" : "text-slate-900"
-                  }`}
-                >
-                  Saaslu • CRM
-                </span>
-                <span className="text-[10px] text-cyan-400 font-mono leading-tight mt-1">
-                  Balaji Prime Media
-                </span>
-              </div>
-            </Link>
+        {/* Top Branding Section (Official Brand Logo - clicking navigates to Website Home) */}
+        <div className={`p-4 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+          <div className="flex items-center justify-between gap-2">
+            <BrandLogo size="md" showTagline={true} />
 
             {/* Quick Theme Toggle Icon Button in Sidebar */}
             <button
               type="button"
               onClick={toggleTheme}
-              className={`p-2 rounded-xl border text-sm transition-all cursor-pointer hover:scale-110 active:scale-90 ${
+              className={`p-2 rounded-xl border text-sm transition-all cursor-pointer hover:scale-110 active:scale-90 shrink-0 ${
                 isDark
                   ? "bg-[#181033] border-purple-500/40 text-amber-300 hover:bg-[#251847]"
                   : "bg-slate-100 border-slate-300 text-slate-700 hover:bg-slate-200"
@@ -698,7 +682,7 @@ export default function AdminDatabasePage() {
 
         {/* Navigation Categories */}
         <div className="p-3.5 space-y-1.5 flex-1 overflow-y-auto">
-          {/* DASHBOARDS SECTION (From Saaslu Image 1) */}
+          {/* DASHBOARDS SECTION */}
           <span
             className={`text-[10px] uppercase font-bold tracking-wider px-3 pb-1 block ${
               isDark ? "text-gray-400" : "text-slate-400"
@@ -729,32 +713,6 @@ export default function AdminDatabasePage() {
               </div>
             </div>
             <span className="w-2 h-2 rounded-full bg-[#8b5cf6]" />
-          </button>
-
-          {/* Website Management CMS */}
-          <button
-            type="button"
-            onClick={() => setActiveView("website_cms")}
-            className={`w-full p-2.5 rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
-              activeView === "website_cms"
-                ? isDark
-                  ? "bg-[#1e1c38] border-[#8b5cf6] shadow-lg shadow-purple-950/80 ring-1 ring-[#a855f7] text-white"
-                  : "bg-purple-100 border-purple-400 text-purple-900 shadow-sm"
-                : isDark
-                ? "bg-transparent border-transparent hover:bg-white/5 text-gray-300"
-                : "bg-transparent border-transparent hover:bg-slate-100 text-slate-700"
-            }`}
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <span className="text-base">🌐</span>
-              <div className="min-w-0">
-                <p className="text-xs font-bold truncate">Website Management</p>
-                <p className="text-[10px] text-gray-400 truncate">CMS &amp; DB Records</p>
-              </div>
-            </div>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
-              CMS
-            </span>
           </button>
 
           <span
@@ -1139,22 +1097,9 @@ export default function AdminDatabasePage() {
         )}
 
         {/* =========================================================================
-            PRIMARY VIEW 2: WEBSITE MANAGEMENT SYSTEM (CMS, Pages, Blogs, Media, DB)
+            PRIMARY VIEW 2: DETAIL VIEWS (Users, Mails, WhatsApp, Payments, Invoice...)
            ========================================================================= */}
-        {activeView === "website_cms" && (
-          <WebsiteCmsView
-            isDark={isDark}
-            totalLeads={mailsList.length + whatsappList.length}
-            totalUsers={usersList.length}
-            onNavigate={(view: string) => setActiveView(view as any)}
-            onDownloadExcel={handleDownloadAdminData}
-          />
-        )}
-
-        {/* =========================================================================
-            PRIMARY VIEW 3: DETAIL VIEWS (Users, Mails, WhatsApp, Payments, Invoice...)
-           ========================================================================= */}
-        {activeView !== "overview" && activeView !== "website_cms" && (
+        {activeView !== "overview" && (
           <div className="space-y-6">
             <div className="flex items-center justify-between pb-1">
               <button
