@@ -15,6 +15,7 @@ export interface BlogPost {
   date: string;
   readTime: string;
   tag: string;
+  coverImage?: string;
   featured?: boolean;
   statBadge?: { value: string; label: string };
   sections: BlogSection[];
@@ -35,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     date: "Oct 2026",
     readTime: "7 min read",
     tag: "Case Study",
+    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
     featured: true,
     statBadge: { value: "+340%", label: "Organic Revenue Increase" },
     sections: [
@@ -97,6 +99,7 @@ export const blogPosts: BlogPost[] = [
     date: "Sep 2026",
     readTime: "5 min read",
     tag: "Technical SEO",
+    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
     featured: false,
     statBadge: { value: "98/100", label: "Mobile PageSpeed Score" },
     sections: [
@@ -148,6 +151,7 @@ export const blogPosts: BlogPost[] = [
     date: "Sep 2026",
     readTime: "6 min read",
     tag: "Authority Growth",
+    coverImage: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80",
     featured: false,
     statBadge: { value: "DR 70+", label: "Average Link Quality" },
     sections: [
@@ -193,6 +197,7 @@ export const blogPosts: BlogPost[] = [
     date: "Aug 2026",
     readTime: "4 min read",
     tag: "Local Growth",
+    coverImage: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80",
     featured: false,
     statBadge: { value: "#1 Rank", label: "Top 3 Google Map Pack" },
     sections: [
@@ -236,6 +241,7 @@ export const blogPosts: BlogPost[] = [
     date: "Aug 2026",
     readTime: "8 min read",
     tag: "Retention",
+    coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
     featured: false,
     statBadge: { value: "+30%", label: "Store Revenue on Autopilot" },
     sections: [
@@ -276,6 +282,7 @@ export const blogPosts: BlogPost[] = [
     date: "Jul 2026",
     readTime: "6 min read",
     tag: "AI & Search",
+    coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
     featured: false,
     statBadge: { value: "Top Cited", label: "Google AI Source" },
     sections: [
