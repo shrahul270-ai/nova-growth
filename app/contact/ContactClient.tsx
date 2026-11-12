@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import StaticContactHero from "../components/StaticContactHero";
+import NextLayerContactHero from "../components/NextLayerContactHero";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
@@ -99,8 +99,8 @@ export default function ContactClient() {
         </div>
       )}
 
-      {/* 1. Static Luxury Hero Header (Clean, Non-moving) */}
-      <StaticContactHero />
+      {/* 1. Next Layer Contact Hero Header (Clean, Static) */}
+      <NextLayerContactHero />
 
       {/* 2. Main Contact Section (Transparent Glassmorphic Form + Payment Scanner) */}
       <section id="contact-form" className="relative pt-6 sm:pt-10 pb-20 sm:pb-28 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-20">

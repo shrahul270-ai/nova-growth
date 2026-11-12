@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import Hls from "hls.js";
+import React from "react";
 
 interface VexorBlogHeroProps {
   onSearch?: (query: string) => void;
@@ -9,57 +8,6 @@ interface VexorBlogHeroProps {
 }
 
 export default function VexorBlogHero({}: VexorBlogHeroProps) {
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Setup HLS video streaming with graceful MP4 fallback
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const hlsSrc = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
-    const mp4Fallback = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f6f4ec49-d5dd-4893-8eb4-fa0f932aceaf.mp4";
-
-    let hls: Hls | null = null;
-
-    if (Hls.isSupported()) {
-      hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true,
-        backBufferLength: 60,
-      });
-      hls.loadSource(hlsSrc);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play().catch(() => {});
-        setVideoLoaded(true);
-      });
-      hls.on(Hls.Events.ERROR, () => {
-        // Fallback to MP4 on HLS network issue
-        if (!video.src) {
-          video.src = mp4Fallback;
-          video.play().catch(() => {});
-        }
-      });
-    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      // Native Apple HLS (Safari iOS/macOS)
-      video.src = hlsSrc;
-      video.addEventListener("loadedmetadata", () => {
-        video.play().catch(() => {});
-        setVideoLoaded(true);
-      });
-    } else {
-      video.src = mp4Fallback;
-      video.play().catch(() => {});
-    }
-
-    return () => {
-      if (hls) {
-        hls.destroy();
-      }
-    };
-  }, []);
-
   const scrollToArticles = () => {
     const el = document.getElementById("articles-section");
     if (el) {
@@ -70,18 +18,14 @@ export default function VexorBlogHero({}: VexorBlogHeroProps) {
   return (
     <section className="relative w-full h-screen min-h-[700px] lg:min-h-[800px] bg-black text-white flex flex-col justify-end overflow-hidden selection:bg-[#A068FF] selection:text-white">
       {/* =========================================================================
-          FULL-SCREEN HLS VIDEO BACKGROUND
+          STATIC LUXURY BACKGROUND PLATE (No moving video)
          ========================================================================= */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/03c58212-3a59-4c80-b19d-30d05a174563.webp"
-        className={`absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.03] transition-opacity duration-1000 ${
-          videoLoaded ? "opacity-90" : "opacity-75"
-        }`}
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center z-0 pointer-events-none opacity-85 scale-[1.02]"
+        style={{
+          backgroundImage: `url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/03c58212-3a59-4c80-b19d-30d05a174563.webp")`,
+        }}
+        aria-hidden="true"
       />
 
       {/* Top Glassmorphic Vignette (Comfortable backdrop for floating Navbar) */}

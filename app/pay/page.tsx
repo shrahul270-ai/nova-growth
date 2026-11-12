@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PaymentSection from "../components/PaymentSection";
-import StaticPayHero from "../components/StaticPayHero";
+import MeridianPayHero from "../components/MeridianPayHero";
 
 export const metadata: Metadata = {
   title: "Secure Client Payment Portal | Balaji Prime Media",
@@ -22,8 +22,8 @@ export default function PayPage() {
         <Navbar activePage="pay" />
       </div>
 
-      {/* 1. Static Luxury Hero Header (Clean, Non-moving) */}
-      <StaticPayHero />
+      {/* 1. Meridian Pay Hero Header (Clean, Static) */}
+      <MeridianPayHero />
 
       {/* 2. Main Payment Section */}
       <main id="payment-methods" className="relative z-10 bg-[#f8fafd] text-[#111827] py-8 sm:py-12">

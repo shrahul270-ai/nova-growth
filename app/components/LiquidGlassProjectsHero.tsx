@@ -48,14 +48,14 @@ export default function LiquidGlassProjectsHero() {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-black font-poppins select-none">
-      {/* Background Video: Full-screen autoplaying, looping, muted */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
+      {/* Static Luxury Ambient Background (No moving video) */}
+      <div
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none bg-[#050214]"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(160, 104, 255, 0.35), transparent 70%), radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.2), transparent 55%), radial-gradient(circle at 90% 70%, rgba(34, 211, 238, 0.18), transparent 55%), #050214",
+        }}
+        aria-hidden="true"
       />
 
       {/* Content Layer floats at z-10 */}

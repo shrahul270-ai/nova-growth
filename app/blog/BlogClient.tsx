@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import StaticBlogHero from "../components/StaticBlogHero";
+import VexorBlogHero from "../components/VexorBlogHero";
 import { blogPosts } from "./blogData";
 
 export default function BlogClient() {
@@ -89,8 +89,8 @@ export default function BlogClient() {
         <Navbar activePage="blog" />
       </div>
 
-      {/* Static Luxury Hero Header (Clean, Non-moving) */}
-      <StaticBlogHero
+      {/* Vexor Blog Hero Header (Clean, Static) */}
+      <VexorBlogHero
         onSearch={(q) => {
           setSearchQuery(q);
           setCurrentPage(1);

@@ -66,17 +66,31 @@ export default function Footer() {
         className="absolute bottom-40 right-0 w-[500px] h-[350px] bg-[radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.16)_0%,transparent_70%)] pointer-events-none"
       />
 
-      {/* Floating Free AI Audit Right Tab */}
+      {/* Floating Free AI Audit Right Tab (Luxury Cyber Glass Redesign) */}
       <Link
         href="/audit"
-        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 text-white py-3.5 px-2 rounded-l-xl shadow-[0_0_24px_rgba(160,104,255,0.4)] items-center gap-1.5 transition-all text-xs font-black tracking-wider uppercase [writing-mode:vertical-rl] rotate-180 hover:px-2.5 cursor-pointer border-l border-t border-b border-[#a855f7]/50"
-        style={{
-          background: "linear-gradient(to bottom, #7c3aed, #4f46e5)",
-        }}
+        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-40 text-white py-4 px-2.5 rounded-l-2xl shadow-[0_4px_28px_rgba(160,104,255,0.45)] hover:shadow-[0_4px_35px_rgba(34,211,238,0.7)] items-center gap-2 transition-all duration-300 text-[11px] font-bold tracking-[0.18em] uppercase [writing-mode:vertical-rl] rotate-180 hover:-translate-x-1.5 cursor-pointer border-l-2 border-l-[#A068FF] hover:border-l-cyan-400 border-t border-b border-white/20 bg-gradient-to-b from-[#140833]/95 via-[#0b031e]/95 to-[#04010e]/95 backdrop-blur-xl group select-none"
         title="Analyze your website speed, ranking & SEO score for free"
       >
-        <span className="rotate-90 text-[#fcd34d] text-sm">✦</span>
-        <span>FREE AI AUDIT</span>
+        {/* Live Status Beacon */}
+        <span className="relative flex h-2 w-2 shrink-0">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400 shadow-[0_0_8px_#22d3ee]" />
+        </span>
+
+        {/* 3D Geometric AI Sparkle Glyph */}
+        <svg
+          className="w-3.5 h-3.5 text-cyan-300 group-hover:text-cyan-200 transition-transform duration-300 group-hover:scale-125 rotate-90 shrink-0 filter drop-shadow-[0_0_6px_rgba(34,211,238,0.8)]"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+        </svg>
+
+        {/* Clean Glowing Typography */}
+        <span className="bg-clip-text text-transparent bg-gradient-to-t from-white via-purple-100 to-cyan-200 group-hover:from-white group-hover:to-white transition-colors drop-shadow-[0_0_10px_rgba(160,104,255,0.5)]">
+          FREE AI AUDIT
+        </span>
       </Link>
 
       {/* MAIN FOOTER: 4-Column Grid */}

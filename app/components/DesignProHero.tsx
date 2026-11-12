@@ -14,14 +14,14 @@ export default function DesignProHero() {
 
   return (
     <section className="relative w-full h-screen min-h-[680px] overflow-hidden bg-black select-none flex flex-col justify-between">
-      {/* Background Video (Layer 0) */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* Static Luxury Ambient Background (No moving video) */}
+      <div
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none bg-[#050212]"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 65% at 50% 0%, rgba(160, 104, 255, 0.32), transparent 70%), radial-gradient(circle at 85% 40%, rgba(99, 102, 241, 0.18), transparent 50%), radial-gradient(circle at 15% 60%, rgba(34, 211, 238, 0.15), transparent 50%), #050212",
+        }}
+        aria-hidden="true"
       />
 
       {/* Content Container (Layer 10, max-w-7xl centered) */}

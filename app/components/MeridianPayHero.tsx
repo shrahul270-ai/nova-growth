@@ -13,16 +13,14 @@ export default function MeridianPayHero() {
 
   return (
     <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#020816] select-none flex flex-col items-center justify-center text-white">
-      {/* Photo / Video Container (Layer 0) */}
+      {/* Static Luxury Poster Background Plate (No moving video) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-        <video
-          className="absolute inset-0 w-full h-full object-cover object-bottom"
-          src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0e1b18f2-b590-4b97-96f0-b05e019d07eb.mp4"
-          poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/19548534-c502-431f-904d-24d31b17c471.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-bottom opacity-85"
+          style={{
+            backgroundImage: `url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/19548534-c502-431f-904d-24d31b17c471.jpg")`,
+          }}
+          aria-hidden="true"
         />
         {/* Top feather gradient */}
         <div

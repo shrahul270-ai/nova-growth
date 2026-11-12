@@ -1,42 +1,18 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import Hls from "hls.js";
+import React from "react";
 
 export default function NextLayerContactHero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const src = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
-
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true,
-      });
-      hls.loadSource(src);
-      hls.attachMedia(video);
-      return () => {
-        hls.destroy();
-      };
-    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-      video.src = src;
-    }
-  }, []);
-
   return (
     <section className="relative pt-28 sm:pt-36 pb-10 sm:pb-14 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black flex flex-col justify-center">
-      {/* Background HLS Video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-80 pointer-events-none"
+      {/* Static Luxury Cosmic Glow Background (No moving video) */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none bg-[#050212]"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% -15%, rgba(160, 104, 255, 0.32), transparent 70%), radial-gradient(circle at 15% 45%, rgba(99, 102, 241, 0.18), transparent 50%), radial-gradient(circle at 85% 55%, rgba(34, 211, 238, 0.14), transparent 50%), #050212",
+        }}
+        aria-hidden="true"
       />
 
       {/* Top fade (120px tall, black -> transparent) */}
