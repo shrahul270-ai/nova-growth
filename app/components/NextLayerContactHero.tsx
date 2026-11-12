@@ -4,33 +4,22 @@ import React from "react";
 
 export default function NextLayerContactHero() {
   return (
-    <section className="relative pt-28 sm:pt-36 pb-10 sm:pb-14 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black flex flex-col justify-center">
-      {/* Static Luxury Cosmic Glow Background (No moving video) */}
+    <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 px-6 md:px-16 lg:px-24 text-center overflow-hidden bg-black flex flex-col justify-center min-h-[460px] sm:min-h-[520px]">
+      {/* 3D Liquid Chrome Ribbon Hero Background (User Specified Artwork) */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none bg-[#050212]"
+        className="absolute inset-0 z-0 pointer-events-none bg-cover bg-center bg-no-repeat opacity-85 scale-[1.02]"
+        style={{
+          backgroundImage: `url("/images/contact-hero-3d.jpg")`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Sophisticated Dual Scrim for Maximum Text Contrast & Seamless Header Integration */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% -15%, rgba(160, 104, 255, 0.32), transparent 70%), radial-gradient(circle at 15% 45%, rgba(99, 102, 241, 0.18), transparent 50%), radial-gradient(circle at 85% 55%, rgba(34, 211, 238, 0.14), transparent 50%), #050212",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Top fade (120px tall, black -> transparent) */}
-      <div
-        className="absolute top-0 left-0 right-0 z-[1] pointer-events-none"
-        style={{
-          height: "120px",
-          background: "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.85) 45%, transparent 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Bottom fade (80px tall, transparent -> black) */}
-      <div
-        className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
-        style={{
-          height: "80px",
-          background: "linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 50%, transparent 100%)",
+            "radial-gradient(ellipse at center, rgba(3, 1, 12, 0.45) 0%, rgba(3, 1, 12, 0.78) 60%, rgba(0, 0, 0, 0.95) 100%), linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 22%, transparent 75%, rgba(0,0,0,0.98) 100%)",
         }}
         aria-hidden="true"
       />
