@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthModal from "./AuthModal";
@@ -15,6 +15,43 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("login");
   const [expandedMobileKey, setExpandedMobileKey] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navContainerRef = useRef<HTMLElement | null>(null);
+
+  // Close dropdown on click outside or Escape key
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveDropdown(null);
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
+  const handleMouseEnter = (key: string) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setActiveDropdown(key);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 180);
+  };
 
   // Close mobile menu on resize to desktop (min-width: 1024px)
   useEffect(() => {
@@ -170,8 +207,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </div>
             </Link>
 
-            {/* Centered Desktop Navigation Links (Exact order from user image) */}
+            {/* Centered Desktop Navigation Links (with Working Dropdown Menus) */}
             <nav
+              ref={navContainerRef}
               className="hidden lg:flex items-center gap-1 xl:gap-2"
               aria-label="Primary"
             >
@@ -179,6 +217,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               <Link
                 href="/"
                 prefetch={false}
+                onClick={() => setActiveDropdown(null)}
                 className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 ${
                   activePage === "home"
                     ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)]"
@@ -191,60 +230,102 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               {/* 2 to 7: Guest Posting, Services, Projects, Blog, About Us, Contact Us (with Dropdowns) */}
               {navLinks.map((link) => {
                 const isActive = activePage === link.key;
-                return (
-                  <div key={link.key} className="relative group/dropdown">
-                    <Link
-                      href={link.href}
-                      prefetch={false}
-                      className={`relative px-3 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
-                        isActive
-                          ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)]"
-                          : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
-                      }`}
-                    >
-                      <span>{link.name}</span>
-                      {link.badge && (
-                        <span className="text-[9.5px] font-bold bg-[#A068FF]/20 text-[#d8b4fe] border border-purple-500/40 px-2 py-0.5 rounded-full tracking-wide">
-                          {link.badge}
-                        </span>
-                      )}
-                      {link.dropdown && (
-                        <svg
-                          className="w-2.5 h-2.5 text-slate-400 group-hover/dropdown:text-white group-hover/dropdown:rotate-180 transition-transform duration-200"
-                          viewBox="0 0 10 6"
-                          fill="currentColor"
-                        >
-                          <path
-                            d="M1 1l4 4 4-4"
-                            stroke="currentColor"
-                            strokeWidth="1.6"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </Link>
+                const isOpen = activeDropdown === link.key;
+                const hasDropdown = Boolean(link.dropdown && link.dropdown.length > 0);
 
-                    {/* Glassmorphic Dropdown Menu (like girlmuseum.org) */}
-                    {link.dropdown && (
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 min-w-[270px] opacity-0 invisible translate-y-1 group-hover/dropdown:opacity-100 group-hover/dropdown:visible group-hover/dropdown:translate-y-0 transition-all duration-200 ease-out pointer-events-none group-hover/dropdown:pointer-events-auto">
-                        <div className="bg-[#090422]/98 border border-purple-500/30 backdrop-blur-2xl rounded-2xl p-2 shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_35px_rgba(160,104,255,0.25)] flex flex-col gap-0.5">
-                          {link.dropdown.map((subItem) => (
+                return (
+                  <div
+                    key={link.key}
+                    className="relative"
+                    onMouseEnter={() => hasDropdown && handleMouseEnter(link.key)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div className="flex items-center">
+                      <Link
+                        href={link.href}
+                        prefetch={false}
+                        onClick={() => setActiveDropdown(null)}
+                        className={`relative pl-3.5 ${hasDropdown ? "pr-1.5" : "pr-3.5"} py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
+                          isActive
+                            ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)]"
+                            : isOpen
+                            ? "text-white bg-white/[0.12] border border-purple-500/40 shadow-[0_0_12px_rgba(160,104,255,0.25)]"
+                            : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
+                        }`}
+                      >
+                        <span>{link.name}</span>
+                        {link.badge && (
+                          <span className="text-[9.5px] font-bold bg-[#A068FF]/20 text-[#d8b4fe] border border-purple-500/40 px-2 py-0.5 rounded-full tracking-wide">
+                            {link.badge}
+                          </span>
+                        )}
+                      </Link>
+
+                      {hasDropdown && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+                            setActiveDropdown(isOpen ? null : link.key);
+                          }}
+                          className={`p-1.5 mr-1 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all cursor-pointer ${
+                            isOpen ? "text-[#A068FF] bg-white/10" : ""
+                          }`}
+                          aria-expanded={isOpen}
+                          aria-label={`Toggle ${link.name} menu`}
+                        >
+                          <svg
+                            className={`w-3 h-3 transition-transform duration-200 ${
+                              isOpen ? "rotate-180 text-[#A068FF]" : ""
+                            }`}
+                            viewBox="0 0 10 6"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="M1 1l4 4 4-4"
+                              stroke="currentColor"
+                              strokeWidth="1.6"
+                              fill="none"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Glassmorphic Dropdown Menu (Guaranteed Working with React state & hover) */}
+                    {hasDropdown && (
+                      <div
+                        onMouseEnter={() => handleMouseEnter(link.key)}
+                        onMouseLeave={handleMouseLeave}
+                        className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 min-w-[285px] transition-all duration-200 ease-out ${
+                          isOpen
+                            ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                            : "opacity-0 invisible translate-y-2 pointer-events-none"
+                        }`}
+                      >
+                        {/* Invisible hover bridge */}
+                        <div className="h-1.5 w-full" />
+                        <div className="bg-[#090422]/98 border border-purple-500/35 backdrop-blur-2xl rounded-2xl p-2.5 shadow-[0_20px_60px_rgba(0,0,0,0.92),0_0_35px_rgba(160,104,255,0.25)] flex flex-col gap-1">
+                          {link.dropdown!.map((subItem) => (
                             <Link
                               key={subItem.name}
                               href={subItem.href}
                               prefetch={false}
-                              className="flex flex-col px-3 py-2 rounded-xl text-left hover:bg-white/[0.08] transition-colors group/item"
+                              onClick={() => setActiveDropdown(null)}
+                              className="flex flex-col px-3.5 py-2.5 rounded-xl text-left hover:bg-white/[0.08] transition-colors group/item"
                             >
-                              <span className="text-[12.5px] font-semibold text-slate-200 group-hover/item:text-[#A068FF] transition-colors flex items-center justify-between">
+                              <span className="text-[13px] font-semibold text-slate-200 group-hover/item:text-[#A068FF] transition-colors flex items-center justify-between">
                                 <span>{subItem.name}</span>
                                 <span className="text-slate-500 group-hover/item:text-[#A068FF] text-xs transition-transform group-hover/item:translate-x-0.5">
                                   →
                                 </span>
                               </span>
                               {subItem.desc && (
-                                <span className="text-[10.5px] text-slate-400 mt-0.5 leading-tight">
+                                <span className="text-[11px] text-slate-400 mt-0.5 leading-tight">
                                   {subItem.desc}
                                 </span>
                               )}
@@ -432,10 +513,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       <button
                         type="button"
                         onClick={(e) => {
+                          e.preventDefault();
                           e.stopPropagation();
                           setExpandedMobileKey(isExpanded ? null : link.key);
                         }}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors ml-2"
+                        className={`p-2 rounded-lg transition-colors ml-2 cursor-pointer ${
+                          isExpanded ? "text-[#A068FF] bg-purple-500/20" : "text-slate-300 hover:text-white hover:bg-white/10"
+                        }`}
                         aria-label={`Toggle ${link.name} submenu`}
                       >
                         <svg
