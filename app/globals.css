@@ -698,6 +698,14 @@ body {
   }
 }
 
+@media (min-width: 1280px) {
+  .neon-outline-wordmark {
+    -webkit-text-stroke: 3.5px #c084fc;
+    text-stroke: 3.5px #c084fc;
+    filter: drop-shadow(0 0 36px rgba(168, 85, 247, 0.85));
+  }
+}
+
 /* Shipcraft UI Entrance Sequence Animations */
 @keyframes shipcraftPillFade {
   0% {

@@ -35,13 +35,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     };
   }, [mobileMenuOpen]);
 
-  // Exact page names and order from user specification (Image 1)
+  // Exact page names matching each page route (Home, Guest Posting, Services, Projects, Blog, About Us, Contact Us)
   const navLinks = [
     { name: "Guest Posting", href: "/guest-posting", key: "guest-posting", badge: "DR 50+" },
     { name: "Services", href: "/services", key: "services" },
-    { name: "Projects & Case Studies", href: "/projects", key: "projects" },
-    { name: "Blogs & Insights", href: "/blog", key: "blog" },
-    { name: "About Us", href: "/about", key: "about" },
+    { name: "Projects", href: "/projects", key: "projects" },
+    { name: "Blog", href: "/blog", key: "blog" },
+    { name: "About Us", href: "/about-us", key: "about" },
     { name: "Contact Us", href: "/contact-us", key: "contact" },
   ];
 
@@ -121,7 +121,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 <span>Home</span>
               </Link>
 
-              {/* 2 to 7: Guest Posting, Services, Projects & Case Studies, Blogs & Insights, About Us, Contact Us */}
+              {/* 2 to 7: Guest Posting, Services, Projects, Blog, About Us, Contact Us */}
               {navLinks.map((link) => {
                 const isActive = activePage === link.key;
                 return (
@@ -228,7 +228,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </button>
           </div>
 
-          {/* Navigation Links in Exact Order: Home, Guest Posting, Services, Projects & Case Studies, Blogs & Insights, About Us, Contact Us, Payment */}
+          {/* Navigation Links: Home, Guest Posting, Services, Projects, Blog, About Us, Contact Us, Payment */}
           <div className="flex flex-col gap-1.5 py-4">
             <p className="text-[10px] font-bold tracking-widest text-[#A068FF] uppercase mb-1">
               Navigation

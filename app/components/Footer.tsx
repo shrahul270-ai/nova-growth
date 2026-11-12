@@ -194,7 +194,7 @@ export default function Footer() {
                   href="/projects"
                   className="hover:text-white transition-colors flex items-center justify-between group py-0.5"
                 >
-                  <span>Projects &amp; Case Studies</span>
+                  <span>Projects</span>
                   <span className="text-slate-500 group-hover:text-[#A068FF] text-xs transition-colors">→</span>
                 </Link>
               </li>
@@ -203,13 +203,13 @@ export default function Footer() {
                   href="/blog"
                   className="hover:text-white transition-colors flex items-center justify-between group py-0.5"
                 >
-                  <span>Blogs &amp; Insights</span>
+                  <span>Blog</span>
                   <span className="text-slate-500 group-hover:text-[#A068FF] text-xs transition-colors">→</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/about-us"
                   className="hover:text-white transition-colors flex items-center justify-between group py-0.5"
                 >
                   <span>About Us</span>
@@ -539,7 +539,7 @@ export default function Footer() {
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
       {/* Seamless transition with NO separate black box or harsh line */}
-      <div className="relative pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 md:pb-16 overflow-hidden border-t border-white/10 min-h-[300px] sm:min-h-[360px] md:min-h-[420px] flex flex-col justify-end bg-transparent">
+      <div className="relative pt-10 sm:pt-14 md:pt-16 pb-6 sm:pb-8 overflow-hidden border-t border-white/10 flex flex-col justify-end items-center bg-transparent min-h-[240px] sm:min-h-[290px] md:min-h-[340px]">
         {/* Subtle rim light halos behind the hands */}
         <div
           aria-hidden="true"
@@ -550,23 +550,8 @@ export default function Footer() {
           className="absolute right-0 bottom-0 w-[420px] h-[260px] bg-[radial-gradient(circle_at_right_bottom,rgba(168,85,247,0.16)_0%,transparent_75%)] pointer-events-none z-0"
         />
 
-        {/* Wordmark - Placed high at top-4 sm:top-6 md:top-8, completely clear above the hands with refined smaller text size */}
-        <div
-          aria-hidden="true"
-          className="absolute top-4 sm:top-6 md:top-8 inset-x-0 flex items-center justify-center select-none pointer-events-none z-25 overflow-hidden px-4"
-        >
-          <span
-            className="neon-outline-wordmark font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-none whitespace-nowrap tracking-wide select-none opacity-100 drop-shadow-[0_0_25px_rgba(184,134,255,0.7)]"
-            style={{
-              fontFamily: "var(--font-urbanist), var(--font-inter), sans-serif",
-            }}
-          >
-            Balaji Prime
-          </span>
-        </div>
-
         {/* Left Carrara Marble Hand Reaching In - (z-20) */}
-        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[100px] sm:w-[190px] md:w-[260px] lg:w-[310px] select-none animate-hand-left opacity-60 sm:opacity-90">
+        <div className="absolute left-0 bottom-0 z-20 pointer-events-none w-[110px] sm:w-[200px] md:w-[280px] lg:w-[330px] select-none animate-hand-left opacity-70 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-left.png"
@@ -576,7 +561,7 @@ export default function Footer() {
         </div>
 
         {/* Right Carrara Marble Hand Reaching In - (z-20) */}
-        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[100px] sm:w-[190px] md:w-[260px] lg:w-[310px] select-none flex justify-end animate-hand-right opacity-60 sm:opacity-90">
+        <div className="absolute right-0 bottom-0 z-20 pointer-events-none w-[110px] sm:w-[200px] md:w-[280px] lg:w-[330px] select-none flex justify-end animate-hand-right opacity-70 sm:opacity-95">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/footer/marble-hand-right.png"
@@ -585,8 +570,23 @@ export default function Footer() {
           />
         </div>
 
+        {/* Giant Wordmark - Placed down near the hands, fully visible & larger ("hatho ke pass ho thoda bas pura dikhe and bada") */}
+        <div
+          aria-hidden="true"
+          className="relative z-25 w-full flex items-center justify-center select-none pointer-events-none px-4 mb-2 sm:mb-3"
+        >
+          <span
+            className="neon-outline-wordmark font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[9.5rem] leading-none whitespace-nowrap tracking-wide select-none opacity-100 drop-shadow-[0_0_35px_rgba(184,134,255,0.8)]"
+            style={{
+              fontFamily: "var(--font-urbanist), var(--font-inter), sans-serif",
+            }}
+          >
+            Balaji Prime
+          </span>
+        </div>
+
         {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) - z-30 */}
-        <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-4">
+        <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-2">
           <p className="text-white font-bold text-sm sm:text-base tracking-tight drop-shadow-sm">
             Build a real agency-grade brand, fast.
           </p>
