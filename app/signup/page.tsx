@@ -33,6 +33,22 @@ export default function SignupPage() {
     }
 
     setLoading(true);
+
+    // Save signup event to database so admin receives it live
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "signup",
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "+1 555-0199",
+        service: "Direct Website Client Registration",
+        message: "New user registered an account via /signup page.",
+        sourceUrl: "/signup",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       try {
         const session = {
@@ -58,6 +74,22 @@ export default function SignupPage() {
 
   const handleGoogleSignup = () => {
     setLoading(true);
+
+    // Save signup event to database so admin receives it live
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "signup",
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "+1 555-0199",
+        service: "Direct Website Client Registration",
+        message: "New user registered an account via /signup page.",
+        sourceUrl: "/signup",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       const session = {
         email: "client@balajiprimemedia.in",

@@ -4,6 +4,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import App from "@/App";
+import SaasluCrmOverview from "./SaasluCrmOverview";
+import LiveDateWidget from "./LiveDateWidget";
+import WebsiteCmsView from "./WebsiteCmsView";
 
 // =========================================================================
 // TYPES & DATA STRUCTURES
@@ -25,6 +28,7 @@ interface UserItem {
   socialType: "linkedin" | "twitter" | "instagram" | "whatsapp";
   domain?: string;
   serviceInterest?: string;
+  authType?: string;
 }
 
 interface MailItem {
@@ -166,8 +170,10 @@ export default function AdminDatabasePage() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const isDark = theme === "dark";
 
-  // Active Dashboard Selection ("or jab in par click kre to dashboard ke bagal me inki details aaye")
-  const [activeView, setActiveView] = useState<"users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice" | "create_project">("users");
+  // Active Dashboard Selection (Default: "overview" matching Saaslu CRM Dashboard)
+  const [activeView, setActiveView] = useState<
+    "overview" | "users" | "mails" | "whatsapp" | "payments" | "add_payment" | "invoice" | "create_project" | "website_cms"
+  >("overview");
 
   // Database Data States
   const [usersList, setUsersList] = useState<UserItem[]>(INITIAL_USERS);
@@ -637,12 +643,12 @@ export default function AdminDatabasePage() {
         }`}
       >
         
-        {/* Top Branding Section */}
-        <div className={`p-6 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
+        {/* Top Branding Section (Matching Saaslu Star Theme) */}
+        <div className={`p-5 border-b ${isDark ? "border-white/10" : "border-slate-200"}`}>
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#6366f1] via-[#7c3aed] to-[#a855f7] flex items-center justify-center font-black text-base text-white shadow-lg shadow-purple-950/40 group-hover:scale-105 transition-transform">
-                B
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 via-orange-500 to-purple-600 flex items-center justify-center font-black text-lg text-white shadow-lg shadow-purple-950/40 group-hover:scale-105 transition-transform">
+                ✦
               </span>
               <div className="flex flex-col text-left">
                 <span
@@ -650,10 +656,10 @@ export default function AdminDatabasePage() {
                     isDark ? "text-white" : "text-slate-900"
                   }`}
                 >
-                  Balaji Prime Media
+                  Saaslu • CRM
                 </span>
-                <span className="text-[10px] text-cyan-500 font-mono leading-tight mt-1">
-                  Admin Command Suite
+                <span className="text-[10px] text-cyan-400 font-mono leading-tight mt-1">
+                  Balaji Prime Media
                 </span>
               </div>
             </Link>
@@ -673,7 +679,7 @@ export default function AdminDatabasePage() {
             </button>
           </div>
 
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-3.5 flex items-center justify-between">
             <span
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border ${
                 isDark
@@ -681,8 +687,8 @@ export default function AdminDatabasePage() {
                   : "bg-emerald-50 border-emerald-300 text-emerald-700"
               }`}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-              <span>Live Synchronized</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span>Live DB Synchronized</span>
             </span>
             <span className={`text-[10px] font-mono ${isDark ? "text-gray-400" : "text-slate-400"}`}>
               v2.4 Core
@@ -690,10 +696,69 @@ export default function AdminDatabasePage() {
           </div>
         </div>
 
-        {/* Navigation Categories ("First: Users & Clients, 2nd: Total Mail, 3rd: WhatsApp, 4th: Payment Ledger") */}
-        <div className="p-4 space-y-1.5 flex-1">
+        {/* Navigation Categories */}
+        <div className="p-3.5 space-y-1.5 flex-1 overflow-y-auto">
+          {/* DASHBOARDS SECTION (From Saaslu Image 1) */}
           <span
             className={`text-[10px] uppercase font-bold tracking-wider px-3 pb-1 block ${
+              isDark ? "text-gray-400" : "text-slate-400"
+            }`}
+          >
+            Dashboards
+          </span>
+
+          {/* CRM / Sales (Overview) */}
+          <button
+            type="button"
+            onClick={() => setActiveView("overview")}
+            className={`w-full p-2.5 rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+              activeView === "overview"
+                ? isDark
+                  ? "bg-[#1e1c38] border-[#8b5cf6] shadow-lg shadow-purple-950/80 ring-1 ring-[#a855f7] text-white"
+                  : "bg-purple-100 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-transparent border-transparent hover:bg-white/5 text-gray-300"
+                : "bg-transparent border-transparent hover:bg-slate-100 text-slate-700"
+            }`}
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="text-base">📊</span>
+              <div className="min-w-0">
+                <p className="text-xs font-bold truncate">CRM / Sales</p>
+                <p className="text-[10px] text-gray-400 truncate">Saaslu Dashboard</p>
+              </div>
+            </div>
+            <span className="w-2 h-2 rounded-full bg-[#8b5cf6]" />
+          </button>
+
+          {/* Website Management CMS */}
+          <button
+            type="button"
+            onClick={() => setActiveView("website_cms")}
+            className={`w-full p-2.5 rounded-xl border transition-all text-left flex items-center justify-between cursor-pointer ${
+              activeView === "website_cms"
+                ? isDark
+                  ? "bg-[#1e1c38] border-[#8b5cf6] shadow-lg shadow-purple-950/80 ring-1 ring-[#a855f7] text-white"
+                  : "bg-purple-100 border-purple-400 text-purple-900 shadow-sm"
+                : isDark
+                ? "bg-transparent border-transparent hover:bg-white/5 text-gray-300"
+                : "bg-transparent border-transparent hover:bg-slate-100 text-slate-700"
+            }`}
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="text-base">🌐</span>
+              <div className="min-w-0">
+                <p className="text-xs font-bold truncate">Website Management</p>
+                <p className="text-[10px] text-gray-400 truncate">CMS &amp; DB Records</p>
+              </div>
+            </div>
+            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300">
+              CMS
+            </span>
+          </button>
+
+          <span
+            className={`text-[10px] uppercase font-bold tracking-wider px-3 pt-2 pb-1 block ${
               isDark ? "text-gray-400" : "text-slate-400"
             }`}
           >
@@ -965,59 +1030,145 @@ export default function AdminDatabasePage() {
          ========================================================================= */}
       <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto relative z-10">
         
-        {/* Top Header Bar with Theme Switcher */}
+        {/* Top Header Bar matching Saaslu Dark CRM theme */}
         <div
-          className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b ${
+          className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b ${
             isDark ? "border-white/10" : "border-slate-200"
           }`}
         >
-          <div>
-            <h1 className={`text-xl sm:text-2xl font-black flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
-              <Link href="/" title="Go to Balaji Prime Media Home" className="hover:text-[#7c3aed] transition-colors cursor-pointer">
-                <span>Balaji Prime Media</span>
-              </Link>
-              <span className={isDark ? "text-gray-500 font-normal" : "text-slate-400 font-normal"}>/</span>
-              <span className="text-[#7c3aed] capitalize">
-                {activeView === "users" && "User Directory"}
-                {activeView === "mails" && "Total Mail"}
-                {activeView === "whatsapp" && "WhatsApp Inquiries"}
-                {activeView === "payments" && "Payment Ledger"}
-                {activeView === "add_payment" && "Add Payment"}
-                {activeView === "invoice" && "Invoice Generator"}
-                {activeView === "create_project" && "Create New Project"}
-              </span>
-            </h1>
-            <p className={`text-xs mt-0.5 ${isDark ? "text-[#94a3b8]" : "text-slate-500"}`}>
-              Live database records, multi-currency escrow ledger, and active client sprint metrics.
-            </p>
+          {/* Left: Saaslu Style Search Bar */}
+          <div className="flex items-center gap-3 flex-1 max-w-md">
+            <div
+              className={`w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl border text-xs transition-all ${
+                isDark
+                  ? "bg-[#101322] border-[#1e2338] text-white focus-within:border-purple-500 shadow-inner"
+                  : "bg-white border-slate-200 text-slate-800 focus-within:border-purple-400 shadow-sm"
+              }`}
+            >
+              <span className="text-gray-400 text-sm">🔍</span>
+              <input
+                type="text"
+                placeholder="Search leads, clients, deals, invoices..."
+                value={userSearch}
+                onChange={(e) => setUserSearch(e.target.value)}
+                className="bg-transparent border-none outline-none w-full text-xs placeholder:text-gray-500 text-white"
+              />
+              {userSearch && (
+                <button
+                  type="button"
+                  onClick={() => setUserSearch("")}
+                  className="text-gray-400 hover:text-white text-xs cursor-pointer"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 self-start sm:self-auto">
-            {/* Live Theme Switcher Button */}
+          {/* Right: Quick Action Controls & Live Date Auto-Sync Widget */}
+          <div className="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+            <button
+              type="button"
+              onClick={() => setActiveView("mails")}
+              className={`p-2 rounded-xl border text-xs transition-all hover:scale-105 cursor-pointer ${
+                isDark ? "bg-[#101322] border-[#1e2338] text-gray-300 hover:text-white" : "bg-white border-slate-200 text-slate-600"
+              }`}
+              title="RFPs & Inquiries"
+            >
+              ✉️
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveView("whatsapp")}
+              className={`p-2 rounded-xl border text-xs transition-all hover:scale-105 cursor-pointer ${
+                isDark ? "bg-[#101322] border-[#1e2338] text-gray-300 hover:text-white" : "bg-white border-slate-200 text-slate-600"
+              }`}
+              title="WhatsApp Leads"
+            >
+              💬
+            </button>
+            <span
+              className={`px-2.5 py-1.5 rounded-xl border text-xs select-none ${
+                isDark ? "bg-[#101322] border-[#1e2338]" : "bg-white border-slate-200"
+              }`}
+              title="US & Global Markets"
+            >
+              🇺🇸
+            </span>
+
+            {/* LIVE DATE WIDGET (Auto changes at midnight e.g. 12 -> 13) */}
+            <LiveDateWidget isDark={isDark} />
+
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
-              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl border text-xs font-bold transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95 ${
+              className={`p-2 rounded-xl border text-xs font-bold transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95 ${
                 isDark
                   ? "bg-[#181033] border-purple-500/40 text-amber-300 hover:bg-[#251847]"
                   : "bg-white border-slate-300 text-slate-800 hover:bg-slate-50 shadow-slate-100"
               }`}
               title="Toggle Dark / Light Theme"
             >
-              <span>{isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}</span>
+              {isDark ? "☀️" : "🌙"}
             </button>
 
-            <span
-              className={`text-xs font-mono px-3 py-1.5 rounded-xl border ${
-                isDark
-                  ? "bg-[#140e2b] border-white/10 text-gray-400"
-                  : "bg-white border-slate-200 text-slate-600 shadow-sm"
-              }`}
-            >
-              📅 {currentDateStr}
-            </span>
+            {/* User Profile Avatar */}
+            <div className="flex items-center gap-2 pl-1 select-none">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-black text-xs text-white shadow-sm ring-2 ring-purple-500/30">
+                BP
+              </span>
+            </div>
           </div>
         </div>
+
+        {/* =========================================================================
+            PRIMARY VIEW 1: SAASLU CRM DASHBOARD (Exact Match to User Image 1)
+           ========================================================================= */}
+        {activeView === "overview" && (
+          <SaasluCrmOverview
+            usersList={usersList}
+            mailsCount={mailsList.length}
+            whatsappCount={whatsappList.length}
+            paymentsCount={paymentsList.length}
+            invoicesCount={invoicesList.length}
+            isDark={isDark}
+            onNavigate={(view: string) => setActiveView(view as any)}
+            onDownloadExcel={handleDownloadAdminData}
+          />
+        )}
+
+        {/* =========================================================================
+            PRIMARY VIEW 2: WEBSITE MANAGEMENT SYSTEM (CMS, Pages, Blogs, Media, DB)
+           ========================================================================= */}
+        {activeView === "website_cms" && (
+          <WebsiteCmsView
+            isDark={isDark}
+            totalLeads={mailsList.length + whatsappList.length}
+            totalUsers={usersList.length}
+            onNavigate={(view: string) => setActiveView(view as any)}
+            onDownloadExcel={handleDownloadAdminData}
+          />
+        )}
+
+        {/* =========================================================================
+            PRIMARY VIEW 3: DETAIL VIEWS (Users, Mails, WhatsApp, Payments, Invoice...)
+           ========================================================================= */}
+        {activeView !== "overview" && activeView !== "website_cms" && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between pb-1">
+              <button
+                type="button"
+                onClick={() => setActiveView("overview")}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-purple-500/30 bg-purple-500/10 text-xs font-bold text-purple-300 hover:bg-purple-500/20 transition-all cursor-pointer"
+              >
+                <span>← Return to CRM Dashboard</span>
+              </button>
+
+              <span className="text-xs text-gray-400 capitalize">
+                Operational View: <strong className="text-white">{activeView.replace("_", " ")}</strong>
+              </span>
+            </div>
 
         {/* =========================================================================
             1. THE 4 BOXES FROM SCREENSHOT (Image Attached by User)
@@ -2606,8 +2757,10 @@ export default function AdminDatabasePage() {
           )}
 
         </section>
+      </div>
+    )}
 
-      </main>
-    </div>
-  );
+  </main>
+</div>
+);
 }

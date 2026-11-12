@@ -27,6 +27,22 @@ export default function LoginPage() {
     }
 
     setLoading(true);
+
+    // Save login event to database so admin receives it live
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "login",
+        name: email.split("@")[0],
+        email: email.trim().toLowerCase(),
+        phone: "+1 555-0199",
+        service: "Direct Website Sign In",
+        message: "User logged into client account via /login page.",
+        sourceUrl: "/login",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       try {
         const session = {
@@ -52,6 +68,22 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     setLoading(true);
+
+    // Save login event to database so admin receives it live
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "login",
+        name: email.split("@")[0],
+        email: email.trim().toLowerCase(),
+        phone: "+1 555-0199",
+        service: "Direct Website Sign In",
+        message: "User logged into client account via /login page.",
+        sourceUrl: "/login",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       const session = {
         email: "client@balajiprimemedia.in",

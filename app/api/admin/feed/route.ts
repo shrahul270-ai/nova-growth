@@ -76,6 +76,7 @@ export async function GET() {
         socialType: "whatsapp" as const,
         domain: l.website ? l.website.replace(/^https?:\/\//, "") : "inquiry.com",
         serviceInterest: l.service || "Growth Strategy",
+        authType: l.type || "contact_form",
       };
     });
 

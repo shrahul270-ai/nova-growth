@@ -76,6 +76,22 @@ export default function AuthModal({
     }
 
     setLoading(true);
+
+    // Save login/signup event to database so admin receives it live
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: mode === "signup" ? "signup" : "login",
+        name: mode === "signup" ? name.trim() : email.split("@")[0],
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "+1 555-0199",
+        service: mode === "signup" ? "Website User Registration (Sign Up)" : "Website User Sign In (Login)",
+        message: `User ${mode === "signup" ? "created an account" : "logged in"} via website popup modal.`,
+        sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       try {
         const session = {
@@ -103,6 +119,21 @@ export default function AuthModal({
 
   const handleGoogleAuth = () => {
     setLoading(true);
+
+    fetch("/api/db/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "google_login",
+        name: "Google Authenticated Client",
+        email: "client@balajiprimemedia.in",
+        phone: "+91 76908 68932",
+        service: "One-Tap Google Authentication",
+        message: "User logged in using Google OAuth single sign-on.",
+        sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
+      }),
+    }).catch(() => {});
+
     setTimeout(() => {
       const session = {
         email: "client@balajiprimemedia.in",
