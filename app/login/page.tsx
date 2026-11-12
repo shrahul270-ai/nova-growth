@@ -91,17 +91,20 @@ export default function LoginPage() {
             className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.45)]"
           />
         </Link>
-        <Link
-          href="/"
-          className="text-xs text-slate-300 hover:text-white transition-colors inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10"
-        >
-          <span>← Back to Home</span>
-        </Link>
       </header>
 
       {/* Auth Card Container */}
       <main className="relative z-10 w-full max-w-md mx-auto px-4 py-8 my-auto">
         <div className="relative rounded-3xl bg-black/50 backdrop-blur-2xl border border-white/10 p-6 sm:p-8 shadow-[0_20px_70px_rgba(0,0,0,0.8),0_0_40px_rgba(160,104,255,0.2)]">
+          {/* Corner Cross Button (✕) */}
+          <Link
+            href="/"
+            className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold transition-all cursor-pointer z-10"
+            aria-label="Close"
+            title="Close"
+          >
+            ✕
+          </Link>
           {/* Top Pill */}
           <div className="flex justify-center mb-5">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-purple-500/30 text-[11px] font-semibold text-[#d8b4fe]">

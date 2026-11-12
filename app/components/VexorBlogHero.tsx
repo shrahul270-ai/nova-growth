@@ -8,9 +8,7 @@ interface VexorBlogHeroProps {
   searchQuery?: string;
 }
 
-export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroProps) {
-  const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
+export default function VexorBlogHero({}: VexorBlogHeroProps) {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -61,12 +59,6 @@ export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroPr
       }
     };
   }, []);
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) return;
-    setIsSubscribed(true);
-  };
 
   const scrollToArticles = () => {
     const el = document.getElementById("articles-section");
@@ -147,63 +139,8 @@ export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroPr
             Actionable search engine optimization field manuals, international DR 50–90+ link engineering frameworks, and technical Core Web Vitals blueprints tested across 200+ partner brands.
           </p>
 
-          {/* Interactive Bottom-Left Toolbar: Live Search & Explore Action */}
-          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-xl">
-            {/* Live Search Input */}
-            <div className="relative flex-1">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none">
-                🔍
-              </span>
-              <input
-                type="text"
-                value={searchQuery || ""}
-                onChange={(e) => onSearch && onSearch(e.target.value)}
-                placeholder="Search articles (e.g. Next.js, SEO, Backlinks)..."
-                className="w-full pl-9 pr-4 py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 focus:border-[#A068FF] focus:outline-none text-white placeholder-slate-400 text-xs shadow-lg transition-all"
-              />
-            </div>
-
-            {/* Explore Button */}
-            <button
-              type="button"
-              onClick={scrollToArticles}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:from-[#8f52ff] hover:to-[#6d28d9] text-white text-xs font-bold shadow-lg shadow-purple-950/60 transition-all hover:scale-105 cursor-pointer whitespace-nowrap"
-            >
-              <span>Explore Articles</span>
-              <span>↓</span>
-            </button>
-          </div>
-
-          {/* Newsletter subscription inline prompt */}
-          <div className="pt-1">
-            {isSubscribed ? (
-              <p className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
-                <span>✓</span>
-                <span>Subscribed! You&apos;ll receive our next search breakdown this Thursday.</span>
-              </p>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex items-center gap-2 text-xs text-slate-400">
-                <span className="hidden sm:inline">Get weekly teardowns:</span>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter work email..."
-                  className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 w-44"
-                />
-                <button
-                  type="submit"
-                  className="px-2.5 py-1 rounded-full bg-white/[0.1] hover:bg-white/[0.18] text-slate-200 hover:text-white border border-white/15 transition-all text-xs font-semibold cursor-pointer"
-                >
-                  Join Free →
-                </button>
-              </form>
-            )}
-          </div>
-
           {/* Quick Metrics / Quality Proof Tags */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-[11px] sm:text-xs text-slate-300 font-medium">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1 text-[11px] sm:text-xs text-slate-300 font-medium">
             <span className="flex items-center gap-1.5">
               <span className="text-[#A068FF]">●</span> 200+ Growth Case Studies
             </span>

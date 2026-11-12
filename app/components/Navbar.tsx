@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import AuthModal from "./AuthModal";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -11,6 +12,8 @@ interface NavbarProps {
 
 export default function Navbar({ activePage = "home" }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<"login" | "signup">("login");
 
   // Close mobile menu on resize to desktop (min-width: 1024px)
   useEffect(() => {
@@ -68,15 +71,8 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </div>
             </div>
 
-            {/* Right: Payment link & Login */}
-            <div className="flex items-center gap-2.5 shrink-0 ml-auto">
-              <Link
-                href="/login"
-                className="text-slate-300 hover:text-white transition-colors text-[11px] font-medium hidden sm:inline-block"
-              >
-                <span>Log in</span>
-              </Link>
-              <span className="text-white/20 hidden sm:inline-block">·</span>
+            {/* Right: Payment link only */}
+            <div className="flex items-center gap-3 shrink-0 ml-auto">
               <Link
                 href="/pay"
                 className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.08] hover:bg-white/[0.16] border border-white/15 px-3 py-0.5 rounded-full text-[11px] font-semibold shadow-xs"
@@ -153,19 +149,27 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Buttons: "Log in" and "Sign up" */}
+            {/* Right Action Buttons: "Log in" and "Sign up" Popup Triggers */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-              <Link
-                href="/login"
-                className="text-[13px] font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-full transition-all hover:bg-white/[0.08] hidden sm:inline-flex items-center gap-1"
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthModalMode("login");
+                  setAuthModalOpen(true);
+                }}
+                className="text-[13px] font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-full transition-all hover:bg-white/[0.08] hidden sm:inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>Log in</span>
-              </Link>
+              </button>
 
               <div className="btn-border-wrap shrink-0">
-                <Link
-                  href="/signup"
-                  className="marketeam-start-btn !py-1.5 !px-3.5 sm:!px-4 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)]"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthModalMode("signup");
+                    setAuthModalOpen(true);
+                  }}
+                  className="marketeam-start-btn !py-1.5 !px-3.5 sm:!px-4 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] flex items-center gap-1.5"
                 >
                   <span>Sign up</span>
                   <svg
@@ -181,7 +185,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
-                </Link>
+                </button>
               </div>
 
               {/* Minimalist 2-Bar Burger Button for Mobile */}
@@ -242,22 +246,30 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </button>
           </div>
 
-          {/* Mobile Auth Buttons: Log in & Sign up */}
+          {/* Mobile Auth Buttons: Log in & Sign up (Triggers Popup Modal) */}
           <div className="grid grid-cols-2 gap-2.5 pt-3 pb-2 border-b border-purple-500/20">
-            <Link
-              href="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-semibold text-slate-200 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 transition-colors"
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setAuthModalMode("login");
+                setAuthModalOpen(true);
+              }}
+              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-semibold text-slate-200 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 transition-colors cursor-pointer"
             >
               Log in
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-bold text-white bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:brightness-110 shadow-sm transition-all"
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setAuthModalMode("signup");
+                setAuthModalOpen(true);
+              }}
+              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-bold text-white bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:brightness-110 shadow-sm transition-all cursor-pointer"
             >
               Sign up
-            </Link>
+            </button>
           </div>
 
           {/* Navigation Links: Home, Guest Posting, Services, Projects, Blog, About Us, Contact Us, Payment */}
@@ -348,6 +360,12 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           </div>
         </nav>
       )}
+      {/* Global Interactive Auth Popup Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialMode={authModalMode}
+      />
     </>
   );
 }
