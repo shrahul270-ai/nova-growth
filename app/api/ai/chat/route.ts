@@ -18,7 +18,8 @@ function isHindiOrHinglish(text: string): boolean {
     "kaun", "kaha", "kahan", "kab", "kyu", "kyun", "paisa", "paise", "rupaye",
     "kharcha", "madad", "baat", "bhejo", "dekhna", "milega", "dost", "bhai",
     "yaar", "sir", "maam", "aap", "tum", "mera", "meri", "mere", "hamara",
-    "kaam", "chal", "raha", "rahi", "kuch", "dikhao", "dikha", "dikhayein", "ka"
+    "kaam", "chal", "raha", "rahi", "kuch", "dikhao", "dikha", "dikhayein", "ka",
+    "kripya", "namaskar", "shubh"
   ];
 
   const words = text.toLowerCase().split(/\s+/);
@@ -26,9 +27,13 @@ function isHindiOrHinglish(text: string): boolean {
 }
 
 // Intelligent, Specialized Context Engine for Balaji Prime Media
-function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[]) {
+function generateDynamicResponse(
+  userMessage: string,
+  _history: ChatHistoryItem[],
+  preferredLang?: "en" | "hi"
+) {
   const query = userMessage.toLowerCase().trim();
-  const isHindi = isHindiOrHinglish(query);
+  const isHindi = preferredLang === "hi" || (preferredLang !== "en" && isHindiOrHinglish(query));
 
   // 1. Contact / Lead Info Provided (Email or Phone Number)
   const hasEmail = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(userMessage);
@@ -36,11 +41,11 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
   if (hasEmail || hasPhone) {
     if (isHindi) {
       return {
-        reply: "Bahut shukriya! Maine aapki contact details save kar li hain. Balaji Prime Media ki senior team 2 ghante ke andar aapse sampark karegi. Aap chahein to turant WhatsApp (+91 76908 68932) par bhi message bhej sakte hain.",
+        reply: "बहुत-बहुत धन्यवाद! मैंने आपकी संपर्क जानकारी सुरक्षित रूप से दर्ज कर ली है। बालाजी प्राइम मीडिया की सीनियर टीम 2 घंटे के भीतर आपसे संपर्क करेगी। त्वरित बातचीत के लिए आप सीधे व्हाट्सएप (+91 76908 68932) पर भी संदेश भेज सकते हैं।",
         suggestedPrompts: [
-          "WhatsApp (+91 76908 68932) par chat karein",
-          "Services & Pricing dekhein",
-          "Free Website Audit karein"
+          "व्हाट्सएप (+91 76908 68932) पर चैट करें",
+          "सेवाएं और प्राइसिंग देखें",
+          "फ्री वेबसाइट ऑडिट करें"
         ],
         leadCaptured: true
       };
@@ -58,15 +63,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 2. Testing speech / "Suno" / "Bolo" / "Can you hear me"
   if (
-    query.match(/\b(suno|sun rahe|sun rahi|awaz|aawaz|bol|bolo|boliye|can you hear|hear me|testing|test)\b/i)
+    query.match(/\b(suno|sun rahe|sun rahi|awaz|aawaz|bol|bolo|boliye|can you hear|hear me|testing|test|सुनो|बोलो|आवाज़|आवाज)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Haan ji, main bilkul sun raha hoon! Kahiye, Balaji Prime Media ki services (SEO, Website Development, Content, ya Digital Marketing) me aapko kis cheez me madad chahiye?",
+        reply: "हाँ जी, मैं आपकी आवाज़ बिल्कुल साफ सुन रहा हूँ! कहिए, बालाजी प्राइम मीडिया की सेवाओं जैसे वेबसाइट डेवलपमेंट, एसईओ, कंटेंट राइटिंग या डिजिटल मार्केटिंग में आपको किस विषय में जानकारी चाहिए?",
         suggestedPrompts: [
-          "Website Development ke baare me batao",
-          "SEO Optimization packages",
-          "Pricing & Rates batao"
+          "वेबसाइट डेवलपमेंट के बारे में बताएं",
+          "एसईओ रैंकिंग पैकेज ($449/माह)",
+          "प्राइसिंग और रेट कार्ड"
         ]
       };
     }
@@ -82,15 +87,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 3. Free SEO / Website Speed Audit
   if (
-    query.match(/\b(audit|speed audit|speed test|free audit|check website|analyze website|pagespeed)\b/i)
+    query.match(/\b(audit|speed audit|speed test|free audit|check website|analyze website|pagespeed|ऑडिट|स्पीड)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Aap hamari website ke /audit page par jakar apni website ka Free AI Instant SEO & Speed Audit sirf 10 seconds me kar sakte hain. Isme Google PageSpeed, Core Web Vitals aur search ranking issues ka complete detailed score milta hai.",
+        reply: "आप हमारी वेबसाइट के /audit पेज पर जाकर अपनी वेबसाइट का निःशुल्क (Free) एआई स्पीड और एसईओ ऑडिट सिर्फ 10 सेकंड में कर सकते हैं। इसमें आपको गूगल पेज-स्पीड, कोर वेब वाइटल्स और सर्च रैंकिंग की संपूर्ण रिपोर्ट प्राप्त होगी।",
         suggestedPrompts: [
-          "Free AI Website Audit karein (/audit)",
-          "Mera domain check karo",
-          "WhatsApp par audit report mangein"
+          "फ्री वेबसाइट ऑडिट करें (/audit)",
+          "मेरा डोमेन चेक करें",
+          "व्हाट्सएप पर रिपोर्ट मांगें"
         ]
       };
     }
@@ -104,17 +109,17 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
     };
   }
 
-  // 4. Website Maintenance, Security & Bug Fixes (Check BEFORE generic "website")
+  // 4. Website Maintenance, Security & Bug Fixes
   if (
-    query.match(/\b(maintenance|security|bug|bugs|fix|fixing|updates|slow website|hacked|backup|sla|monthly maintenance|support plan)\b/i)
+    query.match(/\b(maintenance|security|bug|bugs|fix|fixing|updates|slow website|hacked|backup|sla|monthly maintenance|support plan|मेंटेनेंस|सुरक्षा)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum 24/7 website maintenance, security updates, daily backups, speed monitoring aur urgent bug fixes provide karte hain taaki aapki website hamesha 100% live aur safe rahe. Maintenance retainer $149 (₹9,999/month) se shuru hota hai.",
+        reply: "हम 24/7 वेबसाइट मेंटेनेंस, सुरक्षा अपडेट्स, दैनिक बैकअप, स्पीड मॉनिटरिंग और तुरंत बग फिक्स प्रदान करते हैं ताकि आपकी वेबसाइट सदैव सुरक्षित और लाइव रहे। मासिक मेंटेनेंस प्लान $149 (₹9,999/माह) से शुरू होता है।",
         suggestedPrompts: [
-          "Maintenance Retainer ($149/mo)",
-          "Website Speed & Security Audit",
-          "WhatsApp par urgent support lein"
+          "वेबसाइट मेंटेनेंस ($149/माह)",
+          "वेबसाइट स्पीड और सुरक्षा ऑडिट",
+          "व्हाट्सएप पर तुरंत सहायता लें"
         ]
       };
     }
@@ -130,16 +135,16 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 5. Content Writing / Copywriting / Blogs / Articles
   if (
-    query.match(/\b(content|writing|article|articles|blog|blogs|copywriting|writer|editorial|scripts|sales copy)\b/i)
+    query.match(/\b(content|writing|article|articles|blog|blogs|copywriting|writer|editorial|scripts|sales copy|कंटेंट|आर्टिकल|ब्लॉग)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum high-converting SEO articles, blog posts aur website sales copy likhte hain jo search engines aur real readers dono ke liye optimized hoti hain. Content writing packages $119 (₹7,999) se shuru hote hain. Aapko kis topic ya industry ke liye content chahiye?",
+        reply: "हम उच्च-रूपांतरण वाले एसईओ आर्टिकल्स, ब्लॉग पोस्ट्स और वेबसाइट सेल्स कॉपी लिखते हैं जो सर्च इंजन रैंकिंग और वास्तविक ग्राहकों दोनों के लिए अनुकूलित होते हैं। कंटेंट राइटिंग पैकेज $119 (₹7,999) से शुरू होते हैं। आपको किस विषय या इंडस्ट्री के लिए कंटेंट चाहिए?",
         suggestedPrompts: [
-          "Content Writing Pricing ($119)",
-          "SEO Blog Strategy samjhein",
-          "Samples dekhein",
-          "WhatsApp par topic discuss karein"
+          "कंटेंट राइटिंग पैकेज ($119)",
+          "एसईओ ब्लॉग रणनीति समझें",
+          "कंटेंट सैंपल्स देखें",
+          "व्हाट्सएप पर विषय साझा करें"
         ]
       };
     }
@@ -155,15 +160,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 6. Email Marketing & Revenue Automation
   if (
-    query.match(/\b(email marketing|automation|drip|newsletter|crm|klaviyo|mailchimp|leads nurturing)\b/i)
+    query.match(/\b(email marketing|automation|drip|newsletter|crm|klaviyo|mailchimp|leads nurturing|ईमेल)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hamari Email Marketing service me automated welcome drips, customer retention flows, newsletter campaigns aur CRM integration shamil hain jo leads ko paying customers me badalti hain. Packages $269 (₹18,999) se shuru hote hain.",
+        reply: "हमारी ईमेल मार्केटिंग सेवा में ऑटोमेटेड वेलकम ड्रिप्स, कस्टमर रिटेंशन फ्लो, न्यूज़लेटर कैंपेन और सीआरएम इंटीग्रेशन शामिल हैं जो लीड्स को नियमित ग्राहकों में बदलते हैं। पैकेज $269 (₹18,999) से शुरू होते हैं।",
         suggestedPrompts: [
-          "Email Automation Pricing ($269)",
-          "Flows & Campaigns Strategy",
-          "WhatsApp par baat karein"
+          "ईमेल ऑटोमेशन ($269)",
+          "कैंपेन फ्लो रणनीति",
+          "व्हाट्सएप पर बात करें"
         ]
       };
     }
@@ -179,15 +184,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 7. Guest Posting & Backlinks (ONLY when explicitly requested!)
   if (
-    query.match(/\b(guest post|guest posting|backlink|backlinks|link building|dofollow|da |dr |domain rating|outreach|pbn)\b/i)
+    query.match(/\b(guest post|guest posting|backlink|backlinks|link building|dofollow|da |dr |domain rating|outreach|pbn|गेस्ट पोस्ट|बैकलिंक)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum genuine high-authority websites (DR 50 se DR 90+) par 100% manual outreach se permanent contextual dofollow guest posts provide karte hain—zero PBNs aur zero spam networks. Pricing vetted sites ke mutabiq $30 se shuru hoti hai. Aap hamare /guest-posting page par real-time database dekh sakte hain.",
+        reply: "हम प्रामाणिक उच्च-अधिकार वाली वेबसाइट्स (DR 50 से DR 90+) पर 100% मैनुअल आउटरीच के माध्यम से स्थायी डू-फॉलो गेस्ट पोस्ट्स प्रदान करते हैं—शून्य पीबीएन और शून्य स्पैम नेटवर्क। प्लेसमेंट दरें $30 से शुरू होती हैं। आप /guest-posting पेज पर हमारा लाइव डेटाबेस देख सकते हैं।",
         suggestedPrompts: [
-          "Guest Posting Database dekhein (/guest-posting)",
-          "DR 50–90+ Pricing & Tiers",
-          "WhatsApp par sample list mangein"
+          "गेस्ट पोस्टिंग डेटाबेस देखें (/guest-posting)",
+          "DR 50–90+ प्राइसिंग और टियर्स",
+          "व्हाट्सएप पर वेरीफाइड लिस्ट मांगें"
         ]
       };
     }
@@ -203,15 +208,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 8. Projects / Case Studies / Portfolio / Past Work
   if (
-    query.match(/\b(project|projects|portfolio|case study|case studies|samples|previous work|kaam dikhao)\b/i)
+    query.match(/\b(project|projects|portfolio|case study|case studies|samples|previous work|kaam dikhao|प्रोजेक्ट|पोर्टफोलियो|काम)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Humne E-Commerce brands, SaaS platforms, Fitness apps aur Tech startups ke liye high-performing websites aur SEO campaigns deliver kiye hain. Aap hamari website ke /projects ya /work page par jaakar complete case studies aur results dekh sakte hain.",
+        reply: "हमने ई-कॉमर्स ब्रांड्स, सास (SaaS) प्लेटफॉर्म्स, फिटनेस ऐप्स और टेक स्टार्टअप्स के लिए हाई-परफॉर्मिंग वेबसाइट्स और एसईओ कैंपेन सफलतापूर्वक डिलीवर किए हैं। आप हमारे /projects और /work पेज पर जाकर पूरे केस स्टडीज और परिणाम देख सकते हैं।",
         suggestedPrompts: [
-          "Projects & Case Studies dekhein (/projects)",
-          "Work Portfolio dekhein (/work)",
-          "WhatsApp par direct demo dekhein"
+          "प्रोजेक्ट्स और केस स्टडीज देखें (/projects)",
+          "वर्क पोर्टफोलियो देखें (/work)",
+          "व्हाट्सएप पर लाइव डेमो देखें"
         ]
       };
     }
@@ -227,16 +232,16 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 9. Website Development / Next.js / Web Design / App
   if (
-    query.match(/\b(website|web dev|web development|next\.js|nextjs|react|frontend|backend|coding|redesign|landing page|e-commerce|ecommerce|shopify|wordpress|app development|ui\/ux|design)\b/i)
+    query.match(/\b(website|web dev|web development|next\.js|nextjs|react|frontend|backend|coding|redesign|landing page|e-commerce|ecommerce|shopify|wordpress|app development|ui\/ux|design|वेबसाइट|डिज़ाइन)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum modern, ultra-fast Next.js aur React websites banate hain jinka Google PageSpeed score 95+ aur loading time sub-second hota hai. Hamare packages custom responsive design, SEO-friendly architecture aur CMS ke sath $699 (₹49,999) se shuru hote hain. Aapko kis tarah ki website banwani hai?",
+        reply: "हम आधुनिक और अल्ट्रा-फास्ट नेक्स्ट.जेएस (Next.js) और रिएक्ट वेबसाइट्स बनाते हैं जिनका गूगल पेज-स्पीड स्कोर 95+ और लोडिंग टाइम 1 सेकंड से कम होता है। हमारे पैकेज कस्टम रिस्पॉन्सिव डिज़ाइन, एसईओ-फ्रेंडली आर्किटेक्चर और सीएमएस के साथ $699 (₹49,999) से शुरू होते हैं। आपको किस प्रकार की वेबसाइट बनवानी है?",
         suggestedPrompts: [
-          "Website Development Pricing ($699)",
-          "Next.js vs WordPress me kya fark hai?",
-          "Live Projects & Portfolio dekhein",
-          "WhatsApp par website discuss karein"
+          "वेबसाइट डेवलपमेंट पैकेज ($699)",
+          "नेक्स्ट.जेएस और वर्डप्रेस में अंतर",
+          "लाइव प्रोजेक्ट्स और पोर्टफोलियो",
+          "व्हाट्सएप पर वेबसाइट डिस्कस करें"
         ]
       };
     }
@@ -253,16 +258,16 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 10. Search Engine Optimization (SEO) / Google Ranking / Keywords / Traffic
   if (
-    query.match(/\b(seo|search engine|ranking|rank|keywords|traffic|organic traffic|serp|google rank|on-page|technical seo|indexing|google search console|search visibility)\b/i)
+    query.match(/\b(seo|search engine|ranking|rank|keywords|traffic|organic traffic|serp|google rank|on-page|technical seo|indexing|google search console|search visibility|एसईओ|रैंकिंग|ट्रैफिक)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hamari Comprehensive SEO service me Full Technical Crawl Audit, commercial keyword research, on-page optimization, Core Web Vitals remediation aur transparent monthly ranking reports shamil hain. Hamara ongoing monthly SEO retainer $449 (₹29,999/month) se shuru hota hai. Aapki website ka link kya hai?",
+        reply: "हमारी संपूर्ण एसईओ सेवा में टेक्निकल क्रॉल ऑडिट, कमर्शियल कीवर्ड रिसर्च, ऑन-पेज ऑप्टिमाइजेशन, कोर वेब वाइटल्स सुधार और पारदर्शी मासिक रैंकिंग रिपोर्ट्स शामिल हैं। हमारा मासिक एसईओ प्लान $449 (₹29,999/माह) से शुरू होता है। आपकी वेबसाइट का डोमेन नाम क्या है?",
         suggestedPrompts: [
-          "Monthly SEO Retainer ($449/mo)",
-          "Free AI SEO Audit karein (/audit)",
-          "Keywords research kaise hoti hai?",
-          "WhatsApp par SEO team se baat karein"
+          "मासिक एसईओ प्लान ($449/माह)",
+          "फ्री एआई एसईओ ऑडिट (/audit)",
+          "कीवर्ड रिसर्च कैसे होती है?",
+          "व्हाट्सएप पर एसईओ टीम से बात करें"
         ]
       };
     }
@@ -279,15 +284,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 11. Pricing / Cost / Rates across all services
   if (
-    query.match(/\b(price|pricing|cost|rates|charges|package|packages|budget|how much|kitna paisa|kitne paise|kitna charge|kharcha|fees|rate card)\b/i)
+    query.match(/\b(price|pricing|cost|rates|charges|package|packages|budget|how much|kitna paisa|kitne paise|kitna charge|kharcha|fees|rate card|प्राइस|कीमत|खर्चा|रेट|पैसा|पैसे)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hamare transparent agency packages is prakaar hain:\n• SEO Optimization: $449/mo (₹29,999)\n• Custom Website Development (Next.js): $699 (₹49,999)\n• Content Writing: $119 (₹7,999)\n• Email Marketing: $269 (₹18,999)\n• Website Maintenance: $149/mo (₹9,999)\nAapko kis service ke liye custom proposal chahiye?",
+        reply: "हमारे पारदर्शी एजेंसी पैकेज इस प्रकार हैं:\n• नेक्स्ट.जेएस वेबसाइट डेवलपमेंट: $699 (₹49,999)\n• संपूर्ण एसईओ ऑप्टिमाइजेशन: $449/माह (₹29,999)\n• प्रोफेशनल कंटेंट राइटिंग: $119 (₹7,999)\n• ईमेल मार्केटिंग ऑटोमेशन: $269 (₹18,999)\n• 24/7 वेबसाइट मेंटेनेंस: $149/माह (₹9,999)\nआप किस सेवा के लिए विस्तृत प्रस्ताव चाहते हैं?",
         suggestedPrompts: [
-          "Website Development Quote ($699)",
-          "SEO Optimization Retainer ($449)",
-          "WhatsApp par custom quote lein (+91 76908 68932)"
+          "वेबसाइट डेवलपमेंट कोट ($699)",
+          "एसईओ मासिक प्लान ($449)",
+          "व्हाट्सएप पर कस्टम कोट लें (+91 76908 68932)"
         ]
       };
     }
@@ -303,15 +308,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 12. Meeting / Strategy Call / Founder / Talk with team
   if (
-    query.match(/\b(meeting|call|schedule|consultation|talk|founder|zoom|google meet|baat karni|phone par baat)\b/i)
+    query.match(/\b(meeting|call|schedule|consultation|talk|founder|zoom|google meet|baat karni|phone par baat|मीटिंग|कॉल|बात)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Aap hamare senior strategist ke sath direct 1-on-1 strategy call /schedule-meeting page par book kar sakte hain, ya turant WhatsApp (+91 76908 68932) par call/chat kar sakte hain. Kaunsa time aapko suit karega?",
+        reply: "आप बालाजी प्राइम मीडिया के सीनियर रणनीतिकार के साथ 1-on-1 मीटिंग हमारे /schedule-meeting पेज पर बुक कर सकते हैं, या तुरंत व्हाट्सएप (+91 76908 68932) पर कॉल या मैसेज कर सकते हैं। आपके लिए कौन सा समय सबसे अच्छा रहेगा?",
         suggestedPrompts: [
-          "Meeting Book Karein (/schedule-meeting)",
-          "WhatsApp par direct message karein",
-          "Email support@balajiprimemedia.in"
+          "मीटिंग बुक करें (/schedule-meeting)",
+          "व्हाट्सएप पर सीधे संपर्क करें",
+          "ईमेल support@balajiprimemedia.in"
         ]
       };
     }
@@ -327,15 +332,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 13. UK / US / Global Services (UK Web Development / USA SEO)
   if (
-    query.match(/\b(uk|united kingdom|london|manchester|us|usa|america|worldwide|australia|international|foreign)\b/i)
+    query.match(/\b(uk|united kingdom|london|manchester|us|usa|america|worldwide|australia|international|foreign|विदेश|ग्लोबल)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Ji haan! Hum UK, US aur global clients ke liye dedicated services dete hain jaise UK Web Development (/web-development-uk) aur US Enterprise SEO (/seo-services-usa). Hum international time zones me operate karte hain aur GBP, USD aur EUR me billing provide karte hain.",
+        reply: "जी हाँ! हम यूके, यूएस और दुनिया भर के ग्राहकों के लिए समर्पित सेवाएं प्रदान करते हैं, जैसे यूके वेब डेवलपमेंट (/web-development-uk) और यूएस एंटरप्राइज एसईओ (/seo-services-usa)। हम अंतरराष्ट्रीय टाइम ज़ोन में कार्य करते हैं और GBP, USD और EUR में बिलिंग उपलब्ध है।",
         suggestedPrompts: [
-          "UK Web Development dekhein (/web-development-uk)",
-          "USA SEO Services dekhein (/seo-services-usa)",
-          "International Clients ke sath discussion karein"
+          "यूके वेब डेवलपमेंट देखें (/web-development-uk)",
+          "यूएसए एसईओ सर्विसेज देखें (/seo-services-usa)",
+          "व्हाट्सएप पर अंतरराष्ट्रीय प्रोजेक्ट डिस्कस करें"
         ]
       };
     }
@@ -351,15 +356,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 14. Contact details / Office location / WhatsApp / Email
   if (
-    query.match(/\b(contact|email|whatsapp|phone|number|mobile|address|office|location|kaha hai|kaha par)\b/i)
+    query.match(/\b(contact|email|whatsapp|phone|number|mobile|address|office|location|kaha hai|kaha par|संपर्क|पता|फोन|नंबर|ईमेल)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Balaji Prime Media ki contact details:\n• WhatsApp & Phone: +91 76908 68932 (24/7)\n• Email: support@balajiprimemedia.in\n• Office: Jaipur, Rajasthan (Serving UK, US & Worldwide clients).\nAap hamare /contact page par bhi form bhar sakte hain.",
+        reply: "बालाजी प्राइम मीडिया की संपर्क जानकारी:\n• व्हाट्सएप एवं फोन: +91 76908 68932 (24/7 उपलब्ध)\n• ईमेल: support@balajiprimemedia.in\n• हेडक्वार्टर: जयपुर, राजस्थान (यूके, यूएस और वैश्विक सेवाएं).\nआप हमारे /contact पेज पर जाकर भी संपर्क फॉर्म भर सकते हैं।",
         suggestedPrompts: [
-          "WhatsApp (+91 76908 68932) par chat karein",
-          "Email bhejein",
-          "Contact Page dekhein (/contact)"
+          "व्हाट्सएप (+91 76908 68932) पर चैट करें",
+          "ईमेल भेजें",
+          "संपर्क पेज देखें (/contact)"
         ]
       };
     }
@@ -375,15 +380,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 15. Payment Methods / Billing
   if (
-    query.match(/\b(pay|payment|paypal|stripe|wise|wire transfer|upi|bank transfer|invoice|invoicing)\b/i)
+    query.match(/\b(pay|payment|paypal|stripe|wise|wire transfer|upi|bank transfer|invoice|invoicing|पेमेंट|भुगतान)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Hum sabhi international aur domestic payment modes accept karte hain: Stripe, PayPal, Wise, Direct Bank Wire Transfer, aur UPI. Aap hamare /pay page par jaakar direct checkout bhi kar sakte hain.",
+        reply: "हम सभी प्रमुख अंतरराष्ट्रीय और घरेलू भुगतान माध्यम स्वीकार करते हैं: स्ट्राइप (Stripe), पेपाल (PayPal), वाइज (Wise), डायरेक्ट बैंक वायर और यूपीआई (UPI)। आप हमारे /pay पेज पर जाकर सीधा सुरक्षित ऑनलाइन भुगतान भी कर सकते हैं।",
         suggestedPrompts: [
-          "Payment Page dekhein (/pay)",
-          "WhatsApp par invoice mangein",
-          "Meeting schedule karein"
+          "पेमेंट पेज देखें (/pay)",
+          "व्हाट्सएप पर इनवॉइस मांगें",
+          "बिलिंग टीम से बात करें"
         ]
       };
     }
@@ -399,15 +404,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 16. Identity / Who are you / Tum kaun ho
   if (
-    query.match(/\b(who are you|who r u|tum kaun ho|aap kaun ho|kaun ho|kya naam hai|naam kya hai|kya ho tum)\b/i)
+    query.match(/\b(who are you|who r u|tum kaun ho|aap kaun ho|kaun ho|kya naam hai|naam kya hai|kya ho tum|तुम कौन हो|आप कौन हैं|नाम क्या है)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Main Balaji Prime Media ka 24/7 AI Voice Concierge hoon. Balaji Prime Media ek full-service digital growth agency hai jo UK, US aur worldwide clients ko Custom Next.js Web Development, SEO, Content Writing aur Digital Marketing solutions deti hai.",
+        reply: "मैं बालाजी प्राइम मीडिया की 24/7 आधिकारिक एआई वॉयस गाइड हूँ। बालाजी प्राइम मीडिया एक प्रीमियम डिजिटल ग्रोथ एजेंसी है जो यूके, यूएस और वैश्विक व्यवसायों को कस्टम नेक्स्ट.जेएस वेब डेवलपमेंट, फुल-फनल एसईओ, कंटेंट राइटिंग और डिजिटल मार्केटिंग समाधान प्रदान करती है।",
         suggestedPrompts: [
-          "Aapki services kya kya hain?",
-          "Pricing & Packages batao",
-          "Founder se meeting book karein"
+          "आपकी मुख्य सेवाएं क्या हैं?",
+          "प्राइसिंग और पैकेज बताएं",
+          "फाउंडर से मीटिंग बुक करें"
         ]
       };
     }
@@ -423,15 +428,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 17. Greetings / Namaste / Hi / Hello
   if (
-    query.match(/^(hi|hello|hey|namaste|pranam|kaisa|kaise ho|kya haal|good morning|good afternoon|good evening)/i)
+    query.match(/^(hi|hello|hey|namaste|pranam|kaisa|kaise ho|kya haal|good morning|good afternoon|good evening|नमस्ते|प्रणाम|हाय|हैलो)/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Namaste! Balaji Prime Media me aapka swagat hai. Main aapka AI Voice Assistant hoon. Aaj main aapki website development, SEO, content writing ya digital marketing me kis tarah madad kar sakta hoon?",
+        reply: "नमस्ते! बालाजी प्राइम मीडिया में आपका स्वागत है। मैं आपकी 24/7 एआई वॉयस गाइड हूँ। आज मैं आपकी वेबसाइट डेवलपमेंट, एसईओ, कंटेंट राइटिंग या डिजिटल मार्केटिंग में किस प्रकार सहायता कर सकती हूँ?",
         suggestedPrompts: [
-          "Website Development ke baare me batao",
-          "SEO Packages dekhein",
-          "Pricing & Rates kya hain?"
+          "वेबसाइट डेवलपमेंट पैकेज ($699)",
+          "एसईओ रैंकिंग पैकेज ($449/माह)",
+          "प्राइसिंग और रेट्स बताएं"
         ]
       };
     }
@@ -447,15 +452,15 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
 
   // 18. Polite / Acknowledgement (Ok, Thanks, Good, etc.)
   if (
-    query.match(/\b(ok|okay|theek hai|thik hai|shukriya|thanks|thank you|good|nice|badhiya|wah|great)\b/i)
+    query.match(/\b(ok|okay|theek hai|thik hai|shukriya|thanks|thank you|good|nice|badhiya|wah|great|धन्यवाद|शुक्रिया|ठीक है|बढ़िया)\b/i)
   ) {
     if (isHindi) {
       return {
-        reply: "Bahut shukriya! Agar aapko hamari kisi bhi service ya project ke baare me koi aur jankari chahiye, to zaroor batayein. Main hamesha yahan aapki madad ke liye hoon.",
+        reply: "बहुत-बहुत धन्यवाद! यदि आपको हमारी किसी भी सेवा या प्रोजेक्ट के बारे में और कोई जानकारी चाहिए, तो कृपया अवश्य बताएं। मैं सदैव आपकी सहायता के लिए उपस्थित हूँ।",
         suggestedPrompts: [
-          "Services & Pricing dekhein",
-          "Free AI Website Audit karein",
-          "WhatsApp par baat karein"
+          "सेवाएं और प्राइसिंग देखें",
+          "फ्री वेबसाइट ऑडिट करें",
+          "व्हाट्सएप पर बात करें"
         ]
       };
     }
@@ -472,12 +477,12 @@ function generateDynamicResponse(userMessage: string, _history: ChatHistoryItem[
   // 19. Context-Aware Natural Fallback (DOES NOT mention guest posting unless asked)
   if (isHindi) {
     return {
-      reply: `Main aapke sawal "${userMessage}" ko samajh gaya. Balaji Prime Media ek full-service digital agency hai jo Custom Next.js Web Development, SEO Optimization, Content Writing aur Digital Marketing provide karti hai. Aap is project ke baare me kya specifics jaan-na chahte hain?`,
+      reply: `मैंने आपके सवाल "${userMessage}" को समझ लिया है। बालाजी प्राइम मीडिया कस्टम नेक्स्ट.जेएस वेब डेवलपमेंट, एसईओ ऑप्टिमाइजेशन, कंटेंट राइटिंग और डिजिटल ग्रोथ सेवाएं प्रदान करती है। क्या आप अपने प्रोजेक्ट के बारे में विस्तार से बताना चाहेंगे?`,
       suggestedPrompts: [
-        "Website Development Details ($699)",
-        "SEO Optimization Retainer ($449/mo)",
-        "WhatsApp (+91 76908 68932) par discuss karein",
-        "Free SEO & Speed Audit karein"
+        "वेबसाइट डेवलपमेंट ($699)",
+        "एसईओ रैंकिंग पैकेज ($449/माह)",
+        "व्हाट्सएप (+91 76908 68932) पर बात करें",
+        "फ्री वेबसाइट स्पीड व एसईओ ऑडिट"
       ]
     };
   }
@@ -498,6 +503,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const message = sanitizeInput(body.message || "").trim();
     const history = Array.isArray(body.history) ? body.history : [];
+    const preferredLang: "en" | "hi" | undefined =
+      body.lang === "hi" ? "hi" : body.lang === "en" ? "en" : undefined;
 
     if (!message) {
       return NextResponse.json(
@@ -506,10 +513,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const isHindiTarget =
+      preferredLang === "hi" || (preferredLang !== "en" && isHindiOrHinglish(message));
+
     // Optional Gemini API Key integration if available in environment
     const geminiKey = process.env.GEMINI_API_KEY;
     if (geminiKey) {
       try {
+        const languageInstruction = isHindiTarget
+          ? "CRITICAL LANGUAGE REQUIREMENT: You MUST answer entirely in polite, natural, authentic Hindi using Devanagari script (हिन्दी). Do not use Latin/Roman script. Write complete words without any truncation or abbreviations. Keep reply to 2-4 concise, complete sentences suitable for speech synthesis."
+          : "CRITICAL LANGUAGE REQUIREMENT: Answer in professional, polite UK/US English. Write complete sentences without truncation. Keep reply to 2-3 concise sentences suitable for speech synthesis.";
+
         const geminiRes = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
           {
@@ -534,9 +548,8 @@ Contact: WhatsApp & Phone: +91 76908 68932, Email: support@balajiprimemedia.in.
 CRITICAL RULES:
 - ONLY talk about guest posting if the user specifically asked for guest posts or backlinks! NEVER force or mention 40,000 guest posting if the user is asking about websites, development, SEO, content, speed, pricing, or general inquiries.
 - Directly and accurately answer what the user asked.
-- If user speaks Hindi/Hinglish, reply warmly in natural Hinglish!
-- If user speaks English, reply in polite UK/US English.
-- Keep reply to 2-3 concise sentences suitable for voice speech synthesis.
+- ${languageInstruction}
+- Ensure words are fully written and never cut off.
 
 User query: "${message}"`
                     }
@@ -545,7 +558,7 @@ User query: "${message}"`
               ],
               generationConfig: {
                 temperature: 0.7,
-                maxOutputTokens: 200,
+                maxOutputTokens: 800,
               },
             }),
           }
@@ -555,15 +568,23 @@ User query: "${message}"`
           const generatedText =
             geminiData?.candidates?.[0]?.content?.parts?.[0]?.text;
           if (generatedText) {
+            const hindiPrompts = [
+              "वेबसाइट डेवलपमेंट ($699)",
+              "एसईओ रैंकिंग पैकेज ($449/माह)",
+              "फ्री वेबसाइट स्पीड ऑडिट",
+              "व्हाट्सएप पर बात करें"
+            ];
+            const englishPrompts = [
+              "Website Development ($699)",
+              "SEO Optimization ($449/mo)",
+              "Free Website Audit",
+              "Chat on WhatsApp"
+            ];
+
             return NextResponse.json({
               success: true,
               reply: generatedText.trim(),
-              suggestedPrompts: [
-                "Website Development ($699)",
-                "SEO Optimization ($449/mo)",
-                "Free Website Audit",
-                "Chat on WhatsApp"
-              ],
+              suggestedPrompts: isHindiTarget ? hindiPrompts : englishPrompts,
             });
           }
         }
@@ -573,7 +594,7 @@ User query: "${message}"`
     }
 
     // Precise, Multi-Service Local Conversational Engine
-    const response = generateDynamicResponse(message, history);
+    const response = generateDynamicResponse(message, history, preferredLang);
 
     return NextResponse.json({
       success: true,
@@ -586,7 +607,7 @@ User query: "${message}"`
         success: false,
         error: "Failed to process AI response",
         reply:
-          "Main Balaji Prime Media ka AI Voice Concierge hoon. Hamari team Website Development, SEO aur Digital Marketing ke liye 24/7 uplabdh hai. Aap direct WhatsApp (+91 76908 68932) par connect kar sakte hain.",
+          "नमस्ते! मैं बालाजी प्राइम मीडिया की एआई वॉयस गाइड हूँ। हमारी टीम वेबसाइट डेवलपमेंट, एसईओ और डिजिटल मार्केटिंग के लिए 24/7 उपलब्ध है। आप सीधे व्हाट्सएप (+91 76908 68932) पर संपर्क कर सकते हैं।",
       },
       { status: 500 }
     );

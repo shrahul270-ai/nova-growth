@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import LiquidGlassProjectsHero from "../components/LiquidGlassProjectsHero";
+import StaticProjectsHero from "../components/StaticProjectsHero";
 import { caseStudiesData, CaseStudyData } from "./projectsData";
 
 export default function ProjectsClient() {
@@ -131,8 +131,8 @@ export default function ProjectsClient() {
         <Navbar activePage="projects" />
       </div>
 
-      {/* Full-Screen Liquid Glass Looping Background Video Hero (Unchanged Header Structure) */}
-      <LiquidGlassProjectsHero />
+      {/* Static Luxury Hero Header (Clean, Non-moving) */}
+      <StaticProjectsHero />
 
       {/* =========================================================================
           HIGH-AESTHETIC 3D SHOWCASE SECTION

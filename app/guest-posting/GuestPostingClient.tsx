@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GuestPostMarketplace from "../components/GuestPostMarketplace";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
-import DesignProHero from "../components/DesignProHero";
+import StaticGuestPostingHero from "../components/StaticGuestPostingHero";
 
 interface FaqItem {
   id: number;
@@ -137,8 +137,8 @@ export default function GuestPostingClient() {
         <Navbar activePage="guest-posting" />
       </div>
 
-      {/* 1. DesignPro Full-Screen Looping Video Hero Section */}
-      <DesignProHero />
+      {/* 1. Static Luxury Hero Section (Clean, Non-moving) */}
+      <StaticGuestPostingHero />
 
       {/* 2. Curated Editorial Overview Banner */}
       <section className="relative w-full py-8 sm:py-10 px-4 sm:px-6 md:px-12 text-center bg-[#070b14] border-b border-gray-800/80">

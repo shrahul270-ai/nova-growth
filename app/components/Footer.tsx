@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -85,15 +86,9 @@ export default function Footer() {
           {/* COLUMN 1: Brand & Direct Contact (span 4) */}
           <div className="lg:col-span-4 space-y-4 text-left animate-shipcraft-col-1">
             {/* Brand Logo */}
-            <Link href="/" className="inline-flex items-center group">
-              <Image
-                src="/images/bpm-complete-logo.png"
-                alt="BPM - Digital Growth & SEO Agency"
-                width={240}
-                height={225}
-                className="h-16 sm:h-20 w-auto object-contain group-hover:scale-105 transition-transform duration-300 filter drop-shadow-[0_4px_24px_rgba(160,104,255,0.5)]"
-              />
-            </Link>
+            <div className="mb-2">
+              <BrandLogo size="lg" />
+            </div>
 
             {/* Pill with Media Gradient Border */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-slate-200 text-[11px] font-medium shadow-xs backdrop-blur-xs">

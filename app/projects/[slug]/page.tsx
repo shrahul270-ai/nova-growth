@@ -156,28 +156,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         )}
 
         {/* Executive Impact Callout */}
-        <div className="bg-gradient-to-r from-[#120733] via-[#160a3d] to-[#0d0524] text-white rounded-3xl p-6 sm:p-8 shadow-xl mb-10 border border-purple-500/35 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-[#A068FF] mb-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-ping" />
-              Primary Growth Milestone
-            </div>
-            <div className="text-3xl sm:text-4xl font-black text-white mt-1">
-              {study.stat}{" "}
-              <span className="text-cyan-300 text-2xl sm:text-3xl font-bold">
-                {study.statLabel}
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl leading-relaxed">
-              {study.heroMetric}
-            </p>
+        <div className="bg-gradient-to-r from-[#120733] via-[#160a3d] to-[#0d0524] text-white rounded-3xl p-6 sm:p-8 shadow-xl mb-10 border border-purple-500/35">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#A068FF] mb-1 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-ping" />
+            Primary Growth Milestone
           </div>
-          <Link
-            href="/contact"
-            className="shrink-0 bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:brightness-110 text-white font-bold text-xs sm:text-sm px-7 py-3.5 rounded-full shadow-lg transition-all cursor-pointer text-center whitespace-nowrap"
-          >
-            Get Similar Growth →
-          </Link>
+          <div className="text-3xl sm:text-4xl font-black text-white mt-1">
+            {study.stat}{" "}
+            <span className="text-cyan-300 text-2xl sm:text-3xl font-bold">
+              {study.statLabel}
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-2xl leading-relaxed">
+            {study.heroMetric}
+          </p>
         </div>
 
         {/* 4 Key Metrics Cards */}

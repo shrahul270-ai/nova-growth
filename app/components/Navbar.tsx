@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthModal from "./AuthModal";
+import BrandLogo from "./BrandLogo";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -190,22 +191,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
           <div className="max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2 flex items-center justify-between gap-4 border border-white/10 bg-black/30 backdrop-blur-md shadow-lg shadow-black/25">
             
             {/* Official Brand Logo */}
-            <Link
-              href="/"
-              className="flex items-center group shrink-0"
-              aria-label="Balaji Prime Media Home"
-            >
-              <div className="relative">
-                <Image
-                  src="/images/bpm-complete-logo.png"
-                  alt="Balaji Prime Media"
-                  width={210}
-                  height={190}
-                  priority
-                  className="h-10 sm:h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.45)]"
-                />
-              </div>
-            </Link>
+            <BrandLogo size="md" />
 
             {/* Centered Desktop Navigation Links (with Working Dropdown Menus) */}
             <nav
@@ -412,19 +398,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         >
           {/* Top Bar inside Drawer */}
           <div className="flex items-center justify-between pb-5 border-b border-purple-500/20">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center"
-            >
-              <Image
-                src="/images/bpm-complete-logo.png"
-                alt="Balaji Prime Media"
-                width={170}
-                height={155}
-                className="h-10 w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.45)]"
-              />
-            </Link>
+            <div onClick={() => setMobileMenuOpen(false)}>
+              <BrandLogo size="md" />
+            </div>
 
             <button
               type="button"

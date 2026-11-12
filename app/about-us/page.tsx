@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import CinematicIdentityHero from "../components/CinematicIdentityHero";
+import StaticAboutHero from "../components/StaticAboutHero";
 import Leadership3DCards from "../components/Leadership3DCards";
 import OurPurpose3DSection from "../components/OurPurpose3DSection";
 import OurPrinciples3DSection from "../components/OurPrinciples3DSection";
@@ -40,8 +40,8 @@ export default function AboutUsPage() {
         <Navbar activePage="about" />
       </div>
 
-      {/* Cinematic Edge-to-Edge AI Video Hero Header with Sora & JetBrains Mono */}
-      <CinematicIdentityHero />
+      {/* Static Luxury Hero Header (Clean, Non-moving) */}
+      <StaticAboutHero />
 
       {/* 3D Glassmorphism Our Purpose Section with Cosmic Background & Purple Accents */}
       <OurPurpose3DSection />

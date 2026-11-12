@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T12:29:41.695Z",
+  "lastUpdated": "2026-11-06T12:29:44.263Z",
   "leads": [
     {
       "id": "lead_mvjbwqnl_py3zja",
@@ -1057,6 +1057,34 @@
   "audits": [
     {
       "type": "seo_audit",
+      "domain": "balajiprimemedia.in",
+      "url": "https://balajiprimemedia.in/",
+      "clientIp": "::1",
+      "userAgent": "node",
+      "scores": {
+        "seo": 98,
+        "speed": 93,
+        "security": 98,
+        "ranking": 98,
+        "rankingPosition": "Rank #1 - #3",
+        "rankingTier": "Top 3 SERP Authority"
+      },
+      "metrics": {
+        "responseTimeMs": 306,
+        "wordCount": 1166,
+        "isHttps": true,
+        "issuesCount": 0
+      },
+      "id": "audit_mw4yc5vg_sr5vm3",
+      "collection": "audits",
+      "status": "new",
+      "createdAt": "2026-11-06T12:29:43.996Z",
+      "updatedAt": "2026-11-06T12:29:43.996Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
+    {
+      "type": "seo_audit",
       "domain": "chatgpt.com",
       "url": "https://chatgpt.com/",
       "clientIp": "::1",
@@ -1144,6 +1172,14 @@
   ],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mw4yc5vg_39h4d8",
+      "timestamp": "2026-11-06T12:29:43.996Z",
+      "action": "create",
+      "collection": "audits",
+      "recordId": "audit_mw4yc5vg_sr5vm3",
+      "summary": "SEO Audit performed for domain balajiprimemedia.in"
+    },
     {
       "id": "log_mw4yc3k9_ltm29k",
       "timestamp": "2026-11-06T12:29:41.001Z",
