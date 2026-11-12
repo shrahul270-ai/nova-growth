@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Hls from "hls.js";
 
 interface VexorBlogHeroProps {
   onSearch?: (query: string) => void;
@@ -13,15 +14,57 @@ export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroPr
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Setup HLS video streaming with graceful MP4 fallback
   useEffect(() => {
-    if (videoRef.current && videoRef.current.readyState >= 3) {
-      setVideoLoaded(true);
+    const video = videoRef.current;
+    if (!video) return;
+
+    const hlsSrc = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
+    const mp4Fallback = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f6f4ec49-d5dd-4893-8eb4-fa0f932aceaf.mp4";
+
+    let hls: Hls | null = null;
+
+    if (Hls.isSupported()) {
+      hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+        backBufferLength: 60,
+      });
+      hls.loadSource(hlsSrc);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {});
+        setVideoLoaded(true);
+      });
+      hls.on(Hls.Events.ERROR, () => {
+        // Fallback to MP4 on HLS network issue
+        if (!video.src) {
+          video.src = mp4Fallback;
+          video.play().catch(() => {});
+        }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      // Native Apple HLS (Safari iOS/macOS)
+      video.src = hlsSrc;
+      video.addEventListener("loadedmetadata", () => {
+        video.play().catch(() => {});
+        setVideoLoaded(true);
+      });
+    } else {
+      video.src = mp4Fallback;
+      video.play().catch(() => {});
     }
+
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
   }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !email.includes("@")) return;
     setIsSubscribed(true);
   };
 
@@ -33,132 +76,157 @@ export default function VexorBlogHero({ onSearch, searchQuery }: VexorBlogHeroPr
   };
 
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-black text-white flex flex-col justify-between overflow-hidden selection:bg-[#F0605A] selection:text-white">
-      {/* Top spacer to ensure transparent navbar has comfortable breathing room */}
-      <div className="w-full h-24 sm:h-28 lg:h-32" />
+    <section className="relative w-full h-screen min-h-[700px] lg:min-h-[800px] bg-black text-white flex flex-col justify-end overflow-hidden selection:bg-[#A068FF] selection:text-white">
+      {/* =========================================================================
+          FULL-SCREEN HLS VIDEO BACKGROUND
+         ========================================================================= */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/03c58212-3a59-4c80-b19d-30d05a174563.webp"
+        className={`absolute inset-0 w-full h-full object-cover z-0 pointer-events-none scale-[1.03] transition-opacity duration-1000 ${
+          videoLoaded ? "opacity-90" : "opacity-75"
+        }`}
+      />
 
-      {/* Main Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-auto py-6">
-        {/* Framed CTA Card */}
-        <div className="relative mx-auto rounded-[24px] p-[1.5px] bg-gradient-to-br from-[rgba(244,118,104,0.7)] via-[rgba(244,118,104,0.35)] to-[rgba(244,118,104,0.18)] shadow-[0_20px_70px_-15px_rgba(240,96,90,0.3)]">
-          <div className="relative rounded-[22.5px] overflow-hidden bg-black p-5 sm:p-10 lg:p-16 min-h-[420px] sm:min-h-[480px] flex flex-col items-center justify-center text-center">
-            
-            {/* Background Still Plate */}
-            <div
-              className="absolute inset-0 pointer-events-none bg-cover bg-right-bottom z-0 opacity-80"
-              style={{
-                backgroundImage: `url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/03c58212-3a59-4c80-b19d-30d05a174563.webp')`,
-                backgroundPosition: "right bottom",
-                backgroundSize: "cover",
-              }}
-            />
+      {/* Top Glassmorphic Vignette (Comfortable backdrop for floating Navbar) */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-44 z-[1] pointer-events-none bg-gradient-to-b from-black/85 via-black/40 to-transparent"
+      />
 
-            {/* Slowly Swirling Coral & Crimson Smoke Loop Video */}
-            <video
-              ref={videoRef}
-              src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f6f4ec49-d5dd-4893-8eb4-fa0f932aceaf.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              onLoadedData={() => setVideoLoaded(true)}
-              className={`absolute inset-0 w-full h-full object-cover object-right-bottom pointer-events-none z-0 transition-opacity duration-1000 ${
-                videoLoaded ? "opacity-80" : "opacity-0"
-              }`}
-            />
+      {/* Bottom-Left Ambient Vignette (Ensures Bottom-Left Hero Content is Crystal Clear) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(ellipse at bottom left, rgba(7,3,25,0.92) 0%, rgba(10,5,34,0.75) 45%, rgba(0,0,0,0.35) 75%, transparent 100%),
+            linear-gradient(to top, #070319 0%, rgba(7,3,25,0.7) 25%, transparent 60%)
+          `,
+        }}
+      />
 
-            {/* Dark Gradient Overlay for optimal copy contrast on the left & top */}
-            <div
-              className="absolute inset-0 pointer-events-none z-[1]"
-              style={{
-                background: `radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 85%, #000000 100%),
-                             linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)`,
-              }}
-            />
+      {/* Subtle Purple Aurora Glow on the Left */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-12 left-0 w-[600px] h-[400px] bg-[radial-gradient(circle_at_bottom_left,rgba(160,104,255,0.2)_0%,transparent_70%)] pointer-events-none z-[2]"
+      />
 
-            {/* Content Layer */}
-            <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-              {/* Eyebrow Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-[#FF8A73]/40 backdrop-blur-md mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#FF8A73] animate-pulse" />
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-[#FF8A73]">
-                  Balaji Prime Media // Editorial Dispatch
-                </span>
-              </div>
+      {/* =========================================================================
+          HERO CONTENT POSITIONED IN BOTTOM-LEFT CORNER
+         ========================================================================= */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pb-10 sm:pb-14 lg:pb-16 flex flex-col justify-end items-start text-left">
+        <div className="max-w-3xl space-y-4 sm:space-y-5">
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-purple-400/35 backdrop-blur-md shadow-lg shadow-purple-950/40">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-[11px] font-bold tracking-widest uppercase text-[#d8b4fe]">
+              Balaji Prime Media // Editorial Dispatch
+            </span>
+            <span className="text-white/20">|</span>
+            <span className="text-[10.5px] font-medium text-slate-300">Live Field Manuals</span>
+          </div>
 
-              {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-semibold tracking-tight text-white leading-[1.12] mb-4">
-                The Balaji Prime Media <br className="hidden sm:inline" />
-                Growth Journal
-              </h1>
+          {/* Main Headline */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08] drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+            The Growth <br className="hidden sm:inline" />
+            <span className="bg-gradient-to-r from-white via-purple-100 to-[#A068FF] bg-clip-text text-transparent">
+              Journal.
+            </span>
+          </h1>
 
-              {/* Subcopy */}
-              <p className="text-[#c4c4c7] text-sm sm:text-base lg:text-[17px] font-normal leading-relaxed max-w-xl mb-8">
-                Join 2,500+ founders, marketers &amp; SEO directors receiving weekly data-backed organic strategies, high-DA link blueprints, and algorithmic updates.
-              </p>
+          {/* Subcopy */}
+          <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl drop-shadow-md">
+            Actionable search engine optimization field manuals, international DR 50–90+ link engineering frameworks, and technical Core Web Vitals blueprints tested across 200+ partner brands.
+          </p>
 
-              {/* Waitlist / Newsletter Form */}
-              {isSubscribed ? (
-                <div className="w-full max-w-md p-4 rounded-full bg-white/[0.08] border border-[#FF8A73]/60 backdrop-blur-md text-[#FF8A73] text-sm font-medium flex items-center justify-center gap-2 shadow-lg animate-fadeIn">
-                  <span>✓</span>
-                  <span>Welcome aboard! You&apos;ll receive our next SEO teardown this Thursday.</span>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubscribe}
-                  className="w-full max-w-[490px] flex items-center bg-black/90 border border-white/15 focus-within:border-[#FF8A73]/80 rounded-full p-1.5 transition-all shadow-[0_4px_24px_rgba(0,0,0,0.6)]"
-                >
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email to join the waitlist"
-                    className="w-full bg-transparent text-white text-xs sm:text-sm pl-4 pr-2 py-2 outline-none placeholder-[#808081]"
-                  />
-                  <button
-                    type="submit"
-                    className="shrink-0 bg-gradient-to-r from-[#FF8A73] to-[#F0605A] hover:brightness-110 active:scale-95 text-white font-medium text-xs sm:text-sm px-5 sm:px-6 py-2.5 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.45),0_4px_16px_rgba(240,96,90,0.35)] transition-all cursor-pointer whitespace-nowrap"
-                  >
-                    Get Free Access
-                  </button>
-                </form>
-              )}
-
-              {/* Quick Features Row */}
-              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-6 text-[11px] sm:text-xs text-[#808081]">
-                <span className="flex items-center gap-1.5">
-                  <span className="text-[#FF8A73]">●</span> 200+ Growth Case Studies
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="text-[#FF8A73]">●</span> Verified DR 50-90+ Data
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="text-[#FF8A73]">●</span> No Spam, Zero Fluff
-                </span>
-              </div>
+          {/* Interactive Bottom-Left Toolbar: Live Search & Explore Action */}
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-xl">
+            {/* Live Search Input */}
+            <div className="relative flex-1">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none">
+                🔍
+              </span>
+              <input
+                type="text"
+                value={searchQuery || ""}
+                onChange={(e) => onSearch && onSearch(e.target.value)}
+                placeholder="Search articles (e.g. Next.js, SEO, Backlinks)..."
+                className="w-full pl-9 pr-4 py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 focus:border-[#A068FF] focus:outline-none text-white placeholder-slate-400 text-xs shadow-lg transition-all"
+              />
             </div>
+
+            {/* Explore Button */}
+            <button
+              type="button"
+              onClick={scrollToArticles}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:from-[#8f52ff] hover:to-[#6d28d9] text-white text-xs font-bold shadow-lg shadow-purple-950/60 transition-all hover:scale-105 cursor-pointer whitespace-nowrap"
+            >
+              <span>Explore Articles</span>
+              <span>↓</span>
+            </button>
+          </div>
+
+          {/* Newsletter subscription inline prompt */}
+          <div className="pt-1">
+            {isSubscribed ? (
+              <p className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+                <span>✓</span>
+                <span>Subscribed! You&apos;ll receive our next search breakdown this Thursday.</span>
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex items-center gap-2 text-xs text-slate-400">
+                <span className="hidden sm:inline">Get weekly teardowns:</span>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter work email..."
+                  className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 w-44"
+                />
+                <button
+                  type="submit"
+                  className="px-2.5 py-1 rounded-full bg-white/[0.1] hover:bg-white/[0.18] text-slate-200 hover:text-white border border-white/15 transition-all text-xs font-semibold cursor-pointer"
+                >
+                  Join Free →
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Quick Metrics / Quality Proof Tags */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-[11px] sm:text-xs text-slate-300 font-medium">
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#A068FF]">●</span> 200+ Growth Case Studies
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#A068FF]">●</span> Verified DR 50–90+ Outreach
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#A068FF]">●</span> Google Core Update Blueprints
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Footer Strip / Transition to Blog Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-5 text-xs text-[#808081]">
-          {/* Left mark */}
-          <div className="flex items-center gap-3">
-            <span className="font-semibold text-white tracking-widest text-[13px]">BPM // INSIGHTS</span>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <span className="hidden sm:inline">Curated search engineering, high-intent guest blogging &amp; organic authority.</span>
-          </div>
-
-          {/* Right link / Action */}
+      {/* Seamless Transition Border to Articles Section */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pb-3">
+        <div className="flex items-center justify-between border-t border-white/10 pt-3 text-[11px] text-slate-400">
+          <span className="font-semibold text-white tracking-widest text-[11px]">BPM // EDITORIAL ARCHIVE</span>
           <button
             onClick={scrollToArticles}
-            className="group flex items-center gap-2 text-white/80 hover:text-white transition-colors cursor-pointer text-xs font-medium"
+            className="text-slate-300 hover:text-white transition-colors cursor-pointer flex items-center gap-1"
           >
-            <span>Explore Latest Articles</span>
-            <span className="group-hover:translate-y-0.5 transition-transform text-[#FF8A73]">↓</span>
+            <span>Scroll down to read</span>
+            <span>↓</span>
           </button>
         </div>
       </div>

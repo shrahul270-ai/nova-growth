@@ -68,8 +68,15 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               </div>
             </div>
 
-            {/* Right: Payment link only */}
-            <div className="flex items-center gap-3 shrink-0 ml-auto">
+            {/* Right: Payment link & Login */}
+            <div className="flex items-center gap-2.5 shrink-0 ml-auto">
+              <Link
+                href="/login"
+                className="text-slate-300 hover:text-white transition-colors text-[11px] font-medium hidden sm:inline-block"
+              >
+                <span>Log in</span>
+              </Link>
+              <span className="text-white/20 hidden sm:inline-block">·</span>
               <Link
                 href="/pay"
                 className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.08] hover:bg-white/[0.16] border border-white/15 px-3 py-0.5 rounded-full text-[11px] font-semibold shadow-xs"
@@ -146,14 +153,21 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Button: "Get Started" with Hero-styled animated glowing border and chevron */}
-            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+            {/* Right Action Buttons: "Log in" and "Sign up" */}
+            <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <Link
+                href="/login"
+                className="text-[13px] font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-full transition-all hover:bg-white/[0.08] hidden sm:inline-flex items-center gap-1"
+              >
+                <span>Log in</span>
+              </Link>
+
               <div className="btn-border-wrap shrink-0">
                 <Link
-                  href="/guest-posting"
-                  className="marketeam-start-btn !py-1.5 !px-4 sm:!px-5 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)]"
+                  href="/signup"
+                  className="marketeam-start-btn !py-1.5 !px-3.5 sm:!px-4 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)]"
                 >
-                  <span>Get Started</span>
+                  <span>Sign up</span>
                   <svg
                     className="w-3.5 h-3.5 text-white shrink-0"
                     fill="none"
@@ -226,6 +240,24 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             >
               ✕
             </button>
+          </div>
+
+          {/* Mobile Auth Buttons: Log in & Sign up */}
+          <div className="grid grid-cols-2 gap-2.5 pt-3 pb-2 border-b border-purple-500/20">
+            <Link
+              href="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-semibold text-slate-200 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 transition-colors"
+            >
+              Log in
+            </Link>
+            <Link
+              href="/signup"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-center py-2.5 px-3 rounded-xl text-[13.5px] font-bold text-white bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:brightness-110 shadow-sm transition-all"
+            >
+              Sign up
+            </Link>
           </div>
 
           {/* Navigation Links: Home, Guest Posting, Services, Projects, Blog, About Us, Contact Us, Payment */}
