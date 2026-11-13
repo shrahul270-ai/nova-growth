@@ -33,11 +33,16 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/images/logo-symbol.png", sizes: "512x512", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
-    apple: "/images/logo-icon-192.png",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
@@ -71,7 +76,8 @@ const structuredData = {
       "@id": "https://balajiprimemedia.in/#organization",
       name: "Balaji Prime Media",
       url: "https://balajiprimemedia.in",
-      logo: "https://balajiprimemedia.in/images/logo.png",
+      logo: "https://balajiprimemedia.in/images/logo-symbol.png",
+      image: "https://balajiprimemedia.in/images/logo-symbol.png",
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+917690868932",
@@ -121,6 +127,12 @@ export default function RootLayout({
           href="https://db.onlinewebfonts.com/c/ca3d10781128664daddf89bf2e2d1305?family=Graphik+LCG+Regular+Regular"
           rel="stylesheet"
         />
+        {/* Google & Multi-Platform Official Favicon Specifications */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
