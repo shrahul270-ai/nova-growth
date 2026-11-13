@@ -82,12 +82,12 @@ export default function ThemeToggle({
         title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
         className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer shadow-sm ${
           isLight
-            ? "bg-slate-100 border-slate-300 text-slate-800 hover:bg-slate-200"
-            : "bg-white/[0.08] border-purple-500/30 text-slate-200 hover:bg-white/[0.15] hover:text-white"
+            ? "bg-slate-900 border-slate-700 text-amber-300 hover:bg-slate-800"
+            : "bg-white/[0.08] border-purple-500/30 text-amber-300 hover:bg-white/[0.15]"
         } ${className}`}
       >
-        <span className="text-sm">{isLight ? "☀️" : "🌙"}</span>
-        <span>{isLight ? "Light Mode" : "Dark Mode"}</span>
+        <span className="text-sm">{isLight ? "🌙" : "☀️"}</span>
+        <span>{isLight ? "Dark Mode" : "Light Mode"}</span>
       </button>
     );
   }
@@ -97,19 +97,27 @@ export default function ThemeToggle({
       type="button"
       onClick={toggleTheme}
       title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-      className={`theme-toggle-btn relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+      className={`theme-toggle-btn relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md ${
         isLight
-          ? "bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 shadow-xs"
-          : "bg-white/[0.08] hover:bg-white/[0.18] border border-purple-400/30 text-white shadow-[0_0_12px_rgba(160,104,255,0.25)]"
+          ? "bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-300 shadow-slate-900/20"
+          : "bg-white/[0.08] hover:bg-white/[0.18] border border-purple-400/40 text-amber-300 shadow-[0_0_14px_rgba(160,104,255,0.35)]"
       } ${className}`}
       aria-label={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
     >
       {isLight ? (
         <svg
-          className="w-4 h-4 text-amber-500 transition-transform duration-300 rotate-0 hover:rotate-45"
+          className="w-4 h-4 text-amber-300 transition-transform duration-300 -rotate-12 hover:rotate-0"
           fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      ) : (
+        <svg
+          className="w-4 h-4 text-amber-300 transition-transform duration-300 hover:rotate-90"
+          fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
           viewBox="0 0 24 24"
@@ -123,18 +131,6 @@ export default function ThemeToggle({
           <line x1="21" y1="12" x2="23" y2="12" />
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-      ) : (
-        <svg
-          className="w-4 h-4 text-cyan-300 transition-transform duration-300 -rotate-12 hover:rotate-0"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       )}
     </button>

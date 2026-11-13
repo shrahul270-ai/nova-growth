@@ -2169,12 +2169,21 @@ textarea {
    1. HTML & BODY ROOT LIGHT THEME STYLING
    ------------------------------------------------------------------------- */
 html.light-theme,
-html.light-theme body {
+html.light,
+html.light-theme body,
+html.light body {
   --bg-main: #f8fafc;
   --bg-card: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border-subtle: #e2e8f0;
+  --brand-logo-text: #0f172a;
+  --hero-bg: #f8fafc;
+  --hero-text: #0f172a;
+  --hero-title-color: #0f172a;
+  --hero-subtitle-color: #475569;
+  --marquee-text-color: #0f172a;
+  --elo-card-bg: #ffffff;
   background-color: #f8fafc !important;
   color: #0f172a !important;
 }
@@ -2455,7 +2464,10 @@ html.light-theme header .bg-black\/30 {
 
 /* Brand Logo in Light Mode */
 html.light-theme .brand-logo-title,
-html.light-theme a[aria-label="Balaji Prime Media Home"] span.font-black {
+html.light-theme .brand-logo-title span,
+html.light-theme [aria-label="Balaji Prime Media Home"] span.font-black,
+html.light-theme [aria-label="Balaji Prime Media Home"] .brand-logo-title,
+html.light-theme a[aria-label="Balaji Prime Media Home"] span {
   color: #0f172a !important;
 }
 
@@ -2466,7 +2478,7 @@ html.light-theme .brand-logo-crest {
 }
 
 html.light-theme .brand-logo-crest svg path[fill="#060214"] {
-  fill: #ffffff !important;
+  fill: #7c3aed !important;
 }
 
 /* Nav Links in Light Mode */
@@ -2507,23 +2519,73 @@ html.light-theme header nav button:hover svg {
 }
 
 /* Navbar Action Buttons in Light Mode */
-html.light-theme .nav-login-btn {
+html.light-theme .nav-login-btn,
+html.light-theme .nav-login-btn span {
   color: #0f172a !important;
-  border: 1px solid #cbd5e1 !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme .nav-login-btn {
+  border: 1.5px solid #cbd5e1 !important;
   background-color: #ffffff !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-  font-weight: 600 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05) !important;
 }
 
 html.light-theme .nav-login-btn:hover {
   background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
 }
 
-html.light-theme .nav-signup-btn {
+/* Signup Button and Border Wrapper in Light Mode */
+html.light-theme .btn-border-wrap {
+  padding: 0 !important;
+}
+
+html.light-theme .btn-border-wrap::before {
+  display: none !important;
+}
+
+html.light-theme .nav-signup-btn,
+html.light-theme .marketeam-start-btn {
   background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%) !important;
+  background-color: #7c3aed !important;
   color: #ffffff !important;
   border: none !important;
   box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
+}
+
+html.light-theme .nav-signup-btn span,
+html.light-theme .marketeam-start-btn span {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme .nav-signup-btn svg,
+html.light-theme .marketeam-start-btn svg {
+  color: #ffffff !important;
+}
+
+/* Mobile Burger Button in Light Mode */
+html.light-theme #burger,
+html.light-theme .mobile-burger-btn {
+  background-color: #f1f5f9 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light-theme #burger .burger-line,
+html.light-theme .mobile-burger-btn .burger-line,
+html.light-theme #burger i,
+html.light-theme .mobile-burger-btn i {
+  background-color: #0f172a !important;
+}
+
+/* Theme Toggle Button in Light Mode */
+html.light-theme .theme-toggle-btn {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #fcd34d !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25) !important;
 }
 
 /* Dropdown menus in light mode */

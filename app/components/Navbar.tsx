@@ -372,18 +372,18 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 type="button"
                 id="burger"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-[40px] h-[40px] rounded-full border border-white/20 bg-white/[0.06] hover:bg-white/[0.14] flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-sm"
+                className="mobile-burger-btn lg:hidden w-[40px] h-[40px] rounded-full border border-white/20 bg-white/[0.06] hover:bg-white/[0.14] flex flex-col items-center justify-center gap-[5px] cursor-pointer transition-colors shrink-0 z-50 shadow-sm"
                 aria-controls="menu"
                 aria-expanded={mobileMenuOpen}
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               >
                 <i
-                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                  className={`burger-line w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
                     mobileMenuOpen ? "translate-y-[3px] rotate-45" : ""
                   }`}
                 />
                 <i
-                  className={`w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
+                  className={`burger-line w-4 h-[1.5px] bg-white rounded-full transition-transform duration-300 ease-out ${
                     mobileMenuOpen ? "-translate-y-[3.5px] -rotate-45" : ""
                   }`}
                 />

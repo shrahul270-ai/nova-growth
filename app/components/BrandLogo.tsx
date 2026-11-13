@@ -123,7 +123,6 @@ export default function BrandLogo({
         <div className="flex items-center gap-1.5 leading-none">
           <span
             className={`${mainTextSize} font-black tracking-tight text-white group-hover:text-[#f3e8ff] transition-colors brand-logo-title`}
-            style={{ color: "var(--brand-logo-text, #ffffff)" }}
           >
             BALAJI PRIME
           </span>
