@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { supabase, isSupabaseConfigured } from "./supabase";
+import { pushLeadToNeon, pushPaymentToNeon, isNeonConfigured } from "./neon";
 
 // Valid column schemas for Supabase tables to prevent PGRST204 errors
 const SUPABASE_TABLE_COLUMNS: Record<string, string[]> = {
@@ -412,7 +413,10 @@ export async function createLead(
     `New inquiry received from ${record.name || record.email || "Unknown"}`
   );
   writeDatabase(db);
-  await pushToSupabase("leads", record);
+  await Promise.allSettled([
+    pushToSupabase("leads", record),
+    pushLeadToNeon(record),
+  ]);
   return record;
 }
 
@@ -553,7 +557,10 @@ export async function createPayment(
     `Payment checkout recorded: ${record.currency} ${record.amount} by ${record.clientName || record.clientEmail}`
   );
   writeDatabase(db);
-  await pushToSupabase("payments", record);
+  await Promise.allSettled([
+    pushToSupabase("payments", record),
+    pushPaymentToNeon(record),
+  ]);
   return record;
 }
 

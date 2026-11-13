@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { readDatabase } from "@/lib/db";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { fetchLeadsFromNeon, fetchPaymentsFromNeon, isNeonConfigured } from "@/lib/neon";
 
 export async function GET() {
   try {
@@ -8,7 +9,39 @@ export async function GET() {
     let leads = [...(db.leads || [])];
     let payments = [...(db.payments || [])];
 
-    // Also fetch from Supabase if configured
+    // 1. Fetch from Neon Postgres Cloud Database
+    if (isNeonConfigured) {
+      try {
+        const [nLeads, nPayments] = await Promise.all([
+          fetchLeadsFromNeon(),
+          fetchPaymentsFromNeon(),
+        ]);
+
+        if (nLeads && nLeads.length > 0) {
+          const leadIds = new Set(leads.map((l) => l.id));
+          for (const item of nLeads) {
+            if (!leadIds.has(item.id)) {
+              leads.push(item as any);
+              leadIds.add(item.id);
+            }
+          }
+        }
+
+        if (nPayments && nPayments.length > 0) {
+          const payIds = new Set(payments.map((p) => p.id));
+          for (const item of nPayments) {
+            if (!payIds.has(item.id)) {
+              payments.push(item as any);
+              payIds.add(item.id);
+            }
+          }
+        }
+      } catch (neonErr) {
+        console.warn("[Admin Feed] Neon fetch error:", neonErr);
+      }
+    }
+
+    // 2. Also fetch from Supabase if configured
     if (isSupabaseConfigured && supabase) {
       try {
         const [sbLeads, sbPayments] = await Promise.all([
