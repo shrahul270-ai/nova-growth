@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AuthModal from "./AuthModal";
 import BrandLogo from "./BrandLogo";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -325,8 +326,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Buttons: "Log in" and "Sign up" Popup Triggers */}
+            {/* Right Action Buttons: Theme Toggle, "Log in" and "Sign up" Popup Triggers */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <ThemeToggle />
+
               <button
                 type="button"
                 onClick={() => {
@@ -403,6 +406,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </div>
 
             <div className="flex items-center gap-3">
+              <ThemeToggle />
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
