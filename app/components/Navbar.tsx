@@ -189,7 +189,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
         {/* Tier 2: Main Transparent Floating Navbar (Immediately below Tier 1 with no empty gap) */}
         <div className="w-full px-3 sm:px-6 lg:px-8 pt-1 pb-1">
-          <div className="max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2 flex items-center justify-between gap-4 border border-white/10 bg-black/30 backdrop-blur-md shadow-lg shadow-black/25">
+          <div className="nav-pill-container max-w-7xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2 flex items-center justify-between gap-4 border border-white/10 bg-black/30 backdrop-blur-md shadow-lg shadow-black/25">
             
             {/* Official Brand Logo */}
             <BrandLogo size="md" />
@@ -205,9 +205,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 href="/"
                 prefetch={false}
                 onClick={() => setActiveDropdown(null)}
-                className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 ${
+                className={`relative px-3.5 py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 nav-link-item ${
                   activePage === "home"
-                    ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)]"
+                    ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)] nav-link-active"
                     : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
                 }`}
               >
@@ -232,11 +232,11 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                         href={link.href}
                         prefetch={false}
                         onClick={() => setActiveDropdown(null)}
-                        className={`relative pl-3.5 ${hasDropdown ? "pr-1.5" : "pr-3.5"} py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap ${
+                        className={`relative pl-3.5 ${hasDropdown ? "pr-1.5" : "pr-3.5"} py-1.5 rounded-full text-[13.5px] font-semibold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap nav-link-item ${
                           isActive
-                            ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)]"
+                            ? "text-white bg-white/[0.14] border border-purple-400/40 shadow-[0_0_15px_rgba(160,104,255,0.3)] nav-link-active"
                             : isOpen
-                            ? "text-white bg-white/[0.12] border border-purple-500/40 shadow-[0_0_12px_rgba(160,104,255,0.25)]"
+                            ? "text-white bg-white/[0.12] border border-purple-500/40 shadow-[0_0_12px_rgba(160,104,255,0.25)] nav-link-open"
                             : "text-slate-300 hover:text-white hover:bg-white/[0.06]"
                         }`}
                       >
@@ -336,7 +336,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   setAuthModalMode("login");
                   setAuthModalOpen(true);
                 }}
-                className="text-[13px] font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-full transition-all hover:bg-white/[0.08] hidden sm:inline-flex items-center gap-1 cursor-pointer"
+                className="nav-login-btn text-[13px] font-semibold text-slate-200 hover:text-white px-3 py-1.5 rounded-full transition-all hover:bg-white/[0.08] hidden sm:inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>Log in</span>
               </button>
@@ -348,7 +348,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                     setAuthModalMode("signup");
                     setAuthModalOpen(true);
                   }}
-                  className="marketeam-start-btn !py-1.5 !px-3.5 sm:!px-4 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] flex items-center gap-1.5"
+                  className="nav-signup-btn marketeam-start-btn !py-1.5 !px-3.5 sm:!px-4 !text-[12.5px] sm:!text-[13px] cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.45)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] flex items-center gap-1.5"
                 >
                   <span>Sign up</span>
                   <svg

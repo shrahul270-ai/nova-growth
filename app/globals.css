@@ -2429,52 +2429,125 @@ html.light-theme header {
 }
 
 html.light-theme header > div:first-child {
-  background: rgba(248, 250, 252, 0.9) !important;
+  background: rgba(248, 250, 252, 0.95) !important;
   border-bottom: 1px solid #e2e8f0 !important;
 }
 
 html.light-theme header > div:first-child .text-slate-300,
 html.light-theme header > div:first-child .text-white {
   color: #334155 !important;
+  font-weight: 600 !important;
 }
 
+html.light-theme header > div:first-child a[href="/pay"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light-theme .nav-pill-container,
 html.light-theme header .bg-black\/30 {
-  background-color: rgba(255, 255, 255, 0.98) !important;
-  border-color: #e2e8f0 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08) !important;
 }
 
-html.light-theme header nav a {
-  color: #334155 !important;
+/* Brand Logo in Light Mode */
+html.light-theme .brand-logo-title,
+html.light-theme a[aria-label="Balaji Prime Media Home"] span.font-black {
+  color: #0f172a !important;
 }
 
+html.light-theme .brand-logo-crest {
+  background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%) !important;
+  border-color: rgba(124, 58, 237, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25) !important;
+}
+
+html.light-theme .brand-logo-crest svg path[fill="#060214"] {
+  fill: #ffffff !important;
+}
+
+/* Nav Links in Light Mode */
+html.light-theme .nav-link-item,
+html.light-theme header nav a {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+}
+
+html.light-theme .nav-link-item:hover,
 html.light-theme header nav a:hover {
   color: #7c3aed !important;
   background-color: rgba(124, 58, 237, 0.08) !important;
 }
 
+html.light-theme .nav-link-active,
 html.light-theme header nav a.bg-white\/\[0\.14\],
 html.light-theme header nav a.bg-white\/\[0\.12\] {
   color: #7c3aed !important;
+  background-color: rgba(124, 58, 237, 0.12) !important;
+  border: 1px solid rgba(124, 58, 237, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15) !important;
+  font-weight: 700 !important;
+}
+
+html.light-theme .nav-link-open {
+  color: #7c3aed !important;
   background-color: rgba(124, 58, 237, 0.1) !important;
-  border-color: rgba(124, 58, 237, 0.3) !important;
+  border: 1px solid rgba(124, 58, 237, 0.35) !important;
+}
+
+html.light-theme header nav button svg {
+  color: #475569 !important;
+}
+
+html.light-theme header nav button:hover svg {
+  color: #7c3aed !important;
+}
+
+/* Navbar Action Buttons in Light Mode */
+html.light-theme .nav-login-btn {
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  font-weight: 600 !important;
+}
+
+html.light-theme .nav-login-btn:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.light-theme .nav-signup-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
 }
 
 /* Dropdown menus in light mode */
 html.light-theme header nav .absolute,
-html.light-theme header nav [role="menu"] {
+html.light-theme header nav [role="menu"],
+html.light-theme header nav .bg-\[\#090422\]\/98 {
   background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
-  box-shadow: 0 15px 35px -5px rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 20px 45px -5px rgba(15, 23, 42, 0.15) !important;
 }
 
-html.light-theme header nav .absolute a {
-  color: #1e293b !important;
+html.light-theme header nav .absolute a,
+html.light-theme header nav .bg-\[\#090422\]\/98 a span.text-slate-200 {
+  color: #0f172a !important;
 }
 
-html.light-theme header nav .absolute a:hover {
-  background-color: #f1f5f9 !important;
+html.light-theme header nav .absolute a:hover,
+html.light-theme header nav .bg-\[\#090422\]\/98 a:hover {
+  background-color: #f8fafc !important;
   color: #7c3aed !important;
+}
+
+html.light-theme header nav .bg-\[\#090422\]\/98 a span.text-slate-400 {
+  color: #64748b !important;
 }
 
 /* Mobile drawer in light mode */
@@ -2514,6 +2587,12 @@ html.light-theme footer .text-slate-300,
 html.light-theme footer .text-gray-400,
 html.light-theme footer .text-gray-300 {
   color: #64748b !important;
+}
+
+html.light-theme footer input {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
 }
 
 /* -------------------------------------------------------------------------
@@ -2565,7 +2644,7 @@ html.light-theme tr:hover {
 }
 
 /* -------------------------------------------------------------------------
-   11. PRESERVE BRAND GRADIENTS & BUTTON WHITE TEXT
+   11. PRESERVE BRAND GRADIENTS & BUTTON STYLING
    ------------------------------------------------------------------------- */
 html.light-theme .bg-clip-text,
 html.light-theme [class*="text-transparent"],
@@ -2573,7 +2652,20 @@ html.light-theme .text-gradient-navy-gold {
   color: transparent !important;
 }
 
-html.light-theme .marketeam-start-btn,
+html.light-theme .marketeam-start-btn {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.35) !important;
+}
+
+html.light-theme .marketeam-start-btn::after {
+  background-color: #6366f1 !important;
+}
+
+html.light-theme .btn-border-wrap::before {
+  background: conic-gradient(from var(--border-angle, 0deg), #A068FF, #c084fc, #7c3aed, #c084fc, #A068FF) !important;
+}
+
 html.light-theme .marketeam-start-btn *,
 html.light-theme button.bg-gradient-to-r *,
 html.light-theme a.bg-gradient-to-r *,
@@ -2585,7 +2677,7 @@ html.light-theme .bg-purple-600 * {
 
 /* Soften glow orbs in light theme */
 html.light-theme div[class*="blur-"][class*="rounded-full"] {
-  opacity: 0.12 !important;
+  opacity: 0.1 !important;
 }
 
 /* -------------------------------------------------------------------------
@@ -2596,19 +2688,18 @@ html.light-theme #home {
   --hero-text: #0f172a;
   --hero-title-color: #0f172a;
   --hero-subtitle-color: #475569;
-  --marquee-text-color: #1e293b;
+  --marquee-text-color: #0f172a;
   background-color: #f8fafc !important;
   color: #0f172a !important;
 }
 
 html.light-theme #home video {
-  opacity: 0.14 !important;
-  filter: contrast(1.1) brightness(1.2);
+  opacity: 0.1 !important;
+  filter: grayscale(40%) contrast(1.1);
 }
 
 html.light-theme .hero-center-glow {
-  background-color: #cbd5e1 !important;
-  opacity: 0.35 !important;
+  display: none !important;
 }
 
 html.light-theme #home .hero-title-prefix {
@@ -2621,7 +2712,7 @@ html.light-theme #home .hero-subtitle {
 
 /* Talk with Leadership card in Light Mode */
 html.light-theme #home div[role="button"][class*="rounded-2xl"] {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: #ffffff !important;
   border-color: #cbd5e1 !important;
   box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
 }
@@ -2639,15 +2730,172 @@ html.light-theme #home div[role="button"][class*="rounded-2xl"] .bg-\[\#070319\]
   border-color: #e2e8f0 !important;
 }
 
-/* Marquee bar background in Light Mode */
+/* Marquee bar in Light Mode */
 html.light-theme #home .bg-black\/50,
 html.light-theme #home .bg-black\/40 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
 }
 
 html.light-theme #home .bg-black\/50 .border-white\/10 {
   border-color: #e2e8f0 !important;
+}
+
+/* -------------------------------------------------------------------------
+   13. ELO SERVICES SECTION IN LIGHT THEME
+   ------------------------------------------------------------------------- */
+html.light-theme #services,
+html.light-theme .elo-service-card {
+  --elo-card-bg: #ffffff;
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light-theme .elo-service-card:hover {
+  border-color: #a855f7 !important;
+  box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.2) !important;
+}
+
+html.light-theme .elo-service-card > div[class*="bg-gradient-to-b from-white/10"] {
+  display: none !important;
+}
+
+html.light-theme .elo-service-card h3 {
+  color: #0f172a !important;
+}
+
+html.light-theme .elo-service-card p {
+  color: #475569 !important;
+}
+
+html.light-theme .elo-service-card .bg-black\/20 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .elo-service-card .bg-white\/10 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .elo-service-card .w-10.h-10 svg {
+  color: #7c3aed !important;
+}
+
+html.light-theme .elo-service-card .border-white\/15 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme .elo-service-card .text-white {
+  color: #0f172a !important;
+}
+
+html.light-theme .elo-service-card .text-gray-300 {
+  color: #64748b !important;
+}
+
+/* -------------------------------------------------------------------------
+   14. SEO AUDIT WIDGET IN LIGHT THEME
+   ------------------------------------------------------------------------- */
+html.light-theme div[class*="from-\[\#130a38\]"] {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+
+html.light-theme div[class*="from-\[\#130a38\]"] h2 {
+  color: #0f172a !important;
+}
+
+html.light-theme div[class*="from-\[\#130a38\]"] p {
+  color: #475569 !important;
+}
+
+html.light-theme div[class*="from-\[\#130a38\]"] input {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light-theme div[class*="from-\[\#130a38\]"] .bg-\[\#18191a\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* -------------------------------------------------------------------------
+   15. RECENT PROJECTS SECTION IN LIGHT THEME
+   ------------------------------------------------------------------------- */
+html.light-theme #projects {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme #projects a.group {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light-theme #projects a.group:hover {
+  border-color: #a855f7 !important;
+  box-shadow: 0 20px 45px -10px rgba(168, 85, 247, 0.25) !important;
+}
+
+html.light-theme #projects h2,
+html.light-theme #projects h3 {
+  color: #0f172a !important;
+}
+
+html.light-theme #projects p {
+  color: #475569 !important;
+}
+
+html.light-theme #projects .bg-black\/80,
+html.light-theme #projects .bg-black\/70,
+html.light-theme #projects .bg-black\/60 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* -------------------------------------------------------------------------
+   16. ABOUT FOUNDERS SECTION IN LIGHT THEME
+   ------------------------------------------------------------------------- */
+html.light-theme #about {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme #about h2 {
+  color: #0f172a !important;
+}
+
+html.light-theme #about p {
+  color: #475569 !important;
+}
+
+html.light-theme #about .bg-\[\#130a38\]\/95 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light-theme #about .bg-\[\#12082b\] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light-theme #about .bg-\[\#09041a\] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme #about .bg-\[\#080315\] {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
 }
 
 

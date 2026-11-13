@@ -97,19 +97,19 @@ export default function ThemeToggle({
       type="button"
       onClick={toggleTheme}
       title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-      className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
+      className={`theme-toggle-btn relative w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer ${
         isLight
-          ? "bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-900 shadow-sm"
+          ? "bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 shadow-xs"
           : "bg-white/[0.08] hover:bg-white/[0.18] border border-purple-400/30 text-white shadow-[0_0_12px_rgba(160,104,255,0.25)]"
       } ${className}`}
       aria-label={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
     >
       {isLight ? (
         <svg
-          className="w-4 h-4 text-amber-600 transition-transform duration-300 rotate-0 hover:rotate-45"
-          fill="none"
+          className="w-4 h-4 text-amber-500 transition-transform duration-300 rotate-0 hover:rotate-45"
+          fill="currentColor"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           viewBox="0 0 24 24"

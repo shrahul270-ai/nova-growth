@@ -37,7 +37,7 @@ export default function BrandLogo({
         <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-[#7c3aed] via-[#A068FF] to-[#22d3ee] opacity-70 blur-[7px] group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Outer Faceted Glass Hexagon */}
-        <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-[#130733] via-[#09031c] to-[#04010d] p-[1.5px] border border-white/25 shadow-xl overflow-hidden flex items-center justify-center">
+        <div className="brand-logo-crest relative w-full h-full rounded-2xl bg-gradient-to-br from-[#130733] via-[#09031c] to-[#04010d] p-[1.5px] border border-white/25 shadow-xl overflow-hidden flex items-center justify-center">
           {/* Inner Prismatic Gradient Backplate */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(160,104,255,0.45),transparent_70%)]" />
 
@@ -122,7 +122,8 @@ export default function BrandLogo({
       <div className="flex flex-col text-left">
         <div className="flex items-center gap-1.5 leading-none">
           <span
-            className={`${mainTextSize} font-black tracking-tight text-white group-hover:text-[#f3e8ff] transition-colors`}
+            className={`${mainTextSize} font-black tracking-tight text-white group-hover:text-[#f3e8ff] transition-colors brand-logo-title`}
+            style={{ color: "var(--brand-logo-text, #ffffff)" }}
           >
             BALAJI PRIME
           </span>
