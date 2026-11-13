@@ -54,6 +54,7 @@ export default function ThemeToggle({
     applyTheme(nextTheme);
     if (typeof window !== "undefined") {
       localStorage.setItem("bpm_theme", nextTheme);
+      localStorage.setItem("bpm_admin_theme", nextTheme);
       window.dispatchEvent(
         new CustomEvent("bpm-theme-changed", { detail: { theme: nextTheme } })
       );
