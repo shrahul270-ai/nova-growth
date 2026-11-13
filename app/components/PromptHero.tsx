@@ -132,7 +132,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           className="font-normal tracking-[-0.024em] leading-[1.08] text-[32px] sm:text-[46px] md:text-[58px] lg:text-[72px] xl:text-[82px] select-none text-center"
           style={{ fontFamily: "'General Sans', system-ui, sans-serif" }}
         >
-          <span style={{ color: "hsl(40, 6%, 95%)" }}>Balaji </span>
+          <span className="hero-title-prefix text-white" style={{ color: "var(--hero-title-color, hsl(40, 6%, 95%))" }}>Balaji </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -144,11 +144,11 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           </span>
         </h1>
 
-        {/* Subtitle: "The most powerful AI ever deployed in organic search & talent acquisition" */}
+        {/* Subtitle */}
         <p
-          className="text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center"
+          className="hero-subtitle text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center text-slate-300"
           style={{
-            color: "hsl(40, 6%, 82%)",
+            color: "var(--hero-subtitle-color, hsl(40, 6%, 82%))",
             opacity: 0.85,
           }}
         >

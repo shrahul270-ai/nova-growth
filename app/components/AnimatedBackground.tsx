@@ -200,6 +200,7 @@ export default function AnimatedBackground() {
 
   return (
     <div
+      id="animated-bg-root"
       className="fixed inset-0 pointer-events-none z-[1] overflow-hidden"
       aria-hidden="true"
     >

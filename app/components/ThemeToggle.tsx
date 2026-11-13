@@ -36,13 +36,15 @@ export default function ThemeToggle({
     const body = document.body;
 
     if (newTheme === "light") {
-      root.classList.add("light-theme");
+      root.classList.add("light-theme", "light");
       root.classList.remove("dark");
-      body.classList.add("light-theme");
+      body.classList.add("light-theme", "light");
+      body.classList.remove("dark");
     } else {
-      root.classList.remove("light-theme");
+      root.classList.remove("light-theme", "light");
       root.classList.add("dark");
-      body.classList.remove("light-theme");
+      body.classList.remove("light-theme", "light");
+      body.classList.add("dark");
     }
   };
 
