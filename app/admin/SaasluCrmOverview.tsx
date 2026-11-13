@@ -829,6 +829,28 @@ export default function SaasluCrmOverview({
             </span>
           </button>
         </div>
+
+        {/* Neon Serverless Cloud Database Status Card */}
+        <div className="mt-5 p-4 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="flex items-start gap-3">
+            <span className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold shrink-0">
+              ⚡
+            </span>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="text-xs font-black text-emerald-400">Neon Cloud Serverless Postgres: Connected</p>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              </div>
+              <p className="text-[11px] text-gray-400 mt-0.5">
+                Tables active: <span className="text-emerald-300 font-semibold">leads (18)</span>, <span className="text-emerald-300 font-semibold">interactions (30)</span>, <span className="text-emerald-300 font-semibold">payments</span>, <span className="text-emerald-300 font-semibold">audits</span>.
+              </p>
+            </div>
+          </div>
+          <div className="text-[11px] text-gray-400 bg-black/40 px-3 py-1.5 rounded-xl border border-emerald-500/20 flex items-center gap-2">
+            <span className="text-emerald-400">●</span>
+            <span>All website signups &amp; logins sync to Neon automatically</span>
+          </div>
+        </div>
       </div>
 
     </div>

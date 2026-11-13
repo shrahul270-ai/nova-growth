@@ -313,6 +313,159 @@ export async function pushPaymentToNeon(record: any): Promise<boolean> {
 }
 
 /**
+ * Insert or update an interaction event in Neon Postgres
+ */
+export async function pushInteractionToNeon(record: any): Promise<boolean> {
+  const pool = await getNeonPool();
+  if (!pool) return false;
+
+  try {
+    await initNeonTables();
+    const query = `
+      INSERT INTO interactions (
+        id, collection, action, title, name, phone, email, details,
+        "clientIdentifier", "sourcePage", "targetUrl", type, status,
+        "clientIp", "userAgent", notes, "isDeleted", "createdAt", "updatedAt"
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8,
+        $9, $10, $11, $12, $13,
+        $14, $15, $16, $17, $18, $19
+      )
+      ON CONFLICT (id) DO UPDATE SET
+        title = EXCLUDED.title,
+        status = EXCLUDED.status,
+        notes = EXCLUDED.notes,
+        "updatedAt" = NOW();
+    `;
+    const values = [
+      record.id || `INTR-${Date.now()}`,
+      record.collection || "interactions",
+      record.action || "login",
+      record.title || "User Action",
+      record.name || "",
+      record.phone || "",
+      record.email || "",
+      record.details || "",
+      record.clientIdentifier || "",
+      record.sourcePage || "",
+      record.targetUrl || "",
+      record.type || "user_action",
+      record.status || "completed",
+      record.clientIp || "127.0.0.1",
+      record.userAgent || "",
+      record.notes || "",
+      Boolean(record.isDeleted),
+      record.createdAt ? new Date(record.createdAt).toISOString() : new Date().toISOString(),
+      new Date().toISOString(),
+    ];
+
+    await pool.query(query, values);
+    return true;
+  } catch (err) {
+    console.error("[Neon Postgres Interaction Error]:", err);
+    return false;
+  }
+}
+
+/**
+ * Insert or update an audit in Neon Postgres
+ */
+export async function pushAuditToNeon(record: any): Promise<boolean> {
+  const pool = await getNeonPool();
+  if (!pool) return false;
+
+  try {
+    await initNeonTables();
+    const query = `
+      INSERT INTO audits (
+        id, collection, type, domain, url, "emailSubmitted",
+        scores, metrics, status, "clientIp", "userAgent",
+        notes, "isDeleted", "createdAt", "updatedAt"
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6,
+        $7, $8, $9, $10, $11,
+        $12, $13, $14, $15
+      )
+      ON CONFLICT (id) DO UPDATE SET
+        status = EXCLUDED.status,
+        scores = EXCLUDED.scores,
+        metrics = EXCLUDED.metrics,
+        "updatedAt" = NOW();
+    `;
+    const values = [
+      record.id || `AUDIT-${Date.now()}`,
+      record.collection || "audits",
+      record.type || "seo_audit",
+      record.domain || "",
+      record.url || "",
+      record.emailSubmitted || "",
+      JSON.stringify(record.scores || {}),
+      JSON.stringify(record.metrics || {}),
+      record.status || "completed",
+      record.clientIp || "127.0.0.1",
+      record.userAgent || "",
+      record.notes || "",
+      Boolean(record.isDeleted),
+      record.createdAt ? new Date(record.createdAt).toISOString() : new Date().toISOString(),
+      new Date().toISOString(),
+    ];
+
+    await pool.query(query, values);
+    return true;
+  } catch (err) {
+    console.error("[Neon Postgres Audit Error]:", err);
+    return false;
+  }
+}
+
+/**
+ * Seed all local database records into Neon Postgres
+ */
+export async function seedAllLocalDataToNeon(): Promise<{ leads: number; payments: number; interactions: number; audits: number }> {
+  const pool = await getNeonPool();
+  if (!pool) return { leads: 0, payments: 0, interactions: 0, audits: 0 };
+
+  let counts = { leads: 0, payments: 0, interactions: 0, audits: 0 };
+  try {
+    const fs = await import("fs");
+    const path = await import("path");
+    const filePath = path.join(process.cwd(), "data", "nova_db.json");
+    if (!fs.existsSync(filePath)) return counts;
+
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+
+    if (Array.isArray(data.leads)) {
+      for (const lead of data.leads) {
+        const ok = await pushLeadToNeon(lead);
+        if (ok) counts.leads++;
+      }
+    }
+    if (Array.isArray(data.payments)) {
+      for (const p of data.payments) {
+        const ok = await pushPaymentToNeon(p);
+        if (ok) counts.payments++;
+      }
+    }
+    if (Array.isArray(data.interactions)) {
+      for (const i of data.interactions) {
+        const ok = await pushInteractionToNeon(i);
+        if (ok) counts.interactions++;
+      }
+    }
+    if (Array.isArray(data.audits)) {
+      for (const a of data.audits) {
+        const ok = await pushAuditToNeon(a);
+        if (ok) counts.audits++;
+      }
+    }
+  } catch (e) {
+    console.error("[Neon Seed Error]:", e);
+  }
+  return counts;
+}
+
+/**
  * Fetch all leads from Neon
  */
 export async function fetchLeadsFromNeon(): Promise<any[]> {

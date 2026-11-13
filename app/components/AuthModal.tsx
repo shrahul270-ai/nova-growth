@@ -25,10 +25,14 @@ export default function AuthModal({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Sync mode with prop when opened
+  // Sync mode with prop when opened and clear all fields so no inputs are prefilled or fixed
   useEffect(() => {
     if (isOpen) {
       setMode(initialMode);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
       setError(null);
       setSuccess(false);
     }
@@ -70,8 +74,8 @@ export default function AuthModal({
       setError("Please enter a valid work email address.");
       return;
     }
-    if (!password || password.length < 6) {
-      setError("Password must be at least 6 characters.");
+    if (!password || password.trim().length === 0) {
+      setError("Please enter your password.");
       return;
     }
 
@@ -135,25 +139,28 @@ export default function AuthModal({
   const handleGoogleAuth = () => {
     setLoading(true);
 
+    const clientEmail = email.trim() || "client.account@gmail.com";
+    const clientName = name.trim() || clientEmail.split("@")[0] || "Client";
+
     fetch("/api/db/leads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         type: "google_login",
-        name: "Google Authenticated Client",
-        email: "google.user@client.com",
-        phone: "Verified OAuth",
+        name: clientName,
+        email: clientEmail.toLowerCase(),
+        phone: phone.trim() || "Verified via Google",
         service: "One-Tap Google Authentication",
-        message: "User logged in using Google OAuth single sign-on.",
+        message: `User logged in using Google OAuth (${clientEmail}).`,
         sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
       }),
     }).catch(() => {});
 
     setTimeout(() => {
       const session = {
-        email: "google.user@client.com",
-        name: "Google Client",
-        phone: "",
+        email: clientEmail.toLowerCase(),
+        name: clientName,
+        phone: phone.trim() || "",
         role: "buyer",
         loggedInAt: new Date().toISOString(),
       };
@@ -277,8 +284,8 @@ export default function AuthModal({
           </div>
         </div>
 
-        {/* Input Form */}
-        <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Input Form with Disabled Autofill to Prevent Fixed Credential Sticking */}
+        <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3">
           {mode === "signup" && (
             <div>
               <label className="block text-[11px] font-semibold text-slate-300 mb-1">
@@ -287,9 +294,10 @@ export default function AuthModal({
               <input
                 type="text"
                 required
+                autoComplete="off"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Jane Doe or Acme Corp."
+                placeholder="Enter your name or business name"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
               />
             </div>
@@ -302,9 +310,10 @@ export default function AuthModal({
             <input
               type="email"
               required
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="jane@company.com"
+              placeholder="Enter your email address"
               className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
             />
           </div>
@@ -316,9 +325,10 @@ export default function AuthModal({
               </label>
               <input
                 type="tel"
+                autoComplete="off"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1 (555) 0199 or +91 76908 68932"
+                placeholder="Enter phone or WhatsApp number"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
               />
             </div>
@@ -331,9 +341,10 @@ export default function AuthModal({
             <input
               type="password"
               required
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="•••••••••••• (min 6 characters)"
+              placeholder="Enter your password"
               className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
             />
           </div>

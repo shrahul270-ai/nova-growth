@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import LiquidGlassProjectsHero from "../components/LiquidGlassProjectsHero";
 import { caseStudiesData, CaseStudyData } from "./projectsData";
 
 export default function ProjectsClient() {
@@ -126,13 +125,8 @@ export default function ProjectsClient() {
         </div>
       )}
 
-      {/* 100% Transparent Navbar Overlay (Unchanged as requested) */}
-      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
-        <Navbar activePage="projects" />
-      </div>
-
-      {/* Full-Screen Liquid Glass Projects Hero Header (Clean, Static) */}
-      <LiquidGlassProjectsHero />
+      {/* Sticky Global Navbar */}
+      <Navbar activePage="projects" />
 
       {/* =========================================================================
           HIGH-AESTHETIC 3D SHOWCASE SECTION
@@ -145,7 +139,7 @@ export default function ProjectsClient() {
          ========================================================================= */}
       <section
         id="projects-grid"
-        className="relative w-full pt-20 sm:pt-28 pb-20 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden bg-[#030209]"
+        className="relative w-full pt-10 sm:pt-16 pb-20 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden bg-[#030209]"
       >
         {/* Ambient Cosmic Lights & Starlight Dust */}
         <div

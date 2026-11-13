@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { supabase, isSupabaseConfigured } from "./supabase";
-import { pushLeadToNeon, pushPaymentToNeon, isNeonConfigured } from "./neon";
+import { pushLeadToNeon, pushPaymentToNeon, pushInteractionToNeon, pushAuditToNeon, isNeonConfigured } from "./neon";
 
 // Valid column schemas for Supabase tables to prevent PGRST204 errors
 const SUPABASE_TABLE_COLUMNS: Record<string, string[]> = {
@@ -470,7 +470,10 @@ export async function createInteraction(
     `Client interaction recorded: ${record.title} (${record.action})`
   );
   writeDatabase(db);
-  await pushToSupabase("interactions", record);
+  await Promise.allSettled([
+    pushToSupabase("interactions", record),
+    pushInteractionToNeon(record),
+  ]);
   return record;
 }
 
@@ -525,7 +528,10 @@ export async function createOrUpdateAudit(
     `SEO Audit performed for domain ${record.domain}`
   );
   writeDatabase(db);
-  await pushToSupabase("audits", record);
+  await Promise.allSettled([
+    pushToSupabase("audits", record),
+    pushAuditToNeon(record),
+  ]);
   return record;
 }
 
