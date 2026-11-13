@@ -303,18 +303,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (typeof window !== "undefined") {
-                      window.dispatchEvent(new Event("open-cookie-settings"));
-                    }
-                  }}
-                  className="hover:text-white transition-colors text-left cursor-pointer flex items-center gap-1.5 py-0.5 text-xs text-slate-400"
+                <Link
+                  href="/sitemap.xml"
+                  className="hover:text-white transition-colors flex items-center gap-1.5 py-0.5 text-xs text-slate-400 group"
                 >
-                  <span>Cookie Preferences</span>
-                  <span className="text-[11px] text-amber-400">🍪</span>
-                </button>
+                  <span>Sitemap</span>
+                  <span className="text-[11px] text-[#A068FF] group-hover:translate-x-0.5 transition-transform">🗺️</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -387,34 +382,66 @@ export default function Footer() {
 
         {/* BOTTOM STRIP: PAYMENT ACCEPTED & SOCIAL ICONS */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* We Accept Payment Icons */}
+          {/* We Accept Payment Icons (Clickable to /pay) */}
           <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
             <span className="font-bold text-white text-xs mr-1">We accept:</span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[11px] font-bold text-slate-200 shadow-xs">
+            <Link
+              href="/pay?method=Stripe"
+              title="Pay securely via Stripe"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-purple-400/50 text-[11px] font-bold text-slate-200 shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               stripe
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[11px] font-bold text-[#38bdf8] shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=PayPal"
+              title="Pay securely via PayPal"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-sky-400/50 text-[11px] font-bold text-[#38bdf8] shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               PayPal
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[11px] font-bold text-[#38bdf8] shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=Wise"
+              title="Pay securely via Wise"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-cyan-400/50 text-[11px] font-bold text-[#38bdf8] shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               Wise
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[10px] font-bold text-slate-300 shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=Bank+Wire"
+              title="Pay via International Wire Transfer"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-slate-300/50 text-[10px] font-bold text-slate-300 shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               Wire Transfer
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[11px] font-black text-white italic shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=Stripe"
+              title="Pay with VISA"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-blue-400/50 text-[11px] font-black text-white italic shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               VISA
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 flex items-center gap-0.5 shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=Stripe"
+              title="Pay with Mastercard"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-amber-400/50 flex items-center gap-0.5 shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               <span className="w-2.5 h-2.5 rounded-full bg-[#eb001b] inline-block -mr-1" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#f79e1b] inline-block opacity-85" />
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[10px] font-black text-[#c084fc] shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=UPI"
+              title="Pay with Instant UPI / QR"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-purple-400/50 text-[10px] font-black text-[#c084fc] shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               UPI
-            </span>
-            <span className="px-2.5 py-1 bg-white/[0.06] rounded-md border border-white/10 text-[10px] font-bold text-[#93c5fd] shadow-xs">
+            </Link>
+            <Link
+              href="/pay?method=Bank+Wire"
+              title="Pay via ACH Bank Transfer"
+              className="px-2.5 py-1 bg-white/[0.06] hover:bg-white/[0.15] rounded-md border border-white/10 hover:border-blue-400/50 text-[10px] font-bold text-[#93c5fd] shadow-xs hover:scale-105 transition-all cursor-pointer"
+            >
               ACH Transfer
-            </span>
+            </Link>
           </div>
 
           {/* Social Outline Icons with Real Official Brand Colors */}
@@ -611,17 +638,9 @@ export default function Footer() {
               Terms of Service
             </Link>
             <span className="text-slate-600">•</span>
-            <button
-              type="button"
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new Event("open-cookie-settings"));
-                }
-              }}
-              className="hover:text-white text-slate-400 transition-colors cursor-pointer font-medium"
-            >
-              Cookie Settings
-            </button>
+            <Link href="/sitemap.xml" className="hover:text-white text-slate-400 transition-colors font-medium">
+              Sitemap
+            </Link>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export default function PayPage() {
       <MeridianPayHero />
 
       {/* 2. Main Payment Section */}
-      <main id="payment-methods" className="relative z-10 bg-[#f8fafd] text-[#111827] py-8 sm:py-12">
+      <main id="payment-methods" className="relative z-10 bg-gradient-to-b from-[#070319] to-[#040112] text-white py-12 sm:py-16 border-t border-purple-500/20">
         <PaymentSection hideHeader />
       </main>
 

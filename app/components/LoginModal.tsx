@@ -200,10 +200,8 @@ export default function LoginModal({
 
       setTimeout(() => {
         onClose();
-        if (typeof window !== "undefined") {
-          window.location.href = "/buyer-dashboard";
-        }
-      }, 1200);
+        // User stays on current page, no redirect to marketplace
+      }, 1000);
     } catch (err: any) {
       setError(err?.message || "An error occurred while signing in. Please try again.");
     } finally {

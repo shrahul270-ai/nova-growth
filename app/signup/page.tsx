@@ -59,13 +59,14 @@ export default function SignupPage() {
           loggedInAt: new Date().toISOString(),
         };
         localStorage.setItem("nova_buyer_session", JSON.stringify(session));
+        window.dispatchEvent(new Event("buyer-session-changed"));
         setSuccess(true);
         setTimeout(() => {
-          router.push("/buyer-dashboard");
+          router.push("/");
         }, 800);
       } catch {
         setSuccess(true);
-        router.push("/buyer-dashboard");
+        router.push("/");
       } finally {
         setLoading(false);
       }
@@ -99,9 +100,10 @@ export default function SignupPage() {
         loggedInAt: new Date().toISOString(),
       };
       localStorage.setItem("nova_buyer_session", JSON.stringify(session));
+      window.dispatchEvent(new Event("buyer-session-changed"));
       setSuccess(true);
       setTimeout(() => {
-        router.push("/buyer-dashboard");
+        router.push("/");
       }, 700);
     }, 600);
   };

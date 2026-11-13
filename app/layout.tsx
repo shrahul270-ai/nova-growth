@@ -6,6 +6,7 @@ import AIVoiceWidget from "./components/AIVoiceWidget";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import CookieConsent from "./components/CookieConsent";
 import AnimatedBackground from "./components/AnimatedBackground";
+import AutoLoginPopup from "./components/AutoLoginPopup";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -126,6 +127,11 @@ export default function RootLayout({
         />
         {/* Google Official Preferred Sources Script */}
         <script async src="https://news.google.com/swg/js/v1/publisher.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("bpm_theme");if(t==="light"){document.documentElement.classList.add("light-theme");}else{document.documentElement.classList.add("dark");}}catch(e){}})()`,
+          }}
+        />
       </head>
       <body className="bg-[#0a0a0f] text-white antialiased overflow-x-hidden max-w-full w-full">
         <GoogleAnalytics />
@@ -136,6 +142,8 @@ export default function RootLayout({
         <FloatingConnect />
         {/* UK & Worldwide 24/7 AI Voice & Chat Concierge */}
         <AIVoiceWidget />
+        {/* Automatic login/signup modal on website open (with clean empty inputs) */}
+        <AutoLoginPopup />
         {/* GDPR/CCPA Compliant Cookie Consent Banner */}
         <CookieConsent />
       </body>

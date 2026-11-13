@@ -79,9 +79,9 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#E9EEF3] text-[#154359] selection:bg-[#154359]/20 selection:text-[#154359]">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white selection:bg-[#A068FF] selection:text-white">
       {/* Background Matrix Dots */}
-      <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.12)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
       {/* Top Navbar */}
       <div className="relative z-50">
@@ -89,30 +89,32 @@ export default function FeedbackPage() {
       </div>
 
       {/* Hero Header */}
-      <section className="relative z-10 pt-16 sm:pt-24 pb-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-300 text-[11px] font-semibold uppercase tracking-wider text-[#185B7B] shadow-xs mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+      <section className="relative z-10 pt-20 sm:pt-28 pb-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-purple-500/30 text-[11px] font-semibold uppercase tracking-wider text-purple-300 shadow-xs mb-4">
+          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
           <span>Client Voice &amp; Transparency</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#154359] mb-4">
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
           Client Feedback &amp; Reviews
         </h1>
-        <p className="text-sm sm:text-base text-[#475569] max-w-xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
           Your feedback directly drives our engineering and campaign quality. Share your experience working with Balaji Prime Media.
         </p>
       </section>
 
       {/* Main Feedback Form Container */}
       <section className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-lg">
+        <div className="bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-purple-500/25 shadow-lg">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 text-center">Share Your Client Experience</h2>
+          <p className="text-xs text-slate-400 text-center mb-6">Every submission is reviewed by our leadership team.</p>
           {isSubmitted ? (
             <div className="text-center py-12 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-bold text-[#154359]">Thank You for Your Feedback!</h3>
-              <p className="text-sm text-[#475569] max-w-md mx-auto leading-relaxed">
+              <h3 className="text-2xl font-bold text-white">Thank You for Your Feedback!</h3>
+              <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
                 We appreciate you taking the time to share your perspective. Your feedback has been safely logged in our client portal and team review digest.
               </p>
               <button
@@ -121,7 +123,7 @@ export default function FeedbackPage() {
                   setIsSubmitted(false);
                   setReview("");
                 }}
-                className="mt-4 px-6 py-2.5 rounded-full bg-[#154359] text-white text-xs font-semibold hover:bg-[#091427] transition-all cursor-pointer"
+                className="mt-4 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white text-xs font-semibold hover:opacity-90 transition-all cursor-pointer shadow-md"
               >
                 Submit Another Review
               </button>
@@ -130,7 +132,7 @@ export default function FeedbackPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Rating Selector */}
               <div className="text-center pb-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#185B7B] mb-2.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-purple-300 mb-2.5">
                   Overall Rating
                 </label>
                 <div className="flex items-center justify-center gap-2">
@@ -146,14 +148,14 @@ export default function FeedbackPage() {
                       <Star
                         className={`w-8 h-8 ${
                           (hoverRating || rating) >= star
-                            ? "fill-amber-400 text-amber-400 drop-shadow-sm"
-                            : "text-slate-200"
+                            ? "fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"
+                            : "text-slate-600"
                         }`}
                       />
                     </button>
                   ))}
                 </div>
-                <span className="text-xs font-medium text-[#475569] mt-1.5 block">
+                <span className="text-xs font-medium text-slate-300 mt-1.5 block">
                   {rating === 5
                     ? "⭐⭐⭐⭐⭐ Outstanding Experience"
                     : rating === 4
@@ -167,7 +169,7 @@ export default function FeedbackPage() {
               {/* Two Column Name & Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                     Your Name *
                   </label>
                   <input
@@ -176,11 +178,11 @@ export default function FeedbackPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Alex Morgan"
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50/80 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 transition-all shadow-xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                     Your Email *
                   </label>
                   <input
@@ -189,7 +191,7 @@ export default function FeedbackPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="e.g. alex@company.com"
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50/80 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 transition-all shadow-xs"
                   />
                 </div>
               </div>
@@ -197,7 +199,7 @@ export default function FeedbackPage() {
               {/* Company / Website & Service Selected */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                     Company / Website Domain
                   </label>
                   <input
@@ -205,17 +207,17 @@ export default function FeedbackPage() {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder="e.g. AcmeCorp.com"
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50/80 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all"
+                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 transition-all shadow-xs"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                     Primary Service Utilized
                   </label>
                   <select
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-slate-50/80 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all cursor-pointer"
+                    className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-[#0e0926] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white transition-all cursor-pointer shadow-xs"
                   >
                     <option value="SEO Optimization">SEO Optimization (Technical &amp; Content)</option>
                     <option value="High-DA Guest Posting">High-DA Guest Posting (DR 50–90+)</option>
@@ -229,7 +231,7 @@ export default function FeedbackPage() {
 
               {/* Feedback Textarea */}
               <div>
-                <label className="block text-xs font-semibold text-[#154359] mb-1.5">
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
                   Detailed Review &amp; Experience *
                 </label>
                 <textarea
@@ -238,13 +240,13 @@ export default function FeedbackPage() {
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
                   placeholder="Share details about your campaign outcomes, traffic scaling, speed improvements, or team responsiveness..."
-                  className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl bg-slate-50/80 border border-slate-200 focus:bg-white focus:outline-none focus:border-[#154359] text-[#154359] transition-all leading-relaxed"
+                  className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 transition-all leading-relaxed shadow-xs"
                 />
               </div>
 
               {/* Recommendation Choice */}
               <div>
-                <label className="block text-xs font-semibold text-[#154359] mb-2">
+                <label className="block text-xs font-semibold text-slate-300 mb-2">
                   Would you recommend Balaji Prime Media to another founder or marketing team?
                 </label>
                 <div className="flex flex-wrap items-center gap-3">
@@ -257,8 +259,8 @@ export default function FeedbackPage() {
                       key={item.id}
                       className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-all border ${
                         recommend === item.id
-                          ? "bg-[#154359] text-white border-[#154359] shadow-xs"
-                          : "bg-slate-50 text-[#475569] border-slate-200 hover:bg-white"
+                          ? "bg-[#A068FF] text-white border-purple-400 shadow-sm"
+                          : "bg-white/[0.06] text-slate-300 border-white/10 hover:bg-white/10"
                       }`}
                     >
                       <input
@@ -280,7 +282,7 @@ export default function FeedbackPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-full bg-[#154359] text-white text-xs sm:text-sm font-bold hover:bg-[#091427] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:from-[#8f52ff] hover:to-[#6d28d9] text-white text-xs sm:text-sm font-bold transition-all shadow-lg shadow-purple-950/60 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span>Submitting feedback...</span>
@@ -300,10 +302,10 @@ export default function FeedbackPage() {
       {/* Showcase of Verified Client Reviews */}
       <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-20">
         <div className="text-center mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#185B7B] block mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#A068FF] block mb-1">
             Verified Testimonials
           </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#154359]">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             What Founders &amp; Enterprise Clients Say
           </h2>
         </div>
@@ -312,7 +314,7 @@ export default function FeedbackPage() {
           {VERIFIED_REVIEWS.map((rev, idx) => (
             <div
               key={idx}
-              className="bg-white/90 rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col justify-between"
+              className="bg-[#0c0727]/90 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/25 shadow-lg flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center gap-1 text-amber-400 mb-3">
@@ -320,13 +322,13 @@ export default function FeedbackPage() {
                     <Star key={i} className="w-4 h-4 fill-amber-400" />
                   ))}
                 </div>
-                <p className="text-xs sm:text-sm text-[#475569] leading-relaxed italic mb-4">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic mb-4">
                   &ldquo;{rev.review}&rdquo;
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-100">
-                <div className="font-bold text-xs sm:text-sm text-[#154359]">{rev.name}</div>
-                <div className="text-[11px] text-[#185B7B] font-medium">{rev.company}</div>
+              <div className="pt-4 border-t border-white/10">
+                <div className="font-bold text-xs sm:text-sm text-white">{rev.name}</div>
+                <div className="text-[11px] text-cyan-300 font-medium">{rev.company}</div>
                 <div className="text-[10px] text-slate-400 mt-0.5">{rev.service}</div>
               </div>
             </div>

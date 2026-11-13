@@ -83,9 +83,9 @@ export default function FAQPage() {
   });
 
   return (
-    <div className="relative min-h-screen bg-[#E9EEF3] text-[#154359] selection:bg-[#154359]/20 selection:text-[#154359]">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white selection:bg-[#A068FF] selection:text-white">
       {/* Background Matrix Dots */}
-      <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.12)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
 
       {/* Top Navbar */}
       <div className="relative z-50">
@@ -93,16 +93,16 @@ export default function FAQPage() {
       </div>
 
       {/* Hero Header */}
-      <section className="relative z-10 pt-16 sm:pt-24 pb-12 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-300 text-[11px] font-semibold uppercase tracking-wider text-[#185B7B] shadow-xs mb-4">
-          <HelpCircle className="w-3.5 h-3.5 text-[#A068FF]" />
+      <section className="relative z-10 pt-20 sm:pt-28 pb-12 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-purple-500/30 text-[11px] font-semibold uppercase tracking-wider text-purple-300 shadow-xs mb-4">
+          <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
           <span>Knowledge &amp; Clarity</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#154359] mb-4">
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
           Frequently Asked Questions
         </h1>
-        <p className="text-sm sm:text-base text-[#475569] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
           Clear, direct answers about our white-hat search methodology, editorial outreach, Next.js engineering standards, pricing, and client reporting.
         </p>
 
@@ -120,8 +120,8 @@ export default function FAQPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === cat.id
-                  ? "bg-[#154359] text-white shadow-sm"
-                  : "bg-white/80 text-[#475569] hover:bg-white border border-slate-200"
+                  ? "bg-[#A068FF] text-white shadow-md shadow-purple-950/60"
+                  : "bg-white/[0.06] text-slate-300 hover:text-white border border-white/10 hover:bg-white/10"
               }`}
             >
               {cat.label}
@@ -131,7 +131,10 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ Accordion List */}
-      <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pb-20">
+      <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12">
+        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-8 text-center sm:text-left">
+          Agency Search &amp; Development FAQs
+        </h2>
         <div className="space-y-3.5">
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => {
@@ -139,25 +142,25 @@ export default function FAQPage() {
               return (
                 <div
                   key={faq.id}
-                  className="bg-white/90 backdrop-blur-sm border border-slate-200/80 rounded-2xl shadow-xs overflow-hidden transition-all duration-200"
+                  className="bg-[#0c0727]/90 backdrop-blur-xl border border-purple-500/25 rounded-2xl shadow-lg overflow-hidden transition-all duration-200"
                 >
                   <button
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/60 transition-colors"
+                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.04] transition-colors"
                   >
-                    <span className="text-sm sm:text-base font-semibold text-[#154359] tracking-tight">
+                    <span className="text-sm sm:text-base font-semibold text-white tracking-tight">
                       {faq.question}
                     </span>
                     <span
-                      className={`w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0 transition-transform duration-200 text-[#154359] ${
-                        isOpen ? "rotate-180 bg-[#154359] text-white" : ""
+                      className={`w-7 h-7 rounded-full bg-white/10 flex items-center justify-center shrink-0 transition-transform duration-200 text-slate-300 ${
+                        isOpen ? "rotate-180 bg-[#A068FF] text-white" : ""
                       }`}
                     >
                       <ChevronDown className="w-4 h-4" />
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-[#475569] leading-relaxed border-t border-slate-100">
+                    <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/10">
                       {faq.answer}
                     </div>
                   )}
@@ -165,13 +168,13 @@ export default function FAQPage() {
               );
             })
           ) : (
-            <div className="text-center py-12 bg-white/70 rounded-2xl border border-slate-200">
-              <p className="text-sm text-[#475569]">No questions in this category.</p>
+            <div className="text-center py-12 bg-[#0c0727]/80 rounded-2xl border border-purple-500/20">
+              <p className="text-sm text-slate-400">No questions in this category.</p>
               <button
                 onClick={() => {
                   setActiveCategory("all");
                 }}
-                className="mt-3 text-xs font-semibold text-[#185B7B] hover:underline cursor-pointer"
+                className="mt-3 text-xs font-semibold text-cyan-300 hover:underline cursor-pointer"
               >
                 View all questions
               </button>
@@ -180,15 +183,15 @@ export default function FAQPage() {
         </div>
 
         {/* Quick CTA Card */}
-        <div className="mt-14 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-14 bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-purple-500/25 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#185B7B] block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#A068FF] block mb-1">
               Have a specific question?
             </span>
-            <h3 className="text-lg sm:text-xl font-bold text-[#154359]">
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
               Talk directly with our lead growth strategist.
-            </h3>
-            <p className="text-xs sm:text-sm text-[#475569] mt-1">
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 mt-1">
               We respond to inquiries within 5 minutes on WhatsApp &amp; Email.
             </p>
           </div>
@@ -197,7 +200,7 @@ export default function FAQPage() {
               href="https://wa.me/917690868932"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all shadow-xs flex items-center gap-1.5 cursor-pointer hover:scale-105"
+              className="px-6 py-3 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all shadow-md flex items-center gap-1.5 cursor-pointer hover:scale-105"
             >
               <span>WhatsApp Direct</span>
               <ArrowRight className="w-3.5 h-3.5" />

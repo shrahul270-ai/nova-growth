@@ -236,35 +236,25 @@ export default function SellixServicesHeader() {
   return (
     <section className="relative w-full min-h-[620px] sm:min-h-[680px] lg:min-h-[760px] pt-28 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-[#060314] select-none">
       
-      {/* =========================================================================
-          1. 3D ROTATING EARTH GLOBE (Guaranteed Canvas Engine at z-0, Visible 100%)
-         ========================================================================= */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 flex items-center justify-center overflow-hidden">
-        
-        {/* Ambient Cosmic Lights Behind Globe */}
+      {/* User-Specified Luxury Chrome Ribbon Wave Header Background */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <img
+          src="/images/service-header-hero.jpg"
+          alt="Balaji Prime Media Services Header"
+          className="w-full h-full object-cover object-center opacity-65 scale-105 filter brightness-105 contrast-125"
+        />
+        {/* Ambient Cosmic & Neon Glows */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060314]/90 via-[#060314]/55 to-[#060314]/95" />
         <div
-          className="absolute w-[500px] sm:w-[750px] lg:w-[900px] h-[500px] sm:h-[750px] lg:h-[900px] rounded-full blur-[100px] opacity-60"
+          className="absolute inset-0 opacity-40 mix-blend-screen"
           style={{
-            background: "radial-gradient(circle, rgba(160, 104, 255, 0.45) 0%, rgba(34, 211, 238, 0.25) 45%, transparent 70%)",
+            background: "radial-gradient(circle at 50% 40%, rgba(249, 115, 22, 0.25) 0%, rgba(160, 104, 255, 0.2) 45%, transparent 75%)",
           }}
           aria-hidden="true"
         />
-
-        {/* Dynamic 3D Rotating Canvas Globe */}
-        <canvas
-          ref={canvasRef}
-          className="w-full h-full max-w-[850px] max-h-[850px] object-contain opacity-95 transition-opacity duration-700"
-        />
-
-        {/* Smooth Top & Bottom Vignettes to Seamlessly Blend into Page */}
-        <div
-          className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#060314] to-transparent pointer-events-none"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#09080E] via-[#09080E]/80 to-transparent pointer-events-none"
-          aria-hidden="true"
-        />
+        {/* Vignettes for smooth seamless page blending */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#060314] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#060314] to-transparent" />
       </div>
 
       {/* =========================================================================

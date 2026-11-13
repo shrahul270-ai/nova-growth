@@ -185,7 +185,7 @@ export default function GuestPostingClient() {
       {/* Packages / Pricing Tier */}
       <section className="py-10 sm:py-14 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
         <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-4xl font-black">Transparent Link Building Tiers</h2>
+          <h3 className="text-2xl sm:text-4xl font-black">Transparent Link Building Tiers</h3>
           <p className="text-xs sm:text-sm text-gray-400 mt-1.5">All tiers include professional content drafting, manual outreach, and placement guarantee</p>
         </div>
 

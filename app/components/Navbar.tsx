@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AuthModal from "./AuthModal";
 import BrandLogo from "./BrandLogo";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavbarProps {
   activePage?: "home" | "about" | "services" | "guest-posting" | "projects" | "blog" | "contact" | "pay";
@@ -325,8 +326,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action Buttons: "Log in" and "Sign up" Popup Triggers */}
+            {/* Right Action Buttons: Theme Switcher, "Log in" and "Sign up" Popup Triggers */}
             <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <ThemeToggle />
+
               <button
                 type="button"
                 onClick={() => {
@@ -402,14 +405,17 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               <BrandLogo size="md" />
             </div>
 
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg font-bold border border-white/15 hover:bg-white/20 transition-colors cursor-pointer"
-              aria-label="Close menu"
-            >
-              ✕
-            </button>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center text-lg font-bold border border-white/15 hover:bg-white/20 transition-colors cursor-pointer"
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           {/* Mobile Auth Buttons: Log in & Sign up (Triggers Popup Modal) */}

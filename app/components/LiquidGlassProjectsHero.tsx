@@ -48,15 +48,18 @@ export default function LiquidGlassProjectsHero() {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-black font-poppins select-none">
-      {/* Static Luxury Ambient Background (No moving video) */}
-      <div
-        className="absolute inset-0 w-full h-full z-0 pointer-events-none bg-[#050214]"
-        style={{
-          background:
-            "radial-gradient(ellipse 90% 65% at 50% -10%, rgba(160, 104, 255, 0.35), transparent 70%), radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.2), transparent 55%), radial-gradient(circle at 90% 70%, rgba(34, 211, 238, 0.18), transparent 55%), #050214",
-        }}
-        aria-hidden="true"
-      />
+      {/* User-Specified Luxury Wave Particle Header Background */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+        <img
+          src="/images/project-header-hero.jpg"
+          alt="Balaji Prime Media Projects Header"
+          className="w-full h-full object-cover object-center opacity-85 scale-105 filter brightness-110 contrast-125"
+        />
+        {/* Ambient Dark Gradients & Glow overlays for perfect text readability & cosmic polish */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(160,104,255,0.18)_0%,transparent_70%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" />
+      </div>
 
       {/* Content Layer floats at z-10 */}
       <div className="relative z-10 flex min-h-screen w-full pt-20 lg:pt-0">

@@ -2133,6 +2133,173 @@ body {
   }
 }
 
+/* =========================================================================
+   LIGHT / DARK THEME SYSTEM & COMPREHENSIVE CONTRAST ENGINE
+   ========================================================================= */
+
+html.light-theme,
+body.light-theme {
+  --bg-main: #f8fafc;
+  --text-main: #091427;
+  --text-muted: #475569;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Headings in Light Theme */
+html.light-theme h1:not([class*="text-transparent"]),
+html.light-theme h2:not([class*="text-transparent"]),
+html.light-theme h3:not([class*="text-transparent"]),
+html.light-theme h4:not([class*="text-transparent"]),
+html.light-theme h5:not([class*="text-transparent"]),
+html.light-theme h6:not([class*="text-transparent"]) {
+  color: #0f172a !important;
+}
+
+/* Text colors override for Light Theme (Ensuring zero invisible white text on light backgrounds) */
+html.light-theme p:not([class*="bg-gradient"]):not([class*="text-purple"]):not([class*="text-emerald"]):not([class*="text-cyan"]):not([class*="text-amber"]):not([class*="text-rose"]):not([class*="text-transparent"]),
+html.light-theme span:not([class*="bg-gradient"]):not([class*="text-purple"]):not([class*="text-emerald"]):not([class*="text-cyan"]):not([class*="text-amber"]):not([class*="text-rose"]):not([class*="text-transparent"]):not([class*="btn-"]):not([class*="marketeam-"]):not([class*="badge"]),
+html.light-theme li:not([class*="text-purple"]):not([class*="text-cyan"]) {
+  color: #1e293b;
+}
+
+/* Hardcoded white text elements inside standard cards */
+html.light-theme .text-white:not([class*="bg-gradient"]):not(.marketeam-start-btn *):not(button[type="submit"] *):not(.bg-\[\#A068FF\] *):not(.bg-purple-600 *):not(.bg-indigo-600 *) {
+  color: #0f172a !important;
+}
+
+html.light-theme .text-slate-200,
+html.light-theme .text-slate-300,
+html.light-theme .text-gray-300,
+html.light-theme .text-gray-200 {
+  color: #334155 !important;
+}
+
+html.light-theme .text-slate-400,
+html.light-theme .text-gray-400 {
+  color: #64748b !important;
+}
+
+/* Card and Container Backgrounds in Light Theme */
+html.light-theme .bg-\[\#0a0a0f\],
+html.light-theme .bg-\[\#070319\],
+html.light-theme .bg-\[\#090422\],
+html.light-theme .bg-\[\#0a0522\],
+html.light-theme .bg-\[\#050214\],
+html.light-theme .bg-\[\#08041c\],
+html.light-theme .bg-\[\#070c18\],
+html.light-theme .bg-\[\#091427\],
+html.light-theme .bg-\[\#060314\],
+html.light-theme .bg-\[\#0c0720\],
+html.light-theme .bg-\[\#0c0727\],
+html.light-theme .bg-\[\#101322\],
+html.light-theme .bg-\[\#161a2e\],
+html.light-theme .bg-\[\#1a2038\],
+html.light-theme .bg-\[\#191038\],
+html.light-theme .bg-\[\#0e0926\] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+html.light-theme .bg-white\/\[0\.04\],
+html.light-theme .bg-white\/\[0\.05\],
+html.light-theme .bg-white\/\[0\.06\],
+html.light-theme .bg-white\/\[0\.07\],
+html.light-theme .bg-white\/\[0\.08\],
+html.light-theme .bg-white\/10,
+html.light-theme .bg-white\/5 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Header & Nav in Light Theme */
+html.light-theme header,
+html.light-theme .glass-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-theme nav a {
+  color: #334155 !important;
+}
+
+html.light-theme nav a:hover {
+  color: #0f172a !important;
+}
+
+/* Footer in Light Theme */
+html.light-theme footer {
+  background: linear-gradient(to bottom, #f1f5f9, #e2e8f0, #cbd5e1) !important;
+  border-top-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+html.light-theme footer a {
+  color: #475569 !important;
+}
+
+html.light-theme footer a:hover {
+  color: #0f172a !important;
+}
+
+html.light-theme footer .text-slate-400,
+html.light-theme footer .text-slate-300 {
+  color: #475569 !important;
+}
+
+/* Form Inputs in Light Theme */
+html.light-theme input:not([type="submit"]):not([type="button"]),
+html.light-theme textarea,
+html.light-theme select {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light-theme input::placeholder,
+html.light-theme textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Table styling in Light Theme */
+html.light-theme table {
+  color: #1e293b !important;
+}
+
+html.light-theme th {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme td {
+  border-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+html.light-theme tr:hover {
+  background-color: rgba(241, 245, 249, 0.7) !important;
+}
+
+/* Action Button Contrast Preservation (Buttons with gradients keep white text) */
+html.light-theme .marketeam-start-btn,
+html.light-theme .marketeam-start-btn span,
+html.light-theme button.bg-gradient-to-r span,
+html.light-theme a.bg-gradient-to-r span,
+html.light-theme button[type="submit"] span,
+html.light-theme .bg-purple-600,
+html.light-theme .bg-purple-600 span,
+html.light-theme .bg-\[\#A068FF\],
+html.light-theme .bg-\[\#A068FF\] span {
+  color: #ffffff !important;
+}
+
+
 
 
 

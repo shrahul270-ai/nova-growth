@@ -1127,9 +1127,9 @@ export default function GuestPostMarketplace() {
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             Live Marketplace Inventory
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight flex items-center gap-3">
             <span>40,000+ Verified Publisher Websites</span>
-          </h2>
+          </h3>
           <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-2xl">
             Filter high-authority publications by Moz DA, Ahrefs DR, real organic traffic, niche, and country.
             100% white-hat contextual placements with indexation warranty.

@@ -30,52 +30,62 @@ export default function TermsOfServicePage() {
         </div>
 
         <div className="space-y-8 text-sm leading-relaxed text-gray-300">
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">1. Agreement to Terms</h2>
-            <p>
-              By accessing our website (<a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">balajiprimemedia.in</a>) or contracting <strong>Balaji Prime Media</strong> for Search Engine Optimization, High-DA Guest Posting, Web Development, or Digital Strategy, you agree to be bound by these Terms of Service.
-            </p>
+          <section className="space-y-6">
+            <h2 className="text-xl font-bold text-white border-b border-gray-800/80 pb-2">
+              Core Terms &amp; Service Deliverables
+            </h2>
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">1. Agreement to Terms</h3>
+              <p>
+                By accessing our website (<a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">balajiprimemedia.in</a>) or contracting <strong>Balaji Prime Media</strong> for Search Engine Optimization, High-DA Guest Posting, Web Development, or Digital Strategy, you agree to be bound by these Terms of Service.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">2. Scope of Services &amp; Deliverables</h3>
+              <p>
+                Balaji Prime Media provides tailored digital marketing services as defined in individual client scopes, invoices, or proposals:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-gray-300">
+                <li><strong>SEO &amp; Link Building:</strong> High-DA editorial placements, manual outreach, and on-page technical optimizations executed using white-hat industry practices.</li>
+                <li><strong>Publisher Marketplace:</strong> Media placements across vetted websites (DR 50–90+) with permanent do-follow links guaranteed for the contracted publication lifespan.</li>
+                <li><strong>Turnaround Times (TAT):</strong> Standard link building and guest posts are delivered within 7 to 14 business days, accompanied by live live URL proof reports.</li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">3. Payments, Retainers &amp; Invoicing</h3>
+              <p>
+                All projects require invoice settlement prior to deliverable launch unless an ongoing monthly retainer agreement is in place. Payments are accepted via Stripe, PayPal, Wise, and International Bank Wire. All quoted fees are transparent with no hidden subscription charges.
+              </p>
+            </div>
           </section>
 
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">2. Scope of Services & Deliverables</h2>
-            <p>
-              Balaji Prime Media provides tailored digital marketing services as defined in individual client scopes, invoices, or proposals:
-            </p>
-            <ul className="list-disc pl-5 space-y-1 text-gray-300">
-              <li><strong>SEO & Link Building:</strong> High-DA editorial placements, manual outreach, and on-page technical optimizations executed using white-hat industry practices.</li>
-              <li><strong>Publisher Marketplace:</strong> Media placements across vetted websites (DR 50–90+) with permanent do-follow links guaranteed for the contracted publication lifespan.</li>
-              <li><strong>Turnaround Times (TAT):</strong> Standard link building and guest posts are delivered within 7 to 14 business days, accompanied by live live URL proof reports.</li>
-            </ul>
-          </section>
+          <section className="space-y-6 pt-4">
+            <h2 className="text-xl font-bold text-white border-b border-gray-800/80 pb-2">
+              Legal Disclaimers &amp; Confidentiality
+            </h2>
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">4. Organic Search Disclaimers</h3>
+              <p>
+                Search engines (including Google, Bing, and AI search engines) frequently update algorithms and rankings based on proprietary criteria. While Balaji Prime Media implements proven, data-backed optimization protocols, we maintain absolute ethical honesty and do not claim guaranteed #1 rankings, as no third party controls third-party search algorithms.
+              </p>
+            </div>
 
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">3. Payments, Retainers & Invoicing</h2>
-            <p>
-              All projects require invoice settlement prior to deliverable launch unless an ongoing monthly retainer agreement is in place. Payments are accepted via Stripe, PayPal, Wise, and International Bank Wire. All quoted fees are transparent with no hidden subscription charges.
-            </p>
-          </section>
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">5. Client Confidentiality</h3>
+              <p>
+                We treat all client data, proprietary strategies, analytics access, and campaign details with strict commercial confidentiality. Non-Disclosure Agreements (NDAs) are available upon request for enterprise partnerships.
+              </p>
+            </div>
 
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">4. Organic Search Disclaimers</h2>
-            <p>
-              Search engines (including Google, Bing, and AI search engines) frequently update algorithms and rankings based on proprietary criteria. While Balaji Prime Media implements proven, data-backed optimization protocols, we maintain absolute ethical honesty and do not claim guaranteed #1 rankings, as no third party controls third-party search algorithms.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">5. Client Confidentiality</h2>
-            <p>
-              We treat all client data, proprietary strategies, analytics access, and campaign details with strict commercial confidentiality. Non-Disclosure Agreements (NDAs) are available upon request for enterprise partnerships.
-            </p>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-lg font-bold text-white">6. Inquiries & Legal Notices</h2>
-            <div className="bg-[#0b1220] p-4 rounded-xl border border-gray-800 space-y-1 text-xs">
-              <p><strong className="text-white">Balaji Prime Media Legal Department</strong></p>
-              <p>Email: <a href="mailto:support@balajiprimemedia.in" className="text-blue-400 hover:underline">support@balajiprimemedia.in</a></p>
-              <p>Website: <a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">https://balajiprimemedia.in</a></p>
+            <div className="space-y-3">
+              <h3 className="text-base font-semibold text-white">6. Inquiries &amp; Legal Notices</h3>
+              <div className="bg-[#0b1220] p-4 rounded-xl border border-gray-800 space-y-1 text-xs">
+                <p><strong className="text-white">Balaji Prime Media Legal Department</strong></p>
+                <p>Email: <a href="mailto:support@balajiprimemedia.in" className="text-blue-400 hover:underline">support@balajiprimemedia.in</a></p>
+                <p>Website: <a href="https://balajiprimemedia.in" className="text-blue-400 hover:underline">https://balajiprimemedia.in</a></p>
+              </div>
             </div>
           </section>
         </div>

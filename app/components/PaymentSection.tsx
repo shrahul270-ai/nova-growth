@@ -147,16 +147,16 @@ function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
         )}
 
         {/* Currency & Mode Switcher Bar */}
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 sm:p-6 mb-8 sm:mb-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+        <div className="bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl border border-purple-500/25 shadow-lg p-4 sm:p-6 mb-8 sm:mb-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-white">
           
           {/* Mode Toggle Tabs */}
-          <div className="inline-flex flex-col sm:flex-row p-1.5 bg-[#f8fafd] rounded-2xl border border-gray-200/70 w-full md:w-auto gap-1">
+          <div className="inline-flex flex-col sm:flex-row p-1.5 bg-white/[0.06] rounded-2xl border border-white/10 w-full md:w-auto gap-1">
             <button
               onClick={() => setPaymentMode("retainer")}
               className={`flex-1 md:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 paymentMode === "retainer"
-                  ? "bg-[#091427] text-white shadow-md shadow-[#091427]/25"
-                  : "text-[#54647c] hover:text-[#091427]"
+                  ? "bg-[#A068FF] text-white shadow-md shadow-purple-950/60"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               💼 Monthly Growth Retainer
@@ -165,8 +165,8 @@ function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
               onClick={() => setPaymentMode("invoice")}
               className={`flex-1 md:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer text-center ${
                 paymentMode === "invoice"
-                  ? "bg-[#091427] text-white shadow-md shadow-[#091427]/25"
-                  : "text-[#54647c] hover:text-[#091427]"
+                  ? "bg-[#A068FF] text-white shadow-md shadow-purple-950/60"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
               📄 Pay Custom Invoice
@@ -175,14 +175,14 @@ function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
 
           {/* Currency Dropdown Selector */}
           <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-between sm:justify-end">
-            <span className="text-xs font-bold text-[#091427] uppercase tracking-wider whitespace-nowrap">
+            <span className="text-xs font-bold text-slate-300 uppercase tracking-wider whitespace-nowrap">
               Billing Currency:
             </span>
             <select
               value={selectedCurrency}
               onChange={(e) => setSelectedCurrency(e.target.value as Currency)}
               aria-label="Billing Currency"
-              className="bg-amber-50/70 border border-amber-200 text-[#091427] font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-[#d97706] cursor-pointer"
+              className="bg-[#090422] border border-purple-500/30 text-white font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-[#A068FF] cursor-pointer shadow-sm"
             >
               <option value="USD">🇺🇸 USD ($)</option>
               <option value="GBP">🇬🇧 GBP (£)</option>
@@ -257,7 +257,7 @@ function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left 7 Cols: Mode Configuration & Client Details */}
-            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 shadow-xl">
+            <div className="lg:col-span-7 bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-purple-500/25 shadow-xl text-white">
               
               <form onSubmit={handlePaymentSubmit} className="space-y-6">
                 
@@ -502,7 +502,7 @@ function PaymentSectionInner({ hideHeader = false }: { hideHeader?: boolean }) {
                   <span>🔒 Escrow-Protected Settlement</span>
                 </div>
 
-                <h3 className="text-xl font-black mb-1">Billing Summary</h3>
+                <h2 className="text-xl font-black mb-1 text-white">Billing Summary &amp; Escrow Verification</h2>
                 <p className="text-xs text-slate-300 mb-5">
                   Review invoice line items and payment terms before authorization.
                 </p>

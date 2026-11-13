@@ -125,7 +125,7 @@ export default function SaasluCrmOverview({
           </div>
 
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
               3,456
             </span>
             <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
@@ -175,7 +175,7 @@ export default function SaasluCrmOverview({
           </div>
 
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
               234
             </span>
             <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
@@ -224,7 +224,7 @@ export default function SaasluCrmOverview({
           </div>
 
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
               8,921
             </span>
             <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
@@ -273,7 +273,7 @@ export default function SaasluCrmOverview({
           </div>
 
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
               68.5%
             </span>
             <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
@@ -453,10 +453,10 @@ export default function SaasluCrmOverview({
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold text-white tracking-tight">Sales Report</h3>
+                <h3 className={`text-base font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>Sales Report</h3>
                 <p className="text-xs text-gray-400 mt-0.5">Quarterly Deal Performance Analysis</p>
               </div>
-              <span className="text-gray-500 hover:text-white cursor-pointer text-sm">⋮</span>
+              <span className="text-gray-500 hover:text-purple-400 cursor-pointer text-sm">⋮</span>
             </div>
 
             {/* Semi-Circular Radial Arc Gauge */}
@@ -488,7 +488,7 @@ export default function SaasluCrmOverview({
 
               {/* Center Big Stat ($2,119.99) */}
               <div className="absolute bottom-2 flex flex-col items-center">
-                <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
                   $2,119.99
                 </span>
                 <span className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mt-0.5">
@@ -501,11 +501,11 @@ export default function SaasluCrmOverview({
             <div className="mt-5 pt-4 border-t border-white/5 grid grid-cols-2 gap-4 text-center">
               <div>
                 <p className="text-[11px] text-gray-400">Monthly Deals</p>
-                <p className="text-base font-bold text-white mt-0.5">$1,779.44</p>
+                <p className={`text-base font-bold mt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>$1,779.44</p>
               </div>
               <div className="border-l border-white/5">
                 <p className="text-[11px] text-gray-400">Yearly Revenue</p>
-                <p className="text-base font-bold text-white mt-0.5">$5,640.51</p>
+                <p className={`text-base font-bold mt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>$5,640.51</p>
               </div>
             </div>
           </div>
@@ -518,7 +518,7 @@ export default function SaasluCrmOverview({
           >
             <div className="flex items-center justify-between pb-3">
               <div>
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                <h4 className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white" : "text-slate-900"}`}>
                   Top Sales Representatives
                 </h4>
                 <p className="text-[10px] text-gray-400">Best Performing Team Members</p>
@@ -539,7 +539,7 @@ export default function SaasluCrmOverview({
                       {rep.initial}
                     </span>
                     <div>
-                      <p className="font-bold text-white leading-tight">{rep.name}</p>
+                      <p className={`font-bold leading-tight ${isDark ? "text-white" : "text-slate-900"}`}>{rep.name}</p>
                       <p className="text-[10px] text-gray-400">{rep.revenue}</p>
                     </div>
                   </div>
@@ -577,7 +577,7 @@ export default function SaasluCrmOverview({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/5">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-white tracking-tight">
+              <span className={`text-base font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
                 Live Website Signups &amp; Logins
               </span>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
@@ -599,7 +599,9 @@ export default function SaasluCrmOverview({
                 className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   authFilter === filter
                     ? "bg-[#6366f1] text-white shadow-md shadow-indigo-950/60"
-                    : "bg-[#161a2e] text-gray-400 hover:text-white border border-white/5"
+                    : isDark
+                    ? "bg-[#161a2e] text-gray-400 hover:text-white border border-white/5"
+                    : "bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200"
                 }`}
               >
                 {filter === "all" ? "All Auth Events" : filter === "signup" ? "🟢 Signups Only" : "🔵 Logins Only"}
@@ -612,7 +614,7 @@ export default function SaasluCrmOverview({
         <div className="overflow-x-auto mt-4">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-white/5 text-gray-400 uppercase text-[10px] tracking-wider">
+              <tr className={`border-b uppercase text-[10px] tracking-wider ${isDark ? "border-white/5 text-gray-400" : "border-slate-200 text-slate-500"}`}>
                 <th className="py-2.5 px-3">User &amp; Client</th>
                 <th className="py-2.5 px-3">Auth Event</th>
                 <th className="py-2.5 px-3">Date &amp; Time</th>
@@ -621,18 +623,18 @@ export default function SaasluCrmOverview({
                 <th className="py-2.5 px-3 text-right">Database Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className={`divide-y ${isDark ? "divide-white/5" : "divide-slate-200"}`}>
               {authRecords.slice(0, 7).map((user, idx) => {
                 const isSignup = user.authType === "user_signup" || idx % 2 === 0;
                 return (
-                  <tr key={user.id || idx} className="hover:bg-white/[0.02] transition-colors">
+                  <tr key={user.id || idx} className={`${isDark ? "hover:bg-white/[0.02]" : "hover:bg-slate-50"} transition-colors`}>
                     <td className="py-3 px-3">
                       <div className="flex items-center gap-2.5">
                         <span className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-white text-[11px] shadow-sm">
                           {user.name.slice(0, 2).toUpperCase()}
                         </span>
                         <div>
-                          <p className="font-bold text-white">{user.name}</p>
+                          <p className={`font-bold ${isDark ? "text-white" : "text-slate-900"}`}>{user.name}</p>
                           <p className="text-[11px] text-gray-400 font-mono">{user.email}</p>
                         </div>
                       </div>
@@ -649,7 +651,7 @@ export default function SaasluCrmOverview({
                       </span>
                     </td>
                     <td className="py-3 px-3">
-                      <p className="text-white font-medium">{user.date}</p>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{user.date}</p>
                       <p className="text-[10px] text-gray-400">{user.time}</p>
                     </td>
                     <td className="py-3 px-3">
@@ -685,7 +687,7 @@ export default function SaasluCrmOverview({
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/5">
           <div>
-            <h3 className="text-base font-bold text-white tracking-tight">
+            <h3 className={`text-base font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
               Core Operations &amp; Database Shortcuts
             </h3>
             <p className="text-xs text-gray-400 mt-0.5">
@@ -708,16 +710,20 @@ export default function SaasluCrmOverview({
           {/* Card 1: Users & Clients */}
           <div
             onClick={() => onNavigate("users")}
-            className="p-4 rounded-xl border border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-purple-500/40 transition-all cursor-pointer flex items-center justify-between group"
+            className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+              isDark
+                ? "border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-purple-500/40"
+                : "border-slate-200 bg-slate-50 hover:bg-white hover:border-purple-300"
+            }`}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">👥</span>
               <div>
-                <p className="text-xs font-bold text-white group-hover:text-purple-400 transition-colors">Users &amp; Clients</p>
+                <p className={`text-xs font-bold group-hover:text-purple-500 transition-colors ${isDark ? "text-white" : "text-slate-900"}`}>Users &amp; Clients</p>
                 <p className="text-[10px] text-gray-400">Client directory</p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
               {usersList.length}
             </span>
           </div>
@@ -725,16 +731,20 @@ export default function SaasluCrmOverview({
           {/* Card 2: Total Mail */}
           <div
             onClick={() => onNavigate("mails")}
-            className="p-4 rounded-xl border border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-cyan-500/40 transition-all cursor-pointer flex items-center justify-between group"
+            className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+              isDark
+                ? "border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-cyan-500/40"
+                : "border-slate-200 bg-slate-50 hover:bg-white hover:border-cyan-300"
+            }`}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">✉️</span>
               <div>
-                <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors">Total Mail</p>
+                <p className={`text-xs font-bold group-hover:text-cyan-500 transition-colors ${isDark ? "text-white" : "text-slate-900"}`}>Total Mail</p>
                 <p className="text-[10px] text-gray-400">RFPs &amp; inquiries</p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30">
               {mailsCount}
             </span>
           </div>
@@ -742,16 +752,20 @@ export default function SaasluCrmOverview({
           {/* Card 3: WhatsApp Messages */}
           <div
             onClick={() => onNavigate("whatsapp")}
-            className="p-4 rounded-xl border border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-emerald-500/40 transition-all cursor-pointer flex items-center justify-between group"
+            className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+              isDark
+                ? "border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-emerald-500/40"
+                : "border-slate-200 bg-slate-50 hover:bg-white hover:border-emerald-300"
+            }`}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">💬</span>
               <div>
-                <p className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">WhatsApp Messages</p>
+                <p className={`text-xs font-bold group-hover:text-emerald-500 transition-colors ${isDark ? "text-white" : "text-slate-900"}`}>WhatsApp Messages</p>
                 <p className="text-[10px] text-gray-400">Direct chat leads</p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30">
               {whatsappCount}
             </span>
           </div>
@@ -759,16 +773,20 @@ export default function SaasluCrmOverview({
           {/* Card 4: Payment Ledger */}
           <div
             onClick={() => onNavigate("payments")}
-            className="p-4 rounded-xl border border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-amber-500/40 transition-all cursor-pointer flex items-center justify-between group"
+            className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between group ${
+              isDark
+                ? "border-white/5 bg-[#161a2e]/60 hover:bg-[#1a2038] hover:border-amber-500/40"
+                : "border-slate-200 bg-slate-50 hover:bg-white hover:border-amber-300"
+            }`}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">💳</span>
               <div>
-                <p className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">Payment Ledger</p>
+                <p className={`text-xs font-bold group-hover:text-amber-500 transition-colors ${isDark ? "text-white" : "text-slate-900"}`}>Payment Ledger</p>
                 <p className="text-[10px] text-gray-400">Settled orders</p>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30">
               {paymentsCount}
             </span>
           </div>
@@ -785,11 +803,11 @@ export default function SaasluCrmOverview({
             <div className="flex items-center gap-2.5 text-left">
               <span className="text-lg">➕</span>
               <div>
-                <p className="text-xs font-bold text-white">Add Payment</p>
+                <p className={`text-xs font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Add Payment</p>
                 <p className="text-[10px] text-gray-400">Record settlement with Paid, Pending &amp; Remaining</p>
               </div>
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
               New +
             </span>
           </button>
@@ -802,11 +820,11 @@ export default function SaasluCrmOverview({
             <div className="flex items-center gap-2.5 text-left">
               <span className="text-lg">🧾</span>
               <div>
-                <p className="text-xs font-bold text-white">Invoice Generator</p>
+                <p className={`text-xs font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Invoice Generator</p>
                 <p className="text-[10px] text-gray-400">Generate tax invoice &amp; instant printable PDF</p>
               </div>
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30">
               {invoicesCount} Invoices
             </span>
           </button>

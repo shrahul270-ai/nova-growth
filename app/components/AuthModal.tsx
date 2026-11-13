@@ -77,7 +77,7 @@ export default function AuthModal({
 
     setLoading(true);
 
-    // Save login/signup event to database so admin receives it live
+    // Save login/signup event to database so admin receives it permanently in Neon
     fetch("/api/db/leads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -85,10 +85,25 @@ export default function AuthModal({
         type: mode === "signup" ? "signup" : "login",
         name: mode === "signup" ? name.trim() : email.split("@")[0],
         email: email.trim().toLowerCase(),
-        phone: phone.trim() || "+1 555-0199",
+        phone: phone.trim() || "Not provided",
         service: mode === "signup" ? "Website User Registration (Sign Up)" : "Website User Sign In (Login)",
         message: `User ${mode === "signup" ? "created an account" : "logged in"} via website popup modal.`,
         sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
+      }),
+    }).catch(() => {});
+
+    // Real-time audit & interaction logging
+    fetch("/api/db/interactions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: mode === "signup" ? "signup" : "login",
+        action: mode === "signup" ? "user_signup" : "user_login",
+        name: mode === "signup" ? name.trim() : email.split("@")[0],
+        email: email.trim().toLowerCase(),
+        phone: phone.trim() || "",
+        title: mode === "signup" ? "New User Registration" : "User Authentication",
+        details: `Saved permanently to database. User ${email.trim().toLowerCase()}`,
       }),
     }).catch(() => {});
 
@@ -97,20 +112,20 @@ export default function AuthModal({
         const session = {
           email: email.trim().toLowerCase(),
           name: mode === "signup" ? name.trim() : email.split("@")[0],
-          phone: phone.trim() || "+1 555-0199",
+          phone: phone.trim(),
           role: "buyer",
           loggedInAt: new Date().toISOString(),
         };
         localStorage.setItem("nova_buyer_session", JSON.stringify(session));
+        window.dispatchEvent(new Event("buyer-session-changed"));
         setSuccess(true);
         setTimeout(() => {
           onClose();
-          router.push("/buyer-dashboard");
-        }, 750);
+          // Stay on current page, never redirect to marketplace
+        }, 850);
       } catch {
         setSuccess(true);
         onClose();
-        router.push("/buyer-dashboard");
       } finally {
         setLoading(false);
       }
@@ -126,8 +141,8 @@ export default function AuthModal({
       body: JSON.stringify({
         type: "google_login",
         name: "Google Authenticated Client",
-        email: "client@balajiprimemedia.in",
-        phone: "+91 76908 68932",
+        email: "google.user@client.com",
+        phone: "Verified OAuth",
         service: "One-Tap Google Authentication",
         message: "User logged in using Google OAuth single sign-on.",
         sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -136,18 +151,19 @@ export default function AuthModal({
 
     setTimeout(() => {
       const session = {
-        email: "client@balajiprimemedia.in",
+        email: "google.user@client.com",
         name: "Google Client",
-        phone: "+91 76908 68932",
+        phone: "",
         role: "buyer",
         loggedInAt: new Date().toISOString(),
       };
       localStorage.setItem("nova_buyer_session", JSON.stringify(session));
+      window.dispatchEvent(new Event("buyer-session-changed"));
       setSuccess(true);
       setTimeout(() => {
         onClose();
-        router.push("/buyer-dashboard");
-      }, 650);
+        // Stay on current page, never redirect to marketplace
+      }, 750);
     }, 500);
   };
 
