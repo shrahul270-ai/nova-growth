@@ -2588,6 +2588,68 @@ html.light-theme div[class*="blur-"][class*="rounded-full"] {
   opacity: 0.12 !important;
 }
 
+/* -------------------------------------------------------------------------
+   12. PROMPT HERO & HOME PAGE LIGHT THEME
+   ------------------------------------------------------------------------- */
+html.light-theme #home {
+  --hero-bg: #f8fafc;
+  --hero-text: #0f172a;
+  --hero-title-color: #0f172a;
+  --hero-subtitle-color: #475569;
+  --marquee-text-color: #1e293b;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+html.light-theme #home video {
+  opacity: 0.14 !important;
+  filter: contrast(1.1) brightness(1.2);
+}
+
+html.light-theme .hero-center-glow {
+  background-color: #cbd5e1 !important;
+  opacity: 0.35 !important;
+}
+
+html.light-theme #home .hero-title-prefix {
+  color: #0f172a !important;
+}
+
+html.light-theme #home .hero-subtitle {
+  color: #475569 !important;
+}
+
+/* Talk with Leadership card in Light Mode */
+html.light-theme #home div[role="button"][class*="rounded-2xl"] {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light-theme #home div[role="button"][class*="rounded-2xl"] .text-white {
+  color: #0f172a !important;
+}
+
+html.light-theme #home div[role="button"][class*="rounded-2xl"] .text-slate-300 {
+  color: #64748b !important;
+}
+
+html.light-theme #home div[role="button"][class*="rounded-2xl"] .bg-\[\#070319\]\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Marquee bar background in Light Mode */
+html.light-theme #home .bg-black\/50,
+html.light-theme #home .bg-black\/40 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light-theme #home .bg-black\/50 .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
 
 
 

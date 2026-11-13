@@ -90,8 +90,8 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       id="home"
       className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between select-none"
       style={{
-        backgroundColor: "hsl(260, 87%, 3%)",
-        color: "hsl(40, 6%, 95%)",
+        backgroundColor: "var(--hero-bg, hsl(260, 87%, 3%))",
+        color: "var(--hero-text, hsl(40, 6%, 95%))",
       }}
     >
       {/* =========================================================================
@@ -112,7 +112,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[984px] max-w-[95vw] h-[527px] opacity-90 bg-gray-950 blur-[82px] pointer-events-none z-0"
+        className="hero-center-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[984px] max-w-[95vw] h-[527px] opacity-90 bg-gray-950 blur-[82px] pointer-events-none z-0"
       />
 
       {/* =========================================================================
@@ -279,7 +279,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                     {/* Brand Name in text-base font-semibold */}
                     <span
                       className="text-sm sm:text-base font-semibold tracking-tight"
-                      style={{ color: "hsl(40, 6%, 95%)" }}
+                      style={{ color: "var(--marquee-text-color, hsl(40, 6%, 95%))" }}
                     >
                       {item.name}
                     </span>
