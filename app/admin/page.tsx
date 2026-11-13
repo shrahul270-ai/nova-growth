@@ -230,39 +230,18 @@ export default function AdminDatabasePage() {
   const [toast, setToast] = useState<string | null>(null);
   const [currentDateStr, setCurrentDateStr] = useState("Live Status");
 
-  // Load saved theme and synchronize with global website theme
+  // Load saved theme from localStorage
   useEffect(() => {
     try {
-      const savedTheme = (localStorage.getItem("bpm_theme") || localStorage.getItem("bpm_admin_theme")) as "light" | "dark" | null;
-      const initial = savedTheme === "light" ? "light" : "dark";
-      setTheme(initial);
-      if (typeof document !== "undefined") {
-        if (initial === "light") {
-          document.documentElement.classList.add("light-theme", "light");
-          document.documentElement.classList.remove("dark");
-          document.body.classList.add("light-theme", "light");
-          document.body.classList.remove("dark");
-        } else {
-          document.documentElement.classList.remove("light-theme", "light");
-          document.documentElement.classList.add("dark");
-          document.body.classList.remove("light-theme", "light");
-          document.body.classList.add("dark");
-        }
+      const savedTheme = localStorage.getItem("bpm_admin_theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        setTheme(savedTheme);
       }
     } catch {}
-
-    const handleThemeEvent = (e: any) => {
-      if (e.detail?.theme) {
-        setTheme(e.detail.theme);
-      }
-    };
-    window.addEventListener("bpm-theme-changed", handleThemeEvent);
 
     setCurrentDateStr(
       new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" })
     );
-
-    return () => window.removeEventListener("bpm-theme-changed", handleThemeEvent);
   }, []);
 
   // Aurora Sign In / Admin Authentication Gate State
@@ -328,24 +307,7 @@ export default function AdminDatabasePage() {
     const nextTheme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     try {
-      localStorage.setItem("bpm_theme", nextTheme);
       localStorage.setItem("bpm_admin_theme", nextTheme);
-      if (typeof document !== "undefined") {
-        if (nextTheme === "light") {
-          document.documentElement.classList.add("light-theme", "light");
-          document.documentElement.classList.remove("dark");
-          document.body.classList.add("light-theme", "light");
-          document.body.classList.remove("dark");
-        } else {
-          document.documentElement.classList.remove("light-theme", "light");
-          document.documentElement.classList.add("dark");
-          document.body.classList.remove("light-theme", "light");
-          document.body.classList.add("dark");
-        }
-      }
-      window.dispatchEvent(
-        new CustomEvent("bpm-theme-changed", { detail: { theme: nextTheme } })
-      );
     } catch {}
     showToast(`Switched to ${nextTheme === "light" ? "☀️ Light Mode" : "🌙 Dark Mode"}`);
   };

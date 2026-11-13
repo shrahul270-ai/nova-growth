@@ -90,8 +90,8 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       id="home"
       className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between select-none"
       style={{
-        backgroundColor: "var(--hero-bg, hsl(260, 87%, 3%))",
-        color: "var(--hero-text, hsl(40, 6%, 95%))",
+        backgroundColor: "hsl(260, 87%, 3%)",
+        color: "hsl(40, 6%, 95%)",
       }}
     >
       {/* =========================================================================
@@ -112,7 +112,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div
         aria-hidden="true"
-        className="hero-center-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[984px] max-w-[95vw] h-[527px] opacity-90 bg-gray-950 blur-[82px] pointer-events-none z-0"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[984px] max-w-[95vw] h-[527px] opacity-90 bg-gray-950 blur-[82px] pointer-events-none z-0"
       />
 
       {/* =========================================================================
@@ -132,7 +132,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           className="font-normal tracking-[-0.024em] leading-[1.08] text-[32px] sm:text-[46px] md:text-[58px] lg:text-[72px] xl:text-[82px] select-none text-center"
           style={{ fontFamily: "'General Sans', system-ui, sans-serif" }}
         >
-          <span className="hero-title-prefix text-white" style={{ color: "var(--hero-title-color, hsl(40, 6%, 95%))" }}>Balaji </span>
+          <span style={{ color: "hsl(40, 6%, 95%)" }}>Balaji </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -144,11 +144,11 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
           </span>
         </h1>
 
-        {/* Subtitle */}
+        {/* Subtitle: "The most powerful AI ever deployed in organic search & talent acquisition" */}
         <p
-          className="hero-subtitle text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center text-slate-300"
+          className="text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center"
           style={{
-            color: "var(--hero-subtitle-color, hsl(40, 6%, 82%))",
+            color: "hsl(40, 6%, 82%)",
             opacity: 0.85,
           }}
         >
@@ -279,7 +279,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
                     {/* Brand Name in text-base font-semibold */}
                     <span
                       className="text-sm sm:text-base font-semibold tracking-tight"
-                      style={{ color: "var(--marquee-text-color, hsl(40, 6%, 95%))" }}
+                      style={{ color: "hsl(40, 6%, 95%)" }}
                     >
                       {item.name}
                     </span>

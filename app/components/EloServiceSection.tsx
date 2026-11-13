@@ -233,9 +233,9 @@ export default function EloServiceSection({ onSelectService }: EloServiceSection
             <Link
               key={card.id}
               href={`/services/${card.id}`}
-              className="elo-service-card group relative rounded-[24px] sm:rounded-[28px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2.5 border border-white/15 select-none min-h-[490px] sm:min-h-[520px]"
+              className="group relative rounded-[24px] sm:rounded-[28px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 ease-out hover:-translate-y-2.5 border border-white/15 select-none min-h-[490px] sm:min-h-[520px]"
               style={{
-                background: "var(--elo-card-bg, " + card.gradient + ")",
+                background: card.gradient,
                 boxShadow: `0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px ${card.accentGlow}`,
               }}
             >
