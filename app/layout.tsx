@@ -129,7 +129,7 @@ export default function RootLayout({
         <script async src="https://news.google.com/swg/js/v1/publisher.js" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("bpm_theme")||localStorage.getItem("bpm_admin_theme");if(t==="light"){document.documentElement.classList.add("light-theme","light");document.documentElement.classList.remove("dark");}else{document.documentElement.classList.remove("light-theme","light");document.documentElement.classList.add("dark");}}catch(e){}})()`,
+            __html: `(function(){try{localStorage.removeItem("bpm_theme");localStorage.removeItem("bpm_admin_theme");document.documentElement.classList.remove("light-theme","light");document.documentElement.classList.add("dark");}catch(e){}})()`,
           }}
         />
       </head>
