@@ -2,6 +2,26 @@
 
 import React, { useState } from "react";
 
+export type CountryCode = "IN" | "US" | "GB" | "CA" | "AU" | "AE";
+
+export interface CountryInfo {
+  code: CountryCode;
+  name: string;
+  flag: string;
+  currency: string;
+  symbol: string;
+  rateFromUSD: number;
+}
+
+export const COUNTRIES_CONFIG: Record<CountryCode, CountryInfo> = {
+  IN: { code: "IN", name: "India", flag: "🇮🇳", currency: "INR", symbol: "₹", rateFromUSD: 87 },
+  US: { code: "US", name: "USA", flag: "🇺🇸", currency: "USD", symbol: "$", rateFromUSD: 1 },
+  GB: { code: "GB", name: "UK", flag: "🇬🇧", currency: "GBP", symbol: "£", rateFromUSD: 0.79 },
+  CA: { code: "CA", name: "Canada", flag: "🇨🇦", currency: "CAD", symbol: "C$", rateFromUSD: 1.38 },
+  AU: { code: "AU", name: "Australia", flag: "🇦🇺", currency: "AUD", symbol: "A$", rateFromUSD: 1.54 },
+  AE: { code: "AE", name: "UAE", flag: "🇦🇪", currency: "AED", symbol: "AED ", rateFromUSD: 3.67 },
+};
+
 export interface AgencyService {
   id: string;
   name: string;
@@ -21,11 +41,22 @@ export interface AgencyService {
   icon3D: string;
   badge: string;
   popular?: boolean;
+  countryPricing?: Partial<
+    Record<
+      CountryCode,
+      {
+        price: string;
+        suffix?: string;
+        inrEquivalent?: string;
+      }
+    >
+  >;
 }
 
 interface ThreeDServiceCardProps {
   service: AgencyService;
-  currency: "INR" | "USD";
+  currency?: "INR" | "USD" | string;
+  country?: CountryCode;
   onBookCall: (service: AgencyService) => void;
   onViewScope: (service: AgencyService) => void;
   index?: number;
@@ -33,32 +64,53 @@ interface ThreeDServiceCardProps {
 
 export default function ThreeDServiceCard({
   service,
-  currency,
+  currency = "USD",
+  country = "US",
   onBookCall,
   onViewScope,
   index = 0,
 }: ThreeDServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const countryConfig = COUNTRIES_CONFIG[country] || COUNTRIES_CONFIG.US;
+  const customPricing = service.countryPricing?.[country];
+
+  let displayPrice = "";
+  let displaySuffix = "";
+  let inrReference = customPricing?.inrEquivalent;
+
+  if (customPricing?.price) {
+    displayPrice = customPricing.price;
+    displaySuffix = customPricing.suffix || service.pricingSuffixUSD;
+  } else {
+    if (country === "IN") {
+      displayPrice = service.priceINR;
+      displaySuffix = service.pricingSuffixINR;
+    } else if (country === "US") {
+      displayPrice = service.priceUSD;
+      displaySuffix = service.pricingSuffixUSD;
+    } else {
+      const converted = Math.round(service.numericUSD * countryConfig.rateFromUSD);
+      displayPrice = `${countryConfig.symbol}${converted.toLocaleString()}`;
+      displaySuffix = service.pricingSuffixUSD;
+      inrReference = `Approx. ${service.priceINR}`;
+    }
+  }
+
   const whatsappMessage = encodeURIComponent(
-    `Hi Balaji Prime Media, I am interested in ${service.name}.`
+    `Hi Balaji Prime Media, I am interested in ${service.name} (${displayPrice} ${countryConfig.name}).`
   );
   const whatsappUrl = `https://wa.me/917690868932?text=${whatsappMessage}`;
-
-  const currentPrice = currency === "INR" ? service.priceINR : service.priceUSD;
-  const currentSuffix =
-    currency === "INR" ? service.pricingSuffixINR : service.pricingSuffixUSD;
 
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-service-id={service.id}
-      data-price-inr={service.priceINR}
-      data-price-usd={service.priceUSD}
+      data-country={country}
       className="group relative w-full h-full rounded-[26px] p-[1.5px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-12px_rgba(168,85,247,0.3)] select-none flex flex-col bg-[#161127] border border-[#2B2144]/80 hover:border-[#a855f7]/60"
     >
-      {/* 1. Subtle Glow on Desktop Hover Only (Zero overhead on mobile) */}
+      {/* Subtle Glow on Desktop Hover */}
       <div
         className="hidden lg:block absolute inset-[-100%] rounded-[26px] pointer-events-none transition-opacity duration-500 group-hover:animate-spin-slow -z-10"
         style={{
@@ -75,9 +127,8 @@ export default function ThreeDServiceCard({
         aria-hidden="true"
       />
 
-      {/* 2. Main Luxury Card Inner Canvas */}
+      {/* Main Luxury Card Inner Canvas */}
       <div className="relative w-full h-full rounded-[24.5px] bg-[#0D091A] p-6 sm:p-7 flex flex-col justify-between overflow-hidden">
-        
         {/* Ambient Light Orb inside the card */}
         <div
           className="absolute -top-12 -right-12 w-40 h-40 rounded-full blur-2xl pointer-events-none transition-opacity duration-300 opacity-20 group-hover:opacity-40"
@@ -101,12 +152,13 @@ export default function ThreeDServiceCard({
         <div className="relative z-10">
           <div className="flex items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">
-              {/* Static / Hover-scaled Icon Container (Smooth, zero GPU lag) */}
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md border border-[#a855f7]/30 transition-transform duration-300 group-hover:scale-105 shrink-0"
                 style={{
-                  background: "linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%)",
-                  boxShadow: "inset 0 1px 1px rgba(255,255,255,0.25), 0 8px 16px rgba(0,0,0,0.5)",
+                  background:
+                    "linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%)",
+                  boxShadow:
+                    "inset 0 1px 1px rgba(255,255,255,0.25), 0 8px 16px rgba(0,0,0,0.5)",
                 }}
               >
                 <span>{service.icon3D}</span>
@@ -173,29 +225,39 @@ export default function ThreeDServiceCard({
         {/* Pricing & CTAs */}
         <div className="relative z-10 border-t border-[#231A33] pt-5 mt-auto">
           {/* Price Output */}
-          <div className="flex items-baseline justify-between mb-5">
+          <div className="flex items-start justify-between gap-2 mb-5">
             <div>
-              <span className="text-[10px] font-medium text-[#7D7D7D] uppercase tracking-wider block">
-                Standard Pricing ({currency})
-              </span>
-              <div className="flex items-baseline gap-1.5 mt-0.5">
-                <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  {currentPrice}
-                </span>
-                <span className="text-xs font-normal text-[#94a3b8]">
-                  {currentSuffix}
+              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#a855f7] uppercase tracking-wider">
+                <span>{countryConfig.flag}</span>
+                <span>
+                  {countryConfig.name} ({countryConfig.currency})
                 </span>
               </div>
+              <div className="flex items-baseline gap-1.5 mt-0.5">
+                <span className="text-xl sm:text-2xl lg:text-[26px] font-black text-white tracking-tight">
+                  {displayPrice}
+                </span>
+                {displaySuffix && (
+                  <span className="text-xs font-normal text-[#94a3b8]">
+                    {displaySuffix}
+                  </span>
+                )}
+              </div>
+              {inrReference && (
+                <div className="inline-block mt-1 text-[11px] font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-0.5 rounded-md">
+                  {inrReference}
+                </div>
+              )}
             </div>
 
-            <div className="text-right">
+            <div className="text-right shrink-0">
               <span className="text-[10px] text-[#c084fc] bg-[#1E1638] border border-[#a855f7]/30 px-2.5 py-0.5 rounded-full font-medium">
                 Verified Escrow
               </span>
             </div>
           </div>
 
-          {/* Action CTAs: Responsive Grid/Flex */}
+          {/* Action CTAs */}
           <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2.5">
             {/* Primary CTA: WhatsApp Quote */}
             <a

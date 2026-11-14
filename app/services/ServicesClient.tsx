@@ -5,11 +5,148 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SellixServicesHeader from "../components/SellixServicesHeader";
-import ThreeDServiceCard, { AgencyService } from "../components/ThreeDServiceCard";
+import ThreeDServiceCard, {
+  AgencyService,
+  CountryCode,
+  COUNTRIES_CONFIG,
+} from "../components/ThreeDServiceCard";
 import { trackInteraction } from "@/lib/tracker";
 import { getClientLiveLocation } from "@/lib/geo";
 
 export const masterServicesList: AgencyService[] = [
+  {
+    id: "basic-website-portfolio",
+    name: "Basic Website (Business / Portfolio)",
+    tagline: "Clean, ultra-fast business or portfolio website crafted for brand credibility and mobile lead capture.",
+    category: "Development",
+    priceINR: "₹5,000 – ₹15,000",
+    priceUSD: "$480 – $1,200",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 10000,
+    numericUSD: 650,
+    tat: "5–7 Business Days",
+    deliverablesSummary: "Mobile responsive, portfolio showcase, lead form, speed tuning",
+    deliverables: [
+      "100% mobile, tablet & desktop responsive layout",
+      "Business / portfolio work showcase & client testimonials",
+      "Interactive lead inquiry form & direct WhatsApp chat trigger",
+      "Sub-1.5s loading speed with modern asset compression",
+      "Clean semantic code & essential Google search meta tags",
+    ],
+    gradient: "linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%)",
+    accentColor: "#0284c7",
+    icon3D: "🌐",
+    badge: "Starter Web",
+    countryPricing: {
+      IN: { price: "₹5,000 – ₹15,000", suffix: "One-time" },
+      US: { price: "$480 – $1,200", inrEquivalent: "Approx. ₹40,000 – ₹1,00,000", suffix: "One-time" },
+      GB: { price: "£380 – £950", inrEquivalent: "Approx. ₹35,000 – ₹90,000", suffix: "One-time" },
+      CA: { price: "C$570 – C$1,400", inrEquivalent: "Approx. ₹35,000 – ₹85,000", suffix: "One-time" },
+      AU: { price: "A$720 – A$1,800", inrEquivalent: "Approx. ₹40,000 – ₹1,00,000", suffix: "One-time" },
+      AE: { price: "1,100 – 3,300 AED", inrEquivalent: "Approx. ₹25,000 – ₹75,000", suffix: "One-time" },
+    },
+  },
+  {
+    id: "ecommerce-website-dev",
+    name: "E-commerce Website Development",
+    tagline: "High-converting online store with full catalog, secure payment gateways, cart management & automated orders.",
+    category: "Development",
+    priceINR: "₹20,000 – ₹80,000",
+    priceUSD: "$1,800 – $6,000",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 45000,
+    numericUSD: 2500,
+    tat: "2–4 Weeks",
+    deliverablesSummary: "Product catalog, multi-payment checkout, inventory, SSL security",
+    deliverables: [
+      "Full product catalog with variants, filters & instant search",
+      "Multi-currency payment gateway (Stripe, Razorpay, PayPal, COD)",
+      "Automated order confirmation emails & customer WhatsApp alerts",
+      "Admin inventory management, coupon codes & sales analytics",
+      "PCI-DSS security standards & SSL checkout hardening",
+    ],
+    gradient: "linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%)",
+    accentColor: "#d97706",
+    icon3D: "🛍️",
+    badge: "High Converting",
+    popular: true,
+    countryPricing: {
+      IN: { price: "₹20,000 – ₹80,000", suffix: "One-time" },
+      US: { price: "$1,800 – $6,000", inrEquivalent: "Approx. ₹1.5 Lakh – ₹5 Lakh", suffix: "One-time" },
+      GB: { price: "£1,300 – £4,400", inrEquivalent: "Approx. ₹1.2 Lakh – ₹4 Lakh", suffix: "One-time" },
+      CA: { price: "C$1,600 – C$6,500", inrEquivalent: "Approx. ₹1 Lakh – ₹4 Lakh", suffix: "One-time" },
+      AU: { price: "A$2,700 – A$9,000", inrEquivalent: "Approx. ₹1.5 Lakh – ₹5 Lakh", suffix: "One-time" },
+      AE: { price: "3,500 – 13,200 AED", inrEquivalent: "Approx. ₹80,000 – ₹3 Lakh", suffix: "One-time" },
+    },
+  },
+  {
+    id: "custom-web-application",
+    name: "Custom Web Application & Business Software",
+    tagline: "Custom login/registration portals, student management systems, complete business CRM & SaaS software.",
+    category: "Development",
+    priceINR: "₹35,000 – ₹95,000",
+    priceUSD: "$1,200 – $4,500",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 65000,
+    numericUSD: 2800,
+    tat: "3–6 Weeks",
+    deliverablesSummary: "Custom authentication, relational database, role dashboards, APIs",
+    deliverables: [
+      "Custom login & registration with multi-role permissions (Admin/Staff/User)",
+      "Student / client management database architecture",
+      "Complete business operational software & workflow dashboards",
+      "Automated PDF report generation, CSV data export & email alerts",
+      "RESTful API endpoints & third-party webhook integrations",
+    ],
+    gradient: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%)",
+    accentColor: "#7c3aed",
+    icon3D: "⚙️",
+    badge: "Enterprise SaaS",
+    countryPricing: {
+      IN: { price: "₹35,000 – ₹95,000", suffix: "One-time" },
+      US: { price: "$1,200 – $4,500", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "One-time" },
+      GB: { price: "£950 – £3,500", inrEquivalent: "Approx. ₹1 Lakh – ₹3.5 Lakh", suffix: "One-time" },
+      CA: { price: "C$1,600 – C$5,800", inrEquivalent: "Approx. ₹1 Lakh – ₹3.6 Lakh", suffix: "One-time" },
+      AU: { price: "A$1,800 – A$6,500", inrEquivalent: "Approx. ₹1.1 Lakh – ₹4 Lakh", suffix: "One-time" },
+      AE: { price: "4,400 – 16,500 AED", inrEquivalent: "Approx. ₹1 Lakh – ₹3.7 Lakh", suffix: "One-time" },
+    },
+  },
+  {
+    id: "hourly-developer-support",
+    name: "Dedicated Developer (Hourly Retainer)",
+    tagline: "Hire dedicated senior full-stack PHP & Next.js engineers by the hour for agile sprints, custom features & bug fixes.",
+    category: "Support",
+    priceINR: "₹500 – ₹2,000",
+    priceUSD: "$25 – $100",
+    pricingSuffixINR: "/hour",
+    pricingSuffixUSD: "/hour",
+    numericINR: 1200,
+    numericUSD: 50,
+    tat: "Immediate Deployment",
+    deliverablesSummary: "Dedicated hours, daily git commits, agile sprints, Slack sync",
+    deliverables: [
+      "Dedicated developer assigned directly to your project",
+      "Flexible hourly blocks for feature development, bug fixes & QA",
+      "Direct communication via Slack, WhatsApp or video standup",
+      "Transparent hourly time-tracking & verified git branch commits",
+      "Zero long-term lock-in: pay only for the hours you need",
+    ],
+    gradient: "linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%)",
+    accentColor: "#059669",
+    icon3D: "⏱️",
+    badge: "On-Demand Hourly",
+    countryPricing: {
+      IN: { price: "₹500 – ₹2,000", suffix: "/hour" },
+      US: { price: "$25 – $100", inrEquivalent: "Approx. ₹2,000 – ₹8,500 / hr", suffix: "/hour" },
+      GB: { price: "£20 – £70", inrEquivalent: "Approx. ₹2,000 – ₹7,500 / hr", suffix: "/hour" },
+      CA: { price: "C$30 – C$105", inrEquivalent: "Approx. ₹1,800 – ₹6,500 / hr", suffix: "/hour" },
+      AU: { price: "A$35 – A$145", inrEquivalent: "Approx. ₹2,000 – ₹8,000 / hr", suffix: "/hour" },
+      AE: { price: "65 – 220 AED", inrEquivalent: "Approx. ₹1,500 – ₹5,000 / hr", suffix: "/hour" },
+    },
+  },
   {
     id: "flutter-app-dev",
     name: "Flutter App Development",
@@ -59,6 +196,14 @@ export const masterServicesList: AgencyService[] = [
     accentColor: "#4f46e5",
     icon3D: "⚡",
     badge: "Enterprise Backend",
+    countryPricing: {
+      IN: { price: "₹49,999", suffix: "One-time" },
+      US: { price: "$699", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
+      GB: { price: "£550", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
+      CA: { price: "C$960", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
+      AU: { price: "A$1,080", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
+      AE: { price: "2,560 AED", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
+    },
   },
   {
     id: "wordpress-website-dev",
@@ -84,6 +229,14 @@ export const masterServicesList: AgencyService[] = [
     accentColor: "#4338ca",
     icon3D: "🌐",
     badge: "High Speed CRO",
+    countryPricing: {
+      IN: { price: "₹24,999", suffix: "One-time" },
+      US: { price: "$349", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
+      GB: { price: "£275", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
+      CA: { price: "C$480", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
+      AU: { price: "A$540", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
+      AE: { price: "1,280 AED", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
+    },
   },
   {
     id: "wp-maintenance-security",
@@ -315,7 +468,8 @@ export const masterServicesList: AgencyService[] = [
 ];
 
 export default function ServicesClient() {
-  const [currency, setCurrency] = useState<"INR" | "USD">("USD");
+  const [country, setCountry] = useState<CountryCode>("IN");
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
@@ -393,12 +547,13 @@ export default function ServicesClient() {
     }, 1400);
   };
 
-  // Initialize Currency via Geo-IP check and localStorage
+  // Initialize Country & Currency via Geo-IP check and localStorage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("bpm_currency");
-      if (saved === "INR" || saved === "USD") {
-        setCurrency(saved);
+      const savedCountry = localStorage.getItem("bpm_country") as CountryCode | null;
+      if (savedCountry && COUNTRIES_CONFIG[savedCountry]) {
+        setCountry(savedCountry);
+        setCurrency(savedCountry === "IN" ? "INR" : "USD");
         return;
       }
 
@@ -409,19 +564,47 @@ export default function ServicesClient() {
         timeZone.includes("Kolkata") ||
         timeZone.includes("India")
       ) {
+        setCountry("IN");
         setCurrency("INR");
+        localStorage.setItem("bpm_country", "IN");
         localStorage.setItem("bpm_currency", "INR");
-      } else {
+      } else if (timeZone.includes("London")) {
+        setCountry("GB");
         setCurrency("USD");
-        localStorage.setItem("bpm_currency", "USD");
+      } else if (timeZone.includes("Toronto") || timeZone.includes("Vancouver")) {
+        setCountry("CA");
+        setCurrency("USD");
+      } else if (timeZone.includes("Sydney") || timeZone.includes("Melbourne")) {
+        setCountry("AU");
+        setCurrency("USD");
+      } else if (timeZone.includes("Dubai")) {
+        setCountry("AE");
+        setCurrency("USD");
+      } else {
+        setCountry("US");
+        setCurrency("USD");
       }
     } catch (e) {
+      setCountry("US");
       setCurrency("USD");
     }
   }, []);
 
+  const switchCountry = (newCountry: CountryCode) => {
+    setCountry(newCountry);
+    const cfg = COUNTRIES_CONFIG[newCountry];
+    setCurrency(newCountry === "IN" ? "INR" : "USD");
+    try {
+      localStorage.setItem("bpm_country", newCountry);
+      localStorage.setItem("bpm_currency", newCountry === "IN" ? "INR" : "USD");
+    } catch (e) {}
+    showToast(`Region & Currency switched to ${cfg.flag} ${cfg.name} (${cfg.currency} ${cfg.symbol})`);
+  };
+
   const switchCurrency = (newCurrency: "INR" | "USD") => {
     setCurrency(newCurrency);
+    if (newCurrency === "INR") setCountry("IN");
+    else if (country === "IN") setCountry("US");
     try {
       localStorage.setItem("bpm_currency", newCurrency);
     } catch (e) {}
@@ -586,41 +769,52 @@ export default function ServicesClient() {
               Master Service Directory
             </h2>
             <p className="text-xs sm:text-sm text-[#ADADAD] max-w-2xl mt-2.5 leading-relaxed">
-              12 production-grade agency services with structured deliverables, verified turnaround timelines, and dual-currency settlements.
+              16 production-grade agency services &amp; website development packages calibrated dynamically by country and local settlement currency.
             </p>
           </div>
 
-          {/* Sticky Dual-Currency Switcher Pill (Matching Footer Violet Theme) */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 self-start md:self-end">
-            <span className="text-xs font-semibold text-[#7D7D7D] uppercase tracking-wider">
-              Settlement Currency:
-            </span>
-            <div className="inline-flex items-center p-1 rounded-2xl bg-[#140F24] border border-[#2B2144] shadow-xl backdrop-blur-xl">
-              <button
-                type="button"
-                onClick={() => switchCurrency("INR")}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  currency === "INR"
-                    ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white shadow-lg shadow-purple-950/80"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-              >
-                <span>🇮🇳 ₹ INR</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => switchCurrency("USD")}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  currency === "USD"
-                    ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white shadow-lg shadow-purple-950/80"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-              >
-                <span>🌐 $ USD</span>
-              </button>
+          {/* Sticky Multi-Country & Currency Switcher (India, USA, UK, Canada, Australia, UAE) */}
+          <div className="flex flex-col items-start md:items-end gap-2.5 self-start md:self-end">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-xs font-bold text-[#c084fc] uppercase tracking-wider">
+                Select Your Country &amp; Currency:
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-[#140F24] border border-[#2B2144] shadow-xl backdrop-blur-xl">
+              {Object.values(COUNTRIES_CONFIG).map((c) => (
+                <button
+                  key={c.code}
+                  type="button"
+                  onClick={() => switchCountry(c.code)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    country === c.code
+                      ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white shadow-lg shadow-purple-950/80 scale-105"
+                      : "text-[#94a3b8] hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  <span>{c.flag}</span>
+                  <span>{c.name}</span>
+                  <span className="text-[10px] opacity-80">({c.currency} {c.symbol})</span>
+                </button>
+              ))}
             </div>
           </div>
+        </div>
+
+        {/* Dynamic Country Rates Active Notification Banner */}
+        <div className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#161127] border border-[#2B2144] mb-8 text-xs text-slate-300">
+          <div className="flex items-center gap-2">
+            <span className="text-base">{COUNTRIES_CONFIG[country].flag}</span>
+            <span>
+              Showing website &amp; development pricing for{" "}
+              <strong className="text-white">{COUNTRIES_CONFIG[country].name}</strong> in{" "}
+              <strong className="text-cyan-400">{COUNTRIES_CONFIG[country].currency} ({COUNTRIES_CONFIG[country].symbol})</strong>.
+            </span>
+          </div>
+          <span className="text-[11px] text-[#c084fc] font-medium hidden sm:inline">
+            ✓ Auto-Calibrated by Local Market Rates
+          </span>
         </div>
 
         {/* Live Filter & Search Controls */}
@@ -688,6 +882,7 @@ export default function ServicesClient() {
                 <ThreeDServiceCard
                   service={service}
                   currency={currency}
+                  country={country}
                   index={idx}
                   onBookCall={(svc) => {
                     setBookingService(svc);
@@ -739,13 +934,28 @@ export default function ServicesClient() {
             </p>
 
             <div className="bg-[#09080E] p-4 rounded-2xl border border-[#2B2144] mb-6 space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-[#94a3b8]">Standard Pricing ({currency}):</span>
+              <div className="flex justify-between items-center">
+                <span className="text-[#94a3b8]">
+                  {COUNTRIES_CONFIG[country].flag} {COUNTRIES_CONFIG[country].name} Pricing ({COUNTRIES_CONFIG[country].currency}):
+                </span>
                 <span className="font-bold text-white text-sm">
-                  {currency === "INR" ? activeModalService.priceINR : activeModalService.priceUSD}{" "}
-                  {currency === "INR" ? activeModalService.pricingSuffixINR : activeModalService.pricingSuffixUSD}
+                  {(() => {
+                    const custom = activeModalService.countryPricing?.[country];
+                    if (custom?.price) return `${custom.price} ${custom.suffix || ""}`;
+                    if (country === "IN") return `${activeModalService.priceINR} ${activeModalService.pricingSuffixINR}`;
+                    if (country === "US") return `${activeModalService.priceUSD} ${activeModalService.pricingSuffixUSD}`;
+                    const cfg = COUNTRIES_CONFIG[country];
+                    const converted = Math.round(activeModalService.numericUSD * cfg.rateFromUSD);
+                    return `${cfg.symbol}${converted.toLocaleString()} ${activeModalService.pricingSuffixUSD}`;
+                  })()}
                 </span>
               </div>
+              {activeModalService.countryPricing?.[country]?.inrEquivalent && (
+                <div className="flex justify-between items-center text-[11px] text-emerald-400">
+                  <span>Indian Reference:</span>
+                  <span className="font-semibold">{activeModalService.countryPricing[country].inrEquivalent}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-[#94a3b8]">Turnaround Time (TAT):</span>
                 <span className="font-semibold text-white">⏱ {activeModalService.tat}</span>
