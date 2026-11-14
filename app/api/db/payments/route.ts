@@ -51,14 +51,8 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const auth = verifyAdminRequest(req);
-    if (!auth.authenticated) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized access: Admin authentication required" },
-        { status: 401 }
-      );
-    }
-
+    // Note: Public customers make payments from /pay portal, so POST does not require admin login.
+    // GET, PATCH, DELETE remain strictly admin-protected.
     const body = await req.json();
     const clientIp =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -69,7 +63,7 @@ export async function POST(req: NextRequest) {
     const payment = await createPayment({
       type: "payment_checkout",
       transactionId: sanitizeInput(
-        body.transactionId || `NOVA-${Math.floor(100000 + Math.random() * 900000)}`
+        body.transactionId || `BPM-${Math.floor(100000 + Math.random() * 900000)}`
       ),
       clientName: sanitizeInput(body.clientName || "Anonymous Client"),
       clientEmail: sanitizeInput(body.clientEmail || ""),

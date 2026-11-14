@@ -177,10 +177,14 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             <div className="flex items-center gap-3 shrink-0 ml-auto">
               <Link
                 href="/pay"
-                className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors bg-white/[0.08] hover:bg-white/[0.16] border border-white/15 px-3 py-0.5 rounded-full text-[11px] font-semibold shadow-xs"
+                className="group relative inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11.5px] font-bold text-white bg-gradient-to-r from-[#7c3aed]/85 via-[#9333ea]/85 to-[#A068FF]/85 hover:from-[#7c3aed] hover:via-[#9333ea] hover:to-[#A068FF] border border-purple-400/40 shadow-[0_2px_15px_rgba(160,104,255,0.35)] hover:shadow-[0_4px_22px_rgba(160,104,255,0.6)] transition-all duration-300 hover:scale-105 active:scale-95"
               >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                </span>
                 <span>Payment</span>
-                <span className="text-[11px]">💳</span>
+                <span className="text-xs group-hover:scale-110 transition-transform">💳</span>
               </Link>
             </div>
           </div>

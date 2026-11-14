@@ -8,7 +8,7 @@ import MeridianPayHero from "../components/MeridianPayHero";
 export const metadata: Metadata = {
   title: "Secure Client Payment Portal | Balaji Prime Media",
   description:
-    "Settle invoices or authorize monthly marketing retainers securely via Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
+    "Settle invoices or authorize monthly marketing retainers securely in INR, USD, GBP, EUR, AUD, CAD, or AED via UPI, Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
   alternates: {
     canonical: "https://balajiprimemedia.in/pay",
   },
