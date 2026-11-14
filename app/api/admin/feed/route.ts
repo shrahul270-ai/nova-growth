@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { readDatabase } from "@/lib/db";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { fetchLeadsFromNeon, fetchPaymentsFromNeon, isNeonConfigured } from "@/lib/neon";
@@ -11,8 +11,9 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number, fallback: T): Pr
   ]);
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const url = new URL(req.url); // Accessing request.url marks route dynamic in Next.js 16
     const db = readDatabase();
     let leads = [...(db.leads || [])];
     let payments = [...(db.payments || [])];
@@ -152,9 +153,11 @@ export async function GET() {
       };
     });
 
-    // Map all client inquiries to Admin MailItem format
-    // Prioritizes true contact forms, quote requests, and consultation bookings
-    const mails = leads.map((l, idx) => {
+    // Map all client inquiries and interactions to Admin MailItem format
+    // Merges both form submissions (leads) AND direct email/WhatsApp inquiries (interactions)
+    const mails: any[] = [];
+
+    for (const l of leads) {
       const created = new Date(l.createdAt || Date.now());
       const date = created.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
       const time = created.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST";
@@ -164,12 +167,13 @@ export async function GET() {
         l.type === "consultation_modal" ||
         l.type === "custom_work";
 
-      const isWhatsApp = l.type === "whatsapp_click" || (l.notes && l.notes.toLowerCase().includes("whatsapp"));
+      const isWhatsApp = l.type === "whatsapp_click" || (l.type as string) === "whatsapp_lead" || (l.notes && l.notes.toLowerCase().includes("whatsapp"));
 
-      return {
-        id: l.id ? `MAIL-${l.id}` : `MAIL-${String(idx + 1).padStart(3, "0")}`,
+      mails.push({
+        id: l.id ? `MAIL-${l.id}` : `MAIL-${Date.now()}`,
         date,
         time,
+        createdAt: l.createdAt || new Date().toISOString(),
         senderName: l.name || (isWhatsApp ? "WhatsApp Client" : "Direct Client"),
         senderEmail: l.email || (isWhatsApp ? `WhatsApp: ${l.phone}` : "client@domain.com"),
         phone: l.phone || "N/A",
@@ -177,19 +181,79 @@ export async function GET() {
           ? `💬 WhatsApp Lead: ${l.service || "Growth Services"}`
           : isActualContact
           ? `Inquiry for ${l.service || "Growth Services"}`
+          : (l.type as string) === "newsletter"
+          ? `📰 Newsletter Subscription & Growth Audit`
           : `${l.service || "Customer Request"}`,
         message: l.message || (isWhatsApp ? `WhatsApp inquiry received for ${l.service || "Growth Services"}.` : "Submitted via Balaji Prime Media portal."),
-        status: idx < 3 ? ("Unread" as const) : ("Pending" as const),
+        status: "Unread" as const,
         service: l.service || "Growth Strategy",
-      };
-    });
+      });
+    }
+
+    // Merge email and direct inquiry interactions into mails feed
+    for (const it of interactions) {
+      const created = new Date(it.createdAt || Date.now());
+      const date = created.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+      const time = created.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST";
+
+      const isEmail = it.action === "email" || it.type === "email_click" || (it.title && it.title.toLowerCase().includes("email"));
+      const isWA = it.action === "whatsapp" || it.type === "whatsapp_click" || (it.title && it.title.toLowerCase().includes("whatsapp"));
+      const isVoiceQuery = it.details && (it.details.includes("एसईओ") || it.details.includes("पैकेज") || it.details.includes("SEO"));
+
+      if (isEmail) {
+        mails.push({
+          id: `MAIL-${it.id}`,
+          date,
+          time,
+          createdAt: it.createdAt || new Date().toISOString(),
+          senderName: it.name || "Website Visitor (Direct Email)",
+          senderEmail: it.email || it.details || "support@balajiprimemedia.in",
+          phone: it.phone || "Email Inquiry",
+          subject: `✉️ Direct Email Inquiry from ${it.sourcePage || "/services"}`,
+          message: `Visitor initiated direct email inquiry from ${it.sourcePage || "/services"}. Recipient: ${it.details || "support@balajiprimemedia.in"}. IP: ${it.clientIp || "Direct"}`,
+          status: "Unread" as const,
+          service: "Direct Email Inquiry",
+        });
+      } else if (isWA) {
+        mails.push({
+          id: `MAIL-${it.id}`,
+          date,
+          time,
+          createdAt: it.createdAt || new Date().toISOString(),
+          senderName: it.name || "WhatsApp Client",
+          senderEmail: it.email || `WhatsApp: ${it.phone || it.details || "+91 76908 68932"}`,
+          phone: it.phone || it.details || "+91 76908 68932",
+          subject: `💬 WhatsApp Chat Started from ${it.sourcePage || "/services"}`,
+          message: `Client opened WhatsApp chat. Details: ${it.details || it.title || "Direct WhatsApp discussion"}. IP: ${it.clientIp || "Verified"}`,
+          status: "Unread" as const,
+          service: "WhatsApp Direct",
+        });
+      } else if (isVoiceQuery) {
+        mails.push({
+          id: `MAIL-${it.id}`,
+          date,
+          time,
+          createdAt: it.createdAt || new Date().toISOString(),
+          senderName: "Service Inquirer (Website)",
+          senderEmail: "inquiry@client-web",
+          phone: "Web Inquirer",
+          subject: `🎯 Service Inquiry: ${it.details}`,
+          message: `Client inquired on ${it.sourcePage || "/services"} about: "${it.details}". IP: ${it.clientIp || "Direct"}`,
+          status: "Unread" as const,
+          service: it.details,
+        });
+      }
+    }
+
+    // Sort all mails newest first
+    mails.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
 
     // Map WhatsApp interactions and WhatsApp leads into Dedicated WhatsApp list
     const whatsapp: any[] = [];
     const waPhoneSet = new Set<string>();
 
     for (const l of leads) {
-      if (l.type === "whatsapp_click" || (l.notes && l.notes.toLowerCase().includes("whatsapp"))) {
+      if (l.type === "whatsapp_click" || (l.type as string) === "whatsapp_lead" || (l.notes && l.notes.toLowerCase().includes("whatsapp"))) {
         const created = new Date(l.createdAt || Date.now());
         const date = created.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
         const time = created.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST";
@@ -200,6 +264,7 @@ export async function GET() {
             id: `WA-${l.id}`,
             date,
             time,
+            createdAt: l.createdAt || new Date().toISOString(),
             clientName: l.name || "WhatsApp Client",
             phoneNumber: l.phone || "+91 80004 17058",
             country: l.country || "India",
@@ -229,6 +294,7 @@ export async function GET() {
             id: `WA-${it.id}`,
             date,
             time,
+            createdAt: it.createdAt || new Date().toISOString(),
             clientName: it.name || "WhatsApp Client",
             phoneNumber: phone,
             country: it.country || "India",
@@ -239,6 +305,9 @@ export async function GET() {
         }
       }
     }
+
+    // Sort WhatsApp newest first
+    whatsapp.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
 
     // Map payments to Admin PaymentItem format
     const formattedPayments = payments.map((p, idx) => {

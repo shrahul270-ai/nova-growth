@@ -273,7 +273,13 @@ export default function AdminDatabasePage() {
   const fetchFeed = async (showToastOnManual = false) => {
     setIsRefreshing(true);
     try {
-      const res = await fetch("/api/admin/feed");
+      const res = await fetch(`/api/admin/feed?_t=${Date.now()}`, {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+        },
+      });
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
