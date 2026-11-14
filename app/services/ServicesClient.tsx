@@ -149,28 +149,37 @@ export const masterServicesList: AgencyService[] = [
   },
   {
     id: "flutter-app-dev",
-    name: "Flutter App Development",
-    tagline: "Cross-platform iOS & Android mobile apps engineered for fluid 60fps performance and cloud synchronization.",
+    name: "Flutter App Project Development",
+    tagline: "Turn your idea into a 60fps powerful app — Build once, run everywhere on Android, iOS & Web with Google Flutter.",
     category: "Development",
-    priceINR: "₹84,999",
-    priceUSD: "$1,199",
+    priceINR: "₹8,000 – ₹25,000+",
+    priceUSD: "$120 – $350+",
     pricingSuffixINR: "One-time",
     pricingSuffixUSD: "One-time",
-    numericINR: 84999,
-    numericUSD: 1199,
-    tat: "4–6 Weeks",
-    deliverablesSummary: "iOS/Android app, Firebase, API integration, Store release",
+    numericINR: 15000,
+    numericUSD: 200,
+    tat: "2–4 Weeks",
+    deliverablesSummary: "iOS + Android, Material 3/Cupertino, Firebase, Store deployment",
     deliverables: [
-      "Android & iOS single-codebase architecture",
-      "Native-feel UI/UX design & micro-interactions",
-      "Firebase backend & custom RESTful API integration",
-      "Full Google Play Store & Apple App Store deployment",
-      "Bi-weekly test builds via TestFlight & direct APKs",
+      "1 Single unified codebase for Android, iOS & Web",
+      "Native compiled 60fps–120fps hardware-accelerated UI",
+      "Firebase backend, cloud database & real-time push alerts",
+      "Custom RESTful APIs, payment gateways & biometric auth",
+      "Complete deployment & publishing to Play Store & App Store",
     ],
-    gradient: "linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a855f7 100%)",
-    accentColor: "#6366f1",
+    gradient: "linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%)",
+    accentColor: "#2563eb",
     icon3D: "📱",
-    badge: "Cross-Platform",
+    badge: "Android + iOS",
+    popular: true,
+    countryPricing: {
+      IN: { price: "₹8,000 – ₹25,000+", suffix: "One-time" },
+      US: { price: "$120 – $350+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+      GB: { price: "£95 – £280+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+      CA: { price: "C$160 – C$480+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+      AU: { price: "A$185 – A$540+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+      AE: { price: "440 – 1,280 AED+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+    },
   },
   {
     id: "full-stack-php-dev",
@@ -774,30 +783,54 @@ export default function ServicesClient() {
           </div>
 
           {/* Sticky Multi-Country & Currency Switcher (India, USA, UK, Canada, Australia, UAE) */}
-          <div className="flex flex-col items-start md:items-end gap-2.5 self-start md:self-end">
+          <div className="flex flex-col items-start md:items-end gap-3 self-start md:self-end w-full md:w-auto">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="text-xs font-bold text-[#c084fc] uppercase tracking-wider">
-                Select Your Country &amp; Currency:
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
+              <span className="text-xs font-black text-cyan-300 uppercase tracking-wider">
+                Select Country &amp; Currency (Click to Switch):
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-[#140F24] border border-[#2B2144] shadow-xl backdrop-blur-xl">
-              {Object.values(COUNTRIES_CONFIG).map((c) => (
-                <button
-                  key={c.code}
-                  type="button"
-                  onClick={() => switchCountry(c.code)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    country === c.code
-                      ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white shadow-lg shadow-purple-950/80 scale-105"
-                      : "text-[#94a3b8] hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  <span>{c.flag}</span>
-                  <span>{c.name}</span>
-                  <span className="text-[10px] opacity-80">({c.currency} {c.symbol})</span>
-                </button>
-              ))}
+            
+            {/* Visual 3D Buttons Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full p-2.5 rounded-2xl bg-[#0c081c] border-2 border-purple-500/40 shadow-2xl backdrop-blur-xl">
+              {Object.values(COUNTRIES_CONFIG).map((c) => {
+                const isActive = country === c.code;
+                return (
+                  <button
+                    key={c.code}
+                    type="button"
+                    onClick={() => switchCountry(c.code)}
+                    className={`group relative flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer border ${
+                      isActive
+                        ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white border-white/60 shadow-[0_0_22px_rgba(168,85,247,0.7)] scale-[1.04] ring-2 ring-purple-300"
+                        : "bg-[#181133] hover:bg-[#261a4f] text-slate-200 hover:text-white border-[#3d276b] hover:border-purple-400 shadow-md shadow-black/60 hover:-translate-y-1 active:scale-95"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 text-left">
+                      <span className="text-lg drop-shadow">{c.flag}</span>
+                      <div>
+                        <span className="block font-black leading-tight text-[12px]">{c.name}</span>
+                        <span
+                          className={`text-[10px] font-bold block ${
+                            isActive ? "text-cyan-200 font-extrabold" : "text-purple-300"
+                          }`}
+                        >
+                          {c.currency} ({c.symbol.trim()})
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Active Radio Indicator Dot */}
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full shrink-0 transition-all ${
+                        isActive
+                          ? "bg-white shadow-[0_0_10px_#ffffff] scale-110 ring-2 ring-cyan-300"
+                          : "bg-purple-950 border border-purple-500/50 group-hover:bg-purple-500/50"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

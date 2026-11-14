@@ -22,6 +22,81 @@ export interface ServiceDetail {
 
 export const servicesData: ServiceDetail[] = [
   {
+    id: "flutter-app-dev",
+    name: "Flutter Mobile & Web App Development",
+    shortTitle: "Flutter App Development",
+    headline: "Build Once, Run Everywhere — Turn Your Idea into a Powerful 60fps Mobile App",
+    tagline: "Single-codebase cross-platform mobile engineering engineered with Google's Flutter SDK for iOS, Android, and Web.",
+    category: "Mobile & Cross-Platform Development",
+    heroImage: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80",
+    priceINR: "₹8,000 – ₹25,000+",
+    priceUSD: "$120 – $350+",
+    billingPeriod: "milestone sprint",
+    tat: "2–4 Weeks",
+    stats: [
+      { value: "60–120fps", label: "Frame Rate", detail: "Hardware-accelerated native GPU rendering with zero frame drops" },
+      { value: "50%", label: "Cost Savings", detail: "1 single codebase powers both Apple iOS and Google Android" },
+      { value: "2x", label: "Time-to-Market", detail: "Fast development & instant hot reload for rapid user testing" },
+      { value: "100%", label: "Store Approval", detail: "Full compliance with Apple App Store and Google Play guidelines" },
+    ],
+    overview:
+      "Flutter is Google's flagship open-source framework for building natively compiled, multi-platform applications from a single codebase. Instead of maintaining two separate codebases in Kotlin and Swift, our Flutter practice builds unified, fluid applications that deploy across iOS, Android, Web, and desktop. With a high-performance C++ rendering engine, reactive framework architecture, and built-in Material 3 and Cupertino widgets, we deliver pixel-perfect digital experiences.",
+    problemSolved:
+      "Traditional native development requires hiring separate iOS and Android teams, doubling engineering costs, desynchronizing feature releases, and introducing platform-specific bugs. Hybrid webviews feel sluggish and unresponsive. Flutter solves this by rendering directly to native machine code via Skia/Impeller, giving you 100% native performance at half the maintenance cost.",
+    deliverables: [
+      "Cross-platform iOS and Android production codebase (Dart & Flutter)",
+      "Pixel-perfect responsive UI matching Material 3 and Cupertino guidelines",
+      "Firebase backend integration: Authentication, Firestore & Cloud Messaging",
+      "Custom RESTful / GraphQL API client architecture and local caching",
+      "Biometric security, push notifications & background synchronization",
+      "Automated CI/CD test builds via TestFlight and Google Play Internal Testing",
+      "Complete deployment support to Apple App Store and Google Play Store",
+    ],
+    features: [
+      {
+        title: "Single Codebase Architecture",
+        desc: "Write once, run seamlessly on both iPhone and Android smartphones with unified business logic.",
+        icon: "📱",
+      },
+      {
+        title: "Native C++ Canvas Rendering",
+        desc: "Compiled directly to ARM64 native machine code with zero bridge latency and smooth 120Hz support.",
+        icon: "⚡",
+      },
+      {
+        title: "Cloud & Firebase Ecosystem",
+        desc: "Push notifications, real-time sync, crash reporting, and serverless cloud functions integration.",
+        icon: "☁️",
+      },
+      {
+        title: "Store Approval Guarantee",
+        desc: "Strict compliance with App Store Review Guidelines and Google Play Developer Program Policies.",
+        icon: "🛡️",
+      },
+    ],
+    process: [
+      { step: "01", title: "Product Blueprint & Wireframing", desc: "User journey mapping, interactive Figma prototype, and technical architecture specifications." },
+      { step: "02", title: "Flutter Core Engineering", desc: "Building modular UI widgets, BLoC/Provider state management, and offline-first database sync." },
+      { step: "03", title: "API & Gateway Integration", desc: "Connecting payment gateways, push notification servers, analytics, and authentication." },
+      { step: "04", title: "QA & App Store Release", desc: "Cross-device testing on 20+ real iOS & Android phones, TestFlight beta, and public store launch." },
+    ],
+    faq: [
+      {
+        q: "Why choose Flutter over React Native or Native Java/Swift?",
+        a: "Flutter delivers superior UI consistency because it owns every pixel on the canvas using its high-speed Skia/Impeller engine rather than bridging to native OEM widgets. It also compiles to native ARM machine code, resulting in faster startup times and smoother 60fps animations.",
+      },
+      {
+        q: "Will the app feel native to iPhone users?",
+        a: "Yes! Flutter provides the Cupertino widget library, which perfectly mimics iOS navigation, momentum scrolling, haptic feedback, and modal popups. Most users cannot distinguish a well-crafted Flutter app from pure Swift.",
+      },
+      {
+        q: "Do you assist with publishing on Google Play and Apple App Store?",
+        a: "Absolutely. We configure certificates, provisioning profiles, privacy manifests, store metadata, screenshots, and manage the entire submission and review process until your app is live.",
+      },
+    ],
+    technologies: ["Flutter 3.x", "Dart", "Firebase", "BLoC Pattern", "REST APIs", "App Store Connect", "Google Play Console"],
+  },
+  {
     id: "seo-optimization",
     name: "Search Engine Optimization (SEO)",
     shortTitle: "SEO Optimization",

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 export type CountryCode = "IN" | "US" | "GB" | "CA" | "AU" | "AE";
 
@@ -256,6 +257,17 @@ export default function ThreeDServiceCard({
               </span>
             </div>
           </div>
+
+          {/* Dedicated Page Link for Flutter Service */}
+          {service.id === "flutter-app-dev" && (
+            <Link
+              href="/services/flutter-app-dev"
+              className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-400/40 text-cyan-300 hover:text-white text-xs font-bold transition-all shadow-md group/hub"
+            >
+              <span>📱 Open Dedicated Flutter Hub Page</span>
+              <span className="group-hover/hub:translate-x-1 transition-transform">→</span>
+            </Link>
+          )}
 
           {/* Action CTAs */}
           <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2.5">

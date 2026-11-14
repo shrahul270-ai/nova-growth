@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { servicesData } from "../servicesData";
 import GlobalWebPricingMatrix from "../../components/GlobalWebPricingMatrix";
+import FlutterShowcaseView from "../../components/FlutterShowcaseView";
 import {
   CheckCircle2,
   Clock,
@@ -309,6 +310,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* 5. GLOBAL COUNTRY-WISE PRICING & SCOPE MATRIX (Special for Website Development) */}
       {service.id === "website-development" && (
         <GlobalWebPricingMatrix />
+      )}
+
+      {/* DEDICATED FLUTTER APP DEVELOPMENT MATRIX & PRICING */}
+      {service.id === "flutter-app-dev" && (
+        <FlutterShowcaseView />
       )}
 
       {/* 6. TECH STACK & TOOLS */}
