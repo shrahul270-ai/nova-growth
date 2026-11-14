@@ -164,17 +164,21 @@ export async function GET() {
         l.type === "consultation_modal" ||
         l.type === "custom_work";
 
+      const isWhatsApp = l.type === "whatsapp_click" || (l.notes && l.notes.toLowerCase().includes("whatsapp"));
+
       return {
         id: l.id ? `MAIL-${l.id}` : `MAIL-${String(idx + 1).padStart(3, "0")}`,
         date,
         time,
-        senderName: l.name || "Direct Client",
-        senderEmail: l.email || "client@domain.com",
+        senderName: l.name || (isWhatsApp ? "WhatsApp Client" : "Direct Client"),
+        senderEmail: l.email || (isWhatsApp ? `WhatsApp: ${l.phone}` : "client@domain.com"),
         phone: l.phone || "N/A",
-        subject: isActualContact
+        subject: isWhatsApp
+          ? `💬 WhatsApp Lead: ${l.service || "Growth Services"}`
+          : isActualContact
           ? `Inquiry for ${l.service || "Growth Services"}`
           : `${l.service || "Customer Request"}`,
-        message: l.message || "Submitted via Balaji Prime Media portal.",
+        message: l.message || (isWhatsApp ? `WhatsApp inquiry received for ${l.service || "Growth Services"}.` : "Submitted via Balaji Prime Media portal."),
         status: idx < 3 ? ("Unread" as const) : ("Pending" as const),
         service: l.service || "Growth Strategy",
       };

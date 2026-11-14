@@ -310,18 +310,18 @@ export default function SellixServicesHeader() {
         </p>
 
         {/* Action CTAs - Compact, Modern SaaS Buttons */}
-        <div className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 w-full max-w-md px-4">
+        <div className="mt-6 sm:mt-7 flex flex-row items-center justify-center gap-2.5 sm:gap-3.5 w-full max-w-md px-2 flex-nowrap">
           <a
             href="#services-grid"
-            className="group inline-flex items-center justify-center gap-2 h-10 sm:h-11 px-5 sm:px-6 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-xs sm:text-sm shadow-md shadow-purple-900/40 hover:shadow-purple-700/50 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+            className="group inline-flex items-center justify-center gap-2 h-9 sm:h-10 px-4 sm:px-5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-[13px] shadow-md shadow-purple-900/40 hover:shadow-purple-700/60 hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap shrink-0 border border-purple-400/30"
           >
             <span>Explore Services</span>
-            <ArrowRight className="w-3.5 h-3.5 text-purple-200 group-hover:text-white group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 text-purple-200 group-hover:text-white group-hover:translate-x-0.5 transition-transform" />
           </a>
 
           <a
             href="#payment-portal"
-            className="group inline-flex items-center justify-center gap-2 h-10 sm:h-11 px-5 sm:px-6 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium text-xs sm:text-sm border border-white/20 hover:border-purple-400/50 backdrop-blur-md shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+            className="group inline-flex items-center justify-center gap-2 h-9 sm:h-10 px-4 sm:px-5 rounded-full bg-white/[0.07] hover:bg-white/[0.14] text-white font-semibold text-xs sm:text-[13px] border border-white/20 hover:border-cyan-400/50 backdrop-blur-md shadow-sm hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap shrink-0"
           >
             <CreditCard className="w-3.5 h-3.5 text-cyan-300" />
             <span>Payment Portal</span>

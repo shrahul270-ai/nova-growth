@@ -130,7 +130,13 @@ export default function Footer() {
                   </span>
                   <a
                     href={emailInquiryHref}
-                    className="hover:text-white text-slate-300 transition-colors font-medium break-all"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(new CustomEvent("open-connect-modal", { detail: { channel: "email" } }));
+                      }
+                    }}
+                    className="hover:text-white text-slate-300 transition-colors font-medium break-all cursor-pointer"
                     title="Send inquiry with formatted project details"
                   >
                     support@balajiprimemedia.in
@@ -146,7 +152,13 @@ export default function Footer() {
                     href="https://wa.me/917690868932"
                     target="_blank"
                     rel="opener"
-                    className="hover:text-white text-slate-300 transition-colors font-medium"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(new CustomEvent("open-connect-modal", { detail: { channel: "whatsapp" } }));
+                      }
+                    }}
+                    className="hover:text-white text-slate-300 transition-colors font-medium cursor-pointer"
                   >
                     +91 76908 68932 (WhatsApp &amp; Direct)
                   </a>
@@ -451,7 +463,13 @@ export default function Footer() {
               href="https://wa.me/917690868932"
               target="_blank"
               rel="opener"
-              className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110"
+              onClick={(e) => {
+                e.preventDefault();
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-connect-modal", { detail: { channel: "whatsapp" } }));
+                }
+              }}
+              className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center transition-all shadow-sm hover:scale-110 cursor-pointer"
               aria-label="Direct WhatsApp Support"
               title="WhatsApp Balaji Prime Media (+91 76908 68932)"
             >

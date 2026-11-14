@@ -1118,6 +1118,20 @@ export default function AdminDatabasePage() {
             {/* LIVE DATE WIDGET (Auto changes at midnight e.g. 12 -> 13) */}
             <LiveDateWidget isDark={isDark} />
 
+            {/* Record New WhatsApp Lead Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setActiveView("whatsapp");
+                setShowAddWhatsAppModal(true);
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-105 active:scale-95 shrink-0"
+              title="Record incoming WhatsApp chat or direct mobile inquiry"
+            >
+              <span>💬</span>
+              <span className="hidden sm:inline">➕ Record WhatsApp Lead</span>
+            </button>
+
             {/* Manual Sync / Refresh Button */}
             <button
               type="button"
