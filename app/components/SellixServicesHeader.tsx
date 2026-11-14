@@ -309,50 +309,21 @@ export default function SellixServicesHeader() {
         </p>
 
         {/* Action CTAs */}
-        <div className="mt-8 sm:mt-10 flex flex-col min-[440px]:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-md px-4">
+        <div className="mt-8 sm:mt-10 flex flex-col min-[440px]:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg px-4">
           <a
             href="#services-grid"
-            className="group w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white/[0.12] hover:bg-white/[0.22] text-white font-semibold text-xs sm:text-sm border border-purple-500/50 hover:border-cyan-400/80 backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all hover:shadow-[0_0_25px_rgba(34,211,238,0.35)] cursor-pointer"
+            className="group relative w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] hover:from-[#7c3aed] hover:to-[#5b21b6] text-white font-semibold text-xs sm:text-sm shadow-[0_4px_20px_rgba(139,92,246,0.4)] border border-purple-400/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>Explore 12 Services</span>
-            <svg
-              className="w-3.5 h-3.5 text-cyan-300 group-hover:translate-x-0.5 transition-transform"
-              viewBox="0 0 12 10"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <span>Explore All 16 Services</span>
+            <span className="text-white group-hover:translate-x-1 transition-transform">→</span>
           </a>
 
           <a
             href="#payment-portal"
-            className="group w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full text-white font-semibold text-xs sm:text-sm shadow-xl shadow-purple-950/80 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-            style={{
-              background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
-            }}
+            className="group relative w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-semibold text-xs sm:text-sm border border-white/20 hover:border-white/35 backdrop-blur-md shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
             <span>Client Payment Portal 💳</span>
-            <svg
-              className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 transition-transform"
-              viewBox="0 0 12 10"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <span className="text-white/80 group-hover:translate-x-1 transition-transform">→</span>
           </a>
         </div>
       </div>

@@ -135,12 +135,12 @@ export default function FlutterShowcaseView({
                 <span>Build Once, Run Everywhere • Android | iOS | Web</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-4">
+              <div className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-4">
                 Flutter Project Development <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300">
                   Turn Your Idea into a Powerful App
                 </span>
-              </h1>
+              </div>
 
               <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl mb-6">
                 Single-codebase cross-platform mobile engineering engineered with Google&apos;s Flutter SDK. Get 60fps/120fps native performance on both iPhone and Android at 50% lower development cost.
@@ -236,9 +236,9 @@ export default function FlutterShowcaseView({
             <Cpu className="w-4 h-4 text-cyan-400" />
             <span>Complete Architecture Guide</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
             Flutter Kya Kaam Karta Hai? (What is Flutter &amp; How It Works)
-          </h2>
+          </h3>
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-8 max-w-4xl">
             Pehle agar aapko Android app aur iPhone app dono banwane hote the, toh aapko **do alag-alag developers hire karne padte the** (Android ke liye Kotlin/Java aur iPhone ke liye Swift). Isse kharcha do guna hota tha aur samay bhi double lagta tha. <br className="hidden sm:inline" />
             **Flutter Google dwara banaya gaya world-class open-source framework hai** jo is samasya ko hamesha ke liye khatam karta hai:
@@ -279,9 +279,9 @@ export default function FlutterShowcaseView({
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Transparent Verified App Rates</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
                 Flutter App Development Pricing
-              </h2>
+              </h3>
             </div>
 
             {/* View Switcher */}
@@ -444,9 +444,9 @@ export default function FlutterShowcaseView({
             <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
               ✦ Popular Flutter Projects
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mt-1">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mt-1">
               What Can We Build For You in Flutter?
-            </h2>
+            </h3>
             <p className="text-xs sm:text-sm text-slate-400 mt-2">
               From enterprise SaaS apps to high-converting commerce engines, we deliver complete end-to-end architectures.
             </p>
@@ -496,9 +496,9 @@ export default function FlutterShowcaseView({
           <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
             <span>⭐ Why Choose Balaji Prime Media for Flutter?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-8">
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-8">
             Engineered for Stability, Security &amp; Store Approvals
-          </h2>
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whyChooseUs.map((w, i) => (

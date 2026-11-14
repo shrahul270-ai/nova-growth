@@ -612,12 +612,12 @@ export default function Footer() {
           className="relative z-25 w-full flex items-center justify-center select-none pointer-events-none px-4 mb-2 sm:mb-3"
         >
           <span
-            className="neon-outline-wordmark font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[9.5rem] leading-none whitespace-nowrap tracking-wide select-none opacity-100 drop-shadow-[0_0_35px_rgba(184,134,255,0.8)]"
+            className="neon-outline-wordmark font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7.5rem] leading-none whitespace-nowrap tracking-tight select-none opacity-100 drop-shadow-[0_0_35px_rgba(184,134,255,0.8)]"
             style={{
               fontFamily: "var(--font-urbanist), var(--font-inter), sans-serif",
             }}
           >
-            Balaji Prime
+            Bpmdigitalagency.com
           </span>
         </div>
 
@@ -627,7 +627,7 @@ export default function Footer() {
             Build a real agency-grade brand, fast.
           </p>
           <p className="text-xs text-slate-400">
-            &copy; 2026 Balaji Prime Media. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
+            &copy; 2026 Bpmdigitalagency.com. All rights reserved. Full-Funnel SEO &amp; Digital Growth Agency.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400 pt-1">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">

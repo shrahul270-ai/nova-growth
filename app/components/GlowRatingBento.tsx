@@ -172,9 +172,9 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
             <span>⭐️ Verified Pilot Case Studies &amp; Client Feedback</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
             Trusted by Ambitious Global Founders
-          </h2>
+          </h3>
 
           <p className="text-[15px] sm:text-base text-slate-300 mt-3 max-w-2xl mx-auto leading-relaxed">
             See how our high-intent SEO and Next.js development deliver real organic revenue across the US, UK, and Europe.

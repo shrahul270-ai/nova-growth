@@ -262,9 +262,20 @@ export default function ThreeDServiceCard({
           {service.id === "flutter-app-dev" && (
             <Link
               href="/services/flutter-app-dev"
-              className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-400/40 text-cyan-300 hover:text-white text-xs font-bold transition-all shadow-md group/hub"
+              className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-cyan-500/35 hover:border-cyan-400 text-cyan-300 hover:text-white text-xs font-semibold transition-all shadow-sm group/hub"
             >
               <span>📱 Open Dedicated Flutter Hub Page</span>
+              <span className="group-hover/hub:translate-x-1 transition-transform">→</span>
+            </Link>
+          )}
+
+          {/* Dedicated Page Link for Full-Stack PHP Service */}
+          {service.id === "full-stack-php-dev" && (
+            <Link
+              href="/services/full-stack-php-dev"
+              className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/35 hover:border-purple-400 text-purple-200 hover:text-white text-xs font-semibold transition-all shadow-sm group/hub"
+            >
+              <span>🐘 Open Dedicated PHP Hub Page</span>
               <span className="group-hover/hub:translate-x-1 transition-transform">→</span>
             </Link>
           )}
@@ -276,7 +287,7 @@ export default function ThreeDServiceCard({
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl shadow-[0_4px_16px_rgba(124,58,237,0.35)] transition-all cursor-pointer text-center overflow-hidden w-full"
+              className="group/btn relative inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] hover:from-[#7c3aed] hover:to-[#5b21b6] active:scale-95 text-white font-semibold text-xs py-2.5 px-3 rounded-xl border border-purple-400/30 shadow-[0_2px_12px_rgba(139,92,246,0.35)] hover:shadow-[0_4px_20px_rgba(139,92,246,0.5)] transition-all cursor-pointer text-center overflow-hidden w-full"
             >
               <span className="relative z-10 whitespace-nowrap">Instant Quote</span>
               <span className="relative z-10 group-hover/btn:translate-x-0.5 transition-transform text-xs">💬</span>
@@ -286,10 +297,10 @@ export default function ThreeDServiceCard({
             <button
               type="button"
               onClick={() => onBookCall(service)}
-              className="inline-flex items-center justify-center gap-1 bg-[#18122B] hover:bg-[#251A40] active:scale-95 text-white font-semibold text-xs py-3 px-3 rounded-xl border border-[#2B2144] hover:border-[#a855f7]/40 transition-all cursor-pointer text-center w-full whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 text-slate-200 hover:text-white font-medium text-xs py-2.5 px-3 rounded-xl border border-white/15 hover:border-white/30 backdrop-blur-sm shadow-sm transition-all cursor-pointer text-center w-full whitespace-nowrap"
             >
               <span>Strategy Call</span>
-              <span>📅</span>
+              <span className="text-xs">📅</span>
             </button>
           </div>
         </div>

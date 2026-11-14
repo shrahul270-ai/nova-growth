@@ -26,12 +26,12 @@ export default function AutoLoginPopup() {
       return;
     }
 
-    // Auto-popup for visitors without an active authenticated session
+    // Auto-popup for visitors without an active authenticated session (Delayed by 10 seconds per user request)
     const existingSession = localStorage.getItem("nova_buyer_session");
     if (!existingSession) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 500);
+      }, 10000);
       return () => clearTimeout(timer);
     }
   }, []);

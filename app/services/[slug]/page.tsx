@@ -7,6 +7,8 @@ import Footer from "../../components/Footer";
 import { servicesData } from "../servicesData";
 import GlobalWebPricingMatrix from "../../components/GlobalWebPricingMatrix";
 import FlutterShowcaseView from "../../components/FlutterShowcaseView";
+import PhpShowcaseView from "../../components/PhpShowcaseView";
+import FaqAccordion from "../../components/FaqAccordion";
 import {
   CheckCircle2,
   Clock,
@@ -209,9 +211,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <Sparkles className="w-4 h-4" />
               <span>Service Strategic Overview</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
+            <h3 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
               Why This Service Drives Disproportionate ROI
-            </h2>
+            </h3>
             <p className="text-sm sm:text-base text-slate-300 font-[300] leading-relaxed">
               {service.overview}
             </p>
@@ -222,9 +224,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <ShieldCheck className="w-4 h-4" />
               <span>The Industry Problem We Solve</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
+            <h3 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
               Eliminating Technical Bottlenecks
-            </h2>
+            </h3>
             <p className="text-sm sm:text-base text-slate-300 font-[300] leading-relaxed">
               {service.problemSolved}
             </p>
@@ -282,9 +284,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           <span className="text-xs font-bold text-[#A068FF] tracking-wider uppercase">
             Execution Roadmap
           </span>
-          <h2 className="text-3xl sm:text-4xl font-[600] text-white tracking-tight mt-2 mb-3">
+          <h3 className="text-3xl sm:text-4xl font-[600] text-white tracking-tight mt-2 mb-3">
             Our 4-Step Proven Execution Process
-          </h2>
+          </h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -315,6 +317,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* DEDICATED FLUTTER APP DEVELOPMENT MATRIX & PRICING */}
       {service.id === "flutter-app-dev" && (
         <FlutterShowcaseView />
+      )}
+
+      {/* DEDICATED FULL-STACK PHP & LARAVEL MATRIX & PRICING */}
+      {service.id === "full-stack-php-dev" && (
+        <PhpShowcaseView />
       )}
 
       {/* 6. TECH STACK & TOOLS */}
@@ -352,25 +359,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </h2>
         </div>
 
-        <div className="space-y-4">
-          {service.faq.map((item, i) => (
-            <div
-              key={i}
-              className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10"
-            >
-              <h3 className="text-base font-[600] text-white mb-2">{item.q}</h3>
-              <p className="text-sm text-slate-300 font-[300] leading-relaxed">{item.a}</p>
-            </div>
-          ))}
-        </div>
+        <FaqAccordion items={service.faq} />
       </section>
 
       {/* 8. BOTTOM DIRECT ACTION BANNER */}
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12">
         <div className="relative rounded-3xl p-8 sm:p-12 overflow-hidden border border-purple-500/30 bg-gradient-to-r from-[#170936] via-[#0f0624] to-[#070318] text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-white mb-3 tracking-tight">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-white mb-3 tracking-tight">
             Ready to Scale with {service.name}?
-          </h2>
+          </h3>
           <p className="text-sm sm:text-base text-slate-300 font-[300] max-w-xl mx-auto mb-8">
             Speak directly with our technical lead. We analyze your website and provide a customized growth plan within 12 hours.
           </p>
@@ -396,7 +393,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="flex items-center justify-between mb-8">
           <div>
             <span className="text-xs font-bold text-[#A068FF] uppercase tracking-wider">Explore More</span>
-            <h2 className="text-2xl font-[600] text-white">Other Core Growth Services</h2>
+            <h3 className="text-2xl font-[600] text-white">Other Core Growth Services</h3>
           </div>
           <Link
             href="/services"

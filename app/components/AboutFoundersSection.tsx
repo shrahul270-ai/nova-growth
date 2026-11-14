@@ -76,9 +76,9 @@ export default function AboutFoundersSection() {
               <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
               <span>Agency Founders &amp; Leadership</span>
             </div>
-            <h2 className="font-urbanist text-[36px] sm:text-[48px] lg:text-[54px] font-bold uppercase tracking-tight leading-[0.98] text-white">
+            <h3 className="font-urbanist text-[36px] sm:text-[48px] lg:text-[54px] font-bold uppercase tracking-tight leading-[0.98] text-white">
               About <br /> the founders
-            </h2>
+            </h3>
           </div>
 
           {/* Right side -- Description block */}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import FaqAccordion from "../../components/FaqAccordion";
 import { blogPosts, BlogPost } from "../blogData";
 
 interface PageProps {
@@ -242,21 +243,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <h3 className="text-2xl font-bold text-white mb-6 tracking-tight">
                   Frequently Asked Questions
                 </h3>
-                <div className="space-y-4">
-                  {post.faqs.map((faq, fIdx) => (
-                    <div
-                      key={fIdx}
-                      className="p-5 sm:p-6 rounded-2xl bg-[#0d0726]/80 border border-purple-500/25"
-                    >
-                      <h4 className="text-base font-bold text-purple-200 mb-2">
-                        {faq.question}
-                      </h4>
-                      <p className="text-sm text-slate-300 leading-relaxed font-normal">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <FaqAccordion items={post.faqs} />
               </div>
             )}
 

@@ -2,18 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SeoAuditWidget from "./components/SeoAuditWidget";
 import HeaderBackgroundAnimation from "./components/HeaderBackgroundAnimation";
 import PromptHero from "./components/PromptHero";
 import EloServiceSection from "./components/EloServiceSection";
-import MotionCta3DOrb from "./components/MotionCta3DOrb";
-import GlowRatingBento from "./components/GlowRatingBento";
-import ClientGrowthAtlas from "./components/ClientGrowthAtlas";
-import AboutFoundersSection from "./components/AboutFoundersSection";
-import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
-import GlobalWebPricingMatrix from "./components/GlobalWebPricingMatrix";
+
+const MotionCta3DOrb = dynamic(() => import("./components/MotionCta3DOrb"), { ssr: false });
+const GlowRatingBento = dynamic(() => import("./components/GlowRatingBento"));
+const ClientGrowthAtlas = dynamic(() => import("./components/ClientGrowthAtlas"));
+const AboutFoundersSection = dynamic(() => import("./components/AboutFoundersSection"));
+const ScheduleConsultationModal = dynamic(() => import("./components/ScheduleConsultationModal"), { ssr: false });
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -187,14 +188,6 @@ export default function Home() {
           <SeoAuditWidget />
         </section>
 
-        {/* GLOBAL WEBSITE & WEB APPLICATION DEVELOPMENT PRICING MATRIX */}
-        <GlobalWebPricingMatrix
-          onOpenConsultation={(plan) => {
-            setSelectedService(plan || "Website Development");
-            setContactOpen(true);
-          }}
-        />
-
         {/* 4. ABOUT FOUNDERS / BALAJI PRIME MEDIA LEADERSHIP */}
         <AboutFoundersSection />
 
@@ -209,9 +202,9 @@ export default function Home() {
                   <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
                   <span>Our Featured Work</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
                   Recent Projects
-                </h2>
+                </h3>
                 <p className="text-[15px] sm:text-base text-slate-300 mt-2.5 leading-relaxed">
                   We&apos;ve helped businesses across the US, UK, and worldwide achieve undeniable results with high-intent SEO and Next.js engineering.
                 </p>

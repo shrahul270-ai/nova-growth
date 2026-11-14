@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import { ChevronDown, Search, HelpCircle, MessageSquare, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { ChevronDown, Plus, Minus, Search, HelpCircle, MessageSquare, ArrowRight, ShieldCheck, Zap } from "lucide-react";
 
 interface FAQItem {
   id: string;
@@ -72,7 +72,7 @@ const FAQS: FAQItem[] = [
 
 export default function FAQPage() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [openIds, setOpenIds] = useState<Record<string, boolean>>({ "faq-1": true, "faq-2": true });
+  const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
 
   const toggleItem = (id: string) => {
     setOpenIds((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -152,11 +152,17 @@ export default function FAQPage() {
                       {faq.question}
                     </span>
                     <span
-                      className={`w-7 h-7 rounded-full bg-white/10 flex items-center justify-center shrink-0 transition-transform duration-200 text-slate-300 ${
-                        isOpen ? "rotate-180 bg-[#A068FF] text-white" : ""
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
+                        isOpen
+                          ? "bg-[#A068FF] text-white border-[#c084fc] rotate-180 shadow-[0_0_15px_rgba(160,104,255,0.4)]"
+                          : "bg-white/10 text-slate-300 border-white/15 hover:border-purple-400/50 hover:text-white"
                       }`}
                     >
-                      <ChevronDown className="w-4 h-4" />
+                      {isOpen ? (
+                        <Minus className="w-4 h-4 stroke-[2.5]" />
+                      ) : (
+                        <Plus className="w-4 h-4 stroke-[2.5]" />
+                      )}
                     </span>
                   </button>
                   {isOpen && (

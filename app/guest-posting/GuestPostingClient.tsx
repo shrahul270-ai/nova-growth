@@ -109,7 +109,7 @@ const categoryCards = [
 ];
 
 export default function GuestPostingClient() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -406,23 +406,24 @@ export default function GuestPostingClient() {
                         {faq.q}
                       </span>
 
-                      {/* Thin Circular Rotating Chevron */}
+                      {/* + / - Indicator Icon */}
                       <span
                         className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
                           isOpen
-                            ? "bg-[#F0A24C] text-[#0B2400] border-[#F0A24C] rotate-180 shadow-md"
+                            ? "bg-[#F0A24C] text-[#0B2400] border-[#F0A24C] rotate-180 shadow-md font-bold"
                             : "bg-[#1E1E1E] text-white/70 border-white/10 group-hover:border-white/30"
                         }`}
                       >
-                        <svg
-                          className="w-4 h-4 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2.2"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
+                        {isOpen ? (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12" strokeLinecap="round" />
+                          </svg>
+                        ) : (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19" strokeLinecap="round" />
+                            <line x1="5" y1="12" x2="19" y2="12" strokeLinecap="round" />
+                          </svg>
+                        )}
                       </span>
                     </button>
 

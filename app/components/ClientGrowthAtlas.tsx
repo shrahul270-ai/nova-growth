@@ -169,9 +169,9 @@ export default function ClientGrowthAtlas() {
               <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
               <span>Verified Global Portfolio</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+            <h3 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
               Client Results &amp; Website Showcase
-            </h2>
+            </h3>
             <p className="text-sm sm:text-base text-slate-300 mt-2 max-w-2xl leading-relaxed">
               Real international websites engineered by Balaji Prime Media with verifiable organic traffic, top Google SERP rankings, and measurable revenue growth.
             </p>

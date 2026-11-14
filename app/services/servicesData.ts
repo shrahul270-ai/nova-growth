@@ -97,6 +97,81 @@ export const servicesData: ServiceDetail[] = [
     technologies: ["Flutter 3.x", "Dart", "Firebase", "BLoC Pattern", "REST APIs", "App Store Connect", "Google Play Console"],
   },
   {
+    id: "full-stack-php-dev",
+    name: "Full Stack PHP Web & Application Development",
+    shortTitle: "Full-Stack PHP Development",
+    headline: "Build Your Website / Web Application Globally with PHP & Laravel",
+    tagline: "Custom Laravel and robust PHP architectures with scalable relational MySQL/Postgres databases, secure admin dashboards, and global API integrations.",
+    category: "Full-Stack & Backend Engineering",
+    heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+    priceINR: "₹5,000 – ₹80,000+",
+    priceUSD: "$80 – $1,200+",
+    billingPeriod: "milestone sprint",
+    tat: "2–4 Weeks",
+    stats: [
+      { value: "77%+", label: "Web Market Share", detail: "Powers WordPress, Wikipedia, Canva, and top global enterprise backends" },
+      { value: "PHP 8.3", label: "Modern Standard", detail: "JIT compilation, strict typing & OPcache for sub-second server responses" },
+      { value: "Zero Vulnerability", label: "Security Hardened", detail: "Built-in PDO parameterized queries, CSRF tokens & bcrypt password hashing" },
+      { value: "100%", label: "Source Ownership", detail: "Full Git repository handover with clean MVC architecture and zero vendor lock-in" },
+    ],
+    overview:
+      "Our Full-Stack PHP practice provides battle-tested, high-performance web applications built on Laravel and modern PHP 8.3. From scalable relational database architecture (MySQL, PostgreSQL) to intuitive custom admin control panels, student management portals, and multi-currency e-commerce backends, we engineer reliable digital systems. Every codebase is mathematically structured for speed, maximum security against SQL injection, and effortless integration with third-party payment gateways and REST APIs.",
+    problemSolved:
+      "Many businesses rely on fragile, sluggish plugins or chaotic spaghetti code that crashes under high traffic or gets hacked through SQL vulnerabilities. We build clean, modular Laravel MVC applications with normalized databases, automated backups, and bank-grade security protocols so your business runs smoothly 24/7.",
+    deliverables: [
+      "Custom PHP 8.3 / Laravel MVC scalable backend architecture",
+      "Normalized MySQL or PostgreSQL database schema with indexing",
+      "Secure custom role-based admin dashboard with analytics & user management",
+      "High-speed modern responsive frontend interface (Tailwind / Blade / React)",
+      "Comprehensive RESTful API construction, webhooks & third-party integrations",
+      "Payment gateway integration (Stripe, Razorpay, PayPal, Bank Wire)",
+      "Automated server deployment, SSL certificate hardening & database backup scripts",
+    ],
+    features: [
+      {
+        title: "Modern PHP 8+ & JIT Speed",
+        desc: "Equipped with OPcache and JIT compiler for lightning-fast database queries and page execution.",
+        icon: "⚡",
+      },
+      {
+        title: "Robust Laravel MVC Framework",
+        desc: "Structured Model-View-Controller architecture ensuring clean separation of concerns and maintainability.",
+        icon: "🏛️",
+      },
+      {
+        title: "Enterprise Relational Database",
+        desc: "Optimized relational MySQL/Postgres tables with foreign keys, transactional integrity, and indexing.",
+        icon: "🗄️",
+      },
+      {
+        title: "Bank-Grade Cyber Security",
+        desc: "Protected against OWASP Top 10 vulnerabilities: SQL injection, XSS, CSRF, and broken access control.",
+        icon: "🛡️",
+      },
+    ],
+    process: [
+      { step: "01", title: "Database & Funnel Architecture", desc: "Entity-Relationship diagram (ERD), schema normalization, and role permission mapping." },
+      { step: "02", title: "MVC Core Engineering", desc: "Writing models, controllers, Eloquent ORM relations, and secure API endpoints." },
+      { step: "03", title: "UI Integration & Admin Panel", desc: "Connecting responsive blade/client views, data visualization charts, and export filters." },
+      { step: "04", title: "Load Testing & Live Deployment", desc: "Stress testing database queries, SSL configuration, and production server setup." },
+    ],
+    faq: [
+      {
+        q: "Why is PHP still the best choice for web applications?",
+        a: "PHP powers over 77% of all websites worldwide. Modern PHP 8.x with JIT compiler delivers remarkable speed, virtually universal hosting support, unmatched stability, and the world's largest developer ecosystem.",
+      },
+      {
+        q: "Do you build custom admin dashboards?",
+        a: "Yes! Every business application includes a tailor-made admin panel where you can manage users, view sales/revenue graphs, export CSV reports, and configure system settings with zero technical knowledge.",
+      },
+      {
+        q: "Can this scale as our business grows?",
+        a: "Absolutely. Laravel is used by enterprise corporations handling millions of requests daily. Our code is built with queue workers (Redis), caching layers, and database sharding capability.",
+      },
+    ],
+    technologies: ["PHP 8.3", "Laravel 11", "MySQL", "PostgreSQL", "Tailwind CSS", "Redis", "REST APIs", "Docker"],
+  },
+  {
     id: "seo-optimization",
     name: "Search Engine Optimization (SEO)",
     shortTitle: "SEO Optimization",
