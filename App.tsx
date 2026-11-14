@@ -145,20 +145,17 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
       </div>
 
       {/* 4. Right Column (Sign Up Form) */}
-      <div className="flex-1 flex flex-col items-center justify-center py-12 lg:py-6 px-4 sm:px-12 lg:px-16 xl:px-24 overflow-y-auto lg:overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-xl space-y-8 lg:space-y-6 sm:space-y-10"
+      <div className="flex-1 flex flex-col items-center justify-center py-8 lg:py-6 px-4 sm:px-12 lg:px-16 xl:px-24 overflow-y-auto lg:overflow-hidden">
+        <div
+          className="w-full max-w-xl space-y-6 sm:space-y-8"
         >
           {/* Header */}
           <div className="space-y-2">
-            <h1 className="text-3xl font-medium tracking-tight text-white">
-              Create New Profile
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+              Admin &amp; Client Access
             </h1>
-            <p className="text-white/40 text-sm">
-              Input your basic details to begin the journey.
+            <p className="text-white/60 text-xs sm:text-sm">
+              Enter your credentials to enter the secure workspace.
             </p>
           </div>
 
@@ -200,7 +197,7 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-brand-gray border-none rounded-xl h-11 pl-4 pr-11 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-white/20 text-sm transition-all"
+                  className="w-full bg-white/[0.07] border border-white/20 focus:border-[#A068FF] rounded-xl h-11 pl-4 pr-11 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#A068FF]/30 text-sm transition-all"
                   style={{ colorScheme: "dark" }}
                 />
                 <button
@@ -224,10 +221,10 @@ export default function App({ onLoginSuccess }: AppProps = {}) {
               type="submit"
               className="w-full h-14 bg-white text-black font-semibold rounded-xl hover:bg-white/90 active:scale-[0.98] mt-4 transition-all cursor-pointer"
             >
-              Create Account
+              Enter Workspace
             </button>
           </form>
-        </motion.div>
+        </div>
       </div>
     </main>
   );
@@ -312,7 +309,7 @@ export function InputGroup({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full bg-brand-gray border-none rounded-xl h-11 px-4 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-white/20 text-sm transition-all"
+        className="w-full bg-white/[0.07] border border-white/20 focus:border-[#A068FF] rounded-xl h-11 px-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#A068FF]/30 text-sm transition-all"
         style={{ colorScheme: "dark" }}
       />
     </div>

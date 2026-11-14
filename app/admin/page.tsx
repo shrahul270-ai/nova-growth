@@ -251,20 +251,16 @@ export default function AdminDatabasePage() {
     );
   }, []);
 
-  // Aurora Sign In / Admin Authentication Gate State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // Aurora Sign In / Admin Authentication Gate State (Default to false so login form renders instantly)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     try {
       const auth = sessionStorage.getItem("bpm_admin_authenticated");
       if (auth === "true") {
         setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
       }
-    } catch {
-      setIsAuthenticated(false);
-    }
+    } catch {}
   }, []);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -628,15 +624,7 @@ export default function AdminDatabasePage() {
     window.print();
   };
 
-  // If user is not authenticated, show the Aurora Sign Up / Login interface (Admin Lock)
-  if (isAuthenticated === null) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white/40">
-        <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-      </div>
-    );
-  }
-
+  // If user is not authenticated, show the Sign In / Login interface (Admin Lock) immediately
   if (!isAuthenticated) {
     return (
       <App

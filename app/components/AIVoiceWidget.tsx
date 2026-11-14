@@ -683,33 +683,30 @@ export default function AIVoiceWidget() {
       </div>
 
       {/* =========================================================================
-          2. LUXURY 3D AI VOICE & CHAT MODAL DIALOG (Mobile Bottom-Sheet & Desktop Card)
+          2. LUXURY FLOATING AI CONCIERGE MODAL (Mobile Floating Card & Desktop Card)
          ========================================================================= */}
       {isOpen && (
-        <div className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:left-7 z-[9995] flex items-end sm:items-center justify-center p-0 sm:p-0">
-          {/* Backdrop on mobile */}
+        <div className="fixed inset-x-3 bottom-3 top-auto max-h-[82vh] h-[550px] sm:inset-auto sm:bottom-24 sm:left-7 sm:w-[410px] sm:h-[610px] sm:max-h-[620px] z-[9995] flex flex-col pointer-events-auto">
+          {/* Mobile backdrop */}
           <div
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm sm:hidden"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs sm:hidden -z-10"
             onClick={() => {
               stopSpeaking();
               setIsOpen(false);
             }}
           />
 
-          {/* Modal Container */}
-          <div className="relative w-full sm:max-w-md bg-gradient-to-b from-[#130a38] via-[#0b0522] to-[#070319] border-t sm:border border-purple-500/40 rounded-t-3xl sm:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)] sm:shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col h-[85dvh] sm:h-[620px] max-h-[90dvh] sm:max-h-[620px] z-10 animate-mark-fade-up">
-            {/* Mobile Pull Handle */}
-            <div className="w-12 h-1 bg-white/25 rounded-full mx-auto my-2 sm:hidden shrink-0" />
-
-            {/* Top Glow Bar */}
+          {/* Modal Container Card */}
+          <div className="relative w-full h-full bg-gradient-to-b from-[#13073a] via-[#0c0426] to-[#070218] border border-purple-500/40 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col z-10 animate-mark-fade-up">
+            {/* Top Glow Accent Bar */}
             <div className="h-1 w-full bg-gradient-to-r from-[#7c3aed] via-[#A068FF] to-[#22d3ee] shrink-0" />
 
             {/* Header */}
-            <div className="p-3 sm:p-4 flex items-center justify-between border-b border-white/10 bg-white/[0.02] shrink-0">
-              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] p-[1.5px] shadow-[0_0_15px_rgba(160,104,255,0.7)] flex items-center justify-center shrink-0">
-                  <div className="w-full h-full rounded-full bg-[#09041a] flex items-center justify-center">
-                    <span className="text-xs sm:text-sm">✨</span>
+            <div className="px-3.5 py-3 flex items-center justify-between border-b border-white/10 bg-white/[0.02] shrink-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] p-[1.5px] shadow-[0_0_12px_rgba(160,104,255,0.7)] flex items-center justify-center shrink-0">
+                  <div className="w-full h-full rounded-full bg-[#08021a] flex items-center justify-center">
+                    <span className="text-xs">✨</span>
                   </div>
                 </div>
 
@@ -719,28 +716,26 @@ export default function AIVoiceWidget() {
                       {lang === "hi" ? "बीपीएम एआई वॉयस" : "BPM AI Voice"}
                     </span>
                     <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold px-1.5 py-0.2 rounded-full shrink-0">
-                      ● {lang === "hi" ? "लाइव" : "Online"}
+                      ● {lang === "hi" ? "लाइव" : "Live"}
                     </span>
                   </h3>
-                  <p className="text-[10px] sm:text-[10.5px] text-slate-300 truncate">
-                    {lang === "hi"
-                      ? "आधिकारिक वेबसाइट व डिजिटल ग्रोथ गाइड"
-                      : "Official Website & Agency Growth Guide"}
+                  <p className="text-[10px] text-slate-300 truncate">
+                    {lang === "hi" ? "वेबसाइट व ग्रोथ कंसल्टेंट" : "Agency Growth Concierge"}
                   </p>
                 </div>
               </div>
 
               {/* Language Switch & Audio Controls */}
-              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-2">
+              <div className="flex items-center gap-1.5 shrink-0 ml-2">
                 {/* Language Switch Button */}
                 <button
                   type="button"
                   onClick={() => switchLanguage(lang === "en" ? "hi" : "en")}
-                  className="px-2 sm:px-2.5 py-1 rounded-lg sm:rounded-xl bg-purple-500/20 hover:bg-purple-500/35 text-[10px] sm:text-[11px] font-bold text-white transition-all flex items-center gap-1 border border-purple-400/40 shadow-sm cursor-pointer whitespace-nowrap"
+                  className="px-2 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/35 text-[10.5px] font-bold text-white transition-all flex items-center gap-1 border border-purple-400/40 shadow-sm cursor-pointer whitespace-nowrap"
                   title="Switch Language / भाषा बदलें"
                 >
                   <span>{lang === "en" ? "🇮🇳" : "🇬🇧"}</span>
-                  <span>{lang === "en" ? "हिंदी" : "EN"}</span>
+                  <span>{lang === "en" ? "हिं" : "EN"}</span>
                 </button>
 
                 {/* Mute toggle button */}
@@ -784,375 +779,170 @@ export default function AIVoiceWidget() {
               </div>
             </div>
 
-            {/* Mode Switch Tabs: Voice Mode vs Chat Mode */}
-            <div className="flex border-b border-white/10 bg-black/25 p-1 shrink-0">
-              <button
-                type="button"
-                onClick={() => setMode("voice")}
-                className={`flex-1 py-1.5 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                  mode === "voice"
-                    ? "bg-[#A068FF] text-white shadow-md"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <span>🎙️ {lang === "hi" ? "वॉयस मोड" : "Voice Mode"}</span>
-                {isSpeaking && <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-ping" />}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setMode("chat")}
-                className={`flex-1 py-1.5 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                  mode === "chat"
-                    ? "bg-[#A068FF] text-white shadow-md"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                <span>💬 {lang === "hi" ? "चैट मोड" : "Chat Mode"}</span>
-              </button>
+            {/* Knowledge Banner */}
+            <div className="bg-[#180838]/80 border-b border-purple-500/25 px-3 py-1.5 flex items-center justify-between text-[10.5px] text-purple-200 shrink-0">
+              <span className="truncate">
+                ⚡ {lang === "hi" ? "वेबसाइट ($699) • SEO ($449) • 40K+ बैकलिंक्स" : "Web Dev ($699) • SEO ($449) • 40K+ Links"}
+              </span>
+              {isSpeaking && (
+                <span className="text-[9.5px] bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 px-1.5 py-0.2 rounded-full font-bold shrink-0 animate-pulse">
+                  🔊 {lang === "hi" ? "बोल रहा हूँ" : "Speaking"}
+                </span>
+              )}
             </div>
 
-            {/* Dedicated Website Knowledge Banner */}
-            <div className="bg-[#180a3c]/85 border-b border-purple-500/30 px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-start gap-2 backdrop-blur-md shrink-0">
-              <span className="text-xs shrink-0 mt-0.5">⚡</span>
-              <p className="text-[10px] sm:text-[11px] text-purple-200 leading-snug">
-                {lang === "hi"
-                  ? "वेबसाइट डेवलपमेंट ($699), एसईओ पैकेज ($449/माह), 40,000+ गेस्ट पोस्टिंग व प्राइसिंग की जानकारी हिंदी में पूछें।"
-                  : "Ask anything about our Next.js web dev ($699), SEO ($449/mo), 40K+ marketplace, pricing, and audits."}
-              </p>
-            </div>
-
-            {/* ===================================================================
-                BODY: Mode = Voice (Audio-first with complete visible words)
-               =================================================================== */}
-            {mode === "voice" && (
-              <div className="flex-1 flex flex-col justify-between p-3 sm:p-4 overflow-y-auto space-y-2.5">
-                {/* Visual Audio Center */}
-                <div className="flex flex-col items-center text-center shrink-0">
-                  <div className="space-y-0.5 mb-1.5">
-                    <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#22d3ee]">
-                      {lang === "hi" ? "🇮🇳 हिंदी वॉयस डेस्क" : "🇬🇧 Voice Concierge Desk"}
-                    </p>
-                    <p className="text-[11px] sm:text-xs text-slate-300">
-                      {lang === "hi"
-                        ? "माइक पर टैप करके अपना सवाल बोलें"
-                        : "Tap the microphone to speak your question"}
-                    </p>
+            {/* Scrollable Message History */}
+            <div className="flex-1 p-3 overflow-y-auto space-y-2.5">
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`flex flex-col ${
+                    m.sender === "user" ? "items-end" : "items-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[88%] rounded-2xl px-3 py-2 text-xs sm:text-[13px] leading-relaxed shadow-sm whitespace-pre-wrap break-words ${
+                      m.sender === "user"
+                        ? "bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white rounded-br-none"
+                        : "bg-white/[0.08] border border-purple-500/30 text-slate-100 rounded-bl-none"
+                    }`}
+                  >
+                    {m.text}
                   </div>
 
-                  {/* 3D Audio Visualizer Button */}
-                  <div className="relative my-1.5 sm:my-2 flex items-center justify-center">
-                    {(isListening || isSpeaking) && (
-                      <>
-                        <span className="absolute w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-[#22d3ee]/40 animate-ping opacity-60 pointer-events-none" />
-                        <span className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-[#A068FF]/50 animate-pulse opacity-75 pointer-events-none" />
-                      </>
-                    )}
-
-                    <button
-                      type="button"
-                      onClick={toggleListening}
-                      className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center transition-all duration-300 shadow-2xl cursor-pointer ${
-                        isListening
-                          ? "bg-gradient-to-tr from-rose-600 to-amber-500 scale-105 shadow-[0_0_40px_rgba(244,63,94,0.7)]"
-                          : isSpeaking
-                          ? "bg-gradient-to-tr from-[#7c3aed] to-[#22d3ee] scale-105 shadow-[0_0_40px_rgba(34,211,238,0.7)]"
-                          : "bg-gradient-to-tr from-[#7c3aed] to-[#A068FF] hover:scale-105 shadow-[0_0_35px_rgba(160,104,255,0.5)]"
-                      }`}
-                      aria-label="Toggle Voice Input"
-                    >
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0a0520] flex flex-col items-center justify-center text-white border border-white/20">
-                        <svg
-                          className="w-6 h-6 sm:w-7 sm:h-7 fill-none stroke-current mb-0.5"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M19 10v2a7 7 0 0 1-14 0v-2"
-                          />
-                          <line x1="12" y1="19" x2="12" y2="23" strokeLinecap="round" />
-                          <line x1="8" y1="23" x2="16" y2="23" strokeLinecap="round" />
-                        </svg>
-                        <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-slate-300">
-                          {isListening
-                            ? lang === "hi"
-                              ? "सुन रहा हूँ..."
-                              : "Listening..."
-                            : isSpeaking
-                            ? lang === "hi"
-                              ? "बोल रहा हूँ..."
-                              : "Speaking..."
-                            : lang === "hi"
-                            ? "बोलने के लिए टैप करें"
-                            : "Tap to Speak"}
-                        </span>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Mic Notice (Permissions / Voice Detection) */}
-                {micNotice && (
-                  <div className="w-full bg-rose-950/60 border border-rose-500/40 rounded-2xl p-2.5 text-xs text-center text-rose-200">
-                    {micNotice}
-                  </div>
-                )}
-
-                {/* Real-time Voice Caption / User Query Display */}
-                {isListening && (
-                  <div className="w-full bg-emerald-950/40 border border-emerald-500/40 rounded-2xl p-2.5 sm:p-3 text-xs text-center text-emerald-200 animate-pulse">
-                    <p className="font-semibold mb-0.5">
-                      {lang === "hi" ? "🎙️ आपकी आवाज़ दर्ज हो रही है:" : "🎙️ Recording your voice:"}
-                    </p>
-                    <p className="text-white text-xs sm:text-sm font-medium">
-                      {transcript ? `"${transcript}"` : lang === "hi" ? "बोलिए, मैं सुन रहा हूँ..." : "Speak now, I am listening..."}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={stopListening}
-                      className="mt-1.5 text-[10px] bg-emerald-600/40 hover:bg-emerald-600 text-white px-3 py-1 rounded-full border border-emerald-400/40 cursor-pointer"
-                    >
-                      {lang === "hi" ? "✓ बोलना पूरा हुआ" : "✓ Finished Speaking"}
-                    </button>
-                  </div>
-                )}
-
-                {isThinking && (
-                  <div className="w-full bg-amber-950/40 border border-amber-500/40 rounded-2xl p-2.5 sm:p-3 text-xs text-center text-amber-200 animate-pulse">
-                    <p className="font-bold flex items-center justify-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-                      <span>{lang === "hi" ? "उत्तर तैयार हो रहा है..." : "Analyzing inquiry..."}</span>
-                    </p>
-                  </div>
-                )}
-
-                {/* Prominent Full Written Response Card (Ensuring NO Words Are Cut Off) */}
-                {lastAiMessage && !isListening && (
-                  <div className="w-full bg-white/[0.06] border border-purple-500/30 rounded-2xl p-3 sm:p-3.5 text-left shadow-lg">
-                    <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/10">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse" />
-                        <span className="text-[10.5px] sm:text-[11px] font-bold text-[#d8b4fe] uppercase tracking-wider">
-                          {lang === "hi" ? "✦ एआई का उत्तर (हिंदी में)" : "✦ BPM AI Response"}
-                        </span>
-                      </div>
-
-                      {/* Replay / Stop Voice Button */}
+                  <div className="flex items-center gap-2 mt-1 px-1 text-[9.5px] text-slate-400">
+                    <span>{m.timestamp}</span>
+                    {m.sender === "ai" && (
                       <button
                         type="button"
                         onClick={() => {
                           if (isSpeaking) {
                             stopSpeaking();
                           } else {
-                            speakText(lastAiMessage.text, lang);
+                            speakText(m.text, lang);
                           }
                         }}
-                        className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] sm:text-[11px] font-bold flex items-center gap-1 border border-white/15 cursor-pointer transition-colors"
-                        title={isSpeaking ? "Stop Voice" : "Listen / आवाज़ सुनें"}
+                        className="hover:text-cyan-300 font-semibold cursor-pointer flex items-center gap-0.5 text-purple-300"
+                        title="Listen to this message / आवाज़ सुनें"
                       >
-                        <span>{isSpeaking ? "⏹️ रोकें" : "🔊 आवाज़"}</span>
+                        <span>🔊</span>
+                        <span>{lang === "hi" ? "सुने" : "Listen"}</span>
                       </button>
-                    </div>
-
-                    {/* Complete, fully visible written response */}
-                    <div className="text-slate-100 text-xs sm:text-[13px] leading-relaxed whitespace-pre-wrap break-words max-h-40 sm:max-h-48 overflow-y-auto pr-1">
-                      {lastAiMessage.text}
-                    </div>
-
-                    {lastUserMessage && (
-                      <div className="mt-2 pt-1.5 border-t border-white/5 text-[10px] sm:text-[10.5px] text-slate-400 truncate">
-                        <span className="text-purple-300 font-semibold">
-                          {lang === "hi" ? "आपका सवाल: " : "Your query: "}
-                        </span>
-                        "{lastUserMessage.text}"
-                      </div>
                     )}
                   </div>
-                )}
-
-                {/* Quick Topic Chips (Horizontal scrollable on mobile) */}
-                <div className="w-full pt-1 flex gap-1.5 overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center shrink-0">
-                  {prompts.map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleQuickPrompt(prompt)}
-                      className="whitespace-nowrap shrink-0 text-[10.5px] sm:text-[11px] bg-white/[0.07] hover:bg-white/20 text-slate-200 px-3 py-1.5 rounded-full border border-purple-500/30 transition-colors cursor-pointer text-left font-medium"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
                 </div>
+              ))}
 
-                {/* Quick text input row in Voice mode */}
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleUserMessage(inputText);
-                  }}
-                  className="w-full flex items-center gap-1.5 sm:gap-2 pt-1 shrink-0"
-                >
-                  <input
-                    type="text"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder={
-                      lang === "hi"
-                        ? "यहाँ टाइप करें (उदा. वेबसाइट का खर्चा)..."
-                        : "Or type your inquiry here..."
-                    }
-                    className="flex-1 min-w-0 bg-white/[0.08] border border-white/20 focus:border-[#A068FF] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    disabled={!inputText.trim()}
-                    className="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white text-xs font-bold disabled:opacity-40 cursor-pointer shadow-md shrink-0"
-                  >
-                    {lang === "hi" ? "भेजें" : "Send"}
-                  </button>
-                </form>
-              </div>
-            )}
-
-            {/* ===================================================================
-                BODY: Mode = Chat (Threaded history with speech triggers)
-               =================================================================== */}
-            {mode === "chat" && (
-              <div className="flex-1 flex flex-col justify-between overflow-hidden">
-                {/* Scrollable Chat Area */}
-                <div className="flex-1 p-3 sm:p-4 overflow-y-auto space-y-2.5">
-                  {messages.map((m) => (
-                    <div
-                      key={m.id}
-                      className={`flex flex-col ${
-                        m.sender === "user" ? "items-end" : "items-start"
-                      }`}
-                    >
-                      <div
-                        className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3 sm:px-3.5 py-2 sm:py-2.5 text-xs sm:text-[13px] leading-relaxed shadow-sm whitespace-pre-wrap break-words ${
-                          m.sender === "user"
-                            ? "bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white rounded-br-none"
-                            : "bg-white/[0.08] border border-purple-500/30 text-slate-100 rounded-bl-none"
-                        }`}
-                      >
-                        {m.text}
-                      </div>
-
-                      <div className="flex items-center gap-2 mt-1 px-1 text-[9.5px] text-slate-400">
-                        <span>{m.timestamp}</span>
-                        {m.sender === "ai" && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              if (isSpeaking) {
-                                stopSpeaking();
-                              } else {
-                                speakText(m.text, lang);
-                              }
-                            }}
-                            className="hover:text-cyan-300 font-semibold cursor-pointer flex items-center gap-0.5"
-                            title="Listen to this message / आवाज़ सुनें"
-                          >
-                            <span>🔊</span>
-                            <span>{lang === "hi" ? "आवाज़ सुनें" : "Listen"}</span>
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Thinking Indicator */}
-                  {isThinking && (
-                    <div className="flex items-center gap-2 bg-white/[0.07] border border-purple-500/30 rounded-2xl px-3.5 py-2 w-fit">
-                      <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-bounce" />
-                      <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-bounce delay-100" />
-                      <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-bounce delay-200" />
-                      <span className="text-[11px] text-purple-200 font-medium">
-                        {lang === "hi" ? "उत्तर लिखा जा रहा है..." : "Generating response..."}
-                      </span>
-                    </div>
-                  )}
-
-                  <div ref={messagesEndRef} />
-                </div>
-
-                {/* Dynamic Suggestion Pills */}
-                <div className="px-3 py-1.5 flex gap-1.5 overflow-x-auto no-scrollbar border-t border-white/5 bg-black/15 shrink-0">
-                  {prompts.map((prompt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleQuickPrompt(prompt)}
-                      className="whitespace-nowrap text-[10.5px] bg-white/[0.06] hover:bg-white/20 text-slate-200 px-3 py-1 rounded-full border border-purple-500/25 transition-colors cursor-pointer font-medium"
-                    >
-                      {prompt}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Chat Input Bar */}
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleUserMessage(inputText);
-                  }}
-                  className="p-2.5 sm:p-3 border-t border-white/10 bg-[#08031d] flex items-center gap-1.5 sm:gap-2 shrink-0"
-                >
-                  <input
-                    type="text"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder={
-                      lang === "hi"
-                        ? "अपना सवाल यहाँ लिखें..."
-                        : "Type your inquiry or website domain..."
-                    }
-                    className="flex-1 min-w-0 bg-white/[0.07] border border-white/20 focus:border-[#A068FF] rounded-xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none transition-colors"
-                  />
-
-                  {/* Mic Button to speak directly into input */}
+              {/* Real-time Voice Caption / Live Speech Recording Banner */}
+              {isListening && (
+                <div className="w-full bg-emerald-950/60 border border-emerald-400/50 rounded-2xl p-2.5 text-xs text-center text-emerald-200 animate-pulse space-y-1">
+                  <div className="flex items-center justify-center gap-1.5 font-bold text-white text-[11px]">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                    <span>{lang === "hi" ? "🎙️ आपकी आवाज़ सुनी जा रही है..." : "🎙️ Listening to your voice..."}</span>
+                  </div>
+                  <p className="text-white text-xs font-semibold px-2">
+                    {transcript ? `"${transcript}"` : lang === "hi" ? "बोलिए, मैं सुन रहा हूँ..." : "Speak now, I am listening..."}
+                  </p>
                   <button
                     type="button"
-                    onClick={toggleListening}
-                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shrink-0 ${
-                      isListening
-                        ? "bg-rose-600 text-white animate-pulse"
-                        : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white border border-white/10"
-                    }`}
-                    title={lang === "hi" ? "बोलकर पूछें" : "Speak your message"}
+                    onClick={stopListening}
+                    className="mt-1 text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-0.5 rounded-full cursor-pointer shadow-sm"
                   >
-                    🎙️
+                    {lang === "hi" ? "✓ बोलना पूरा हुआ" : "✓ Finished"}
                   </button>
+                </div>
+              )}
 
-                  {/* Send Button */}
-                  <button
-                    type="submit"
-                    disabled={!inputText.trim()}
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white flex items-center justify-center disabled:opacity-40 transition-all hover:scale-105 cursor-pointer font-bold shadow-md shrink-0"
-                    aria-label="Send Message"
-                  >
-                    →
-                  </button>
-                </form>
-              </div>
-            )}
+              {/* Thinking Indicator */}
+              {isThinking && (
+                <div className="flex items-center gap-2 bg-white/[0.07] border border-purple-500/30 rounded-2xl px-3 py-1.5 w-fit">
+                  <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-bounce" />
+                  <span className="w-2 h-2 rounded-full bg-[#22d3ee] animate-bounce delay-100" />
+                  <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-bounce delay-200" />
+                  <span className="text-[11px] text-purple-200 font-medium">
+                    {lang === "hi" ? "उत्तर तैयार हो रहा है..." : "Analyzing..."}
+                  </span>
+                </div>
+              )}
+
+              {/* Mic Notice if permission issue */}
+              {micNotice && (
+                <div className="w-full bg-rose-950/60 border border-rose-500/40 rounded-2xl p-2 text-[11px] text-center text-rose-200">
+                  {micNotice}
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Quick Topic Chips (Single horizontal scroll row) */}
+            <div className="px-3 py-1.5 flex gap-1.5 overflow-x-auto no-scrollbar border-t border-white/5 bg-black/20 shrink-0">
+              {prompts.map((prompt, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleQuickPrompt(prompt)}
+                  className="whitespace-nowrap shrink-0 text-[10.5px] bg-white/[0.06] hover:bg-white/20 text-slate-200 px-3 py-1 rounded-full border border-purple-500/25 transition-colors cursor-pointer font-medium"
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+
+            {/* Chat & Voice Input Bar */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleUserMessage(inputText);
+              }}
+              className="p-2 sm:p-2.5 border-t border-white/10 bg-[#070219] flex items-center gap-1.5 shrink-0"
+            >
+              <input
+                type="text"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder={
+                  lang === "hi"
+                    ? "पूछें या माइक दबाकर बोलें..."
+                    : "Type or tap mic to speak..."
+                }
+                className="flex-1 min-w-0 bg-white/[0.07] border border-white/20 focus:border-[#A068FF] rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none transition-colors"
+              />
+
+              {/* Mic Button right in the input bar */}
+              <button
+                type="button"
+                onClick={toggleListening}
+                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer shrink-0 ${
+                  isListening
+                    ? "bg-rose-600 text-white animate-pulse shadow-[0_0_15px_rgba(244,63,94,0.6)]"
+                    : "bg-purple-600/30 text-purple-200 hover:bg-purple-600/50 hover:text-white border border-purple-400/40"
+                }`}
+                title={lang === "hi" ? "बोलकर पूछें" : "Tap to speak"}
+              >
+                🎙️
+              </button>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                disabled={!inputText.trim()}
+                className="w-9 h-9 rounded-xl bg-gradient-to-r from-[#A068FF] to-[#7c3aed] text-white flex items-center justify-center disabled:opacity-40 transition-all hover:scale-105 active:scale-95 cursor-pointer font-bold shadow-md shrink-0"
+                aria-label="Send Message"
+              >
+                →
+              </button>
+            </form>
 
             {/* Bottom Escalation Strip (WhatsApp + Email Direct) */}
-            <div className="p-2 sm:p-2.5 bg-black/60 border-t border-white/5 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-300 px-3 sm:px-4 shrink-0">
-              <span className="truncate">{lang === "hi" ? "सीधी बातचीत चाहिए?" : "Need direct human expert?"}</span>
-              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            <div className="py-2 px-3.5 bg-black/60 border-t border-white/5 flex items-center justify-between text-[10.5px] text-slate-300 shrink-0">
+              <span className="truncate">{lang === "hi" ? "सीधी बातचीत चाहिए?" : "Direct help?"}</span>
+              <div className="flex items-center gap-2 shrink-0">
                 <a
                   href="https://wa.me/917690868932?text=Hi%20Balaji%20Prime%20Media,%20I%20am%20chatting%20with%20your%20AI%20and%20want%20to%20talk%20to%20a%20strategist."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 hover:underline font-semibold flex items-center gap-1"
+                  className="text-emerald-400 hover:underline font-semibold flex items-center gap-0.5"
                 >
                   व्हाट्सएप ↗
                 </a>
