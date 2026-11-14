@@ -33,9 +33,17 @@ export default function GoogleAnalytics() {
       if (link) {
         const href = link.href || "";
 
-        // WhatsApp
+        // WhatsApp - Global universal lead capture interceptor
         if (href.includes("wa.me") || href.includes("whatsapp.com")) {
           trackAnalyticsEvent("whatsapp_click", "contact", href);
+          if (
+            typeof window !== "undefined" &&
+            !window.location.pathname.startsWith("/admin") &&
+            !link.getAttribute("data-direct")
+          ) {
+            e.preventDefault();
+            window.dispatchEvent(new CustomEvent("open-connect-modal", { detail: { channel: "whatsapp" } }));
+          }
           return;
         }
 
@@ -45,9 +53,17 @@ export default function GoogleAnalytics() {
           return;
         }
 
-        // Email
+        // Email - Global universal lead capture interceptor
         if (href.startsWith("mailto:")) {
           trackAnalyticsEvent("email_click", "contact", href);
+          if (
+            typeof window !== "undefined" &&
+            !window.location.pathname.startsWith("/admin") &&
+            !link.getAttribute("data-direct")
+          ) {
+            e.preventDefault();
+            window.dispatchEvent(new CustomEvent("open-connect-modal", { detail: { channel: "email" } }));
+          }
           return;
         }
 
