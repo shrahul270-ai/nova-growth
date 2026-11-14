@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
+import GlobalWebPricingMatrix from "../components/GlobalWebPricingMatrix";
 
 export const metadata: Metadata = {
   title: "High-Performance Web Development UK | Balaji Prime Media",
@@ -95,6 +96,9 @@ export default function WebDevelopmentUkPage() {
           </div>
         </div>
       </section>
+
+      {/* Global Country-Wise Development Rates & Scope */}
+      <GlobalWebPricingMatrix />
 
       {/* CTA */}
       <section className="py-16 px-6 md:px-12 text-center max-w-4xl mx-auto">

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { servicesData } from "../servicesData";
+import GlobalWebPricingMatrix from "../../components/GlobalWebPricingMatrix";
 import {
   CheckCircle2,
   Clock,
@@ -304,6 +305,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           ))}
         </div>
       </section>
+
+      {/* 5. GLOBAL COUNTRY-WISE PRICING & SCOPE MATRIX (Special for Website Development) */}
+      {service.id === "website-development" && (
+        <GlobalWebPricingMatrix />
+      )}
 
       {/* 6. TECH STACK & TOOLS */}
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 border-t border-white/10">

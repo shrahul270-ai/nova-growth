@@ -13,6 +13,7 @@ import GlowRatingBento from "./components/GlowRatingBento";
 import ClientGrowthAtlas from "./components/ClientGrowthAtlas";
 import AboutFoundersSection from "./components/AboutFoundersSection";
 import ScheduleConsultationModal from "./components/ScheduleConsultationModal";
+import GlobalWebPricingMatrix from "./components/GlobalWebPricingMatrix";
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -185,6 +186,14 @@ export default function Home() {
         <section className="relative py-8 sm:py-12 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
           <SeoAuditWidget />
         </section>
+
+        {/* GLOBAL WEBSITE & WEB APPLICATION DEVELOPMENT PRICING MATRIX */}
+        <GlobalWebPricingMatrix
+          onOpenConsultation={(plan) => {
+            setSelectedService(plan || "Website Development");
+            setContactOpen(true);
+          }}
+        />
 
         {/* 4. ABOUT FOUNDERS / BALAJI PRIME MEDIA LEADERSHIP */}
         <AboutFoundersSection />
