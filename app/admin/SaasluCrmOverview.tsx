@@ -60,12 +60,14 @@ export default function SaasluCrmOverview({
   onDownloadExcel,
 }: SaasluCrmOverviewProps) {
   const [pipelinePeriod, setPipelinePeriod] = useState<"Weekly" | "Monthly" | "Yearly">("Monthly");
-  const [authFilter, setAuthFilter] = useState<"all" | "signup" | "login">("all");
+  const [authFilter, setAuthFilter] = useState<"all" | "whatsapp" | "inquiry" | "newsletter">("all");
 
-  // Website auth entries (Signups & Logins)
+  // Website auth & lead entries (WhatsApp, Inquiries, Newsletters)
   const authRecords = usersList.filter((u) => {
-    if (authFilter === "signup") return u.authType === "user_signup";
-    if (authFilter === "login") return u.authType === "user_login";
+    const type = (u.authType || "").toLowerCase();
+    if (authFilter === "whatsapp") return type.includes("whatsapp");
+    if (authFilter === "inquiry") return type.includes("contact") || type.includes("email") || type.includes("custom");
+    if (authFilter === "newsletter") return type.includes("newsletter") || type.includes("audit");
     return true; // show all
   });
 
@@ -106,7 +108,7 @@ export default function SaasluCrmOverview({
          ========================================================================= */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         
-        {/* Metric 1: TOTAL LEADS */}
+        {/* Metric 1: TOTAL VERIFIED LEADS */}
         <div
           onClick={() => onNavigate("users")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer hover:-translate-y-0.5 shadow-lg relative group ${
@@ -117,7 +119,7 @@ export default function SaasluCrmOverview({
         >
           <div className="flex items-start justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
-              TOTAL LEADS
+              TOTAL VERIFIED LEADS
             </span>
             <span className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center text-xs">
               👥
@@ -126,11 +128,11 @@ export default function SaasluCrmOverview({
 
           <div className="mt-2 flex items-baseline justify-between">
             <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-              3,456
+              {usersList.length}
             </span>
             <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
-              ↗ +22%
-              <span className="text-[10px] text-gray-400 font-normal">Vs last month</span>
+              🟢 Live
+              <span className="text-[10px] text-gray-400 font-normal ml-1">In Supabase</span>
             </span>
           </div>
 
@@ -147,7 +149,6 @@ export default function SaasluCrmOverview({
             ))}
           </div>
 
-          {/* Healthy pipeline progress indicator */}
           <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-400">
             <span>Healthy pipeline</span>
             <div className="w-20 h-1.5 rounded-full bg-[#1e243b] overflow-hidden">
@@ -156,9 +157,58 @@ export default function SaasluCrmOverview({
           </div>
         </div>
 
-        {/* Metric 2: ACTIVE DEALS */}
+        {/* Metric 2: WHATSAPP LEADS */}
         <div
-          onClick={() => onNavigate("users")}
+          onClick={() => onNavigate("whatsapp")}
+          className={`p-5 rounded-2xl border transition-all cursor-pointer hover:-translate-y-0.5 shadow-lg relative group ${
+            isDark
+              ? "bg-[#101322] border-[#1e2338] hover:border-emerald-500/50"
+              : "bg-white border-slate-200 hover:border-emerald-300"
+          }`}
+        >
+          <div className="flex items-start justify-between">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
+              WHATSAPP LEADS
+            </span>
+            <span className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs">
+              💬
+            </span>
+          </div>
+
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+              {whatsappCount}
+            </span>
+            <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
+              ↗ Active
+              <span className="text-[10px] text-gray-400 font-normal ml-1">Conversations</span>
+            </span>
+          </div>
+
+          {/* Sparkline Vertical Bars */}
+          <div className="mt-4 flex items-end gap-1.5 h-9 pt-1">
+            {[50, 45, 75, 60, 85, 40, 95, 70, 80, 65, 90, 85].map((val, idx) => (
+              <span
+                key={idx}
+                className={`flex-1 rounded-sm transition-all ${
+                  idx >= 8 ? "bg-[#10b981]" : "bg-[#272f4e]"
+                }`}
+                style={{ height: `${val}%` }}
+              />
+            ))}
+          </div>
+
+          <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-400">
+            <span>Instant chat connect</span>
+            <div className="w-20 h-1.5 rounded-full bg-[#1e243b] overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-emerald-400 to-green-500 rounded-full w-[84%]" />
+            </div>
+          </div>
+        </div>
+
+        {/* Metric 3: TOTAL INBOUND MAILS & INQUIRIES */}
+        <div
+          onClick={() => onNavigate("mails")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer hover:-translate-y-0.5 shadow-lg relative group ${
             isDark
               ? "bg-[#101322] border-[#1e2338] hover:border-cyan-500/50"
@@ -167,26 +217,26 @@ export default function SaasluCrmOverview({
         >
           <div className="flex items-start justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
-              ACTIVE DEALS
+              TOTAL INBOUND MAILS
             </span>
             <span className="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xs">
-              💼
+              ✉️
             </span>
           </div>
 
           <div className="mt-2 flex items-baseline justify-between">
             <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-              234
+              {mailsCount}
             </span>
-            <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
-              ↗ +18%
-              <span className="text-[10px] text-gray-400 font-normal">Vs last month</span>
+            <span className="text-xs font-bold text-cyan-400 flex items-center gap-0.5">
+              ↗ RFPs
+              <span className="text-[10px] text-gray-400 font-normal ml-1">&amp; Forms</span>
             </span>
           </div>
 
           {/* Sparkline Vertical Bars */}
           <div className="mt-4 flex items-end gap-1.5 h-9 pt-1">
-            {[50, 45, 75, 60, 85, 40, 95, 70, 80, 65, 90, 85].map((val, idx) => (
+            {[30, 55, 40, 70, 60, 85, 75, 90, 65, 80, 95, 90].map((val, idx) => (
               <span
                 key={idx}
                 className={`flex-1 rounded-sm transition-all ${
@@ -198,63 +248,14 @@ export default function SaasluCrmOverview({
           </div>
 
           <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-400">
-            <span>Healthy pipeline</span>
+            <span>Inquiry inbox</span>
             <div className="w-20 h-1.5 rounded-full bg-[#1e243b] overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full w-[84%]" />
+              <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full w-[72%]" />
             </div>
           </div>
         </div>
 
-        {/* Metric 3: TOTAL CONTACTS */}
-        <div
-          onClick={() => onNavigate("users")}
-          className={`p-5 rounded-2xl border transition-all cursor-pointer hover:-translate-y-0.5 shadow-lg relative group ${
-            isDark
-              ? "bg-[#101322] border-[#1e2338] hover:border-purple-500/50"
-              : "bg-white border-slate-200 hover:border-purple-300"
-          }`}
-        >
-          <div className="flex items-start justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
-              TOTAL CONTACTS
-            </span>
-            <span className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xs">
-              📞
-            </span>
-          </div>
-
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-              8,921
-            </span>
-            <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
-              ↗ +12%
-              <span className="text-[10px] text-gray-400 font-normal">Vs last month</span>
-            </span>
-          </div>
-
-          {/* Sparkline Vertical Bars */}
-          <div className="mt-4 flex items-end gap-1.5 h-9 pt-1">
-            {[30, 55, 40, 70, 60, 85, 75, 90, 65, 80, 95, 90].map((val, idx) => (
-              <span
-                key={idx}
-                className={`flex-1 rounded-sm transition-all ${
-                  idx >= 8 ? "bg-[#818cf8]" : "bg-[#272f4e]"
-                }`}
-                style={{ height: `${val}%` }}
-              />
-            ))}
-          </div>
-
-          <div className="mt-3 pt-2 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-400">
-            <span>Healthy pipeline</span>
-            <div className="w-20 h-1.5 rounded-full bg-[#1e243b] overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-[72%]" />
-            </div>
-          </div>
-        </div>
-
-        {/* Metric 4: WIN RATE */}
+        {/* Metric 4: PAYMENTS & SETTLEMENTS */}
         <div
           onClick={() => onNavigate("payments")}
           className={`p-5 rounded-2xl border transition-all cursor-pointer hover:-translate-y-0.5 shadow-lg relative group ${
@@ -265,7 +266,7 @@ export default function SaasluCrmOverview({
         >
           <div className="flex items-start justify-between">
             <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
-              WIN RATE
+              PAYMENTS / TRANSACTIONS
             </span>
             <span className="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center text-xs">
               💰
@@ -274,11 +275,11 @@ export default function SaasluCrmOverview({
 
           <div className="mt-2 flex items-baseline justify-between">
             <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-              68.5%
+              {paymentsCount}
             </span>
-            <span className="text-xs font-bold text-emerald-400 flex items-center gap-0.5">
-              ↗ +5%
-              <span className="text-[10px] text-gray-400 font-normal">Vs last month</span>
+            <span className="text-xs font-bold text-amber-400 flex items-center gap-0.5">
+              ✓ Verified
+              <span className="text-[10px] text-gray-400 font-normal ml-1">Settlements</span>
             </span>
           </div>
 
@@ -566,8 +567,7 @@ export default function SaasluCrmOverview({
       </div>
 
       {/* =========================================================================
-          3. USER'S SPECIFIC FEATURE: Live Website Signups & Logins Table
-          ("ek kaam or kr do isme agr koi webite ko login and signup kre to uski bhi details isme aaye")
+          3. USER'S SPECIFIC FEATURE: Live Website Inquiries & WhatsApp Leads Table
          ========================================================================= */}
       <div
         className={`p-6 rounded-2xl border shadow-xl ${
@@ -578,7 +578,7 @@ export default function SaasluCrmOverview({
           <div>
             <div className="flex items-center gap-2">
               <span className={`text-base font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
-                Live Website Signups &amp; Logins
+                Live Inquiries, WhatsApp Leads &amp; Clients
               </span>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
@@ -586,51 +586,63 @@ export default function SaasluCrmOverview({
               </span>
             </div>
             <p className="text-xs text-gray-400 mt-0.5">
-              Instant records of visitors who register or sign in on balajiprimemedia.in.
+              Instant verified stream of all client inquiries, WhatsApp chats, contact forms &amp; signups.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            {(["all", "signup", "login"] as const).map((filter) => (
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              { id: "all", label: `All (${usersList.length})` },
+              { id: "whatsapp", label: `💬 WhatsApp (${usersList.filter((u) => (u.authType || "").toLowerCase().includes("whatsapp")).length})` },
+              { id: "inquiry", label: `✉️ Inquiries (${usersList.filter((u) => (u.authType || "").toLowerCase().includes("contact") || (u.authType || "").toLowerCase().includes("email")).length})` },
+              { id: "newsletter", label: `📰 Newsletters (${usersList.filter((u) => (u.authType || "").toLowerCase().includes("newsletter")).length})` },
+            ].map((tab) => (
               <button
-                key={filter}
+                key={tab.id}
                 type="button"
-                onClick={() => setAuthFilter(filter)}
+                onClick={() => setAuthFilter(tab.id as any)}
                 className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  authFilter === filter
+                  authFilter === tab.id
                     ? "bg-[#6366f1] text-white shadow-md shadow-indigo-950/60"
                     : isDark
                     ? "bg-[#161a2e] text-gray-400 hover:text-white border border-white/5"
                     : "bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200"
                 }`}
               >
-                {filter === "all" ? "All Auth Events" : filter === "signup" ? "🟢 Signups Only" : "🔵 Logins Only"}
+                {tab.label}
               </button>
             ))}
           </div>
         </div>
 
         {/* Auth Records Table */}
-        <div className="overflow-x-auto mt-4">
+        <div className="overflow-x-auto mt-4 max-h-[500px] overflow-y-auto">
           <table className="w-full text-left text-xs">
-            <thead>
+            <thead className="sticky top-0 bg-[#101322] z-10">
               <tr className={`border-b uppercase text-[10px] tracking-wider ${isDark ? "border-white/5 text-gray-400" : "border-slate-200 text-slate-500"}`}>
-                <th className="py-2.5 px-3">User &amp; Client</th>
-                <th className="py-2.5 px-3">Auth Event</th>
+                <th className="py-2.5 px-3">Client &amp; Contact</th>
+                <th className="py-2.5 px-3">Channel / Type</th>
+                <th className="py-2.5 px-3">Phone &amp; Action</th>
                 <th className="py-2.5 px-3">Date &amp; Time</th>
-                <th className="py-2.5 px-3">Role / Service</th>
+                <th className="py-2.5 px-3">Service Interest</th>
                 <th className="py-2.5 px-3">IP &amp; Country</th>
-                <th className="py-2.5 px-3 text-right">Database Status</th>
+                <th className="py-2.5 px-3 text-right">Status</th>
               </tr>
             </thead>
             <tbody className={`divide-y ${isDark ? "divide-white/5" : "divide-slate-200"}`}>
-              {authRecords.slice(0, 7).map((user, idx) => {
-                const isSignup = user.authType === "user_signup" || idx % 2 === 0;
+              {authRecords.map((user, idx) => {
+                const typeLower = (user.authType || "").toLowerCase();
+                const isWA = typeLower.includes("whatsapp");
+                const isContact = typeLower.includes("contact") || typeLower.includes("email") || typeLower.includes("custom");
+                const isNews = typeLower.includes("newsletter");
+
                 return (
                   <tr key={user.id || idx} className={`${isDark ? "hover:bg-white/[0.02]" : "hover:bg-slate-50"} transition-colors`}>
                     <td className="py-3 px-3">
                       <div className="flex items-center gap-2.5">
-                        <span className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-bold text-white text-[11px] shadow-sm">
+                        <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-[11px] shadow-sm ${
+                          isWA ? "bg-emerald-600" : isContact ? "bg-purple-600" : "bg-gradient-to-tr from-purple-600 to-indigo-600"
+                        }`}>
                           {user.name.slice(0, 2).toUpperCase()}
                         </span>
                         <div>
@@ -642,13 +654,41 @@ export default function SaasluCrmOverview({
                     <td className="py-3 px-3">
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold border ${
-                          isSignup
+                          isWA
                             ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                            : isContact
+                            ? "bg-purple-500/10 border-purple-500/30 text-purple-300"
+                            : isNews
+                            ? "bg-amber-500/10 border-amber-500/30 text-amber-400"
                             : "bg-blue-500/10 border-blue-500/30 text-blue-400"
                         }`}
                       >
-                        <span>{isSignup ? "🟢 SIGN UP" : "🔵 LOGIN"}</span>
+                        <span>
+                          {isWA
+                            ? "💬 WHATSAPP"
+                            : isContact
+                            ? "✉️ INQUIRY"
+                            : isNews
+                            ? "📰 NEWSLETTER"
+                            : "🔑 AUTH"}
+                        </span>
                       </span>
+                    </td>
+                    <td className="py-3 px-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[11px] text-gray-300">{user.number || "N/A"}</span>
+                        {user.number && user.number !== "+91 98000 00000" && (
+                          <a
+                            href={`https://wa.me/${user.number.replace(/[^0-9]/g, "")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-2 py-0.5 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold transition-all"
+                            title="Chat with client directly on WhatsApp"
+                          >
+                            💬 Chat
+                          </a>
+                        )}
+                      </div>
                     </td>
                     <td className="py-3 px-3">
                       <p className={`font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{user.date}</p>
