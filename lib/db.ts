@@ -28,6 +28,12 @@ const SUPABASE_TABLE_COLUMNS: Record<string, string[]> = {
   ],
   activity_logs: [
     "id", "timestamp", "action", "collection", "recordId", "summary", "metadata"
+  ],
+  projects: [
+    "id", "name", "clientName", "domain", "category", "budget", "timeline", "status", "isDeleted", "createdAt", "updatedAt"
+  ],
+  invoices: [
+    "id", "invoiceNo", "date", "dueDate", "clientName", "clientEmail", "clientDomain", "clientAddress", "serviceName", "rate", "qty", "taxPercent", "currency", "status", "isDeleted", "createdAt", "updatedAt"
   ]
 };
 

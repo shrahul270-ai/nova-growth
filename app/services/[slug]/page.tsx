@@ -18,6 +18,7 @@ import {
   Sparkles,
   HelpCircle,
   Cpu,
+  CreditCard,
 } from "lucide-react";
 
 interface PageProps {
@@ -374,15 +375,18 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact"
-              className="px-8 py-3.5 rounded-full bg-white hover:bg-neutral-100 text-black font-[600] text-sm transition-all shadow-xl hover:scale-105 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white hover:bg-neutral-100 text-black font-semibold text-sm transition-all shadow-xl hover:scale-105 cursor-pointer whitespace-nowrap"
             >
-              Request Custom Proposal →
+              <span>Request Custom Proposal</span>
+              <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/pay"
-              className="px-8 py-3.5 rounded-full bg-white/[0.1] hover:bg-white/[0.15] border border-white/20 text-white font-[500] text-sm transition-all cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2.5 h-12 px-7 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 hover:border-purple-400/40 text-white font-medium text-sm transition-all backdrop-blur-md cursor-pointer whitespace-nowrap"
             >
-              Client Payment Portal 💳
+              <CreditCard className="w-4 h-4 text-purple-300" />
+              <span>Client Payment Portal</span>
+              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
             </Link>
           </div>
         </div>

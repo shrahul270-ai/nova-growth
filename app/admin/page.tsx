@@ -230,6 +230,13 @@ export default function AdminDatabasePage() {
   const [toast, setToast] = useState<string | null>(null);
   const [currentDateStr, setCurrentDateStr] = useState("Live Status");
 
+  // Manual WhatsApp Lead State
+  const [showAddWhatsAppModal, setShowAddWhatsAppModal] = useState(false);
+  const [newWaName, setNewWaName] = useState("");
+  const [newWaPhone, setNewWaPhone] = useState("");
+  const [newWaMessage, setNewWaMessage] = useState("");
+  const [newWaCountry, setNewWaCountry] = useState("India");
+
   // Load saved theme from localStorage
   useEffect(() => {
     try {
@@ -260,46 +267,50 @@ export default function AdminDatabasePage() {
     }
   }, []);
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   // Live Data Feed Fetcher: Loads all real form submissions and payments from database & Supabase
+  const fetchFeed = async (showToastOnManual = false) => {
+    setIsRefreshing(true);
+    try {
+      const res = await fetch("/api/admin/feed");
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          if (Array.isArray(data.users) && data.users.length > 0) {
+            setUsersList(data.users);
+          }
+          if (Array.isArray(data.mails) && data.mails.length > 0) {
+            setMailsList(data.mails);
+          }
+          if (Array.isArray(data.whatsapp) && data.whatsapp.length > 0) {
+            setWhatsappList(data.whatsapp);
+          }
+          if (Array.isArray(data.payments) && data.payments.length > 0) {
+            setPaymentsList(data.payments);
+          }
+          if (showToastOnManual) {
+            showToast(`✅ Synced with database! (${data.mails?.length || 0} Inquiries, ${data.whatsapp?.length || 0} WhatsApp leads)`);
+          }
+        }
+      } else if (showToastOnManual) {
+        showToast("⚠️ Could not load database feed.");
+      }
+    } catch (err) {
+      console.warn("Live feed fetch error:", err);
+      if (showToastOnManual) {
+        showToast("⚠️ Network error while fetching feed.");
+      }
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
   useEffect(() => {
     if (!isAuthenticated) return;
 
-    const fetchFeed = async () => {
-      try {
-        const res = await fetch("/api/admin/feed");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.success) {
-            if (Array.isArray(data.users) && data.users.length > 0) {
-              setUsersList((prev) => {
-                const newIds = new Set(data.users.map((u: any) => u.id));
-                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
-                return [...data.users, ...filteredPrev];
-              });
-            }
-            if (Array.isArray(data.mails) && data.mails.length > 0) {
-              setMailsList((prev) => {
-                const newIds = new Set(data.mails.map((m: any) => m.id));
-                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
-                return [...data.mails, ...filteredPrev];
-              });
-            }
-            if (Array.isArray(data.payments) && data.payments.length > 0) {
-              setPaymentsList((prev) => {
-                const newIds = new Set(data.payments.map((p: any) => p.id));
-                const filteredPrev = prev.filter((p) => !newIds.has(p.id));
-                return [...data.payments, ...filteredPrev];
-              });
-            }
-          }
-        }
-      } catch (err) {
-        console.warn("Live feed fetch error:", err);
-      }
-    };
-
     fetchFeed();
-    const interval = setInterval(fetchFeed, 8000);
+    const interval = setInterval(() => fetchFeed(false), 8000);
     return () => clearInterval(interval);
   }, [isAuthenticated]);
 
@@ -443,6 +454,56 @@ export default function AdminDatabasePage() {
     setNewPrjDomain("");
     setNewPrjBudget("");
     showToast("✓ Project sprint successfully scoped and created!");
+  };
+
+  // Submit New WhatsApp Lead Handler (Manual Record)
+  const handleAddWhatsAppSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newWaPhone.trim()) {
+      showToast("⚠️ Mobile number is required.");
+      return;
+    }
+
+    const cleanPhone = newWaPhone.trim();
+    const cleanName = newWaName.trim() || "WhatsApp Client";
+    const cleanMsg = newWaMessage.trim() || "Direct WhatsApp chat initiated regarding growth services.";
+    const flag = newWaCountry === "India" ? "🇮🇳" : "🌐";
+
+    const newItem: WhatsAppItem = {
+      id: `WA-${Date.now()}`,
+      date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
+      time: new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) + " IST",
+      clientName: cleanName,
+      phoneNumber: cleanPhone,
+      country: newWaCountry,
+      flag,
+      message: cleanMsg,
+      status: "Active",
+    };
+
+    setWhatsappList([newItem, ...whatsappList]);
+    setShowAddWhatsAppModal(false);
+    setNewWaName("");
+    setNewWaPhone("");
+    setNewWaMessage("");
+    showToast("✅ WhatsApp lead saved to database & Supabase!");
+
+    try {
+      await fetch("/api/db/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "whatsapp_click",
+          name: cleanName,
+          phone: cleanPhone,
+          service: "Direct WhatsApp Inquiry",
+          message: cleanMsg,
+          notes: `Added from Admin Dashboard | Mobile: ${cleanPhone} | Country: ${newWaCountry}`,
+          sourceUrl: "/whatsapp",
+        }),
+      });
+      fetchFeed(false);
+    } catch {}
   };
 
   // Create Invoice Submit Handler
@@ -1056,6 +1117,22 @@ export default function AdminDatabasePage() {
 
             {/* LIVE DATE WIDGET (Auto changes at midnight e.g. 12 -> 13) */}
             <LiveDateWidget isDark={isDark} />
+
+            {/* Manual Sync / Refresh Button */}
+            <button
+              type="button"
+              onClick={() => fetchFeed(true)}
+              disabled={isRefreshing}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95 disabled:opacity-50 ${
+                isDark
+                  ? "bg-[#181033] border-purple-500/40 text-purple-200 hover:bg-[#251847]"
+                  : "bg-white border-slate-300 text-slate-800 hover:bg-slate-50 shadow-slate-100"
+              }`}
+              title="Refresh and sync all inquiries from database"
+            >
+              <span className={`inline-block ${isRefreshing ? "animate-spin" : ""}`}>🔄</span>
+              <span className="hidden sm:inline">{isRefreshing ? "Syncing..." : "Sync DB"}</span>
+            </button>
 
             {/* Theme Toggle Button */}
             <button
@@ -1789,12 +1866,25 @@ export default function AdminDatabasePage() {
                       <span className={`text-[11px] ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                         Tagged Deliverable: <strong className={isDark ? "text-white" : "text-slate-800"}>{m.service}</strong>
                       </span>
-                      <a
-                        href={`mailto:${m.senderEmail}?subject=Re: ${encodeURIComponent(m.subject)}`}
-                        className="px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-bold transition-all shadow-sm"
-                      >
-                        Reply via Email ✉️
-                      </a>
+                      <div className="flex items-center gap-2">
+                        {m.phone && m.phone !== "N/A" && (
+                          <a
+                            href={`https://wa.me/${m.phone.replace(/[^0-9]/g, "")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold transition-all shadow-sm flex items-center gap-1"
+                          >
+                            <span>WhatsApp</span>
+                            <span>💬</span>
+                          </a>
+                        )}
+                        <a
+                          href={`mailto:${m.senderEmail}?subject=Re: ${encodeURIComponent(m.subject)}`}
+                          className="px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-bold transition-all shadow-sm"
+                        >
+                          Reply via Email ✉️
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -1819,7 +1909,110 @@ export default function AdminDatabasePage() {
                     Direct WhatsApp chat clicks, initial inquiries, and instant client follow-ups.
                   </p>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAddWhatsAppModal(!showAddWhatsAppModal)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-105 active:scale-95"
+                >
+                  <span>{showAddWhatsAppModal ? "✕ Close Form" : "➕ Record WhatsApp Lead"}</span>
+                </button>
               </div>
+
+              {/* Record New WhatsApp Lead Inline Card */}
+              {showAddWhatsAppModal && (
+                <form
+                  onSubmit={handleAddWhatsAppSubmit}
+                  className={`p-5 rounded-2xl border space-y-4 animate-fadeIn ${
+                    isDark ? "bg-[#0b131e] border-emerald-500/40 text-white" : "bg-white border-emerald-300 shadow-md text-slate-900"
+                  }`}
+                >
+                  <div className="flex items-center justify-between pb-2 border-b border-emerald-500/20">
+                    <h3 className="text-sm font-bold flex items-center gap-2 text-emerald-400">
+                      <span>➕ Record Incoming WhatsApp Inquiry</span>
+                    </h3>
+                    <span className="text-[11px] text-gray-400">Saves directly to Supabase</span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Client Name</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Rahul Sharma"
+                        value={newWaName}
+                        onChange={(e) => setNewWaName(e.target.value)}
+                        className={`w-full px-3 py-2 rounded-xl border text-xs outline-none ${
+                          isDark ? "bg-[#14202e] border-white/10 text-white focus:border-emerald-500" : "bg-slate-50 border-slate-200 text-slate-800"
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">
+                        Mobile Number <span className="text-emerald-400">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="+91 98765 43210"
+                        value={newWaPhone}
+                        onChange={(e) => setNewWaPhone(e.target.value)}
+                        className={`w-full px-3 py-2 rounded-xl border text-xs outline-none ${
+                          isDark ? "bg-[#14202e] border-white/10 text-white focus:border-emerald-500" : "bg-slate-50 border-slate-200 text-slate-800"
+                        }`}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Country</label>
+                      <select
+                        value={newWaCountry}
+                        onChange={(e) => setNewWaCountry(e.target.value)}
+                        className={`w-full px-3 py-2 rounded-xl border text-xs outline-none ${
+                          isDark ? "bg-[#14202e] border-white/10 text-white focus:border-emerald-500" : "bg-slate-50 border-slate-200 text-slate-800"
+                        }`}
+                      >
+                        <option value="India">🇮🇳 India</option>
+                        <option value="United States">🇺🇸 United States</option>
+                        <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                        <option value="UAE">🇦🇪 UAE / Gulf</option>
+                        <option value="Canada">🇨🇦 Canada</option>
+                        <option value="Australia">🇦🇺 Australia</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Inquiry Details / Message</label>
+                    <textarea
+                      rows={2}
+                      placeholder="e.g. Client inquired about guest posting packages and requested price list..."
+                      value={newWaMessage}
+                      onChange={(e) => setNewWaMessage(e.target.value)}
+                      className={`w-full px-3 py-2 rounded-xl border text-xs outline-none resize-none ${
+                        isDark ? "bg-[#14202e] border-white/10 text-white focus:border-emerald-500" : "bg-slate-50 border-slate-200 text-slate-800"
+                      }`}
+                    />
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setShowAddWhatsAppModal(false)}
+                      className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white transition-all cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer hover:scale-105"
+                    >
+                      ✓ Save Lead to Supabase
+                    </button>
+                  </div>
+                </form>
+              )}
 
               <div className="space-y-3">
                 {whatsappList.map((wa) => (

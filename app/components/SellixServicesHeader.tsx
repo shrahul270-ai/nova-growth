@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
+import { ArrowRight, CreditCard, Sparkles } from "lucide-react";
 
 const GLOBAL_COUNTRIES = [
   { code: "US", name: "United States", flag: "🇺🇸", city: "New York • SF", pos: "top-[14%] left-[4%] sm:left-[8%]" },
@@ -308,22 +309,22 @@ export default function SellixServicesHeader() {
           acquisitions, and algorithmic search optimization serving clients across the US, UK, Europe, Australia, and worldwide.
         </p>
 
-        {/* Action CTAs */}
-        <div className="mt-8 sm:mt-10 flex flex-col min-[440px]:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-lg px-4">
+        {/* Action CTAs - Compact, Modern SaaS Buttons */}
+        <div className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-3 w-full max-w-md px-4">
           <a
             href="#services-grid"
-            className="group relative w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-[#8b5cf6] to-[#6d28d9] hover:from-[#7c3aed] hover:to-[#5b21b6] text-white font-semibold text-xs sm:text-sm shadow-[0_4px_20px_rgba(139,92,246,0.4)] border border-purple-400/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            className="group inline-flex items-center justify-center gap-2 h-10 sm:h-11 px-5 sm:px-6 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium text-xs sm:text-sm shadow-md shadow-purple-900/40 hover:shadow-purple-700/50 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
           >
-            <span>Explore All 16 Services</span>
-            <span className="text-white group-hover:translate-x-1 transition-transform">→</span>
+            <span>Explore Services</span>
+            <ArrowRight className="w-3.5 h-3.5 text-purple-200 group-hover:text-white group-hover:translate-x-1 transition-transform" />
           </a>
 
           <a
             href="#payment-portal"
-            className="group relative w-full min-[440px]:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-semibold text-xs sm:text-sm border border-white/20 hover:border-white/35 backdrop-blur-md shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            className="group inline-flex items-center justify-center gap-2 h-10 sm:h-11 px-5 sm:px-6 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-white font-medium text-xs sm:text-sm border border-white/20 hover:border-purple-400/50 backdrop-blur-md shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
           >
-            <span>Client Payment Portal 💳</span>
-            <span className="text-white/80 group-hover:translate-x-1 transition-transform">→</span>
+            <CreditCard className="w-3.5 h-3.5 text-cyan-300" />
+            <span>Payment Portal</span>
           </a>
         </div>
       </div>
