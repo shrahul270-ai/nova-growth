@@ -12,22 +12,30 @@ interface PromptHeroProps {
 const VIDEO_URL =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4";
 
-// Logos for infinite marquee
-const MARQUEE_LOGOS = [
-  { name: "Vortex", letter: "V", color: "from-indigo-500 to-purple-500" },
-  { name: "Nimbus", letter: "N", color: "from-sky-500 to-blue-500" },
-  { name: "Prysma", letter: "P", color: "from-purple-500 to-pink-500" },
-  { name: "Cirrus", letter: "C", color: "from-amber-400 to-rose-500" },
-  { name: "Kynder", letter: "K", color: "from-emerald-400 to-teal-500" },
-  { name: "Halcyn", letter: "H", color: "from-violet-500 to-indigo-500" },
-];
+
 
 export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoOpacity, setVideoOpacity] = useState<number>(0);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState<boolean>(false);
+
+  // Defer heavy background video on desktop only (>=768px); use CSS ambient glow on mobile for 95+ PageSpeed
+  useEffect(() => {
+    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768;
+    const isSaveData =
+      typeof navigator !== "undefined" && (navigator as any).connection?.saveData;
+
+    if (isDesktop && !isSaveData) {
+      const timer = setTimeout(() => {
+        setShouldLoadVideo(true);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Custom JS-controlled fade loop: 0.5s fade-in at start, 0.5s fade-out at end
   useEffect(() => {
+    if (!shouldLoadVideo) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -74,7 +82,6 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
     video.addEventListener("timeupdate", updateFade);
     video.addEventListener("ended", handleEnded);
 
-    // Initial play attempt
     video.play().catch(() => {});
 
     return () => {
@@ -83,7 +90,7 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       video.removeEventListener("timeupdate", updateFade);
       video.removeEventListener("ended", handleEnded);
     };
-  }, []);
+  }, [shouldLoadVideo]);
 
   return (
     <div
@@ -95,17 +102,26 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
       }}
     >
       {/* =========================================================================
-          BACKGROUND VIDEO (Layer 0, absolute inset-0, JS controlled opacity)
+          BACKGROUND VIDEO (Lightweight: Deferred on desktop, ambient CSS glow on mobile)
          ========================================================================= */}
-      <video
-        ref={videoRef}
-        src={VIDEO_URL}
-        autoPlay
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-100"
-        style={{ opacity: videoOpacity }}
-      />
+      {shouldLoadVideo ? (
+        <video
+          ref={videoRef}
+          src={VIDEO_URL}
+          autoPlay
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-300"
+          style={{ opacity: videoOpacity }}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(160,104,255,0.2),transparent_70%)] pointer-events-none"
+        />
+      )}
 
       {/* =========================================================================
           BLURRED OVERLAY SHAPE (Layer 1, centered behind content, w-[984px] h-[527px])
@@ -127,32 +143,43 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
          ========================================================================= */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 py-10 sm:py-14 my-auto overflow-visible">
         
-        {/* Main Clean Headline: "Balaji Prime Media", General Sans */}
+        {/* Eyebrow Brand Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs sm:text-sm font-medium mb-5 backdrop-blur-md shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
+          <span>Balaji Prime Media</span>
+          <span className="text-purple-400/40">•</span>
+          <span className="text-slate-300">Global Digital Growth Agency</span>
+        </div>
+
+        {/* Main Service-Driven Headline (H1 for SEO) */}
         <h1
-          className="font-normal tracking-[-0.024em] leading-[1.08] text-[32px] sm:text-[46px] md:text-[58px] lg:text-[72px] xl:text-[82px] select-none text-center"
+          className="font-bold tracking-[-0.024em] leading-[1.12] text-[32px] sm:text-[46px] md:text-[56px] lg:text-[68px] xl:text-[76px] select-none text-center max-w-5xl"
           style={{ fontFamily: "'General Sans', system-ui, sans-serif" }}
         >
-          <span style={{ color: "hsl(40, 6%, 95%)" }}>Balaji </span>
+          <span style={{ color: "hsl(40, 6%, 95%)" }}>
+            SEO, Guest Posting &amp;{" "}
+          </span>
+          <br className="hidden sm:inline" />
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: "linear-gradient(to left, #6366f1, #a855f7, #fcd34d)",
+              backgroundImage: "linear-gradient(to right, #6366f1, #a855f7, #fcd34d)",
               WebkitBackgroundClip: "text",
             }}
           >
-            Prime Media
+            Web Development Agency
           </span>
         </h1>
 
-        {/* Subtitle: "The most powerful AI ever deployed in organic search & talent acquisition" */}
+        {/* Subtitle with core services and overseas focus */}
         <p
-          className="text-sm sm:text-base leading-relaxed max-w-md sm:max-w-xl mt-3 text-center"
+          className="text-sm sm:text-base leading-relaxed max-w-md sm:max-w-2xl mt-4 text-center"
           style={{
             color: "hsl(40, 6%, 82%)",
-            opacity: 0.85,
+            opacity: 0.9,
           }}
         >
-          The most powerful AI ever deployed in organic search &amp; digital growth
+          Scale your organic traffic, high-DA backlink authority, and conversion-ready Next.js web platforms for US, UK, and global markets.
         </p>
 
         {/* =========================================================================
@@ -243,73 +270,6 @@ export default function PromptHero({ onOpenConsultation }: PromptHeroProps) {
         </div>
       </div>
 
-      {/* =========================================================================
-          3. LOGO MARQUEE (Pinned to bottom of hero, pb-10, max-w-5xl mx-auto)
-         ========================================================================= */}
-      <div className="relative z-20 w-full pb-8 sm:pb-10 pt-4 border-t border-white/10 backdrop-blur-sm bg-black/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
-          
-          {/* Left Side: Static Text */}
-          <div className="text-left shrink-0">
-            <p
-              className="text-xs sm:text-sm font-medium leading-tight whitespace-nowrap"
-              style={{ color: "hsla(40, 6%, 95%, 0.55)" }}
-            >
-              Relied on by brands <br className="hidden sm:inline" /> across the globe
-            </p>
-          </div>
-
-          {/* Right Side: Infinite Scrolling Marquee with Liquid-Glass Logos */}
-          <div className="flex-1 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-            <div className="flex items-center gap-12 sm:gap-16 w-max animate-marquee">
-              {/* Duplicate array twice for seamless continuous loop */}
-              {[...MARQUEE_LOGOS, ...MARQUEE_LOGOS, ...MARQUEE_LOGOS, ...MARQUEE_LOGOS].map(
-                (item, idx) => (
-                  <div
-                    key={`marquee-${idx}`}
-                    className="flex items-center gap-3 shrink-0 opacity-80 hover:opacity-100 transition-opacity"
-                  >
-                    {/* Liquid-Glass 24x24 Rounded-lg Icon */}
-                    <div className="liquid-glass w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-white shadow-xs">
-                      <span className={`bg-gradient-to-tr ${item.color} bg-clip-text text-transparent font-extrabold`}>
-                        {item.letter}
-                      </span>
-                    </div>
-
-                    {/* Brand Name in text-base font-semibold */}
-                    <span
-                      className="text-sm sm:text-base font-semibold tracking-tight"
-                      style={{ color: "hsl(40, 6%, 95%)" }}
-                    >
-                      {item.name}
-                    </span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Keyframe animation for marquee */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-marquee {
-          display: flex;
-          animation: marquee 20s linear infinite;
-        }
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }

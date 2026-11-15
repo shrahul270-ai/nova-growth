@@ -315,7 +315,7 @@ export const masterServicesList: AgencyService[] = [
       "Content restructuring & semantic entity modeling for LLMs",
       "Knowledge graph establishment & Wikipedia entity citations",
       "Optimization for ChatGPT Search, Perplexity & Google Gemini",
-      "LLM context window optimization & authoritative data hooks",
+      "LLM citation authority optimization & authoritative data hooks",
       "AI engine query visibility & brand citation report",
     ],
     gradient: "linear-gradient(135deg, #581c87 0%, #7c3aed 50%, #c084fc 100%)",

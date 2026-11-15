@@ -163,80 +163,98 @@ export default function FloatingConnect() {
         className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-[9999] select-none flex items-center justify-center"
       >
         {/* =========================================================================
-            RADIAL EXPANDING CONTACT BUTTONS (WhatsApp, Telegram, Email)
+            CLEAN VERTICAL SPEED DIAL (WhatsApp, Telegram, Email - Zero Overlap)
            ========================================================================= */}
 
-        {/* 1. WHATSAPP (Top / 12 o'clock) */}
-        <button
-          type="button"
-          onClick={() => handleOpenChannel("whatsapp")}
-          aria-label="Chat on WhatsApp"
-          className={`${buttonBase} bg-[#25D366] text-white shadow-[0_8px_25px_rgba(37,211,102,0.6)]`}
+        {/* 1. WHATSAPP (Immediate above launcher) */}
+        <div
+          className="absolute right-0 flex items-center justify-end pointer-events-none"
           style={{
-            transform: isOpen
-              ? "translate(0px, -78px) scale(1)"
-              : "translate(0px, 0px) scale(0)",
+            transform: isOpen ? "translateY(-68px)" : "translateY(0px)",
             opacity: isOpen ? 1 : 0,
-            pointerEvents: isOpen ? "auto" : "none",
-            transition: "all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            transitionDelay: isOpen ? "100ms" : "0ms",
+            transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionDelay: isOpen ? "120ms" : "0ms",
           }}
         >
-          <span className="absolute right-full mr-3 whitespace-nowrap bg-[#070319]/95 text-white text-[11px] font-bold px-3 py-1 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-white/15 backdrop-blur-md">
+          <span
+            className="mr-3 whitespace-nowrap bg-[#0b0622]/95 text-white text-[12px] font-bold px-3 py-1.5 rounded-xl shadow-xl border border-emerald-500/40 backdrop-blur-md hidden sm:inline-flex items-center gap-1.5 select-none"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
             WhatsApp Us
           </span>
-          <svg className="w-6 h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
-            <path d="M12.04 2C6.527 2 2.05 6.477 2.05 11.99c0 1.954.563 3.778 1.536 5.32L2 22l4.832-1.53c1.482.88 3.208 1.39 5.208 1.39 5.513 0 9.99-4.477 9.99-9.99C22.03 6.477 17.553 2 12.04 2zm5.432 12.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.951 1.18-.176.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.463.132-.612.136-.134.301-.351.451-.527.151-.176.201-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.63-.926-2.233-.244-.588-.492-.508-.676-.517l-.576-.01c-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.507 0 1.48 1.077 2.908 1.228 3.109.15.2 2.119 3.235 5.132 4.538.717.31 1.277.495 1.713.633.72.228 1.375.196 1.893.119.578-.086 1.782-.727 2.032-1.429.25-.702.25-1.303.175-1.429-.075-.125-.276-.2-.577-.35z" />
-          </svg>
-        </button>
+          <button
+            type="button"
+            onClick={() => handleOpenChannel("whatsapp")}
+            aria-label="Chat on WhatsApp"
+            className={`${buttonBase} relative !static bg-[#25D366] text-white shadow-[0_8px_25px_rgba(37,211,102,0.55)] ${
+              isOpen ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
+            <svg className="w-6 h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
+              <path d="M12.04 2C6.527 2 2.05 6.477 2.05 11.99c0 1.954.563 3.778 1.536 5.32L2 22l4.832-1.53c1.482.88 3.208 1.39 5.208 1.39 5.513 0 9.99-4.477 9.99-9.99C22.03 6.477 17.553 2 12.04 2zm5.432 12.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.951 1.18-.176.2-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.176-.3-.019-.463.132-.612.136-.134.301-.351.451-.527.151-.176.201-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.676-1.63-.926-2.233-.244-.588-.492-.508-.676-.517l-.576-.01c-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.507 0 1.48 1.077 2.908 1.228 3.109.15.2 2.119 3.235 5.132 4.538.717.31 1.277.495 1.713.633.72.228 1.375.196 1.893.119.578-.086 1.782-.727 2.032-1.429.25-.702.25-1.303.175-1.429-.075-.125-.276-.2-.577-.35z" />
+            </svg>
+          </button>
+        </div>
 
-        {/* 2. TELEGRAM (Top-Left / ~10:30 o'clock) */}
-        <button
-          type="button"
-          onClick={() => handleOpenChannel("telegram")}
-          aria-label="Connect on Telegram"
-          className={`${buttonBase} bg-[#229ED9] text-white shadow-[0_8px_25px_rgba(34,158,217,0.6)]`}
+        {/* 2. TELEGRAM (Middle slot above WhatsApp) */}
+        <div
+          className="absolute right-0 flex items-center justify-end pointer-events-none"
           style={{
-            transform: isOpen
-              ? "translate(-58px, -58px) scale(1)"
-              : "translate(0px, 0px) scale(0)",
+            transform: isOpen ? "translateY(-128px)" : "translateY(0px)",
             opacity: isOpen ? 1 : 0,
-            pointerEvents: isOpen ? "auto" : "none",
-            transition: "all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            transitionDelay: isOpen ? "50ms" : "0ms",
+            transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionDelay: isOpen ? "70ms" : "0ms",
           }}
         >
-          <span className="absolute bottom-full mb-3 whitespace-nowrap bg-[#070319]/95 text-white text-[11px] font-bold px-3 py-1 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-white/15 backdrop-blur-md">
-            Telegram Us
+          <span
+            className="mr-3 whitespace-nowrap bg-[#0b0622]/95 text-white text-[12px] font-bold px-3 py-1.5 rounded-xl shadow-xl border border-cyan-500/40 backdrop-blur-md hidden sm:inline-flex items-center gap-1.5 select-none"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#229ED9]" />
+            Telegram
           </span>
-          <svg className="w-6 h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
-          </svg>
-        </button>
+          <button
+            type="button"
+            onClick={() => handleOpenChannel("telegram")}
+            aria-label="Connect on Telegram"
+            className={`${buttonBase} relative !static bg-[#229ED9] text-white shadow-[0_8px_25px_rgba(34,158,217,0.55)] ${
+              isOpen ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
+            <svg className="w-6 h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z" />
+            </svg>
+          </button>
+        </div>
 
-        {/* 3. EMAIL (Left / 9 o'clock) */}
-        <button
-          type="button"
-          onClick={() => handleOpenChannel("email")}
-          aria-label="Send Direct Email"
-          className={`${buttonBase} bg-[#EA4335] text-white shadow-[0_8px_25px_rgba(234,67,53,0.6)]`}
+        {/* 3. EMAIL (Top slot above Telegram) */}
+        <div
+          className="absolute right-0 flex items-center justify-end pointer-events-none"
           style={{
-            transform: isOpen
-              ? "translate(-78px, 0px) scale(1)"
-              : "translate(0px, 0px) scale(0)",
+            transform: isOpen ? "translateY(-188px)" : "translateY(0px)",
             opacity: isOpen ? 1 : 0,
-            pointerEvents: isOpen ? "auto" : "none",
-            transition: "all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            transitionDelay: isOpen ? "0ms" : "0ms",
+            transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+            transitionDelay: isOpen ? "20ms" : "0ms",
           }}
         >
-          <span className="absolute right-full mr-3 whitespace-nowrap bg-[#070319]/95 text-white text-[11px] font-bold px-3 py-1 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-white/15 backdrop-blur-md">
-            Send Email
+          <span
+            className="mr-3 whitespace-nowrap bg-[#0b0622]/95 text-white text-[12px] font-bold px-3 py-1.5 rounded-xl shadow-xl border border-red-500/40 backdrop-blur-md hidden sm:inline-flex items-center gap-1.5 select-none"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#EA4335]" />
+            Email Us
           </span>
-          <svg className="w-5 h-5 sm:w-6 sm:h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-          </svg>
-        </button>
+          <button
+            type="button"
+            onClick={() => handleOpenChannel("email")}
+            aria-label="Send Direct Email"
+            className={`${buttonBase} relative !static bg-[#EA4335] text-white shadow-[0_8px_25px_rgba(234,67,53,0.55)] ${
+              isOpen ? "pointer-events-auto" : "pointer-events-none"
+            }`}
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6 fill-white drop-shadow-sm" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+          </button>
+        </div>
 
         {/* MAIN FLOATING TRIGGER BUTTON ("⚡ CONNECT") */}
         <button

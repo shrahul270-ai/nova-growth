@@ -1643,7 +1643,7 @@ export default function GuestPostMarketplace() {
           <div className="flex items-center gap-2 text-xs">
             <span>Need a custom publisher not in this list?</span>
             <Link
-              href="/contact"
+              href="/contact-us"
               className="text-amber-400 hover:text-amber-300 font-bold underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors"
             >
               Request Custom Manual Outreach ↗

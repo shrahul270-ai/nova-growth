@@ -360,16 +360,16 @@ function generateDynamicResponse(
   ) {
     if (isHindi) {
       return {
-        reply: "बालाजी प्राइम मीडिया की संपर्क जानकारी:\n• व्हाट्सएप एवं फोन: +91 76908 68932 (24/7 उपलब्ध)\n• ईमेल: support@balajiprimemedia.in\n• हेडक्वार्टर: जयपुर, राजस्थान (यूके, यूएस और वैश्विक सेवाएं).\nआप हमारे /contact पेज पर जाकर भी संपर्क फॉर्म भर सकते हैं।",
+        reply: "बालाजी प्राइम मीडिया की संपर्क जानकारी:\n• व्हाट्सएप एवं फोन: +91 76908 68932 (24/7 उपलब्ध)\n• ईमेल: support@balajiprimemedia.in\n• हेडक्वार्टर: जयपुर, राजस्थान (यूके, यूएस और वैश्विक सेवाएं).\nआप हमारे /contact-us पेज पर जाकर भी संपर्क फॉर्म भर सकते हैं।",
         suggestedPrompts: [
           "व्हाट्सएप (+91 76908 68932) पर चैट करें",
           "ईमेल भेजें",
-          "संपर्क पेज देखें (/contact)"
+          "संपर्क पेज देखें (/contact-us)"
         ]
       };
     }
     return {
-      reply: "You can reach Balaji Prime Media 24/7:\n• WhatsApp & Phone: +91 76908 68932\n• Email: support@balajiprimemedia.in\n• Headquarters: Jaipur, Rajasthan (Operating across UK, US, and APAC time zones).\nOr visit our /contact page.",
+      reply: "You can reach Balaji Prime Media 24/7:\n• WhatsApp & Phone: +91 76908 68932\n• Email: support@balajiprimemedia.in\n• Headquarters: Jaipur, Rajasthan (Operating across UK, US, and APAC time zones).\nOr visit our /contact-us page.",
       suggestedPrompts: [
         "Chat on WhatsApp (+91 76908 68932)",
         "Email support@balajiprimemedia.in",

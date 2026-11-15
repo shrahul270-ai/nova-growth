@@ -374,7 +374,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="group inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white hover:bg-neutral-100 text-black font-semibold text-sm transition-all shadow-xl hover:scale-105 cursor-pointer whitespace-nowrap"
             >
               <span>Request Custom Proposal</span>

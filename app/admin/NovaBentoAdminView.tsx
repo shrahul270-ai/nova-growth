@@ -422,7 +422,7 @@ export default function NovaBentoAdminView({
                     {/* Glowing AI Cybernetic Visor & Hologram Silhouette */}
                     <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#111215]/20 to-[#111215] z-10" />
                     <img
-                      src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80"
+                      src="/images/projects/saas-analytics.jpg"
                       alt="AI Neural Engine"
                       className="w-full h-full object-cover object-center rounded-r-[28px] brightness-90 contrast-125"
                     />

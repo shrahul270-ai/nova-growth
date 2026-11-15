@@ -431,7 +431,7 @@ export default function VaultraAboutHeader() {
 
         {/* CTAs */}
         <div className="vaultra-ctas v-anim-4">
-          <Link href="/contact" className="btn-white-pill">
+          <Link href="/contact-us" className="btn-white-pill">
             <span>Talk to Our Strategists</span>
             <span>→</span>
           </Link>

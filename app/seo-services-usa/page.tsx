@@ -73,7 +73,7 @@ export default function SeoServicesUsaPage() {
         </div>
         <div className="flex justify-center gap-4">
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all w-full sm:w-auto"
           >
             <span>Book US Strategy Call (EST / PST)</span>
@@ -135,7 +135,7 @@ export default function SeoServicesUsaPage() {
             Get a tailored proposal and competitive teardown for your target US market.
           </p>
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Request US Proposal →</span>

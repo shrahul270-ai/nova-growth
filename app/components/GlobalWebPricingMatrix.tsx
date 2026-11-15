@@ -396,7 +396,7 @@ export default function GlobalWebPricingMatrix({
               </button>
             ) : (
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-cyan-500/20 hover:scale-105 cursor-pointer flex items-center gap-2"
               >
                 <span>Get Instant Quote</span>

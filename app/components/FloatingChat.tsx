@@ -53,7 +53,7 @@ export default function FloatingChat() {
 
             {/* Book Zoom Call */}
             <Link
-              href="/contact"
+              href="/schedule-meeting"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >
@@ -66,7 +66,7 @@ export default function FloatingChat() {
 
             {/* Quick Email Inquiry */}
             <Link
-              href="/contact"
+              href="/contact-us"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >

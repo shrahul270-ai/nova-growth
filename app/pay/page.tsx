@@ -9,6 +9,16 @@ export const metadata: Metadata = {
   title: "Secure Client Payment Portal | Balaji Prime Media",
   description:
     "Settle invoices or authorize monthly marketing retainers securely in INR, USD, GBP, EUR, AUD, CAD, or AED via UPI, Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   alternates: {
     canonical: "https://balajiprimemedia.in/pay",
   },

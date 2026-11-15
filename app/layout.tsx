@@ -75,16 +75,43 @@ const structuredData = {
       "@type": "Organization",
       "@id": "https://balajiprimemedia.in/#organization",
       name: "Balaji Prime Media",
+      legalName: "Balaji Prime Media",
+      alternateName: ["BPM Digital Agency", "Balaji Prime Media Global"],
       url: "https://balajiprimemedia.in",
-      logo: "https://balajiprimemedia.in/images/logo-symbol.png",
-      image: "https://balajiprimemedia.in/images/logo-symbol.png",
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+917690868932",
-        contactType: "customer support",
-        email: "support@balajiprimemedia.in",
-        availableLanguage: ["English", "Hindi"],
+      logo: {
+        "@type": "ImageObject",
+        url: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+        width: 1015,
+        height: 377,
+        caption: "Balaji Prime Media Logo",
       },
+      image: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+      description:
+        "Global digital marketing, technical SEO, high-DA guest posting, and Next.js web development agency driving scalable organic revenue for US, UK, and overseas enterprises.",
+      telephone: "+917690868932",
+      email: "support@balajiprimemedia.in",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Malviya Nagar",
+        addressLocality: "Jaipur",
+        addressRegion: "Rajasthan",
+        postalCode: "302017",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        "https://wa.me/917690868932",
+        "https://t.me/balajiprimemedia",
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+917690868932",
+          contactType: "customer support",
+          email: "support@balajiprimemedia.in",
+          availableLanguage: ["English", "Hindi"],
+          areaServed: ["US", "GB", "CA", "AU", "AE", "IN", "DE"],
+        },
+      ],
     },
     {
       "@type": "WebSite",
@@ -94,13 +121,92 @@ const structuredData = {
       publisher: {
         "@id": "https://balajiprimemedia.in/#organization",
       },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://balajiprimemedia.in/blog?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
     },
     {
       "@type": "ProfessionalService",
-      name: "Balaji Prime Media",
+      "@id": "https://balajiprimemedia.in/#professionalservice",
+      name: "Balaji Prime Media - SEO, Guest Posting & Web Development Agency",
       url: "https://balajiprimemedia.in",
       telephone: "+917690868932",
+      email: "support@balajiprimemedia.in",
       priceRange: "$$$",
+      image: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Malviya Nagar",
+        addressLocality: "Jaipur",
+        addressRegion: "Rajasthan",
+        postalCode: "302017",
+        addressCountry: "IN",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 26.8533,
+        longitude: 75.8052,
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "00:00",
+          closes: "23:59",
+        },
+      ],
+      areaServed: [
+        { "@type": "Country", name: "United States" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Country", name: "Canada" },
+        { "@type": "Country", name: "Australia" },
+        { "@type": "Country", name: "United Arab Emirates" },
+        { "@type": "Country", name: "Germany" },
+        { "@type": "Country", name: "India" },
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Core Digital Growth Services",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Technical SEO & Organic Revenue Scaling",
+              description: "Full-funnel keyword clustering, Core Web Vitals optimization, and international SERP domination.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "High-DA Guest Posting & Backlinks",
+              description: "Manual white-hat outreach on vetted DR 50+ to DR 90+ authoritative publications.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Next.js & Full-Stack Web Development",
+              description: "Headless, sub-second web applications and conversion-optimized digital platforms.",
+            },
+          },
+        ],
+      },
     },
   ],
 };

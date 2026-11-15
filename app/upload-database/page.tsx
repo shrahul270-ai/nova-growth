@@ -1177,7 +1177,7 @@ export default function PrivateUploadDatabasePage() {
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
                               src={site.logoUrl}
-                              alt=""
+                              alt={`${site.domain} logo`}
                               className="w-4 h-4 rounded-sm object-contain"
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = "none";

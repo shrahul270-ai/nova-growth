@@ -37,7 +37,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹29,999",
     priceUSD: "$449",
     tat: "Monthly Retainer",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/seo-optimization.jpg",
     glowRgb: "160, 104, 255",
     initial: "S",
     deliverables: [
@@ -60,7 +60,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹49,999",
     priceUSD: "$699",
     tat: "3–4 Weeks",
-    coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/website-development.jpg",
     glowRgb: "56, 189, 248",
     initial: "W",
     deliverables: [
@@ -83,7 +83,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹18,999",
     priceUSD: "$269",
     tat: "5–7 Days",
-    coverImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/content-writing.jpg",
     glowRgb: "217, 70, 239",
     initial: "C",
     deliverables: [
@@ -106,7 +106,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹18,999",
     priceUSD: "$269",
     tat: "7–10 Days",
-    coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/email-marketing.jpg",
     glowRgb: "20, 184, 166",
     initial: "E",
     deliverables: [
@@ -129,7 +129,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹24,999",
     priceUSD: "$349",
     tat: "Monthly Retainer",
-    coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/backlink-building.jpg",
     glowRgb: "168, 85, 247",
     initial: "B",
     deliverables: [
@@ -152,7 +152,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹9,999",
     priceUSD: "$149",
     tat: "Ongoing Monthly",
-    coverImage: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/website-maintenance.jpg",
     glowRgb: "99, 102, 241",
     initial: "M",
     deliverables: [
@@ -175,7 +175,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹84,999",
     priceUSD: "$1,199",
     tat: "4–6 Weeks",
-    coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/flutter-app-dev.jpg",
     glowRgb: "79, 70, 229",
     initial: "F",
     deliverables: [
@@ -198,7 +198,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹49,999",
     priceUSD: "$699",
     tat: "3–5 Weeks",
-    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/full-stack-php-dev.jpg",
     glowRgb: "129, 140, 248",
     initial: "P",
     deliverables: [
@@ -221,13 +221,13 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹34,999",
     priceUSD: "$499",
     tat: "2–3 Weeks",
-    coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/projects/saas-analytics.jpg",
     glowRgb: "192, 132, 252",
     initial: "G",
     deliverables: [
       { title: "Semantic Entity Modeling", desc: "Knowledge graph structure for AI ingestion" },
       { title: "Citation Optimization", desc: "Rank in ChatGPT Search & Perplexity answers" },
-      { title: "Authoritative Data Hooks", desc: "Context window formatting for LLM summaries" },
+      { title: "Authoritative Data Hooks", desc: "Structured data formatting for LLM summaries" },
       { title: "AI Visibility Reports", desc: "Track query presence across top AI engines" },
     ],
   },
@@ -244,7 +244,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹24,999",
     priceUSD: "$349",
     tat: "10–14 Days",
-    coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/projects/fintech-app.jpg",
     glowRgb: "244, 114, 182",
     initial: "A",
     deliverables: [
@@ -267,7 +267,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹19,999",
     priceUSD: "$299",
     tat: "7–10 Days",
-    coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/seo-optimization.jpg",
     glowRgb: "56, 189, 248",
     initial: "T",
     deliverables: [
@@ -290,7 +290,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹29,999",
     priceUSD: "$449",
     tat: "Ongoing Retainer",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/projects/saas-analytics.jpg",
     glowRgb: "251, 146, 60",
     initial: "O",
     deliverables: [
@@ -313,7 +313,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹24,999",
     priceUSD: "$349",
     tat: "7–10 Days",
-    coverImage: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/website-development.jpg",
     glowRgb: "96, 165, 250",
     initial: "D",
     deliverables: [
@@ -336,7 +336,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹19,999",
     priceUSD: "$299",
     tat: "Monthly Retainer",
-    coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/projects/local-growth.jpg",
     glowRgb: "74, 222, 128",
     initial: "L",
     deliverables: [
@@ -359,7 +359,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹14,999",
     priceUSD: "$219",
     tat: "5–7 Days",
-    coverImage: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/services/backlink-building.jpg",
     glowRgb: "232, 121, 249",
     initial: "H",
     deliverables: [
@@ -382,7 +382,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     priceINR: "₹39,999",
     priceUSD: "$599",
     tat: "2–3 Weeks",
-    coverImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "/images/projects/real-estate.jpg",
     glowRgb: "248, 113, 113",
     initial: "R",
     deliverables: [
@@ -833,7 +833,7 @@ export default function CoverFlowServices({ onSelectService }: CoverFlowServices
                 >
                   <img
                     src={item.coverImage}
-                    alt=""
+                    alt={`${item.name} preview`}
                     className="w-full h-full object-cover"
                     draggable={false}
                   />

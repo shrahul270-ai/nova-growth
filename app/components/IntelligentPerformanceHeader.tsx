@@ -881,7 +881,7 @@ export default function IntelligentPerformanceHeader() {
               <rect width="100%" height="100%" filter="url(#cardNoise)" />
             </svg>
 
-            <h2 className="card__title">Inference Speed<br />AI Response Latency</h2>
+            <h2 className="card__title">+340% Revenue Growth<br />Organic Pipeline Scaled</h2>
 
             {/* GAUGE SVG */}
             <svg className="gauge" viewBox="0 0 326 326" aria-hidden="true">
@@ -1004,9 +1004,9 @@ export default function IntelligentPerformanceHeader() {
               </svg>
             </div>
 
-            <h2 className="card__title">Context Window<br />Long-form Understanding</h2>
+            <h2 className="card__title">+280% Inbound Calls<br />#1 Google Map Pack Authority</h2>
 
-            {/* CONTEXT WINDOW GLASS PANEL */}
+            {/* LOCAL SEO GLASS PANEL */}
             <div className="context-window" aria-hidden="true">
               <svg className="window-grain" viewBox="0 0 252 166" preserveAspectRatio="none">
                 <rect width="100%" height="100%" filter="url(#panelNoiseF)" />

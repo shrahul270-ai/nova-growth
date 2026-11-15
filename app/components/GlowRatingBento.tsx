@@ -254,11 +254,11 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
                 <rect width="100%" height="100%" filter="url(#msCardNoise)" />
               </svg>
 
-              {/* Card Top Title: Service + Category */}
+              {/* Card Top Title: Client Result */}
               <div className="relative z-10 text-center space-y-1">
                 <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  Inference Speed &bull; Organic Pipeline<br />
-                  <span className="text-xs font-normal text-white/80">AI Response Latency</span>
+                  +340% Revenue &bull; Organic Growth<br />
+                  <span className="text-xs font-normal text-white/80">E-Commerce Search Scaled</span>
                 </h3>
               </div>
 
@@ -404,10 +404,10 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
                 </svg>
               </div>
 
-              {/* Card Top Title */}
+              {/* Card Top Title: Client Result */}
               <div className="relative z-10 text-center space-y-1">
                 <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  Context Window &bull; Local SEO<br />
+                  +280% Phone Bookings &bull; Local SEO<br />
                   <span className="text-xs font-normal text-white/80">#1 Google Map Pack Authority</span>
                 </h3>
               </div>
@@ -516,11 +516,11 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
                 </svg>
               </div>
 
-              {/* Card Top Title */}
+              {/* Card Top Title: Client Result */}
               <div className="relative z-10 text-center space-y-1">
                 <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  Intelligent Connections &bull; Speed<br />
-                  <span className="text-xs font-normal text-white/80">Cross-Source Context &bull; Next.js 15</span>
+                  98/100 PageSpeed &bull; Conversion Boost<br />
+                  <span className="text-xs font-normal text-white/80">42% Bounce Reduction &bull; Next.js 15</span>
                 </h3>
               </div>
 

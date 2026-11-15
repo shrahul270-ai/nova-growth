@@ -59,7 +59,7 @@ export default function WebDevelopmentUkPage() {
         </div>
         <div className="flex justify-center gap-4">
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all w-full sm:w-auto"
           >
             <span>Discuss Your UK Project (GMT Hours)</span>
@@ -110,7 +110,7 @@ export default function WebDevelopmentUkPage() {
             Get a detailed timeline, architecture proposal, and transparent quote within 12 hours.
           </p>
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Request Free UK Quote →</span>

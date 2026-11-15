@@ -791,7 +791,7 @@ export default function BuyerDashboardPage() {
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={faviconUrl}
-                              alt=""
+                              alt={`${site.domain} favicon`}
                               onError={(e) => {
                                 (e.currentTarget as HTMLImageElement).style.display = "none";
                               }}

@@ -91,7 +91,7 @@ export default function AboutFoundersSection() {
             </p>
             <div>
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="group inline-flex items-center gap-3.5 mt-6 text-[14.5px] font-semibold text-[#c084fc] hover:text-white transition-colors"
               >
                 <span>Balaji Prime Media roadmap</span>

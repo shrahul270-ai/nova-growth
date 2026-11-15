@@ -178,7 +178,7 @@ export default function ClientGrowthAtlas() {
           </div>
 
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center gap-2 text-white text-[13px] font-bold px-5 py-2.5 rounded-full transition-all self-start md:self-auto cursor-pointer shadow-[0_0_20px_rgba(160,104,255,0.4)] hover:shadow-[0_0_30px_rgba(160,104,255,0.7)] hover:scale-105 active:scale-95"
             style={{
               background: "linear-gradient(135deg, #A068FF 0%, #7928CA 60%, #4F46E5 100%)",
@@ -383,7 +383,7 @@ export default function ClientGrowthAtlas() {
               </div>
 
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="shrink-0 bg-white hover:bg-slate-100 text-[#070319] text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
                 Book Strategy →

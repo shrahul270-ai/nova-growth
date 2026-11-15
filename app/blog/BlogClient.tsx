@@ -177,10 +177,7 @@ export default function BlogClient() {
                   className="block overflow-hidden relative aspect-[16/10] bg-slate-900/60"
                 >
                   <img
-                    src={
-                      post.coverImage ||
-                      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                    }
+                    src={post.coverImage}
                     alt={post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
@@ -194,7 +191,7 @@ export default function BlogClient() {
                 <div className="p-6 flex flex-col flex-1">
                   {/* Meta info: Date & Reading time (like girlmuseum post-meta) */}
                   <div className="flex items-center gap-2 text-[12px] text-purple-300/70 mb-3 font-medium">
-                    <span>{post.date}</span>
+                    <time dateTime={post.isoDate}>{post.date}</time>
                     <span>•</span>
                     <span>{post.readTime}</span>
                     {post.tag && (

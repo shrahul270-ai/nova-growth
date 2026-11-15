@@ -13,9 +13,10 @@ export interface BlogPost {
   author: string;
   authorRole: string;
   date: string;
+  isoDate: string;
   readTime: string;
   tag: string;
-  coverImage?: string;
+  coverImage: string;
   featured?: boolean;
   statBadge?: { value: string; label: string };
   sections: BlogSection[];
@@ -33,10 +34,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "seo",
     author: "Aiden Vance",
     authorRole: "Head of Growth & SEO Strategy",
-    date: "Oct 2026",
+    date: "October 24, 2026",
+    isoDate: "2026-10-24",
     readTime: "7 min read",
     tag: "Case Study",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/ecommerce-seo-scaling.jpg",
     featured: true,
     statBadge: { value: "+340%", label: "Organic Revenue Increase" },
     sections: [
@@ -96,10 +98,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "dev",
     author: "Elena Rostova",
     authorRole: "Principal Web Architect",
-    date: "Sep 2026",
+    date: "September 28, 2026",
+    isoDate: "2026-09-28",
     readTime: "5 min read",
     tag: "Technical SEO",
-    coverImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/nextjs-vs-wordpress.jpg",
     featured: false,
     statBadge: { value: "98/100", label: "Mobile PageSpeed Score" },
     sections: [
@@ -148,10 +151,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "seo",
     author: "Marcus Sterling",
     authorRole: "Director of Digital PR & Authority",
-    date: "Sep 2026",
+    date: "September 14, 2026",
+    isoDate: "2026-09-14",
     readTime: "6 min read",
     tag: "Authority Growth",
-    coverImage: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/international-link-building.jpg",
     featured: false,
     statBadge: { value: "DR 70+", label: "Average Link Quality" },
     sections: [
@@ -194,10 +198,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "seo",
     author: "Aiden Vance",
     authorRole: "Head of Growth & SEO Strategy",
-    date: "Aug 2026",
+    date: "August 25, 2026",
+    isoDate: "2026-08-25",
     readTime: "4 min read",
     tag: "Local Growth",
-    coverImage: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/google-maps-local-seo.jpg",
     featured: false,
     statBadge: { value: "#1 Rank", label: "Top 3 Google Map Pack" },
     sections: [
@@ -238,10 +243,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "marketing",
     author: "Elena Rostova",
     authorRole: "Lifecycle Marketer",
-    date: "Aug 2026",
+    date: "August 10, 2026",
+    isoDate: "2026-08-10",
     readTime: "8 min read",
     tag: "Retention",
-    coverImage: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/shopify-email-automation.jpg",
     featured: false,
     statBadge: { value: "+30%", label: "Store Revenue on Autopilot" },
     sections: [
@@ -279,10 +285,11 @@ export const blogPosts: BlogPost[] = [
     categoryGroup: "ai",
     author: "Marcus Sterling",
     authorRole: "SEO Director",
-    date: "Jul 2026",
+    date: "July 28, 2026",
+    isoDate: "2026-07-28",
     readTime: "6 min read",
     tag: "AI & Search",
-    coverImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    coverImage: "/images/blog/ai-search-overviews.jpg",
     featured: false,
     statBadge: { value: "Top Cited", label: "Google AI Source" },
     sections: [

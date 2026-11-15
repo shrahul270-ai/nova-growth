@@ -42,12 +42,22 @@ export default function Home() {
     "@graph": [
       {
         "@type": "ProfessionalService",
-        "@id": "https://balajiprimemedia.in/#organization",
-        "name": "Balaji Prime Media - Global Digital Marketing & SEO Agency",
+        "@id": "https://balajiprimemedia.in/#professionalservice",
+        "name": "Balaji Prime Media - SEO, Guest Posting & Web Development Agency",
         "url": "https://balajiprimemedia.in",
-        "logo": "https://balajiprimemedia.in/logo.png",
-        "image": "https://balajiprimemedia.in/og-image.jpg",
+        "logo": "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+        "image": "https://balajiprimemedia.in/images/bpm-complete-logo.png",
         "description": "Global digital marketing agency helping overseas businesses scale through high-ranking SEO, modern web development, and performance digital solutions.",
+        "telephone": "+917690868932",
+        "email": "support@balajiprimemedia.in",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Malviya Nagar",
+          "addressLocality": "Jaipur",
+          "addressRegion": "Rajasthan",
+          "postalCode": "302017",
+          "addressCountry": "IN"
+        },
         "priceRange": "$$$",
         "areaServed": [
           { "@type": "Country", "name": "United States" },
@@ -235,8 +245,8 @@ export default function Home() {
                 <div>
                   <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
                     <img
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85"
-                      alt="Luxe Fashion US"
+                      src="/images/projects/fashion-brand.jpg"
+                      alt="Luxe Fashion US - E-Commerce SEO and Next.js Storefront Case Study by Balaji Prime Media"
                       className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />
@@ -285,8 +295,8 @@ export default function Home() {
                 <div>
                   <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
                     <img
-                      src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=85"
-                      alt="PulseFit Pro"
+                      src="/images/projects/fitness-app.jpg"
+                      alt="PulseFit Pro - Global Fitness App Development Case Study by Balaji Prime Media"
                       className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />
@@ -335,8 +345,8 @@ export default function Home() {
                 <div>
                   <div className="relative rounded-2xl h-60 overflow-hidden mb-5 border border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
                     <img
-                      src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=85"
-                      alt="Apex Dental UK"
+                      src="/images/projects/local-growth.jpg"
+                      alt="Apex Dental UK - Local SEO and Patient Lead Generation Case Study by Balaji Prime Media"
                       className="absolute inset-0 w-full h-full object-cover brightness-[0.72] contrast-105 group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08041c] via-[#08041c]/40 to-transparent" />

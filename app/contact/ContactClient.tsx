@@ -30,7 +30,7 @@ export default function ContactClient() {
       action: label === "UPI ID" ? "other" : "email",
       title: `Copied ${label} to clipboard`,
       details: text,
-      sourcePage: "/contact",
+      sourcePage: "/contact-us",
     });
     setTimeout(() => setCopiedItem(null), 2500);
   };

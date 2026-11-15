@@ -180,7 +180,7 @@ export default function HelpCenterPage() {
                     {cat.articles.map((art, aIdx) => (
                       <li key={aIdx}>
                         <Link
-                          href="/contact"
+                          href="/contact-us"
                           className="text-xs text-cyan-300 hover:text-white hover:underline flex items-center justify-between group py-0.5"
                         >
                           <span>{art}</span>

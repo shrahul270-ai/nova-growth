@@ -33,7 +33,7 @@ export default function ProjectsClient() {
       stat: "+340%",
       statLabel: "Organic Revenue",
       country: "🇺🇸 Los Angeles",
-      img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85",
+      img: "/images/projects/fashion-brand.jpg",
       type: "image-card",
       tilted: "-rotate-[22deg] -translate-x-36 sm:-translate-x-64 -translate-y-12 sm:-translate-y-24 scale-90",
       accent: "#ec4899",
@@ -61,7 +61,7 @@ export default function ProjectsClient() {
       stat: "#1 Rank",
       statLabel: "Across 18 Boroughs",
       country: "🇬🇧 London, UK",
-      img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=85",
+      img: "/images/projects/local-growth.jpg",
       type: "image-card",
       tilted: "-rotate-[5deg] -translate-x-6 sm:-translate-x-12 -translate-y-28 sm:-translate-y-44 scale-100",
       accent: "#06b6d4",
@@ -89,7 +89,7 @@ export default function ProjectsClient() {
       stat: "$18.5M",
       statLabel: "Verified Inquiries",
       country: "🇦🇪 Dubai, UAE",
-      img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=85",
+      img: "/images/projects/real-estate.jpg",
       type: "image-card",
       tilted: "rotate-[13deg] translate-x-20 sm:translate-x-36 -translate-y-22 sm:-translate-y-36 scale-95",
       accent: "#f59e0b",
@@ -103,7 +103,7 @@ export default function ProjectsClient() {
       stat: "100K+",
       statLabel: "Monthly Active Users",
       country: "🇨🇦 Toronto, CA",
-      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=85",
+      img: "/images/projects/fintech-app.jpg",
       type: "purple-gradient",
       tilted: "rotate-[22deg] translate-x-36 sm:translate-x-64 -translate-y-12 sm:-translate-y-24 scale-90",
       accent: "#8b5cf6",
@@ -396,16 +396,16 @@ export default function ProjectsClient() {
                 <img
                   src={
                     activeProject.id === "fashion-brand"
-                      ? "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=1200&q=85"
+                      ? "/images/projects/fashion-brand.jpg"
                       : activeProject.id === "fitness-app"
-                      ? "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=85"
+                      ? "/images/projects/fitness-app.jpg"
                       : activeProject.id === "local-growth"
-                      ? "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=85"
+                      ? "/images/projects/local-growth.jpg"
                       : activeProject.id === "saas-pipeline"
-                      ? "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
+                      ? "/images/projects/saas-analytics.jpg"
                       : activeProject.id === "dubai-real-estate"
-                      ? "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85"
-                      : "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=85"
+                      ? "/images/projects/real-estate.jpg"
+                      : "/images/projects/fintech-app.jpg"
                   }
                   alt={activeProject.title}
                   className="absolute inset-0 w-full h-full object-cover brightness-[0.88] contrast-[1.05]"
@@ -580,7 +580,7 @@ export default function ProjectsClient() {
                   <img
                     src={
                       study.coverImage ||
-                      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                      "/images/projects/fashion-brand.jpg"
                     }
                     alt={study.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -687,7 +687,7 @@ export default function ProjectsClient() {
             Let us conduct an audit of your current digital presence and build an actionable growth roadmap.
           </p>
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white text-xs font-bold px-8 py-3.5 rounded-full shadow-lg shadow-cyan-500/25 transition-all cursor-pointer"
           >
             <span>Book Your Free Growth Audit</span>

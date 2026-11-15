@@ -27,23 +27,48 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
+  const postUrl = `https://balajiprimemedia.in/blog/${post.id}`;
+  const fullImageUrl = `https://balajiprimemedia.in${post.coverImage}`;
+  const publishedIso = new Date(post.isoDate).toISOString();
+
   return {
     title: `${post.title} | Balaji Prime Media`,
     description: post.excerpt,
     alternates: {
-      canonical: `https://balajiprimemedia.in/blog/${post.id}`,
+      canonical: postUrl,
     },
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url: postUrl,
+      siteName: "Balaji Prime Media",
+      locale: "en_US",
       type: "article",
-      publishedTime: post.date,
+      publishedTime: publishedIso,
+      modifiedTime: publishedIso,
       authors: [post.author],
+      section: post.category,
+      tags: [post.tag, post.category, "SEO", "Digital Growth"],
       images: [
         {
-          url:
-            post.coverImage ||
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+          url: fullImageUrl,
+          secureUrl: fullImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+          type: "image/jpeg",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      site: "@balajiprimemedia",
+      creator: "@balajiprimemedia",
+      images: [
+        {
+          url: fullImageUrl,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -67,15 +92,21 @@ export default async function BlogPostPage({ params }: PageProps) {
   const relatedPosts = blogPosts.filter((p) => p.id !== post.id).slice(0, 3);
 
   const postUrl = `https://balajiprimemedia.in/blog/${post.id}`;
+  const fullImageUrl = `https://balajiprimemedia.in${post.coverImage}`;
+  const publishedIso = new Date(post.isoDate).toISOString();
   const encodedUrl = encodeURIComponent(postUrl);
   const encodedTitle = encodeURIComponent(post.title);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
     headline: post.title,
     description: post.excerpt,
-    image: post.coverImage || "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+    image: [fullImageUrl],
     author: {
       "@type": "Person",
       name: post.author,
@@ -89,7 +120,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         url: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
       },
     },
-    datePublished: post.date,
+    datePublished: publishedIso,
+    dateModified: publishedIso,
   };
 
   return (
@@ -153,7 +185,9 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           {/* Post Meta Line (published date, author, reading time) */}
           <p className="post-meta flex flex-wrap items-center gap-2.5 text-xs sm:text-sm text-purple-300/80 font-medium pb-4 border-b border-purple-500/20">
-            <span className="published text-white font-semibold">{post.date}</span>
+            <time dateTime={post.isoDate} className="published text-white font-semibold">
+              {post.date}
+            </time>
             <span className="text-purple-400/40">|</span>
             <span>by <strong className="text-slate-200">{post.author}</strong></span>
             <span className="text-purple-400/40">|</span>
@@ -172,10 +206,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* 2. Large High-Resolution Cover Image (mirroring girlmuseum.org full-width featured image) */}
         <div className="overflow-hidden rounded-3xl border border-purple-500/25 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(160,104,255,0.18)] aspect-[16/9] max-h-[480px] w-full mb-12 relative bg-[#090422]">
           <img
-            src={
-              post.coverImage ||
-              "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
-            }
+            src={post.coverImage}
             alt={post.title}
             className="w-full h-full object-cover"
           />
@@ -392,7 +423,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   >
                     <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0 bg-slate-900 border border-purple-500/20">
                       <img
-                        src={rPost.coverImage || "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=200&q=80"}
+                        src={rPost.coverImage}
                         alt={rPost.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         loading="lazy"
@@ -418,20 +449,21 @@ export default async function BlogPostPage({ params }: PageProps) {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {[
-                  "International SEO",
-                  "Next.js App Router",
-                  "Guest Posting DR 50+",
-                  "Topical Authority",
-                  "Core Web Vitals",
-                  "Google AI & SGE",
-                  "Klaviyo Retention",
-                ].map((tag) => (
+                  { label: "International SEO", href: "/seo-services-usa" },
+                  { label: "Next.js App Router", href: "/web-development-uk" },
+                  { label: "Guest Posting DR 50+", href: "/guest-posting" },
+                  { label: "Technical SEO", href: "/services/seo-optimization" },
+                  { label: "Core Web Vitals Audit", href: "/audit" },
+                  { label: "Email Retention Workflows", href: "/services/email-marketing" },
+                  { label: "Authority Backlinks", href: "/services/backlink-building" },
+                  { label: "Content Strategy", href: "/services/content-writing" },
+                ].map((item) => (
                   <Link
-                    key={tag}
-                    href="/blog"
+                    key={item.label}
+                    href={item.href}
                     className="text-[11px] font-medium text-slate-300 bg-white/[0.05] hover:bg-purple-900/40 border border-purple-500/20 px-3 py-1 rounded-full transition-colors"
                   >
-                    {tag}
+                    {item.label}
                   </Link>
                 ))}
               </div>

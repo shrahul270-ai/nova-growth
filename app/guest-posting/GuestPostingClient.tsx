@@ -203,7 +203,7 @@ export default function GuestPostingClient() {
                 <li className="flex items-center gap-2">✓ 100% Do-Follow &amp; Indexed</li>
               </ul>
             </div>
-            <a href="/contact" className="btn-3d mt-8 block text-center py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition-colors">
+            <a href="/contact-us" className="btn-3d mt-8 block text-center py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition-colors">
               Order Starter Pack →
             </a>
           </div>
@@ -225,7 +225,7 @@ export default function GuestPostingClient() {
                 <li className="flex items-center gap-2">✓ Permanent Placement Warranty</li>
               </ul>
             </div>
-            <a href="/contact" className="btn-gold-3d mt-8 block text-center py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs transition-all shadow-md">
+            <a href="/contact-us" className="btn-gold-3d mt-8 block text-center py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs transition-all shadow-md">
               Order Growth Pack →
             </a>
           </div>
@@ -244,7 +244,7 @@ export default function GuestPostingClient() {
                 <li className="flex items-center gap-2">✓ Monthly Live Ranking Dashboard</li>
               </ul>
             </div>
-            <a href="/contact" className="btn-3d mt-8 block text-center py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition-colors">
+            <a href="/contact-us" className="btn-3d mt-8 block text-center py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-xs transition-colors">
               Custom Enterprise Brief →
             </a>
           </div>

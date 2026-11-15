@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         {
           url:
             study.coverImage ||
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+            "/images/projects/fashion-brand.jpg",
           width: 1200,
           height: 630,
           alt: study.title,
@@ -325,7 +325,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/contact-us"
                 className="bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:brightness-110 text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg transition-all cursor-pointer"
               >
                 Book Free Growth Consultation →

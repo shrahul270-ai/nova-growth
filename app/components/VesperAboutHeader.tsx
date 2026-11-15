@@ -543,7 +543,7 @@ export default function VesperAboutHeader() {
           {/* Hero Actions */}
           <div className="vesper-actions">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="btn btn-solid appear appear--btn"
               style={{ "--d": "0.96s" } as React.CSSProperties}
             >
