@@ -593,7 +593,7 @@ export default function Footer() {
 
       {/* BOTTOM SECTION: TWO WHITE CARRARA MARBLE HANDS REACHING TOWARD EACH OTHER & GIANT WORDMARK */}
       {/* Seamless transition with NO separate black box or harsh line */}
-      <div className="relative pt-10 sm:pt-14 md:pt-16 pb-6 sm:pb-8 overflow-hidden border-t border-white/10 flex flex-col justify-end items-center bg-transparent min-h-[240px] sm:min-h-[290px] md:min-h-[340px]">
+      <div className="relative pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 md:pb-20 overflow-hidden border-t border-white/10 flex flex-col justify-end items-center bg-transparent min-h-[280px] sm:min-h-[340px] md:min-h-[400px]">
         {/* Subtle rim light halos behind the hands */}
         <div
           aria-hidden="true"
@@ -624,10 +624,10 @@ export default function Footer() {
           />
         </div>
 
-        {/* Giant Wordmark - Placed down near the hands, fully visible & larger ("hatho ke pass ho thoda bas pura dikhe and bada") */}
+        {/* Giant Wordmark - Elevated above hands */}
         <div
           aria-hidden="true"
-          className="relative z-25 w-full flex items-center justify-center select-none pointer-events-none px-4 mb-2 sm:mb-3"
+          className="relative z-25 w-full flex items-center justify-center select-none pointer-events-none px-4 mb-3 sm:mb-4 md:mb-5"
         >
           <span
             className="neon-outline-wordmark font-black text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[7.5rem] leading-none whitespace-nowrap tracking-tight select-none opacity-100 drop-shadow-[0_0_35px_rgba(184,134,255,0.8)]"
@@ -639,8 +639,8 @@ export default function Footer() {
           </span>
         </div>
 
-        {/* Center Info: Tagline, Copyright, and Legal Policies (Cleanly between reaching hands) - z-30 */}
-        <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2 py-2">
+        {/* Center Info: Tagline, Copyright, and Legal Policies (Elevated cleanly above the reaching hands) - z-30 */}
+        <div className="relative z-30 max-w-2xl mx-auto px-4 text-center space-y-2.5 py-2 mb-6 sm:mb-8 md:mb-10">
           <p className="text-white font-bold text-sm sm:text-base tracking-tight drop-shadow-sm">
             Build a real agency-grade brand, fast.
           </p>
