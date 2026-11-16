@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Star,
+  Quote,
   Sparkles,
   TrendingUp,
   Gauge,
@@ -221,7 +222,7 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch justify-center max-w-[1360px] mx-auto">
           
           {/* ============================================================== */}
-          {/* CARD 1: DAVID HENDERSON (E-Commerce Revenue Growth) */}
+          {/* CARD 1: DAVID HENDERSON (Simple Rating Card) */}
           {/* ============================================================== */}
           <div
             className={`transition-all duration-300 flex ${
@@ -229,99 +230,88 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
             }`}
           >
             <article
-              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-rose-500/30 hover:border-rose-400/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(244,63,94,0.25)] backdrop-blur-2xl"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-7 sm:p-8 text-white select-none border border-rose-500/25 hover:border-rose-400/60 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(244,63,94,0.2)] backdrop-blur-2xl"
               style={{
-                background: "linear-gradient(165deg, #170826 0%, #0d0419 50%, #06010e 100%)",
+                background: "linear-gradient(165deg, #150824 0%, #0c0418 50%, #06010d 100%)",
               }}
             >
-              {/* Subtle Ambient Radial Backlight */}
+              {/* Ambient Radial Backlights */}
               <div
                 aria-hidden="true"
-                className="absolute -top-16 -right-16 w-48 h-48 bg-rose-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/30 transition-all"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-rose-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/25 transition-all"
               />
               <div
                 aria-hidden="true"
-                className="absolute -bottom-16 -left-16 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/30 transition-all"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-purple-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/25 transition-all"
               />
 
               {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-purple-500" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400/60 to-purple-500/60" />
 
-              {/* Card Top Title: Client Result */}
-              <div className="relative z-10 space-y-1 mb-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-[11px] font-bold text-rose-300 uppercase tracking-wider mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
-                  <span>E-Commerce Search Scaled</span>
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
-                  +340% Revenue <span className="text-rose-400">&bull;</span> Organic Growth
-                </h3>
-              </div>
-
-              {/* Metric Hero Row: Big Glowing Metric + Gauge Indicator */}
-              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
-                <div className="flex items-baseline justify-center gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-white to-purple-300 drop-shadow-[0_0_20px_rgba(244,63,94,0.4)]">
-                    +340%
-                  </span>
-                  <span className="text-sm sm:text-base font-bold text-rose-300 uppercase tracking-wider">
-                    Revenue
-                  </span>
-                </div>
-                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
-                  <span className="text-emerald-400 font-bold">↗ $1.4M ARR</span>
-                  <span className="text-slate-500">•</span>
-                  <span>Eclipsed Paid Ads Spend</span>
-                </div>
-              </div>
-
-              {/* Testimonial Quote & Verified Rating */}
-              <div className="relative z-10 space-y-4 pt-2">
-                {/* 5-Star Rating */}
+              <div className="relative z-10 space-y-5">
+                {/* 5-Star Rating & Verified Badge */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-amber-400 fill-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                      />
                     ))}
-                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                    <span className="text-xs font-mono font-bold text-amber-200 ml-1">
                       5.0
                     </span>
                   </div>
-                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                    ✓ Verified Client
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Verified Review
                   </span>
                 </div>
 
-                {/* Verbatim Quote */}
-                <p className="text-[13px] text-slate-200 leading-relaxed italic">
-                  &ldquo;Balaji Prime Media completely transformed our organic pipeline. In 4 months, our US search traffic grew significantly, and organic revenue eclipsed our paid Facebook ad spend.&rdquo;
-                </p>
-
-                {/* Client Profile */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500/30 to-purple-500/30 text-white font-black text-xs flex items-center justify-center border border-rose-400/40 shadow-inner shrink-0">
-                      DH
-                    </div>
-                    <div className="text-left">
-                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">David Henderson</h4>
-                      <p className="text-[11px] text-slate-400">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onOpenConsultation?.("SEO Strategy Call")}
-                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
-                  >
-                    Learn More
-                  </button>
+                {/* Category Pill */}
+                <div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/25 text-[11px] font-semibold text-rose-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+                    E-Commerce SEO Scaling
+                  </span>
                 </div>
+
+                {/* Headline without numbers */}
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  &ldquo;Transformed Our Entire Organic Search Growth&rdquo;
+                </h3>
+
+                {/* Testimonial Quote */}
+                <p className="text-[13.5px] text-slate-300 leading-relaxed italic">
+                  &ldquo;Balaji Prime Media completely transformed our organic pipeline. Their team took the time to understand our exact audience, rebuilt our search architecture, and delivered phenomenal organic growth that surpassed our paid advertising spend. Their technical execution and weekly reporting are unmatched.&rdquo;
+                </p>
+              </div>
+
+              {/* Client Profile Footer */}
+              <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-rose-500/30 to-purple-500/30 text-white font-bold text-sm flex items-center justify-center border border-rose-400/40 shadow-inner shrink-0">
+                    DH
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold text-white leading-tight">David Henderson</h4>
+                    <p className="text-[11.5px] text-slate-400">Founder &amp; CEO, Luxe Apparel</p>
+                    <p className="text-[10.5px] text-rose-300/80 font-medium">Los Angeles, USA 🇺🇸</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => onOpenConsultation?.("SEO Strategy Call")}
+                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
+                >
+                  Consultation
+                </button>
               </div>
             </article>
           </div>
 
           {/* ============================================================== */}
-          {/* CARD 2: OLIVER THORNE (Local SEO London Authority) */}
+          {/* CARD 2: OLIVER THORNE (Simple Rating Card) */}
           {/* ============================================================== */}
           <div
             className={`transition-all duration-300 flex ${
@@ -329,99 +319,88 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
             }`}
           >
             <article
-              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-purple-500/40 hover:border-purple-400/80 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(168,85,247,0.3)] backdrop-blur-2xl"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-7 sm:p-8 text-white select-none border border-purple-500/30 hover:border-purple-400/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(168,85,247,0.2)] backdrop-blur-2xl"
               style={{
-                background: "linear-gradient(165deg, #180938 0%, #0e0524 50%, #070214 100%)",
+                background: "linear-gradient(165deg, #14072f 0%, #0c041f 50%, #060213 100%)",
               }}
             >
-              {/* Ambient Radial Backlight */}
+              {/* Ambient Radial Backlights */}
               <div
                 aria-hidden="true"
-                className="absolute -top-16 -right-16 w-48 h-48 bg-purple-500/25 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/35 transition-all"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-purple-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/25 transition-all"
               />
               <div
                 aria-hidden="true"
-                className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/30 transition-all"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/25 transition-all"
               />
 
               {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-cyan-400" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400/60 to-cyan-400/60" />
 
-              {/* Card Top Title: Client Result */}
-              <div className="relative z-10 space-y-1 mb-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-[11px] font-bold text-purple-200 uppercase tracking-wider mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                  <span>#1 Google Map Pack Authority</span>
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
-                  +280% Phone Bookings <span className="text-purple-400">&bull;</span> Local SEO
-                </h3>
-              </div>
-
-              {/* Metric Hero Row */}
-              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
-                <div className="flex items-baseline justify-center gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-cyan-300 drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]">
-                    +280%
-                  </span>
-                  <span className="text-sm sm:text-base font-bold text-purple-300 uppercase tracking-wider">
-                    Calls
-                  </span>
-                </div>
-                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
-                  <span className="text-cyan-400 font-bold">📍 18 London Boroughs</span>
-                  <span className="text-slate-500">•</span>
-                  <span>Zero Paid Ads Needed</span>
-                </div>
-              </div>
-
-              {/* Testimonial Quote & Verified Rating */}
-              <div className="relative z-10 space-y-4 pt-2">
-                {/* 5-Star Rating */}
+              <div className="relative z-10 space-y-5">
+                {/* 5-Star Rating & Verified Badge */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-amber-400 fill-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                      />
                     ))}
-                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                    <span className="text-xs font-mono font-bold text-amber-200 ml-1">
                       5.0
                     </span>
                   </div>
-                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                    ✓ Verified Client
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Verified Review
                   </span>
                 </div>
 
-                {/* Verbatim Quote */}
-                <p className="text-[13px] text-slate-200 leading-relaxed italic">
-                  &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
-                </p>
-
-                {/* Client Profile */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/30 to-indigo-500/30 text-white font-black text-xs flex items-center justify-center border border-purple-400/40 shadow-inner shrink-0">
-                      OT
-                    </div>
-                    <div className="text-left">
-                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Oliver Thorne</h4>
-                      <p className="text-[11px] text-slate-400">Marketing Director, Apex Dental (London, UK 🇬🇧)</p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onOpenConsultation?.("Local SEO Call")}
-                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
-                  >
-                    Learn More
-                  </button>
+                {/* Category Pill */}
+                <div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-[11px] font-semibold text-purple-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                    Local SEO &amp; Maps Authority
+                  </span>
                 </div>
+
+                {/* Headline without numbers */}
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  &ldquo;Dominant Local Visibility Across Key Boroughs&rdquo;
+                </h3>
+
+                {/* Testimonial Quote */}
+                <p className="text-[13.5px] text-slate-300 leading-relaxed italic">
+                  &ldquo;Their local SEO strategy put us directly at the top for every high-value patient keyword. Inbound phone bookings jumped dramatically without having to burn cash on continuous ads. The transparent weekly updates and Data Studio dashboard made collaboration effortless.&rdquo;
+                </p>
+              </div>
+
+              {/* Client Profile Footer */}
+              <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-500/30 to-indigo-500/30 text-white font-bold text-sm flex items-center justify-center border border-purple-400/40 shadow-inner shrink-0">
+                    OT
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold text-white leading-tight">Oliver Thorne</h4>
+                    <p className="text-[11.5px] text-slate-400">Marketing Director, Apex Dental</p>
+                    <p className="text-[10.5px] text-purple-300/80 font-medium">London, UK 🇬🇧</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => onOpenConsultation?.("Local SEO Call")}
+                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
+                >
+                  Consultation
+                </button>
               </div>
             </article>
           </div>
 
           {/* ============================================================== */}
-          {/* CARD 3: CHLOE MARTINEZ (Next.js Speed & Conversion) */}
+          {/* CARD 3: CHLOE MARTINEZ (Simple Rating Card) */}
           {/* ============================================================== */}
           <div
             className={`transition-all duration-300 flex ${
@@ -429,97 +408,85 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
             }`}
           >
             <article
-              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-cyan-500/35 hover:border-cyan-400/75 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(6,182,212,0.25)] backdrop-blur-2xl"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-7 sm:p-8 text-white select-none border border-cyan-500/30 hover:border-cyan-400/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(6,182,212,0.2)] backdrop-blur-2xl"
               style={{
-                background: "linear-gradient(165deg, #09172e 0%, #050e1f 50%, #020712 100%)",
+                background: "linear-gradient(165deg, #09152b 0%, #050d1e 50%, #020711 100%)",
               }}
             >
-              {/* Ambient Radial Backlight */}
+              {/* Ambient Radial Backlights */}
               <div
                 aria-hidden="true"
-                className="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/30 transition-all"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/25 transition-all"
               />
               <div
                 aria-hidden="true"
-                className="absolute -bottom-16 -left-16 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/30 transition-all"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/25 transition-all"
               />
 
               {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-emerald-400" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/60 to-emerald-400/60" />
 
-              {/* Card Top Title: Client Result */}
-              <div className="relative z-10 space-y-1 mb-5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/35 text-[11px] font-bold text-cyan-200 uppercase tracking-wider mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  <span>42% Bounce Reduction &bull; Next.js 15</span>
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
-                  98/100 PageSpeed <span className="text-cyan-400">&bull;</span> Conversion Boost
-                </h3>
-              </div>
-
-              {/* Metric Hero Row */}
-              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
-                <div className="flex items-baseline justify-center gap-1.5">
-                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-emerald-300 drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]">
-                    98/100
-                  </span>
-                  <span className="text-sm sm:text-base font-bold text-cyan-300 uppercase tracking-wider">
-                    PageSpeed
-                  </span>
-                </div>
-                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
-                  <span className="text-emerald-400 font-bold">⚡ 0.8s LCP</span>
-                  <span className="text-slate-500">•</span>
-                  <span>100% Core Web Vitals Pass</span>
-                </div>
-              </div>
-
-              {/* Testimonial Quote & Verified Rating */}
-              <div className="relative z-10 space-y-4 pt-2">
-                {/* 5-Star Rating */}
+              <div className="relative z-10 space-y-5">
+                {/* 5-Star Rating & Verified Badge */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                      <Star
+                        key={i}
+                        className="w-4 h-4 text-amber-400 fill-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+                      />
                     ))}
-                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                    <span className="text-xs font-mono font-bold text-amber-200 ml-1">
                       5.0
                     </span>
                   </div>
-                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                    ✓ Verified Client
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    Verified Review
                   </span>
                 </div>
 
-                {/* Verbatim Quote */}
-                <p className="text-[13px] text-slate-200 leading-relaxed italic">
-                  &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
-                </p>
-
-                {/* Client Profile */}
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500/30 to-emerald-500/30 text-white font-black text-xs flex items-center justify-center border border-cyan-400/40 shadow-inner shrink-0">
-                      CM
-                    </div>
-                    <div className="text-left">
-                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Chloe Martinez</h4>
-                      <p className="text-[11px] text-slate-400">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onOpenConsultation?.("Performance Rebuild Call")}
-                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
-                  >
-                    Learn More
-                  </button>
+                {/* Category Pill */}
+                <div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[11px] font-semibold text-cyan-200">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                    Next.js Engineering &amp; Speed
+                  </span>
                 </div>
+
+                {/* Headline without numbers */}
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  &ldquo;Sub-Second Load Speed &amp; Immediate Conversion Boost&rdquo;
+                </h3>
+
+                {/* Testimonial Quote */}
+                <p className="text-[13.5px] text-slate-300 leading-relaxed italic">
+                  &ldquo;The Next.js rebuild delivered instant results. Our entire web application load time dropped into the sub-second range, Core Web Vitals turned completely green, and demo bookings rose substantially. They think like genuine growth partners, not just developers.&rdquo;
+                </p>
+              </div>
+
+              {/* Client Profile Footer */}
+              <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-cyan-500/30 to-emerald-500/30 text-white font-bold text-sm flex items-center justify-center border border-cyan-400/40 shadow-inner shrink-0">
+                    CM
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold text-white leading-tight">Chloe Martinez</h4>
+                    <p className="text-[11.5px] text-slate-400">Co-Founder, CloudSync SaaS</p>
+                    <p className="text-[10.5px] text-cyan-300/80 font-medium">Austin, USA 🇺🇸</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => onOpenConsultation?.("Performance Rebuild Call")}
+                  className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
+                >
+                  Consultation
+                </button>
               </div>
             </article>
           </div>
-
         </div>
       </div>
     </section>
