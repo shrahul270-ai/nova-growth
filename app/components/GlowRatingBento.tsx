@@ -216,142 +216,102 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
         </div>
 
         {/* ================================================================ */}
-        {/* 3 MOTIONSITES GLASS METRIC CARDS (RIGID 429x554 UNITS) */}
+        {/* 3 REDESIGNED CLIENT TESTIMONIAL CARDS (Luxury Obsidian & Violet) */}
         {/* ================================================================ */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center justify-center max-w-[1360px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch justify-center max-w-[1360px] mx-auto">
           
           {/* ============================================================== */}
-          {/* CARD 1: DAVID HENDERSON (CARD--SPEED WITH CLOUDFRONT VIDEO + GAUGE) */}
+          {/* CARD 1: DAVID HENDERSON (E-Commerce Revenue Growth) */}
           {/* ============================================================== */}
           <div
-            className={`transition-all duration-300 ${
+            className={`transition-all duration-300 flex ${
               filter === "uk" ? "opacity-30 scale-[0.98] pointer-events-none" : "opacity-100 scale-100"
             }`}
           >
             <article
-              className="motionsite-card relative overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-rose-500/30 hover:border-rose-400/70 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(244,63,94,0.25)] backdrop-blur-2xl"
               style={{
-                background: `radial-gradient(ellipse 34% 24% at 50% 2%, rgba(255,220,211,.10) 0%, transparent 76%),
-                             radial-gradient(ellipse 44% 34% at 106% 20%, rgba(255,222,211,.10) 0%, transparent 74%),
-                             linear-gradient(180deg, #bd4468 0%, #ad355b 38%, #a63b50 72%, #8c1320 100%)`,
+                background: "linear-gradient(165deg, #170826 0%, #0d0419 50%, #06010e 100%)",
               }}
             >
-              {/* Mandatory Looping CloudFront Video */}
-              <video
-                className="absolute inset-0 w-full h-full object-fill z-0 pointer-events-none"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
+              {/* Subtle Ambient Radial Backlight */}
+              <div
                 aria-hidden="true"
-                poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/167977c6-8539-46b1-9a15-8dba566f50b8.png"
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130045_1a612b69-4854-4b34-8043-ccb91f2c60af.mp4"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-rose-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/30 transition-all"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/30 transition-all"
               />
 
-              {/* Grain Texture */}
-              <svg className="absolute inset-0 w-full h-full opacity-50 mix-blend-soft-light z-1 pointer-events-none" viewBox="0 0 429 554" preserveAspectRatio="none">
-                <rect width="100%" height="100%" filter="url(#msCardNoise)" />
-              </svg>
+              {/* Top Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-purple-500" />
 
               {/* Card Top Title: Client Result */}
-              <div className="relative z-10 text-center space-y-1">
-                <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  +340% Revenue &bull; Organic Growth<br />
-                  <span className="text-xs font-normal text-white/80">E-Commerce Search Scaled</span>
+              <div className="relative z-10 space-y-1 mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-[11px] font-bold text-rose-300 uppercase tracking-wider mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+                  <span>E-Commerce Search Scaled</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  +340% Revenue <span className="text-rose-400">&bull;</span> Organic Growth
                 </h3>
               </div>
 
-              {/* Exact SVG Gauge Overlay */}
-              <div className="absolute inset-x-0 top-[26%] h-[40%] flex items-center justify-center pointer-events-none z-2">
-                <svg className="w-[84%] h-[84%] overflow-visible" viewBox="0 0 326 326">
-                  <defs>
-                    <linearGradient id="gArc1" x1="7" y1="136" x2="312" y2="109" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#ff9ab7" stopOpacity=".06" />
-                      <stop offset="0.08" stopColor="#ff8caf" stopOpacity=".44" />
-                      <stop offset="0.34" stopColor="#ff6796" stopOpacity=".94" />
-                      <stop offset="0.58" stopColor="#ff6796" stopOpacity="1" />
-                      <stop offset="0.82" stopColor="#ffe7ed" stopOpacity=".74" />
-                      <stop offset="0.94" stopColor="#fff8fa" stopOpacity=".28" />
-                      <stop offset="1" stopColor="#fff" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient id="gShadow1" x1="11" y1="136" x2="308" y2="110" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#6e1639" stopOpacity=".04" />
-                      <stop offset="0.09" stopColor="#6e1639" stopOpacity=".17" />
-                      <stop offset="0.52" stopColor="#72163d" stopOpacity=".18" />
-                      <stop offset="0.78" stopColor="#7b1a43" stopOpacity=".1" />
-                      <stop offset="1" stopColor="#7b1a43" stopOpacity="0" />
-                    </linearGradient>
-                    <radialGradient id="rBeam1" cx="163" cy="163" r="145" gradientUnits="userSpaceOnUse">
-                      <stop offset="0.3" stopColor="#650f35" stopOpacity="0" />
-                      <stop offset="0.45" stopColor="#650f35" stopOpacity=".025" />
-                      <stop offset="0.7" stopColor="#650f35" stopOpacity=".065" />
-                      <stop offset="0.9" stopColor="#650f35" stopOpacity=".08" />
-                      <stop offset="1" stopColor="#650f35" stopOpacity=".05" />
-                    </radialGradient>
-                    <linearGradient id="rBeamEdge1" x1="238" y1="33" x2="190.5" y2="115.4" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#ffe7ef" stopOpacity=".19" />
-                      <stop offset="0.48" stopColor="#ffd1df" stopOpacity=".11" />
-                      <stop offset="0.82" stopColor="#ffc6d7" stopOpacity=".045" />
-                      <stop offset="1" stopColor="#ffc6d7" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-
-                  <path d="M11.34 136.26A154 154 0 0 1 307.71 110.33" fill="none" strokeWidth="3.2" strokeLinecap="round" stroke="url(#gShadow1)" />
-                  <path d="M6.91 135.48A158.5 158.5 0 0 1 311.94 108.79" fill="none" strokeWidth="2.2" strokeLinecap="round" stroke="url(#gArc1)" />
-                  <path d="M19.22 137.65A146 146 0 0 1 236 36.56" fill="none" strokeWidth="1.15" stroke="rgba(255,166,194,.31)" />
-                  <path d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="#6a1238" opacity=".022" filter="url(#msRadarHalo)" />
-                  <path d="M238 33.1A150 150 0 0 1 277.9 66.6L199.8 119.5A55 55 0 0 0 190.5 115.4Z" fill="url(#rBeam1)" filter="url(#msRadarSoft)" />
-                  <path d="M238 33.1L190.5 115.4" stroke="url(#rBeamEdge1)" strokeWidth="1.25" strokeLinecap="round" filter="url(#msRadarSoft)" />
-                  
-                  {gaugeTicks.map((t, idx) => (
-                    <line key={idx} x1={t.x1.toFixed(2)} y1={t.y1.toFixed(2)} x2={t.x2.toFixed(2)} y2={t.y2.toFixed(2)} stroke="rgba(255,188,210,.34)" strokeWidth={t.sw} strokeLinecap="round" />
-                  ))}
-                </svg>
-              </div>
-
-              {/* Metric Row: LED Dot Number + Unit */}
-              <div className="relative z-10 flex items-baseline justify-center gap-1.5 my-auto pt-6">
-                <div className="w-[110px]">
-                  <DotNumberSVG text="+340" dotRadius={1.7} pitchX={5} />
+              {/* Metric Hero Row: Big Glowing Metric + Gauge Indicator */}
+              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
+                <div className="flex items-baseline justify-center gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-white to-purple-300 drop-shadow-[0_0_20px_rgba(244,63,94,0.4)]">
+                    +340%
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-rose-300 uppercase tracking-wider">
+                    Revenue
+                  </span>
                 </div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  % Revenue
-                </span>
+                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
+                  <span className="text-emerald-400 font-bold">↗ $1.4M ARR</span>
+                  <span className="text-slate-500">•</span>
+                  <span>Eclipsed Paid Ads Spend</span>
+                </div>
               </div>
 
-              {/* Exact Testimonial Details */}
-              <div className="relative z-10 space-y-3 pt-2">
+              {/* Testimonial Quote & Verified Rating */}
+              <div className="relative z-10 space-y-4 pt-2">
                 {/* 5-Star Rating */}
-                <div className="flex items-center justify-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-300 fill-amber-300 drop-shadow-sm" />
-                  ))}
-                  <span className="text-[11px] font-mono text-amber-200 ml-1 font-bold">
-                    5.0 Verified
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                    ))}
+                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                      5.0
+                    </span>
+                  </div>
+                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                    ✓ Verified Client
                   </span>
                 </div>
 
                 {/* Verbatim Quote */}
-                <p className="text-xs text-white/90 text-center leading-relaxed italic line-clamp-3 px-2">
+                <p className="text-[13px] text-slate-200 leading-relaxed italic">
                   &ldquo;Balaji Prime Media completely transformed our organic pipeline. In 4 months, our US search traffic grew significantly, and organic revenue eclipsed our paid Facebook ad spend.&rdquo;
                 </p>
 
                 {/* Client Profile */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/20">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-white/20 text-white font-bold text-xs flex items-center justify-center border border-white/30 shrink-0">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500/30 to-purple-500/30 text-white font-black text-xs flex items-center justify-center border border-rose-400/40 shadow-inner shrink-0">
                       DH
                     </div>
                     <div className="text-left">
-                      <h4 className="text-xs font-bold text-white leading-tight">David Henderson</h4>
-                      <p className="text-[10px] text-white/70">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">David Henderson</h4>
+                      <p className="text-[11px] text-slate-400">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
                     </div>
                   </div>
 
                   <button
                     onClick={() => onOpenConsultation?.("SEO Strategy Call")}
-                    className="px-3.5 py-1.5 rounded-full bg-white text-[#2d2d2d] text-xs font-semibold shadow-md hover:bg-white/90 transition-all cursor-pointer shrink-0"
+                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
                   >
                     Learn More
                   </button>
@@ -361,106 +321,97 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
           </div>
 
           {/* ============================================================== */}
-          {/* CARD 2: OLIVER THORNE (CARD--CONTEXT WITH CLOUDFRONT VIDEO + TILE WINDOW) */}
+          {/* CARD 2: OLIVER THORNE (Local SEO London Authority) */}
           {/* ============================================================== */}
           <div
-            className={`transition-all duration-300 ${
+            className={`transition-all duration-300 flex ${
               filter === "usa" ? "opacity-30 scale-[0.98] pointer-events-none" : "opacity-100 scale-100"
             }`}
           >
             <article
-              className="motionsite-card relative overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-purple-500/40 hover:border-purple-400/80 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(168,85,247,0.3)] backdrop-blur-2xl"
               style={{
-                background: `radial-gradient(ellipse 118% 66% at 48% -8%, rgba(221,232,255,.065), transparent 74%),
-                             linear-gradient(164deg, #c9b5e1 0%, #ad80ca 29%, #9d4f72 64%, #793246 100%)`,
+                background: "linear-gradient(165deg, #180938 0%, #0e0524 50%, #070214 100%)",
               }}
             >
-              {/* Mandatory Looping CloudFront Video */}
-              <video
-                className="absolute inset-0 w-full h-full object-fill z-0 pointer-events-none"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
+              {/* Ambient Radial Backlight */}
+              <div
                 aria-hidden="true"
-                poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0446d1d5-e65e-4db5-8090-3e30d09afc43.png"
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130054_dd005674-d693-4d81-80a5-357f7f10b3a3.mp4"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-purple-500/25 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/35 transition-all"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/30 transition-all"
               />
 
-              <svg className="absolute inset-0 w-full h-full opacity-60 mix-blend-soft-light z-1 pointer-events-none" viewBox="0 0 429 554" preserveAspectRatio="none">
-                <rect width="100%" height="100%" filter="url(#msCardNoise)" />
-              </svg>
-
-              {/* Context Tile Backdrop */}
-              <div className="absolute inset-0 z-1 pointer-events-none opacity-80">
-                <svg className="w-full h-full" viewBox="0 0 429 554" preserveAspectRatio="none">
-                  <rect x="-24" y="22" width="106" height="149" rx="15" fill="#d5c2ff" opacity=".22" filter="url(#msTileSoft)" />
-                  <rect x="88" y="22" width="247" height="150" rx="15" fill="#e0bdff" opacity=".26" filter="url(#msTileSoft)" />
-                  <rect x="346" y="22" width="111" height="147" rx="15" fill="#f9c6d0" opacity=".26" filter="url(#msTileSoft)" />
-                  <rect x="-24" y="177" width="108" height="174" rx="15" fill="#d5c2ff" opacity=".18" filter="url(#msTileSoft)" />
-                  <rect x="88" y="177" width="247" height="174" rx="15" fill="#e858b8" opacity=".28" filter="url(#msTileSoft)" />
-                  <rect x="344" y="175" width="113" height="176" rx="15" fill="#e6459c" opacity=".46" filter="url(#msTileSoft)" />
-                </svg>
-              </div>
+              {/* Top Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-cyan-400" />
 
               {/* Card Top Title: Client Result */}
-              <div className="relative z-10 text-center space-y-1">
-                <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  +280% Phone Bookings &bull; Local SEO<br />
-                  <span className="text-xs font-normal text-white/80">#1 Google Map Pack Authority</span>
+              <div className="relative z-10 space-y-1 mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-[11px] font-bold text-purple-200 uppercase tracking-wider mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                  <span>#1 Google Map Pack Authority</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  +280% Phone Bookings <span className="text-purple-400">&bull;</span> Local SEO
                 </h3>
               </div>
 
-              {/* Frosted Glass Window Panel */}
-              <div className="absolute inset-x-[18%] top-[30%] h-[24%] rounded-2xl bg-white/20 border border-white/30 backdrop-blur-md shadow-lg z-2 pointer-events-none p-3 flex flex-col justify-between">
-                <div className="w-[30%] h-1.5 rounded-full bg-white/70"></div>
-                <div className="w-full h-5 rounded-lg bg-gradient-to-r from-white/70 via-pink-200/80 to-purple-300/80"></div>
-                <div className="w-[85%] h-1.5 rounded-full bg-white/70"></div>
-              </div>
-
-              {/* Metric Row: LED Dot Number + Unit */}
-              <div className="relative z-10 flex items-baseline justify-center gap-1.5 my-auto pt-6">
-                <div className="w-[85px]">
-                  <DotNumberSVG text="280" dotRadius={1.7} pitchX={5} />
+              {/* Metric Hero Row */}
+              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
+                <div className="flex items-baseline justify-center gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-cyan-300 drop-shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                    +280%
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-purple-300 uppercase tracking-wider">
+                    Calls
+                  </span>
                 </div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  % Calls
-                </span>
+                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
+                  <span className="text-cyan-400 font-bold">📍 18 London Boroughs</span>
+                  <span className="text-slate-500">•</span>
+                  <span>Zero Paid Ads Needed</span>
+                </div>
               </div>
 
-              {/* Exact Testimonial Details */}
-              <div className="relative z-10 space-y-3 pt-2">
+              {/* Testimonial Quote & Verified Rating */}
+              <div className="relative z-10 space-y-4 pt-2">
                 {/* 5-Star Rating */}
-                <div className="flex items-center justify-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-300 fill-amber-300 drop-shadow-sm" />
-                  ))}
-                  <span className="text-[11px] font-mono text-amber-200 ml-1 font-bold">
-                    5.0 Verified
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                    ))}
+                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                      5.0
+                    </span>
+                  </div>
+                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                    ✓ Verified Client
                   </span>
                 </div>
 
                 {/* Verbatim Quote */}
-                <p className="text-xs text-white/90 text-center leading-relaxed italic line-clamp-3 px-2">
+                <p className="text-[13px] text-slate-200 leading-relaxed italic">
                   &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
                 </p>
 
                 {/* Client Profile */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/20">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-white/20 text-white font-bold text-xs flex items-center justify-center border border-white/30 shrink-0">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/30 to-indigo-500/30 text-white font-black text-xs flex items-center justify-center border border-purple-400/40 shadow-inner shrink-0">
                       OT
                     </div>
                     <div className="text-left">
-                      <h4 className="text-xs font-bold text-white leading-tight">Oliver Thorne</h4>
-                      <p className="text-[10px] text-white/70">Marketing Director, Apex Dental (London, UK 🇬🇧)</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Oliver Thorne</h4>
+                      <p className="text-[11px] text-slate-400">Marketing Director, Apex Dental (London, UK 🇬🇧)</p>
                     </div>
                   </div>
 
                   <button
                     onClick={() => onOpenConsultation?.("Local SEO Call")}
-                    className="px-3.5 py-1.5 rounded-full bg-white text-[#2d2d2d] text-xs font-semibold shadow-md hover:bg-white/90 transition-all cursor-pointer shrink-0"
+                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
                   >
                     Learn More
                   </button>
@@ -470,102 +421,97 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
           </div>
 
           {/* ============================================================== */}
-          {/* CARD 3: CHLOE MARTINEZ (CARD--CONNECTIONS WITH CLOUDFRONT VIDEO + MAP) */}
+          {/* CARD 3: CHLOE MARTINEZ (Next.js Speed & Conversion) */}
           {/* ============================================================== */}
           <div
-            className={`transition-all duration-300 ${
+            className={`transition-all duration-300 flex ${
               filter === "uk" ? "opacity-30 scale-[0.98] pointer-events-none" : "opacity-100 scale-100"
             }`}
           >
             <article
-              className="motionsite-card relative overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none"
+              className="group relative w-full rounded-3xl overflow-hidden flex flex-col justify-between p-6 sm:p-7 text-white select-none border border-cyan-500/35 hover:border-cyan-400/75 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(6,182,212,0.25)] backdrop-blur-2xl"
               style={{
-                background: `radial-gradient(ellipse 54% 14% at 56% 0%, rgba(255,206,190,.16), transparent 76%),
-                             linear-gradient(177deg, #d84736 0%, #dd523c 24%, #e8703d 52%, #de5641 78%, #d34239 100%)`,
+                background: "linear-gradient(165deg, #09172e 0%, #050e1f 50%, #020712 100%)",
               }}
             >
-              {/* Mandatory Looping CloudFront Video */}
-              <video
-                className="absolute inset-0 w-full h-full object-fill z-0 pointer-events-none"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
+              {/* Ambient Radial Backlight */}
+              <div
                 aria-hidden="true"
-                poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/da8d0242-4dee-4f6d-813f-a5887e86ad77.png"
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260826_130103_7550f407-f14b-40a6-9616-7a26d7a8bd9f.mp4"
+                className="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/30 transition-all"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-16 -left-16 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/30 transition-all"
               />
 
-              <svg className="absolute inset-0 w-full h-full opacity-55 mix-blend-soft-light z-1 pointer-events-none" viewBox="0 0 429 554" preserveAspectRatio="none">
-                <rect width="100%" height="100%" filter="url(#msCardNoise)" />
-              </svg>
-
-              {/* Connections Circuit Map Overlay */}
-              <div className="absolute inset-x-0 top-[22%] h-[40%] z-2 pointer-events-none opacity-80">
-                <svg className="w-full h-full" viewBox="0 0 429 238" preserveAspectRatio="none">
-                  <path d="M0 5H128c27 0 36 7 39 26 2 16 9 22 24 22h106c16 0 23-8 25-25 2-16 10-23 31-23h76" fill="none" stroke="#fff" strokeWidth="1" strokeOpacity=".25" />
-                  <path d="M0 117h46c15 0 22 8 26 25 5 23 12 31 31 31h174c18 0 25-8 30-31 4-17 11-25 26-25h96" fill="none" stroke="#fff" strokeWidth="1" strokeOpacity=".35" />
-                  <path d="M0 61h95c14 0 22-6 27-20 4-13 12-20 27-20h115c15 0 23 6 27 20 5 14 13 20 28 20h110" fill="none" stroke="#fff8dd" strokeWidth="1.15" strokeOpacity=".6" />
-                  <path d="M0 117h88c15 0 22-8 25-25 4-24 12-31 31-31h129c20 0 27 7 31 31 3 17 10 25 26 25h99" fill="none" stroke="#fff8dd" strokeWidth="1.15" strokeOpacity=".94" />
-                  <circle cx="45" cy="117" r="6" fill="#fff" />
-                  <circle cx="133" cy="61" r="6" fill="#fff4a7" />
-                  <circle cx="189" cy="61" r="6" fill="#fff1a4" />
-                  <circle cx="319" cy="61" r="6" fill="#fff4a6" />
-                  <circle cx="319" cy="117" r="6" fill="#fff2a0" />
-                </svg>
-              </div>
+              {/* Top Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-emerald-400" />
 
               {/* Card Top Title: Client Result */}
-              <div className="relative z-10 text-center space-y-1">
-                <h3 className="text-base sm:text-lg font-semibold tracking-tight text-white leading-snug drop-shadow-sm">
-                  98/100 PageSpeed &bull; Conversion Boost<br />
-                  <span className="text-xs font-normal text-white/80">42% Bounce Reduction &bull; Next.js 15</span>
+              <div className="relative z-10 space-y-1 mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/35 text-[11px] font-bold text-cyan-200 uppercase tracking-wider mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  <span>42% Bounce Reduction &bull; Next.js 15</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug">
+                  98/100 PageSpeed <span className="text-cyan-400">&bull;</span> Conversion Boost
                 </h3>
               </div>
 
-              {/* Metric Row: LED Dot Number + Unit */}
-              <div className="relative z-10 flex items-baseline justify-center gap-1.5 my-auto pt-6">
-                <div className="w-[65px]">
-                  <DotNumberSVG text="98" dotRadius={1.7} pitchX={5} />
+              {/* Metric Hero Row */}
+              <div className="relative z-10 my-4 p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col items-center justify-center text-center">
+                <div className="flex items-baseline justify-center gap-1.5">
+                  <span className="text-4xl sm:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-emerald-300 drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                    98/100
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-cyan-300 uppercase tracking-wider">
+                    PageSpeed
+                  </span>
                 </div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  PageSpeed
-                </span>
+                <div className="mt-2 flex items-center gap-2 text-[11px] text-slate-300 font-medium">
+                  <span className="text-emerald-400 font-bold">⚡ 0.8s LCP</span>
+                  <span className="text-slate-500">•</span>
+                  <span>100% Core Web Vitals Pass</span>
+                </div>
               </div>
 
-              {/* Exact Testimonial Details */}
-              <div className="relative z-10 space-y-3 pt-2">
+              {/* Testimonial Quote & Verified Rating */}
+              <div className="relative z-10 space-y-4 pt-2">
                 {/* 5-Star Rating */}
-                <div className="flex items-center justify-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-amber-300 fill-amber-300 drop-shadow-sm" />
-                  ))}
-                  <span className="text-[11px] font-mono text-amber-200 ml-1 font-bold">
-                    5.0 Verified
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-amber-300 fill-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.5)]" />
+                    ))}
+                    <span className="text-xs font-mono text-amber-200 ml-1.5 font-bold">
+                      5.0
+                    </span>
+                  </div>
+                  <span className="text-[10.5px] font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                    ✓ Verified Client
                   </span>
                 </div>
 
                 {/* Verbatim Quote */}
-                <p className="text-xs text-white/90 text-center leading-relaxed italic line-clamp-3 px-2">
+                <p className="text-[13px] text-slate-200 leading-relaxed italic">
                   &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
                 </p>
 
                 {/* Client Profile */}
-                <div className="flex items-center justify-between pt-3 border-t border-white/20">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-white/20 text-white font-bold text-xs flex items-center justify-center border border-white/30 shrink-0">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500/30 to-emerald-500/30 text-white font-black text-xs flex items-center justify-center border border-cyan-400/40 shadow-inner shrink-0">
                       CM
                     </div>
                     <div className="text-left">
-                      <h4 className="text-xs font-bold text-white leading-tight">Chloe Martinez</h4>
-                      <p className="text-[10px] text-white/70">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
+                      <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Chloe Martinez</h4>
+                      <p className="text-[11px] text-slate-400">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
                     </div>
                   </div>
 
                   <button
                     onClick={() => onOpenConsultation?.("Performance Rebuild Call")}
-                    className="px-3.5 py-1.5 rounded-full bg-white text-[#2d2d2d] text-xs font-semibold shadow-md hover:bg-white/90 transition-all cursor-pointer shrink-0"
+                    className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-semibold transition-all cursor-pointer shrink-0"
                   >
                     Learn More
                   </button>
@@ -575,7 +521,6 @@ export default function GlowRatingBento({ onOpenConsultation }: GlowRatingBentoP
           </div>
 
         </div>
-
       </div>
     </section>
   );

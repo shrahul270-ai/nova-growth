@@ -189,7 +189,7 @@ export default function ClientGrowthAtlas() {
         </div>
 
         {/* Client Selection Navigation Tabs */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
           {CLIENT_CASES.map((item, index) => {
             const isActive = activeTab === index;
             return (
@@ -197,31 +197,43 @@ export default function ClientGrowthAtlas() {
                 key={item.id}
                 type="button"
                 onClick={() => setActiveTab(index)}
-                className={`p-3 sm:p-4 rounded-2xl text-left transition-all duration-300 cursor-pointer border flex flex-col justify-between ${
+                className={`group relative p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer overflow-hidden border flex flex-col justify-between ${
                   isActive
-                    ? "bg-gradient-to-b from-[#1a0f3d] to-[#12082b] border-[#A068FF] shadow-[0_10px_30px_rgba(160,104,255,0.35)] scale-[1.02]"
-                    : "bg-[#0c0624]/70 hover:bg-[#150a35]/60 border-white/10 hover:border-white/20 text-slate-400 hover:text-white"
+                    ? "bg-gradient-to-b from-[#1f114a] via-[#140a33] to-[#0d0524] border-[#A068FF] shadow-[0_12px_35px_rgba(160,104,255,0.4)] scale-[1.02]"
+                    : "bg-[#0b0521]/80 hover:bg-[#150a38]/70 border-purple-500/20 hover:border-purple-500/40 text-slate-400 hover:text-white"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-mono font-bold tracking-wider text-[#A068FF]">
+                {/* Active Top Glow Line */}
+                {isActive && (
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#22d3ee] to-[#A068FF]" />
+                )}
+
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#d8b4fe] bg-purple-950/80 px-2 py-0.5 rounded-md border border-purple-500/30">
                     {item.code}
                   </span>
                   <span
-                    className={`w-2 h-2 rounded-full ${
-                      isActive ? "bg-emerald-400 animate-ping" : "bg-white/20"
+                    className={`w-2.5 h-2.5 rounded-full ${
+                      isActive
+                        ? "bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse"
+                        : "bg-white/20"
                     }`}
                   />
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-purple-200 transition-colors truncate">
                   {item.name}
-                </h3>
+                </h4>
                 <p className="text-[11px] text-slate-400 truncate mt-0.5">
                   {item.industry}
                 </p>
-                <span className="text-[11px] font-bold text-emerald-400 mt-2">
-                  {item.tags[0].text}
-                </span>
+                <div className="mt-2.5 flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-emerald-400">
+                    {item.tags[0].text}
+                  </span>
+                  <span className="text-[10px] text-purple-300 font-medium opacity-70 group-hover:opacity-100 transition-opacity">
+                    View Case ↗
+                  </span>
+                </div>
               </button>
             );
           })}
@@ -230,91 +242,92 @@ export default function ClientGrowthAtlas() {
         {/* Main Interactive Showcase Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
-          {/* Left Column: Live Website Mockup & Browser Frame (7 Cols) */}
-          <div className="lg:col-span-7 bg-[#0c0624]/90 rounded-3xl border border-purple-500/25 p-4 sm:p-6 shadow-2xl backdrop-blur-xl flex flex-col">
+          {/* Left Column: Live Website Mockup & Cybernetic Browser Frame (7 Cols) */}
+          <div className="lg:col-span-7 bg-gradient-to-b from-[#11072d]/95 via-[#0b041f]/95 to-[#070216] rounded-3xl border border-purple-500/30 p-4 sm:p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(160,104,255,0.15)] backdrop-blur-2xl flex flex-col">
             
-            {/* Realistic Browser Window Chrome */}
-            <div className="bg-[#080318] rounded-2xl border border-white/10 overflow-hidden shadow-inner">
+            {/* Realistic High-End Browser Window Chrome */}
+            <div className="bg-[#070214] rounded-2xl border border-white/15 overflow-hidden shadow-2xl relative">
               
               {/* Browser Address Bar Header */}
-              <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-white/[0.04] border-b border-white/10">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+              <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 bg-gradient-to-r from-white/[0.06] via-white/[0.03] to-white/[0.06] border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]" />
+                  <span className="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+                  <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
                 </div>
 
-                {/* Safe URL Pill */}
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/50 border border-white/10 text-[11px] text-slate-300 font-mono max-w-[280px] sm:max-w-sm truncate">
-                  <span className="text-emerald-400">🔒</span>
-                  <span className="text-slate-400">https://</span>
-                  <span className="text-white font-semibold">{client.domain}</span>
+                {/* Safe URL Pill with Live SSL Shield */}
+                <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-black/60 border border-purple-500/30 text-[11.5px] text-slate-300 font-mono shadow-inner max-w-[280px] sm:max-w-md truncate">
+                  <span className="text-emerald-400 text-xs">🔒</span>
+                  <span className="text-purple-400/70 font-semibold">https://</span>
+                  <span className="text-white font-bold">{client.domain}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
-                    200 OK
+                  <span className="text-[10.5px] text-emerald-300 font-bold bg-emerald-500/20 px-2.5 py-1 rounded-full border border-emerald-500/40 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                    ● 200 OK
                   </span>
                 </div>
               </div>
 
               {/* Live Website Preview Graphic with Floating Metric Badges */}
-              <div className="relative w-full h-[280px] sm:h-[380px] md:h-[420px] overflow-hidden group">
+              <div className="relative w-full h-[300px] sm:h-[400px] md:h-[450px] overflow-hidden group">
                 <Image
                   src={client.image}
                   alt={`${client.name} live website screenshot`}
                   fill
                   unoptimized
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                 />
 
                 {/* Ambient dark gradient vignette */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080318] via-transparent to-black/20 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#070214] via-transparent to-black/25 pointer-events-none" />
 
                 {/* Floating Metric Pill 1 (Top Left) */}
-                <div className="absolute top-4 left-4 bg-[#09041a]/90 backdrop-blur-md border border-purple-500/40 rounded-xl px-3 py-1.5 shadow-xl flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs font-bold text-white">{client.tags[0].text}</span>
+                <div className="absolute top-4 left-4 bg-[#0a031e]/90 backdrop-blur-xl border border-emerald-500/50 rounded-2xl px-3.5 py-2 shadow-[0_10px_25px_rgba(0,0,0,0.8),0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                  <span className="text-xs sm:text-[13px] font-black text-white">{client.tags[0].text}</span>
                 </div>
 
                 {/* Floating Metric Pill 2 (Bottom Right) */}
-                <div className="absolute bottom-4 right-4 bg-[#09041a]/90 backdrop-blur-md border border-purple-500/40 rounded-xl px-3 py-1.5 shadow-xl flex items-center gap-2">
-                  <span className="text-cyan-400 text-xs">⚡</span>
-                  <span className="text-xs font-bold text-cyan-300">{client.tags[1].text}</span>
+                <div className="absolute bottom-4 right-4 bg-[#0a031e]/90 backdrop-blur-xl border border-cyan-500/50 rounded-2xl px-3.5 py-2 shadow-[0_10px_25px_rgba(0,0,0,0.8),0_0_20px_rgba(6,182,212,0.3)] flex items-center gap-2">
+                  <span className="text-cyan-400 text-sm">⚡</span>
+                  <span className="text-xs sm:text-[13px] font-black text-cyan-300">{client.tags[1].text}</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Tech Badges Row */}
             <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">
-                  Tech Stack:
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mr-1">
+                  Engineered Stack:
                 </span>
                 {client.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="text-[11px] font-medium px-2.5 py-0.5 rounded-lg bg-white/[0.06] border border-white/10 text-purple-200"
+                    className="text-[11px] font-semibold px-3 py-1 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-200 shadow-xs"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              <div className="text-[11px] text-slate-400 flex items-center gap-1">
-                <span>📍 Location:</span>
-                <span className="text-white font-medium">{client.location}</span>
+              <div className="text-[11px] text-slate-300 font-medium flex items-center gap-1.5 bg-black/40 px-3 py-1 rounded-lg border border-white/10">
+                <span>📍 Target Market:</span>
+                <span className="text-white font-bold">{client.location}</span>
               </div>
             </div>
           </div>
 
           {/* Right Column: In-Depth Client Case Details & Verifiable Metrics (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
+          <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5">
             
             {/* Overview & Story Card */}
-            <div className="bg-[#0c0624]/90 rounded-3xl border border-purple-500/25 p-5 sm:p-6 shadow-xl backdrop-blur-xl">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#A068FF]">
+            <div className="bg-gradient-to-b from-[#11072d]/95 to-[#0b041f]/95 rounded-3xl border border-purple-500/30 p-6 sm:p-7 shadow-xl backdrop-blur-2xl">
+              <div className="flex items-center justify-between mb-3.5">
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#d8b4fe] bg-purple-950/80 px-2.5 py-1 rounded-md border border-purple-500/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#A068FF]" />
                   {client.industry}
                 </span>
                 <span className="text-xs text-slate-400 font-mono">
@@ -322,49 +335,62 @@ export default function ClientGrowthAtlas() {
                 </span>
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-black text-white">
+              <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 {client.name}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 mt-2.5 leading-relaxed font-normal">
                 {client.overview}
               </p>
 
-              {/* Challenge & Solution Blocks */}
-              <div className="mt-4 space-y-3 pt-3 border-t border-white/10">
-                <div className="bg-rose-950/20 border border-rose-500/20 rounded-xl p-3">
-                  <span className="text-[11px] font-bold text-rose-400 uppercase tracking-wider block mb-1">
-                    ⚠️ The Challenge:
-                  </span>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+              {/* Redesigned Luxury Challenge & Solution Blocks */}
+              <div className="mt-5 space-y-3.5 pt-4 border-t border-white/10">
+                {/* The Challenge Block */}
+                <div className="bg-gradient-to-br from-rose-950/35 via-[#180824]/70 to-[#0e0419]/90 border border-rose-500/30 rounded-2xl p-4 shadow-[0_8px_25px_rgba(244,63,94,0.12)]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-rose-300 uppercase tracking-wider bg-rose-500/20 border border-rose-500/40 px-2.5 py-0.5 rounded-full shadow-xs">
+                      <span>⚠️</span>
+                      <span>The Challenge</span>
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-200 leading-relaxed font-normal">
                     {client.challenge}
                   </p>
                 </div>
 
-                <div className="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-3">
-                  <span className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block mb-1">
-                    🚀 Balaji Prime Media Solution:
-                  </span>
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                {/* Balaji Prime Media Solution Block */}
+                <div className="bg-gradient-to-br from-emerald-950/40 via-[#0a1e17]/70 to-[#0e0524]/90 border border-emerald-500/40 rounded-2xl p-4 shadow-[0_8px_30px_rgba(16,185,129,0.18)]">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-300 uppercase tracking-wider bg-emerald-500/25 border border-emerald-500/50 px-2.5 py-0.5 rounded-full shadow-xs">
+                      <span>🚀</span>
+                      <span>Balaji Prime Media Solution</span>
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-200 leading-relaxed font-normal">
                     {client.solution}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Verifiable Key Performance Metrics (4 Grid Cards) */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Verifiable Key Performance Metrics (4 Bento Stat Cards) */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-3.5">
               {client.metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className="bg-[#0c0624]/90 rounded-2xl border border-purple-500/25 p-3.5 sm:p-4 shadow-lg backdrop-blur-xl flex flex-col justify-between"
+                  className="group relative bg-gradient-to-b from-[#120833]/90 to-[#0a031f]/90 rounded-2xl border border-purple-500/30 hover:border-[#A068FF]/60 p-4 shadow-lg backdrop-blur-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1"
                 >
-                  <span className={`text-xl sm:text-2xl font-black ${metric.color} tracking-tight`}>
-                    {metric.value}
-                  </span>
-                  <span className="text-xs font-bold text-white mt-1">
+                  <div className="flex items-center justify-between">
+                    <span className={`text-2xl sm:text-[26px] font-black ${metric.color} tracking-tight drop-shadow-sm`}>
+                      {metric.value}
+                    </span>
+                    <span className="text-[10px] text-purple-400/60 font-mono">
+                      ↗
+                    </span>
+                  </div>
+                  <span className="text-xs font-bold text-white mt-2 leading-snug">
                     {metric.label}
                   </span>
-                  <span className="text-[10px] text-slate-400 mt-0.5">
+                  <span className="text-[10.5px] text-slate-400 mt-1 font-medium">
                     {metric.sub}
                   </span>
                 </div>
@@ -372,19 +398,19 @@ export default function ClientGrowthAtlas() {
             </div>
 
             {/* Bottom Action Strip */}
-            <div className="bg-gradient-to-r from-[#170c38] to-[#0f0729] rounded-2xl border border-purple-500/30 p-4 flex items-center justify-between gap-3 shadow-lg">
+            <div className="bg-gradient-to-r from-[#1c0f45] via-[#140a33] to-[#0e0524] rounded-2xl border border-purple-500/40 p-4 sm:p-5 flex items-center justify-between gap-3 shadow-xl">
               <div>
-                <p className="text-xs font-bold text-white">
+                <p className="text-xs sm:text-sm font-bold text-white">
                   Want identical growth for your domain?
                 </p>
-                <p className="text-[11px] text-purple-300 mt-0.5">
-                  Full Next.js stack + high-intent SEO ranking.
+                <p className="text-[11px] text-purple-200 mt-0.5">
+                  Sub-second Next.js engineering + Tier-1 editorial SEO.
                 </p>
               </div>
 
               <Link
                 href="/contact-us"
-                className="shrink-0 bg-white hover:bg-slate-100 text-[#070319] text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                className="shrink-0 bg-gradient-to-r from-[#A068FF] to-[#7928CA] hover:from-[#b07eff] hover:to-[#8b35e0] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-[0_0_20px_rgba(160,104,255,0.4)] hover:scale-105 active:scale-95 cursor-pointer whitespace-nowrap"
               >
                 Book Strategy →
               </Link>

@@ -41,80 +41,12 @@ export default function BrandLogo({
           {/* Inner Prismatic Gradient Backplate */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(160,104,255,0.45),transparent_70%)]" />
 
-          {/* Precision SVG Brand Monogram Symbol */}
-          <svg
-            className="w-[62%] h-[62%] relative z-10 text-white transition-transform duration-300 group-hover:scale-110"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Ambient Back Glow */}
-            <path
-              d="M20 3L35 11.5V28.5L20 37L5 28.5V11.5L20 3Z"
-              stroke="url(#bpm_grad_border)"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
-            {/* Bold Stylized Stylus / Apex "B" Peak */}
-            <path
-              d="M14 11H23C26.3137 11 29 13.6863 29 17C29 19.3486 27.6534 21.3789 25.708 22.3784C27.098 23.4795 28 25.1843 28 27.1C28 30.3585 25.3585 33 22.1 33H14V11Z"
-              fill="url(#bpm_grad_fill)"
-            />
-            {/* Inner Futuristic Cutout Geometric Angles */}
-            <path
-              d="M18 15H22C23.1046 15 24 15.8954 24 17C24 18.1046 23.1046 19 22 19H18V15Z"
-              fill="#060214"
-            />
-            <path
-              d="M18 23H21.5C22.8807 23 24 24.1193 24 25.5C24 26.8807 22.8807 28 21.5 28H18V23Z"
-              fill="#060214"
-            />
-            {/* Cyber Cyan Accent Ray */}
-            <path
-              d="M20 5L32 12V28L20 35"
-              stroke="url(#bpm_cyan_ray)"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-
-            <defs>
-              <linearGradient
-                id="bpm_grad_border"
-                x1="5"
-                y1="3"
-                x2="35"
-                y2="37"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#A068FF" />
-                <stop offset="0.5" stopColor="#7c3aed" />
-                <stop offset="1" stopColor="#22d3ee" />
-              </linearGradient>
-              <linearGradient
-                id="bpm_grad_fill"
-                x1="14"
-                y1="11"
-                x2="29"
-                y2="33"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#FFFFFF" />
-                <stop offset="0.6" stopColor="#E9D5FF" />
-                <stop offset="1" stopColor="#c084fc" />
-              </linearGradient>
-              <linearGradient
-                id="bpm_cyan_ray"
-                x1="20"
-                y1="5"
-                x2="32"
-                y2="35"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#22d3ee" />
-                <stop offset="1" stopColor="#06b6d4" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          {/* Official Current Logo Image with High-Definition Glow */}
+          <img
+            src="/images/bpm-complete-logo.png"
+            alt="Balaji Prime Media"
+            className="w-full h-full object-contain p-1 relative z-10 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_14px_rgba(160,104,255,0.7)]"
+          />
         </div>
       </div>
 

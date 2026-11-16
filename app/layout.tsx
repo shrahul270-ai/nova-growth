@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/logo-original.png",
+        url: "/images/bpm-complete-logo.png",
         width: 1015,
         height: 377,
         alt: "Balaji Prime Media Official Logo",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
     description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
-    images: ["/images/logo-original.png"],
+    images: ["/images/bpm-complete-logo.png"],
   },
 };
 

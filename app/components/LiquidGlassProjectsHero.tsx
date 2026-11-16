@@ -66,7 +66,7 @@ export default function LiquidGlassProjectsHero() {
               {/* Logo + BPM Branding */}
               <div className="flex items-center gap-2.5">
                 <img
-                  src="/images/logo-original.png"
+                  src="/images/bpm-complete-logo.png"
                   alt="Balaji Prime Media"
                   className="w-8 h-8 object-contain rounded-full bg-white/10 p-0.5"
                   onError={(e) => {
@@ -95,7 +95,7 @@ export default function LiquidGlassProjectsHero() {
               {/* Logo icon 80x80 */}
               <div className="w-20 h-20 rounded-full liquid-glass flex items-center justify-center mb-6 shadow-2xl">
                 <img
-                  src="/images/logo-original.png"
+                  src="/images/bpm-complete-logo.png"
                   alt="Balaji Prime Media"
                   className="w-12 h-12 object-contain"
                   onError={(e) => {
