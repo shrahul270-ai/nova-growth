@@ -4,1555 +4,855 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import SeoAuditWidget from "./components/SeoAuditWidget";
 
 export default function Home() {
-  const [contactOpen, setContactOpen] = useState(false);
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
-  const [selectedService, setSelectedService] = useState<string>("All Services");
-  const [toast, setToast] = useState<string | null>(null);
-  const [activeBadge, setActiveBadge] = useState<string | null>(null);
-  const [activeProcessStep, setActiveProcessStep] = useState<number>(0);
-  const [activeProjectModal, setActiveProjectModal] = useState<{
-    title: string;
-    category: string;
-    metric: string;
-    client: string;
-    description: string;
-    deliverables: string[];
-    timeline: string;
-    impact: string;
-  } | null>(null);
-  const [reviewFilter, setReviewFilter] = useState<"all" | "usa" | "uk">("all");
+  // ============================================================
+  // 1. STATE VARIABLES (Aap yahan se state modify kar sakte hain)
+  // ============================================================
+  // Google SERP Simulator state (After Nova vs Before Nova)
+  const [serpView, setSerpView] = useState<"after" | "before">("after");
 
-  const showToast = (msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 3500);
-  };
+  // Service Category Filter state
+  const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // Audit Form state
+  const [auditUrl, setAuditUrl] = useState("");
+  const [auditEmail, setAuditEmail] = useState("");
+  const [auditGoal, setAuditGoal] = useState("traffic");
+  const [auditSuccess, setAuditSuccess] = useState(false);
+
+  // FAQ Accordion state
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  // Form submit handler
+  const handleAuditSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus("submitting");
+    if (!auditUrl || !auditEmail) return;
+    setAuditSuccess(true);
     setTimeout(() => {
-      setFormStatus("success");
-      setTimeout(() => {
-        setContactOpen(false);
-        setFormStatus("idle");
-      }, 2000);
-    }, 900);
+      setAuditUrl("");
+      setAuditEmail("");
+      setAuditSuccess(false);
+    }, 4500);
   };
 
+  // Structured Data Schema for Google SEO
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://novagrowth.agency/#organization",
-        "name": "Nova Growth - Global Digital Marketing Agency",
-        "url": "https://novagrowth.agency",
-        "logo": "https://novagrowth.agency/logo.png",
-        "image": "https://novagrowth.agency/og-image.jpg",
-        "description": "Global digital marketing agency helping overseas businesses scale through high-ranking SEO, modern web development, and performance digital solutions.",
-        "priceRange": "$$$",
-        "areaServed": [
-          { "@type": "Country", "name": "United States" },
-          { "@type": "Country", "name": "United Kingdom" },
-          { "@type": "Country", "name": "Canada" },
-          { "@type": "Country", "name": "Australia" },
-          { "@type": "Country", "name": "United Arab Emirates" },
-          { "@type": "Country", "name": "Germany" }
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "158"
-        },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Digital Marketing & SEO Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "SEO Optimization & Organic Growth",
-                "description": "Rank higher, get found, drive high-intent organic traffic for global businesses."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Website Development & Next.js Design",
-                "description": "Modern, ultra-fast and responsive web development optimized for international conversion."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Content Writing & Strategy",
-                "description": "Engaging, SEO-optimized copy tailored for US, UK, and European audiences."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Email Marketing & Automation",
-                "description": "Nurture leads and boost lifetime customer loyalty through automated workflows."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Off Page Backlink Building",
-                "description": "High-authority ethical link building and digital PR to boost domain authority."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Website Maintenance & Speed Optimization",
-                "description": "Keep your web apps secure, updated, and scoring 95+ on Google PageSpeed Insights."
-              }
-            }
-          ]
-        }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How quickly can my website rank on Google with Nova Growth?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Using our strategic high-intent low-competition keyword strategy and technical SEO foundations, initial keyword rankings typically begin indexing within 3 to 6 weeks, with major organic traffic growth compounding within 90 days."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you work with international clients outside India?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, over 80% of our clients are located in the United States, United Kingdom, Canada, Australia, and UAE with seamless communication in EST, GMT, and AEST time zones."
-            }
-          }
-        ]
-      }
-    ]
+    "@type": "ProfessionalService",
+    "name": "Nova Growth - Global SEO & Digital Growth Agency",
+    "url": "https://novagrowth.agency",
+    "description": "Dominate organic search and scale global revenue. Technical SEO, Next.js web development, and digital PR for overseas brands.",
+    "areaServed": ["United States", "United Kingdom", "Canada", "Australia", "UAE"],
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "164"
+    }
   };
+
+  // ============================================================
+  // 2. DATA LISTS (Aap text aur details yahan se change kar sakte hain)
+  // ============================================================
+  const services = [
+    {
+      category: "seo",
+      badge: "Organic Search",
+      title: "Commercial & Technical SEO",
+      desc: "Target high-intent keywords that buyers actually search. We optimize crawl budget, schema markup, Core Web Vitals, and keyword architecture.",
+      bullets: ["In-depth Keyword Mapping", "Technical Core Web Vitals Fixes", "On-Page Semantic Optimization"],
+      metric: "+245% Avg. Organic Lift",
+      featured: true,
+    },
+    {
+      category: "dev",
+      badge: "High Performance",
+      title: "Next.js Web Development",
+      desc: "Blazing fast, custom Next.js websites built for international conversion. Engineered for sub-0.8s load times and 98+ PageSpeed scores.",
+      bullets: ["Headless Next.js & React 19", "Mobile-First UX Architecture", "Conversion-Focused UI"],
+      metric: "< 0.8s Load Speed",
+      featured: false,
+    },
+    {
+      category: "seo",
+      badge: "Authority",
+      title: "Digital PR & Authority Backlinks",
+      desc: "High Domain Authority (DA 50+) editorial placements on recognized publications. 100% white-hat manual outreach that moves Google.",
+      bullets: ["Real High-DA Editorial Outreach", "Competitor Link Intersect", "Zero PBNs / Zero Spam"],
+      metric: "DA 60+ Placements",
+      featured: false,
+    },
+    {
+      category: "cro",
+      badge: "Conversion Rate",
+      title: "Conversion Rate Optimization (CRO)",
+      desc: "Turn passive website visitors into high-ticket consultation bookings. We test friction points, lead magnets, and user behavior flows.",
+      bullets: ["A/B Split Testing", "Heatmap & User Session Analytics", "High-Converting Sales Funnels"],
+      metric: "3.2x Booking Rate",
+      featured: false,
+    },
+    {
+      category: "marketing",
+      badge: "Content Strategy",
+      title: "Commercial Content Writing",
+      desc: "Persuasive, SEO-engineered articles and landing page copy written specifically for North American and European executive audiences.",
+      bullets: ["Top-of-Funnel Educational Posts", "Commercial Intent Product Guides", "Executive Thought Leadership"],
+      metric: "Top 3 Ranking Rate",
+      featured: false,
+    },
+    {
+      category: "dev",
+      badge: "Security & Uptime",
+      title: "24/7 Managed Web Maintenance",
+      desc: "Continuous security monitoring, daily automated backups, weekly performance audits, and instant technical troubleshooting.",
+      bullets: ["99.9% Guaranteed Uptime", "Automated Cloud Backups", "Dedicated Tech Support"],
+      metric: "99.9% Uptime",
+      featured: false,
+    },
+  ];
+
+  const filteredServices = activeCategory === "all" 
+    ? services 
+    : services.filter((s) => s.category === activeCategory);
+
+  // Case Studies
+  const caseStudies = [
+    {
+      client: "Meridian Health Group",
+      country: "🇺🇸 United States (California)",
+      category: "Healthcare & Clinic SEO",
+      result: "+380%",
+      resultSub: "Increase in Organic Inbound Patients",
+      duration: "90 Days",
+      summary: "Restructured local keyword architecture, optimized Google Business Profile, and built 42 contextual medical PR citations.",
+      tags: ["Local SEO", "Next.js", "Technical Audit"],
+    },
+    {
+      client: "Synthex Cloud Platform",
+      country: "🇬🇧 United Kingdom (London)",
+      category: "B2B SaaS Growth",
+      result: "Rank #1",
+      resultSub: "For 34 Commercial Enterprise Terms",
+      duration: "120 Days",
+      summary: "Outranked incumbent US competitors by producing authoritative comparison clusters and acquiring high-tier tech backlinks.",
+      tags: ["SaaS SEO", "Digital PR", "Content Engine"],
+    },
+    {
+      client: "Aura Home Living",
+      country: "🇦🇪 UAE & GCC Market",
+      category: "E-Commerce Web & Growth",
+      result: "4.6x",
+      resultSub: "Compounding Organic Revenue Return",
+      duration: "6 Months",
+      summary: "Migrated legacy slow shop to a headless Next.js frontend with sub-second page loads and optimized product schema.",
+      tags: ["E-Commerce", "Core Web Vitals", "CRO"],
+    },
+  ];
+
+  // Testimonials
+  const testimonials = [
+    {
+      quote: "Nova Growth helped us dominate Google page 1 for our primary US software keywords in under 4 months. Inbound demo requests jumped 3x.",
+      name: "David Vance",
+      title: "VP of Growth, Synthex Cloud",
+      country: "🇺🇸 United States",
+      rating: "5.0",
+    },
+    {
+      quote: "The Next.js rebuild cut our load time from 3.8s to 0.7s. Combined with their technical SEO sprints, our organic revenue has compounded month after month.",
+      name: "Eleanor Wright",
+      title: "Managing Director, Wright Media UK",
+      country: "🇬🇧 United Kingdom",
+      rating: "5.0",
+    },
+    {
+      quote: "Zero fluff, 100% transparent weekly reporting. Their digital PR placements on real authority sites gave us an instant domain authority boost.",
+      name: "Rashid Al-Khouri",
+      title: "Chief Operating Officer, Aura Living",
+      country: "🇦🇪 UAE",
+      rating: "5.0",
+    },
+  ];
+
+  // FAQs
+  const faqs = [
+    {
+      q: "How does Nova Growth deliver results faster than traditional agencies?",
+      a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously.",
+    },
+    {
+      q: "Do you specialize in overseas clients (US, UK, UAE, Australia)?",
+      a: "Yes! Over 80% of our clients operate in the United States, United Kingdom, Canada, Australia, and UAE. Our team operates with flexible overlap in EST, GMT, and AEST time zones with weekly video reporting.",
+    },
+    {
+      q: "What makes your Next.js web development different?",
+      a: "We don't use bloated page builders or heavy WordPress themes. Every website we build is crafted on Next.js with clean TypeScript and Tailwind CSS, scoring 95+ on Google PageSpeed Insights and loading under 800 milliseconds.",
+    },
+    {
+      q: "Are your backlink acquisition methods safe from Google penalties?",
+      a: "100% white-hat. We strictly reject PBNs, automated spam links, and cheap directories. Every single link is placed on authentic, indexed websites with real organic traffic through manual editorial outreach.",
+    },
+    {
+      q: "What are your payment and contract terms?",
+      a: "We offer flexible sprint and monthly retainer agreements with zero long-term lock-in traps. You can pay securely in USD, GBP, or EUR via credit card, wire transfer, or Stripe through our dedicated payment portal.",
+    },
+  ];
 
   return (
     <>
-      {/* Structured SEO Schema Markup */}
+      {/* Structured SEO Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="relative min-h-screen bg-[#f8fbf9] text-[#111827] overflow-hidden selection:bg-[#d97706] selection:text-white">
-        {/* Floating Interactive Toast Notification */}
-        {toast && (
-          <div className="fixed top-24 right-6 z-50 bg-[#091427] text-white border border-[#d97706]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#f59e0b] animate-ping" />
-            <span>{toast}</span>
-            <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
-          </div>
-        )}
-        {/* Soft Organic Iridescent Background Shapes */}
-        <div className="curved-ribbon-left" aria-hidden="true" />
-        <div className="curved-ribbon-right" aria-hidden="true" />
-        <div className="curved-ribbon-mid-left" aria-hidden="true" />
-        <div className="curved-ribbon-bottom" aria-hidden="true" />
-
-        {/* 1. HEADER / NAVIGATION */}
+      {/* Main Container - Option 1: Clean Minimalist White & Navy Theme */}
+      <div className="min-h-screen bg-white text-[#0f172a] font-sans selection:bg-[#3b49df] selection:text-white">
+        
+        {/* ========================================================= */}
+        {/* NAVBAR (Existing navbar component)                        */}
+        {/* ========================================================= */}
         <Navbar activePage="home" />
 
-        {/* 2. HERO SECTION */}
-        <section id="home" className="relative pt-12 pb-20 md:pt-20 md:pb-32 px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Hero Left Content */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-6 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#d97706] animate-pulse" />
-                <span>Global Digital Marketing Agency</span>
-              </div>
+        {/* ========================================================= */}
+        {/* 1. HERO SECTION: CLEAN MINIMALIST WHITE & NAVY            */}
+        {/* ========================================================= */}
+        <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 px-6 md:px-12 bg-white overflow-hidden border-b border-slate-100">
+          
+          {/* Subtle Clean Radial Background Glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] bg-gradient-to-b from-blue-50/50 via-slate-50/30 to-transparent blur-3xl pointer-events-none -z-10" />
 
-              {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] font-black tracking-tight text-[#0f172a] leading-[1.08] mb-6">
-                Grow Smarter. <br />
-                <span className="text-gradient-navy-gold">Go Further.</span>
-              </h1>
-
-              {/* Subheading */}
-              <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-9 font-normal">
-                We help businesses strengthen their online presence through strategic SEO, modern website development, content marketing and performance-focused digital solutions.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 mb-12">
-                <button
-                  onClick={() => setContactOpen(true)}
-                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white border border-[#d97706]/40 text-[14.5px] font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#091427]/30 transition-all hover:scale-[1.02] cursor-pointer"
-                >
-                  <span>Let&apos;s Grow Your Business</span>
-                  <svg className="w-4 h-4 text-[#d97706]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-
-                <a
-                  href="#services"
-                  className="inline-flex items-center justify-center text-[14.5px] font-semibold text-[#091427] px-6 py-3.5 rounded-full border border-[#d97706]/40 bg-white/80 hover:bg-white hover:border-[#d97706] backdrop-blur-xs transition-all shadow-xs"
-                >
-                  Explore Our Services
-                </a>
-              </div>
-
-              {/* 3 Interactive Trust Badges */}
-              <div className="w-full max-w-xl">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'traffic' ? null : 'traffic';
-                      setActiveBadge(next);
-                      if (next) showToast('📈 Displaying Traffic Growth Strategy');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'traffic'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      📈
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'traffic' ? 'text-white' : 'text-[#091427]'}`}>More Traffic</span>
-                      <span className={`text-[11px] ${activeBadge === 'traffic' ? 'text-amber-300' : 'text-[#526058]'}`}>Higher Rankings ▾</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'engagement' ? null : 'engagement';
-                      setActiveBadge(next);
-                      if (next) showToast('👥 Displaying Engagement & CRO Framework');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'engagement'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      👥
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'engagement' ? 'text-white' : 'text-[#091427]'}`}>Better Engagement</span>
-                      <span className={`text-[11px] ${activeBadge === 'engagement' ? 'text-amber-300' : 'text-[#526058]'}`}>Real Customers ▾</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      const next = activeBadge === 'growth' ? null : 'growth';
-                      setActiveBadge(next);
-                      if (next) showToast('🚀 Displaying Business Growth Methodology');
-                    }}
-                    className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl shadow-xs transition-all text-left cursor-pointer border ${
-                      activeBadge === 'growth'
-                        ? 'bg-[#091427] text-white border-[#d97706] shadow-md scale-[1.02]'
-                        : 'bg-white/90 hover:bg-white backdrop-blur-sm border-[#d97706]/25'
-                    }`}
-                  >
-                    <div className="w-8 h-8 rounded-xl bg-[#fef3c7] text-[#091427] flex items-center justify-center text-sm font-bold shrink-0 border border-[#d97706]/30">
-                      🚀
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className={`text-[12.5px] font-bold leading-tight ${activeBadge === 'growth' ? 'text-white' : 'text-[#091427]'}`}>Business Growth</span>
-                      <span className={`text-[11px] ${activeBadge === 'growth' ? 'text-amber-300' : 'text-[#526058]'}`}>Long Term Success ▾</span>
-                    </div>
-                  </button>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+              
+              {/* Left Column: Heading, Subtitle & CTAs */}
+              <div className="lg:col-span-7 flex flex-col items-start text-left">
+                
+                {/* Announcement Pill Badge */}
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-xs font-semibold text-slate-800 mb-6 shadow-xs">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Elite SEO &amp; Digital Growth Agency</span>
+                  <span className="text-slate-300">•</span>
+                  <span className="text-[#3b49df] font-bold">US &amp; UK Focus</span>
                 </div>
 
-                {/* Expandable Badge Detail Container */}
-                {activeBadge && (
-                  <div className="mt-3 bg-white p-4 rounded-2xl border border-[#d97706]/30 shadow-lg text-left text-xs animate-fadeIn">
-                    {activeBadge === 'traffic' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">📈 Targeted Commercial Search Growth</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">US &amp; UK Focus</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          We bypass vanity keywords and target high-intent commercial clusters where international buyers have high purchasing intent. Sites begin indexing rank gains within 30 to 60 days.
-                        </p>
-                      </div>
-                    )}
-                    {activeBadge === 'engagement' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">👥 CRO &amp; Core Web Vitals Optimization</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">&lt; 0.8s Loading</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          Sub-second load times on Next.js drop average bounce rates from 55% to under 28%, keeping high-value overseas visitors browsing and booking consultations.
-                        </p>
-                      </div>
-                    )}
-                    {activeBadge === 'growth' && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-[#091427]">🚀 Compounding Organic Pipeline</span>
-                          <span className="text-[10px] font-bold text-[#d97706] bg-amber-50 px-2 py-0.5 rounded-full">3.4x Ad Spend ROI</span>
-                        </div>
-                        <p className="text-[#54647c] leading-relaxed">
-                          Unlike Facebook or Google ads that vanish when your budget stops, our high-DA organic authority and ranking content continue generating free inbound leads 24/7/365.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
+                {/* Main Headline (Option 1 Style) */}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.08] mb-6">
+                  Dominate Organic Search &amp; <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#091427] via-[#1d4ed8] to-[#d97706]">
+                    Scale Global Revenue.
+                  </span>
+                </h1>
 
-            {/* Hero Right Visual: 3D Holographic Sphere & Accents */}
-            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[420px] md:min-h-[500px]">
-              
-              {/* Handwritten Floating Annotation (Top Right) */}
-              <div className="absolute top-2 right-4 md:right-8 z-20 flex flex-col items-center">
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#091427] -rotate-6 tracking-wide">
-                  Your Growth
-                </span>
-                <span className="handwriting text-2xl md:text-3xl font-bold text-[#d97706] -rotate-6 tracking-wide">
-                  Our Strategy
-                </span>
-                <svg className="w-10 h-10 text-[#d97706] -rotate-12 mt-1" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
+                {/* Subtitle */}
+                <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl mb-8 font-normal">
+                  We engineer high-ranking SEO architectures, sub-second Next.js web applications, and authority digital PR to help international brands outrank rivals and capture high-intent commercial leads.
+                </p>
 
-              {/* 3D Glassmorphic Crystal Centerpiece */}
-              <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] flex items-center justify-center animate-float-slow">
-                
-                {/* Iridescent Glow Rings */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#1d4ed8]/20 via-[#d97706]/25 to-[#091427]/20 blur-3xl animate-pulse-glow" />
-
-                {/* Outer Metallic Torus Ring (Brushed Champagne Gold) */}
-                <div className="absolute w-[290px] h-[290px] sm:w-[350px] sm:h-[350px] rounded-full border-[10px] sm:border-[14px] border-transparent bg-gradient-to-tr from-[#d97706]/50 via-[#f8fafd] to-[#b45309]/70 shadow-2xl opacity-95 transform rotate-12"
-                     style={{
-                       backgroundClip: "padding-box",
-                       boxShadow: "inset 0 0 25px rgba(254,243,199,0.95), 0 20px 45px rgba(9,20,39,0.2)"
-                     }}
-                />
-
-                {/* Main 3D Sphere Glass Body (Deep Emerald Jewel) */}
-                <div className="relative w-[210px] h-[210px] sm:w-[260px] sm:h-[260px] rounded-full overflow-hidden shadow-2xl flex items-center justify-center border border-[#d97706]/40"
-                     style={{
-                       background: "radial-gradient(circle at 35% 30%, rgba(248, 250, 253, 0.95) 0%, rgba(30, 64, 175, 0.75) 35%, rgba(9, 20, 39, 0.95) 80%, rgba(5, 11, 22, 1) 100%)",
-                       boxShadow: "inset -15px -15px 40px rgba(5, 11, 22, 0.9), inset 15px 15px 30px rgba(248, 250, 253, 0.8), 0 25px 50px rgba(9, 20, 39, 0.35)"
-                     }}
-                >
-                  {/* Glass highlight reflections */}
-                  <div className="absolute -top-10 -left-10 w-44 h-44 rounded-full bg-white/30 blur-md pointer-events-none" />
-
-                  {/* Upward Luminous Arrow inside sphere */}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <svg className="w-24 h-24 sm:w-28 sm:h-28 text-[#fdfbf7] filter drop-shadow-[0_8px_16px_rgba(217,119,6,0.8)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
+                {/* Primary Action Buttons */}
+                <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
+                  <a
+                    href="#audit-tool"
+                    className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-slate-900/10 transition-all hover:scale-[1.02] cursor-pointer"
+                  >
+                    <span>Claim Free SEO Audit</span>
+                    <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
-                  </div>
+                  </a>
+
+                  <a
+                    href="#case-studies"
+                    className="inline-flex items-center justify-center text-sm font-semibold text-slate-800 px-6 py-3.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs"
+                  >
+                    View Verified Results
+                  </a>
                 </div>
 
-                {/* Floating Satellite Glass Spheres */}
-                {/* Champagne Amber orb */}
-                <div className="absolute -bottom-2 -left-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg border border-[#d97706]/60 animate-float-gentle"
-                     style={{
-                       background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(245,158,11,0.85) 45%, rgba(180,83,9,0.95) 100%)",
-                       boxShadow: "0 10px 25px rgba(217, 119, 6, 0.35)"
-                     }}
-                />
-                {/* Royal Forest orb */}
-                <div className="absolute top-4 -left-4 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-md border border-blue-300/40 animate-pulse-glow"
-                     style={{
-                       background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(30,64,175,0.8) 50%, rgba(9,20,39,0.95) 100%)",
-                       boxShadow: "0 8px 20px rgba(9, 20, 39, 0.3)"
-                     }}
-                />
-              </div>
-
-              {/* Floating Stat Card (Right Bottom) */}
-              <div className="absolute bottom-2 right-2 sm:right-6 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 p-3.5 sm:p-4 rounded-2xl shadow-xl flex items-center gap-3.5 hover:scale-105 transition-transform">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-xl sm:text-2xl font-black text-[#0f172a] leading-none">
-                    300%
-                  </span>
-                  <span className="text-[11px] font-medium text-[#64748b] mt-1 leading-tight">
-                    Average Growth <br /> for Our Clients
-                  </span>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* 3. DIGITAL SOLUTIONS FOR REAL GROWTH (SERVICES SECTION) */}
-        <section id="services" className="relative py-20 px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              
-              {/* Left Column Description */}
-              <div className="lg:col-span-4 flex flex-col items-start sticky top-28">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                  <span>Our Services</span>
-                </div>
-
-                <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
-                  Digital Solutions <br />
-                  for <span className="text-gradient-navy-gold">Real Growth</span>
-                </h2>
-
-                <p className="text-[15px] text-[#475569] leading-relaxed mb-8">
-                  From SEO to web development, we offer end-to-end digital marketing services to help your business reach new heights.
-                </p>
-
-                <button
-                  onClick={() => {
-                    setSelectedService("All Services");
-                    setContactOpen(true);
-                  }}
-                  className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[14px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all hover:gap-3 cursor-pointer"
-                >
-                  <span>View All Services</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Right Column: 6 Cards in 2x3 Grid */}
-              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
-                
-                {/* 1. SEO Optimization */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("SEO Optimization");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center text-lg">
-                      🔍
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
+                {/* Trust Points Metrics */}
+                <div className="grid grid-cols-3 gap-6 pt-6 border-t border-slate-100 w-full max-w-lg">
+                  <div>
+                    <div className="text-2xl font-black text-slate-900">160+</div>
+                    <div className="text-xs text-slate-500 font-medium mt-0.5">Global Clients</div>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      SEO Optimization
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Rank higher, get found, drive organic traffic.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 2. Website Development */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("Website Development");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-sm font-bold font-mono">
-                      &lt;/&gt;
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
+                    <div className="text-2xl font-black text-[#d97706]">+340%</div>
+                    <div className="text-xs text-slate-500 font-medium mt-0.5">Avg. Traffic Lift</div>
                   </div>
                   <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      Website Development
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Modern, fast &amp; responsive websites for your brand.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 3. Content Writing */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("Content Writing");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
-                      📄
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      Content Writing
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Powerful content that connects and converts.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 4. Email Marketing */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("Email Marketing");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-blue-50 text-[#1e40af] border border-blue-200/60 flex items-center justify-center text-lg">
-                      ✉️
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      Email Marketing
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Build relationships, boost customer loyalty.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 5. Off Page Backlink Building */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("Off Page Backlink Building");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-amber-50 text-[#d97706] border border-amber-200/50 flex items-center justify-center text-lg">
-                      🔗
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      Off Page Backlink Building
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Stronger authority, better rankings.
-                    </p>
-                  </div>
-                </div>
-
-                {/* 6. Website Maintenance */}
-                <div 
-                  onClick={() => {
-                    setSelectedService("Website Maintenance");
-                    setContactOpen(true);
-                  }}
-                  className="group bg-white p-6 rounded-2xl border border-gray-100 card-hover cursor-pointer relative flex flex-col justify-between min-h-[175px]"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-full bg-slate-900 text-[#d97706] border border-[#d97706]/30 flex items-center justify-center text-lg">
-                      ⚙️
-                    </div>
-                    <span className="text-gray-400 group-hover:text-[#d97706] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-bold text-[#0f172a] mb-1.5 group-hover:text-[#091427] transition-colors">
-                      Website Maintenance
-                    </h3>
-                    <p className="text-[13.5px] text-[#64748b] leading-relaxed">
-                      Keep your site secure, updated &amp; running smoothly.
-                    </p>
+                    <div className="text-2xl font-black text-emerald-600">99 / 100</div>
+                    <div className="text-xs text-slate-500 font-medium mt-0.5">Core Web Vitals</div>
                   </div>
                 </div>
 
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* INTERACTIVE INSTANT SEO AUDIT SECTION */}
-        <section className="relative py-12 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-          <SeoAuditWidget />
-        </section>
-
-        {/* 4. ABOUT NOVA GROWTH / TRUSTED PARTNER */}
-        <section id="about" className="relative py-20 px-6 md:px-12 z-10 bg-white/40 border-y border-amber-100/60">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left Column: Angled Laptop & Floating Analytics */}
-            <div className="lg:col-span-6 relative flex items-center justify-center">
-              
-              {/* Handwritten Note Top */}
-              <div className="absolute -top-6 left-12 z-20 hidden sm:flex flex-col items-center">
-                <span className="handwriting text-2xl font-bold text-[#334155] -rotate-3">
-                  Your Success
-                </span>
-                <span className="handwriting text-2xl font-bold text-[#334155] -rotate-3">
-                  Our Mission
-                </span>
-                <svg className="w-6 h-6 text-[#64748b] rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-
-              {/* Floating Metric 1 */}
-              <div className="absolute top-8 left-2 sm:-left-2 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 animate-float-gentle">
-                <span className="text-[#d97706] font-bold text-xs">↗ 15%</span>
-                <span className="text-[11px] text-[#64748b] font-medium">Conversions</span>
-              </div>
-
-              {/* Floating Metric 2 */}
-              <div className="absolute bottom-16 left-0 sm:left-4 z-20 bg-white/95 backdrop-blur-md border border-amber-200/60 px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2">
-                <span className="text-[#d97706] font-bold text-xs">↗ 20%</span>
-                <span className="text-[11px] text-[#64748b] font-medium">Click Through Rate</span>
-              </div>
-
-              {/* Laptop Body Mockup */}
-              <div className="relative w-full max-w-[480px] bg-slate-900 rounded-t-2xl p-3 shadow-2xl border-4 border-slate-700/80">
-                {/* Screen bezel & top camera dot */}
-                <div className="w-2 h-2 rounded-full bg-slate-600 mx-auto mb-2" />
-                
-                {/* Screen Dashboard Preview */}
-                <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                  <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-3">
+              {/* Right Column: Option 1 Visual Showcase (Google SERP Simulator Card) */}
+              <div className="lg:col-span-5 relative">
+                <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl shadow-slate-200/60 p-6 sm:p-7 relative">
+                  
+                  {/* Card Header with Before / After Nova Toggle */}
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#d97706]" />
-                      <span className="text-xs font-bold text-slate-800">Organic Growth Report</span>
+                      <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                      <span className="text-xs font-bold text-slate-800 tracking-wide uppercase">Google Search Preview</span>
                     </div>
-                    <span className="text-[10px] text-slate-500 font-medium">Live Analytics</span>
+
+                    <div className="bg-slate-100 p-1 rounded-full flex items-center text-xs font-semibold">
+                      <button
+                        onClick={() => setSerpView("before")}
+                        className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                          serpView === "before"
+                            ? "bg-white text-slate-900 shadow-xs"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        Before Nova
+                      </button>
+                      <button
+                        onClick={() => setSerpView("after")}
+                        className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                          serpView === "after"
+                            ? "bg-[#091427] text-white shadow-xs"
+                            : "text-slate-500 hover:text-slate-800"
+                        }`}
+                      >
+                        After Nova 🚀
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Chart bars & lines visual */}
-                  <div className="grid grid-cols-6 gap-2 items-end h-24 mb-3 px-2">
-                    <div className="bg-amber-200 rounded-t h-[35%]" />
-                    <div className="bg-amber-300 rounded-t h-[50%]" />
-                    <div className="bg-amber-400 rounded-t h-[65%]" />
-                    <div className="bg-amber-500 rounded-t h-[80%]" />
-                    <div className="bg-[#d97706] rounded-t h-[95%]" />
-                    <div className="bg-[#091427] rounded-t h-[100%]" />
+                  {/* Google Search Bar Mockup */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-full px-4 py-2.5 flex items-center gap-3 text-xs text-slate-700 mb-5">
+                    <svg className="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span className="font-mono text-slate-600 truncate">best b2b enterprise software solutions usa</span>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-slate-600 font-semibold pt-1 border-t border-slate-100">
-                    <span>Target: +150%</span>
-                    <span className="text-[#d97706] font-bold">Achieved: +300%</span>
+                  {/* Dynamic Result Card based on state */}
+                  {serpView === "after" ? (
+                    <div className="bg-blue-50/30 border border-blue-200/70 rounded-2xl p-5 mb-5 transition-all">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          Rank #1 • Featured Snippet
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-400">CTR: 34.8%</span>
+                      </div>
+                      <div className="text-xs text-slate-500 truncate mt-1">https://yourbrand.com/enterprise-solutions</div>
+                      <h4 className="text-base sm:text-lg font-bold text-[#1d4ed8] hover:underline cursor-pointer leading-snug mt-1">
+                        Enterprise Solutions That Scale: Rated #1 in North America
+                      </h4>
+                      <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Discover why leading international organizations trust our scalable, secure platform. Sub-second performance, 99.9% uptime, and verified 3.4x ROI.
+                      </p>
+                      
+                      {/* Sitelinks Box */}
+                      <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-blue-100 text-xs">
+                        <div className="bg-white p-2 rounded-lg border border-blue-100/80">
+                          <span className="font-bold text-slate-800 block text-[11px]">Free Case Studies</span>
+                          <span className="text-[10px] text-slate-500">Read verified results</span>
+                        </div>
+                        <div className="bg-white p-2 rounded-lg border border-blue-100/80">
+                          <span className="font-bold text-slate-800 block text-[11px]">Schedule Strategy Call</span>
+                          <span className="text-[10px] text-slate-500">15-min consultation</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-5 opacity-70 transition-all">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[11px] font-bold text-rose-600 bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded-full">
+                          Page 4 • Position #38
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-400">CTR: &lt; 0.2%</span>
+                      </div>
+                      <div className="text-xs text-slate-400 truncate mt-1">https://yourbrand.com/home</div>
+                      <h4 className="text-base font-medium text-slate-700 leading-snug mt-1">
+                        Home Page - Company Name
+                      </h4>
+                      <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                        Welcome to our company website. We provide services for our clients. Click here to learn more about what we do.
+                      </p>
+                      <div className="mt-3 text-[11px] text-rose-500 font-semibold">
+                        ⚠️ High bounce rate (68%), no structured schema, missing commercial keywords.
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Card Bottom: Core Web Vitals Indicator */}
+                  <div className="flex items-center justify-between text-xs text-slate-500 pt-3 border-t border-slate-100">
+                    <span className="flex items-center gap-1.5 font-medium text-slate-700">
+                      <span className="text-amber-500">★ 4.9/5</span> on Clutch &amp; Trustpilot
+                    </span>
+                    <a href="#audit-tool" className="font-bold text-[#3b49df] hover:underline">
+                      Audit Your Website &rarr;
+                    </a>
                   </div>
+
                 </div>
-
-                {/* Laptop Base */}
-                <div className="w-[110%] -ml-[5%] h-3 bg-slate-800 rounded-b-xl mt-1 shadow-md" />
               </div>
 
-              {/* Floating Highlight Badge: +245% Organic Traffic */}
-              <div className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-white/95 backdrop-blur-md border border-amber-200/80 px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-amber-100 text-[#d97706] flex items-center justify-center font-bold text-xs">
-                  📈
-                </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-sm font-extrabold text-[#0f172a] leading-none">+245%</span>
-                  <span className="text-[10.5px] font-medium text-[#64748b]">Organic Traffic</span>
-                </div>
-              </div>
             </div>
-
-            {/* Right Column: About Content */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                <span>About Nova Growth</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight leading-tight mb-5">
-                Your Trusted Partner <br />
-                in <span className="text-gradient-navy-gold">Digital Success</span>
-              </h2>
-
-              <p className="text-[15.5px] text-[#475569] leading-relaxed mb-8">
-                At Nova Growth, we combine creativity, technology and data to deliver results-driven digital marketing solutions. Our goal is simple — help your business grow, globally.
-              </p>
-
-              {/* 4 Feature Cards (2x2 Grid) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
-                    👥
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Expert Team</span>
-                    <span className="text-[12px] text-[#64748b]">Skilled &amp; Experienced</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#091427] flex items-center justify-center text-lg shrink-0">
-                    📊
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Data Driven</span>
-                    <span className="text-[12px] text-[#64748b]">Strategy &amp; Analysis</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-[#d97706] flex items-center justify-center text-lg shrink-0">
-                    📋
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Transparent</span>
-                    <span className="text-[12px] text-[#64748b]">Weekly Reporting</span>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs flex items-center gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shrink-0">
-                    🌐
-                  </div>
-                  <div>
-                    <span className="text-[14px] font-bold text-[#0f172a] block">Global</span>
-                    <span className="text-[12px] text-[#64748b]">Client Support 24/7</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
           </div>
         </section>
 
-        {/* 5. STATS BAR: OUR IMPACT IN NUMBERS */}
-        <section className="relative py-10 px-6 md:px-12 z-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="bg-gradient-to-r from-[#091427] via-[#0f213d] to-[#1e293b] border border-[#d97706]/35 rounded-3xl p-6 md:p-8 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 text-white">
-              
-              {/* Badge text with hand-drawn arrow */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-lg md:text-xl font-extrabold text-white tracking-tight">
-                  Our Impact in Numbers
+        {/* ========================================================= */}
+        {/* 2. RECOGNIZED BY & SERVING INDUSTRIES STRIP               */}
+        {/* ========================================================= */}
+        <section className="py-8 bg-slate-50/80 border-b border-slate-100">
+          <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 shrink-0">
+                Scaling Brands Across North America, UK &amp; Europe:
+              </span>
+              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-semibold text-slate-700">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500" /> B2B SaaS &amp; Tech
                 </span>
-                <span className="handwriting text-2xl text-[#d97706]">⤹</span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" /> E-Commerce &amp; D2C
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" /> Healthcare &amp; Clinics
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-indigo-500" /> Legal &amp; Financial
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-500" /> Real Estate
+                </span>
               </div>
-
-              {/* 4 Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-12 w-full lg:w-auto text-center lg:text-left">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">150+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Happy Clients</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">300+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Projects Completed</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">98%</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Client Satisfaction</div>
-                </div>
-
-                <div>
-                  <div className="text-2xl sm:text-3xl font-black text-[#d97706] tracking-tight">10+</div>
-                  <div className="text-xs font-semibold text-slate-300 mt-0.5">Countries Served</div>
-                </div>
-              </div>
-
             </div>
           </div>
         </section>
 
-        {/* 6. RECENT PROJECTS SECTION */}
-        <section id="projects" className="relative py-20 px-6 md:px-12 z-10">
+        {/* ========================================================= */}
+        {/* 3. OPTION 1 BENTO SERVICES MATRIX                         */}
+        {/* ========================================================= */}
+        <section id="services" className="py-24 px-6 md:px-12 bg-white">
           <div className="max-w-7xl mx-auto">
             
-            {/* Top row with heading & button */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-              <div className="max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                  <span>Our Work</span>
+            {/* Header with Filter Pills */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#3b49df] text-xs font-bold mb-3 border border-blue-100">
+                  <span>Growth Capabilities</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
-                  Recent Projects
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                  High-Impact Services Built for Scale
                 </h2>
-                <p className="text-[15px] text-[#475569] mt-2">
-                  We&apos;ve helped businesses across industries achieve real results with our digital solutions.
-                </p>
               </div>
 
-              <button
-                onClick={() => setContactOpen(true)}
-                className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-[13.5px] font-bold px-6 py-3 rounded-full shadow-md shadow-[#091427]/20 transition-all self-start md:self-auto cursor-pointer"
-              >
-                <span>View All Projects</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
+              {/* Filter Pills */}
+              <div className="flex flex-wrap items-center gap-2">
+                {[
+                  { label: "All Services", key: "all" },
+                  { label: "SEO & Rankings", key: "seo" },
+                  { label: "Web Development", key: "dev" },
+                  { label: "CRO & Sales", key: "cro" },
+                  { label: "Content", key: "marketing" },
+                ].map((tab) => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setActiveCategory(tab.key)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      activeCategory === tab.key
+                        ? "bg-[#091427] text-white shadow-xs"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* 3 Interactive Project Showcase Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              
-              {/* Project 1: Fashion Brand Website */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "Luxe Fashion US - Headless E-Commerce & SEO",
-                    category: "E-Commerce & International SEO",
-                    metric: "+340% Organic Revenue",
-                    client: "Luxe Fashion Apparel (Los Angeles, USA 🇺🇸)",
-                    description: "Replatformed from slow monolithic WordPress to headless Next.js App Router with Shopify backend, cutting TTFB to 120ms and securing #1 rankings for high-intent apparel keywords.",
-                    deliverables: [
-                      "Headless Next.js storefront architecture",
-                      "Sub-second Core Web Vitals (99/100 Mobile Speed)",
-                      "Schema Product & Offer JSON-LD configuration",
-                      "Automated currency & geo-targeted international routing"
-                    ],
-                    timeline: "10 Weeks Deployment",
-                    impact: "$1.4M ARR incremental organic pipeline in 6 months."
-                  });
-                  showToast('👗 Opened Luxe Fashion US Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
-              >
-                <div className="relative bg-gradient-to-tr from-rose-50 to-amber-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-rose-100/50">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
-                    E-Commerce Website
-                  </div>
-                  <div className="w-40 h-44 bg-white rounded-xl shadow-md border border-gray-200 p-2 flex flex-col items-center justify-center text-center group-hover:scale-105 transition-transform">
-                    <span className="text-3xl mb-1">👗</span>
-                    <span className="text-xs font-bold text-slate-800">Luxe Fashion US</span>
-                    <span className="text-[10px] text-[#d97706] font-semibold mt-1">+340% Sales</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between px-2 pt-1">
+            {/* 6 Clean White Service Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredServices.map((srv, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-[#3b49df]/50 hover:shadow-xl hover:shadow-slate-100 transition-all duration-300 flex flex-col justify-between group"
+                >
                   <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
-                      Fashion Brand Website
-                    </h3>
-                    <p className="text-[13px] text-[#64748b]">Web Development + SEO</p>
-                  </div>
-                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
-                    ↗
-                  </div>
-                </div>
-              </div>
-
-              {/* Project 2: Fitness App */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "PulseFit Pro - High-Growth Mobile SaaS",
-                    category: "Mobile App & SaaS CRO",
-                    metric: "50,000+ Active Subscriptions",
-                    client: "PulseFit Fitness Tech (London, UK 🇬🇧)",
-                    description: "Built the conversion landing architecture and app store SEO (ASO) driving 50k+ app installs across Europe and the US with an organic CAC 60% lower than industry average.",
-                    deliverables: [
-                      "Full-funnel web-to-app onboarding journey",
-                      "High-converting micro-interactions & Lottie animations",
-                      "Interactive membership tier checkout simulator",
-                      "Global multi-currency checkout & Apple Pay setup"
-                    ],
-                    timeline: "6 Weeks Build & Launch",
-                    impact: "Featured in App Store top 10 fitness category."
-                  });
-                  showToast('⚡ Opened PulseFit Pro Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
-              >
-                <div className="relative bg-gradient-to-tr from-slate-900 via-[#0f213d] to-[#091427] rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-[#d97706]/30">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
-                    Mobile App
-                  </div>
-                  <div className="w-28 h-44 bg-slate-950 rounded-2xl shadow-md border-2 border-[#d97706]/40 p-2 flex flex-col items-center justify-center text-center text-white group-hover:scale-105 transition-transform">
-                    <span className="text-3xl mb-1">⚡</span>
-                    <span className="text-xs font-bold text-[#f59e0b]">PulseFit Pro</span>
-                    <span className="text-[9px] text-amber-200 font-medium mt-1">50K+ Downloads</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between px-2 pt-1">
-                  <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
-                      Fitness App
-                    </h3>
-                    <p className="text-[13px] text-[#64748b]">UI/UX Design + Development</p>
-                  </div>
-                  <div className="w-9 h-9 rounded-full bg-slate-100 text-[#091427] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
-                    ↗
-                  </div>
-                </div>
-              </div>
-
-              {/* Project 3: Local Business Growth */}
-              <div
-                onClick={() => {
-                  setActiveProjectModal({
-                    title: "Apex Dental UK - Local London Map Pack Dominance",
-                    category: "Local SEO & High-Ticket Inbound Leads",
-                    metric: "#1 Rank across 18 London Boroughs",
-                    client: "Apex Dental Group (London, UK 🇬🇧)",
-                    description: "Engineered programmatic localized geo-landing pages and ethical high-DA digital PR citations, lifting private patient consultation calls by 280% in 90 days.",
-                    deliverables: [
-                      "Google Business Profile (GBP) multi-location optimization",
-                      "25+ Tier-1 UK Medical & Local directory citations",
-                      "Programmatic localized neighborhood routing",
-                      "Automated review collection & reputation funnel"
-                    ],
-                    timeline: "Ongoing Retainer (Month 4)",
-                    impact: "280% increase in high-ticket patient bookings."
-                  });
-                  showToast('🦷 Opened Apex Dental UK Case Study');
-                }}
-                className="group bg-white rounded-3xl border border-gray-100 p-4 card-hover overflow-hidden flex flex-col justify-between cursor-pointer"
-              >
-                <div className="relative bg-gradient-to-tr from-amber-50/80 to-slate-50 rounded-2xl h-56 flex items-center justify-center p-4 overflow-hidden mb-4 border border-amber-200/40">
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-[11px] font-bold px-3 py-1 rounded-full text-[#0f172a] shadow-xs">
-                    SEO
-                  </div>
-                  <div className="w-44 h-36 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col justify-center text-left group-hover:scale-105 transition-transform">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-bold text-slate-800">Apex Dental UK</span>
-                      <span className="text-[#d97706] text-xs font-bold">#1 Google</span>
+                    <div className="flex items-center justify-between mb-5">
+                      <span className="text-[11px] font-bold text-[#3b49df] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                        {srv.badge}
+                      </span>
+                      <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                        {srv.metric}
+                      </span>
                     </div>
-                    <span className="text-[10px] text-slate-500">Local Area Map Rankings</span>
-                    <div className="w-full bg-amber-100 h-2 rounded-full mt-2 overflow-hidden">
-                      <div className="bg-[#d97706] h-full w-[85%]" />
+
+                    <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#3b49df] transition-colors">
+                      {srv.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6 font-normal">
+                      {srv.desc}
+                    </p>
+
+                    <div className="space-y-2 mb-6 pt-4 border-t border-slate-100">
+                      {srv.bullets.map((b, bIdx) => (
+                        <div key={bIdx} className="flex items-center gap-2 text-xs font-medium text-slate-700">
+                          <span className="text-emerald-500 font-bold">✓</span>
+                          <span>{b}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between px-2 pt-1">
-                  <div>
-                    <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#091427] transition-colors">
-                      Local Business Growth
-                    </h3>
-                    <p className="text-[13px] text-[#64748b]">SEO + Content Marketing</p>
-                  </div>
-                  <div className="w-9 h-9 rounded-full bg-amber-50 text-[#d97706] flex items-center justify-center group-hover:bg-[#091427] group-hover:text-white transition-colors">
-                    ↗
-                  </div>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-between text-xs font-bold text-slate-900 group-hover:text-[#3b49df] pt-4 border-t border-slate-100 transition-colors"
+                  >
+                    <span>Inquire for Custom Strategy</span>
+                    <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                  </Link>
                 </div>
-              </div>
-
+              ))}
             </div>
 
           </div>
         </section>
 
-        {/* 7. HOW WE WORK (PROCESS SECTION) */}
-        <section className="relative py-20 px-6 md:px-12 z-10 bg-white/50 border-t border-amber-100/60">
+        {/* ========================================================= */}
+        {/* 4. THE 4-PHASE GROWTH METHODOLOGY ROADMAP                 */}
+        {/* ========================================================= */}
+        <section className="py-20 px-6 md:px-12 bg-slate-50 border-y border-slate-100">
           <div className="max-w-7xl mx-auto">
             
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-[12.5px] font-semibold text-[#091427] mb-3">
-                <span className="w-2 h-2 rounded-full bg-[#d97706]" />
-                <span>Our Process</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
-                How We Work
+              <span className="text-xs font-bold uppercase tracking-wider text-[#3b49df]">
+                Predictable Roadmap
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1 mb-3">
+                How We Deliver Page-1 Dominance
               </h2>
-              <p className="text-[15px] text-[#475569] mt-2">
-                A simple, transparent process to turn your goals into measurable results.
+              <p className="text-sm text-slate-600">
+                A structured execution model designed to index faster, capture commercial buyer intent, and convert organic clicks.
               </p>
             </div>
 
-            {/* 4 Interactive Process Steps in Horizontal Flow */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative mb-8">
-              
-              {/* Step 1 */}
-              <div
-                onClick={() => {
-                  setActiveProcessStep(0);
-                  showToast('🔍 Step 1: Discover & Competitive Audit activated');
-                }}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  activeProcessStep === 0
-                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
-                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
-                }`}
-              >
-                <div>
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
-                    activeProcessStep === 0 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-amber-50 text-[#d97706]'
-                  }`}>
-                    🔍
-                  </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className={`text-[17px] font-bold ${activeProcessStep === 0 ? 'text-white' : 'text-[#0f172a]'}`}>01 Discover</span>
-                    <span className="text-[#d97706] font-bold">→</span>
-                  </div>
-                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 0 ? 'text-slate-300' : 'text-[#64748b]'}`}>
-                    Deep Technical audit &amp; international competitor gap mapping.
-                  </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  phase: "01",
+                  title: "Forensic Technical Audit",
+                  desc: "We analyze crawl efficiency, keyword cannibalization, Google Search Console logs, and competitor link intersects.",
+                },
+                {
+                  phase: "02",
+                  title: "High-Intent Architecture",
+                  desc: "We build dedicated commercial landing page clusters matching buyer intent queries with zero wasted traffic.",
+                },
+                {
+                  phase: "03",
+                  title: "Velocity Sprint Deployment",
+                  desc: "On-page restructuring, Next.js Core Web Vitals optimization, and targeted high-DA PR placements go live.",
+                },
+                {
+                  phase: "04",
+                  title: "Compounding Growth",
+                  desc: "Your rankings climb to top 3 positions, generating inbound consultation calls and measurable revenue 24/7.",
+                },
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white p-7 rounded-2xl border border-slate-200/90 shadow-xs">
+                  <span className="text-3xl font-black text-blue-500/80 font-mono block mb-3">
+                    {item.phase}
+                  </span>
+                  <h3 className="text-base font-bold text-slate-900 mb-2">{item.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{item.desc}</p>
                 </div>
-              </div>
-
-              {/* Step 2 */}
-              <div
-                onClick={() => {
-                  setActiveProcessStep(1);
-                  showToast('📋 Step 2: Strategize & Roadmap activated');
-                }}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  activeProcessStep === 1
-                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
-                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
-                }`}
-              >
-                <div>
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
-                    activeProcessStep === 1 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-slate-100 text-[#091427]'
-                  }`}>
-                    📋
-                  </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className={`text-[17px] font-bold ${activeProcessStep === 1 ? 'text-white' : 'text-[#0f172a]'}`}>02 Strategize</span>
-                    <span className="text-[#d97706] font-bold">→</span>
-                  </div>
-                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 1 ? 'text-slate-300' : 'text-[#64748b]'}`}>
-                    Creating a custom low-competition keyword &amp; UX roadmap.
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div
-                onClick={() => {
-                  setActiveProcessStep(2);
-                  showToast('💻 Step 3: Execute & Code Optimization activated');
-                }}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  activeProcessStep === 2
-                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
-                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
-                }`}
-              >
-                <div>
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
-                    activeProcessStep === 2 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-amber-50 text-[#d97706]'
-                  }`}>
-                    💻
-                  </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className={`text-[17px] font-bold ${activeProcessStep === 2 ? 'text-white' : 'text-[#0f172a]'}`}>03 Execute</span>
-                    <span className="text-[#d97706] font-bold">→</span>
-                  </div>
-                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 2 ? 'text-slate-300' : 'text-[#64748b]'}`}>
-                    Next.js speed rebuild, schema deployment &amp; editorial link building.
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 4 */}
-              <div
-                onClick={() => {
-                  setActiveProcessStep(3);
-                  showToast('🎯 Step 4: Continuous Optimization activated');
-                }}
-                className={`p-6 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  activeProcessStep === 3
-                    ? 'bg-[#091427] text-white border-[#d97706] shadow-xl scale-[1.02]'
-                    : 'bg-white hover:border-[#d97706]/50 text-gray-800 shadow-xs border-gray-100'
-                }`}
-              >
-                <div>
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4 ${
-                    activeProcessStep === 3 ? 'bg-amber-400/20 text-[#f59e0b]' : 'bg-slate-100 text-[#091427]'
-                  }`}>
-                    🎯
-                  </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className={`text-[17px] font-bold ${activeProcessStep === 3 ? 'text-white' : 'text-[#0f172a]'}`}>04 Optimize</span>
-                  </div>
-                  <p className={`text-[13px] leading-relaxed ${activeProcessStep === 3 ? 'text-slate-300' : 'text-[#64748b]'}`}>
-                    Bi-weekly ranking syncs, live Looker dashboards &amp; CRO testing.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Interactive Step Detailed Workbench */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-[#d97706]/30 shadow-lg text-left animate-fadeIn">
-              {activeProcessStep === 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Technical &amp; Competitor Diagnosis</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      We crawl your entire website with enterprise tooling to spot crawl traps, canonical conflicts, schema errors, and slow assets.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Days 1 - 7 (Week 1)</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Comprehensive 15-page diagnostic report delivered via Notion + Loom video walkthrough for your leadership team.
-                    </p>
-                  </div>
-                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
-                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Team Allocation:</span>
-                    <ul className="text-xs space-y-1.5 text-[#54647c]">
-                      <li>✓ Lead Technical SEO Architect</li>
-                      <li>✓ Senior Next.js Frontend Engineer</li>
-                      <li>✓ Slack Channel Standup Access</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              {activeProcessStep === 1 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">The 90-Day Organic Roadmap</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Commercial keyword clustering based on buyer intent in North America and Europe, plus UX conversion wireframing.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Days 8 - 14 (Week 2)</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Complete keyword matrix with search volumes, difficulty scores, and targeted page mapping approved by client.
-                    </p>
-                  </div>
-                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
-                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Strategic Outputs:</span>
-                    <ul className="text-xs space-y-1.5 text-[#54647c]">
-                      <li>✓ Content Calendar (3 Months)</li>
-                      <li>✓ Digital PR Target Publications</li>
-                      <li>✓ High-Intent Geo-Landing Blueprints</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              {activeProcessStep === 2 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Engineering &amp; Content Sprint</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Live code deployment on Next.js, image optimization, schema injection, and high-DA editorial guest placements.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Weeks 3 to 8</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Staging review links provided for approval before zero-downtime production deployment.
-                    </p>
-                  </div>
-                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
-                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Quality Guarantees:</span>
-                    <ul className="text-xs space-y-1.5 text-[#54647c]">
-                      <li>✓ 95+ Google PageSpeed Score</li>
-                      <li>✓ 100% White-Hat Editorial Links</li>
-                      <li>✓ Strict Git Version Control</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              {activeProcessStep === 3 && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Phase Deliverables</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Revenue Scaling &amp; Tracking</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Continuous SERP position tracking, conversion rate A/B tests, and algorithmic protection for Google search updates.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-bold text-[#d97706] uppercase tracking-wider block mb-1">Timeframe</span>
-                    <h4 className="text-base font-bold text-[#091427] mb-2">Month 3 Onward (Compounding)</h4>
-                    <p className="text-xs text-[#54647c] leading-relaxed">
-                      Real-time interactive Google Looker Studio dashboard accessible 24/7 with zero waiting for monthly reports.
-                    </p>
-                  </div>
-                  <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80">
-                    <span className="text-[11px] font-bold text-gray-700 block mb-2">Reporting Cadence:</span>
-                    <ul className="text-xs space-y-1.5 text-[#54647c]">
-                      <li>✓ Weekly Slack Metric Digest</li>
-                      <li>✓ Bi-Weekly Zoom Growth Call</li>
-                      <li>✓ 24/7 Live Data Studio Access</li>
-                    </ul>
-                  </div>
-                </div>
-              )}
+              ))}
             </div>
 
           </div>
         </section>
 
-        {/* CLIENT TESTIMONIALS & REVIEWS SECTION */}
-        <section className="relative py-20 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-3">
-              <span>⭐️ 4.9/5 Rating on Clutch &amp; Google Reviews</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#0f172a] tracking-tight">
-              Trusted by Ambitious Global Founders
-            </h2>
-            <p className="text-[15px] text-[#475569] mt-2">
-              See how our high-intent SEO and Next.js development deliver real organic revenue across the US, UK, and Europe.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Review 1 */}
-            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                      +340% Revenue
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;Nova Growth completely transformed our organic pipeline. In 4 months, our US search traffic grew by 340%, and organic revenue eclipsed our paid Facebook ad spend. Outstanding communication across EST hours.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    DH
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">David Henderson</h4>
-                    <p className="text-[11px] text-[#64748b]">Founder &amp; CEO, Luxe Apparel (Los Angeles, USA 🇺🇸)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Review 2 */}
-            {(reviewFilter === 'all' || reviewFilter === 'uk') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-slate-100 text-[#091427] px-2.5 py-1 rounded-full border border-slate-200">
-                      #1 Google Map Pack
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;Their local SEO strategy put us #1 across London for every high-value patient keyword. Inbound phone bookings jumped 280%. The weekly Slack updates and transparent Data Studio reporting are top notch.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    OT
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">Oliver Thorne</h4>
-                    <p className="text-[11px] text-[#64748b]">Marketing Director, Apex Dental Group (London, UK 🇬🇧)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Review 3 */}
-            {(reviewFilter === 'all' || reviewFilter === 'usa') && (
-              <div className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xs card-hover flex flex-col justify-between animate-fadeIn">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex text-amber-400 text-sm">★★★★★</div>
-                    <span className="text-[10px] font-bold bg-amber-50 text-amber-800 px-2.5 py-1 rounded-full border border-amber-200">
-                      98 PageSpeed
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed mb-6 italic">
-                    &ldquo;The Next.js rebuild cut our load time from 4.2s down to 0.8s. All Google Core Web Vitals are green (100/100). They think like genuine growth partners, not just developers. Demo bookings surged 420%.&rdquo;
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-[#091427] text-[#d97706] border border-[#d97706]/30 font-black text-xs flex items-center justify-center shrink-0">
-                    CM
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-[#0f172a]">Chloe Martinez</h4>
-                    <p className="text-[11px] text-[#64748b]">Co-Founder, CloudSync SaaS (Austin, USA 🇺🇸)</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div>
-        </section>
-
-        {/* 8. BOTTOM CALL-TO-ACTION BANNER */}
-        <section id="contact" className="relative py-16 px-6 md:px-12 z-10">
+        {/* ========================================================= */}
+        {/* 5. VERIFIED CLIENT CASE STUDIES                           */}
+        {/* ========================================================= */}
+        <section id="case-studies" className="py-24 px-6 md:px-12 bg-white">
           <div className="max-w-7xl mx-auto">
-            <div className="relative rounded-3xl p-8 md:p-12 overflow-hidden border border-[#d97706]/40 shadow-2xl"
-                 style={{
-                   background: "linear-gradient(135deg, #091427 0%, #0f213d 50%, #1e293b 100%)"
-                 }}
-            >
-              
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                
-                {/* Left side text */}
-                <div className="lg:col-span-5 text-left">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
-                    Ready to Take Your Business to the Next Level?
-                  </h2>
-                </div>
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#3b49df]">
+                  Measurable Returns
+                </span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mt-1">
+                  Client Case Studies
+                </h2>
+              </div>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-sm font-bold text-[#3b49df] hover:underline"
+              >
+                <span>View All 20+ Case Studies</span>
+                <span>&rarr;</span>
+              </Link>
+            </div>
 
-                {/* Middle CTA & description */}
-                <div className="lg:col-span-4 flex flex-col items-start gap-4">
-                  <p className="text-[14px] text-slate-300 leading-relaxed">
-                    Get a free consultation and discover how Nova Growth can help you achieve your digital marketing goals.
-                  </p>
-                  <button
-                    onClick={() => setContactOpen(true)}
-                    className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-[14px] font-bold px-7 py-3.5 rounded-full shadow-xl shadow-[#d97706]/30 transition-all hover:gap-3 cursor-pointer"
-                  >
-                    <span>Book a Free Consultation</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {caseStudies.map((cs, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white p-8 rounded-3xl border border-slate-200 hover:border-[#3b49df]/50 hover:shadow-xl hover:shadow-slate-100 transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-4">
+                      <span>{cs.category}</span>
+                      <span className="text-[#3b49df] font-bold bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
+                        {cs.duration}
+                      </span>
+                    </div>
 
-                {/* Right side handwritten note & 3D orb */}
-                <div className="lg:col-span-3 flex items-center justify-center lg:justify-end gap-3">
-                  <div className="flex flex-col items-end">
-                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
-                      Your Growth
-                    </span>
-                    <span className="handwriting text-2xl font-bold text-[#d97706] -rotate-6">
-                      Starts Here
-                    </span>
-                    <svg className="w-8 h-8 text-[#d97706] -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M10 10 C 25 15, 35 30, 30 42 M 30 42 L 24 35 M 30 42 L 36 38" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <h3 className="text-xl font-bold text-slate-900 mb-1">{cs.client}</h3>
+                    <div className="text-xs text-slate-500 mb-6 font-medium">{cs.country}</div>
+
+                    {/* Result Highlight Box */}
+                    <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200/80 mb-5">
+                      <div className="text-3xl font-black text-[#3b49df]">{cs.result}</div>
+                      <div className="text-xs font-semibold text-slate-800 mt-1">{cs.resultSub}</div>
+                    </div>
+
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                      {cs.summary}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {cs.tags.map((t, tIdx) => (
+                        <span key={tIdx} className="text-[10.5px] font-semibold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Iridescent glass orb accent */}
-                  <div className="w-20 h-20 rounded-full shadow-xl border border-white/80 animate-float-slow shrink-0"
-                       style={{
-                         background: "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.95), rgba(251,191,36,0.7) 45%, rgba(30,64,175,0.65) 85%, rgba(9,20,39,0.9) 100%)",
-                         boxShadow: "0 15px 30px rgba(217,119,6,0.25)"
-                       }}
-                  />
+                  <Link
+                    href="/projects"
+                    className="text-xs font-bold text-slate-900 hover:text-[#3b49df] pt-4 border-t border-slate-100 flex items-center justify-between transition-colors"
+                  >
+                    <span>Read Full Story Breakdown</span>
+                    <span>↗</span>
+                  </Link>
                 </div>
+              ))}
+            </div>
 
-              </div>
+          </div>
+        </section>
 
+        {/* ========================================================= */}
+        {/* 6. CLIENT TESTIMONIALS                                    */}
+        {/* ========================================================= */}
+        <section className="py-20 px-6 md:px-12 bg-slate-50/70 border-y border-slate-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#3b49df]">
+                Overseas Feedback
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1 mb-3">
+                Trusted by Founders Worldwide
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {testimonials.map((t, idx) => (
+                <div key={idx} className="bg-white p-7 rounded-3xl border border-slate-200/80 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-amber-500 font-bold text-sm">★★★★★</span>
+                      <span className="text-xs text-slate-400 font-medium">{t.country}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed italic mb-6">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
+                  <div className="pt-4 border-t border-slate-100">
+                    <div className="text-sm font-bold text-slate-900">{t.name}</div>
+                    <div className="text-xs text-slate-500">{t.title}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* 9. FOOTER */}
-        <Footer />
+        {/* ========================================================= */}
+        {/* 7. INTERACTIVE FREE 20-POINT SEO AUDIT TOOL               */}
+        {/* ========================================================= */}
+        <section id="audit-tool" className="py-20 px-6 md:px-12 bg-white">
+          <div className="max-w-5xl mx-auto bg-[#091427] rounded-3xl p-8 sm:p-14 text-white shadow-2xl relative overflow-hidden border border-slate-800">
+            
+            {/* Ambient Corner Glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* INTERACTIVE CASE STUDY DEEP DIVE MODAL */}
-        {activeProjectModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-            <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative text-left max-h-[90vh] overflow-y-auto">
-              <button
-                onClick={() => setActiveProjectModal(null)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] text-xs font-semibold mb-3 border border-amber-200/80">
-                <span className="text-[#d97706]">🏆</span>
-                <span>{activeProjectModal.category}</span>
-              </div>
-
-              <h3 className="text-2xl font-black text-[#0f172a] tracking-tight leading-tight mb-1">
-                {activeProjectModal.title}
-              </h3>
-              <p className="text-xs text-[#d97706] font-bold mb-4">{activeProjectModal.client}</p>
-
-              <div className="bg-[#f8fafd] p-4 rounded-2xl border border-gray-200/80 mb-5">
-                <div className="text-[11px] font-semibold text-gray-500 uppercase">Primary Milestone Result:</div>
-                <div className="text-xl font-black text-[#091427] mt-0.5">{activeProjectModal.metric}</div>
-                <div className="text-xs text-[#54647c] mt-1">{activeProjectModal.impact}</div>
-              </div>
-
-              <div className="space-y-4 text-xs text-[#54647c] mb-6">
-                <div>
-                  <h4 className="font-bold text-[#091427] mb-1">Challenge &amp; Architecture:</h4>
-                  <p className="leading-relaxed">{activeProjectModal.description}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-[#091427] mb-1.5">Executed Deliverables:</h4>
-                  <ul className="space-y-1.5">
-                    {activeProjectModal.deliverables.map((d, dIdx) => (
-                      <li key={dIdx} className="flex items-center gap-2 text-[#0f172a] font-medium">
-                        <span className="text-[#d97706] font-bold">✓</span>
-                        <span>{d}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-                <button
-                  onClick={() => {
-                    setSelectedService(activeProjectModal.category);
-                    setActiveProjectModal(null);
-                    setContactOpen(true);
-                  }}
-                  className="flex-1 bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md shadow-[#091427]/25 text-center cursor-pointer"
-                >
-                  Request Similar Strategy for Your Site →
-                </button>
-                <button
-                  onClick={() => setActiveProjectModal(null)}
-                  className="px-5 py-3.5 rounded-2xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-                {/* INTERACTIVE LEAD / CONSULTATION MODAL */}
-        {contactOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
-            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gray-100 relative">
+            <div className="relative z-10 max-w-2xl mx-auto text-center">
               
-              {/* Close Button */}
-              <button
-                onClick={() => setContactOpen(false)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center text-sm font-bold cursor-pointer"
-              >
-                ✕
-              </button>
-
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#091427] border border-amber-200/80 text-xs font-semibold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#d97706] animate-ping" />
-                Global Client Inquiry
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-bold mb-4">
+                <span>🚀 Instant Audit • Zero Spam Promise</span>
               </div>
 
-              <h3 className="text-2xl font-black text-[#0f172a] tracking-tight">
-                Get Your Free Growth Strategy
-              </h3>
-              <p className="text-sm text-[#64748b] mt-1 mb-6">
-                Tell us about your business goals. We review client inquiries and reply within 12 hours.
+              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">
+                Get Your Free 20-Point SEO &amp; Growth Audit
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-8">
+                Enter your website URL. Our senior growth engineers will inspect keyword rankings, page speed bottlenecks, and backlink gaps — sending a customized action plan within 24 hours.
               </p>
 
-              {formStatus === "success" ? (
-                <div className="bg-amber-50 border border-amber-200 text-[#091427] p-6 rounded-2xl text-center">
-                  <div className="text-4xl mb-2">🎉</div>
-                  <h4 className="text-lg font-bold">Thank you! Request Received</h4>
-                  <p className="text-xs text-[#54647c] mt-1">Our strategist will review your website and reach out via email shortly.</p>
+              {auditSuccess ? (
+                <div className="bg-emerald-500/20 border border-emerald-400/40 p-6 rounded-2xl text-emerald-200 font-semibold animate-fadeIn">
+                  🎉 Audit request received! We are analyzing your website now. Check your inbox within 24 hours for your tailored PDF report and video breakdown.
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Your Name</label>
-                    <input
-                      required
-                      type="text"
-                      placeholder="e.g. John Miller"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
+                <form onSubmit={handleAuditSubmit} className="space-y-4 text-left">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs font-semibold text-slate-300 block mb-1.5">Website URL</label>
+                      <input
+                        type="url"
+                        placeholder="https://yourbrand.com"
+                        required
+                        value={auditUrl}
+                        onChange={(e) => setAuditUrl(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-blue-400"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-slate-300 block mb-1.5">Work Email Address</label>
+                      <input
+                        type="email"
+                        placeholder="name@company.com"
+                        required
+                        value={auditEmail}
+                        onChange={(e) => setAuditEmail(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-blue-400"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Business Email (Overseas / Company Email)</label>
-                    <input
-                      required
-                      type="email"
-                      placeholder="name@company.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Website URL or Niche</label>
-                    <input
-                      type="text"
-                      placeholder="https://yourwebsite.com or Startup niche"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-gray-700 block mb-1">Target Service</label>
+                    <label className="text-xs font-semibold text-slate-300 block mb-1.5">Primary Growth Goal</label>
                     <select
-                      value={selectedService}
-                      onChange={(e) => setSelectedService(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] outline-none bg-white"
+                      value={auditGoal}
+                      onChange={(e) => setAuditGoal(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-blue-400 cursor-pointer"
                     >
-                      <option value="All Services">All Services / Full Growth Plan</option>
-                      <option value="SEO Optimization">SEO Optimization (High Intent)</option>
-                      <option value="Website Development">Website Development (Next.js / Shopify)</option>
-                      <option value="Content Writing">Content Writing &amp; Strategy</option>
-                      <option value="Email Marketing">Email Marketing &amp; Automation</option>
-                      <option value="Off Page Backlink Building">Off Page Backlink Building</option>
-                      <option value="Website Maintenance">Website Maintenance &amp; Speed Fix</option>
+                      <option value="traffic">Double Organic Google Traffic &amp; Rankings</option>
+                      <option value="leads">Increase B2B Inbound Consultation Bookings</option>
+                      <option value="redesign">Rebuild Website on Next.js for Sub-0.8s Speed</option>
+                      <option value="pr">Build High-DA Contextual Backlinks</option>
                     </select>
                   </div>
 
                   <button
                     type="submit"
-                    disabled={formStatus === "submitting"}
-                    className="w-full bg-[#091427] hover:bg-[#0f213d] text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md shadow-[#091427]/20 mt-2 cursor-pointer"
+                    className="w-full py-4 rounded-xl bg-[#3b49df] hover:bg-[#2f3bc7] text-white font-bold text-sm transition-all shadow-lg shadow-blue-900/30 cursor-pointer mt-2"
                   >
-                    {formStatus === "submitting" ? "Sending Request..." : "Book Free Strategy Call →"}
+                    Generate My Free 20-Point Audit Report &rarr;
                   </button>
                 </form>
               )}
 
+              <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-xs text-slate-400">
+                <span>✓ 100% Free Consultation</span>
+                <span>✓ Zero Sales Pressure</span>
+                <span>✓ NDA Protected</span>
+              </div>
+
             </div>
           </div>
-        )}
+        </section>
+
+        {/* ========================================================= */}
+        {/* 8. FREQUENTLY ASKED QUESTIONS (ACCORDION)                 */}
+        {/* ========================================================= */}
+        <section className="py-20 px-6 md:px-12 bg-slate-50 border-t border-slate-100">
+          <div className="max-w-4xl mx-auto">
+            
+            <div className="text-center mb-14">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#3b49df]">
+                Got Questions?
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mt-1 mb-2">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-sm text-slate-600">
+                Transparent answers about our agency deliverables, overseas time zones, and guarantees.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs transition-all"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="w-full text-left px-6 py-4.5 font-bold text-base text-slate-900 flex items-center justify-between gap-4 cursor-pointer hover:text-[#3b49df] transition-colors"
+                    >
+                      <span>{faq.q}</span>
+                      <span className="text-lg text-slate-400 font-mono shrink-0">
+                        {isOpen ? "−" : "+"}
+                      </span>
+                    </button>
+
+                    {isOpen && (
+                      <div className="px-6 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-50 pt-3">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        </section>
+
+        {/* ========================================================= */}
+        {/* 9. FINAL HIGH-CONVERTING CTA BANNER                       */}
+        {/* ========================================================= */}
+        <section className="py-20 px-6 md:px-12 bg-white">
+          <div className="max-w-6xl mx-auto bg-gradient-to-tr from-[#091427] via-[#0f213d] to-[#1e40af] p-8 sm:p-14 rounded-3xl text-white text-center shadow-2xl relative overflow-hidden">
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <span className="text-xs font-bold uppercase tracking-widest text-amber-400 block mb-2">
+                Ready To Scale Your Brand?
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+                Stop Losing High-Intent Search Traffic To Competitors.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-8">
+                Join 160+ overseas companies scaling with Nova Growth. Book a free 15-minute introductory roadmap session today.
+              </p>
+              
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="bg-[#3b49df] hover:bg-[#2f3bc7] text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-blue-900/40 transition-transform hover:scale-105"
+                >
+                  Book 15-Min Strategy Call
+                </Link>
+                <Link
+                  href="/pay"
+                  className="bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-7 py-3.5 rounded-full border border-white/20 transition-all"
+                >
+                  Client Invoicing &amp; Portal
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <Footer />
 
       </div>
     </>
