@@ -4,11 +4,15 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SeoAuditWidget from "../components/SeoAuditWidget";
+import HeaderBackgroundAnimation from "../components/HeaderBackgroundAnimation";
 
 export const metadata: Metadata = {
-  title: "B2B & E-Commerce SEO Services USA | Nova Growth Agency",
+  title: "B2B & E-Commerce SEO Services USA | Balaji Prime Media",
   description:
     "Top-tier SEO agency tailored for US businesses. We help American startups, SaaS companies, and e-commerce brands dominate Google organic search with proven ROI.",
+  alternates: {
+    canonical: "https://balajiprimemedia.in/seo-services-usa",
+  },
 };
 
 export default function SeoServicesUsaPage() {
@@ -19,8 +23,8 @@ export default function SeoServicesUsaPage() {
     "serviceType": "Search Engine Optimization",
     "provider": {
       "@type": "Organization",
-      "name": "Nova Growth Global Agency",
-      "url": "https://novagrowth.agency"
+      "name": "Balaji Prime Media",
+      "url": "https://balajiprimemedia.in"
     },
     "areaServed": {
       "@type": "Country",
@@ -38,22 +42,39 @@ export default function SeoServicesUsaPage() {
 
       <Navbar activePage="services" />
 
-      {/* Hero Header */}
-      <section className="relative pt-16 pb-14 px-6 md:px-12 text-center max-w-4xl mx-auto z-10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
-          <span>🇺🇸 Specialized for United States Businesses</span>
+      {/* Hero Header with Full-Width Animated Background */}
+      <section className="relative w-full pt-8 pb-12 sm:pt-10 sm:pb-14 px-4 sm:px-6 md:px-12 text-center z-10 overflow-hidden">
+        <HeaderBackgroundAnimation variant="subpage" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          {/* Top Back Navigation */}
+          <div className="flex items-center justify-between mb-6">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-600 hover:text-[#d97706] transition-colors group bg-white border border-gray-200 px-3.5 py-1.5 rounded-full shadow-2xs"
+            >
+              <span className="group-hover:-translate-x-1 transition-transform font-black">←</span>
+              <span>Back to Home</span>
+            </Link>
+            <div className="text-[11px] text-gray-400">
+              <Link href="/" className="hover:underline">Home</Link> / <Link href="/services" className="hover:underline">Services</Link> / <span className="text-[#091427] font-semibold">SEO Services USA</span>
+            </div>
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-xs font-semibold text-[#091427] mb-4">
+            <span>🇺🇸 Specialized for United States Businesses</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-5 sm:mb-6">
+            High-Intent SEO Services for <br className="hidden sm:inline" />
+            <span className="text-gradient-navy-gold">US Brands &amp; Startups</span>
+          </h1>
+          <p className="text-sm sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8 font-normal">
+            Tired of paying $10,000/mo to bloated US agencies with zero organic pipeline? We deliver high-velocity technical SEO, commercial keyword clustering, and editorial backlinks tailored for the American market.
+          </p>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-tight leading-[1.1] mb-6">
-          High-Intent SEO Services for <br />
-          <span className="text-gradient-navy-gold">US Brands &amp; Startups</span>
-        </h1>
-        <p className="text-base sm:text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto mb-8">
-          Tired of paying $10,000/mo to bloated US agencies with zero organic pipeline? We deliver high-velocity technical SEO, commercial keyword clustering, and editorial backlinks tailored for the American market.
-        </p>
         <div className="flex justify-center gap-4">
           <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all"
+            href="/contact-us"
+            className="inline-flex items-center justify-center gap-2 bg-[#091427] hover:bg-[#0f213d] text-white text-xs sm:text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all w-full sm:w-auto"
           >
             <span>Book US Strategy Call (EST / PST)</span>
             <span>→</span>
@@ -62,13 +83,13 @@ export default function SeoServicesUsaPage() {
       </section>
 
       {/* Instant Audit Widget section */}
-      <section className="px-6 md:px-12 py-6 max-w-7xl mx-auto">
+      <section className="px-4 sm:px-6 md:px-12 py-6 max-w-7xl mx-auto">
         <SeoAuditWidget />
       </section>
 
-      {/* Why US Founders choose Nova Growth */}
-      <section className="py-20 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+      {/* Why US Founders choose Balaji Prime Media */}
+      <section className="py-10 sm:py-14 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <h2 className="text-3xl font-black text-[#0f172a] tracking-tight">
             Built for How US Customers Search
           </h2>
@@ -114,7 +135,7 @@ export default function SeoServicesUsaPage() {
             Get a tailored proposal and competitive teardown for your target US market.
           </p>
           <Link
-            href="/contact"
+            href="/contact-us"
             className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white text-xs font-bold px-7 py-3.5 rounded-full shadow-lg shadow-[#d97706]/30 transition-all"
           >
             <span>Request US Proposal →</span>

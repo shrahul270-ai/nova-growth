@@ -3,23 +3,41 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PaymentSection from "../components/PaymentSection";
+import MeridianPayHero from "../components/MeridianPayHero";
 
 export const metadata: Metadata = {
-  title: "Secure Client Payment Portal | Nova Growth",
+  title: "Secure Client Payment Portal | Balaji Prime Media",
   description:
-    "Settle invoices or authorize monthly marketing retainers securely via Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
+    "Settle invoices or authorize monthly marketing retainers securely in INR, USD, GBP, EUR, AUD, CAD, or AED via UPI, Stripe, Wire Transfer, Wise, or PayPal with 256-bit bank-grade encryption.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+  alternates: {
+    canonical: "https://balajiprimemedia.in/pay",
+  },
 };
 
 export default function PayPage() {
   return (
-    <div className="relative min-h-screen bg-[#f8fafd] text-[#111827] overflow-hidden">
-      <div className="curved-ribbon-left" aria-hidden="true" />
-      <div className="curved-ribbon-right" aria-hidden="true" />
+    <div className="relative min-h-screen bg-[#020816] text-white overflow-hidden">
+      {/* 100% Transparent Navbar Overlay */}
+      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+        <Navbar activePage="pay" />
+      </div>
 
-      <Navbar activePage="pay" />
+      {/* 1. Meridian Pay Hero Header (Clean, Static) */}
+      <MeridianPayHero />
 
-      <main className="pt-8">
-        <PaymentSection />
+      {/* 2. Main Payment Section */}
+      <main id="payment-methods" className="relative z-10 bg-gradient-to-b from-[#070319] to-[#040112] text-white py-12 sm:py-16 border-t border-purple-500/20">
+        <PaymentSection hideHeader />
       </main>
 
       <Footer />

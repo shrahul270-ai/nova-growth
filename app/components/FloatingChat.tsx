@@ -20,7 +20,7 @@ export default function FloatingChat() {
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#d97706] border-2 border-white" />
               </div>
               <div>
-                <span className="text-xs font-bold text-[#091427] block">Nova Growth Team</span>
+                <span className="text-xs font-bold text-[#091427] block">Balaji Prime Media Team</span>
                 <span className="text-[10px] text-[#d97706] font-semibold">● Online for Global Clients</span>
               </div>
             </div>
@@ -39,7 +39,7 @@ export default function FloatingChat() {
           <div className="flex flex-col gap-2">
             {/* WhatsApp direct chat */}
             <a
-              href="https://wa.me/18005556682?text=Hi%20Nova%20Growth%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20marketing%20project."
+              href="https://wa.me/917690868932?text=Hi%20Balaji%20Prime%20Media%20team,%20I%20would%20like%20to%20discuss%20a%20digital%20growth%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100/80 transition-colors border border-amber-200/80 text-xs font-semibold text-[#091427]"
@@ -53,7 +53,7 @@ export default function FloatingChat() {
 
             {/* Book Zoom Call */}
             <Link
-              href="/contact"
+              href="/schedule-meeting"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >
@@ -66,7 +66,7 @@ export default function FloatingChat() {
 
             {/* Quick Email Inquiry */}
             <Link
-              href="/contact"
+              href="/contact-us"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-colors border border-gray-200/80 text-xs font-semibold text-[#091427]"
             >

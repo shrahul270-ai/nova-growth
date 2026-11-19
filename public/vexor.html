@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vexor — Signup &amp; Global Payments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --u: calc(100vw / 1440);
+      --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --bg-page: #000000;
+      --text-main: #ffffff;
+      --placeholder: #808081;
+      --input-border: rgba(255, 255, 255, 0.15);
+      --input-border-focus: rgba(255, 138, 115, 0.7);
+      --coral-start: #FF8A73;
+      --coral-end: #F0605A;
+      --border-coral-top: rgba(244, 118, 104, 0.67);
+      --border-coral-bot: rgba(244, 118, 104, 0.29);
+      --divider-color: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-inter);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      padding: clamp(16px, calc(30 * var(--u)), 48px);
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: clamp(320px, calc(1380 * var(--u)), 1380px);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    /* Top navigation / Brand header */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0 24px 0;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-logo svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .brand-logo span {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    /* CTA Card Outer Frame with Coral Gradient Border */
+    .cta-card-frame {
+      position: relative;
+      width: 100%;
+      min-height: clamp(320px, calc(340 * var(--u)), 380px);
+      border-radius: clamp(16px, calc(20 * var(--u)), 24px);
+      padding: 1.5px;
+      background: linear-gradient(135deg, var(--border-coral-top) 0%, var(--border-coral-bot) 100%);
+      margin: auto 0;
+      box-shadow: 0 20px 60px -15px rgba(240, 96, 90, 0.25);
+      animation: drawBorder 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes drawBorder {
+      0% {
+        opacity: 0;
+        transform: scale(0.985);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Inner CTA Content Area */
+    .cta-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      border-radius: clamp(14.5px, calc(18.5 * var(--u)), 22.5px);
+      background-color: #000;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(24px, calc(48 * var(--u)), 64px) clamp(16px, calc(32 * var(--u)), 48px);
+    }
+
+    /* Background Plate */
+    .smoke-plate {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/03c58212-3a59-4c80-b19d-30d05a174563.webp');
+      background-position: right bottom;
+      background-size: cover;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Background Loop Video */
+    .smoke-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right bottom;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .smoke-video.loaded {
+      opacity: 0.8;
+    }
+
+    /* Dark vignette overlay */
+    .card-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 80%, #000 100%),
+                  linear-gradient(135deg, rgba(0,0,0,0.7) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Foreground Content */
+    .cta-content {
+      position: relative;
+      z-index: 4;
+      max-width: clamp(300px, calc(640 * var(--u)), 680px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .headline {
+      font-size: clamp(26px, calc(34 * var(--u)), 38px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: clamp(10px, calc(12 * var(--u)), 16px);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: riseHeadline 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+
+    @keyframes riseHeadline {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .sub-copy {
+      font-size: clamp(13px, calc(15 * var(--u)), 16px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: clamp(20px, calc(28 * var(--u)), 36px);
+      opacity: 0;
+      animation: fadeCopy 0.8s ease 0.4s forwards;
+    }
+
+    @keyframes fadeCopy {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Waitlist Form Pill */
+    .waitlist-form {
+      position: relative;
+      width: 100%;
+      max-width: clamp(280px, calc(460 * var(--u)), 480px);
+      background-color: #000000;
+      border: 1px solid var(--input-border);
+      border-radius: 9999px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+      opacity: 0;
+      transform: scale(0.96);
+      animation: expandForm 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    }
+
+    @keyframes expandForm {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .waitlist-form:hover,
+    .waitlist-form:focus-within {
+      border-color: var(--input-border-focus);
+      box-shadow: 0 0 20px rgba(240, 96, 90, 0.2);
+    }
+
+    .waitlist-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: clamp(12px, calc(13 * var(--u)), 14px);
+      padding: 0 16px;
+    }
+
+    .waitlist-input::placeholder {
+      color: var(--placeholder);
+    }
+
+    .waitlist-btn {
+      background: linear-gradient(135deg, var(--coral-start) 0%, var(--coral-end) 100%);
+      color: #ffffff;
+      font-size: clamp(12px, calc(13 * var(--u)), 14px);
+      font-weight: 500;
+      border: none;
+      border-radius: 9999px;
+      padding: clamp(8px, calc(9 * var(--u)), 11px) clamp(16px, calc(20 * var(--u)), 24px);
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 2px 8px rgba(240, 96, 90, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    }
+
+    .waitlist-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 4px 16px rgba(240, 96, 90, 0.45);
+    }
+
+    .waitlist-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Footer Section */
+    .footer {
+      width: 100%;
+      margin-top: clamp(24px, calc(40 * var(--u)), 50px);
+      opacity: 0;
+      animation: fadeCopy 0.8s ease 0.7s forwards;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: clamp(24px, calc(48 * var(--u)), 64px);
+      margin-bottom: clamp(20px, calc(28 * var(--u)), 36px);
+    }
+
+    @media (max-width: 768px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Left Footer */
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .vexor-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .slash {
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      background-color: #fff;
+      transform: skewX(-20deg);
+      border-radius: 1px;
+    }
+
+    .slash:nth-child(2) {
+      background-color: var(--coral-start);
+      height: 20px;
+    }
+
+    .slash:nth-child(3) {
+      background-color: var(--coral-end);
+      height: 16px;
+    }
+
+    .footer-desc {
+      font-size: clamp(12px, calc(13 * var(--u)), 14px);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 520px;
+    }
+
+    /* Right Footer */
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-right {
+        align-items: flex-start;
+        text-align: left;
+      }
+    }
+
+    .contact-title {
+      font-size: clamp(13px, calc(14 * var(--u)), 15px);
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .contact-link {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(12px, calc(13 * var(--u)), 14px);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--coral-start);
+      text-decoration: underline;
+    }
+
+    .address {
+      font-size: clamp(11px, calc(12 * var(--u)), 13px);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 4px;
+    }
+
+    /* Divider */
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--divider-color);
+      margin-bottom: clamp(16px, calc(20 * var(--u)), 24px);
+    }
+
+    /* Bottom strip */
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(11px, calc(12 * var(--u)), 13px);
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    @media (max-width: 768px) {
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+
+    .footer-email-link {
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-email-link:hover {
+      color: var(--coral-start);
+      text-decoration: underline;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .smoke-video {
+        display: none !important;
+      }
+      .cta-card-frame, .headline, .sub-copy, .waitlist-form, .footer {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <a href="/" class="brand-logo">
+        <div class="vexor-mark">
+          <span class="slash"></span>
+          <span class="slash"></span>
+          <span class="slash"></span>
+        </div>
+        <span>Vexor</span>
+      </a>
+
+      <nav>
+        <a href="https://balajiprimemedia.in/blog" class="nav-link">Back to Blog &rarr;</a>
+      </nav>
+    </header>
+
+    <!-- Main Framed CTA Card -->
+    <main class="cta-card-frame">
+      <div class="cta-card-inner">
+        <!-- Still plate -->
+        <div class="smoke-plate"></div>
+
+        <!-- Loop video -->
+        <video
+          id="vexorVideo"
+          class="smoke-video"
+          src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f6f4ec49-d5dd-4893-8eb4-fa0f932aceaf.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+
+        <!-- Dark radial overlay -->
+        <div class="card-vignette"></div>
+
+        <!-- Text & Form Content -->
+        <div class="cta-content">
+          <h1 class="headline">Get your Vexor Account</h1>
+          <p class="sub-copy">
+            Join 200+ businesses like yours, powering their global<br>
+            transactions with Vexor.
+          </p>
+
+          <form class="waitlist-form" id="waitlistForm" onsubmit="event.preventDefault(); alert('Thank you! You are added to the Vexor waitlist.');">
+            <input
+              type="email"
+              required
+              class="waitlist-input"
+              placeholder="Enter your email to join the waitlist"
+            >
+            <button type="submit" class="waitlist-btn">Get Free Access</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-columns">
+        <!-- Left: Mark & Paragraph -->
+        <div class="footer-left">
+          <div class="vexor-mark">
+            <span class="slash"></span>
+            <span class="slash"></span>
+            <span class="slash"></span>
+          </div>
+          <p class="footer-desc">
+            Get paid for free from countries in the EU, Asia, and the US. There are no deposit charges. Create an account in your preferred currency and share the details to get paid. We make it easy to go international.
+          </p>
+        </div>
+
+        <!-- Right: Contact Us -->
+        <div class="footer-right">
+          <div class="contact-title">Contact Us</div>
+          <a href="tel:+442079460321" class="contact-link">+44 20 7946 0321</a>
+          <div class="address">
+            Vexor Labs Ltd,<br>
+            12 Harbour Row,<br>
+            Bristol BS1 5TT, UK
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="footer-divider"></div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <div>Copyright © Vexor Labs. 2025. All Rights Reserved.</div>
+        <div>Email us: <a href="mailto:hello@vexor.example" class="footer-email-link">hello@vexor.example</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const video = document.getElementById('vexorVideo');
+    if (video) {
+      if (video.readyState >= 3) {
+        video.classList.add('loaded');
+      } else {
+        video.addEventListener('loadeddata', () => {
+          video.classList.add('loaded');
+        });
+      }
+    }
+  </script>
+</body>
+</html>

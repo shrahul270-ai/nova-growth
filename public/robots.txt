@@ -1,0 +1,39 @@
+# Balaji Prime Media Official Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /upload-database
+Disallow: /pay
+Disallow: /pay/
+Disallow: /data/
+Disallow: /*.xlsx$
+Disallow: /*.json$
+
+# Block AI Scraping & Data Mining Crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+Sitemap: https://balajiprimemedia.in/sitemap.xml
