@@ -81,7 +81,6 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       name: "Guest Posting",
       href: "/guest-posting",
       key: "guest-posting",
-      badge: "DR 50+",
       dropdown: [
         { name: "All Guest Post Inventory", href: "/guest-posting", desc: "Browse 30,000+ verified publishers" },
         { name: "Tech & SaaS Authority", href: "/guest-posting", desc: "DR 60-90+ industry authority media" },
