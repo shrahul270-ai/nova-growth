@@ -251,6 +251,8 @@ export default function RootLayout({
         <FloatingConnect />
         {/* GDPR/CCPA Compliant Cookie Consent Banner */}
         <CookieConsent />
+        {/* 10-Second Automatic Sign In / Client Portal Popup */}
+        <AutoLoginPopup />
       </body>
     </html>
   );

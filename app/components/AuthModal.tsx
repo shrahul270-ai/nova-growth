@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface AuthModalProps {
@@ -25,7 +24,7 @@ export default function AuthModal({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Sync mode with prop when opened and clear all fields so no inputs are prefilled or fixed
+  // Sync mode with prop when opened and clear all fields
   useEffect(() => {
     if (isOpen) {
       setMode(initialMode);
@@ -67,7 +66,7 @@ export default function AuthModal({
     setError(null);
 
     if (mode === "signup" && !name.trim()) {
-      setError("Please enter your name.");
+      setError("Please enter your name or business name.");
       return;
     }
     if (!email || !email.includes("@")) {
@@ -81,7 +80,7 @@ export default function AuthModal({
 
     setLoading(true);
 
-    // Save login/signup event to database so admin receives it permanently in Neon
+    // Save login/signup event to database
     fetch("/api/db/leads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -125,7 +124,6 @@ export default function AuthModal({
         setSuccess(true);
         setTimeout(() => {
           onClose();
-          // Stay on current page, never redirect to marketplace
         }, 850);
       } catch {
         setSuccess(true);
@@ -169,7 +167,6 @@ export default function AuthModal({
       setSuccess(true);
       setTimeout(() => {
         onClose();
-        // Stay on current page, never redirect to marketplace
       }, 750);
     }, 500);
   };
@@ -178,19 +175,19 @@ export default function AuthModal({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 bg-[#07030d]/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      {/* Modal Card */}
-      <div className="relative w-full max-w-md rounded-3xl bg-[#090422]/98 border border-purple-500/30 p-6 sm:p-8 shadow-[0_25px_80px_rgba(0,0,0,0.9),0_0_50px_rgba(160,104,255,0.25)] backdrop-blur-2xl text-white">
+      {/* Modal Card - Perfectly Centered, Responsive, Never Cut-off */}
+      <div className="relative w-full max-w-[420px] my-auto rounded-[6px] bg-[#0c0617] border border-white/15 p-5 sm:p-7 shadow-[0_25px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(104,31,228,0.25)] text-white max-h-[92vh] overflow-y-auto no-scrollbar font-satoshi">
         
-        {/* Corner Cross Button (✕) - Direct Close */}
+        {/* Corner Cross Button (✕) */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-slate-300 hover:text-white flex items-center justify-center text-sm font-bold transition-all cursor-pointer z-10"
+          className="absolute top-4 right-4 w-8 h-8 rounded-[4px] bg-white/5 hover:bg-white/15 border border-white/15 text-neutral-400 hover:text-white flex items-center justify-center text-sm font-mono transition-all cursor-pointer z-10"
           aria-label="Close"
           title="Close modal"
         >
@@ -199,37 +196,40 @@ export default function AuthModal({
 
         {/* Brand Header */}
         <div className="text-center mb-5">
-          <div className="inline-flex justify-center mb-2">
-            <Image
-              src="/images/bpm-complete-logo.png"
-              alt="Balaji Prime Media"
-              width={180}
-              height={160}
-              className="h-10 w-auto object-contain filter drop-shadow-[0_2px_14px_rgba(160,104,255,0.5)]"
-            />
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="relative w-5 h-5 flex items-center shrink-0">
+              <span className="w-4 h-4 rounded-full border border-white/90 block" />
+              <span className="w-4 h-4 rounded-full bg-white block -ml-2" />
+            </div>
+            <span className="font-bebas text-xl sm:text-2xl tracking-[0.18em] text-white">
+              BALAJI PRIME MEDIA
+            </span>
           </div>
-          <p className="text-xs text-slate-400">
+          <span className="font-bebas text-[11px] tracking-[0.24em] text-[#681fe4] uppercase block">
+            // CLIENT PORTAL &amp; ENTERPRISE ACCESS
+          </span>
+          <p className="text-xs text-neutral-400 mt-1">
             {mode === "login"
-              ? "Access your campaigns, publisher data & audits"
-              : "Create your free Balaji Prime Media client account"}
+              ? "Sign in to manage campaign audits & inventory"
+              : "Create your verified client portal account"}
           </p>
         </div>
 
         {/* Tab Toggle: Log in / Sign up */}
-        <div className="flex items-center rounded-xl bg-white/[0.06] p-1 border border-white/10 mb-5">
+        <div className="flex items-center rounded-[4px] bg-white/[0.04] p-1 border border-white/10 mb-4">
           <button
             type="button"
             onClick={() => {
               setMode("login");
               setError(null);
             }}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 py-1.5 rounded-[3px] font-bebas text-sm tracking-[0.14em] uppercase transition-all cursor-pointer ${
               mode === "login"
-                ? "bg-[#A068FF] text-white shadow-md shadow-purple-950/60"
-                : "text-slate-400 hover:text-white"
+                ? "bg-[#681fe4] text-white shadow-sm"
+                : "text-neutral-400 hover:text-white"
             }`}
           >
-            Log in
+            Sign in
           </button>
           <button
             type="button"
@@ -237,13 +237,13 @@ export default function AuthModal({
               setMode("signup");
               setError(null);
             }}
-            className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+            className={`flex-1 py-1.5 rounded-[3px] font-bebas text-sm tracking-[0.14em] uppercase transition-all cursor-pointer ${
               mode === "signup"
-                ? "bg-[#A068FF] text-white shadow-md shadow-purple-950/60"
-                : "text-slate-400 hover:text-white"
+                ? "bg-[#681fe4] text-white shadow-sm"
+                : "text-neutral-400 hover:text-white"
             }`}
           >
-            Sign up
+            Create account
           </button>
         </div>
 
@@ -252,7 +252,7 @@ export default function AuthModal({
           type="button"
           onClick={handleGoogleAuth}
           disabled={loading}
-          className="w-full py-2.5 px-4 rounded-xl bg-white/[0.07] hover:bg-white/[0.13] border border-white/15 text-white text-xs font-semibold flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-sm disabled:opacity-50"
+          className="w-full py-2.5 px-4 rounded-[4px] bg-white/[0.05] hover:bg-white/[0.1] border border-white/15 text-white text-xs font-medium flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-xs disabled:opacity-50"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -275,20 +275,20 @@ export default function AuthModal({
           <span>Continue with Google</span>
         </button>
 
-        <div className="relative my-4">
+        <div className="relative my-3.5">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-white/10" />
           </div>
-          <div className="relative flex justify-center text-[10px] uppercase">
-            <span className="bg-[#090422] px-2 text-slate-400">or with email</span>
+          <div className="relative flex justify-center text-[10px] uppercase font-mono">
+            <span className="bg-[#0c0617] px-2 text-neutral-400">or with email</span>
           </div>
         </div>
 
-        {/* Input Form with Disabled Autofill to Prevent Fixed Credential Sticking */}
+        {/* Input Form */}
         <form onSubmit={handleSubmit} autoComplete="off" className="space-y-3">
           {mode === "signup" && (
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+              <label className="block text-[11px] font-mono uppercase text-neutral-300 mb-1">
                 Full Name / Brand
               </label>
               <input
@@ -298,13 +298,13 @@ export default function AuthModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name or business name"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-[4px] bg-white/[0.05] border border-white/15 focus:border-[#681fe4] focus:outline-none text-white text-xs placeholder-neutral-500 transition-colors"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+            <label className="block text-[11px] font-mono uppercase text-neutral-300 mb-1">
               Work / Business Email
             </label>
             <input
@@ -313,14 +313,14 @@ export default function AuthModal({
               autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
+              placeholder="name@company.com"
+              className="w-full px-3.5 py-2.5 rounded-[4px] bg-white/[0.05] border border-white/15 focus:border-[#681fe4] focus:outline-none text-white text-xs placeholder-neutral-500 transition-colors"
             />
           </div>
 
           {mode === "signup" && (
             <div>
-              <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+              <label className="block text-[11px] font-mono uppercase text-neutral-300 mb-1">
                 Phone / WhatsApp (Optional)
               </label>
               <input
@@ -328,14 +328,14 @@ export default function AuthModal({
                 autoComplete="off"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="Enter phone or WhatsApp number"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
+                placeholder="+1 555-0199 or +91 ..."
+                className="w-full px-3.5 py-2.5 rounded-[4px] bg-white/[0.05] border border-white/15 focus:border-[#681fe4] focus:outline-none text-white text-xs placeholder-neutral-500 transition-colors"
               />
             </div>
           )}
 
           <div>
-            <label className="block text-[11px] font-semibold text-slate-300 mb-1">
+            <label className="block text-[11px] font-mono uppercase text-neutral-300 mb-1">
               Password
             </label>
             <input
@@ -344,38 +344,38 @@ export default function AuthModal({
               autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none text-white text-xs placeholder-slate-500 shadow-xs transition-colors"
+              placeholder="••••••••"
+              className="w-full px-3.5 py-2.5 rounded-[4px] bg-white/[0.05] border border-white/15 focus:border-[#681fe4] focus:outline-none text-white text-xs placeholder-neutral-500 transition-colors"
             />
           </div>
 
           {error && (
-            <p className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-lg p-2 text-center">
+            <p className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-[4px] p-2 text-center">
               {error}
             </p>
           )}
 
           {success && (
-            <p className="text-xs text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 rounded-lg p-2 text-center font-semibold">
-              ✓ Success! Opening Client Dashboard...
+            <p className="text-xs text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 rounded-[4px] p-2 text-center font-semibold">
+              ✓ Authenticated. Opening client workspace...
             </p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:from-[#8f52ff] hover:to-[#6d28d9] text-white text-xs font-bold transition-all shadow-md shadow-purple-950/60 cursor-pointer disabled:opacity-50 hover:scale-[1.01]"
+            className="w-full py-3 px-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.16em] uppercase transition-all shadow-md shadow-[#681fe4]/30 cursor-pointer disabled:opacity-50 hover:scale-[1.01]"
           >
             {loading
-              ? "Please wait..."
+              ? "AUTHENTICATING..."
               : mode === "login"
-              ? "Log in to Portal →"
-              : "Create Account Free →"}
+              ? "SIGN IN TO PORTAL →"
+              : "CREATE ACCOUNT →"}
           </button>
         </form>
 
         {/* Footer switch prompt */}
-        <div className="mt-4 pt-3 border-t border-white/10 text-center text-xs text-slate-400">
+        <div className="mt-4 pt-3 border-t border-white/10 text-center text-xs text-neutral-400">
           {mode === "login" ? (
             <span>
               Don&apos;t have an account?{" "}
@@ -385,23 +385,23 @@ export default function AuthModal({
                   setMode("signup");
                   setError(null);
                 }}
-                className="text-[#d8b4fe] hover:text-white font-semibold transition-colors underline cursor-pointer"
+                className="text-[#681fe4] hover:text-white font-semibold transition-colors underline cursor-pointer"
               >
-                Sign up
+                Create one
               </button>
             </span>
           ) : (
             <span>
-              Already have an account?{" "}
+              Already registered?{" "}
               <button
                 type="button"
                 onClick={() => {
                   setMode("login");
                   setError(null);
                 }}
-                className="text-[#d8b4fe] hover:text-white font-semibold transition-colors underline cursor-pointer"
+                className="text-[#681fe4] hover:text-white font-semibold transition-colors underline cursor-pointer"
               >
-                Log in
+                Sign in
               </button>
             </span>
           )}

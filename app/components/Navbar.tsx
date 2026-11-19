@@ -312,7 +312,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action: Auth Buttons + Burger Menu */}
+            {/* Right Action: Sign In Button + Burger Menu */}
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <button
                 type="button"
@@ -320,20 +320,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   setAuthModalMode("login");
                   setAuthModalOpen(true);
                 }}
-                className="font-bebas text-xs sm:text-sm tracking-[0.14em] text-white/80 hover:text-white px-2.5 sm:px-3 py-1.5 rounded-[4px] transition-all hover:bg-white/5 hidden md:inline-flex items-center cursor-pointer"
+                className="inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-3 sm:px-4 rounded-[4px] font-bebas text-xs sm:text-sm tracking-[0.12em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
               >
-                <span>LOG IN</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setAuthModalMode("signup");
-                  setAuthModalOpen(true);
-                }}
-                className="inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-4 rounded-[4px] font-bebas text-xs sm:text-sm tracking-[0.12em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
-              >
-                <span>GET STARTED</span>
+                <span>SIGN IN</span>
                 <span className="text-xs">→</span>
               </button>
 
@@ -436,23 +425,23 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                setAuthModalMode("signup");
+                setAuthModalMode("login");
                 setAuthModalOpen(true);
               }}
               className="w-full py-3 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.16em] text-center shadow-lg transition-all cursor-pointer"
             >
-              GET STARTED →
+              SIGN IN →
             </button>
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                setAuthModalMode("login");
+                setAuthModalMode("signup");
                 setAuthModalOpen(true);
               }}
               className="w-full py-2.5 rounded-[4px] border border-white/20 hover:border-white/40 text-white font-bebas text-sm tracking-[0.14em] text-center transition-all cursor-pointer"
             >
-              LOG IN
+              CREATE ACCOUNT
             </button>
             <div className="flex items-center justify-between text-xs font-mono text-neutral-400 pt-1">
               <a href="tel:+917690868932" className="hover:text-white transition-colors">

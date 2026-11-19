@@ -119,24 +119,33 @@ export default function Footer() {
             <div className="text-xs text-neutral-400 pt-1">
               📍 Jaipur, India &amp; Global Operations
             </div>
+            <div className="pt-2 text-xs text-neutral-300 flex items-center gap-2 font-mono">
+              <span className="text-[#681fe4]">✉️</span>
+              <a
+                href="mailto:support@balajiprimemedia.in"
+                className="hover:text-[#681fe4] transition-colors"
+              >
+                support@balajiprimemedia.in
+              </a>
+            </div>
           </div>
 
-          {/* Col 2: NAVIGATION (Exact layout & links as user screenshot) */}
+          {/* Col 2: NAVIGATION (Website-consistent Modern Industrial Color Pattern) */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-[#681fe4] text-base font-black">•</span>
-              <span className="font-bold tracking-wider text-xs sm:text-sm uppercase text-white font-satoshi">
-                NAVIGATION
+              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4]" />
+              <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+                02 // NAVIGATION
               </span>
             </div>
             <ul className="space-y-3 text-sm text-neutral-300 font-satoshi">
               <li>
                 <Link
                   href="/"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Home</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -144,7 +153,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/guest-posting"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>Guest Posting</span>
@@ -152,7 +161,7 @@ export default function Footer() {
                       DR 50+
                     </span>
                   </span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -160,10 +169,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Services</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -171,10 +180,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/projects"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Projects</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -182,10 +191,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/blog"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Blog</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -193,10 +202,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about-us"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>About Us</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -204,10 +213,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact-us"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Contact Us</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -215,13 +224,13 @@ export default function Footer() {
               <li>
                 <Link
                   href="/pay"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>Payment</span>
                     <span>💳</span>
                   </span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -229,22 +238,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: SUPPORT & MORE (Exact layout & links as user screenshot) */}
+          {/* Col 3: SUPPORT & MORE (Website-consistent Modern Industrial Color Pattern) */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-[#681fe4] text-base font-black">•</span>
-              <span className="font-bold tracking-wider text-xs sm:text-sm uppercase text-white font-satoshi">
-                SUPPORT &amp; MORE
+              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4]" />
+              <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+                03 // SUPPORT &amp; MORE
               </span>
             </div>
             <ul className="space-y-3 text-sm text-neutral-300 font-satoshi">
               <li>
                 <Link
                   href="/faq"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>FAQ</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -252,10 +261,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/feedback"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Feedback</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -263,7 +272,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/schedule-meeting"
-                  className="group flex items-center justify-between text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+                  className="group flex items-center justify-between text-[#c4b5fd] hover:text-white font-medium transition-colors"
                 >
                   <span>Schedule Meeting</span>
                   <span>🗓️</span>
@@ -272,16 +281,30 @@ export default function Footer() {
               <li>
                 <Link
                   href="/help-center"
-                  className="group flex items-center justify-between hover:text-white transition-colors"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
                 >
                   <span>Help Center</span>
-                  <span className="text-neutral-500 group-hover:text-white group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
               </li>
+              <li>
+                <a
+                  href="mailto:support@balajiprimemedia.in"
+                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>Direct Email</span>
+                    <span className="text-xs">✉️</span>
+                  </span>
+                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs font-mono">
+                    support@balajiprimemedia.in →
+                  </span>
+                </a>
+              </li>
 
-              {/* Subtle Horizontal Divider line as in screenshot */}
+              {/* Subtle Horizontal Divider line */}
               <li className="pt-2 border-t border-white/10" />
 
               <li>
@@ -315,7 +338,7 @@ export default function Footer() {
 
           {/* Col 4: Newsletter Subscription Box */}
           <div className="space-y-4">
-            <span className="font-bebas text-sm tracking-[0.24em] text-white uppercase block">
+            <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
               04 // INTELLIGENCE BRIEF
             </span>
             <p className="text-neutral-400 text-xs leading-relaxed font-normal">

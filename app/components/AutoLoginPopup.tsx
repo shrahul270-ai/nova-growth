@@ -26,10 +26,13 @@ export default function AutoLoginPopup() {
       return;
     }
 
-    // Auto-popup for visitors without an active authenticated session (Delayed by 10 seconds per user request)
+    // Auto-popup for visitors without an active authenticated session after 10 seconds
     const existingSession = localStorage.getItem("nova_buyer_session");
-    if (!existingSession) {
+    const dismissedThisSession = sessionStorage.getItem("bpm_login_popup_dismissed");
+
+    if (!existingSession && !dismissedThisSession) {
       const timer = setTimeout(() => {
+        setMode("login");
         setIsOpen(true);
       }, 10000);
       return () => clearTimeout(timer);
@@ -56,6 +59,7 @@ export default function AutoLoginPopup() {
   const handleClose = () => {
     setIsOpen(false);
     if (typeof window !== "undefined") {
+      sessionStorage.setItem("bpm_login_popup_dismissed", "true");
       // Clean query parameter if URL has login or auth
       if (window.location.search.includes("auth=") || window.location.search.includes("login")) {
         window.history.replaceState({}, document.title, window.location.pathname);
