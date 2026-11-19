@@ -560,15 +560,15 @@ export default function ServicesClient() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white text-slate-900 selection:bg-amber-500 selection:text-white font-sans antialiased overflow-hidden">
+    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi antialiased overflow-hidden">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-24 right-6 z-50 bg-slate-950 text-white border border-amber-500/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+        <div className="fixed top-24 right-6 z-50 bg-[#0c0818] text-white border border-[#681fe4] px-5 py-3 rounded-[4px] shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-ping" />
           <span>{toast}</span>
           <button
             onClick={() => setToast(null)}
-            className="ml-2 text-slate-400 hover:text-white text-xs cursor-pointer"
+            className="ml-2 text-neutral-400 hover:text-white text-xs cursor-pointer"
           >
             ✕
           </button>
@@ -576,7 +576,7 @@ export default function ServicesClient() {
       )}
 
       {/* Top Navbar */}
-      <div className="relative z-40 bg-white">
+      <div className="relative z-40 bg-[#07030d]/90 backdrop-blur-md">
         <Navbar activePage="services" />
       </div>
 
@@ -584,33 +584,33 @@ export default function ServicesClient() {
       <SellixServicesHeader />
 
       {/* Master Services Section */}
-      <section id="services-grid" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+      <section id="services-grid" className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto bg-grid-white-240">
         
-        {/* Section Header (Fixes Issue 12: Reorganized for balanced visual hierarchy) */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          {/* Tagline Badge (Fixes Issue 7: Text >= 12px) */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-bold uppercase tracking-wider mb-3">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>Full-Funnel Organic Growth Directory</span>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          {/* Tagline Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-[4px] bg-white/5 border border-white/10 text-white text-xs font-bebas tracking-[0.2em] uppercase mb-3">
+            <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
+            <span>FULL-FUNNEL ORGANIC GROWTH DIRECTORY</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight mb-3">
-            Master Service Directory
+          <h2 className="font-bebas text-4xl sm:text-6xl text-white tracking-[0.16em] uppercase leading-none mb-3">
+            MASTER SERVICE DIRECTORY
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+          <p className="font-satoshi text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
             16 production-grade agency services &amp; website engineering solutions calibrated dynamically by country and local settlement currency.
           </p>
         </div>
 
-        {/* Global Currency & Country Selector Toolbar (Fixes Issue 3 & Issue 12: Dedicated balanced toolbar) */}
-        <div className="mb-8 p-4 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3 pb-2 border-b border-amber-100">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
-              <span className="text-amber-600">🌍</span>
-              <span>Select Settlement Currency &amp; Country:</span>
+        {/* Global Currency & Country Selector Toolbar */}
+        <div className="mb-8 p-5 rounded-[4px] bg-[#0c0818] border border-white/10 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10">
+            <div className="flex items-center gap-2 text-xs font-bebas tracking-[0.14em] text-white uppercase">
+              <span className="text-[#681fe4]">🌍</span>
+              <span>SELECT SETTLEMENT CURRENCY &amp; COUNTRY:</span>
             </div>
-            <span className="text-xs text-amber-700 font-semibold">
-              Showing pricing in: <strong className="text-slate-950">{COUNTRIES_CONFIG[country].name} ({COUNTRIES_CONFIG[country].currency})</strong>
+            <span className="text-xs text-neutral-400 font-mono">
+              Showing pricing in: <strong className="text-white">{COUNTRIES_CONFIG[country].name} ({COUNTRIES_CONFIG[country].currency})</strong>
             </span>
           </div>
 
@@ -623,24 +623,24 @@ export default function ServicesClient() {
                   key={c.code}
                   type="button"
                   onClick={() => switchCountry(c.code)}
-                  className={`flex items-center justify-between gap-2 p-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
+                  className={`flex items-center justify-between gap-2 p-2.5 rounded-[4px] text-xs font-bebas tracking-[0.12em] uppercase transition-all cursor-pointer border ${
                     isActive
-                      ? "bg-amber-50 border-amber-500 shadow-sm ring-2 ring-amber-500/20 text-slate-950"
-                      : "bg-white hover:bg-amber-50/40 text-slate-700 border-slate-200"
+                      ? "bg-[#681fe4] border-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.3)]"
+                      : "bg-white/5 hover:bg-white/10 text-neutral-300 border-white/10"
                   }`}
                 >
                   <div className="flex items-center gap-2 text-left">
                     <span className="text-lg">{c.flag}</span>
                     <div>
                       <span className="block font-bold text-xs">{c.name}</span>
-                      <span className={`text-xs block ${isActive ? "text-amber-700 font-extrabold" : "text-slate-500"}`}>
+                      <span className={`text-[10px] block font-mono ${isActive ? "text-white/90" : "text-neutral-400"}`}>
                         {c.currency} ({c.symbol.trim()})
                       </span>
                     </div>
                   </div>
                   <span
-                    className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                      isActive ? "bg-amber-500 ring-2 ring-amber-200" : "bg-slate-300"
+                    className={`w-2 h-2 rounded-full shrink-0 ${
+                      isActive ? "bg-white" : "bg-white/20"
                     }`}
                   />
                 </button>
@@ -649,18 +649,18 @@ export default function ServicesClient() {
           </div>
         </div>
 
-        {/* Live Filter & Search Controls (Fixes Issue 11: Cohesive control group with zero dead space) */}
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 p-3 rounded-2xl bg-[#fffdfa] border border-amber-200/80 shadow-xs mb-10">
+        {/* Live Filter & Search Controls */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 p-3 rounded-[4px] bg-[#0c0818] border border-white/10 shadow-sm mb-10">
           {/* Category Tabs */}
           <div className="flex flex-wrap items-center gap-1.5">
             {["All", "Development", "Optimization", "Marketing & Content", "Support"].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-[4px] font-bebas text-xs sm:text-sm tracking-[0.14em] uppercase transition-all cursor-pointer ${
                   activeCategory === cat
-                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs"
-                    : "bg-white text-slate-700 hover:bg-amber-50/50 border border-slate-200"
+                    ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                    : "bg-white/5 text-neutral-300 hover:bg-white/10 border border-white/10"
                 }`}
               >
                 {cat} {cat === "All" && `(${masterServicesList.length})`}
@@ -670,18 +670,18 @@ export default function ServicesClient() {
 
           {/* Search Box */}
           <div className="relative w-full lg:w-72">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 text-xs">🔍</span>
             <input
               type="text"
               placeholder="Search deliverables, tech, tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none transition-all shadow-2xs font-medium"
+              className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] pl-9 pr-8 py-2 text-xs text-white placeholder-neutral-500 outline-none transition-all font-satoshi"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -689,12 +689,12 @@ export default function ServicesClient() {
           </div>
         </div>
 
-        {/* Service Cards Responsive Grid (Rendered via ThreeDServiceCard: Fixes Issue 9 & Issue 10) */}
+        {/* Service Cards Responsive Grid */}
         {filteredServices.length === 0 ? (
-          <div className="text-center py-16 bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-8">
+          <div className="text-center py-16 bg-[#0c0818] border border-white/10 rounded-[4px] p-8">
             <span className="text-4xl block mb-3">🔍</span>
-            <h3 className="text-xl font-bold text-slate-900 mb-1">No services found</h3>
-            <p className="text-xs text-slate-500 mb-4">
+            <h3 className="font-bebas text-2xl text-white tracking-[0.14em] uppercase mb-1">No services found</h3>
+            <p className="text-xs text-neutral-400 mb-4 font-satoshi">
               We couldn&apos;t find any service matching &quot;{searchQuery}&quot;.
             </p>
             <button
@@ -702,7 +702,7 @@ export default function ServicesClient() {
                 setSearchQuery("");
                 setActiveCategory("All");
               }}
-              className="px-5 py-2 rounded-xl bg-white hover:bg-slate-50 text-xs font-bold text-slate-800 border border-slate-200 shadow-xs cursor-pointer"
+              className="px-5 py-2 rounded-[4px] bg-white/5 hover:bg-white/10 text-xs font-bebas tracking-[0.14em] text-white border border-white/15 cursor-pointer uppercase"
             >
               Reset Filters
             </button>
@@ -734,19 +734,19 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setActiveModalService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn overflow-y-auto font-satoshi"
         >
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-amber-200/80 relative text-left max-h-[90vh] overflow-y-auto my-auto text-slate-900">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+          <div className="bg-[#0c0818] rounded-[4px] max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-white/15 relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl p-2 rounded-xl bg-amber-50 border border-amber-200">
+                <span className="text-2xl p-2 rounded-[4px] bg-white/5 border border-white/10">
                   {activeModalService.icon3D}
                 </span>
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                  <span className="text-[11px] font-bebas tracking-[0.16em] uppercase text-[#681fe4] bg-[#681fe4]/10 px-2.5 py-0.5 rounded-[2px] border border-[#681fe4]/30">
                     {activeModalService.badge}
                   </span>
-                  <span className="text-xs text-slate-500 block mt-0.5 font-semibold">
+                  <span className="text-[11px] text-neutral-400 block mt-0.5 font-mono">
                     {activeModalService.category}
                   </span>
                 </div>
@@ -754,25 +754,25 @@ export default function ServicesClient() {
 
               <button
                 onClick={() => setActiveModalService(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
+                className="w-8 h-8 rounded-[4px] bg-white/5 hover:bg-white/15 text-neutral-300 flex items-center justify-center text-xs font-bold transition-all cursor-pointer border border-white/10"
               >
                 ✕
               </button>
             </div>
 
-            <h3 className="text-2xl font-bold tracking-tight mb-2 text-slate-950">
+            <h3 className="font-bebas text-2xl sm:text-3xl text-white tracking-[0.14em] uppercase mb-2">
               {activeModalService.name}
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 font-normal">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-5 font-normal">
               {activeModalService.tagline}
             </p>
 
-            <div className="bg-[#fffdfa] p-4 rounded-2xl border border-amber-200/80 mb-6 space-y-2 text-xs">
+            <div className="bg-[#07030d] p-4 rounded-[4px] border border-white/10 mb-6 space-y-2 text-xs font-mono">
               <div className="flex justify-between items-center">
-                <span className="text-slate-600">
+                <span className="text-neutral-400">
                   {COUNTRIES_CONFIG[country].flag} {COUNTRIES_CONFIG[country].name} Pricing ({COUNTRIES_CONFIG[country].currency}):
                 </span>
-                <span className="font-bold text-slate-950 text-sm">
+                <span className="font-bold text-white text-sm">
                   {(() => {
                     const custom = activeModalService.countryPricing?.[country];
                     if (custom?.price) return `${custom.price} ${custom.suffix || ""}`;
@@ -785,37 +785,37 @@ export default function ServicesClient() {
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-600">Turnaround Time (TAT):</span>
-                <span className="font-semibold text-slate-900">⏱ {activeModalService.tat}</span>
+                <span className="text-neutral-400">Turnaround Time (TAT):</span>
+                <span className="font-semibold text-white">⏱ {activeModalService.tat}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-600">Escrow Security:</span>
-                <span className="font-semibold text-amber-700">✓ 100% Milestone Based</span>
+                <span className="text-neutral-400">Escrow Security:</span>
+                <span className="font-semibold text-[#681fe4]">✓ 100% Milestone Based</span>
               </div>
             </div>
 
             <div className="mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
-                Comprehensive Deliverables:
+              <h4 className="font-bebas text-xs tracking-[0.18em] text-neutral-400 uppercase mb-3">
+                COMPREHENSIVE DELIVERABLES:
               </h4>
               <ul className="space-y-2">
                 {activeModalService.deliverables.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
-                    <span className="text-amber-600 font-bold shrink-0">✓</span>
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                    <span className="text-[#681fe4] font-bold shrink-0">✓</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
               <a
                 href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media, I would like to get a quote for ${activeModalService.name}.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold py-3 px-5 rounded-full text-xs text-center cursor-pointer shadow-xs"
+                className="flex-1 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs sm:text-sm tracking-[0.14em] uppercase py-3 px-5 rounded-[4px] text-center cursor-pointer shadow-[0_4px_14px_rgba(104,31,228,0.3)] transition-all"
               >
                 Instant WhatsApp Quote 💬
               </a>
@@ -825,7 +825,7 @@ export default function ServicesClient() {
                   setBookingService(activeModalService);
                   setActiveModalService(null);
                 }}
-                className="px-5 py-3 rounded-full text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 transition-all cursor-pointer text-center shadow-2xs"
+                className="px-5 py-3 rounded-[4px] text-xs sm:text-sm font-bebas tracking-[0.14em] uppercase text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all cursor-pointer text-center"
               >
                 Book Strategy Call 📅
               </button>
@@ -840,21 +840,21 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setBookingService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn overflow-y-auto font-satoshi"
         >
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-amber-200/80 relative text-left max-h-[90vh] overflow-y-auto my-auto text-slate-900">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+          <div className="bg-[#0c0818] rounded-[4px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-white/15 relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-700">
-                  Book Strategy Discovery
+                <span className="font-bebas text-xs tracking-[0.18em] text-[#681fe4] uppercase">
+                  BOOK STRATEGY DISCOVERY
                 </span>
-                <h3 className="text-lg font-bold text-slate-950">
+                <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.12em] uppercase">
                   {bookingService.name}
                 </h3>
               </div>
               <button
                 onClick={() => setBookingService(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
+                className="w-8 h-8 rounded-[4px] bg-white/5 hover:bg-white/15 text-neutral-300 flex items-center justify-center text-xs font-bold transition-all cursor-pointer border border-white/10"
               >
                 ✕
               </button>
@@ -862,18 +862,18 @@ export default function ServicesClient() {
 
             {submitSuccess ? (
               <div className="py-8 text-center space-y-4">
-                <span className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold">
+                <span className="w-14 h-14 mx-auto rounded-[4px] bg-[#681fe4]/20 border border-[#681fe4] text-[#681fe4] flex items-center justify-center text-2xl font-bold">
                   ✓
                 </span>
-                <h4 className="text-xl font-bold text-slate-950">Inquiry Received!</h4>
-                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                <h4 className="font-bebas text-2xl text-white tracking-[0.14em] uppercase">Inquiry Received!</h4>
+                <p className="text-xs text-neutral-300 max-w-sm mx-auto leading-relaxed">
                   Thank you! Our growth team will review your requirements for{" "}
-                  <strong className="text-amber-700">{bookingService.name}</strong> and reach out via email/WhatsApp within 4 hours.
+                  <strong className="text-[#681fe4]">{bookingService.name}</strong> and reach out via email/WhatsApp within 4 hours.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={() => setBookingService(null)}
-                    className="px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-xs cursor-pointer shadow-md"
+                    className="px-6 py-2.5 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs tracking-[0.16em] uppercase cursor-pointer shadow-md"
                   >
                     Close Window
                   </button>
@@ -882,7 +882,7 @@ export default function ServicesClient() {
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                     Your Name *
                   </label>
                   <input
@@ -891,13 +891,13 @@ export default function ServicesClient() {
                     placeholder="e.g. John Doe"
                     value={bookingForm.name}
                     onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
+                    className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-3.5 py-2.5 text-xs text-white outline-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                       Business Email *
                     </label>
                     <input
@@ -906,11 +906,11 @@ export default function ServicesClient() {
                       placeholder="john@company.com"
                       value={bookingForm.email}
                       onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
+                      className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-3.5 py-2.5 text-xs text-white outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                       Phone / WhatsApp *
                     </label>
                     <input
@@ -919,13 +919,13 @@ export default function ServicesClient() {
                       placeholder="+1 (555) 000-0000"
                       value={bookingForm.phone}
                       onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
+                      className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-3.5 py-2.5 text-xs text-white outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                     Website URL or Project Link
                   </label>
                   <input
@@ -933,12 +933,12 @@ export default function ServicesClient() {
                     placeholder="https://yourwebsite.com"
                     value={bookingForm.website}
                     onChange={(e) => setBookingForm({ ...bookingForm, website: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
+                    className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-3.5 py-2.5 text-xs text-white outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                     Scope Notes / Goals
                   </label>
                   <textarea
@@ -946,7 +946,7 @@ export default function ServicesClient() {
                     placeholder="Briefly describe what you'd like to achieve with this service..."
                     value={bookingForm.notes}
                     onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
-                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl p-3 text-xs text-slate-900 outline-none resize-none"
+                    className="w-full bg-[#07030d] border border-white/15 focus:border-[#681fe4] rounded-[4px] p-3 text-xs text-white outline-none resize-none"
                   />
                 </div>
 
@@ -954,11 +954,11 @@ export default function ServicesClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold py-3.5 rounded-full text-xs shadow-md cursor-pointer"
+                    className="w-full bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase py-3.5 rounded-[4px] shadow-[0_4px_14px_rgba(104,31,228,0.3)] transition-all cursor-pointer"
                   >
                     {isSubmitting ? "Submitting Inquiry..." : "Confirm & Schedule Call →"}
                   </button>
-                  <p className="text-xs text-slate-400 text-center mt-2">
+                  <p className="text-[11px] font-mono text-neutral-500 text-center mt-2">
                     🔒 Zero spam. We sign mutual NDAs upon request.
                   </p>
                 </div>
@@ -969,17 +969,17 @@ export default function ServicesClient() {
       )}
 
       {/* Global Escrow & Settlement Banner */}
-      <section className="relative py-14 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-r from-[#fdfbf7] via-[#fffdfa] to-white rounded-3xl p-8 md:p-12 border border-amber-200/80 shadow-md text-slate-900 flex flex-col lg:flex-row items-center justify-between gap-8">
+      <section className="relative py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-[#0c0818] rounded-[4px] p-8 md:p-12 border border-white/10 shadow-xl text-white flex flex-col lg:flex-row items-center justify-between gap-8 font-satoshi">
           <div className="max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/5 border border-white/10 text-[#681fe4] text-xs font-bebas tracking-[0.16em] uppercase mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
               <span>Multi-Currency Escrow &amp; Bank Settlement</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight mb-2">
+            <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-[0.14em] uppercase mb-2">
               Ready to Authorize a Service or Retainer?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
               Our dedicated global client payment portal supports domestic settlements in INR (₹), USD ($), GBP (£), EUR (€), AUD (A$), and AED (د.إ) via Stripe, Bank Wire/SWIFT, Wise, UPI, and PayPal with zero foreign transaction fees.
             </p>
           </div>
@@ -993,7 +993,7 @@ export default function ServicesClient() {
                 const el = document.getElementById("payment-portal");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-4 rounded-full text-xs sm:text-sm shadow-md shadow-amber-900/15 transition-all text-center whitespace-nowrap cursor-pointer hover:scale-105 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase px-8 py-4 rounded-[4px] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all text-center whitespace-nowrap cursor-pointer"
             >
               <span>Open Payment Portal</span>
               <span>💳 ↓</span>
@@ -1003,32 +1003,32 @@ export default function ServicesClient() {
       </section>
 
       {/* =========================================================================
-          FULL IN-PAGE CLIENT PAYMENT PORTAL SECTION (Fixes Issue 2: Streamlined service selector)
+          FULL IN-PAGE CLIENT PAYMENT PORTAL SECTION
          ========================================================================= */}
       <section
         id="payment-portal"
-        className="relative py-12 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto scroll-mt-24"
+        className="relative py-12 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto scroll-mt-24 font-satoshi"
       >
-        <div className="bg-white border border-amber-200/80 rounded-[32px] p-6 sm:p-10 md:p-12 text-slate-900 shadow-xl shadow-amber-900/5 relative overflow-hidden">
+        <div className="bg-[#0c0818] border border-white/10 rounded-[4px] p-6 sm:p-10 md:p-12 text-white shadow-2xl relative overflow-hidden">
           
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-100">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold border border-amber-200 mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/5 text-[#681fe4] text-xs font-bebas tracking-[0.16em] uppercase border border-white/10 mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
                 <span>Balaji Prime Media • Direct In-Page Escrow Settlement</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
+              <h2 className="font-bebas text-3xl sm:text-5xl text-white tracking-[0.16em] uppercase">
                 Client Payment &amp; Service Authorization
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-neutral-300 mt-2 max-w-2xl leading-relaxed">
                 Authorize your deliverables right here on this page with instant domestic settlement in INR (₹) or cross-border payment in USD ($), GBP (£), and EUR (€).
               </p>
             </div>
           </div>
 
           {/* 4-Step Interactive Progress Tracker */}
-          <div className="py-6 border-b border-slate-100">
+          <div className="py-6 border-b border-white/10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { step: 1, title: "1. Select Service", desc: "Choose deliverable" },
@@ -1041,12 +1041,12 @@ export default function ServicesClient() {
                   onClick={() => {
                     if (s.step < portalStep) setPortalStep(s.step as any);
                   }}
-                  className={`p-3.5 rounded-2xl border transition-all text-left ${
+                  className={`p-3.5 rounded-[4px] border transition-all text-left ${
                     portalStep === s.step
-                      ? "bg-amber-50/60 border-amber-500 shadow-sm ring-1 ring-amber-500/20"
+                      ? "bg-[#681fe4]/15 border-[#681fe4] shadow-[0_0_15px_rgba(104,31,228,0.2)]"
                       : portalStep > s.step
-                      ? "bg-emerald-50/60 border-emerald-300 text-emerald-800 cursor-pointer"
-                      : "bg-slate-50 border-slate-200 text-slate-400"
+                      ? "bg-white/5 border-white/20 text-white cursor-pointer"
+                      : "bg-[#07030d] border-white/5 text-neutral-500"
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -1073,7 +1073,7 @@ export default function ServicesClient() {
 
           {/* Form Error Banner */}
           {portalFormError && (
-            <div className="mt-6 p-4 rounded-2xl bg-rose-50 border border-rose-300 text-rose-800 text-xs flex items-center gap-2.5">
+            <div className="mt-6 p-4 rounded-[4px] bg-rose-950/60 border border-rose-500/50 text-rose-300 text-xs flex items-center gap-2.5">
               <span className="text-lg">⚠️</span>
               <span className="font-semibold">{portalFormError}</span>
             </div>
@@ -1082,22 +1082,22 @@ export default function ServicesClient() {
           {/* Portal Content Area */}
           <div className="pt-8">
 
-            {/* STEP 1: Streamlined Service Selection (Fixes Issue 2: No redundant 16-card duplicate grid!) */}
+            {/* STEP 1: Streamlined Service Selection */}
             {portalStep === 1 && (
               <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-950 flex items-center gap-2">
+                  <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.14em] uppercase flex items-center gap-2">
                     <span>1. Which service did you purchase or wish to authorize?</span>
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                  <p className="text-xs sm:text-sm text-neutral-300 mt-1">
                     Select a service from the quick dropdown below, or click custom invoice scope:
                   </p>
                 </div>
 
                 {/* Streamlined Selection Box */}
-                <div className="p-6 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs space-y-4">
+                <div className="p-6 rounded-[4px] bg-[#07030d] border border-white/10 space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                    <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-2">
                       Choose Service from Catalog:
                     </label>
                     <select
@@ -1113,45 +1113,45 @@ export default function ServicesClient() {
                         }
                         setPortalFormError(null);
                       }}
-                      className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-900 focus:outline-none focus:border-amber-500 shadow-2xs cursor-pointer"
+                      className="w-full bg-[#0c0818] border border-white/15 rounded-[4px] px-4 py-3 text-xs font-semibold text-white focus:outline-none focus:border-[#681fe4] cursor-pointer"
                     >
                       {masterServicesList.map((srv) => (
-                        <option key={srv.id} value={srv.id}>
+                        <option key={srv.id} value={srv.id} className="bg-[#0c0818] text-white">
                           {srv.icon3D} {srv.name} — ({currency === "INR" ? srv.priceINR : srv.priceUSD} {srv.pricingSuffixUSD})
                         </option>
                       ))}
-                      <option value="custom">💼 Custom Invoiced Scope / Enterprise Retainer</option>
+                      <option value="custom" className="bg-[#0c0818] text-white">💼 Custom Invoiced Scope / Enterprise Retainer</option>
                     </select>
                   </div>
 
                   {/* Highlight of Currently Selected Service */}
                   {!isCustomService ? (
-                    <div className="p-5 rounded-2xl bg-white border border-amber-200/70 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="p-5 rounded-[4px] bg-[#0c0818] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-3xl p-2 rounded-xl bg-amber-50 border border-amber-200">
+                        <span className="text-3xl p-2 rounded-[4px] bg-white/5 border border-white/10">
                           {selectedPortalService.icon3D}
                         </span>
                         <div>
-                          <h4 className="text-base font-bold text-slate-950 leading-tight">
+                          <h4 className="font-bebas text-lg sm:text-xl text-white tracking-[0.12em] uppercase leading-tight">
                             {selectedPortalService.name}
                           </h4>
-                          <span className="text-xs text-amber-700 font-semibold block mt-0.5">
+                          <span className="text-xs text-[#681fe4] font-mono block mt-0.5">
                             {selectedPortalService.category} • Turnaround: {selectedPortalService.tat}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-left sm:text-right">
-                        <span className="text-xs text-slate-500 block">Settlement Price</span>
-                        <span className="text-xl font-black text-slate-950">
+                        <span className="text-xs text-neutral-400 block font-mono">Settlement Price</span>
+                        <span className="font-bebas text-2xl text-white tracking-[0.08em]">
                           {currency === "INR" ? selectedPortalService.priceINR : selectedPortalService.priceUSD}
                         </span>
                       </div>
                     </div>
                   ) : (
-                    <div className="p-5 rounded-2xl bg-white border border-amber-200/70 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-5 rounded-[4px] bg-[#0c0818] border border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                        <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                           Custom Scope Title *
                         </label>
                         <input
@@ -1159,11 +1159,11 @@ export default function ServicesClient() {
                           placeholder="e.g. Dedicated Enterprise SEO Retainer"
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-amber-500"
+                          className="w-full bg-[#07030d] border border-white/15 rounded-[4px] px-3.5 py-2.5 text-xs text-white focus:border-[#681fe4] outline-none"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                        <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">
                           Invoice Settlement Amount ({currency}) *
                         </label>
                         <input
@@ -1171,7 +1171,7 @@ export default function ServicesClient() {
                           placeholder="e.g. 75000 or 1200"
                           value={customServiceAmount}
                           onChange={(e) => setCustomServiceAmount(e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-amber-500 font-mono"
+                          className="w-full bg-[#07030d] border border-white/15 rounded-[4px] px-3.5 py-2.5 text-xs text-white focus:border-[#681fe4] outline-none font-mono"
                         />
                       </div>
                     </div>
@@ -1192,7 +1192,7 @@ export default function ServicesClient() {
                       setPortalFormError(null);
                       setPortalStep(2);
                     }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 transition-all cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase px-8 py-3.5 rounded-[4px] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer"
                   >
                     <span>Proceed to Client &amp; Domain Details</span>
                     <span>→</span>
@@ -1205,16 +1205,16 @@ export default function ServicesClient() {
             {portalStep === 2 && (
               <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-950">
+                  <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.14em] uppercase">
                     2. Client &amp; Website Domain Details
                   </h3>
-                  <p className="text-xs text-slate-600 mt-1">
+                  <p className="text-xs text-neutral-300 mt-1">
                     Authorize deliverables for{" "}
-                    <strong className="text-slate-950">
+                    <strong className="text-white">
                       {isCustomService ? customServiceName : selectedPortalService.name}
                     </strong>{" "}
                     (Settlement:{" "}
-                    <strong className="text-amber-700">
+                    <strong className="text-[#681fe4]">
                       {isCustomService
                         ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                         : currency === "INR"
@@ -1225,10 +1225,10 @@ export default function ServicesClient() {
                   </p>
                 </div>
 
-                <div className="bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xs">
+                <div className="bg-[#07030d] border border-white/10 rounded-[4px] p-6 sm:p-8 space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1.5">
                         Client Full Name or Business Name *
                       </label>
                       <input
@@ -1237,12 +1237,12 @@ export default function ServicesClient() {
                         placeholder="e.g. John Doe / Global Corp Ltd"
                         value={portalClientName}
                         onChange={(e) => setPortalClientName(e.target.value)}
-                        className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
+                        className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-3 text-xs text-white outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                      <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1.5">
                         Work Email (for Invoice PDF &amp; Escrow Proof) *
                       </label>
                       <input
@@ -1251,13 +1251,13 @@ export default function ServicesClient() {
                         placeholder="john@company.com"
                         value={portalClientEmail}
                         onChange={(e) => setPortalClientEmail(e.target.value)}
-                        className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
+                        className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-3 text-xs text-white outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1.5">
                       Target Website / Domain URL *
                     </label>
                     <input
@@ -1266,15 +1266,15 @@ export default function ServicesClient() {
                       placeholder="https://yourbrand.com"
                       value={portalClientDomain}
                       onChange={(e) => setPortalClientDomain(e.target.value)}
-                      className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
+                      className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-3 text-xs text-white outline-none font-mono"
                     />
-                    <span className="text-xs text-slate-500 mt-1 block">
+                    <span className="text-[11px] text-neutral-400 mt-1 block">
                       The domain where SEO, guest posting, or web application deliverables will be deployed.
                     </span>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                    <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1.5">
                       Special Requirements or Project Notes (Optional)
                     </label>
                     <textarea
@@ -1282,7 +1282,7 @@ export default function ServicesClient() {
                       placeholder="Target anchor texts, priority target countries, tech stack notes, or deadlines..."
                       value={portalClientNotes}
                       onChange={(e) => setPortalClientNotes(e.target.value)}
-                      className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none resize-none"
+                      className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-3 text-xs text-white outline-none resize-none"
                     />
                   </div>
                 </div>
@@ -1292,7 +1292,7 @@ export default function ServicesClient() {
                   <button
                     type="button"
                     onClick={() => setPortalStep(1)}
-                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 transition-all cursor-pointer shadow-xs"
+                    className="px-6 py-3 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-bebas tracking-[0.14em] uppercase text-white transition-all cursor-pointer"
                   >
                     ← Back to Service
                   </button>
@@ -1307,7 +1307,7 @@ export default function ServicesClient() {
                       setPortalFormError(null);
                       setPortalStep(3);
                     }}
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 transition-all cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase px-8 py-3.5 rounded-[4px] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer"
                   >
                     <span>Proceed to Payment Rails</span>
                     <span>→</span>
@@ -1320,22 +1320,22 @@ export default function ServicesClient() {
             {portalStep === 3 && (
               <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
                 {/* Authorization Summary Banner */}
-                <div className="p-6 rounded-3xl bg-gradient-to-r from-amber-50 via-white to-amber-50 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+                <div className="p-6 rounded-[4px] bg-[#07030d] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
                   <div>
-                    <span className="text-xs uppercase tracking-wider text-amber-700 font-bold block mb-1">
+                    <span className="font-bebas text-xs tracking-[0.18em] text-[#681fe4] uppercase block mb-1">
                       ✦ Final Authorization Summary
                     </span>
-                    <h4 className="text-lg font-black text-slate-950">
+                    <h4 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.12em] uppercase">
                       {isCustomService ? customServiceName : selectedPortalService.name}
                     </h4>
-                    <p className="text-xs text-slate-600 mt-0.5">
-                      Target Domain: <strong className="font-mono text-slate-900">{portalClientDomain}</strong> • Client: {portalClientName}
+                    <p className="text-xs text-neutral-300 mt-0.5">
+                      Target Domain: <strong className="font-mono text-white">{portalClientDomain}</strong> • Client: {portalClientName}
                     </p>
                   </div>
 
                   <div className="text-left sm:text-right">
-                    <span className="text-xs uppercase text-slate-500 font-bold block">Total Settlement</span>
-                    <span className="text-2xl font-black text-amber-600">
+                    <span className="font-bebas text-xs uppercase text-neutral-400 tracking-[0.16em] block">Total Settlement</span>
+                    <span className="font-bebas text-2xl sm:text-3xl text-[#681fe4] tracking-[0.08em]">
                       {isCustomService
                         ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                         : currency === "INR"
@@ -1347,7 +1347,7 @@ export default function ServicesClient() {
 
                 {/* Payment Rails Selector */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-800 mb-2.5">
+                  <label className="block text-xs font-bebas tracking-[0.16em] text-neutral-300 uppercase mb-2.5">
                     Select Your Payment Rail:
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -1362,60 +1362,60 @@ export default function ServicesClient() {
                         key={m.id}
                         type="button"
                         onClick={() => setPortalPaymentMethod(m.id as any)}
-                        className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
+                        className={`p-3 rounded-[4px] text-left border transition-all cursor-pointer ${
                           portalPaymentMethod === m.id
-                            ? "bg-amber-50 border-amber-500 shadow-sm ring-2 ring-amber-500/20 text-slate-950 font-bold"
-                            : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
+                            ? "bg-[#681fe4] border-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.3)]"
+                            : "bg-[#07030d] border-white/10 hover:bg-white/5 text-neutral-300"
                         }`}
                       >
-                        <p className="text-xs font-bold leading-tight">{m.label}</p>
-                        <p className="text-xs text-slate-500 leading-tight mt-1 truncate">{m.sub}</p>
+                        <p className="font-bebas text-sm tracking-[0.12em] uppercase leading-tight">{m.label}</p>
+                        <p className="text-[10px] font-mono opacity-80 leading-tight mt-1 truncate">{m.sub}</p>
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Payment Rail Content Panel */}
-                <div className="p-6 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs">
+                <div className="p-6 rounded-[4px] bg-[#07030d] border border-white/10">
                   {/* 1. UPI / QR Code Rail */}
                   {portalPaymentMethod === "upi" && (
                     <div className="space-y-4">
                       <div className="flex flex-col sm:flex-row items-center gap-6">
-                        <div className="w-32 h-32 bg-white p-2.5 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-md border-2 border-amber-300">
-                          <div className="w-full h-full border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-center p-1">
+                        <div className="w-32 h-32 bg-white p-2.5 rounded-[4px] flex flex-col items-center justify-center shrink-0 shadow-md border border-[#681fe4]">
+                          <div className="w-full h-full border-2 border-dashed border-neutral-300 rounded-[2px] flex flex-col items-center justify-center text-center p-1">
                             <span className="text-2xl">📱</span>
-                            <span className="text-xs font-black text-slate-950 leading-tight">SCAN &amp; PAY</span>
-                            <span className="text-xs font-bold text-amber-700 font-mono">917690868932@ybl</span>
+                            <span className="text-[10px] font-bebas tracking-[0.14em] text-black leading-tight uppercase">SCAN &amp; PAY</span>
+                            <span className="text-[9px] font-bold text-[#681fe4] font-mono">917690868932@ybl</span>
                           </div>
                         </div>
 
                         <div className="space-y-2 flex-1 w-full text-xs">
                           <div className="flex items-center justify-between">
-                            <span className="text-slate-700 font-semibold">Official UPI ID:</span>
-                            <span className="text-xs text-emerald-700 font-bold">✓ Verified Merchant Escrow</span>
+                            <span className="text-white font-semibold">Official UPI ID:</span>
+                            <span className="text-xs text-[#681fe4] font-mono">✓ Verified Merchant Escrow</span>
                           </div>
 
                           <div className="flex items-center gap-2">
-                            <div className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-mono text-amber-700 font-bold truncate">
+                            <div className="flex-1 bg-[#0c0818] border border-white/15 rounded-[4px] px-4 py-2.5 text-xs font-mono text-[#681fe4] font-bold truncate">
                               917690868932@ybl
                             </div>
                             <button
                               type="button"
                               onClick={() => copyToClipboard("917690868932@ybl", "UPI ID")}
-                              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white text-xs font-bold transition-all cursor-pointer shrink-0"
+                              className="px-4 py-2.5 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white text-xs font-bebas tracking-[0.14em] uppercase transition-all cursor-pointer shrink-0"
                             >
                               {copiedField === "UPI ID" ? "✓ Copied" : "Copy UPI"}
                             </button>
                           </div>
 
-                          <p className="text-xs text-slate-500">
-                            Beneficiary: <strong className="text-slate-900">Balaji Prime Media</strong> • Supported: Google Pay, PhonePe, Paytm, BHIM, Cred.
+                          <p className="text-[11px] text-neutral-400 font-mono">
+                            Beneficiary: <strong className="text-white">Balaji Prime Media</strong> • Supported: Google Pay, PhonePe, Paytm, BHIM, Cred.
                           </p>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                        <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1.5">
                           UPI Transaction ID / 12-Digit UTR Number (Optional if already sent)
                         </label>
                         <input
@@ -1423,7 +1423,7 @@ export default function ServicesClient() {
                           placeholder="e.g. 412389104821"
                           value={portalUtr}
                           onChange={(e) => setPortalUtr(e.target.value)}
-                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none"
+                          className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-2.5 text-xs text-white outline-none font-mono"
                         />
                       </div>
                     </div>
@@ -1433,56 +1433,56 @@ export default function ServicesClient() {
                   {portalPaymentMethod === "card" && (
                     <div className="space-y-3.5 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-800 font-bold">Stripe Global Multi-Currency Escrow</span>
-                        <span className="text-xs text-amber-700 flex items-center gap-1 font-semibold">
+                        <span className="font-bebas text-sm tracking-[0.14em] text-white uppercase">Stripe Global Multi-Currency Escrow</span>
+                        <span className="text-xs text-[#681fe4] flex items-center gap-1 font-mono">
                           <span>🔒 256-Bit Bank Grade SSL</span>
                         </span>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1">Cardholder Name</label>
+                        <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">Cardholder Name</label>
                         <input
                           type="text"
                           value={portalClientName}
                           onChange={(e) => setPortalClientName(e.target.value)}
                           placeholder="Full Name as on card"
-                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none"
+                          className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-2.5 text-xs text-white outline-none"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1">Card Number</label>
+                        <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">Card Number</label>
                         <input
                           type="text"
                           maxLength={19}
                           placeholder="4242 •••• •••• 4242 (Visa, Mastercard, Amex)"
                           value={portalCardNumber}
                           onChange={(e) => setPortalCardNumber(e.target.value)}
-                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
+                          className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-2.5 text-xs font-mono text-white outline-none"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs font-bold text-slate-700 mb-1">Expiry (MM/YY)</label>
+                          <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">Expiry (MM/YY)</label>
                           <input
                             type="text"
                             maxLength={5}
                             placeholder="MM/YY"
                             value={portalCardExpiry}
                             onChange={(e) => setPortalCardExpiry(e.target.value)}
-                            className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
+                            className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-2.5 text-xs font-mono text-white outline-none"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold text-slate-700 mb-1">CVC / CVV</label>
+                          <label className="block text-xs font-bebas tracking-[0.14em] text-neutral-300 uppercase mb-1">CVC / CVV</label>
                           <input
                             type="password"
                             maxLength={4}
                             placeholder="•••"
                             value={portalCardCvc}
                             onChange={(e) => setPortalCardCvc(e.target.value)}
-                            className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
+                            className="w-full bg-[#0c0818] border border-white/15 focus:border-[#681fe4] rounded-[4px] px-4 py-2.5 text-xs font-mono text-white outline-none"
                           />
                         </div>
                       </div>
@@ -1493,62 +1493,62 @@ export default function ServicesClient() {
                   {portalPaymentMethod === "bank" && (
                     <div className="space-y-3 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-slate-900">HDFC Bank Limited Coordinates</span>
-                        <span className="text-xs text-emerald-700 font-bold">Domestic &amp; SWIFT</span>
+                        <span className="font-bebas text-sm tracking-[0.14em] text-white uppercase">HDFC Bank Limited Coordinates</span>
+                        <span className="text-xs text-[#681fe4] font-mono">Domestic &amp; SWIFT</span>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div className="bg-[#0c0818] p-3 rounded-[4px] border border-white/10 flex items-center justify-between">
                           <div>
-                            <span className="text-xs text-slate-500 block">Beneficiary</span>
-                            <strong className="text-slate-900 text-xs">Balaji Prime Media</strong>
+                            <span className="text-[10px] text-neutral-400 font-mono block">Beneficiary</span>
+                            <strong className="text-white text-xs">Balaji Prime Media</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("Balaji Prime Media", "Beneficiary")}
-                            className="text-xs text-amber-700 font-bold hover:underline"
+                            className="text-xs text-[#681fe4] font-bebas tracking-[0.14em] uppercase hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div className="bg-[#0c0818] p-3 rounded-[4px] border border-white/10 flex items-center justify-between">
                           <div>
-                            <span className="text-xs text-slate-500 block">Account Number</span>
-                            <strong className="text-slate-900 font-mono text-xs">50200084920491</strong>
+                            <span className="text-[10px] text-neutral-400 font-mono block">Account Number</span>
+                            <strong className="text-white font-mono text-xs">50200084920491</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("50200084920491", "Account Number")}
-                            className="text-xs text-amber-700 font-bold hover:underline"
+                            className="text-xs text-[#681fe4] font-bebas tracking-[0.14em] uppercase hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div className="bg-[#0c0818] p-3 rounded-[4px] border border-white/10 flex items-center justify-between">
                           <div>
-                            <span className="text-xs text-slate-500 block">IFSC Code (India)</span>
-                            <strong className="text-slate-900 font-mono text-xs">HDFC0001842</strong>
+                            <span className="text-[10px] text-neutral-400 font-mono block">IFSC Code (India)</span>
+                            <strong className="text-white font-mono text-xs">HDFC0001842</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("HDFC0001842", "IFSC Code")}
-                            className="text-xs text-amber-700 font-bold hover:underline"
+                            className="text-xs text-[#681fe4] font-bebas tracking-[0.14em] uppercase hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                        <div className="bg-[#0c0818] p-3 rounded-[4px] border border-white/10 flex items-center justify-between">
                           <div>
-                            <span className="text-xs text-slate-500 block">SWIFT / BIC (International)</span>
-                            <strong className="text-slate-900 font-mono text-xs">HDFCINBB</strong>
+                            <span className="text-[10px] text-neutral-400 font-mono block">SWIFT / BIC (International)</span>
+                            <strong className="text-white font-mono text-xs">HDFCINBB</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("HDFCINBB", "SWIFT Code")}
-                            className="text-xs text-amber-700 font-bold hover:underline"
+                            className="text-xs text-[#681fe4] font-bebas tracking-[0.14em] uppercase hover:underline"
                           >
                             Copy
                           </button>
@@ -1559,29 +1559,29 @@ export default function ServicesClient() {
 
                   {/* 4. PayPal Rail */}
                   {portalPaymentMethod === "paypal" && (
-                    <div className="space-y-3 text-center py-4 text-xs">
+                    <div className="space-y-3 text-center py-4 text-xs font-satoshi">
                       <span className="text-4xl block">🅿️</span>
-                      <h4 className="text-base font-bold text-slate-950">PayPal Express Authorization</h4>
-                      <p className="text-xs text-slate-600 max-w-sm mx-auto">
+                      <h4 className="font-bebas text-xl text-white tracking-[0.14em] uppercase">PayPal Express Authorization</h4>
+                      <p className="text-xs text-neutral-300 max-w-sm mx-auto">
                         Instant global payments with zero transaction fees for USD ($), GBP (£), EUR (€), and AUD (A$).
                       </p>
-                      <div className="inline-block px-4 py-1.5 bg-amber-50 border border-amber-200 rounded-full text-xs text-amber-800 font-bold">
-                        Target Invoice: <strong className="text-slate-950">payments@balajiprimemedia.in</strong>
+                      <div className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-[2px] text-xs text-white font-mono">
+                        Target Invoice: <strong className="text-[#681fe4]">payments@balajiprimemedia.in</strong>
                       </div>
                     </div>
                   )}
 
                   {/* 5. Wise Rail */}
                   {portalPaymentMethod === "wise" && (
-                    <div className="space-y-3 text-left text-xs">
+                    <div className="space-y-3 text-left text-xs font-satoshi">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl">🌍</span>
                         <div>
-                          <h4 className="text-sm font-bold text-slate-950">Wise Multi-Currency Wire</h4>
-                          <p className="text-xs text-slate-600">Zero exchange markup bank settlements worldwide</p>
+                          <h4 className="font-bebas text-lg text-white tracking-[0.14em] uppercase">Wise Multi-Currency Wire</h4>
+                          <p className="text-xs text-neutral-300">Zero exchange markup bank settlements worldwide</p>
                         </div>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-mono text-slate-800">
+                      <div className="p-3.5 rounded-[4px] bg-[#0c0818] border border-white/10 text-xs font-mono text-neutral-300">
                         Recipient: Balaji Prime Media • Account: 50200084920491 • IFSC: HDFC0001842
                       </div>
                     </div>
@@ -1590,8 +1590,8 @@ export default function ServicesClient() {
 
                 {/* Processing State */}
                 {portalProcessing && (
-                  <div className="p-5 rounded-2xl bg-amber-50 border border-amber-300 flex items-center justify-center gap-3 text-amber-900 text-xs font-semibold animate-pulse">
-                    <span className="w-5 h-5 border-2 border-amber-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="p-5 rounded-[4px] bg-[#681fe4]/20 border border-[#681fe4] flex items-center justify-center gap-3 text-white text-xs font-semibold animate-pulse font-mono">
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     <span>Authorizing settlement with Balaji Prime Media Escrow Ledger...</span>
                   </div>
                 )}
@@ -1602,7 +1602,7 @@ export default function ServicesClient() {
                     type="button"
                     disabled={portalProcessing}
                     onClick={() => setPortalStep(2)}
-                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 transition-all cursor-pointer shadow-xs disabled:opacity-50"
+                    className="px-6 py-3 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-bebas tracking-[0.14em] uppercase text-white transition-all cursor-pointer disabled:opacity-50"
                   >
                     ← Back
                   </button>
@@ -1611,7 +1611,7 @@ export default function ServicesClient() {
                     type="button"
                     disabled={portalProcessing}
                     onClick={() => handlePortalPayment()}
-                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 cursor-pointer disabled:opacity-50"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase px-8 py-3.5 rounded-[4px] shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer disabled:opacity-50"
                   >
                     <span>
                       {portalProcessing
@@ -1632,34 +1632,34 @@ export default function ServicesClient() {
 
             {/* STEP 4: Success & Verified Escrow Receipt */}
             {portalStep === 4 && (
-              <div className="space-y-6 text-center py-4 animate-fadeIn max-w-2xl mx-auto">
-                <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 text-emerald-700 flex items-center justify-center mx-auto text-4xl shadow-md">
+              <div className="space-y-6 text-center py-4 animate-fadeIn max-w-2xl mx-auto font-satoshi">
+                <div className="w-20 h-20 rounded-[4px] bg-[#681fe4]/20 border border-[#681fe4] text-[#681fe4] flex items-center justify-center mx-auto text-4xl shadow-md">
                   ✓
                 </div>
 
                 <div>
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
+                  <span className="inline-block px-4 py-1.5 rounded-[2px] bg-white/5 border border-white/10 text-[#681fe4] text-xs font-bebas tracking-[0.16em] uppercase mb-2">
                     Settlement Completed &amp; Escrow Verified
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
+                  <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-[0.14em] uppercase">
                     Payment Authorization Confirmed!
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-300 mt-1.5 leading-relaxed">
                     Your order has been recorded into the Balaji Prime Media core ledger. An authenticated tax receipt and delivery ticket has been dispatched to{" "}
-                    <strong className="text-slate-950">{portalClientEmail || "your email"}</strong>.
+                    <strong className="text-white">{portalClientEmail || "your email"}</strong>.
                   </p>
                 </div>
 
                 {/* Cryptographic Receipt Box */}
-                <div className="bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-6 text-left space-y-3 text-xs shadow-sm">
-                  <div className="flex items-center justify-between pb-3 border-b border-amber-100">
-                    <span className="text-xs text-slate-500 font-medium">Transaction Reference ID:</span>
+                <div className="bg-[#07030d] border border-white/10 rounded-[4px] p-6 text-left space-y-3 text-xs shadow-sm font-mono">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                    <span className="text-neutral-400">Transaction Reference ID:</span>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-slate-950 text-sm">{portalTxnId}</span>
+                      <span className="font-bold text-white text-sm">{portalTxnId}</span>
                       <button
                         type="button"
                         onClick={() => copyToClipboard(portalTxnId, "Transaction ID")}
-                        className="text-xs text-amber-700 font-bold hover:underline"
+                        className="text-xs text-[#681fe4] font-bold hover:underline"
                       >
                         {copiedField === "Transaction ID" ? "✓ Copied" : "Copy"}
                       </button>
@@ -1668,14 +1668,14 @@ export default function ServicesClient() {
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
-                      <span className="text-xs text-slate-500 block">Service:</span>
-                      <strong className="text-slate-950">
+                      <span className="text-neutral-400 block font-satoshi">Service:</span>
+                      <strong className="text-white">
                         {isCustomService ? customServiceName : selectedPortalService.name}
                       </strong>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-500 block">Settled Amount:</span>
-                      <strong className="text-amber-700 text-sm">
+                      <span className="text-neutral-400 block font-satoshi">Settled Amount:</span>
+                      <strong className="text-[#681fe4] text-sm">
                         {isCustomService
                           ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                           : currency === "INR"
@@ -1684,12 +1684,12 @@ export default function ServicesClient() {
                       </strong>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-500 block">Target Domain:</span>
-                      <strong className="text-slate-950 font-mono">{portalClientDomain}</strong>
+                      <span className="text-neutral-400 block font-satoshi">Target Domain:</span>
+                      <strong className="text-white font-mono">{portalClientDomain}</strong>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-500 block">Settlement Rail:</span>
-                      <strong className="text-slate-950">{portalPaymentMethod.toUpperCase()}</strong>
+                      <span className="text-neutral-400 block font-satoshi">Settlement Rail:</span>
+                      <strong className="text-white">{portalPaymentMethod.toUpperCase()}</strong>
                     </div>
                   </div>
                 </div>
@@ -1703,7 +1703,7 @@ export default function ServicesClient() {
                       const el = document.getElementById("services-grid");
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs transition-all shadow-md shadow-amber-900/15 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase px-8 py-3.5 rounded-[4px] transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer"
                   >
                     <span>↺ Authorize Another Service / Return to Grid</span>
                   </button>

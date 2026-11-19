@@ -109,9 +109,10 @@ export default function HelpCenterPage() {
   });
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0a0522] via-[#070319] to-[#040112] text-white selection:bg-[#A068FF] selection:text-white">
-      {/* Background Matrix Dots */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(160,104,255,0.12)_1px,transparent_1px)] [background-size:24px_24px] opacity-70 pointer-events-none" />
+    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi">
+      {/* Background Grid Pattern & Ambient Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(104,31,228,0.18),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white-240 opacity-40 pointer-events-none" />
 
       {/* Top Navbar */}
       <div className="relative z-50">
@@ -119,72 +120,78 @@ export default function HelpCenterPage() {
       </div>
 
       {/* Hero Header */}
-      <section className="relative z-10 pt-20 sm:pt-28 pb-12 max-w-5xl mx-auto px-4 sm:px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.08] border border-purple-500/30 text-[11px] font-semibold uppercase tracking-wider text-purple-300 shadow-xs mb-4">
-          <LifeBuoy className="w-3.5 h-3.5 text-cyan-400" />
-          <span>Knowledge Base &amp; Client Assistance</span>
+      <section className="relative z-10 pt-28 sm:pt-36 pb-12 max-w-5xl mx-auto px-6 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-[0.2em] text-[#681fe4] mb-4">
+          <LifeBuoy className="w-3.5 h-3.5 text-[#681fe4]" />
+          <span>// KNOWLEDGE BASE &amp; CLIENT ASSISTANCE</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
-          Balaji Prime Media Help Center
+        <h1 className="font-bebas text-4xl sm:text-6xl md:text-7xl tracking-[0.14em] text-white uppercase leading-none mb-4">
+          BALAJI PRIME MEDIA HELP CENTER
         </h1>
-        <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Find onboarding documentation, dashboard instructions, billing FAQs, and direct engineering escalation paths.
         </p>
 
         {/* Global Search */}
         <div className="mt-8 max-w-xl mx-auto relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search help topics (e.g. Looker Studio, GSC access, invoices)..."
-            className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-full bg-white/[0.06] border border-white/15 focus:border-[#A068FF] focus:outline-none transition-all text-white placeholder-slate-400 shadow-sm"
+            className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm rounded-[4px] bg-white/[0.04] border border-white/10 focus:border-[#681fe4] focus:outline-none transition-all text-white placeholder-neutral-500 font-satoshi shadow-xs"
           />
         </div>
       </section>
 
       {/* 4 Core Category Cards */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-8 text-center sm:text-left">
-          Knowledge Base Categories
-        </h2>
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-12">
+        <div className="mb-8">
+          <span className="font-bebas text-xs tracking-[0.24em] uppercase text-[#681fe4] block mb-1">
+            // DOCUMENTATION DIRECTORY
+          </span>
+          <h2 className="font-bebas text-3xl sm:text-4xl tracking-[0.14em] text-white uppercase leading-none">
+            KNOWLEDGE BASE CATEGORIES
+          </h2>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredCategories.map((cat, idx) => {
             const Icon = cat.icon;
             return (
               <div
                 key={idx}
-                className="bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-7 border border-purple-500/25 shadow-lg flex flex-col justify-between"
+                className="bg-[#0c0818] rounded-[4px] p-8 border border-white/10 shadow-lg flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#A068FF] to-[#38bdf8] text-white flex items-center justify-center shrink-0 shadow-xs">
+                  <div className="flex items-center gap-3.5 mb-4">
+                    <div className="w-10 h-10 rounded-[4px] bg-[#681fe4] text-white flex items-center justify-center shrink-0 shadow-[0_4px_14px_rgba(104,31,228,0.35)]">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-white tracking-tight">
+                    <h3 className="font-bebas text-xl tracking-[0.14em] text-white uppercase">
                       {cat.title}
                     </h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6 font-normal">
                     {cat.desc}
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-white/10">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                    Key Guides:
+                <div className="pt-4 border-t border-white/10">
+                  <span className="font-bebas text-xs tracking-[0.18em] uppercase text-neutral-500 block mb-3">
+                    KEY GUIDES:
                   </span>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2.5">
                     {cat.articles.map((art, aIdx) => (
                       <li key={aIdx}>
                         <Link
                           href="/contact-us"
-                          className="text-xs text-cyan-300 hover:text-white hover:underline flex items-center justify-between group py-0.5"
+                          className="text-xs font-mono text-neutral-300 hover:text-[#681fe4] flex items-center justify-between group py-0.5 transition-colors"
                         >
                           <span>{art}</span>
-                          <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-cyan-300 transition-transform group-hover:translate-x-0.5" />
+                          <ArrowRight className="w-3 h-3 text-neutral-500 group-hover:text-[#681fe4] transition-transform group-hover:translate-x-1" />
                         </Link>
                       </li>
                     ))}
@@ -197,22 +204,28 @@ export default function HelpCenterPage() {
       </section>
 
       {/* Fast Help Ticket Submission & Direct Channels */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-14">
-        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-8 text-center sm:text-left">
-          Direct Escalation &amp; Priority Ticket
-        </h2>
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-14">
+        <div className="mb-8">
+          <span className="font-bebas text-xs tracking-[0.24em] uppercase text-[#681fe4] block mb-1">
+            // PRIORITY ESCALATION
+          </span>
+          <h2 className="font-bebas text-3xl sm:text-4xl tracking-[0.14em] text-white uppercase leading-none">
+            DIRECT ESCALATION &amp; PRIORITY TICKET
+          </h2>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Direct Support Channels */}
-          <div className="lg:col-span-5 bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-purple-500/25 shadow-lg space-y-6">
+          <div className="lg:col-span-5 bg-[#0c0818] rounded-[4px] p-8 border border-white/10 shadow-lg space-y-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#A068FF] block mb-1">
-                Direct Escalation
+              <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#681fe4] block mb-1">
+                // DIRECT ESCALATION
               </span>
-              <h3 className="text-xl font-bold text-white">
-                Live Client Support Channels
+              <h3 className="font-bebas text-2xl tracking-[0.14em] text-white uppercase">
+                LIVE CLIENT SUPPORT CHANNELS
               </h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+              <p className="text-xs text-neutral-400 mt-1 leading-relaxed font-mono">
                 Operating across US, UK &amp; Australian business hours for enterprise SLA clients.
               </p>
             </div>
@@ -223,69 +236,72 @@ export default function HelpCenterPage() {
                 href="https://wa.me/917690868932"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-[#25D366]/15 hover:border-[#25D366]/40 transition-all group cursor-pointer"
+                className="flex items-center gap-3.5 p-4 rounded-[4px] bg-white/[0.04] border border-white/10 hover:border-[#25D366] hover:bg-[#25D366]/10 transition-all group cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-xs">
+                <div className="w-10 h-10 rounded-[4px] bg-[#25D366] text-white flex items-center justify-center shrink-0">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white group-hover:text-[#25D366]">
+                  <div className="font-bebas text-sm tracking-[0.14em] uppercase text-white group-hover:text-[#25D366]">
                     WhatsApp Lead Support
                   </div>
-                  <div className="text-[11px] text-slate-400">+91 76908 68932 (Under 5-min response)</div>
+                  <div className="text-xs text-neutral-400 font-mono">+91 76908 68932 (Under 5-min response)</div>
                 </div>
               </a>
 
               {/* Email Card */}
               <a
                 href="mailto:support@balajiprimemedia.in"
-                className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-sky-500/15 hover:border-sky-500/40 transition-all group cursor-pointer"
+                className="flex items-center gap-3.5 p-4 rounded-[4px] bg-white/[0.04] border border-white/10 hover:border-[#EA4335] hover:bg-[#EA4335]/10 transition-all group cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#EA4335] text-white flex items-center justify-center shrink-0 shadow-xs">
+                <div className="w-10 h-10 rounded-[4px] bg-[#EA4335] text-white flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white group-hover:text-sky-300">
+                  <div className="font-bebas text-sm tracking-[0.14em] uppercase text-white group-hover:text-[#EA4335]">
                     Email Desk
                   </div>
-                  <div className="text-[11px] text-slate-400">support@balajiprimemedia.in</div>
+                  <div className="text-xs text-neutral-400 font-mono">support@balajiprimemedia.in</div>
                 </div>
               </a>
 
               {/* Client Portal Card */}
               <Link
                 href="/pay"
-                className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 hover:bg-purple-500/15 hover:border-purple-500/40 transition-all group cursor-pointer"
+                className="flex items-center gap-3.5 p-4 rounded-[4px] bg-white/[0.04] border border-white/10 hover:border-[#681fe4] hover:bg-[#681fe4]/10 transition-all group cursor-pointer"
               >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#A068FF] to-[#38bdf8] text-white flex items-center justify-center shrink-0 shadow-xs">
+                <div className="w-10 h-10 rounded-[4px] bg-[#681fe4] text-white flex items-center justify-center shrink-0">
                   <CreditCard className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white group-hover:text-purple-300">
+                  <div className="font-bebas text-sm tracking-[0.14em] uppercase text-white group-hover:text-[#681fe4]">
                     Client Portal &amp; Invoices
                   </div>
-                  <div className="text-[11px] text-slate-400">Manage retainers, receipts &amp; payments</div>
+                  <div className="text-xs text-neutral-400 font-mono">Manage retainers, receipts &amp; payments</div>
                 </div>
               </Link>
             </div>
           </div>
 
           {/* Right: Submit Support Ticket Form */}
-          <div className="lg:col-span-7 bg-[#0c0727]/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-purple-500/25 shadow-lg">
-            <h3 className="text-lg font-bold text-white mb-1">
-              Submit a Support Request
+          <div className="lg:col-span-7 bg-[#0c0818] rounded-[4px] p-8 border border-white/10 shadow-lg">
+            <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#681fe4] block mb-1">
+              // TICKET SUBMISSION
+            </span>
+            <h3 className="font-bebas text-2xl tracking-[0.14em] text-white uppercase mb-1">
+              SUBMIT A SUPPORT REQUEST
             </h3>
-            <p className="text-xs text-slate-400 mb-5">
+            <p className="text-xs text-neutral-400 mb-6 font-mono">
               Fill out this ticket and our engineering or campaign strategist will reply within 2 hours.
             </p>
 
             {isSent ? (
               <div className="text-center py-10 space-y-3">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-[4px] bg-[#681fe4]/20 text-[#681fe4] border border-[#681fe4]/40 flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h4 className="text-lg font-bold text-white">Support Ticket Created!</h4>
-                <p className="text-xs text-slate-300 max-w-sm mx-auto">
+                <h4 className="font-bebas text-2xl tracking-[0.14em] text-white uppercase">Support Ticket Created!</h4>
+                <p className="text-xs text-neutral-300 max-w-sm mx-auto font-mono">
                   We have logged your ticket in our priority queue. A strategist will contact you via email shortly.
                 </p>
                 <button
@@ -294,16 +310,16 @@ export default function HelpCenterPage() {
                     setIsSent(false);
                     setTicketMessage("");
                   }}
-                  className="mt-2 text-xs font-semibold text-[#A068FF] hover:underline cursor-pointer"
+                  className="mt-3 font-bebas text-xs tracking-[0.16em] uppercase text-[#681fe4] hover:text-white cursor-pointer transition-colors"
                 >
-                  Submit another request
+                  SUBMIT ANOTHER REQUEST →
                 </button>
               </div>
             ) : (
               <form onSubmit={handleTicketSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase mb-1">
                       Your Name *
                     </label>
                     <input
@@ -312,11 +328,11 @@ export default function HelpCenterPage() {
                       value={ticketName}
                       onChange={(e) => setTicketName(e.target.value)}
                       placeholder="e.g. Jordan Smith"
-                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 shadow-xs"
+                      className="w-full px-4 py-3 text-xs sm:text-sm rounded-[4px] bg-white/[0.04] border border-white/10 focus:outline-none focus:border-[#681fe4] text-white placeholder-neutral-500 font-satoshi shadow-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase mb-1">
                       Your Email *
                     </label>
                     <input
@@ -325,13 +341,13 @@ export default function HelpCenterPage() {
                       value={ticketEmail}
                       onChange={(e) => setTicketEmail(e.target.value)}
                       placeholder="jordan@company.com"
-                      className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 shadow-xs"
+                      className="w-full px-4 py-3 text-xs sm:text-sm rounded-[4px] bg-white/[0.04] border border-white/10 focus:outline-none focus:border-[#681fe4] text-white placeholder-neutral-500 font-satoshi shadow-xs"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  <label className="block font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase mb-1">
                     Subject / Topic
                   </label>
                   <input
@@ -339,12 +355,12 @@ export default function HelpCenterPage() {
                     value={ticketSubject}
                     onChange={(e) => setTicketSubject(e.target.value)}
                     placeholder="e.g. Looker Studio dashboard access or link indexing question"
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 shadow-xs"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-[4px] bg-white/[0.04] border border-white/10 focus:outline-none focus:border-[#681fe4] text-white placeholder-neutral-500 font-satoshi shadow-xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1">
+                  <label className="block font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase mb-1">
                     Issue Details / Description *
                   </label>
                   <textarea
@@ -353,21 +369,21 @@ export default function HelpCenterPage() {
                     value={ticketMessage}
                     onChange={(e) => setTicketMessage(e.target.value)}
                     placeholder="Provide website domain, specific question, or description of assistance needed..."
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl bg-white/[0.06] border border-white/15 focus:outline-none focus:border-[#A068FF] text-white placeholder-slate-400 shadow-xs"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-[4px] bg-white/[0.04] border border-white/10 focus:outline-none focus:border-[#681fe4] text-white placeholder-neutral-500 font-satoshi shadow-xs"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#A068FF] to-[#7c3aed] hover:from-[#8f52ff] hover:to-[#6d28d9] text-white text-xs sm:text-sm font-bold transition-all shadow-lg shadow-purple-950/60 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.18em] uppercase transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span>Submitting ticket...</span>
                   ) : (
                     <>
-                      <span>Submit Priority Ticket</span>
-                      <Send className="w-3.5 h-3.5" />
+                      <span>SUBMIT PRIORITY TICKET →</span>
+                      <Send className="w-4 h-4" />
                     </>
                   )}
                 </button>

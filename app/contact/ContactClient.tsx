@@ -83,114 +83,54 @@ export default function ContactClient() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden selection:bg-purple-600 selection:text-white">
+    <div className="relative min-h-screen bg-[#07030d] text-white overflow-hidden selection:bg-[#681fe4] selection:text-white font-satoshi bg-grid-white-240">
       
-      {/* 100% Transparent Navbar Overlay (Unchanged as requested) */}
+      {/* 100% Transparent Navbar Overlay */}
       <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="contact" />
       </div>
 
       {/* Floating Toast Notification */}
       {toast && (
-        <div className="fixed top-24 right-6 z-50 bg-[#0c0824] text-white border border-cyan-400/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-xl">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+        <div className="fixed top-24 right-6 z-50 bg-[#0c0818] text-white border border-[#681fe4] px-5 py-3 rounded-[4px] shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-xl">
+          <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-ping" />
           <span>{toast}</span>
-          <button onClick={() => setToast(null)} className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer">✕</button>
+          <button onClick={() => setToast(null)} className="ml-2 text-neutral-400 hover:text-white text-xs cursor-pointer">✕</button>
         </div>
       )}
 
-      {/* 1. Next Layer Contact Hero Header (Clean, Static) */}
+      {/* 1. Next Layer Contact Hero Header */}
       <NextLayerContactHero />
 
-      {/* 2. Main Contact Section (Transparent Glassmorphic Form + Payment Scanner) */}
-      <section id="contact-form" className="relative pt-6 sm:pt-10 pb-20 sm:pb-28 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-20">
-        <style dangerouslySetInnerHTML={{ __html: `
-          #contact-form,
-          #contact-form * {
-            color-scheme: dark !important;
-          }
-          #contact-form input,
-          #contact-form textarea,
-          #contact-form select,
-          #contact-form label,
-          #contact-form button,
-          #contact-form div[class*="grid"] > div {
-            cursor: pointer !important;
-          }
-          #contact-form input,
-          #contact-form textarea {
-            color-scheme: dark !important;
-            caret-color: #ffffff !important;
-            cursor: pointer !important;
-            color: #ffffff !important;
-            user-select: text !important;
-            -webkit-user-select: text !important;
-          }
-          #contact-form input:focus,
-          #contact-form textarea:focus {
-            caret-color: #ffffff !important;
-            cursor: pointer !important;
-          }
-          #contact-form input::placeholder,
-          #contact-form textarea::placeholder {
-            color: rgba(209, 213, 219, 0.75) !important;
-          }
-          #contact-form select {
-            color-scheme: dark !important;
-            cursor: pointer !important;
-            color: #ffffff !important;
-          }
-          #contact-form select option {
-            background-color: #0c0721 !important;
-            color: #ffffff !important;
-          }
-          #contact-form button,
-          #contact-form label {
-            cursor: pointer !important;
-          }
-        `}} />
-        {/* Rich glowing ambient violet & cyan aurora mesh lights behind the transparent cards */}
-        <div
-          aria-hidden="true"
-          className="absolute -top-16 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.25)_0%,rgba(99,102,241,0.15)_45%,transparent_70%)] pointer-events-none blur-3xl -z-10"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute top-1/4 -left-10 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(160,104,255,0.2)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute bottom-10 -right-10 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(56,189,248,0.18)_0%,transparent_70%)] pointer-events-none blur-3xl -z-10"
-        />
-
+      {/* 2. Main Contact Section */}
+      <section id="contact-form" className="relative pt-10 pb-20 sm:pb-28 px-4 sm:px-6 md:px-12 z-20 max-w-7xl mx-auto scroll-mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Instant Payment & Retainer Scanner + Trust Protocols */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             
-            {/* Payment & Retainer QR Scanner Card (Transparent Glassmorphism) */}
-            <div className="bg-white/[0.04] rounded-3xl p-6 sm:p-7 border border-purple-500/40 shadow-2xl backdrop-blur-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-36 h-36 bg-purple-600/25 rounded-full blur-2xl pointer-events-none" />
-
+            {/* Payment & Retainer QR Scanner Card */}
+            <div className="bg-[#0c0818] rounded-[4px] p-6 sm:p-7 border border-white/10 shadow-2xl relative overflow-hidden group">
               <div className="flex items-center justify-between mb-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/70 border border-purple-500/40 text-[11px] font-semibold text-purple-300 backdrop-blur-md">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Instant Retainer &amp; Invoice Settlement</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.14em] text-[#681fe4] uppercase">
+                  <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
+                  <span>Instant Settlement</span>
                 </div>
-                <span className="text-xs text-gray-400 font-mono">256-Bit Escrow</span>
+                <span className="text-xs text-neutral-400 font-mono">256-Bit Escrow</span>
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-1">
+              <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.12em] uppercase mb-1">
                 Scan to Authorize or Pay
               </h3>
-              <p className="text-xs text-gray-400 leading-relaxed mb-5 font-light">
+              <p className="text-xs text-neutral-400 leading-relaxed mb-5 font-normal">
                 Scan via any UPI, Google Pay, PhonePe, Paytm or banking app to instantly initiate service deliverables.
               </p>
 
               {/* QR Code Card Display */}
-              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-white/[0.05] border border-white/15 shadow-inner mb-4 backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-[4px] bg-[#07030d] border border-white/10 mb-4">
                 {/* High-Contrast Crisp QR Code */}
-                <div className="w-32 h-32 bg-white p-2 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-lg border-2 border-purple-500/40">
+                <div className="w-32 h-32 bg-white p-2 rounded-[2px] flex flex-col items-center justify-center shrink-0 shadow-lg border border-[#681fe4]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=917690868932@ybl&pn=Balaji%20Prime%20Media&cu=INR"
                     alt="Scan to Pay - Balaji Prime Media"
@@ -199,82 +139,82 @@ export default function ContactClient() {
                 </div>
 
                 <div className="flex-1 w-full space-y-2 text-left">
-                  <div className="text-[11px] text-gray-300">
-                    Beneficiary: <strong className="text-white block">Balaji Prime Media</strong>
+                  <div className="text-xs text-neutral-300">
+                    Beneficiary: <strong className="text-white block font-mono">Balaji Prime Media</strong>
                   </div>
 
                   <div>
-                    <span className="block text-[10px] text-gray-400 mb-0.5">Official UPI ID:</span>
+                    <span className="block text-[10px] text-neutral-400 mb-0.5 font-mono">Official UPI ID:</span>
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-white/[0.08] border border-purple-500/40 rounded-lg px-2.5 py-1.5 text-xs font-mono text-purple-300 font-bold truncate">
+                      <div className="flex-1 bg-[#0c0818] border border-white/15 rounded-[2px] px-2.5 py-1.5 text-xs font-mono text-[#681fe4] font-bold truncate">
                         {upiId}
                       </div>
                       <button
                         type="button"
                         onClick={() => copyToClipboard(upiId, 'UPI ID')}
-                        className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white text-[11px] font-bold transition-all cursor-pointer shrink-0"
+                        className="px-3 py-1.5 rounded-[2px] bg-[#681fe4] hover:bg-[#5815cb] text-white text-xs font-bebas tracking-[0.14em] uppercase transition-all cursor-pointer shrink-0"
                       >
                         {copiedItem === 'UPI ID' ? '✓ Copied' : 'Copy'}
                       </button>
                     </div>
                   </div>
 
-                  <p className="text-[10px] text-gray-400 pt-1 leading-tight">
+                  <p className="text-[10px] text-neutral-400 pt-1 leading-tight font-mono">
                     Supported: GPay, PhonePe, Paytm, BHIM, Cred &amp; Net Banking.
                   </p>
                 </div>
               </div>
 
               {/* Multi-Currency Link */}
-              <div className="pt-2 flex items-center justify-between text-xs border-t border-white/10">
-                <span className="text-[11px] text-gray-400">Paying from US, UK, EU, UAE?</span>
+              <div className="pt-2 flex items-center justify-between text-xs border-t border-white/10 font-mono">
+                <span className="text-[11px] text-neutral-400">Paying from US, UK, EU, UAE?</span>
                 <Link
                   href="/services#payment-portal"
-                  className="text-[11px] font-bold text-cyan-300 hover:text-cyan-200 underline transition-colors cursor-pointer"
+                  className="text-[11px] font-bold text-[#681fe4] hover:text-white underline transition-colors cursor-pointer"
                 >
                   Global Payment Portal →
                 </Link>
               </div>
 
               {/* Data & Payment Routing Transparency Note */}
-              <div className="mt-4 p-3.5 rounded-2xl bg-white/[0.04] border border-cyan-400/30 text-left space-y-1.5 backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[11px] font-bold text-cyan-300">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>📍 Payment &amp; Contact Data Kahan Jata Hai?</span>
+              <div className="mt-4 p-3.5 rounded-[4px] bg-[#07030d] border border-white/10 text-left space-y-1.5 font-mono">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-white">
+                  <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
+                  <span>📍 Payment &amp; Contact Data Routing</span>
                 </div>
-                <p className="text-[10px] text-gray-300 leading-relaxed font-light">
-                  Aapka contact form aur payment UTR seedha <strong>BPM Admin Portal (/admin)</strong> me live save hota hai aur priority alert <span className="text-purple-300 font-mono">support@balajiprimemedia.in</span> par send hota hai.
+                <p className="text-[11px] text-neutral-400 leading-relaxed font-normal">
+                  Your inquiry and payment UTR are encrypted and saved directly to the BPM Admin Portal with high-priority executive notification dispatched to support@balajiprimemedia.in.
                 </p>
               </div>
             </div>
 
-            {/* Direct Official Contact Box (Transparent Glassmorphism) */}
-            <div className="bg-white/[0.04] rounded-3xl p-6 sm:p-7 border border-white/20 shadow-xl backdrop-blur-2xl space-y-4">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span>Official Agency Inquiries</span>
+            {/* Direct Official Contact Box */}
+            <div className="bg-[#0c0818] rounded-[4px] p-6 sm:p-7 border border-white/10 shadow-xl space-y-4">
+              <h3 className="font-bebas text-base tracking-[0.18em] text-white uppercase flex items-center gap-2">
+                <span>OFFICIAL AGENCY INQUIRIES</span>
               </h3>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-gray-300 py-1.5 gap-2 sm:gap-0">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-neutral-300 py-1.5 gap-2 sm:gap-0 font-mono">
                 <div>
-                  <span className="block text-gray-400 text-[10px]">Direct Email:</span>
+                  <span className="block text-neutral-500 text-[10px]">Direct Email:</span>
                   <span className="font-semibold text-white text-xs">{agencyEmail}</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => copyToClipboard(agencyEmail, 'Email')}
-                  className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 text-[10px] font-bold text-cyan-300 transition-colors cursor-pointer self-start sm:self-auto"
+                  className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded-[2px] border border-white/15 text-xs font-bebas tracking-[0.14em] uppercase text-[#681fe4] transition-colors cursor-pointer self-start sm:self-auto"
                 >
-                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy Email 📋'}
+                  {copiedItem === 'Email' ? '✓ Copied' : 'Copy Email'}
                 </button>
               </div>
 
-              <div className="pt-2 border-t border-white/10 space-y-2 text-xs text-gray-400 font-light">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <span className="text-emerald-400 font-bold">✓</span>
+              <div className="pt-2 border-t border-white/10 space-y-2 text-xs text-neutral-400 font-normal">
+                <div className="flex items-center gap-2 text-neutral-300">
+                  <span className="text-[#681fe4] font-bold">✓</span>
                   <span>12-Hour SLA turnaround on all enterprise inquiries</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-300">
-                  <span className="text-cyan-400 font-bold">✓</span>
+                <div className="flex items-center gap-2 text-neutral-300">
+                  <span className="text-[#681fe4] font-bold">✓</span>
                   <span>Dedicated accounts for US, UK, Canada, Australia, and UAE</span>
                 </div>
               </div>
@@ -282,78 +222,46 @@ export default function ContactClient() {
 
           </div>
 
-          {/* Right Column: 100% Transparent Glassmorphic Inquiry Form */}
+          {/* Right Column: Inquiry Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white/[0.04] backdrop-blur-2xl rounded-3xl p-7 sm:p-10 border border-white/20 shadow-[0_8px_32px_0_rgba(160,104,255,0.2)] relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
-              
+            <div className="bg-[#0c0818] rounded-[4px] p-7 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden">
               <div className="relative z-10">
                 <div className="mb-6">
-                  <span className="text-xs font-bold uppercase tracking-wider text-purple-300 bg-purple-950/70 border border-purple-500/35 px-3 py-1 rounded-full backdrop-blur-md">
-                    Discovery &amp; Strategy
+                  <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#681fe4] bg-[#681fe4]/10 border border-[#681fe4]/30 px-3 py-1 rounded-[2px]">
+                    DISCOVERY &amp; STRATEGY
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-black text-white mt-3 tracking-tight">
-                    Start Your Project
+                  <h2 className="font-bebas text-3xl sm:text-4xl text-white mt-3 tracking-[0.14em] uppercase">
+                    START YOUR PROJECT
                   </h2>
-                  <p className="text-xs sm:text-sm text-gray-400 mt-1.5 font-light">
+                  <p className="text-xs sm:text-sm text-neutral-400 mt-1.5 font-normal">
                     Tell us about your requirements. We evaluate scope and reply with a custom growth plan within 12 hours.
                   </p>
                 </div>
 
                 {formState === "success" ? (
                   <div className="text-center py-8 animate-fadeIn">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto mb-4 font-bold shadow-lg">
+                    <div className="w-16 h-16 rounded-[4px] bg-[#681fe4]/20 border border-[#681fe4] text-[#681fe4] flex items-center justify-center text-2xl mx-auto mb-4 font-bold shadow-lg">
                       ✓
                     </div>
-                    <h3 className="text-2xl font-black text-white">Inquiry &amp; Details Received!</h3>
-                    <p className="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2 mb-5">
-                      Thank you, <strong className="text-white">{formData.name || "Client"}</strong>. Aapka contact data successfully save ho chuka hai.
+                    <h3 className="font-bebas text-3xl font-black text-white tracking-[0.14em] uppercase">Inquiry Received!</h3>
+                    <p className="text-xs sm:text-sm text-neutral-300 max-w-md mx-auto mt-2 mb-5">
+                      Thank you, <strong className="text-white">{formData.name || "Client"}</strong>. Your project details have been successfully recorded.
                     </p>
 
-                    {/* Data Destination Transparency Card */}
-                    <div className="text-left bg-white/[0.04] border border-emerald-500/40 rounded-2xl p-5 mb-6 space-y-3 backdrop-blur-xl max-w-xl mx-auto">
-                      <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>Aapka Contact &amp; Payment Data Kahan Gaya?</span>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-[11px]">
-                        <div className="p-3 rounded-xl bg-purple-950/60 border border-purple-500/30">
-                          <span className="block font-bold text-purple-300 mb-0.5">1. Admin Database</span>
-                          <span className="text-gray-300 leading-tight block">Recorded in BPM Admin Portal under Client Leads</span>
-                        </div>
-                        <div className="p-3 rounded-xl bg-cyan-950/60 border border-cyan-500/30">
-                          <span className="block font-bold text-cyan-300 mb-0.5">2. Executive Email</span>
-                          <span className="text-gray-300 leading-tight block">Forwarded to support@balajiprimemedia.in</span>
-                        </div>
-                        <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/30">
-                          <span className="block font-bold text-emerald-300 mb-0.5">3. WhatsApp Desk</span>
-                          <span className="text-gray-300 leading-tight block">Dispatched for 12-hour priority review</span>
-                        </div>
-                      </div>
-
-                      {formData.paymentRef && (
-                        <div className="text-xs text-emerald-300 pt-2 border-t border-white/10 font-mono">
-                          Payment UTR Logged: <strong>{formData.paymentRef}</strong>
-                        </div>
-                      )}
-                    </div>
-                    
                     <button
                       onClick={() => setFormState("idle")}
-                      className="text-xs font-semibold text-gray-400 hover:text-white underline transition-colors cursor-pointer"
+                      className="text-xs font-bebas tracking-[0.14em] uppercase text-[#681fe4] hover:text-white underline transition-colors cursor-pointer"
                     >
                       Submit Another Inquiry
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left font-body">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-left">
                     
                     {/* Row 1: Full Name, Email, Phone */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-                      <div className="cursor-pointer">
-                        <label htmlFor="input-name" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                      <div>
+                        <label htmlFor="input-name" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                           Your Full Name *
                         </label>
                         <input
@@ -364,13 +272,12 @@ export default function ContactClient() {
                           placeholder="e.g. Sarah Jenkins"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                          className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none transition-all"
                         />
                       </div>
 
-                      <div className="cursor-pointer">
-                        <label htmlFor="input-email" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                      <div>
+                        <label htmlFor="input-email" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                           Corporate Email *
                         </label>
                         <input
@@ -381,13 +288,12 @@ export default function ContactClient() {
                           placeholder="sarah@company.com"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                          className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none transition-all"
                         />
                       </div>
 
-                      <div className="cursor-pointer">
-                        <label htmlFor="input-phone" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                      <div>
+                        <label htmlFor="input-phone" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                           Phone Number *
                         </label>
                         <input
@@ -398,16 +304,15 @@ export default function ContactClient() {
                           placeholder="+1 (555) 000-0000"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                          className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none transition-all"
                         />
                       </div>
                     </div>
 
                     {/* Row 2: Website URL, Timezone */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                      <div className="cursor-pointer">
-                        <label htmlFor="input-website" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                      <div>
+                        <label htmlFor="input-website" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                           Company Website URL
                         </label>
                         <input
@@ -417,59 +322,56 @@ export default function ContactClient() {
                           placeholder="https://company.com"
                           value={formData.website}
                           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                          style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                          className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none transition-all font-mono"
                         />
                       </div>
 
-                      <div className="cursor-pointer">
-                        <label htmlFor="input-timezone" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                      <div>
+                        <label htmlFor="input-timezone" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                           Primary Timezone *
                         </label>
                         <select
                           id="input-timezone"
                           value={formData.timezone}
                           onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-                          style={{ colorScheme: "dark", cursor: "pointer" }}
-                          className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all"
+                          className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs outline-none cursor-pointer transition-all"
                         >
-                          <option className="bg-[#0b061c] text-white py-2" value="US / Eastern (EST)">US / Eastern (EST)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="US / Pacific (PST)">US / Pacific (PST)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="UK / London (GMT)">UK / London (GMT)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="Europe / Berlin (CET)">Europe / Berlin (CET)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="Australia / Sydney (AEST)">Australia / Sydney (AEST)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="UAE / Dubai (GST)">UAE / Dubai (GST)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="India / IST">India / New Delhi (IST)</option>
-                          <option className="bg-[#0b061c] text-white py-2" value="Other">Other / Flexible</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="US / Eastern (EST)">US / Eastern (EST)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="US / Pacific (PST)">US / Pacific (PST)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="UK / London (GMT)">UK / London (GMT)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="Europe / Berlin (CET)">Europe / Berlin (CET)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="Australia / Sydney (AEST)">Australia / Sydney (AEST)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="UAE / Dubai (GST)">UAE / Dubai (GST)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="India / IST">India / New Delhi (IST)</option>
+                          <option className="bg-[#0c0818] text-white py-2" value="Other">Other / Flexible</option>
                         </select>
                       </div>
                     </div>
 
-                    {/* Row 3: Target Service (Full width, clean) */}
-                    <div className="cursor-pointer">
-                      <label htmlFor="input-service" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                    {/* Row 3: Target Service */}
+                    <div>
+                      <label htmlFor="input-service" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                         Target Service or Deliverable *
                       </label>
                       <select
                         id="input-service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        style={{ colorScheme: "dark", cursor: "pointer" }}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs outline-none cursor-pointer transition-all"
+                        className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs outline-none cursor-pointer transition-all"
                       >
-                        <option className="bg-[#0b061c] text-white py-2" value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
-                        <option className="bg-[#0b061c] text-white py-2" value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
-                        <option className="bg-[#0b061c] text-white py-2" value="Website Development (Next.js)">Website Development (Next.js)</option>
-                        <option className="bg-[#0b061c] text-white py-2" value="Off-Page Backlink Building">Off-Page Backlink Building &amp; Digital PR</option>
-                        <option className="bg-[#0b061c] text-white py-2" value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
-                        <option className="bg-[#0b061c] text-white py-2" value="Website Maintenance & Speed">Website Maintenance &amp; Speed Optimization</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="Full-Funnel Organic Growth">Full-Funnel Organic Growth</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="High-Intent SEO Optimization">High-Intent SEO Optimization</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="Website Development (Next.js)">Website Development (Next.js)</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="Off-Page Backlink Building">Off-Page Backlink Building &amp; Digital PR</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="Content Strategy & Writing">Content Strategy &amp; Writing</option>
+                        <option className="bg-[#0c0818] text-white py-2" value="Website Maintenance & Speed">Website Maintenance &amp; Speed Optimization</option>
                       </select>
                     </div>
 
-                    {/* Row 4: UPI / Payment Reference UTR (Optional) */}
-                    <div className="cursor-pointer">
-                      <label htmlFor="input-payment-ref" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
-                        UPI UTR / Payment Transaction ID (Optional - Agar QR se payment kar rahe hain)
+                    {/* Row 4: UPI / Payment Reference UTR */}
+                    <div>
+                      <label htmlFor="input-payment-ref" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
+                        UPI UTR / Payment Transaction ID (Optional)
                       </label>
                       <input
                         id="input-payment-ref"
@@ -477,17 +379,13 @@ export default function ContactClient() {
                         placeholder="e.g. 4120938120 / PhonePe / GPay Transaction ID"
                         value={formData.paymentRef}
                         onChange={(e) => setFormData({ ...formData, paymentRef: e.target.value })}
-                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none transition-all cursor-pointer font-normal"
+                        className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none transition-all font-mono"
                       />
-                      <p className="text-[10px] text-gray-400 mt-1 cursor-pointer">
-                        💡 Yeh UTR seedha BPM Admin Ledger me aapke contact record ke sath store hoga.
-                      </p>
                     </div>
 
                     {/* Row 5: Goals / Scope Textarea */}
-                    <div className="cursor-pointer">
-                      <label htmlFor="input-message" className="text-xs font-bold text-gray-300 block mb-1.5 cursor-pointer">
+                    <div>
+                      <label htmlFor="input-message" className="text-xs font-bebas tracking-[0.14em] text-neutral-300 block mb-1.5 uppercase">
                         Tell us about your goals or challenges
                       </label>
                       <textarea
@@ -496,21 +394,20 @@ export default function ContactClient() {
                         placeholder="Briefly describe your objectives, target geography, or deliverables..."
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        style={{ colorScheme: "dark", caretColor: "#ffffff", cursor: "pointer" }}
-                        className="w-full px-4 py-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/20 hover:border-purple-400/60 focus:border-[#c084fc] focus:ring-2 focus:ring-purple-500/40 text-white text-xs placeholder:text-gray-400 outline-none resize-none transition-all cursor-pointer font-normal"
+                        className="w-full px-4 py-3 rounded-[4px] bg-[#07030d] border border-white/15 focus:border-[#681fe4] text-white text-xs placeholder:text-neutral-500 outline-none resize-none transition-all"
                       />
                     </div>
 
-                    {/* Clean Action Button */}
+                    {/* Submit Button */}
                     <button
                       type="submit"
                       disabled={formState === "submitting"}
-                      className="w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 hover:brightness-110 active:scale-[0.99] text-white font-bold py-4 rounded-xl text-xs sm:text-sm transition-all shadow-lg shadow-purple-950/80 cursor-pointer disabled:opacity-50"
+                      className="w-full bg-[#681fe4] hover:bg-[#5815cb] active:scale-[0.99] text-white font-bebas text-sm sm:text-base tracking-[0.16em] uppercase py-4 rounded-[4px] transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer disabled:opacity-50"
                     >
                       {formState === "submitting" ? "Submitting Inquiry..." : "Submit Inquiry & Schedule Call →"}
                     </button>
 
-                    <p className="text-[11px] text-center text-gray-400">
+                    <p className="text-[11px] font-mono text-center text-neutral-500">
                       🔒 100% Confidential. Strict Mutual NDA Guaranteed. Zero Spam.
                     </p>
                   </form>
@@ -522,7 +419,7 @@ export default function ContactClient() {
         </div>
       </section>
 
-      {/* Footer (Unchanged as requested) */}
+      {/* Footer */}
       <Footer />
     </div>
   );

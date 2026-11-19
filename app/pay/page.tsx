@@ -26,17 +26,17 @@ export const metadata: Metadata = {
 
 export default function PayPage() {
   return (
-    <div className="relative min-h-screen bg-[#020816] text-white overflow-hidden">
+    <div className="relative min-h-screen bg-[#07030d] text-white overflow-hidden font-satoshi bg-grid-white-240">
       {/* 100% Transparent Navbar Overlay */}
       <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
         <Navbar activePage="pay" />
       </div>
 
-      {/* 1. Meridian Pay Hero Header (Clean, Static) */}
+      {/* 1. Meridian Pay Hero Header */}
       <MeridianPayHero />
 
       {/* 2. Main Payment Section */}
-      <main id="payment-methods" className="relative z-10 bg-gradient-to-b from-[#070319] to-[#040112] text-white py-12 sm:py-16 border-t border-purple-500/20">
+      <main id="payment-methods" className="relative z-10 bg-[#07030d] text-white py-14 sm:py-20 border-t border-white/10">
         <PaymentSection hideHeader />
       </main>
 

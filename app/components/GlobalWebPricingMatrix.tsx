@@ -119,57 +119,52 @@ export default function GlobalWebPricingMatrix({
       : pricingData.filter((item) => item.country === selectedCountry);
 
   return (
-    <section className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 font-sans">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-16 sm:py-24 px-6 sm:px-12 z-10 font-satoshi">
+      <div className="max-w-[1320px] mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/60 border border-blue-500/30 text-xs font-semibold text-blue-300 mb-4 backdrop-blur-md">
-            <Globe className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Global Market Comparison &amp; Scope</span>
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/[0.04] border border-white/10 font-mono text-xs uppercase tracking-[0.2em] text-[#681fe4] mb-3">
+            <Globe className="w-3.5 h-3.5 text-[#681fe4]" />
+            <span>// GLOBAL MARKET COMPARISON &amp; SCOPE</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-            Build Your Website / Web Application{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-              Globally with PHP
-            </span>
+          <h2 className="font-bebas text-3xl sm:text-5xl md:text-6xl tracking-[0.14em] text-white uppercase leading-none">
+            BUILD YOUR WEB APPLICATION{" "}
+            <span className="text-[#681fe4]">GLOBALLY WITH PHP</span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed">
+          <p className="font-satoshi text-xs sm:text-sm text-neutral-400 mt-3 leading-relaxed font-normal">
             Country-wise approximate development costs, hourly rates, and outsourcing scope across major global markets.
           </p>
         </div>
 
         {/* 1. MAIN GLOBAL PRICING TABLE */}
-        <div className="relative rounded-3xl overflow-hidden border border-blue-500/30 bg-gradient-to-b from-[#0c1029]/95 via-[#080b1c]/95 to-[#04060e]/95 backdrop-blur-xl shadow-2xl mb-12">
-          {/* Ambient Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-blue-500/10 blur-3xl pointer-events-none" />
-
+        <div className="relative rounded-[4px] overflow-hidden border border-white/10 bg-[#0c0818] shadow-2xl mb-12">
           {/* Table Header Filter (Mobile / Desktop Quick Select) */}
-          <div className="p-4 sm:p-6 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 bg-white/[0.02]">
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-white">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span>Global Country-Wise Development Rates</span>
+          <div className="p-4 sm:p-6 border-b border-white/10 flex flex-wrap items-center justify-between gap-4 bg-white/[0.02]">
+            <div className="flex items-center gap-2 font-bebas text-base tracking-[0.14em] uppercase text-white">
+              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4] animate-pulse" />
+              <span>GLOBAL COUNTRY-WISE DEVELOPMENT RATES</span>
             </div>
 
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 text-xs">
               <button
                 onClick={() => setSelectedCountry("All")}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-[4px] font-bebas tracking-[0.14em] uppercase transition-all cursor-pointer ${
                   selectedCountry === "All"
-                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
-                    : "bg-white/5 text-slate-300 hover:bg-white/10"
+                    ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                    : "bg-white/[0.04] text-neutral-400 hover:text-white border border-white/10"
                 }`}
               >
-                All Countries
+                ALL COUNTRIES
               </button>
               {pricingData.map((p) => (
                 <button
                   key={p.country}
                   onClick={() => setSelectedCountry(p.country)}
-                  className={`px-3 py-1.5 rounded-lg font-medium transition-all whitespace-nowrap cursor-pointer flex items-center gap-1 ${
+                  className={`px-3 py-1.5 rounded-[4px] font-bebas tracking-[0.14em] uppercase transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                     selectedCountry === p.country
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
-                      : "bg-white/5 text-slate-300 hover:bg-white/10"
+                      ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                      : "bg-white/[0.04] text-neutral-400 hover:text-white border border-white/10"
                   }`}
                 >
                   <span>{p.flag}</span>
@@ -183,36 +178,36 @@ export default function GlobalWebPricingMatrix({
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[680px]">
               <thead>
-                <tr className="border-b border-white/10 bg-blue-950/40 text-[13px] font-bold text-cyan-300 uppercase tracking-wider">
+                <tr className="border-b border-white/10 bg-white/[0.02] font-bebas text-sm text-[#681fe4] uppercase tracking-[0.14em]">
                   <th className="py-4 px-6">Country</th>
                   <th className="py-4 px-6">Basic Website (Approx.)</th>
                   <th className="py-4 px-6">E-commerce Website (Approx.)</th>
                   <th className="py-4 px-6">Hourly Fee (Approx.)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-sm">
+              <tbody className="divide-y divide-white/5 text-xs font-mono">
                 {filteredPricing.map((item, idx) => (
                   <tr
                     key={idx}
-                    className="hover:bg-white/[0.04] transition-colors group"
+                    className="hover:bg-white/[0.02] transition-colors group"
                   >
                     <td className="py-4 px-6 font-bold text-white flex items-center gap-2.5">
                       <span className="text-xl">{item.flag}</span>
-                      <span>{item.country}</span>
+                      <span className="font-bebas text-base tracking-[0.12em] uppercase">{item.country}</span>
                       {item.popular && (
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                        <span className="text-[10px] uppercase font-mono tracking-wider px-2 py-0.5 rounded-[2px] bg-[#681fe4]/20 text-[#681fe4] border border-[#681fe4]/40">
                           High Demand
                         </span>
                       )}
                     </td>
-                    <td className="py-4 px-6 font-semibold text-slate-200">
-                      <span className="text-emerald-400 font-bold">{item.basicWebsite}</span>
+                    <td className="py-4 px-6 text-neutral-200">
+                      <span className="text-white font-mono">{item.basicWebsite}</span>
                     </td>
-                    <td className="py-4 px-6 font-semibold text-slate-200">
-                      <span className="text-amber-400 font-bold">{item.ecommerceWebsite}</span>
+                    <td className="py-4 px-6 text-neutral-200">
+                      <span className="text-white font-mono">{item.ecommerceWebsite}</span>
                     </td>
-                    <td className="py-4 px-6 font-semibold text-slate-300">
-                      <span className="text-cyan-300 font-bold">{item.hourlyFee}</span>
+                    <td className="py-4 px-6 text-neutral-300">
+                      <span className="text-[#681fe4] font-mono">{item.hourlyFee}</span>
                     </td>
                   </tr>
                 ))}
@@ -224,16 +219,16 @@ export default function GlobalWebPricingMatrix({
         {/* 2. GRID OF DETAILED SCOPE, COMPARISON & OPPORTUNITY CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {/* Card 1: Popular Development Types */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#0f1738]/90 to-[#0a0e24]/90 border border-blue-500/25 shadow-xl flex flex-col justify-between">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 text-cyan-400 font-bold text-base mb-4 pb-2 border-b border-white/10">
-                <Sparkles className="w-5 h-5 text-amber-400" />
-                <span>Popular Development Types</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-4 pb-3 border-b border-white/10">
+                <Sparkles className="w-4 h-4 text-[#681fe4]" />
+                <span>POPULAR DEVELOPMENT TYPES</span>
               </div>
               <ul className="space-y-3">
                 {developmentTypes.map((type, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#681fe4] mt-0.5 shrink-0" />
                     <span>{type}</span>
                   </li>
                 ))}
@@ -242,16 +237,16 @@ export default function GlobalWebPricingMatrix({
           </div>
 
           {/* Card 2: Key Points to Remember */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#131138]/90 to-[#0a0824]/90 border border-purple-500/25 shadow-xl flex flex-col justify-between">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 text-amber-300 font-bold text-base mb-4 pb-2 border-b border-white/10">
-                <Lightbulb className="w-5 h-5 text-amber-400" />
-                <span>Key Points to Remember</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-4 pb-3 border-b border-white/10">
+                <Lightbulb className="w-4 h-4 text-[#681fe4]" />
+                <span>KEY POINTS TO REMEMBER</span>
               </div>
               <ul className="space-y-3">
                 {keyPoints.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0" />
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-neutral-300 leading-relaxed font-normal">
+                    <span className="w-1.5 h-1.5 rounded-[2px] bg-[#681fe4] mt-1.5 shrink-0" />
                     <span>{point}</span>
                   </li>
                 ))}
@@ -260,30 +255,30 @@ export default function GlobalWebPricingMatrix({
           </div>
 
           {/* Card 3: India vs Other Countries – Quick Comparison */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#0e172e]/90 to-[#060b17]/90 border border-cyan-500/25 shadow-xl flex flex-col justify-between">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 text-cyan-300 font-bold text-base mb-4 pb-2 border-b border-white/10">
-                <Scale className="w-5 h-5 text-cyan-400" />
-                <span>India vs Other Countries – Quick Comparison</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-4 pb-3 border-b border-white/10">
+                <Scale className="w-4 h-4 text-[#681fe4]" />
+                <span>INDIA VS OTHER COUNTRIES</span>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full text-xs text-left">
+                <table className="w-full text-xs text-left font-mono">
                   <thead>
-                    <tr className="text-slate-400 border-b border-white/10 pb-1">
-                      <th className="py-1.5">Country</th>
-                      <th className="py-1.5">Avg. Website</th>
-                      <th className="py-1.5">Avg. E-commerce</th>
+                    <tr className="text-neutral-500 border-b border-white/10 pb-1 font-bebas uppercase tracking-[0.1em]">
+                      <th className="py-2">Country</th>
+                      <th className="py-2">Avg. Website</th>
+                      <th className="py-2">Avg. E-com</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
                     {quickComparison.map((c, i) => (
                       <tr key={i} className="hover:bg-white/[0.02]">
-                        <td className="py-1.5 font-bold text-white flex items-center gap-1.5">
+                        <td className="py-2 font-medium text-white flex items-center gap-1.5">
                           <span>{c.flag}</span>
                           <span>{c.country}</span>
                         </td>
-                        <td className="py-1.5 text-emerald-400 font-semibold">{c.avgWebsite}</td>
-                        <td className="py-1.5 text-amber-400 font-semibold">{c.avgEcommerce}</td>
+                        <td className="py-2 text-neutral-300">{c.avgWebsite}</td>
+                        <td className="py-2 text-[#681fe4]">{c.avgEcommerce}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -293,35 +288,29 @@ export default function GlobalWebPricingMatrix({
           </div>
 
           {/* Card 4: Business Opportunity */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#1c130d]/90 to-[#0e0a06]/90 border border-amber-500/30 shadow-xl flex flex-col justify-between">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 text-amber-400 font-bold text-base mb-3 pb-2 border-b border-white/10">
-                <Rocket className="w-5 h-5 text-amber-400" />
-                <span>Business Opportunity</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-3 pb-3 border-b border-white/10">
+                <Rocket className="w-4 h-4 text-[#681fe4]" />
+                <span>BUSINESS OPPORTUNITY</span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+              <p className="text-xs text-neutral-400 leading-relaxed mb-4 font-normal">
                 Agar aap Jaipur ya India se PHP development start karte hain, to foreign clients ke projects lekar achha profit kama sakte hain.
               </p>
               
-              <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                <div className="text-xs font-bold text-amber-300 mb-2 flex items-center gap-1.5">
-                  <TrendingUp className="w-3.5 h-3.5" />
-                  <span>Example Profit Model:</span>
+              <div className="p-4 rounded-[4px] bg-white/[0.02] border border-white/10">
+                <div className="text-xs font-mono text-neutral-300 mb-2 flex items-center gap-1.5 uppercase">
+                  <TrendingUp className="w-3.5 h-3.5 text-[#681fe4]" />
+                  <span>EXAMPLE PROFIT MODEL:</span>
                 </div>
-                <div className="space-y-1.5 text-xs text-slate-200">
+                <div className="space-y-1.5 text-xs font-mono">
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Indian Client Project :</span>
-                    </span>
-                    <span className="font-bold text-emerald-400">₹20,000</span>
+                    <span className="text-neutral-400">Indian Client Project:</span>
+                    <span className="font-bold text-white">₹20,000</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Foreign Client Project :</span>
-                    </span>
-                    <span className="font-bold text-amber-300">₹50,000 – ₹1,00,000 <span className="text-[10px] text-amber-400/80">(Possible)</span></span>
+                    <span className="text-neutral-400">Foreign Client Project:</span>
+                    <span className="font-bold text-[#681fe4]">₹50,000 – ₹1,00,000</span>
                   </div>
                 </div>
               </div>
@@ -329,16 +318,16 @@ export default function GlobalWebPricingMatrix({
           </div>
 
           {/* Card 5: Tips for Developers */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#0f1f1d]/90 to-[#071211]/90 border border-emerald-500/25 shadow-xl flex flex-col justify-between">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-base mb-4 pb-2 border-b border-white/10">
-                <Wrench className="w-5 h-5 text-emerald-400" />
-                <span>Tips for Developers</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-4 pb-3 border-b border-white/10">
+                <Wrench className="w-4 h-4 text-[#681fe4]" />
+                <span>TIPS FOR DEVELOPERS</span>
               </div>
               <ul className="space-y-3">
                 {tipsForDevelopers.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-neutral-300">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#681fe4] mt-0.5 shrink-0" />
                     <span>{tip}</span>
                   </li>
                 ))}
@@ -347,16 +336,16 @@ export default function GlobalWebPricingMatrix({
           </div>
 
           {/* Card 6: Your Goal */}
-          <div className="rounded-2xl p-6 bg-gradient-to-b from-[#180f2e]/90 to-[#0c081a]/90 border border-purple-500/30 shadow-xl flex flex-col justify-between relative overflow-hidden">
+          <div className="rounded-[4px] p-8 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col justify-between relative overflow-hidden">
             <div>
-              <div className="flex items-center gap-2 text-purple-300 font-bold text-base mb-4 pb-2 border-b border-white/10">
-                <Target className="w-5 h-5 text-purple-400" />
-                <span>Your Goal</span>
+              <div className="flex items-center gap-2 text-white font-bebas text-lg tracking-[0.14em] uppercase mb-4 pb-3 border-b border-white/10">
+                <Target className="w-4 h-4 text-[#681fe4]" />
+                <span>YOUR GOAL</span>
               </div>
               <ol className="space-y-3">
                 {goals.map((goal, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs shrink-0 border border-purple-500/40">
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-neutral-300 font-normal">
+                    <span className="flex items-center justify-center w-5 h-5 rounded-[2px] bg-white/[0.04] text-[#681fe4] font-mono font-bold text-xs shrink-0 border border-white/10">
                       {i + 1}
                     </span>
                     <span>{goal}</span>
@@ -366,22 +355,25 @@ export default function GlobalWebPricingMatrix({
             </div>
 
             {/* Stamp Badge */}
-            <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-              <span className="text-[11px] text-slate-400">Global Vision</span>
-              <span className="px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black text-xs shadow-md tracking-wider">
-                Code Smart.. Grow Global..
+            <div className="mt-6 pt-3 border-t border-white/10 flex items-center justify-between">
+              <span className="text-[11px] font-mono text-neutral-500 uppercase">Global Vision</span>
+              <span className="px-3 py-1 rounded-[2px] bg-[#681fe4] text-white font-bebas text-xs tracking-[0.14em] uppercase shadow-md">
+                CODE SMART.. GROW GLOBAL..
               </span>
             </div>
           </div>
         </div>
 
         {/* CTA Bar */}
-        <div className="rounded-2xl p-6 sm:p-8 bg-gradient-to-r from-blue-900/40 via-purple-900/40 to-slate-900/40 border border-blue-500/30 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="rounded-[4px] p-8 sm:p-10 bg-[#0c0818] border border-white/10 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
-            <h4 className="text-lg sm:text-xl font-bold text-white">
-              Ready to Build Your Website or Web Application?
+            <span className="font-bebas text-xs tracking-[0.2em] text-[#681fe4] uppercase block mb-1">
+              // ARCHITECTURE SPRINT
+            </span>
+            <h4 className="font-bebas text-2xl sm:text-3xl tracking-[0.14em] uppercase text-white leading-none">
+              READY TO BUILD YOUR WEB APPLICATION?
             </h4>
-            <p className="text-xs sm:text-sm text-slate-300 mt-1">
+            <p className="font-satoshi text-xs sm:text-sm text-neutral-400 mt-2 font-normal">
               Connect with Balaji Prime Media for high-speed PHP, Laravel &amp; Next.js engineering tailored for India and global markets.
             </p>
           </div>
@@ -389,17 +381,17 @@ export default function GlobalWebPricingMatrix({
             {onOpenConsultation ? (
               <button
                 onClick={() => onOpenConsultation("Website Development")}
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-cyan-500/20 hover:scale-105 cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer flex items-center gap-2"
               >
-                <span>Get Instant Quote</span>
+                <span>GET INSTANT QUOTE</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             ) : (
               <Link
                 href="/contact-us"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-cyan-500/20 hover:scale-105 cursor-pointer flex items-center gap-2"
+                className="px-6 py-3.5 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer flex items-center gap-2"
               >
-                <span>Get Instant Quote</span>
+                <span>GET INSTANT QUOTE</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             )}

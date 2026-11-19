@@ -45,96 +45,68 @@ export default function OurPrinciples3DSection() {
   return (
     <section 
       id="about-principles" 
-      className="relative py-12 sm:py-16 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto"
+      className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto font-satoshi"
     >
-      {/* Outer Card with exact user-provided background & purple neon glass border */}
-      <div 
-        className="relative rounded-[36px] overflow-hidden border border-purple-500/30 shadow-[0_25px_70px_rgba(0,0,0,0.85),0_0_35px_rgba(168,85,247,0.18)] backdrop-blur-2xl p-6 sm:p-10 lg:p-12 text-white"
-        style={{
-          backgroundColor: "#120e28",
-          backgroundImage: "url('/images/principles-purple-bg.png')",
-          backgroundRepeat: "repeat",
-        }}
-      >
-        {/* Ambient Purple/Violet Nebula Glow Highlights */}
+      {/* Outer Card with Modern Industrial styling */}
+      <div className="relative rounded-[4px] overflow-hidden border border-white/10 shadow-[0_25px_70px_rgba(0,0,0,0.85)] bg-[#0c0818] p-6 sm:p-10 lg:p-14 text-white">
+        {/* Ambient Violet Highlights */}
         <div 
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(168,85,247,0.22)_0%,transparent_70%)] pointer-events-none" 
+          className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(104,31,228,0.18)_0%,transparent_70%)] pointer-events-none" 
           aria-hidden="true" 
         />
         <div 
-          className="absolute -bottom-32 -left-32 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(139,92,246,0.18)_0%,transparent_70%)] pointer-events-none" 
+          className="absolute -bottom-32 -left-32 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(34,0,144,0.18)_0%,transparent_70%)] pointer-events-none" 
           aria-hidden="true" 
         />
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16 relative z-10">
           
-          {/* Glowing Pill Badge: • OUR CORE PRINCIPLES • (Purple) */}
-          <div className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-purple-950/70 border border-purple-500/50 shadow-[0_0_18px_rgba(168,85,247,0.35)] backdrop-blur-md mb-4">
-            <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse" />
-            <span className="text-xs font-black uppercase tracking-[0.25em] text-purple-200">
-              Our Core Principles
-            </span>
-            <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc] animate-pulse" />
+          {/* Glowing Pill Badge */}
+          <div className="inline-flex items-center gap-2.5 px-5 py-1.5 rounded-[2px] bg-white/5 border border-white/10 text-white text-xs font-bebas tracking-[0.2em] uppercase mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
+            <span>OUR CORE PRINCIPLES // 03</span>
+            <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
           </div>
 
-          {/* Heading with purple highlight and swoop underline */}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-            How We Deliver{" "}
-            <span className="relative inline-block text-purple-400">
-              Consistent Excellence
-              {/* Curved hand-drawn swoop underline (Purple) */}
-              <svg
-                className="absolute -bottom-2 left-0 w-full overflow-visible"
-                height="12"
-                viewBox="0 0 260 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 8C65 2 195 2 257 8"
-                  stroke="#c084fc"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  className="drop-shadow-[0_0_8px_rgba(192,132,252,0.8)]"
-                />
-              </svg>
-            </span>
+          {/* Heading */}
+          <h2 className="font-bebas text-3xl sm:text-5xl lg:text-6xl text-white tracking-[0.16em] uppercase leading-tight">
+            HOW WE DELIVER <span className="text-[#681fe4]">CONSISTENT EXCELLENCE</span>
           </h2>
         </div>
 
-        {/* 4 Floating 3D Frosted Glass Cards Grid (Buttons removed as requested) */}
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
+        {/* 4 Cards Grid */}
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {PRINCIPLES.map((card, idx) => (
             <div
               key={idx}
-              className="relative group p-6 sm:p-7 rounded-[30px] backdrop-blur-2xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 hover:border-purple-400/80 shadow-[0_15px_40px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.45),0_0_24px_rgba(168,85,247,0.2)] transition-all duration-300 hover:-translate-y-2 flex flex-col justify-start"
+              className="relative p-6 sm:p-7 rounded-[4px] bg-[#07030d] border border-white/10 hover:border-[#681fe4] transition-all flex flex-col justify-start"
             >
-              {/* 3D Floating Icon with Glowing Pedestal/Backdrop */}
-              <div className="relative w-24 h-22 mx-auto mb-4 flex items-center justify-center">
+              {/* Icon */}
+              <div className="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                 <Image
                   src={card.iconSrc}
                   alt={card.iconAlt}
-                  width={95}
-                  height={85}
-                  className="object-contain filter drop-shadow-[0_0_16px_rgba(168,85,247,0.6)] group-hover:scale-105 transition-transform duration-300"
+                  width={80}
+                  height={80}
+                  className="object-contain filter grayscale"
                   priority
                 />
               </div>
 
               {/* Specular Light Bar */}
               <div 
-                className="w-16 h-[1px] bg-gradient-to-r from-transparent via-purple-300/60 to-transparent my-3 mx-auto" 
+                className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#681fe4] to-transparent my-3 mx-auto" 
                 aria-hidden="true" 
               />
 
               {/* Card Title */}
-              <h3 className="text-lg font-bold text-white mb-2.5 text-center leading-snug">
+              <h3 className="font-bebas text-lg sm:text-xl text-white mb-2.5 text-center leading-snug tracking-[0.12em] uppercase">
                 {card.title}
               </h3>
 
               {/* Card Description */}
-              <p className="text-xs sm:text-[13px] text-slate-300 leading-relaxed font-normal text-center">
+              <p className="text-xs text-neutral-300 leading-relaxed font-normal text-center">
                 {card.description}
               </p>
             </div>

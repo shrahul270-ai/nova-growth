@@ -93,89 +93,86 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#090a0f] text-white overflow-hidden font-['Lexend',sans-serif]">
+    <div className="relative min-h-screen bg-[#07030d] text-white overflow-hidden font-satoshi selection:bg-[#681fe4] selection:text-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Ambient background glows */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-[#A068FF]/15 rounded-full blur-[140px] pointer-events-none -z-0"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-[#22d3ee]/10 rounded-full blur-[120px] pointer-events-none -z-0"
-        aria-hidden="true"
-      />
+      {/* Background Grid Pattern & Ambient Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(104,31,228,0.18),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white-240 opacity-40 pointer-events-none" />
 
-      <Navbar activePage="services" />
+      {/* Top Navbar */}
+      <div className="relative z-50">
+        <Navbar activePage="services" />
+      </div>
 
-      {/* Breadcrumb Navigation */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-8 sm:pt-10">
-        <nav className="flex items-center gap-2 text-xs font-semibold text-slate-400">
-          <Link href="/" className="hover:text-[#c084fc] transition-colors">
-            Home
+      {/* Breadcrumb Navigation in Sharp Mono */}
+      <div className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 pt-28 sm:pt-36">
+        <nav className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.14em] text-neutral-400">
+          <Link href="/" className="hover:text-white transition-colors">
+            HOME
           </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <Link href="/services" className="hover:text-[#c084fc] transition-colors">
-            Services
+          <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+          <Link href="/services" className="hover:text-white transition-colors">
+            SERVICES
           </Link>
-          <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-[#c084fc] font-bold truncate max-w-xs">{service.shortTitle}</span>
+          <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+          <span className="text-[#681fe4] font-medium truncate max-w-xs">{service.shortTitle}</span>
         </nav>
       </div>
 
       {/* 1. HERO SECTION */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-8 pb-14 sm:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 pt-8 pb-14 sm:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           <div className="lg:col-span-7">
             {/* Category badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-xs font-semibold text-[#c084fc] mb-5 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[2px] bg-white/[0.04] border border-white/10 font-mono text-xs uppercase tracking-[0.2em] text-[#681fe4] mb-5">
+              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4] animate-pulse" />
               <span>{service.category}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[600] tracking-tight leading-[1.12] mb-5 text-white">
+            <h1 className="font-bebas text-4xl sm:text-6xl md:text-7xl tracking-[0.14em] text-white uppercase leading-[0.95] mb-6">
               {service.headline}
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 font-[300] leading-relaxed mb-8 max-w-2xl">
+            <p className="font-satoshi text-neutral-300 text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-2xl font-normal">
               {service.tagline}
             </p>
 
-            {/* Pricing & TAT Pill */}
-            <div className="inline-flex flex-wrap items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-md mb-2">
-              <div className="flex items-baseline gap-1.5 px-3">
-                <span className="text-xl sm:text-2xl font-bold text-[#22d3ee]">{service.priceUSD}</span>
-                <span className="text-xs text-slate-400 font-medium">({service.priceINR})</span>
-                <span className="text-xs text-slate-400 font-medium ml-1">/ {service.billingPeriod}</span>
+            {/* Pricing & TAT Pill in Sharp 4px Box */}
+            <div className="inline-flex flex-wrap items-center gap-4 p-3 rounded-[4px] bg-[#0c0818] border border-white/10 mb-2 font-mono">
+              <div className="flex items-baseline gap-2 px-2">
+                <span className="text-2xl font-bold text-white">{service.priceUSD}</span>
+                <span className="text-xs text-neutral-400">({service.priceINR})</span>
+                <span className="text-xs text-neutral-500 ml-1">/ {service.billingPeriod}</span>
               </div>
               <div className="h-5 w-px bg-white/20 hidden sm:block" />
-              <div className="flex items-center gap-1.5 px-3 text-xs text-slate-300 font-medium">
-                <Clock className="w-3.5 h-3.5 text-[#22d3ee]" />
+              <div className="flex items-center gap-2 px-2 text-xs text-neutral-300">
+                <Clock className="w-3.5 h-3.5 text-[#681fe4]" />
                 <span>TAT: {service.tat}</span>
               </div>
             </div>
           </div>
 
-          {/* Hero Featured Photo Card */}
+          {/* Hero Featured Photo Card with Grayscale Filter */}
           <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl group">
+            <div className="relative rounded-[4px] overflow-hidden border border-white/10 shadow-2xl group bg-black">
               <img
                 src={service.heroImage}
                 alt={service.name}
-                className="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-80 sm:h-96 object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-transparent to-transparent opacity-80" />
               
-              <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/15">
-                <div className="flex items-center justify-between text-xs font-semibold text-[#22d3ee] mb-1">
-                  <span>Guaranteed Execution Standard</span>
-                  <span>100% Verified</span>
+              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-[4px] bg-[#0c0818]/90 border border-white/10 backdrop-blur-md">
+                <div className="flex items-center justify-between text-xs font-mono uppercase tracking-[0.14em] text-[#681fe4] mb-1">
+                  <span>GUARANTEED STANDARD</span>
+                  <span>100% VERIFIED</span>
                 </div>
-                <div className="text-white text-sm font-medium">
+                <div className="text-white text-xs sm:text-sm font-medium">
                   Deployed by Senior Engineers &amp; SEO Specialists
                 </div>
               </div>
@@ -186,49 +183,49 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* 2. STATS BAR: MEASURABLE IMPACT */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pb-14 sm:pb-20">
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 pb-14 sm:pb-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {service.stats.map((stat, i) => (
             <div
               key={i}
-              className="p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md hover:border-purple-500/50 transition-colors"
+              className="p-6 rounded-[4px] bg-[#0c0818] border border-white/10 hover:border-[#681fe4] transition-colors"
             >
-              <div className="text-3xl sm:text-4xl font-[600] text-[#c084fc] tracking-tight mb-1">
+              <div className="font-bebas text-3xl sm:text-5xl text-[#681fe4] tracking-[0.1em] mb-1 leading-none">
                 {stat.value}
               </div>
-              <div className="text-sm font-[500] text-white mb-1.5">{stat.label}</div>
-              <div className="text-xs font-[300] text-slate-400 leading-snug">{stat.detail}</div>
+              <div className="font-bebas text-base tracking-[0.14em] uppercase text-white mb-2">{stat.label}</div>
+              <div className="text-xs text-neutral-400 font-normal leading-relaxed">{stat.detail}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* 3. OVERVIEW & PROBLEM SOLVED */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-16 border-t border-white/10">
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-14 sm:py-20 border-t border-white/10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
-          <div className="lg:col-span-6 bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-8">
-            <div className="flex items-center gap-2.5 text-[#A068FF] text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-4 h-4" />
-              <span>Service Strategic Overview</span>
+          <div className="lg:col-span-6 bg-[#0c0818] border border-white/10 rounded-[4px] p-8 sm:p-10">
+            <div className="flex items-center gap-2 text-[#681fe4] font-bebas text-xs tracking-[0.2em] uppercase mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>// STRATEGIC OVERVIEW</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
-              Why This Service Drives Disproportionate ROI
+            <h3 className="font-bebas text-2xl sm:text-4xl tracking-[0.14em] text-white uppercase mb-4 leading-tight">
+              WHY THIS SERVICE DRIVES DISPROPORTIONATE ROI
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 font-[300] leading-relaxed">
+            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
               {service.overview}
             </p>
           </div>
 
-          <div className="lg:col-span-6 bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-8">
-            <div className="flex items-center gap-2.5 text-[#22d3ee] text-xs font-bold uppercase tracking-wider mb-3">
-              <ShieldCheck className="w-4 h-4" />
-              <span>The Industry Problem We Solve</span>
+          <div className="lg:col-span-6 bg-[#0c0818] border border-white/10 rounded-[4px] p-8 sm:p-10">
+            <div className="flex items-center gap-2 text-[#681fe4] font-bebas text-xs tracking-[0.2em] uppercase mb-3">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>// PROBLEM ARCHITECTURE</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight mb-4">
-              Eliminating Technical Bottlenecks
+            <h3 className="font-bebas text-2xl sm:text-4xl tracking-[0.14em] text-white uppercase mb-4 leading-tight">
+              ELIMINATING TECHNICAL BOTTLENECKS
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 font-[300] leading-relaxed">
+            <p className="text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed">
               {service.problemSolved}
             </p>
           </div>
@@ -237,27 +234,27 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* 4. DELIVERABLES & FEATURES */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-16 border-t border-white/10">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold text-[#A068FF] tracking-wider uppercase">
-            What&apos;s Included In Every Package
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-14 sm:py-20 border-t border-white/10">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-1">
+            // INCLUSIONS
           </span>
-          <h2 className="text-3xl sm:text-4xl font-[600] text-white tracking-tight mt-2 mb-3">
-            Comprehensive Deliverables &amp; Scope
+          <h2 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] text-white uppercase leading-none mb-3">
+            COMPREHENSIVE DELIVERABLES &amp; SCOPE
           </h2>
-          <p className="text-sm text-slate-300 font-[300]">
+          <p className="text-xs sm:text-sm text-neutral-400 font-normal">
             Complete transparency with zero hidden fees. Every deliverable is verified and tracked live.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
           {service.deliverables.map((item, i) => (
             <div
               key={i}
-              className="flex items-start gap-3.5 p-4 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors"
+              className="flex items-start gap-3.5 p-5 rounded-[4px] bg-[#0c0818] border border-white/10 hover:border-white/20 transition-colors"
             >
-              <CheckCircle2 className="w-5 h-5 text-[#22d3ee] shrink-0 mt-0.5" />
-              <span className="text-sm text-slate-200 font-[300] leading-relaxed">{item}</span>
+              <CheckCircle2 className="w-4 h-4 text-[#681fe4] shrink-0 mt-0.5" />
+              <span className="text-xs sm:text-sm text-neutral-200 font-normal leading-relaxed">{item}</span>
             </div>
           ))}
         </div>
@@ -267,11 +264,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           {service.features.map((feat, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl bg-gradient-to-b from-white/[0.05] to-transparent border border-white/10"
+              className="p-8 rounded-[4px] bg-[#0c0818] border border-white/10 shadow-lg"
             >
-              <div className="text-3xl mb-3">{feat.icon}</div>
-              <h3 className="text-lg font-[600] text-white mb-2">{feat.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-[300] leading-relaxed">
+              <div className="text-3xl mb-4">{feat.icon}</div>
+              <h3 className="font-bebas text-xl tracking-[0.14em] uppercase text-white mb-2">{feat.title}</h3>
+              <p className="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed">
                 {feat.desc}
               </p>
             </div>
@@ -280,13 +277,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* 5. 4-STEP PROCESS WORKFLOW */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-16 border-t border-white/10">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold text-[#A068FF] tracking-wider uppercase">
-            Execution Roadmap
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-14 sm:py-20 border-t border-white/10">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-1">
+            // EXECUTION ROADMAP
           </span>
-          <h3 className="text-3xl sm:text-4xl font-[600] text-white tracking-tight mt-2 mb-3">
-            Our 4-Step Proven Execution Process
+          <h3 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] text-white uppercase leading-none">
+            OUR 4-STEP PROVEN EXECUTION PROCESS
           </h3>
         </div>
 
@@ -294,14 +291,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           {service.process.map((p, i) => (
             <div
               key={i}
-              className="relative p-6 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col justify-between"
+              className="relative p-8 rounded-[4px] bg-[#0c0818] border border-white/10 flex flex-col justify-between shadow-lg"
             >
               <div>
-                <span className="text-2xl font-[700] text-[#c084fc] mb-3 block">
+                <span className="font-bebas text-3xl text-[#681fe4] tracking-[0.14em] mb-2 block leading-none">
                   {p.step}
                 </span>
-                <h3 className="text-lg font-[600] text-white mb-2">{p.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-300 font-[300] leading-relaxed">
+                <h3 className="font-bebas text-xl tracking-[0.14em] uppercase text-white mb-2">{p.title}</h3>
+                <p className="text-xs sm:text-sm text-neutral-400 font-normal leading-relaxed">
                   {p.desc}
                 </p>
               </div>
@@ -310,7 +307,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* 5. GLOBAL COUNTRY-WISE PRICING & SCOPE MATRIX (Special for Website Development) */}
+      {/* GLOBAL COUNTRY-WISE PRICING & SCOPE MATRIX (Special for Website Development) */}
       {service.id === "website-development" && (
         <GlobalWebPricingMatrix />
       )}
@@ -326,20 +323,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       )}
 
       {/* 6. TECH STACK & TOOLS */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-10 border-t border-white/10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10">
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-10 border-t border-white/10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-[4px] bg-[#0c0818] border border-white/10">
           <div className="flex items-center gap-3">
-            <Cpu className="w-6 h-6 text-[#22d3ee]" />
+            <Cpu className="w-5 h-5 text-[#681fe4]" />
             <div>
-              <h3 className="text-base font-bold text-white">Enterprise Tooling &amp; Stack</h3>
-              <p className="text-xs text-slate-400">Industry-leading platforms powering this service</p>
+              <h3 className="font-bebas text-xl tracking-[0.14em] uppercase text-white">ENTERPRISE TOOLING &amp; STACK</h3>
+              <p className="text-xs font-mono text-neutral-400">Industry-leading platforms powering this service</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 justify-center sm:justify-end">
             {service.technologies.map((tech, i) => (
               <span
                 key={i}
-                className="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs text-white font-medium"
+                className="px-3 py-1.5 rounded-[2px] bg-white/[0.04] border border-white/10 text-xs font-mono text-neutral-300"
               >
                 {tech}
               </span>
@@ -349,14 +346,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* 7. FREQUENTLY ASKED QUESTIONS */}
-      <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 border-t border-white/10">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-[#A068FF] text-xs font-bold uppercase tracking-wider mb-2">
-            <HelpCircle className="w-4 h-4" />
-            <span>Got Questions?</span>
+      <section className="relative z-10 max-w-4xl mx-auto px-6 py-14 sm:py-20 border-t border-white/10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 text-[#681fe4] font-bebas text-xs tracking-[0.2em] uppercase mb-2">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>// GOT QUESTIONS?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-[600] text-white tracking-tight">
-            Frequently Asked Questions
+          <h2 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] text-white uppercase leading-none">
+            FREQUENTLY ASKED QUESTIONS
           </h2>
         </div>
 
@@ -364,46 +361,51 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       </section>
 
       {/* 8. BOTTOM DIRECT ACTION BANNER */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12">
-        <div className="relative rounded-3xl p-8 sm:p-12 overflow-hidden border border-purple-500/30 bg-gradient-to-r from-[#170936] via-[#0f0624] to-[#070318] text-center">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-[600] text-white mb-3 tracking-tight">
-            Ready to Scale with {service.name}?
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-14">
+        <div className="relative rounded-[4px] p-10 sm:p-14 overflow-hidden border border-white/10 bg-[#0c0818] text-center shadow-2xl">
+          <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+            // INITIATE CAMPAIGN
+          </span>
+          <h3 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] text-white uppercase mb-3 leading-none">
+            READY TO SCALE WITH {service.name}?
           </h3>
-          <p className="text-sm sm:text-base text-slate-300 font-[300] max-w-xl mx-auto mb-8">
+          <p className="text-xs sm:text-sm text-neutral-400 font-normal max-w-xl mx-auto mb-8 leading-relaxed">
             Speak directly with our technical lead. We analyze your website and provide a customized growth plan within 12 hours.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contact-us"
-              className="group inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-white hover:bg-neutral-100 text-black font-semibold text-sm transition-all shadow-xl hover:scale-105 cursor-pointer whitespace-nowrap"
+              className="group inline-flex items-center justify-center gap-2 h-12 px-8 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer whitespace-nowrap"
             >
-              <span>Request Custom Proposal</span>
-              <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
+              <span>REQUEST CUSTOM PROPOSAL →</span>
             </Link>
             <Link
               href="/pay"
-              className="group inline-flex items-center justify-center gap-2.5 h-12 px-7 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 hover:border-purple-400/40 text-white font-medium text-sm transition-all backdrop-blur-md cursor-pointer whitespace-nowrap"
+              className="group inline-flex items-center justify-center gap-2.5 h-12 px-8 rounded-[4px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-bebas text-sm tracking-[0.16em] uppercase transition-all cursor-pointer whitespace-nowrap"
             >
-              <CreditCard className="w-4 h-4 text-purple-300" />
-              <span>Client Payment Portal</span>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+              <CreditCard className="w-4 h-4 text-[#681fe4]" />
+              <span>CLIENT PAYMENT PORTAL 💳</span>
             </Link>
           </div>
         </div>
       </section>
 
       {/* 9. EXPLORE OTHER SERVICES */}
-      <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-12 border-t border-white/10">
+      <section className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-14 border-t border-white/10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <span className="text-xs font-bold text-[#A068FF] uppercase tracking-wider">Explore More</span>
-            <h3 className="text-2xl font-[600] text-white">Other Core Growth Services</h3>
+            <span className="font-bebas text-xs tracking-[0.2em] text-[#681fe4] uppercase block mb-1">
+              // SERVICE DIRECTORY
+            </span>
+            <h3 className="font-bebas text-2xl sm:text-3xl tracking-[0.14em] uppercase text-white leading-none">
+              OTHER CORE GROWTH SERVICES
+            </h3>
           </div>
           <Link
             href="/services"
-            className="text-xs sm:text-sm font-semibold text-[#c084fc] hover:text-[#A068FF] flex items-center gap-1"
+            className="font-bebas text-xs tracking-[0.14em] uppercase text-[#681fe4] hover:text-white flex items-center gap-1 transition-colors"
           >
-            <span>View All 6 Services</span>
+            <span>VIEW ALL SERVICES</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -413,20 +415,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <Link
               key={other.id}
               href={`/services/${other.id}`}
-              className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-purple-500/50 transition-all hover:-translate-y-1 group flex flex-col justify-between"
+              className="p-8 rounded-[4px] bg-[#0c0818] border border-white/10 hover:border-[#681fe4] transition-all hover:-translate-y-1 group flex flex-col justify-between"
             >
               <div>
-                <span className="text-[11px] font-bold text-[#c084fc] uppercase">{other.category}</span>
-                <h3 className="text-lg font-[600] text-white mt-1 mb-2 group-hover:text-[#c084fc] transition-colors">
+                <span className="font-mono text-[10px] text-[#681fe4] uppercase tracking-wider block mb-1">{other.category}</span>
+                <h3 className="font-bebas text-xl tracking-[0.14em] uppercase text-white mb-2 group-hover:text-[#681fe4] transition-colors">
                   {other.name}
                 </h3>
-                <p className="text-xs text-slate-300 font-[300] line-clamp-2 leading-relaxed">
+                <p className="text-xs text-neutral-400 font-normal line-clamp-2 leading-relaxed">
                   {other.tagline}
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-medium text-slate-400">
-                <span>View Full Details</span>
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-neutral-400">
+                <span>VIEW FULL DETAILS</span>
+                <span className="group-hover:translate-x-1 transition-transform text-[#681fe4]">→</span>
               </div>
             </Link>
           ))}

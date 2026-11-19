@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T12:29:44.263Z",
+  "lastUpdated": "2026-11-12T15:56:09.497Z",
   "leads": [
     {
       "id": "lead_mvjbwqnl_py3zja",
@@ -268,6 +268,35 @@
     }
   ],
   "interactions": [
+    {
+      "type": "other_click",
+      "action": "other",
+      "title": "AI Voice Bot Query",
+      "name": "",
+      "phone": "",
+      "email": "",
+      "details": "एसईओ रैंकिंग पैकेज ($449/माह)",
+      "clientIdentifier": "",
+      "sourcePage": "/",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Antigravity/2.31.2 Chrome/152.0.7977.167 Electron/44.9.1 Safari/537.36",
+      "notes": "",
+      "country": "India",
+      "countryCode": "IN",
+      "countryFlag": "🇮🇳",
+      "city": "Jaipur",
+      "region": "Rajasthan",
+      "timezone": "Asia/Kolkata",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=India",
+      "locationSummary": "India 🇮🇳",
+      "id": "intr_mwdqcpxv_6fvx5j",
+      "collection": "interactions",
+      "status": "new",
+      "createdAt": "2026-11-12T15:56:08.657Z",
+      "updatedAt": "2026-11-12T15:56:08.657Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
     {
       "type": "other_click",
       "action": "other",
@@ -1172,6 +1201,14 @@
   ],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mwdqcpxv_qrfgue",
+      "timestamp": "2026-11-12T15:56:08.659Z",
+      "action": "create",
+      "collection": "interactions",
+      "recordId": "intr_mwdqcpxv_6fvx5j",
+      "summary": "Client interaction recorded: AI Voice Bot Query (other)"
+    },
     {
       "id": "log_mw4yc5vg_39h4d8",
       "timestamp": "2026-11-06T12:29:43.996Z",

@@ -80,135 +80,138 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="relative min-h-screen bg-white text-slate-900 selection:bg-amber-100 selection:text-amber-900 overflow-hidden font-sans">
+    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi antialiased overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudyJsonLd) }}
       />
 
-      {/* Subtle Ambient Warm Mesh Glow */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-40 bg-[radial-gradient(rgba(217,119,6,0.04)_1px,transparent_1px)] [background-size:24px_24px]"
-        aria-hidden="true"
-      />
+      {/* 240px x 240px White Gridlines at 4.5% Opacity */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-grid-white-240" aria-hidden="true" />
 
-      {/* Sticky Global 2-Tier Header */}
+      {/* Modern Industrial Header */}
       <div className="relative z-40">
         <Navbar activePage="projects" />
       </div>
 
       {/* Breadcrumb Navigation */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10">
+      <div className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 pt-8 sm:pt-12 text-left">
         <nav
           aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500"
+          className="flex flex-wrap items-center gap-2 text-xs font-mono text-neutral-400"
         >
-          <Link href="/" className="hover:text-amber-700 transition-colors">
-            Home
+          <Link href="/" className="hover:text-white transition-colors">
+            HOME
           </Link>
-          <span className="text-slate-400">/</span>
-          <Link href="/projects" className="hover:text-amber-700 transition-colors">
-            Case Studies
+          <span className="text-white/20">/</span>
+          <Link href="/projects" className="hover:text-white transition-colors">
+            CASE STUDIES
           </Link>
-          <span className="text-slate-400">/</span>
-          <span className="text-amber-700 font-bold truncate max-w-xs">{study.shortTitle}</span>
+          <span className="text-white/20">/</span>
+          <span className="text-[#681fe4] font-bold truncate max-w-xs">{study.shortTitle.toUpperCase()}</span>
         </nav>
       </div>
 
       {/* Case Study Content */}
-      <article className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-20 sm:pb-28">
+      <article className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 pt-8 pb-24 sm:pb-32">
         {/* Header Section */}
-        <header className="mb-8 text-left">
+        <header className="mb-10 text-left">
           {/* Badges Bar */}
-          <div className="flex flex-wrap items-center gap-2.5 mb-4">
-            <span className="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200/80 px-3.5 py-1 rounded-full shadow-2xs">
-              🏆 {study.category}
+          <div className="flex flex-wrap items-center gap-3 mb-5">
+            <span className="font-bebas text-xs tracking-[0.18em] text-[#681fe4] bg-white/5 border border-white/10 px-3.5 py-1 rounded-[2px] shadow-2xs">
+              🏆 {study.category.toUpperCase()}
             </span>
-            <span className="text-xs font-semibold text-slate-700 bg-slate-50 border border-slate-200 px-3 py-1 rounded-full">
+            <span className="font-mono text-xs text-neutral-300 bg-white/5 border border-white/10 px-3 py-1 rounded-[2px]">
               📍 {study.client}
             </span>
-            <span className="text-xs font-semibold text-amber-700 bg-amber-100/70 border border-amber-300/60 px-3 py-1 rounded-full">
+            <span className="font-mono text-xs text-neutral-400 bg-white/5 border border-white/10 px-3 py-1 rounded-[2px]">
               ⏱️ {study.timeline}
             </span>
           </div>
 
-          {/* Title */}
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.18] mb-6">
+          {/* Title in Bebas Neue */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bebas tracking-[0.06em] text-white leading-[0.95] mb-6 uppercase">
             {study.title}
           </h1>
         </header>
 
-        {/* Featured Cover Image */}
+        {/* Featured Cover Image (100% Grayscale) */}
         {study.coverImage && (
-          <div className="overflow-hidden rounded-2xl border border-amber-200/80 shadow-md aspect-[16/9] max-h-[460px] w-full mb-10 relative bg-slate-100">
+          <div className="overflow-hidden rounded-[4px] border border-white/10 shadow-2xl aspect-[16/9] max-h-[500px] w-full mb-12 relative bg-black">
             <img
               src={study.coverImage}
               alt={study.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover filter grayscale contrast-125"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-transparent to-transparent pointer-events-none" />
           </div>
         )}
 
         {/* Executive Impact Callout */}
-        <div className="bg-gradient-to-br from-[#fffdf8] via-[#fef9ee] to-[#fffdf8] text-slate-900 rounded-2xl p-6 sm:p-8 shadow-md mb-10 border border-amber-200/90">
-          <div className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-1 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-            Primary Growth Milestone
+        <div className="bg-[#0c0617] text-white rounded-[4px] p-8 sm:p-12 shadow-2xl mb-12 border border-white/10 relative overflow-hidden text-left">
+          <div
+            className="absolute top-0 right-0 w-[40%] h-full bg-[#220090] clip-diagonal-split pointer-events-none opacity-50"
+            aria-hidden="true"
+          />
+          <div className="relative z-10">
+            <div className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] mb-2 flex items-center gap-2 uppercase">
+              <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-ping" />
+              PRIMARY COMMERCIAL MILESTONE
+            </div>
+            <div className="text-4xl sm:text-6xl font-bebas tracking-[0.06em] text-white mt-1 uppercase">
+              {study.stat}{" "}
+              <span className="text-[#681fe4] text-3xl sm:text-5xl">
+                {study.statLabel}
+              </span>
+            </div>
+            <p className="text-sm sm:text-base text-neutral-300 mt-3 max-w-2xl leading-relaxed font-normal">
+              {study.heroMetric}
+            </p>
           </div>
-          <div className="text-3xl sm:text-4xl font-black text-slate-950 mt-1">
-            {study.stat}{" "}
-            <span className="text-amber-600 text-2xl sm:text-3xl font-bold">
-              {study.statLabel}
-            </span>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-700 mt-2 max-w-2xl leading-relaxed">
-            {study.heroMetric}
-          </p>
         </div>
 
         {/* 4 Key Metrics Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-12 text-left">
           {study.metrics.map((m, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-xl p-5 border border-amber-200/80 shadow-xs flex flex-col justify-between hover:border-amber-300 transition-all"
+              className="bg-[#0c0617] rounded-[4px] p-6 border border-white/10 shadow-xs flex flex-col justify-between hover:border-[#681fe4]/60 transition-all"
             >
-              <div className="text-2xl sm:text-3xl font-black text-slate-950 mb-1">
+              <div className="font-bebas text-3xl sm:text-4xl tracking-[0.06em] text-[#681fe4] mb-1">
                 {m.value}
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-slate-900">{m.label}</div>
-                <div className="text-xs text-slate-500 mt-1">{m.detail}</div>
+                <div className="font-bebas text-sm tracking-[0.14em] text-white uppercase">{m.label}</div>
+                <div className="text-xs font-mono text-neutral-400 mt-1">{m.detail}</div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Overview Box */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-amber-200/80 shadow-xs mb-10">
-          <h2 className="text-xs font-black uppercase tracking-wider text-amber-700 mb-3">
-            Executive Summary
-          </h2>
-          <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
+        <div className="bg-[#0c0617] rounded-[4px] p-8 sm:p-10 border border-white/10 shadow-xs mb-12 text-left">
+          <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
+            // EXECUTIVE SUMMARY
+          </span>
+          <p className="text-base sm:text-lg text-neutral-200 leading-[2rem] font-normal">
             {study.overview}
           </p>
         </div>
 
         {/* The Challenge & The Solution */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-left">
           {/* Challenge Box */}
-          <div className="bg-rose-50/50 rounded-2xl p-6 sm:p-7 border border-rose-200/80 shadow-xs">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold mb-4 border border-rose-200">
-              <span>⚠️</span>
-              <span>The Bottleneck</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-950 mb-4">
+          <div className="bg-[#0c0617] rounded-[4px] p-8 border border-white/10 shadow-xs">
+            <span className="font-bebas text-xs tracking-[0.24em] text-rose-400 uppercase block mb-3">
+              // THE BOTTLENECK
+            </span>
+            <h3 className="font-bebas text-2xl sm:text-3xl tracking-[0.08em] text-white mb-4 uppercase">
               {study.challenge.heading}
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               {study.challenge.points.map((pt, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                  <span className="text-rose-500 font-bold shrink-0 mt-0.5">✕</span>
+                <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-300">
+                  <span className="text-rose-400 font-bold shrink-0 mt-0.5 font-mono">✕</span>
                   <span className="leading-relaxed">{pt}</span>
                 </li>
               ))}
@@ -216,21 +219,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </div>
 
           {/* Solution Box */}
-          <div className="bg-amber-50/50 rounded-2xl p-6 sm:p-7 border border-amber-200/80 shadow-xs">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-4 border border-amber-200">
-              <span>⚡</span>
-              <span>The Strategy</span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-950 mb-2">
+          <div className="bg-[#0c0617] rounded-[4px] p-8 border border-white/10 shadow-xs">
+            <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
+              // THE STRATEGY
+            </span>
+            <h3 className="font-bebas text-2xl sm:text-3xl tracking-[0.08em] text-white mb-3 uppercase">
               {study.solution.heading}
             </h3>
-            <p className="text-xs sm:text-sm text-slate-700 mb-4 leading-relaxed">
+            <p className="text-xs sm:text-sm text-neutral-300 mb-4 leading-relaxed font-normal">
               {study.solution.description}
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-3.5">
               {study.solution.keyPoints.map((pt, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
-                  <span className="text-emerald-600 font-bold shrink-0 mt-0.5">✓</span>
+                <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-300">
+                  <span className="text-[#681fe4] font-bold shrink-0 mt-0.5 font-mono">✓</span>
                   <span className="leading-relaxed">{pt}</span>
                 </li>
               ))}
@@ -239,66 +241,70 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
 
         {/* Full Deliverables & Tech Architecture */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-amber-200/80 shadow-xs mb-10">
+        <div className="bg-[#0c0617] rounded-[4px] p-8 sm:p-10 border border-white/10 shadow-xs mb-12 text-left">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
-              <h3 className="text-base sm:text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
-                <span>📋</span>
-                <span>Executed Project Deliverables</span>
+              <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
+                // DELIVERABLES MATRIX
+              </span>
+              <h3 className="font-bebas text-2xl sm:text-3xl tracking-[0.08em] text-white mb-5 uppercase">
+                EXECUTED PROJECT DELIVERABLES
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {study.deliverables.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 bg-[#fffdfa] p-3.5 rounded-xl border border-amber-200/60 text-xs font-medium text-slate-800"
+                    className="flex items-start gap-2.5 bg-white/[0.03] p-4 rounded-[2px] border border-white/5 text-xs font-mono text-neutral-300"
                   >
-                    <span className="text-amber-600 font-bold">✓</span>
+                    <span className="text-[#681fe4] font-bold">✓</span>
                     <span>{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="border-t md:border-t-0 md:border-l border-amber-200/60 md:pl-8">
-              <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-800 mb-4">
-                Deployed Stack
-              </h3>
+            <div className="border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
+              <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-white/70 uppercase block mb-3">
+                DEPLOYED STACK
+              </span>
               <div className="flex flex-wrap gap-2">
                 {study.tech.map((t, idx) => (
                   <span
                     key={idx}
-                    className="bg-amber-50 text-amber-900 border border-amber-200 px-3 py-1.5 rounded-xl font-mono text-xs font-semibold shadow-2xs"
+                    className="bg-white/5 text-neutral-300 border border-white/10 px-3 py-1.5 rounded-[2px] font-mono text-xs shadow-2xs"
                   >
                     {t}
                   </span>
                 ))}
               </div>
-              <div className="mt-6 p-4 rounded-xl bg-[#fffdfa] border border-amber-200/60 text-xs">
-                <div className="font-bold text-slate-900 mb-1">Target Market</div>
-                <div className="text-slate-600">{study.country}</div>
+              <div className="mt-6 p-4 rounded-[2px] bg-white/[0.03] border border-white/10 text-xs font-mono">
+                <div className="text-white/50 mb-1">TARGET MARKET //</div>
+                <div className="text-white font-bold">{study.country}</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Client Testimonial Card */}
-        <div className="bg-gradient-to-br from-[#fffdf8] via-[#fef9ee] to-[#fffdf8] rounded-2xl p-6 sm:p-8 border border-amber-200/90 shadow-md mb-12 relative overflow-hidden">
-          <div className="flex items-center gap-2 text-amber-500 text-sm mb-4">
+        <div className="bg-[#0c0617] rounded-[4px] p-8 sm:p-12 border border-white/10 shadow-xl mb-14 text-left relative overflow-hidden">
+          <div className="flex items-center gap-1.5 text-[#681fe4] text-base mb-4 font-mono">
             {"★★★★★".split("").map((star, i) => (
               <span key={i}>{star}</span>
             ))}
-            <span className="text-xs font-bold text-amber-800 ml-2">Verified Client Review</span>
+            <span className="font-bebas text-xs tracking-[0.18em] text-neutral-400 ml-3 uppercase">
+              VERIFIED CLIENT REVIEW
+            </span>
           </div>
-          <p className="text-base sm:text-lg text-slate-800 font-medium italic leading-relaxed mb-6">
+          <p className="text-base sm:text-xl text-neutral-200 font-normal italic leading-[2rem] mb-6">
             &ldquo;{study.testimonial.quote}&rdquo;
           </p>
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-600 text-white flex items-center justify-center font-bold text-sm shadow-xs border border-amber-300">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-[4px] bg-[#681fe4] text-white flex items-center justify-center font-bebas text-base">
               {study.testimonial.author.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div className="text-sm font-bold text-slate-950">{study.testimonial.author}</div>
-              <div className="text-xs text-slate-600">
+              <div className="font-bebas text-lg tracking-[0.1em] text-white uppercase">{study.testimonial.author}</div>
+              <div className="text-xs font-mono text-neutral-400">
                 {study.testimonial.role} • {study.testimonial.company}
               </div>
             </div>
@@ -306,48 +312,54 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
 
         {/* Call to Action Banner */}
-        <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-600 rounded-3xl p-8 sm:p-12 text-center text-white shadow-xl mb-14">
-          <div className="max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold mb-4 border border-white/20">
-              ⚡ Scalable Growth Model
+        <div className="bg-[#0c0617] rounded-[4px] p-8 sm:p-14 text-center text-white border border-white/10 shadow-2xl mb-16 relative overflow-hidden">
+          <div
+            className="absolute top-0 right-0 w-[45%] h-full bg-[#220090] clip-diagonal-split pointer-events-none opacity-60"
+            aria-hidden="true"
+          />
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+              // SPRINT CAPACITY AVAILABLE
             </span>
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tight mb-4 text-white">
-              Ready to Achieve Similar Results for Your Business?
+            <h2 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] uppercase mb-4 text-white">
+              READY TO ACHIEVE SIMILAR RESULTS FOR YOUR BUSINESS?
             </h2>
-            <p className="text-xs sm:text-sm text-amber-50 leading-relaxed mb-8">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-8">
               We engineer custom digital marketing, technical SEO, and Next.js platforms tailored to high-growth brands. Let us audit your website and propose an actionable roadmap.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
                 href="/contact-us"
-                className="bg-white hover:bg-amber-50 text-slate-950 font-bold text-sm px-8 py-3.5 rounded-full shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                className="bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.18em] px-8 py-4 rounded-[4px] shadow-lg transition-all cursor-pointer"
               >
-                Book Free Growth Consultation →
+                BOOK FREE GROWTH CONSULTATION →
               </Link>
               <Link
                 href="/projects"
-                className="bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-7 py-3.5 rounded-full border border-white/30 transition-all cursor-pointer"
+                className="bg-transparent hover:bg-white/5 text-white font-bebas text-base tracking-[0.18em] px-7 py-4 rounded-[4px] border border-white/20 transition-all cursor-pointer"
               >
-                Browse All Case Studies
+                BROWSE ALL CASE STUDIES
               </Link>
             </div>
           </div>
         </div>
 
         {/* Related Case Studies Grid */}
-        <div>
+        <div className="text-left">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-black text-slate-950">Explore More Case Studies</h2>
-              <p className="text-xs text-slate-500 mt-1">
+              <h2 className="text-2xl sm:text-4xl font-bebas tracking-[0.06em] text-white uppercase">
+                EXPLORE MORE CASE STUDIES
+              </h2>
+              <p className="text-xs font-mono text-neutral-400 mt-1">
                 See how other companies scale organic search with Balaji Prime Media
               </p>
             </div>
             <Link
               href="/projects"
-              className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 transition-colors"
+              className="font-bebas text-xs sm:text-sm tracking-[0.18em] text-[#681fe4] hover:text-white flex items-center gap-1 transition-colors"
             >
-              <span>View all</span>
+              <span>VIEW ALL</span>
               <span>→</span>
             </Link>
           </div>
@@ -357,35 +369,35 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <Link
                 key={item.id}
                 href={`/projects/${item.id}`}
-                className="group bg-white hover:bg-[#fffdfa] rounded-2xl border border-amber-200/70 overflow-hidden flex flex-col justify-between transition-all hover:border-amber-400 hover:shadow-md cursor-pointer"
+                className="group bg-[#0c0617] rounded-[4px] border border-white/10 overflow-hidden flex flex-col justify-between transition-all hover:border-[#681fe4]/60 cursor-pointer"
               >
                 {item.coverImage && (
-                  <div className="aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                  <div className="aspect-[16/10] w-full overflow-hidden bg-black">
                     <img
                       src={item.coverImage}
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/60 inline-block mb-2">
-                      {item.category}
+                    <span className="font-bebas text-[11px] tracking-[0.18em] text-[#681fe4] bg-white/5 px-2.5 py-0.5 rounded-[2px] border border-white/10 inline-block mb-2">
+                      {item.category.toUpperCase()}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-amber-600 transition-colors mb-2">
+                    <h3 className="font-bebas text-xl tracking-[0.1em] text-white group-hover:text-[#681fe4] transition-colors mb-2 uppercase">
                       {item.shortTitle}
                     </h3>
-                    <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed mb-4">
                       {item.overview}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-amber-200/50 flex items-center justify-between text-xs mt-auto">
-                    <span className="font-bold text-amber-600">
+                  <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono mt-auto">
+                    <span className="font-bold text-[#681fe4]">
                       {item.stat} {item.statLabel}
                     </span>
-                    <span className="text-amber-700 font-semibold group-hover:translate-x-1 transition-transform">
+                    <span className="text-white group-hover:translate-x-1 transition-transform">
                       Read Story →
                     </span>
                   </div>

@@ -59,37 +59,31 @@ export default function BlogClient() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060112] text-white selection:bg-[#A068FF] selection:text-white overflow-hidden">
-      {/* Subtle Ambient Radial Glow */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(160, 104, 255, 0.25), transparent 70%), radial-gradient(circle at 10% 40%, rgba(99, 102, 241, 0.15), transparent 50%), radial-gradient(circle at 90% 70%, rgba(168, 85, 247, 0.15), transparent 50%)",
-        }}
-        aria-hidden="true"
-      />
+    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi overflow-hidden">
+      {/* Background Grid Pattern & Ambient Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(104,31,228,0.18),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white-240 opacity-40 pointer-events-none" />
 
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-24 right-6 z-50 bg-[#0d0726]/95 text-white border border-purple-500/50 px-5 py-3 rounded-2xl shadow-[0_10px_35px_rgba(160,104,255,0.4)] flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-xl">
-          <span className="w-2 h-2 rounded-full bg-[#A068FF] animate-ping" />
+        <div className="fixed top-24 right-6 z-50 bg-[#0c0818] text-white border border-[#681fe4]/50 px-5 py-3 rounded-[4px] shadow-[0_10px_35px_rgba(104,31,228,0.4)] flex items-center gap-3 text-xs font-mono uppercase tracking-[0.14em] backdrop-blur-xl">
+          <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-ping" />
           <span>{toast}</span>
           <button
             onClick={() => setToast(null)}
-            className="ml-2 text-slate-400 hover:text-white text-xs cursor-pointer"
+            className="ml-2 text-neutral-400 hover:text-white text-xs cursor-pointer"
           >
             ✕
           </button>
         </div>
       )}
 
-      {/* 100% Transparent Glassmorphic Navbar Overlay */}
-      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+      {/* Top Navbar */}
+      <div className="relative z-50">
         <Navbar activePage="blog" />
       </div>
 
-      {/* Vexor Blog Hero Header (Clean, Static) */}
+      {/* Vexor Blog Hero Header */}
       <VexorBlogHero
         onSearch={(q) => {
           setSearchQuery(q);
@@ -98,14 +92,14 @@ export default function BlogClient() {
         searchQuery={searchQuery}
       />
 
-      {/* Blog Articles Section (Mirrored from girlmuseum.org/blog clean card grid) */}
+      {/* Blog Articles Section */}
       <section
         id="articles-grid"
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
+        className="relative z-10 max-w-[1320px] mx-auto px-6 sm:px-12 py-16"
       >
         {/* Category Filters & Live Search Bar */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10 pb-6 border-b border-purple-500/20">
-          {/* Category Filter Pills */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 pb-8 border-b border-white/10">
+          {/* Category Filter Pills in Sharp 4px Geometry */}
           <div className="flex flex-wrap items-center gap-2">
             {[
               { id: "all", label: "All Insights" },
@@ -123,10 +117,10 @@ export default function BlogClient() {
                     setCurrentPage(1);
                     showToast(`Filtered by ${cat.label}`);
                   }}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`px-4 py-2 rounded-[4px] font-bebas text-xs tracking-[0.16em] uppercase transition-all duration-200 cursor-pointer ${
                     isSelected
-                      ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_20px_rgba(160,104,255,0.45)] border border-purple-400/50"
-                      : "bg-[#0d0726]/70 text-slate-300 hover:text-white border border-purple-500/20 hover:border-purple-500/40 hover:bg-white/[0.05]"
+                      ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)] border border-[#681fe4]"
+                      : "bg-[#0c0818] text-neutral-400 hover:text-white border border-white/10 hover:border-white/20"
                   }`}
                 >
                   {cat.label}
@@ -136,8 +130,8 @@ export default function BlogClient() {
           </div>
 
           {/* Search Input Box */}
-          <div className="relative w-full md:w-72">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
+          <div className="relative w-full md:w-80">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 text-xs">
               🔍
             </span>
             <input
@@ -148,13 +142,13 @@ export default function BlogClient() {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full pl-10 pr-9 py-2 rounded-full text-xs text-white bg-[#0d0726]/80 border border-purple-500/25 focus:border-[#A068FF] focus:outline-none focus:ring-1 focus:ring-[#A068FF] placeholder:text-slate-400 transition-colors"
+              className="w-full pl-9 pr-8 py-2.5 rounded-[4px] text-xs text-white bg-[#0c0818] border border-white/10 focus:border-[#681fe4] focus:outline-none placeholder:text-neutral-500 font-satoshi transition-colors"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-white"
               >
                 ✕
               </button>
@@ -162,73 +156,73 @@ export default function BlogClient() {
           </div>
         </div>
 
-        {/* 3-Column Blog Grid (like girlmuseum.org/blog) */}
+        {/* 3-Column Blog Grid with Grayscale Treatment */}
         {paginatedPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {paginatedPosts.map((post) => (
               <article
                 key={post.id}
-                className="group bg-[#0d0726]/80 hover:bg-[#130a38]/90 border border-purple-500/20 hover:border-[#A068FF]/60 rounded-3xl overflow-hidden backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_50px_rgba(160,104,255,0.22)] transition-all duration-300 flex flex-col justify-between"
+                className="group bg-[#0c0818] hover:bg-[#100b22] border border-white/10 hover:border-[#681fe4]/50 rounded-[4px] overflow-hidden shadow-lg hover:shadow-[0_20px_40px_rgba(104,31,228,0.2)] transition-all duration-300 flex flex-col justify-between"
               >
-                {/* 1. Cover Image (aspect 16:10 like girlmuseum.org et_pb_image_container) */}
+                {/* 1. Cover Image with Grayscale Filter */}
                 <Link
                   href={`/blog/${post.id}`}
                   prefetch={false}
-                  className="block overflow-hidden relative aspect-[16/10] bg-slate-900/60"
+                  className="block overflow-hidden relative aspect-[16/10] bg-black"
                 >
                   <img
                     src={post.coverImage}
                     alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    className="w-full h-full object-cover filter grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
                     loading="lazy"
                   />
-                  <span className="absolute top-3.5 left-3.5 text-[11px] font-bold bg-[#090422]/90 text-[#d8b4fe] border border-purple-500/40 px-3 py-1 rounded-full backdrop-blur-md shadow-lg">
+                  <span className="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-[0.14em] bg-[#07030d]/90 text-[#681fe4] border border-white/10 px-2.5 py-1 rounded-[2px] shadow-sm">
                     {post.category}
                   </span>
                 </Link>
 
                 {/* 2. Content Body */}
                 <div className="p-6 flex flex-col flex-1">
-                  {/* Meta info: Date & Reading time (like girlmuseum post-meta) */}
-                  <div className="flex items-center gap-2 text-[12px] text-purple-300/70 mb-3 font-medium">
+                  {/* Meta info: Date & Reading time */}
+                  <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 mb-3">
                     <time dateTime={post.isoDate}>{post.date}</time>
                     <span>•</span>
                     <span>{post.readTime}</span>
                     {post.tag && (
                       <>
                         <span>•</span>
-                        <span className="text-[#A068FF]">{post.tag}</span>
+                        <span className="text-[#681fe4]">{post.tag}</span>
                       </>
                     )}
                   </div>
 
-                  {/* Title (like girlmuseum entry-title) */}
-                  <h2 className="text-xl font-bold text-white group-hover:text-[#A068FF] transition-colors leading-snug line-clamp-2 mb-3">
+                  {/* Title in Bebas Neue */}
+                  <h2 className="font-bebas text-2xl tracking-[0.14em] uppercase text-white group-hover:text-[#681fe4] transition-colors leading-tight line-clamp-2 mb-3">
                     <Link href={`/blog/${post.id}`} prefetch={false} className="hover:underline">
                       {post.title}
                     </Link>
                   </h2>
 
-                  {/* Excerpt (like girlmuseum post-content) */}
-                  <p className="text-[13.5px] text-slate-300/80 line-clamp-3 leading-relaxed mb-6 font-normal">
+                  {/* Excerpt */}
+                  <p className="text-xs text-neutral-400 line-clamp-3 leading-relaxed mb-6 font-normal">
                     {post.excerpt}
                   </p>
 
-                  {/* 3. Card Footer: Author & read more link (mirroring girlmuseum.org read more ») */}
-                  <div className="pt-4 border-t border-purple-500/15 flex items-center justify-between text-xs mt-auto">
+                  {/* 3. Card Footer */}
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs mt-auto">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-bold text-[11px] flex items-center justify-center shadow-md border border-purple-400/30">
+                      <div className="w-7 h-7 rounded-[2px] bg-[#681fe4] text-white font-bebas text-xs flex items-center justify-center">
                         {post.author.slice(0, 1)}
                       </div>
-                      <span className="text-slate-300 text-xs font-medium">{post.author}</span>
+                      <span className="text-neutral-300 text-xs font-mono">{post.author}</span>
                     </div>
 
                     <Link
                       href={`/blog/${post.id}`}
                       prefetch={false}
-                      className="text-[#c084fc] group-hover:text-white font-semibold flex items-center gap-1.5 transition-colors text-xs"
+                      className="font-bebas text-xs tracking-[0.16em] uppercase text-[#681fe4] group-hover:text-white flex items-center gap-1.5 transition-colors"
                     >
-                      <span>read more</span>
+                      <span>READ MORE</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
                   </div>
@@ -237,10 +231,10 @@ export default function BlogClient() {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center bg-[#0d0726]/40 rounded-3xl border border-purple-500/20 p-8">
+          <div className="py-20 text-center bg-[#0c0818] rounded-[4px] border border-white/10 p-8">
             <span className="text-4xl block mb-3">🔍</span>
-            <h3 className="text-xl font-bold text-white mb-2">No matching articles found</h3>
-            <p className="text-xs text-slate-400 mb-6">
+            <h3 className="font-bebas text-2xl tracking-[0.14em] uppercase text-white mb-2">No matching articles found</h3>
+            <p className="text-xs text-neutral-400 mb-6 font-mono">
               Try searching for different keywords or reset your category filter.
             </p>
             <button
@@ -249,28 +243,28 @@ export default function BlogClient() {
                 setSearchQuery("");
                 setCurrentPage(1);
               }}
-              className="px-5 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold transition-colors"
+              className="px-6 py-3 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs tracking-[0.16em] uppercase transition-colors"
             >
-              Reset Filters
+              RESET FILTERS →
             </button>
           </div>
         )}
 
-        {/* Pagination Controls (mirroring girlmuseum.org « Newer Entries / Older Entries ») */}
+        {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-3 mt-12 pt-8 border-t border-purple-500/20">
+          <div className="flex items-center justify-center gap-3 mt-14 pt-8 border-t border-white/10">
             <button
               type="button"
               disabled={activePageNum === 1}
               onClick={() => handlePageChange(activePageNum - 1)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-4 py-2.5 rounded-[4px] font-bebas text-xs tracking-[0.14em] uppercase transition-all flex items-center gap-1.5 ${
                 activePageNum === 1
-                  ? "opacity-40 cursor-not-allowed text-slate-500 border border-transparent"
-                  : "bg-[#0d0726] text-white hover:bg-purple-900/40 border border-purple-500/30 cursor-pointer"
+                  ? "opacity-40 cursor-not-allowed text-neutral-600 border border-white/5"
+                  : "bg-[#0c0818] text-white hover:bg-[#681fe4] border border-white/10 cursor-pointer"
               }`}
             >
               <span>«</span>
-              <span>Newer Entries</span>
+              <span>NEWER ENTRIES</span>
             </button>
 
             <div className="flex items-center gap-1.5">
@@ -280,10 +274,10 @@ export default function BlogClient() {
                   <button
                     key={pageNum}
                     onClick={() => handlePageChange(pageNum)}
-                    className={`w-9 h-9 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`w-9 h-9 rounded-[4px] font-bebas text-xs tracking-[0.1em] transition-all cursor-pointer ${
                       isActive
-                        ? "bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-[0_0_15px_rgba(160,104,255,0.4)] border border-purple-400/50"
-                        : "bg-[#0d0726] text-slate-300 hover:text-white border border-purple-500/20 hover:border-purple-500/40"
+                        ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)] border border-[#681fe4]"
+                        : "bg-[#0c0818] text-neutral-400 hover:text-white border border-white/10"
                     }`}
                   >
                     {pageNum}
@@ -296,34 +290,34 @@ export default function BlogClient() {
               type="button"
               disabled={activePageNum === totalPages}
               onClick={() => handlePageChange(activePageNum + 1)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-4 py-2.5 rounded-[4px] font-bebas text-xs tracking-[0.14em] uppercase transition-all flex items-center gap-1.5 ${
                 activePageNum === totalPages
-                  ? "opacity-40 cursor-not-allowed text-slate-500 border border-transparent"
-                  : "bg-[#0d0726] text-white hover:bg-purple-900/40 border border-purple-500/30 cursor-pointer"
+                  ? "opacity-40 cursor-not-allowed text-neutral-600 border border-white/5"
+                  : "bg-[#0c0818] text-white hover:bg-[#681fe4] border border-white/10 cursor-pointer"
               }`}
             >
-              <span>Older Entries</span>
+              <span>OLDER ENTRIES</span>
               <span>»</span>
             </button>
           </div>
         )}
       </section>
 
-      {/* Newsletter Signup in Balaji Prime Luxury Violet Theme */}
-      <section className="relative py-16 px-6 md:px-12 z-10 max-w-4xl mx-auto">
-        <div className="bg-gradient-to-r from-[#0d0726] via-[#150a38] to-[#0d0726] rounded-3xl p-8 sm:p-12 text-white text-center border border-purple-500/30 shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(160,104,255,0.15)]">
-          <span className="text-xs font-bold text-[#A068FF] uppercase tracking-wider block mb-2">
-            Stay Ahead of Google Algorithm Updates
+      {/* Newsletter Signup */}
+      <section className="relative py-20 px-6 sm:px-12 z-10 max-w-[1320px] mx-auto">
+        <div className="bg-[#0c0818] rounded-[4px] p-8 sm:p-14 text-white text-center border border-white/10 shadow-2xl">
+          <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+            // INTEL BRIEFING
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black mb-3 text-white">
-            Get Bi-Weekly Digital Growth Breakdowns
+          <h2 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] mb-3 text-white uppercase leading-none">
+            GET BI-WEEKLY DIGITAL GROWTH BREAKDOWNS
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-6">
+          <p className="text-xs sm:text-sm text-neutral-400 max-w-xl mx-auto mb-8 font-normal leading-relaxed">
             Zero fluff. Real search optimization tactics, DR 50-90+ backlink strategies, and high-converting Next.js engineering delivered to your inbox.
           </p>
 
           {newsletterSuccess ? (
-            <div className="bg-emerald-500/20 border border-emerald-400 text-emerald-200 py-3 px-6 rounded-2xl max-w-md mx-auto text-xs font-bold">
+            <div className="bg-[#681fe4]/20 border border-[#681fe4]/40 text-white py-3 px-6 rounded-[4px] max-w-md mx-auto font-bebas text-xs tracking-[0.14em] uppercase">
               ✓ You&apos;re subscribed! Look out for our upcoming search breakdown.
             </div>
           ) : (
@@ -331,16 +325,16 @@ export default function BlogClient() {
               <input
                 required
                 type="email"
-                placeholder="Enter your corporate email..."
+                placeholder="ENTER WORK EMAIL"
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                className="flex-1 px-4 py-3 rounded-2xl text-xs text-white bg-[#060112] border border-purple-500/30 focus:border-[#A068FF] outline-none"
+                className="flex-1 px-4 py-3 rounded-[4px] text-xs text-white bg-white/[0.04] border border-white/10 focus:border-[#681fe4] outline-none font-bebas tracking-[0.14em]"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold px-6 py-3 rounded-2xl shadow-[0_0_20px_rgba(160,104,255,0.4)] transition-all cursor-pointer whitespace-nowrap"
+                className="bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs tracking-[0.16em] uppercase px-6 py-3 rounded-[4px] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer whitespace-nowrap"
               >
-                Subscribe Free →
+                SUBSCRIBE FREE →
               </button>
             </form>
           )}

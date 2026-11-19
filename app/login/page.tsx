@@ -119,35 +119,36 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#08021a] via-[#050114] to-[#040112] text-white flex flex-col items-center justify-center p-4 sm:p-6 select-none relative overflow-hidden">
-      {/* Ambient background glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-tr from-[#7c3aed]/25 via-[#A068FF]/20 to-[#22d3ee]/15 blur-[100px] pointer-events-none" />
+    <div className="min-h-screen w-full bg-[#07030d] text-white flex flex-col items-center justify-center p-6 select-none relative overflow-hidden font-satoshi selection:bg-[#681fe4] selection:text-white">
+      {/* Background Grid Pattern & Ambient Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(104,31,228,0.22),transparent_65%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-white-240 opacity-40 pointer-events-none" />
 
       {/* Top Header with Brand */}
-      <div className="mb-6 sm:mb-8 text-center relative z-10">
+      <div className="mb-8 text-center relative z-10">
         <Link href="/" className="inline-block hover:scale-105 transition-transform">
           <BrandLogo size="lg" />
         </Link>
       </div>
 
-      {/* Main Form Card - Always Visible Immediately */}
-      <div className="w-full max-w-md bg-[#0c0628]/95 border border-purple-500/35 rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-2xl relative z-10">
+      {/* Main Form Card in Sharp 4px Box */}
+      <div className="w-full max-w-md bg-[#0c0818] border border-white/10 rounded-[4px] p-8 shadow-2xl relative z-10">
         
         {/* Toggle Mode: Login vs Sign Up */}
-        <div className="flex bg-white/[0.05] p-1 rounded-2xl border border-white/10 mb-6">
+        <div className="flex bg-white/[0.04] p-1 rounded-[4px] border border-white/10 mb-6">
           <button
             type="button"
             onClick={() => {
               setMode("login");
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer ${
+            className={`flex-1 py-2 font-bebas text-xs tracking-[0.14em] uppercase rounded-[2px] transition-all cursor-pointer ${
               mode === "login"
-                ? "bg-gradient-to-r from-[#7c3aed] to-[#A068FF] text-white shadow-md"
-                : "text-slate-400 hover:text-white"
+                ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                : "text-neutral-400 hover:text-white"
             }`}
           >
-            Sign In
+            SIGN IN
           </button>
           <button
             type="button"
@@ -155,22 +156,25 @@ export default function LoginPage() {
               setMode("signup");
               setError(null);
             }}
-            className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer ${
+            className={`flex-1 py-2 font-bebas text-xs tracking-[0.14em] uppercase rounded-[2px] transition-all cursor-pointer ${
               mode === "signup"
-                ? "bg-gradient-to-r from-[#7c3aed] to-[#A068FF] text-white shadow-md"
-                : "text-slate-400 hover:text-white"
+                ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                : "text-neutral-400 hover:text-white"
             }`}
           >
-            Create Account
+            CREATE ACCOUNT
           </button>
         </div>
 
         {/* Title */}
-        <div className="mb-5 text-left">
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            {mode === "login" ? "Welcome Back" : "Start with Balaji Prime Media"}
+        <div className="mb-6 text-left">
+          <span className="font-bebas text-xs tracking-[0.2em] text-[#681fe4] uppercase block mb-1">
+            // CLIENT PORTAL ACCESS
+          </span>
+          <h1 className="font-bebas text-2xl sm:text-3xl tracking-[0.14em] text-white uppercase leading-none">
+            {mode === "login" ? "WELCOME BACK" : "START WITH BALAJI PRIME MEDIA"}
           </h1>
-          <p className="text-slate-400 text-xs mt-1">
+          <p className="text-neutral-400 text-xs mt-2 font-normal leading-relaxed">
             {mode === "login"
               ? "Access your client orders, SEO audits, and invoices."
               : "Register to track your growth projects and services."}
@@ -179,22 +183,22 @@ export default function LoginPage() {
 
         {/* Feedback Messages */}
         {error && (
-          <div className="p-3 mb-4 rounded-xl bg-rose-950/60 border border-rose-500/40 text-xs text-rose-200 text-left">
+          <div className="p-3 mb-4 rounded-[4px] bg-rose-950/60 border border-rose-500/40 text-xs text-rose-200 text-left font-mono">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="p-3 mb-4 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-xs text-emerald-200 text-left">
+          <div className="p-3 mb-4 rounded-[4px] bg-[#681fe4]/20 border border-[#681fe4]/40 text-xs text-white text-left font-mono">
             ✓ Successfully authenticated! Opening portal...
           </div>
         )}
 
         {/* Form Inputs */}
-        <form onSubmit={handleSubmit} className="space-y-3.5 text-left">
+        <form onSubmit={handleSubmit} className="space-y-4 text-left">
           {mode === "signup" && (
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase block mb-1">
                 Your Full Name *
               </label>
               <input
@@ -203,13 +207,13 @@ export default function LoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. John Henderson"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/20 focus:border-[#A068FF] focus:ring-2 focus:ring-[#A068FF]/30 text-white placeholder-slate-400 text-sm outline-none transition-all"
+                className="w-full px-4 py-3 rounded-[4px] bg-white/[0.04] border border-white/10 focus:border-[#681fe4] text-white placeholder-neutral-500 text-xs outline-none transition-all font-satoshi"
               />
             </div>
           )}
 
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase block mb-1">
               Work / Business Email *
             </label>
             <input
@@ -218,13 +222,13 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@company.com"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/20 focus:border-[#A068FF] focus:ring-2 focus:ring-[#A068FF]/30 text-white placeholder-slate-400 text-sm outline-none transition-all"
+              className="w-full px-4 py-3 rounded-[4px] bg-white/[0.04] border border-white/10 focus:border-[#681fe4] text-white placeholder-neutral-500 text-xs outline-none transition-all font-satoshi"
             />
           </div>
 
           {mode === "signup" && (
             <div>
-              <label className="text-xs font-semibold text-slate-300 block mb-1">
+              <label className="font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase block mb-1">
                 Phone / WhatsApp (Optional)
               </label>
               <input
@@ -232,13 +236,13 @@ export default function LoginPage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/20 focus:border-[#A068FF] focus:ring-2 focus:ring-[#A068FF]/30 text-white placeholder-slate-400 text-sm outline-none transition-all"
+                className="w-full px-4 py-3 rounded-[4px] bg-white/[0.04] border border-white/10 focus:border-[#681fe4] text-white placeholder-neutral-500 text-xs outline-none transition-all font-satoshi"
               />
             </div>
           )}
 
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="font-bebas text-xs tracking-[0.14em] text-neutral-300 uppercase block mb-1">
               Password *
             </label>
             <div className="relative">
@@ -248,14 +252,14 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-white/[0.06] border border-white/20 focus:border-[#A068FF] focus:ring-2 focus:ring-[#A068FF]/30 text-white placeholder-slate-400 text-sm outline-none transition-all"
+                className="w-full px-4 py-3 pr-12 rounded-[4px] bg-white/[0.04] border border-white/10 focus:border-[#681fe4] text-white placeholder-neutral-500 text-xs outline-none transition-all font-satoshi"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer p-1"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white font-mono text-xs cursor-pointer p-1"
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? "HIDE" : "SHOW"}
               </button>
             </div>
           </div>
@@ -264,16 +268,16 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#7c3aed] via-[#A068FF] to-[#6366f1] text-white font-bold text-sm shadow-lg shadow-purple-950/80 hover:brightness-110 active:scale-[0.99] transition-all cursor-pointer mt-2 disabled:opacity-50"
+            className="w-full py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm tracking-[0.16em] uppercase shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer mt-2 disabled:opacity-50"
           >
-            {loading ? "Verifying..." : mode === "login" ? "Sign In to Portal →" : "Create Account →"}
+            {loading ? "VERIFYING..." : mode === "login" ? "SIGN IN TO PORTAL →" : "CREATE ACCOUNT →"}
           </button>
         </form>
 
         {/* Divider */}
-        <div className="flex items-center my-4 text-xs text-slate-500">
+        <div className="flex items-center my-5 text-xs font-mono text-neutral-500 uppercase">
           <div className="flex-1 border-t border-white/10" />
-          <span className="px-3">or continue with</span>
+          <span className="px-3">OR CONTINUE WITH</span>
           <div className="flex-1 border-t border-white/10" />
         </div>
 
@@ -281,7 +285,7 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full py-2.5 px-4 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="w-full py-3 px-4 rounded-[4px] bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-white font-mono text-xs transition-all flex items-center justify-center gap-2.5 cursor-pointer uppercase tracking-wider"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path
@@ -301,16 +305,16 @@ export default function LoginPage() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
             />
           </svg>
-          <span>Continue with Google</span>
+          <span>CONTINUE WITH GOOGLE</span>
         </button>
 
         {/* Back Link */}
-        <div className="mt-5 text-center">
+        <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-xs text-purple-300 hover:text-white transition-colors"
+            className="text-xs font-mono uppercase tracking-wider text-[#681fe4] hover:text-white transition-colors"
           >
-            ← Return to Balaji Prime Media Homepage
+            ← RETURN TO BALAJI PRIME MEDIA HOMEPAGE
           </Link>
         </div>
       </div>

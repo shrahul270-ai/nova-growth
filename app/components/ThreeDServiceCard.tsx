@@ -109,14 +109,14 @@ export default function ThreeDServiceCard({
       onMouseLeave={() => setIsHovered(false)}
       data-service-id={service.id}
       data-country={country}
-      className="group relative w-full h-full rounded-3xl p-6 sm:p-7 select-none flex flex-col justify-between bg-white border border-amber-200/80 hover:border-amber-400 shadow-sm hover:shadow-xl hover:shadow-amber-900/5 transition-all duration-300"
+      className="group relative w-full h-full rounded-[4px] p-6 sm:p-7 select-none flex flex-col justify-between bg-[#0c0818] border border-white/10 hover:border-[#681fe4]/60 shadow-lg hover:shadow-[0_10px_30px_rgba(104,31,228,0.15)] transition-all duration-300 font-satoshi"
     >
       {/* Featured Ribbon */}
       {service.popular && (
         <div className="absolute top-0 right-6 -translate-y-0.5 z-20">
-          <span className="bg-gradient-to-r from-amber-500 to-amber-600 text-white font-extrabold text-xs uppercase tracking-wider px-3.5 py-1 rounded-b-xl shadow-xs border-x border-b border-amber-600/40 flex items-center gap-1.5">
+          <span className="bg-[#681fe4] text-white font-bebas text-xs uppercase tracking-[0.18em] px-3.5 py-1 rounded-b-[2px] shadow-sm flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            <span>Popular</span>
+            <span>POPULAR</span>
           </span>
         </div>
       )}
@@ -125,15 +125,15 @@ export default function ThreeDServiceCard({
       <div className="relative z-10">
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-xs bg-amber-50 border border-amber-200/80 transition-transform duration-300 group-hover:scale-105 shrink-0">
+            <div className="w-11 h-11 rounded-[4px] flex items-center justify-center text-xl shadow-xs bg-white/5 border border-white/10 group-hover:border-[#681fe4] transition-all shrink-0">
               <span>{service.icon3D}</span>
             </div>
 
             <div>
-              <span className="inline-block text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/80">
+              <span className="inline-block text-[11px] font-bebas tracking-[0.16em] uppercase text-[#681fe4] bg-[#681fe4]/10 px-2.5 py-0.5 rounded-[2px] border border-[#681fe4]/30">
                 {service.badge}
               </span>
-              <span className="block text-xs text-slate-500 mt-0.5 font-semibold">
+              <span className="block text-[11px] text-neutral-400 mt-0.5 font-mono">
                 {service.category}
               </span>
             </div>
@@ -141,35 +141,35 @@ export default function ThreeDServiceCard({
 
           {/* Turnaround Time (TAT) Badge */}
           <div className="text-right">
-            <span className="text-xs font-semibold text-slate-400 block uppercase tracking-wider">
-              Turnaround
+            <span className="text-[10px] font-mono text-neutral-400 block uppercase">
+              TAT
             </span>
-            <span className="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 px-2.5 py-0.5 rounded-lg inline-block mt-0.5">
+            <span className="text-[11px] font-mono font-bold text-white bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] inline-block mt-0.5">
               ⏱ {service.tat}
             </span>
           </div>
         </div>
 
-        {/* Title & Tagline (Fixes Issue 9: Tagline text >= 12px) */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight leading-snug mb-2 group-hover:text-amber-700 transition-colors">
+        {/* Title & Tagline */}
+        <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.14em] uppercase leading-tight mb-2 group-hover:text-[#681fe4] transition-colors">
           {service.name}
         </h3>
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 font-normal">
+        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-5 font-normal">
           {service.tagline}
         </p>
 
-        {/* Deliverables Checklist (Fixes Issue 10: Touch-friendly 'Full Scope' button with proper affordance) */}
-        <div className="border-t border-slate-100 pt-4 mb-6">
+        {/* Deliverables Checklist */}
+        <div className="border-t border-white/10 pt-4 mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Core Deliverables:
+            <h4 className="font-bebas text-xs tracking-[0.18em] text-neutral-400 uppercase">
+              CORE DELIVERABLES:
             </h4>
             <button
               type="button"
               onClick={() => onViewScope(service)}
-              className="px-3 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-xs border border-amber-200/80 transition-all cursor-pointer inline-flex items-center gap-1 shadow-2xs hover:scale-105 active:scale-95"
+              className="px-2.5 py-0.5 rounded-[2px] bg-white/5 hover:bg-[#681fe4] text-white font-bebas text-xs tracking-[0.14em] border border-white/15 transition-all cursor-pointer inline-flex items-center gap-1 uppercase"
             >
-              <span>Full Scope</span>
+              <span>FULL SCOPE</span>
               <span>→</span>
             </button>
           </div>
@@ -178,9 +178,9 @@ export default function ThreeDServiceCard({
             {service.deliverables.map((item, idx) => (
               <li
                 key={idx}
-                className="flex items-start gap-2.5 text-xs text-slate-700 font-medium leading-tight group-hover:translate-x-0.5 transition-transform duration-300"
+                className="flex items-start gap-2 text-xs text-neutral-300 font-normal leading-tight"
               >
-                <span className="text-amber-600 font-bold shrink-0 mt-0.5">✓</span>
+                <span className="text-[#681fe4] font-bold shrink-0 mt-0.5">✓</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -189,35 +189,35 @@ export default function ThreeDServiceCard({
       </div>
 
       {/* Pricing & CTAs */}
-      <div className="relative z-10 border-t border-slate-100 pt-5 mt-auto">
+      <div className="relative z-10 border-t border-white/10 pt-5 mt-auto">
         {/* Price Output */}
         <div className="flex items-start justify-between gap-2 mb-5">
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-amber-700 uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 text-xs font-bebas tracking-[0.14em] text-[#681fe4] uppercase">
               <span>{countryConfig.flag}</span>
               <span>
                 {countryConfig.name} ({countryConfig.currency})
               </span>
             </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight">
+              <span className="font-bebas text-2xl sm:text-3xl text-white tracking-[0.08em]">
                 {displayPrice}
               </span>
               {displaySuffix && (
-                <span className="text-xs font-medium text-slate-500">
+                <span className="text-xs text-neutral-400 font-mono">
                   {displaySuffix}
                 </span>
               )}
             </div>
             {inrReference && (
-              <div className="inline-block mt-1 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
+              <div className="inline-block mt-1 text-[11px] font-mono text-[#681fe4] bg-[#681fe4]/10 border border-[#681fe4]/30 px-2 py-0.5 rounded-[2px]">
                 {inrReference}
               </div>
             )}
           </div>
 
           <div className="text-right shrink-0">
-            <span className="text-xs text-amber-800 bg-amber-50 border border-amber-200/80 px-2.5 py-0.5 rounded-full font-bold">
+            <span className="text-[10px] text-white/80 bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-[2px] font-mono uppercase">
               Verified Escrow
             </span>
           </div>
@@ -227,9 +227,9 @@ export default function ThreeDServiceCard({
         {service.id === "flutter-app-dev" && (
           <Link
             href="/services/flutter-app-dev"
-            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-amber-50/50 hover:bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold transition-all shadow-2xs"
+            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bebas text-xs tracking-[0.14em] transition-all uppercase"
           >
-            <span>📱 Open Dedicated Flutter Hub Page</span>
+            <span>📱 OPEN DEDICATED FLUTTER HUB PAGE</span>
             <span>→</span>
           </Link>
         )}
@@ -237,23 +237,23 @@ export default function ThreeDServiceCard({
         {service.id === "full-stack-php-dev" && (
           <Link
             href="/services/full-stack-php-dev"
-            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-amber-50/50 hover:bg-amber-50 border border-amber-200 text-amber-900 text-xs font-bold transition-all shadow-2xs"
+            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bebas text-xs tracking-[0.14em] transition-all uppercase"
           >
-            <span>🐘 Open Dedicated PHP Hub Page</span>
+            <span>🐘 OPEN DEDICATED PHP HUB PAGE</span>
             <span>→</span>
           </Link>
         )}
 
-        {/* Action CTAs (Fixes Issue 1: Standardized button styles) */}
+        {/* Action CTAs */}
         <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2.5">
           {/* Primary CTA: WhatsApp Quote */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold text-xs py-2.5 px-3 rounded-full shadow-xs hover:scale-105 active:scale-95 transition-all cursor-pointer text-center w-full"
+            className="inline-flex items-center justify-center gap-1.5 bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs sm:text-sm tracking-[0.14em] py-2.5 px-3 rounded-[4px] shadow-[0_4px_14px_rgba(104,31,228,0.3)] transition-all cursor-pointer text-center w-full uppercase"
           >
-            <span>Instant Quote</span>
+            <span>INSTANT QUOTE</span>
             <span>💬</span>
           </a>
 
@@ -261,9 +261,9 @@ export default function ThreeDServiceCard({
           <button
             type="button"
             onClick={() => onBookCall(service)}
-            className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-amber-50/50 text-slate-800 font-bold text-xs py-2.5 px-3 rounded-full border border-slate-200 hover:border-amber-400 shadow-2xs transition-all cursor-pointer text-center w-full"
+            className="inline-flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-white font-bebas text-xs sm:text-sm tracking-[0.14em] py-2.5 px-3 rounded-[4px] border border-white/15 transition-all cursor-pointer text-center w-full uppercase"
           >
-            <span>Strategy Call</span>
+            <span>STRATEGY CALL</span>
             <span>📅</span>
           </button>
         </div>
