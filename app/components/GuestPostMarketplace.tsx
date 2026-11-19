@@ -1118,19 +1118,19 @@ export default function GuestPostMarketplace() {
   ]);
 
   return (
-    <section id="marketplace" className="py-8 sm:py-12 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-gray-800/80">
+    <section id="marketplace" className="py-10 sm:py-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto font-sans">
       
-      {/* SECTION HEADER WITH STATS (Tightened Gaps) */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-5">
+      {/* SECTION HEADER WITH STATS */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold text-blue-400 mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-bold text-amber-800 mb-2.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Live Marketplace Inventory
           </div>
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight flex items-center gap-3">
             <span>40,000+ Verified Publisher Websites</span>
           </h3>
-          <p className="text-xs sm:text-sm text-gray-400 mt-1 max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
             Filter high-authority publications by Moz DA, Ahrefs DR, real organic traffic, niche, and country.
             100% white-hat contextual placements with indexation warranty.
           </p>
@@ -1142,44 +1142,44 @@ export default function GuestPostMarketplace() {
           <button
             type="button"
             onClick={handleDownloadDatabaseClick}
-            className="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-black font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/25 cursor-pointer transition-all hover:scale-102 active:scale-98"
+            className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md shadow-emerald-700/20 cursor-pointer transition-all hover:scale-102 active:scale-98"
             title="Download full 40,000+ guest post database in Excel (.xlsx / .csv)"
           >
             <span className="text-sm">📥</span>
             <span>Download Database (.xlsx)</span>
           </button>
 
-          <div className="flex items-center gap-2 text-xs bg-[#0b1220] border border-gray-800 py-2 px-3.5 rounded-xl shadow-xs">
-            <span className="text-gray-400">Showing:</span>
-            <span className="font-extrabold text-amber-400">
+          <div className="flex items-center gap-2 text-xs bg-white border border-slate-200 py-2 px-3.5 rounded-xl shadow-xs">
+            <span className="text-slate-500">Showing:</span>
+            <span className="font-extrabold text-amber-600">
               {isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}
             </span>
-            <span className="text-gray-500">of 40,000+ Active Sites</span>
+            <span className="text-slate-500">of 40,000+ Active Sites</span>
           </div>
         </div>
       </div>
 
-      {/* BUYER AUTHENTICATED WELCOME BANNER */}
+      {/* BUYER AUTHENTICATED WELCOME BANNER (Fixes Issue 14: Aligned cleanly with filter card) */}
       {isBuyerLoggedIn && (
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-teal-950/40 to-slate-900 border border-emerald-500/30 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shadow-md shadow-emerald-500/10">
+        <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 border border-emerald-300 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs shadow-xs text-emerald-950">
           <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold text-white">
-              Buyer Account Active: <strong className="text-emerald-400">{buyerUser?.email || "Buyer"}</strong>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+            <span className="font-bold text-slate-900">
+              Buyer Account Active: <strong className="text-emerald-700 font-extrabold">{buyerUser?.email || "Buyer"}</strong>
             </span>
-            <span className="hidden md:inline text-gray-400">• Full 40,000+ Directory &amp; Direct Export Unlocked</span>
+            <span className="hidden md:inline text-slate-600">• Full 40,000+ Directory &amp; Direct Export Unlocked</span>
           </div>
           <div className="flex items-center gap-3">
             <Link
               href="/buyer-dashboard"
-              className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold transition-all shadow-sm flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold transition-all shadow-xs flex items-center gap-1.5"
             >
               <span>🚀</span>
               <span>Open Buyer Dashboard</span>
             </Link>
             <button
               onClick={handleBuyerLogout}
-              className="text-gray-400 hover:text-white underline text-[11px] cursor-pointer"
+              className="text-slate-500 hover:text-slate-800 underline text-xs cursor-pointer font-medium"
             >
               Log Out
             </button>
@@ -1187,29 +1187,29 @@ export default function GuestPostMarketplace() {
         </div>
       )}
 
-      {/* DISTINCTIVE BESPOKE CATEGORY & FILTER CONTAINER */}
-      <div className="relative rounded-3xl bg-gradient-to-b from-[#0d1629]/95 via-[#09101f]/95 to-[#060a14]/95 border border-amber-500/20 p-4 sm:p-5 shadow-[0_0_50px_-12px_rgba(245,158,11,0.08)] backdrop-blur-2xl mb-6">
+      {/* DISTINCTIVE BESPOKE CATEGORY & FILTER CONTAINER (White & Yellow-Gold Theme) */}
+      <div className="relative rounded-3xl bg-white border border-amber-200/80 p-5 sm:p-6 shadow-md shadow-amber-900/5 mb-6">
         
-        {/* Subtle Ambient Glowing Line Top */}
-        <div className="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
+        {/* Subtle Warm Amber Line Top */}
+        <div className="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent pointer-events-none" />
 
         {/* Top Search & Primary Action Row */}
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5 pb-3.5 border-b border-gray-800/80">
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           {/* Main Keyword / Domain Search Input */}
           <div className="relative flex-1">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search from 40,000+ websites by domain, niche or keyword..."
-              className="w-full bg-[#070b14] border border-gray-700/80 rounded-xl pl-10 pr-4 py-2 text-base sm:text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/20 transition-all font-medium"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -1221,13 +1221,13 @@ export default function GuestPostMarketplace() {
             <button
               type="button"
               onClick={() => setIsBulkSearchOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-bold text-xs border border-amber-500/30 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-800 font-bold text-xs border border-slate-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
               title="Bulk check multiple domains (up to 60)"
             >
               <span>📋</span>
               <span>Bulk Search</span>
               {bulkSearchTerms.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-black text-[9px] font-black">
+                <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-xs font-black">
                   {bulkSearchTerms.length}
                 </span>
               )}
@@ -1236,23 +1236,23 @@ export default function GuestPostMarketplace() {
             <button
               type="button"
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-              className={`px-3.5 py-2 rounded-xl font-bold text-xs border transition-colors flex items-center gap-1.5 cursor-pointer ${
+              className={`px-4 py-2.5 rounded-xl font-bold text-xs border transition-all flex items-center gap-1.5 cursor-pointer ${
                 showAdvancedFilters
-                  ? "bg-blue-600/20 border-blue-500/50 text-blue-300"
-                  : "bg-gray-800 hover:bg-gray-700 border-gray-700 text-gray-300"
+                  ? "bg-amber-500/10 border-amber-500 text-amber-800"
+                  : "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700"
               }`}
             >
               <span>⚙</span>
               <span>{showAdvancedFilters ? "Hide Filters" : "Filter Options"}</span>
               {activeFiltersCount > 0 && (
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
               )}
             </button>
 
             <button
               type="button"
               onClick={handleResetFilters}
-              className="px-3.5 py-2 rounded-xl bg-gray-800/80 hover:bg-red-950/40 text-gray-400 hover:text-red-300 font-semibold text-xs border border-gray-800 transition-colors cursor-pointer"
+              className="px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-500 hover:text-rose-600 font-semibold text-xs border border-slate-200 transition-colors cursor-pointer"
             >
               Reset Filters
             </button>
@@ -1261,18 +1261,18 @@ export default function GuestPostMarketplace() {
 
         {/* BULK SEARCH ACTIVE CHIP INDICATOR */}
         {bulkSearchTerms.length > 0 && (
-          <div className="flex flex-wrap items-center justify-between gap-2 py-1.5 px-3 my-2.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-2 py-2 px-3.5 my-3 bg-amber-50 border border-amber-200 rounded-xl text-xs">
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="font-bold text-amber-400 flex items-center gap-1">
+              <span className="font-bold text-amber-800 flex items-center gap-1">
                 <span>📋</span> Bulk Search Active ({bulkSearchTerms.length} / {BULK_SEARCH_LIMIT} domains):
               </span>
               {bulkSearchTerms.slice(0, 4).map((t, i) => (
-                <span key={i} className="px-2 py-0.5 rounded-md bg-gray-800 text-[10px] text-gray-300 font-mono">
+                <span key={i} className="px-2 py-0.5 rounded-md bg-white border border-slate-200 text-xs text-slate-700 font-mono">
                   {t}
                 </span>
               ))}
               {bulkSearchTerms.length > 4 && (
-                <span className="text-[10px] text-gray-400 font-semibold">
+                <span className="text-xs text-slate-500 font-semibold">
                   +{bulkSearchTerms.length - 4} more
                 </span>
               )}
@@ -1283,7 +1283,7 @@ export default function GuestPostMarketplace() {
                 setBulkSearchTerms([]);
                 setBulkInput("");
               }}
-              className="text-red-400 hover:text-red-300 font-bold text-xs underline cursor-pointer"
+              className="text-rose-600 hover:text-rose-700 font-bold text-xs underline cursor-pointer"
             >
               Clear Bulk Search ✕
             </button>
@@ -1292,10 +1292,10 @@ export default function GuestPostMarketplace() {
 
         {/* EXPANDABLE MULTI-CRITERIA FILTERS GRID (Tightened Spacing & Clean Modern Card Layout) */}
         {showAdvancedFilters && (
-          <div className="pt-3.5 space-y-3">
+          <div className="pt-4 space-y-3.5 border-t border-slate-100 mt-3">
             
             {/* Row 1: Direct Typeable Searchable Comboboxes */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2.5 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-3 text-xs">
               
               {/* Category / Niche (Directly typeable in box) */}
               <SearchableSelect
@@ -1334,92 +1334,92 @@ export default function GuestPostMarketplace() {
               />
             </div>
 
-            {/* Row 2: Metric Ranges (Ahrefs DR, Moz DA, Price - TAT REMOVED per user instruction) */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs pt-0.5">
+            {/* Row 2: Metric Ranges (Ahrefs DR, Moz DA, Price) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
               {/* DR Min / Max */}
               <div>
-                <label className="block text-gray-400 text-[11px] font-semibold mb-1">
+                <label className="block text-slate-700 text-xs font-bold mb-1.5">
                   Ahrefs DR Range
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <input
                     type="number"
                     placeholder="Min"
                     value={minDr}
                     onChange={(e) => setMinDr(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
-                  <span className="text-gray-500">-</span>
+                  <span className="text-slate-400 font-bold">-</span>
                   <input
                     type="number"
                     placeholder="Max"
                     value={maxDr}
                     onChange={(e) => setMaxDr(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
                 </div>
               </div>
 
               {/* DA Min / Max */}
               <div>
-                <label className="block text-gray-400 text-[11px] font-semibold mb-1">
+                <label className="block text-slate-700 text-xs font-bold mb-1.5">
                   Moz DA Range
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <input
                     type="number"
                     placeholder="Min"
                     value={minDa}
                     onChange={(e) => setMinDa(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
-                  <span className="text-gray-500">-</span>
+                  <span className="text-slate-400 font-bold">-</span>
                   <input
                     type="number"
                     placeholder="Max"
                     value={maxDa}
                     onChange={(e) => setMaxDa(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
                 </div>
               </div>
 
               {/* Price Min / Max */}
               <div>
-                <label className="block text-gray-400 text-[11px] font-semibold mb-1">
+                <label className="block text-slate-700 text-xs font-bold mb-1.5">
                   Price ($ USD)
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <input
                     type="number"
                     placeholder="Min $"
                     value={minPrice}
                     onChange={(e) => setMinPrice(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
-                  <span className="text-gray-500">-</span>
+                  <span className="text-slate-400 font-bold">-</span>
                   <input
                     type="number"
                     placeholder="Max $"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(e.target.value)}
-                    className="w-1/2 bg-[#070b14] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                    className="w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-amber-500 transition-colors"
                   />
                 </div>
               </div>
             </div>
 
             {/* Quick Segment Filter Badges */}
-            <div className="pt-2.5 flex flex-wrap items-center gap-2 border-t border-gray-800/60">
-              <span className="text-[11px] text-gray-400 font-bold mr-1">Quick Filters:</span>
+            <div className="pt-3 flex flex-wrap items-center gap-2 border-t border-slate-100">
+              <span className="text-xs text-slate-500 font-bold mr-1">Quick Filters:</span>
               
               <button
                 type="button"
                 onClick={() => setQuickFilter("all")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   quickFilter === "all"
-                    ? "bg-amber-500 text-black shadow-xs font-bold"
-                    : "bg-gray-800/80 hover:bg-gray-700 text-gray-300"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs font-bold"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                 }`}
               >
                 All Publishers
@@ -1428,10 +1428,10 @@ export default function GuestPostMarketplace() {
               <button
                 type="button"
                 onClick={() => setQuickFilter("top_selling")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                   quickFilter === "top_selling"
-                    ? "bg-amber-500 text-black shadow-xs font-bold"
-                    : "bg-gray-800/80 hover:bg-gray-700 text-gray-300"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs font-bold"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                 }`}
               >
                 <span>🔥</span> Top Selling
@@ -1440,10 +1440,10 @@ export default function GuestPostMarketplace() {
               <button
                 type="button"
                 onClick={() => setQuickFilter("newly_added")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                   quickFilter === "newly_added"
-                    ? "bg-amber-500 text-black shadow-xs font-bold"
-                    : "bg-gray-800/80 hover:bg-gray-700 text-gray-300"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs font-bold"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                 }`}
               >
                 <span>✨</span> Newly Added
@@ -1452,10 +1452,10 @@ export default function GuestPostMarketplace() {
               <button
                 type="button"
                 onClick={() => setQuickFilter("high_dr")}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1 cursor-pointer ${
                   quickFilter === "high_dr"
-                    ? "bg-amber-500 text-black shadow-xs font-bold"
-                    : "bg-gray-800/80 hover:bg-gray-700 text-gray-300"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs font-bold"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
                 }`}
               >
                 <span>⭐</span> DR 80+ Authority
@@ -1467,105 +1467,105 @@ export default function GuestPostMarketplace() {
 
       </div>
 
-      {/* PUBLISHER INVENTORY TABLE (Clean layout without TAT column) */}
-      <div className="bg-[#0b1220] border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-        <div className="overflow-x-auto [scrollbar-width:thin] [scrollbar-color:#374151_transparent]">
+      {/* PUBLISHER INVENTORY TABLE (Fixes Issue 4: Generous row height & zebra striping; Fixes Issue 8: Text sizes >= 12px) */}
+      <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-lg shadow-amber-900/5">
+        <div className="overflow-x-auto [scrollbar-width:thin] [scrollbar-color:#d97706_transparent]">
           <table className="w-full text-left text-xs whitespace-nowrap">
-            <thead className="bg-[#070b14] border-b border-gray-800 text-gray-400 uppercase text-[10px] tracking-wider font-bold">
+            <thead className="bg-[#fdfbf7] border-b border-amber-200/70 text-slate-700 uppercase text-xs tracking-wider font-bold">
               <tr>
-                <th scope="col" className="py-3 px-4">Publication Domain</th>
-                <th scope="col" className="py-3 px-3">Niche Category</th>
-                <th scope="col" className="py-3 px-3">Ahrefs DR</th>
-                <th scope="col" className="py-3 px-3">Moz DA</th>
-                <th scope="col" className="py-3 px-3">Traffic</th>
-                <th scope="col" className="py-3 px-3">Target Geo</th>
-                <th scope="col" className="py-3 px-3">Link Type</th>
-                <th scope="col" className="py-3 px-3">Placement Price</th>
-                <th scope="col" className="py-3 px-4 text-right">Action</th>
+                <th scope="col" className="py-4 px-5">Publication Domain</th>
+                <th scope="col" className="py-4 px-4">Niche Category</th>
+                <th scope="col" className="py-4 px-4">Ahrefs DR</th>
+                <th scope="col" className="py-4 px-4">Moz DA</th>
+                <th scope="col" className="py-4 px-4">Traffic</th>
+                <th scope="col" className="py-4 px-4">Target Geo</th>
+                <th scope="col" className="py-4 px-4">Link Type</th>
+                <th scope="col" className="py-4 px-4">Placement Price</th>
+                <th scope="col" className="py-4 px-5 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-800/60">
+            <tbody className="divide-y divide-slate-100">
               {filteredSites.length > 0 ? (
                 (isBuyerLoggedIn ? filteredSites : filteredSites.slice(0, 6)).map((site) => (
                   <tr
                     key={site.id}
-                    className="hover:bg-gray-800/40 transition-colors group"
+                    className="hover:bg-amber-50/50 even:bg-slate-50/40 transition-colors group"
                   >
                     {/* Domain & Badge */}
-                    <td className="py-3.5 px-4 font-semibold text-white">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                        <span className="group-hover:text-amber-400 transition-colors">{site.domain}</span>
+                    <td className="py-4.5 px-5 font-bold text-slate-900 text-sm">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                        <span className="group-hover:text-amber-600 transition-colors">{site.domain}</span>
                         {site.isTopSelling && (
-                          <span className="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold px-1.5 py-0.5 rounded">
+                          <span className="text-xs bg-amber-500/15 text-amber-700 border border-amber-500/30 font-bold px-2 py-0.5 rounded-full">
                             Popular
                           </span>
                         )}
                         {site.isNewlyAdded && (
-                          <span className="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/30 font-bold px-1.5 py-0.5 rounded">
+                          <span className="text-xs bg-blue-500/15 text-blue-700 border border-blue-500/30 font-bold px-2 py-0.5 rounded-full">
                             New
                           </span>
                         )}
                       </div>
                     </td>
 
-                    {/* Category */}
-                    <td className="py-3.5 px-3">
-                      <span className="px-2 py-0.5 rounded-md bg-gray-800 text-[11px] font-medium text-gray-300">
+                    {/* Category (Fixes Issue 8: upgraded from 11px to text-xs) */}
+                    <td className="py-4.5 px-4">
+                      <span className="px-2.5 py-1 rounded-md bg-amber-50/80 border border-amber-200/70 text-xs font-semibold text-amber-900">
                         {site.niche}
                       </span>
                     </td>
 
                     {/* Ahrefs DR */}
-                    <td className="py-3.5 px-3">
-                      <span className="font-extrabold text-emerald-400 text-sm">
+                    <td className="py-4.5 px-4">
+                      <span className="font-black text-emerald-700 text-sm">
                         {site.dr}
                       </span>
                     </td>
 
                     {/* Moz DA */}
-                    <td className="py-3.5 px-3">
-                      <span className="font-bold text-gray-300">
+                    <td className="py-4.5 px-4">
+                      <span className="font-bold text-slate-700 text-sm">
                         {site.da}
                       </span>
                     </td>
 
-                    {/* Organic Traffic */}
-                    <td className="py-3.5 px-3">
-                      <div className="font-bold text-white text-xs">
+                    {/* Organic Traffic (Fixes Issue 8: subtitle upgraded from 9px to text-xs) */}
+                    <td className="py-4.5 px-4">
+                      <div className="font-bold text-slate-900 text-xs">
                         {site.ahrefsTraffic}
                       </div>
-                      <span className="text-[9px] text-gray-500">Ahrefs verified</span>
+                      <span className="text-xs text-slate-500 font-medium">Ahrefs verified</span>
                     </td>
 
                     {/* Country Geo */}
-                    <td className="py-3.5 px-3">
-                      <span className="inline-flex items-center gap-1 font-semibold">
+                    <td className="py-4.5 px-4">
+                      <span className="inline-flex items-center gap-1.5 font-semibold text-xs text-slate-800">
                         <span>{site.countryFlag}</span>
                         <span>{site.country}</span>
                       </span>
                     </td>
 
                     {/* Link Type */}
-                    <td className="py-3.5 px-3">
-                      <span className="text-emerald-400 font-bold text-[11px]">
+                    <td className="py-4.5 px-4">
+                      <span className="text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-bold text-xs">
                         ✓ {site.linkType}
                       </span>
                     </td>
 
                     {/* Price */}
-                    <td className="py-3.5 px-3">
-                      <span className="font-black text-amber-400 text-sm">
+                    <td className="py-4.5 px-4">
+                      <span className="font-black text-amber-600 text-base">
                         ${site.price}
                       </span>
                     </td>
 
                     {/* Action Button */}
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-4.5 px-5 text-right">
                       <button
                         type="button"
                         onClick={() => setSelectedSiteForOrder(site)}
-                        className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-xs shadow-md shadow-amber-500/10 cursor-pointer transition-all"
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold text-xs shadow-xs cursor-pointer transition-all hover:scale-105 active:scale-95"
                       >
                         Order Link →
                       </button>
@@ -1574,14 +1574,14 @@ export default function GuestPostMarketplace() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={9} className="py-10 text-center text-gray-500">
+                  <td colSpan={9} className="py-12 text-center text-slate-500">
                     <div className="text-3xl mb-2">🔍</div>
-                    <p className="font-semibold text-white">No websites matched your exact filter criteria</p>
-                    <p className="text-xs text-gray-400 mt-1">Try resetting filters or searching with different terms</p>
+                    <p className="font-bold text-slate-900 text-base">No websites matched your exact filter criteria</p>
+                    <p className="text-xs text-slate-500 mt-1">Try resetting filters or searching with different terms</p>
                     <button
                       type="button"
                       onClick={handleResetFilters}
-                      className="mt-3 px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-amber-400 text-xs font-bold rounded-xl cursor-pointer"
+                      className="mt-4 px-5 py-2 bg-slate-100 hover:bg-slate-200 text-amber-700 text-xs font-bold rounded-xl cursor-pointer border border-slate-200"
                     >
                       Reset All Filters
                     </button>
@@ -1594,24 +1594,24 @@ export default function GuestPostMarketplace() {
 
         {/* LOCKED CALLOUT BANNER (Shown when visitor is not logged in) */}
         {!isBuyerLoggedIn && (
-          <div className="relative py-10 px-6 text-center bg-gradient-to-b from-gray-900/90 via-[#0a1224] to-[#070b14] border-t border-amber-500/20">
-            <div className="w-13 h-13 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center text-2xl mx-auto mb-3 shadow-lg shadow-amber-500/10">
+          <div className="relative py-12 px-6 text-center bg-gradient-to-b from-[#fdfbf7] via-[#fffdfa] to-white border-t border-amber-200/80">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-600 flex items-center justify-center text-2xl mx-auto mb-4 shadow-sm">
               🔒
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight mb-2">
               Unlock All 40,000+ Authority Publications &amp; Excel Download
             </h3>
-            <p className="text-xs sm:text-sm text-gray-400 max-w-lg mx-auto mb-6 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mb-7 leading-relaxed">
               Create a free Buyer account with your Email and WhatsApp number to unlock complete publication names, direct wholesale rates, and instant Excel database export.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <button
                 type="button"
                 onClick={() => {
                   setAuthMode("signup");
                   setIsAuthModalOpen(true);
                 }}
-                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-black font-black px-7 py-3 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 cursor-pointer inline-flex items-center justify-center gap-2 transition-all hover:scale-102"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-extrabold px-8 py-3.5 rounded-full text-xs uppercase tracking-wider shadow-lg shadow-amber-900/15 cursor-pointer inline-flex items-center justify-center gap-2 transition-all hover:scale-102"
               >
                 <span>✨</span>
                 <span>Register Free to Unlock All &amp; Download</span>
@@ -1623,7 +1623,7 @@ export default function GuestPostMarketplace() {
                   setAuthMode("login");
                   setIsAuthModalOpen(true);
                 }}
-                className="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white font-bold px-5 py-3 rounded-xl text-xs border border-gray-700 cursor-pointer transition-all"
+                className="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-800 font-bold px-6 py-3.5 rounded-full text-xs border border-slate-200 hover:border-amber-400 cursor-pointer transition-all shadow-xs"
               >
                 Already registered? Log In
               </button>
@@ -1632,19 +1632,19 @@ export default function GuestPostMarketplace() {
         )}
 
         {/* Footer Bar of Table: Bulk Inquiries & Pagination note */}
-        <div className="p-4 bg-[#0b1220] border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+        <div className="p-4 sm:p-5 bg-[#fdfbf7] border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>
-              Showing <strong className="text-white font-mono">{isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}</strong> of{" "}
-              <strong className="text-emerald-400 font-mono">{filteredSites.length}</strong> verified publications
+              Showing <strong className="text-slate-950 font-mono">{isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}</strong> of{" "}
+              <strong className="text-amber-700 font-mono">{filteredSites.length}</strong> verified publications
             </span>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <span>Need a custom publisher not in this list?</span>
             <Link
               href="/contact-us"
-              className="text-amber-400 hover:text-amber-300 font-bold underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors"
+              className="text-amber-600 hover:text-amber-700 font-bold underline underline-offset-4 transition-colors"
             >
               Request Custom Manual Outreach ↗
             </Link>
@@ -1654,34 +1654,34 @@ export default function GuestPostMarketplace() {
 
       {/* BULK SEARCH MODAL (Limit 60 domains) */}
       {isBulkSearchOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-lg w-full p-5 space-y-3.5 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white border border-amber-200/80 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                 <span>📋</span> Bulk Domain Inventory Search
               </h3>
               <button
                 type="button"
                 onClick={() => setIsBulkSearchOpen(false)}
-                className="text-gray-400 hover:text-white cursor-pointer"
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center text-xs cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             <div className="space-y-1">
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Paste up to <strong className="text-amber-400 font-bold">{BULK_SEARCH_LIMIT} domains or keywords</strong> (one per line or comma-separated) to check availability in Balaji Prime Media&apos;s database.
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Paste up to <strong className="text-amber-700 font-bold">{BULK_SEARCH_LIMIT} domains or keywords</strong> (one per line or comma-separated) to check availability in Balaji Prime Media&apos;s database.
               </p>
-              <div className="flex items-center justify-between text-[11px] pt-0.5">
-                <span className="text-gray-400">Limit: Max {BULK_SEARCH_LIMIT} domains</span>
+              <div className="flex items-center justify-between text-xs pt-1">
+                <span className="text-slate-500">Limit: Max {BULK_SEARCH_LIMIT} domains</span>
                 <span
                   className={`font-mono font-bold ${
                     isOverBulkLimit
-                      ? "text-red-400"
+                      ? "text-rose-600"
                       : parsedBulkLines.length > 0
-                      ? "text-amber-400"
-                      : "text-gray-500"
+                      ? "text-amber-600"
+                      : "text-slate-400"
                   }`}
                 >
                   {parsedBulkLines.length} / {BULK_SEARCH_LIMIT} items {isOverBulkLimit ? "(Limit exceeded)" : ""}
@@ -1694,15 +1694,15 @@ export default function GuestPostMarketplace() {
               value={bulkInput}
               onChange={(e) => setBulkInput(e.target.value)}
               placeholder={`techbeacon-daily.com\nventurepulse-media.io\nhighroller-casino-insider.com\nAI & Machine Learning\nDoFollow`}
-              className={`w-full bg-[#070b14] border ${
+              className={`w-full bg-slate-50 border ${
                 isOverBulkLimit
-                  ? "border-red-500/80 focus:border-red-500"
-                  : "border-gray-700 focus:border-amber-500"
-              } rounded-xl p-3 text-xs text-white placeholder-gray-600 focus:outline-none font-mono transition-colors leading-relaxed`}
+                  ? "border-rose-400 focus:border-rose-500"
+                  : "border-slate-200 focus:border-amber-500"
+              } rounded-2xl p-3.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white font-mono transition-colors leading-relaxed`}
             />
 
             {isOverBulkLimit && (
-              <div className="p-2.5 rounded-lg bg-red-500/10 border border-red-500/30 text-[11px] text-red-300 flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
                 <span>⚠️</span>
                 <span>
                   Maximum limit is {BULK_SEARCH_LIMIT} domains. Only the first {BULK_SEARCH_LIMIT} domains will be searched.
@@ -1715,7 +1715,7 @@ export default function GuestPostMarketplace() {
                 <button
                   type="button"
                   onClick={() => setBulkInput("")}
-                  className="text-[11px] text-gray-400 hover:text-white underline cursor-pointer"
+                  className="text-xs text-slate-500 hover:text-slate-800 underline cursor-pointer"
                 >
                   Clear Text
                 </button>
@@ -1724,7 +1724,7 @@ export default function GuestPostMarketplace() {
                 <button
                   type="button"
                   onClick={() => setIsBulkSearchOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 hover:text-white text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-semibold cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -1732,10 +1732,10 @@ export default function GuestPostMarketplace() {
                   type="button"
                   onClick={handleApplyBulkSearch}
                   disabled={parsedBulkLines.length === 0}
-                  className={`px-5 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
+                  className={`px-5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     parsedBulkLines.length === 0
-                      ? "bg-gray-800 text-gray-600 cursor-not-allowed"
-                      : "bg-amber-500 hover:bg-amber-400 text-black shadow-md shadow-amber-500/20"
+                      ? "bg-slate-100 text-slate-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white shadow-md shadow-amber-900/15"
                   }`}
                 >
                   Check Availability ({Math.min(parsedBulkLines.length, BULK_SEARCH_LIMIT)})
@@ -1748,60 +1748,60 @@ export default function GuestPostMarketplace() {
 
       {/* ORDER / PLACEMENT INQUIRY MODAL */}
       {selectedSiteForOrder && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-2xl max-w-md w-full p-5 space-y-3.5 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white border border-amber-200/80 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Placement Booking</span>
-                <h3 className="text-base font-black text-white">{selectedSiteForOrder.domain}</h3>
+                <span className="text-xs text-amber-700 font-bold uppercase tracking-wider">Placement Booking</span>
+                <h3 className="text-lg font-black text-slate-950">{selectedSiteForOrder.domain}</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedSiteForOrder(null)}
-                className="text-gray-400 hover:text-white cursor-pointer"
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center text-xs cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 bg-[#070b14] rounded-xl border border-gray-800/80 space-y-2 text-xs">
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5 text-xs">
               <div className="flex justify-between">
-                <span className="text-gray-400">Ahrefs DR:</span>
-                <span className="font-bold text-emerald-400">{selectedSiteForOrder.dr}+</span>
+                <span className="text-slate-600">Ahrefs DR:</span>
+                <span className="font-bold text-emerald-700">{selectedSiteForOrder.dr}+</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Monthly Traffic:</span>
-                <span className="font-bold text-white">{selectedSiteForOrder.ahrefsTraffic}</span>
+                <span className="text-slate-600">Monthly Traffic:</span>
+                <span className="font-bold text-slate-950">{selectedSiteForOrder.ahrefsTraffic}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Link Attribute:</span>
-                <span className="font-bold text-emerald-400">✓ {selectedSiteForOrder.linkType}</span>
+                <span className="text-slate-600">Link Attribute:</span>
+                <span className="font-bold text-emerald-700">✓ {selectedSiteForOrder.linkType}</span>
               </div>
-              <div className="flex justify-between border-t border-gray-800 pt-2">
-                <span className="text-gray-300 font-bold">Editorial Placement Fee:</span>
-                <span className="font-black text-amber-400 text-base">${selectedSiteForOrder.price}</span>
+              <div className="flex justify-between border-t border-slate-200 pt-2.5">
+                <span className="text-slate-900 font-bold">Editorial Placement Fee:</span>
+                <span className="font-black text-amber-600 text-lg">${selectedSiteForOrder.price}</span>
               </div>
             </div>
 
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Includes native 1,000+ word content drafting, do-follow in-content link injection, and permanent placement guarantee.
             </p>
 
-            <div className="space-y-2 pt-1">
+            <div className="space-y-2.5 pt-1">
               <a
                 href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media! I want to order a guest post on ${selectedSiteForOrder.domain} (DR ${selectedSiteForOrder.dr}, Price: $${selectedSiteForOrder.price}). Please send payment details.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full block text-center py-2.5 rounded-xl bg-[#25d366] hover:bg-[#22bf5b] text-black font-extrabold text-xs shadow-md transition-all cursor-pointer"
+                className="w-full block text-center py-3 rounded-full bg-[#25d366] hover:bg-[#22bf5b] text-white font-bold text-xs shadow-md transition-all cursor-pointer"
               >
                 Instant Order via WhatsApp 💬
               </a>
 
               <Link
                 href={`/pay?plan=starter&domain=${encodeURIComponent(selectedSiteForOrder.domain)}&amount=${selectedSiteForOrder.price}`}
-                className="w-full block text-center py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs shadow-md transition-all cursor-pointer"
+                className="w-full block text-center py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
               >
                 Pay &amp; Authorize Placement (${selectedSiteForOrder.price}) →
               </Link>
@@ -1812,22 +1812,22 @@ export default function GuestPostMarketplace() {
 
       {/* BUYER AUTHENTICATION MODAL (Email + Mobile + Password Creation) */}
       {isAuthModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-[#0b1220] border border-gray-800 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white border border-amber-200/80 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-hidden">
             {/* Ambient Background Glow */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
 
             {/* Modal Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 text-black flex items-center justify-center text-lg font-black shadow-md">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 text-white flex items-center justify-center text-lg font-black shadow-xs">
                   📥
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-white tracking-tight">
+                  <h3 className="text-base font-black text-slate-950 tracking-tight">
                     {authMode === "signup" ? "Create Free Buyer Account" : "Buyer Login"}
                   </h3>
-                  <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">
+                  <span className="text-xs text-amber-600 font-bold uppercase tracking-wider block">
                     Unlock 40,000+ Database
                   </span>
                 </div>
@@ -1835,14 +1835,14 @@ export default function GuestPostMarketplace() {
               <button
                 type="button"
                 onClick={() => setIsAuthModalOpen(false)}
-                className="w-7 h-7 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 flex items-center justify-center text-xs cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {/* Toggle Tabs: Register vs Login */}
-            <div className="grid grid-cols-2 p-1 bg-[#070b14] rounded-xl border border-gray-800 mb-4 text-xs font-bold">
+            <div className="grid grid-cols-2 p-1 bg-slate-100 rounded-xl border border-slate-200 mb-4 text-xs font-bold">
               <button
                 type="button"
                 onClick={() => {
@@ -1851,8 +1851,8 @@ export default function GuestPostMarketplace() {
                 }}
                 className={`py-2 rounded-lg transition-all cursor-pointer ${
                   authMode === "signup"
-                    ? "bg-amber-500 text-black shadow-xs"
-                    : "text-gray-400 hover:text-white"
+                    ? "bg-white text-slate-950 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Create Account (New)
@@ -1865,22 +1865,22 @@ export default function GuestPostMarketplace() {
                 }}
                 className={`py-2 rounded-lg transition-all cursor-pointer ${
                   authMode === "login"
-                    ? "bg-amber-500 text-black shadow-xs"
-                    : "text-gray-400 hover:text-white"
+                    ? "bg-white text-slate-950 shadow-xs font-bold"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Sign In (Existing)
               </button>
             </div>
 
-            <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+            <p className="text-xs text-slate-600 mb-4 leading-relaxed">
               {authMode === "signup"
                 ? "Register your email and mobile number to immediately unlock all 40,000+ publisher sites and download the complete Excel database."
                 : "Sign in with your email and password to access the full publisher directory and your buyer workspace."}
             </p>
 
             {authError && (
-              <div className="p-2.5 mb-3 rounded-xl bg-rose-950/80 border border-rose-800 text-rose-300 text-xs font-semibold">
+              <div className="p-3 mb-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
                 ⚠️ {authError}
               </div>
             )}
@@ -1888,7 +1888,7 @@ export default function GuestPostMarketplace() {
             {/* Auth Form */}
             <form onSubmit={handleAuthSubmit} className="space-y-3.5 text-xs text-left">
               <div>
-                <label className="block text-gray-300 font-bold mb-1">
+                <label className="block text-slate-700 font-bold mb-1">
                   Email Address *
                 </label>
                 <input
@@ -1897,13 +1897,13 @@ export default function GuestPostMarketplace() {
                   placeholder="name@company.com"
                   value={authEmail}
                   onChange={(e) => setAuthEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-amber-500"
                 />
               </div>
 
               {authMode === "signup" && (
                 <div>
-                  <label className="block text-gray-300 font-bold mb-1">
+                  <label className="block text-slate-700 font-bold mb-1">
                     Mobile / WhatsApp Number *
                   </label>
                   <input
@@ -1912,16 +1912,16 @@ export default function GuestPostMarketplace() {
                     placeholder="+1 555-0192 or +91 9876543210"
                     value={authPhone}
                     onChange={(e) => setAuthPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-amber-500"
                   />
-                  <span className="text-[10px] text-gray-500 mt-0.5 block">
+                  <span className="text-xs text-slate-500 mt-1 block">
                     Used to send you order updates and wholesale pricing alerts.
                   </span>
                 </div>
               )}
 
               <div>
-                <label className="block text-gray-300 font-bold mb-1">
+                <label className="block text-slate-700 font-bold mb-1">
                   {authMode === "signup" ? "Create Password *" : "Password *"}
                 </label>
                 <input
@@ -1930,20 +1930,20 @@ export default function GuestPostMarketplace() {
                   placeholder="••••••••••••"
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#070b14] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-amber-400"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-amber-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmittingAuth}
-                className="w-full py-3 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-black font-black text-xs uppercase tracking-wider rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer pt-2 mt-2 flex items-center justify-center gap-1.5"
+                className="w-full py-3 bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-extrabold text-xs uppercase tracking-wider rounded-full transition-all shadow-md shadow-amber-900/15 cursor-pointer pt-2 mt-2 flex items-center justify-center gap-1.5"
               >
                 <span>{isSubmittingAuth ? "Unlocking Database..." : "Unlock & Download Excel Database →"}</span>
               </button>
             </form>
 
-            <div className="mt-4 pt-3 border-t border-gray-800/80 text-[11px] text-gray-500 text-center">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 text-center">
               <span>🔒 100% Privacy Guaranteed. Zero spam. Direct wholesale link pricing.</span>
             </div>
           </div>
