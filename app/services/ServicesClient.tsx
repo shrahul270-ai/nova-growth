@@ -98,408 +98,345 @@ export const masterServicesList: AgencyService[] = [
       "Custom login & registration with multi-role permissions (Admin/Staff/User)",
       "Student / client management database architecture",
       "Complete business operational software & workflow dashboards",
-      "Automated PDF report generation, CSV data export & email alerts",
-      "RESTful API endpoints & third-party webhook integrations",
+      "Automated transactional emails, alerts & PDF report generator",
+      "Robust PostgreSQL / MySQL database with automated cloud backups",
     ],
-    gradient: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #4c1d95 100%)",
-    accentColor: "#7c3aed",
-    icon3D: "⚙️",
-    badge: "Enterprise SaaS",
+    gradient: "linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #3730a3 100%)",
+    accentColor: "#6366f1",
+    icon3D: "⚡",
+    badge: "Full Software",
     countryPricing: {
       IN: { price: "₹35,000 – ₹95,000", suffix: "One-time" },
       US: { price: "$1,200 – $4,500", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "One-time" },
-      GB: { price: "£950 – £3,500", inrEquivalent: "Approx. ₹1 Lakh – ₹3.5 Lakh", suffix: "One-time" },
-      CA: { price: "C$1,600 – C$5,800", inrEquivalent: "Approx. ₹1 Lakh – ₹3.6 Lakh", suffix: "One-time" },
-      AU: { price: "A$1,800 – A$6,500", inrEquivalent: "Approx. ₹1.1 Lakh – ₹4 Lakh", suffix: "One-time" },
+      GB: { price: "£950 – £3,500", inrEquivalent: "Approx. ₹90,000 – ₹3.5 Lakh", suffix: "One-time" },
+      CA: { price: "C$1,600 – C$6,000", inrEquivalent: "Approx. ₹1 Lakh – ₹3.7 Lakh", suffix: "One-time" },
+      AU: { price: "A$1,800 – A$6,800", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "One-time" },
       AE: { price: "4,400 – 16,500 AED", inrEquivalent: "Approx. ₹1 Lakh – ₹3.7 Lakh", suffix: "One-time" },
     },
   },
   {
-    id: "hourly-developer-support",
-    name: "Dedicated Developer (Hourly Retainer)",
-    tagline: "Hire dedicated senior full-stack PHP & Next.js engineers by the hour for agile sprints, custom features & bug fixes.",
+    id: "website-maintenance-support",
+    name: "Website Maintenance & Support Retainer",
+    tagline: "Ongoing bug fixes, security patch updates, plugin management & performance monitoring.",
     category: "Support",
-    priceINR: "₹500 – ₹2,000",
-    priceUSD: "$25 – $100",
-    pricingSuffixINR: "/hour",
-    pricingSuffixUSD: "/hour",
-    numericINR: 1200,
-    numericUSD: 50,
-    tat: "Immediate Deployment",
-    deliverablesSummary: "Dedicated hours, daily git commits, agile sprints, Slack sync",
+    priceINR: "₹3,000 – ₹10,000",
+    priceUSD: "$250 – $800",
+    pricingSuffixINR: "per month",
+    pricingSuffixUSD: "per month",
+    numericINR: 5000,
+    numericUSD: 350,
+    tat: "Monthly Retainer (24/7 SLA)",
+    deliverablesSummary: "Weekly backups, 24hr fix SLA, core updates, uptime monitor",
     deliverables: [
-      "Dedicated developer assigned directly to your project",
-      "Flexible hourly blocks for feature development, bug fixes & QA",
-      "Direct communication via Slack, WhatsApp or video standup",
-      "Transparent hourly time-tracking & verified git branch commits",
-      "Zero long-term lock-in: pay only for the hours you need",
+      "Weekly automated cloud backups & one-click disaster recovery",
+      "Core CMS, plugin & security patch management",
+      "24-hour turnaround for emergency bug fixes & page edits",
+      "24/7 uptime monitoring & instant downtime notification",
+      "Monthly website health, speed & security audit report",
     ],
-    gradient: "linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%)",
-    accentColor: "#059669",
-    icon3D: "⏱️",
-    badge: "On-Demand Hourly",
+    gradient: "linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%)",
+    accentColor: "#10b981",
+    icon3D: "🛡️",
+    badge: "Peace of Mind",
     countryPricing: {
-      IN: { price: "₹500 – ₹2,000", suffix: "/hour" },
-      US: { price: "$25 – $100", inrEquivalent: "Approx. ₹2,000 – ₹8,500 / hr", suffix: "/hour" },
-      GB: { price: "£20 – £70", inrEquivalent: "Approx. ₹2,000 – ₹7,500 / hr", suffix: "/hour" },
-      CA: { price: "C$30 – C$105", inrEquivalent: "Approx. ₹1,800 – ₹6,500 / hr", suffix: "/hour" },
-      AU: { price: "A$35 – A$145", inrEquivalent: "Approx. ₹2,000 – ₹8,000 / hr", suffix: "/hour" },
-      AE: { price: "65 – 220 AED", inrEquivalent: "Approx. ₹1,500 – ₹5,000 / hr", suffix: "/hour" },
+      IN: { price: "₹3,000 – ₹10,000", suffix: "per month" },
+      US: { price: "$250 – $800", inrEquivalent: "Approx. ₹20,000 – ₹65,000", suffix: "per month" },
+      GB: { price: "£200 – £650", inrEquivalent: "Approx. ₹18,000 – ₹60,000", suffix: "per month" },
+      CA: { price: "C$340 – C$1,100", inrEquivalent: "Approx. ₹20,000 – ₹65,000", suffix: "per month" },
+      AU: { price: "A$380 – A$1,200", inrEquivalent: "Approx. ₹20,000 – ₹65,000", suffix: "per month" },
+      AE: { price: "900 – 2,900 AED", inrEquivalent: "Approx. ₹20,000 – ₹65,000", suffix: "per month" },
+    },
+  },
+  {
+    id: "seo-optimization-ranking",
+    name: "SEO Optimization & Search Rankings",
+    tagline: "On-page, technical & keyword ranking SEO to systematically dominate Google's top positions.",
+    category: "Optimization",
+    priceINR: "₹8,000 – ₹25,000",
+    priceUSD: "$850 – $2,500",
+    pricingSuffixINR: "per month",
+    pricingSuffixUSD: "per month",
+    numericINR: 15000,
+    numericUSD: 1200,
+    tat: "Ongoing Campaign",
+    deliverablesSummary: "Technical audit, keyword roadmap, on-page optimization, rank tracking",
+    deliverables: [
+      "Deep technical SEO audit & Core Web Vitals remediation",
+      "High-intent keyword research & content mapping",
+      "On-page meta tags, headings & internal linking architecture",
+      "Schema markup structured data injection for rich snippets",
+      "Monthly Google Search Console & keyword rank progress report",
+    ],
+    gradient: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%)",
+    accentColor: "#8b5cf6",
+    icon3D: "📈",
+    badge: "Top Ranked",
+    popular: true,
+    countryPricing: {
+      IN: { price: "₹8,000 – ₹25,000", suffix: "per month" },
+      US: { price: "$850 – $2,500", inrEquivalent: "Approx. ₹70,000 – ₹2 Lakh", suffix: "per month" },
+      GB: { price: "£680 – £2,000", inrEquivalent: "Approx. ₹65,000 – ₹1.9 Lakh", suffix: "per month" },
+      CA: { price: "C$1,150 – C$3,400", inrEquivalent: "Approx. ₹70,000 – ₹2 Lakh", suffix: "per month" },
+      AU: { price: "A$1,300 – A$3,800", inrEquivalent: "Approx. ₹70,000 – ₹2 Lakh", suffix: "per month" },
+      AE: { price: "3,100 – 9,200 AED", inrEquivalent: "Approx. ₹70,000 – ₹2 Lakh", suffix: "per month" },
+    },
+  },
+  {
+    id: "guest-posting-link-building",
+    name: "Guest Posting & Backlink Building",
+    tagline: "High-DA permanent backlinks on vetted 40,000+ publications to pass maximum topical authority.",
+    category: "Marketing & Content",
+    priceINR: "₹3,500 – ₹25,000",
+    priceUSD: "$120 – $1,200",
+    pricingSuffixINR: "per post",
+    pricingSuffixUSD: "per post",
+    numericINR: 6500,
+    numericUSD: 350,
+    tat: "7–14 Business Days",
+    deliverablesSummary: "DR 50–90+ verified media, 1,000+ word native articles, 100% do-follow",
+    deliverables: [
+      "Placements on genuine Ahrefs DR 50–90+ websites with organic traffic",
+      "100% contextual Do-Follow in-content backlinks with lifetime warranty",
+      "1,000+ words handwritten native editorial content included",
+      "Strict zero-PBN, zero-spam farm editorial vetting",
+      "Live URL confirmation & Google indexation warranty",
+    ],
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%)",
+    accentColor: "#f59e0b",
+    icon3D: "🔗",
+    badge: "Authority Links",
+    popular: true,
+    countryPricing: {
+      IN: { price: "₹3,500 – ₹25,000", suffix: "per post" },
+      US: { price: "$120 – $1,200", inrEquivalent: "Approx. ₹10,000 – ₹1,00,000", suffix: "per post" },
+      GB: { price: "£95 – £950", inrEquivalent: "Approx. ₹9,000 – ₹90,000", suffix: "per post" },
+      CA: { price: "C$160 – C$1,600", inrEquivalent: "Approx. ₹10,000 – ₹95,000", suffix: "per post" },
+      AU: { price: "A$185 – A$1,850", inrEquivalent: "Approx. ₹10,000 – ₹1,00,000", suffix: "per post" },
+      AE: { price: "440 – 4,400 AED", inrEquivalent: "Approx. ₹10,000 – ₹1,00,000", suffix: "per post" },
+    },
+  },
+  {
+    id: "content-writing-seo-copy",
+    name: "Content Writing & SEO Copywriting",
+    tagline: "Search-intent aligned blogs, landing page copywriting & thought leadership articles that convert.",
+    category: "Marketing & Content",
+    priceINR: "₹1,500 – ₹6,000",
+    priceUSD: "$80 – $350",
+    pricingSuffixINR: "per article",
+    pricingSuffixUSD: "per article",
+    numericINR: 3000,
+    numericUSD: 150,
+    tat: "3–5 Business Days",
+    deliverablesSummary: "1,500+ words, original research, SurferSEO score 80+, royalty images",
+    deliverables: [
+      "In-depth research aligned with real searcher intent",
+      "SurferSEO / Clearscope content optimization (score 80+)",
+      "Zero AI-fluff, 100% human-edited native English drafting",
+      "Captivating H1/H2 structure, bullet summaries & clear CTAs",
+      "Royalty-free graphic assets & ready-to-publish formatting",
+    ],
+    gradient: "linear-gradient(135deg, #ec4899 0%, #db2777 50%, #be185d 100%)",
+    accentColor: "#ec4899",
+    icon3D: "✍️",
+    badge: "Human Native",
+    countryPricing: {
+      IN: { price: "₹1,500 – ₹6,000", suffix: "per article" },
+      US: { price: "$80 – $350", inrEquivalent: "Approx. ₹6,500 – ₹30,000", suffix: "per article" },
+      GB: { price: "£65 – £280", inrEquivalent: "Approx. ₹6,000 – ₹27,000", suffix: "per article" },
+      CA: { price: "C$110 – C$480", inrEquivalent: "Approx. ₹6,500 – ₹29,000", suffix: "per article" },
+      AU: { price: "A$125 – A$540", inrEquivalent: "Approx. ₹6,500 – ₹30,000", suffix: "per article" },
+      AE: { price: "295 – 1,280 AED", inrEquivalent: "Approx. ₹6,500 – ₹29,000", suffix: "per article" },
     },
   },
   {
     id: "flutter-app-dev",
-    name: "Flutter App Project Development",
-    tagline: "Turn your idea into a 60fps powerful app — Build once, run everywhere on Android, iOS & Web with Google Flutter.",
+    name: "Flutter Mobile App Development (iOS & Android)",
+    tagline: "Cross-platform iOS and Android apps powered by a single Flutter codebase with native 60fps speed.",
     category: "Development",
-    priceINR: "₹8,000 – ₹25,000+",
-    priceUSD: "$120 – $350+",
+    priceINR: "₹45,000 – ₹1,80,000",
+    priceUSD: "$2,200 – $7,500",
     pricingSuffixINR: "One-time",
     pricingSuffixUSD: "One-time",
-    numericINR: 15000,
-    numericUSD: 200,
-    tat: "2–4 Weeks",
-    deliverablesSummary: "iOS + Android, Material 3/Cupertino, Firebase, Store deployment",
+    numericINR: 85000,
+    numericUSD: 3500,
+    tat: "4–8 Weeks",
+    deliverablesSummary: "Dual OS builds, Play Store & App Store deploy, push notifications",
     deliverables: [
-      "1 Single unified codebase for Android, iOS & Web",
-      "Native compiled 60fps–120fps hardware-accelerated UI",
-      "Firebase backend, cloud database & real-time push alerts",
-      "Custom RESTful APIs, payment gateways & biometric auth",
-      "Complete deployment & publishing to Play Store & App Store",
+      "Single codebase for simultaneous iOS & Android deployment",
+      "Smooth 60fps animations with responsive state management (Bloc / Riverpod)",
+      "RESTful API & GraphQL backend integrations with offline caching",
+      "Push notifications, biometric login & in-app purchases",
+      "App Store & Google Play Store submission & approval assistance",
     ],
-    gradient: "linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%)",
-    accentColor: "#2563eb",
+    gradient: "linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%)",
+    accentColor: "#06b6d4",
     icon3D: "📱",
-    badge: "Android + iOS",
-    popular: true,
+    badge: "Dual OS Ready",
     countryPricing: {
-      IN: { price: "₹8,000 – ₹25,000+", suffix: "One-time" },
-      US: { price: "$120 – $350+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
-      GB: { price: "£95 – £280+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
-      CA: { price: "C$160 – C$480+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
-      AU: { price: "A$185 – A$540+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
-      AE: { price: "440 – 1,280 AED+", inrEquivalent: "Approx. ₹10,000 – ₹30,000", suffix: "One-time" },
+      IN: { price: "₹45,000 – ₹1,80,000", suffix: "One-time" },
+      US: { price: "$2,200 – $7,500", inrEquivalent: "Approx. ₹1.8 Lakh – ₹6.2 Lakh", suffix: "One-time" },
+      GB: { price: "£1,750 – £5,900", inrEquivalent: "Approx. ₹1.7 Lakh – ₹5.8 Lakh", suffix: "One-time" },
+      CA: { price: "C$3,000 – C$10,200", inrEquivalent: "Approx. ₹1.8 Lakh – ₹6 Lakh", suffix: "One-time" },
+      AU: { price: "A$3,400 – A$11,500", inrEquivalent: "Approx. ₹1.8 Lakh – ₹6.2 Lakh", suffix: "One-time" },
+      AE: { price: "8,000 – 27,500 AED", inrEquivalent: "Approx. ₹1.8 Lakh – ₹6.2 Lakh", suffix: "One-time" },
     },
   },
   {
     id: "full-stack-php-dev",
-    name: "Full-Stack PHP Web Development",
-    tagline: "Custom Laravel and robust PHP architectures with scalable relational databases and secure admin panels.",
+    name: "Full-Stack PHP & Laravel Development",
+    tagline: "Bespoke web applications, custom ERP modules, secure REST APIs & complex relational backends.",
     category: "Development",
-    priceINR: "₹49,999",
-    priceUSD: "$699",
+    priceINR: "₹30,000 – ₹1,10,000",
+    priceUSD: "$1,400 – $5,000",
     pricingSuffixINR: "One-time",
     pricingSuffixUSD: "One-time",
-    numericINR: 49999,
-    numericUSD: 699,
-    tat: "3–5 Weeks",
-    deliverablesSummary: "Laravel/PHP, MySQL, secure admin dashboard, REST APIs",
+    numericINR: 55000,
+    numericUSD: 2400,
+    tat: "3–6 Weeks",
+    deliverablesSummary: "Laravel 11 architecture, MVC framework, Stripe gateway, SQL tuning",
     deliverables: [
-      "Custom PHP / Laravel MVC scalable architecture",
-      "Normalized MySQL database schema & indexing",
-      "Secure custom role-based admin dashboard",
-      "High-speed modern responsive frontend interface",
-      "Comprehensive RESTful API construction & webhooks",
+      "Modern PHP 8.3 & Laravel 11 MVC clean architecture",
+      "Secure REST APIs & third-party webhook integrations",
+      "Payment gateway integration (Stripe, Razorpay, PayPal, Bank API)",
+      "Database schema normalization & high-concurrency query optimization",
+      "Comprehensive test coverage, security sanitization & CSRF protection",
     ],
-    gradient: "linear-gradient(135deg, #3730a3 0%, #4f46e5 50%, #9333ea 100%)",
-    accentColor: "#4f46e5",
-    icon3D: "⚡",
-    badge: "Enterprise Backend",
-    countryPricing: {
-      IN: { price: "₹49,999", suffix: "One-time" },
-      US: { price: "$699", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
-      GB: { price: "£550", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
-      CA: { price: "C$960", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
-      AU: { price: "A$1,080", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
-      AE: { price: "2,560 AED", inrEquivalent: "Approx. ₹58,000", suffix: "One-time" },
-    },
-  },
-  {
-    id: "wordpress-website-dev",
-    name: "WordPress Website Development",
-    tagline: "High-converting, bespoke WordPress digital experiences optimized for sub-second speeds and organic lead capture.",
-    category: "Development",
-    priceINR: "₹24,999",
-    priceUSD: "$349",
-    pricingSuffixINR: "One-time",
-    pricingSuffixUSD: "One-time",
-    numericINR: 24999,
-    numericUSD: 349,
-    tat: "7–10 Business Days",
-    deliverablesSummary: "Elementor/Gutenberg custom design, speed tuning, forms",
-    deliverables: [
-      "Bespoke layout with Elementor Pro or native Gutenberg",
-      "100% mobile responsiveness & cross-browser QA",
-      "Core Web Vitals speed tuning (<1.8s page loads)",
-      "Dynamic lead generation forms & CRM sync",
-      "Complete on-page SEO foundation & schema integration",
-    ],
-    gradient: "linear-gradient(135deg, #1e1b4b 0%, #4338ca 50%, #7e22ce 100%)",
-    accentColor: "#4338ca",
-    icon3D: "🌐",
-    badge: "High Speed CRO",
-    countryPricing: {
-      IN: { price: "₹24,999", suffix: "One-time" },
-      US: { price: "$349", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
-      GB: { price: "£275", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
-      CA: { price: "C$480", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
-      AU: { price: "A$540", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
-      AE: { price: "1,280 AED", inrEquivalent: "Approx. ₹29,000", suffix: "One-time" },
-    },
-  },
-  {
-    id: "wp-maintenance-security",
-    name: "WordPress Maintenance & Security Support",
-    tagline: "Proactive 24/7 hardening, automated cloud backups, uptime monitoring, and zero-downtime maintenance.",
-    category: "Support",
-    priceINR: "₹9,999",
-    priceUSD: "$149",
-    pricingSuffixINR: "/month",
-    pricingSuffixUSD: "/month",
-    numericINR: 9999,
-    numericUSD: 149,
-    tat: "Ongoing Monthly Retainer",
-    deliverablesSummary: "Weekly updates, cloud backups, malware audits, uptime",
-    deliverables: [
-      "Scheduled weekly core, theme, and plugin updates",
-      "Automated off-site cloud backups with instant rollback",
-      "Continuous malware scanning & WAF firewall hardening",
-      "24/7 real-time uptime monitoring & incident alerts",
-      "Monthly dedicated developer hours for custom site updates",
-    ],
-    gradient: "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #475569 100%)",
-    accentColor: "#64748b",
-    icon3D: "🛡️",
-    badge: "24/7 Shield",
-  },
-  {
-    id: "seo-optimization",
-    name: "Search Engine Optimization (SEO)",
-    tagline: "Comprehensive technical audits, semantic keyword mapping, and full-funnel search dominance on Google.",
-    category: "Optimization",
-    priceINR: "₹29,999",
-    priceUSD: "$449",
-    pricingSuffixINR: "/month",
-    pricingSuffixUSD: "/month",
-    numericINR: 29999,
-    numericUSD: 449,
-    tat: "Ongoing Monthly Retainer",
-    deliverablesSummary: "Technical SEO, on-page optimization, rank tracking",
-    deliverables: [
-      "In-depth technical SEO crawl & Core Web Vitals audit",
-      "High-intent commercial keyword clustering & siloing",
-      "Competitor gap analysis & ranking roadmap",
-      "Semantic on-page metadata & internal link hierarchy",
-      "Detailed monthly performance & ranking tracking reports",
-    ],
-    gradient: "linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #7c3aed 100%)",
+    gradient: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%)",
     accentColor: "#7c3aed",
-    icon3D: "📈",
-    badge: "Growth Engine",
-    popular: true,
+    icon3D: "🐘",
+    badge: "Enterprise Code",
+    countryPricing: {
+      IN: { price: "₹30,000 – ₹1,10,000", suffix: "One-time" },
+      US: { price: "$1,400 – $5,000", inrEquivalent: "Approx. ₹1.2 Lakh – ₹4.2 Lakh", suffix: "One-time" },
+      GB: { price: "£1,100 – £3,950", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "One-time" },
+      CA: { price: "C$1,900 – C$6,900", inrEquivalent: "Approx. ₹1.2 Lakh – ₹4 Lakh", suffix: "One-time" },
+      AU: { price: "A$2,150 – A$7,700", inrEquivalent: "Approx. ₹1.2 Lakh – ₹4.2 Lakh", suffix: "One-time" },
+      AE: { price: "5,100 – 18,300 AED", inrEquivalent: "Approx. ₹1.2 Lakh – ₹4.2 Lakh", suffix: "One-time" },
+    },
   },
   {
-    id: "generative-engine-opt",
-    name: "Generative Engine Optimization (GEO)",
-    tagline: "Position your brand as the primary cited authority inside ChatGPT Search, Perplexity AI, Google Gemini & AI Overviews.",
-    category: "Optimization",
-    priceINR: "₹34,999",
-    priceUSD: "$499",
-    pricingSuffixINR: "One-time",
-    pricingSuffixUSD: "One-time",
-    numericINR: 34999,
-    numericUSD: 499,
-    tat: "2–3 Weeks",
-    deliverablesSummary: "Structured for ChatGPT, Perplexity, Gemini, AI Overviews",
-    deliverables: [
-      "Content restructuring & semantic entity modeling for LLMs",
-      "Knowledge graph establishment & Wikipedia entity citations",
-      "Optimization for ChatGPT Search, Perplexity & Google Gemini",
-      "LLM citation authority optimization & authoritative data hooks",
-      "AI engine query visibility & brand citation report",
-    ],
-    gradient: "linear-gradient(135deg, #581c87 0%, #7c3aed 50%, #c084fc 100%)",
-    accentColor: "#a855f7",
-    icon3D: "🤖",
-    badge: "AI Search Era",
-    popular: true,
-  },
-  {
-    id: "answer-engine-opt",
-    name: "Answer Engine Optimization (AEO)",
-    tagline: "Win Google Featured Snippets (Position Zero), voice search queries, and conversational People-Also-Ask clusters.",
-    category: "Optimization",
-    priceINR: "₹24,999",
-    priceUSD: "$349",
-    pricingSuffixINR: "One-time",
-    pricingSuffixUSD: "One-time",
-    numericINR: 24999,
-    numericUSD: 349,
-    tat: "10–14 Business Days",
-    deliverablesSummary: "FAQ/Schema markup, voice search setup, snippet targets",
-    deliverables: [
-      "Comprehensive JSON-LD FAQ, HowTo & Organization markup",
-      "Conversational query phrasing for direct answer engines",
-      "Voice search readiness for Siri, Google Assistant & Alexa",
-      "Algorithmic structure targeting Google Position Zero snippets",
-      "PAA (People Also Ask) cluster capturing & deployment",
-    ],
-    gradient: "linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #a855f7 100%)",
-    accentColor: "#6d28d9",
-    icon3D: "🎯",
-    badge: "Position Zero",
-  },
-  {
-    id: "guest-posting-outreach",
-    name: "Guest Posting & High-DA Outreach",
-    tagline: "Manual editorial blogger outreach securing permanent, contextual do-follow placements on verified high-DR sites.",
+    id: "digital-pr-media-mentions",
+    name: "Digital PR & Tier-1 Media Outreach",
+    tagline: "Editorial brand storytelling & syndication on high-profile global publications.",
     category: "Marketing & Content",
-    priceINR: "₹19,999",
-    priceUSD: "$279",
-    pricingSuffixINR: "/campaign",
-    pricingSuffixUSD: "/campaign",
-    numericINR: 19999,
-    numericUSD: 279,
-    tat: "2–3 Weeks per campaign",
-    deliverablesSummary: "Authentic niche sites, contextual do-follow links, indexed",
+    priceINR: "₹25,000 – ₹95,000",
+    priceUSD: "$1,200 – $4,500",
+    pricingSuffixINR: "per placement",
+    pricingSuffixUSD: "per placement",
+    numericINR: 45000,
+    numericUSD: 2000,
+    tat: "14–21 Business Days",
+    deliverablesSummary: "Tier-1 publications, journalist outreach, brand syndication",
     deliverables: [
-      "100% manual outreach to verified niche-specific web properties",
-      "Contextual do-follow links embedded inside native editorial content",
-      "Permanent indexing guarantee with lifetime link replacement",
-      "Strict quality benchmarks: DR 50+ to 85+, real organic traffic",
-      "Transparent live delivery spreadsheet with Google Cache checks",
+      "Manual outreach to verified journalists, editors & mainstream contributors",
+      "Placements on recognized business, tech & mainstream news outlets",
+      "Native brand interviews, founder quotes & industry thought-leadership",
+      "Permanent editorial inclusion with verified Google News indexation",
+      "Direct link authority, referral traffic & high-prestige social proof",
     ],
-    gradient: "linear-gradient(135deg, #1e1b4b 0%, #3730a3 50%, #6366f1 100%)",
-    accentColor: "#6366f1",
+    gradient: "linear-gradient(135deg, #e11d48 0%, #be123c 50%, #9f1239 100%)",
+    accentColor: "#e11d48",
     icon3D: "📰",
-    badge: "Do-Follow Index",
+    badge: "Tier-1 Media",
+    countryPricing: {
+      IN: { price: "₹25,000 – ₹95,000", suffix: "per placement" },
+      US: { price: "$1,200 – $4,500", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "per placement" },
+      GB: { price: "£950 – £3,550", inrEquivalent: "Approx. ₹95,000 – ₹3.5 Lakh", suffix: "per placement" },
+      CA: { price: "C$1,650 – C$6,200", inrEquivalent: "Approx. ₹1 Lakh – ₹3.6 Lakh", suffix: "per placement" },
+      AU: { price: "A$1,850 – A$6,900", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "per placement" },
+      AE: { price: "4,400 – 16,500 AED", inrEquivalent: "Approx. ₹1 Lakh – ₹3.8 Lakh", suffix: "per placement" },
+    },
   },
   {
-    id: "off-page-authority-links",
-    name: "Off-Page SEO & Authority Backlinks",
-    tagline: "Multi-tiered natural authority building designed to lift domain rating without triggering algorithmic penalties.",
+    id: "speed-core-web-vitals",
+    name: "PageSpeed & Core Web Vitals Optimization",
+    tagline: "Guaranteed 90+ Google PageSpeed score on mobile and desktop without sacrificing visual fidelity.",
     category: "Optimization",
-    priceINR: "₹27,999",
-    priceUSD: "$399",
-    pricingSuffixINR: "/month",
-    pricingSuffixUSD: "/month",
-    numericINR: 27999,
-    numericUSD: 399,
-    tat: "Ongoing Monthly Retainer",
-    deliverablesSummary: "Tiered authority backlinks, anchor diversification",
-    deliverables: [
-      "Multi-tier natural authority link acquisition strategy",
-      "High-trust profile, foundation, and editorial citations",
-      "Branded, partial-match, and URL anchor text balance",
-      "100% white-hat algorithmic safety protocol",
-      "Spam score auditing & toxic backlink disavowal monitoring",
-    ],
-    gradient: "linear-gradient(135deg, #312e81 0%, #4338ca 50%, #818cf8 100%)",
-    accentColor: "#4338ca",
-    icon3D: "🔗",
-    badge: "Tier-1 Authority",
-  },
-  {
-    id: "social-media-handling",
-    name: "Social Media Handling & Growth",
-    tagline: "Strategic editorial calendars, viral short-form reel scripts, custom feed graphics, and daily community management.",
-    category: "Marketing & Content",
-    priceINR: "₹21,999",
-    priceUSD: "$299",
-    pricingSuffixINR: "/month",
-    pricingSuffixUSD: "/month",
-    numericINR: 21999,
-    numericUSD: 299,
-    tat: "Ongoing Monthly Retainer",
-    deliverablesSummary: "Monthly creatives, captions, reel scripts, engagement",
-    deliverables: [
-      "Monthly content calendar with 20+ custom feed creatives",
-      "Conversion-driven copywriting & hashtag cluster research",
-      "Short-form viral reel & TikTok / YouTube Shorts scripts",
-      "Daily community engagement, comment reply & DM monitoring",
-      "Monthly follower growth, reach & conversion analytics report",
-    ],
-    gradient: "linear-gradient(135deg, #581c87 0%, #7e22ce 50%, #c084fc 100%)",
-    accentColor: "#a855f7",
-    icon3D: "✨",
-    badge: "Viral Reach",
-  },
-  {
-    id: "professional-content-writing",
-    name: "Professional Content Writing",
-    tagline: "High-search-intent blog posts, landing page copy, and whitepapers crafted by humans for readers and search engines.",
-    category: "Marketing & Content",
-    priceINR: "₹7,999",
-    priceUSD: "$119",
-    pricingSuffixINR: "/package",
-    pricingSuffixUSD: "/package",
-    numericINR: 7999,
-    numericUSD: 119,
+    priceINR: "₹6,000 – ₹18,000",
+    priceUSD: "$350 – $950",
+    pricingSuffixINR: "One-time",
+    pricingSuffixUSD: "One-time",
+    numericINR: 12000,
+    numericUSD: 550,
     tat: "3–5 Business Days",
-    deliverablesSummary: "SEO articles, landing page copy, plagiarism-free",
+    deliverablesSummary: "Sub-1.2s LCP, zero CLS shift, asset compression, edge caching",
     deliverables: [
-      "High-search-intent blog articles (1,500 - 3,000 words)",
-      "High-converting landing page & sales funnel copywriting",
-      "Enterprise case studies, whitepapers & downloadable guides",
-      "100% human-written, editor-reviewed & Copyscape verified",
-      "On-page SurferSEO / Clearscope keyword density tuning",
+      "Comprehensive diagnostic audit across LCP, INP & CLS metrics",
+      "JavaScript deferral, CSS tree-shaking & unused code elimination",
+      "Modern WebP/AVIF image generation & smart responsive sizing",
+      "Server-level caching, CDN edge routing & HTTP/3 activation",
+      "Guaranteed passing grade on Google's official Core Web Vitals report",
     ],
-    gradient: "linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #6b21a8 100%)",
-    accentColor: "#6b21a8",
-    icon3D: "✍️",
-    badge: "Human Verified",
+    gradient: "linear-gradient(135deg, #14b8a6 0%, #0d9488 50%, #0f766e 100%)",
+    accentColor: "#14b8a6",
+    icon3D: "⚡",
+    badge: "90+ Speed",
+    countryPricing: {
+      IN: { price: "₹6,000 – ₹18,000", suffix: "One-time" },
+      US: { price: "$350 – $950", inrEquivalent: "Approx. ₹30,000 – ₹80,000", suffix: "One-time" },
+      GB: { price: "£280 – £750", inrEquivalent: "Approx. ₹28,000 – ₹75,000", suffix: "One-time" },
+      CA: { price: "C$480 – C$1,300", inrEquivalent: "Approx. ₹30,000 – ₹78,000", suffix: "One-time" },
+      AU: { price: "A$540 – A$1,450", inrEquivalent: "Approx. ₹30,000 – ₹80,000", suffix: "One-time" },
+      AE: { price: "1,280 – 3,500 AED", inrEquivalent: "Approx. ₹30,000 – ₹80,000", suffix: "One-time" },
+    },
   },
   {
     id: "email-marketing-automation",
-    name: "Email Marketing & Automation",
-    tagline: "Automated drip sequences, retention funnels, and enterprise SPF/DKIM/DMARC domain authentication.",
+    name: "Email Marketing & Retention Automation",
+    tagline: "Automated onboarding sequences, customer re-engagement flows & newsletter marketing.",
     category: "Marketing & Content",
-    priceINR: "₹18,999",
-    priceUSD: "$269",
-    pricingSuffixINR: "One-time",
-    pricingSuffixUSD: "One-time",
-    numericINR: 18999,
-    numericUSD: 269,
-    tat: "7–12 Business Days",
-    deliverablesSummary: "Nurture sequences, responsive design, DKIM/SPF setup",
+    priceINR: "₹10,000 – ₹35,000",
+    priceUSD: "$650 – $2,200",
+    pricingSuffixINR: "One-time setup",
+    pricingSuffixUSD: "One-time setup",
+    numericINR: 20000,
+    numericUSD: 1100,
+    tat: "7–10 Business Days",
+    deliverablesSummary: "Klaviyo/Mailchimp integration, responsive email templates, lifecycle funnels",
     deliverables: [
-      "High-converting automated welcome, nurture & cart recovery flows",
-      "Responsive custom HTML & drag-and-drop newsletter templates",
-      "Complete DNS domain authentication (SPF, DKIM, DMARC, BIMI)",
-      "Customer lifecycle segmentation & behavioral triggers",
-      "A/B split testing for subject lines & monthly revenue tracking",
+      "Custom lifecycle sequences: Welcome flow, Abandoned Cart, Win-back",
+      "Responsive, dark-mode ready custom HTML email templates",
+      "Klaviyo, Mailchimp, ActiveCampaign or Brevo setup & integration",
+      "DNS domain authentication: SPF, DKIM & DMARC 100% deliverability pass",
+      "Audience list segmentation & A/B subject line testing strategy",
     ],
-    gradient: "linear-gradient(135deg, #3b0764 0%, #581c87 50%, #9333ea 100%)",
-    accentColor: "#7e22ce",
-    icon3D: "💌",
-    badge: "Inbox Retention",
+    gradient: "linear-gradient(135deg, #f97316 0%, #ea580c 50%, #c2410c 100%)",
+    accentColor: "#f97316",
+    icon3D: "✉️",
+    badge: "Lifecycle Funnel",
+    countryPricing: {
+      IN: { price: "₹10,000 – ₹35,000", suffix: "One-time setup" },
+      US: { price: "$650 – $2,200", inrEquivalent: "Approx. ₹55,000 – ₹1.8 Lakh", suffix: "One-time setup" },
+      GB: { price: "£510 – £1,750", inrEquivalent: "Approx. ₹50,000 – ₹1.7 Lakh", suffix: "One-time setup" },
+      CA: { price: "C$900 – C$3,000", inrEquivalent: "Approx. ₹55,000 – ₹1.8 Lakh", suffix: "One-time setup" },
+      AU: { price: "A$1,000 – A$3,400", inrEquivalent: "Approx. ₹55,000 – ₹1.8 Lakh", suffix: "One-time setup" },
+      AE: { price: "2,400 – 8,100 AED", inrEquivalent: "Approx. ₹55,000 – ₹1.8 Lakh", suffix: "One-time setup" },
+    },
   },
 ];
 
 export default function ServicesClient() {
-  const [country, setCountry] = useState<CountryCode>("IN");
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
-  const [bookingService, setBookingService] = useState<AgencyService | null>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [country, setCountry] = useState<CountryCode>("US");
+  const [currency, setCurrency] = useState<"INR" | "USD">("USD");
   const [toast, setToast] = useState<string | null>(null);
 
-  // Lead Booking Form State
+  // Modal States
+  const [activeModalService, setActiveModalService] = useState<AgencyService | null>(null);
+  const [bookingService, setBookingService] = useState<AgencyService | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [bookingForm, setBookingForm] = useState({
     name: "",
     email: "",
     phone: "",
     website: "",
-    budget: "",
     notes: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // In-Page Payment Portal Modal State (Complete settlement flow without leaving /services)
-  const [isPaymentPortalOpen, setIsPaymentPortalOpen] = useState(false);
-  const [portalStep, setPortalStep] = useState<1 | 2 | 3 | 4>(1); // 1: Service selection, 2: Client info, 3: Payment options, 4: Receipt
+  // In-Page Payment Portal Modal State
+  const [portalStep, setPortalStep] = useState<1 | 2 | 3 | 4>(1);
   const [selectedPortalService, setSelectedPortalService] = useState<AgencyService>(masterServicesList[0]);
   const [isCustomService, setIsCustomService] = useState(false);
   const [customServiceName, setCustomServiceName] = useState("");
@@ -556,49 +493,7 @@ export default function ServicesClient() {
     }, 1400);
   };
 
-  // Initialize Country & Currency via Geo-IP check and localStorage
-  useEffect(() => {
-    try {
-      const savedCountry = localStorage.getItem("bpm_country") as CountryCode | null;
-      if (savedCountry && COUNTRIES_CONFIG[savedCountry]) {
-        setCountry(savedCountry);
-        setCurrency(savedCountry === "IN" ? "INR" : "USD");
-        return;
-      }
-
-      // Geo-IP detection fallback
-      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-      if (
-        timeZone.includes("Calcutta") ||
-        timeZone.includes("Kolkata") ||
-        timeZone.includes("India")
-      ) {
-        setCountry("IN");
-        setCurrency("INR");
-        localStorage.setItem("bpm_country", "IN");
-        localStorage.setItem("bpm_currency", "INR");
-      } else if (timeZone.includes("London")) {
-        setCountry("GB");
-        setCurrency("USD");
-      } else if (timeZone.includes("Toronto") || timeZone.includes("Vancouver")) {
-        setCountry("CA");
-        setCurrency("USD");
-      } else if (timeZone.includes("Sydney") || timeZone.includes("Melbourne")) {
-        setCountry("AU");
-        setCurrency("USD");
-      } else if (timeZone.includes("Dubai")) {
-        setCountry("AE");
-        setCurrency("USD");
-      } else {
-        setCountry("US");
-        setCurrency("USD");
-      }
-    } catch (e) {
-      setCountry("US");
-      setCurrency("USD");
-    }
-  }, []);
-
+  // Switch country globally
   const switchCountry = (newCountry: CountryCode) => {
     setCountry(newCountry);
     const cfg = COUNTRIES_CONFIG[newCountry];
@@ -607,41 +502,13 @@ export default function ServicesClient() {
       localStorage.setItem("bpm_country", newCountry);
       localStorage.setItem("bpm_currency", newCountry === "IN" ? "INR" : "USD");
     } catch (e) {}
-    showToast(`Region & Currency switched to ${cfg.flag} ${cfg.name} (${cfg.currency} ${cfg.symbol})`);
-  };
-
-  const switchCurrency = (newCurrency: "INR" | "USD") => {
-    setCurrency(newCurrency);
-    if (newCurrency === "INR") setCountry("IN");
-    else if (country === "IN") setCountry("US");
-    try {
-      localStorage.setItem("bpm_currency", newCurrency);
-    } catch (e) {}
-    showToast(`Currency switched to ${newCurrency === "INR" ? "Indian Rupee (₹)" : "US Dollar ($)"}`);
+    showToast(`Region switched to ${cfg.flag} ${cfg.name} (${cfg.currency} ${cfg.symbol})`);
   };
 
   const showToast = (msg: string) => {
     setToast(msg);
     setTimeout(() => setToast(null), 3500);
   };
-
-  // Keyboard close for modals
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActiveModalService(null);
-        setBookingService(null);
-      }
-    };
-    if (activeModalService || bookingService) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [activeModalService, bookingService]);
 
   // Filter & Search
   const filteredServices = masterServicesList.filter((s) => {
@@ -692,176 +559,108 @@ export default function ServicesClient() {
     }
   };
 
-  // Build JSON-LD Schema
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Balaji Prime Media Agency Services Directory",
-    "description": "Master directory of 12 full-stack digital growth, web development, and search optimization services.",
-    "itemListElement": masterServicesList.map((service, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "Service",
-        "name": service.name,
-        "description": service.tagline,
-        "provider": {
-          "@type": "Organization",
-          "name": "Balaji Prime Media",
-          "url": "https://balajiprimemedia.in",
-        },
-        "offers": {
-          "@type": "Offer",
-          "priceCurrency": currency,
-          "price": currency === "INR" ? service.numericINR : service.numericUSD,
-          "availability": "https://schema.org/InStock",
-        },
-      },
-    })),
-  };
-
   return (
-    <div className="relative min-h-screen bg-[#09080E] text-[#ADADAD] selection:bg-[#7c3aed] selection:text-white overflow-hidden">
-      {/* Background Ambient Glows (Matching Footer Colors: Purple, Indigo & Violet) */}
-      <div
-        aria-hidden="true"
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.12)_0%,transparent_70%)] pointer-events-none -z-0"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute top-2/3 left-0 w-[600px] h-[400px] bg-[radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.14)_0%,transparent_70%)] pointer-events-none -z-0"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute bottom-1/4 right-0 w-[600px] h-[400px] bg-[radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.14)_0%,transparent_70%)] pointer-events-none -z-0"
-      />
-
-      {/* Structured Schema Injection */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
-
+    <div className="relative min-h-screen bg-white text-slate-900 selection:bg-amber-500 selection:text-white font-sans antialiased overflow-hidden">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-24 right-6 z-50 bg-[#161126] text-white border border-[#a855f7]/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-ping" />
+        <div className="fixed top-24 right-6 z-50 bg-slate-950 text-white border border-amber-500/60 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-fadeIn text-xs font-semibold backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           <span>{toast}</span>
           <button
             onClick={() => setToast(null)}
-            className="ml-2 text-gray-400 hover:text-white text-xs cursor-pointer"
+            className="ml-2 text-slate-400 hover:text-white text-xs cursor-pointer"
           >
             ✕
           </button>
         </div>
       )}
 
-      {/* 100% Transparent Navbar Overlay */}
-      <div className="absolute top-0 left-0 right-0 z-40 bg-transparent pointer-events-auto">
+      {/* Top Navbar */}
+      <div className="relative z-40 bg-white">
         <Navbar activePage="services" />
       </div>
 
-      {/* Sellix Cross-border Finance Rotating Globe Hero Header */}
+      {/* Cross-border Finance Hero Header */}
       <SellixServicesHeader />
 
       {/* Master Services Section */}
       <section id="services-grid" className="relative py-14 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
         
-        {/* Section Header with Sticky Currency Switcher */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-[#231A33]">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#18122B]/90 border border-[#a855f7]/35 text-[#c084fc] text-[11px] font-medium shadow-sm backdrop-blur-xs mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c084fc] animate-pulse" />
-              <span>Full-Funnel Organic Growth Directory</span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-              Master Service Directory
-            </h2>
-            <p className="text-xs sm:text-sm text-[#ADADAD] max-w-2xl mt-2.5 leading-relaxed">
-              16 production-grade agency services &amp; website development packages calibrated dynamically by country and local settlement currency.
-            </p>
+        {/* Section Header (Fixes Issue 12: Reorganized for balanced visual hierarchy) */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          {/* Tagline Badge (Fixes Issue 7: Text >= 12px) */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 text-xs font-bold uppercase tracking-wider mb-3">
+            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <span>Full-Funnel Organic Growth Directory</span>
           </div>
 
-          {/* Sticky Multi-Country & Currency Switcher (India, USA, UK, Canada, Australia, UAE) */}
-          <div className="flex flex-col items-start md:items-end gap-3 self-start md:self-end w-full md:w-auto">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#22d3ee]" />
-              <span className="text-xs font-black text-cyan-300 uppercase tracking-wider">
-                Select Country &amp; Currency (Click to Switch):
-              </span>
-            </div>
-            
-            {/* Visual 3D Buttons Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full p-2.5 rounded-2xl bg-[#0c081c] border-2 border-purple-500/40 shadow-2xl backdrop-blur-xl">
-              {Object.values(COUNTRIES_CONFIG).map((c) => {
-                const isActive = country === c.code;
-                return (
-                  <button
-                    key={c.code}
-                    type="button"
-                    onClick={() => switchCountry(c.code)}
-                    className={`group relative flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer border ${
-                      isActive
-                        ? "bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] text-white border-white/60 shadow-[0_0_22px_rgba(168,85,247,0.7)] scale-[1.04] ring-2 ring-purple-300"
-                        : "bg-[#181133] hover:bg-[#261a4f] text-slate-200 hover:text-white border-[#3d276b] hover:border-purple-400 shadow-md shadow-black/60 hover:-translate-y-1 active:scale-95"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 text-left">
-                      <span className="text-lg drop-shadow">{c.flag}</span>
-                      <div>
-                        <span className="block font-black leading-tight text-[12px]">{c.name}</span>
-                        <span
-                          className={`text-[10px] font-bold block ${
-                            isActive ? "text-cyan-200 font-extrabold" : "text-purple-300"
-                          }`}
-                        >
-                          {c.currency} ({c.symbol.trim()})
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Active Radio Indicator Dot */}
-                    <span
-                      className={`w-2.5 h-2.5 rounded-full shrink-0 transition-all ${
-                        isActive
-                          ? "bg-white shadow-[0_0_10px_#ffffff] scale-110 ring-2 ring-cyan-300"
-                          : "bg-purple-950 border border-purple-500/50 group-hover:bg-purple-500/50"
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight mb-3">
+            Master Service Directory
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+            16 production-grade agency services &amp; website engineering solutions calibrated dynamically by country and local settlement currency.
+          </p>
         </div>
 
-        {/* Dynamic Country Rates Active Notification Banner */}
-        <div className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-[#161127] border border-[#2B2144] mb-8 text-xs text-slate-300">
-          <div className="flex items-center gap-2">
-            <span className="text-base">{COUNTRIES_CONFIG[country].flag}</span>
-            <span>
-              Showing website &amp; development pricing for{" "}
-              <strong className="text-white">{COUNTRIES_CONFIG[country].name}</strong> in{" "}
-              <strong className="text-cyan-400">{COUNTRIES_CONFIG[country].currency} ({COUNTRIES_CONFIG[country].symbol})</strong>.
+        {/* Global Currency & Country Selector Toolbar (Fixes Issue 3 & Issue 12: Dedicated balanced toolbar) */}
+        <div className="mb-8 p-4 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3 pb-2 border-b border-amber-100">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+              <span className="text-amber-600">🌍</span>
+              <span>Select Settlement Currency &amp; Country:</span>
+            </div>
+            <span className="text-xs text-amber-700 font-semibold">
+              Showing pricing in: <strong className="text-slate-950">{COUNTRIES_CONFIG[country].name} ({COUNTRIES_CONFIG[country].currency})</strong>
             </span>
           </div>
-          <span className="text-[11px] text-[#c084fc] font-medium hidden sm:inline">
-            ✓ Auto-Calibrated by Local Market Rates
-          </span>
+
+          {/* Unified 6-Country Selector Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            {Object.values(COUNTRIES_CONFIG).map((c) => {
+              const isActive = country === c.code;
+              return (
+                <button
+                  key={c.code}
+                  type="button"
+                  onClick={() => switchCountry(c.code)}
+                  className={`flex items-center justify-between gap-2 p-2.5 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
+                    isActive
+                      ? "bg-amber-50 border-amber-500 shadow-sm ring-2 ring-amber-500/20 text-slate-950"
+                      : "bg-white hover:bg-amber-50/40 text-slate-700 border-slate-200"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 text-left">
+                    <span className="text-lg">{c.flag}</span>
+                    <div>
+                      <span className="block font-bold text-xs">{c.name}</span>
+                      <span className={`text-xs block ${isActive ? "text-amber-700 font-extrabold" : "text-slate-500"}`}>
+                        {c.currency} ({c.symbol.trim()})
+                      </span>
+                    </div>
+                  </div>
+                  <span
+                    className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                      isActive ? "bg-amber-500 ring-2 ring-amber-200" : "bg-slate-300"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Live Filter & Search Controls */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mb-10">
+        {/* Live Filter & Search Controls (Fixes Issue 11: Cohesive control group with zero dead space) */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 p-3 rounded-2xl bg-[#fffdfa] border border-amber-200/80 shadow-xs mb-10">
           {/* Category Tabs */}
-          <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+          <div className="flex flex-wrap items-center gap-1.5">
             {["All", "Development", "Optimization", "Marketing & Content", "Support"].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   activeCategory === cat
-                    ? "bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-bold shadow-md shadow-purple-950/60 border border-[#c084fc]/30"
-                    : "bg-[#140F24] text-[#94a3b8] hover:text-white hover:bg-[#1E1638] border border-[#2B2144]"
+                    ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-xs"
+                    : "bg-white text-slate-700 hover:bg-amber-50/50 border border-slate-200"
                 }`}
               >
                 {cat} {cat === "All" && `(${masterServicesList.length})`}
@@ -871,18 +670,18 @@ export default function ServicesClient() {
 
           {/* Search Box */}
           <div className="relative w-full lg:w-72">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D7D7D] text-xs">🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
             <input
               type="text"
               placeholder="Search deliverables, tech, tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#140F24] border border-[#2B2144] focus:border-[#a855f7]/60 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-[#7D7D7D] outline-none transition-all shadow-inner"
+              className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 placeholder-slate-400 outline-none transition-all shadow-2xs font-medium"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-xs cursor-pointer"
               >
                 ✕
               </button>
@@ -890,12 +689,12 @@ export default function ServicesClient() {
           </div>
         </div>
 
-        {/* 3D Service Cards Responsive Grid */}
+        {/* Service Cards Responsive Grid (Rendered via ThreeDServiceCard: Fixes Issue 9 & Issue 10) */}
         {filteredServices.length === 0 ? (
-          <div className="text-center py-16 bg-[#140F24]/60 border border-[#2B2144] rounded-3xl p-8">
+          <div className="text-center py-16 bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-8">
             <span className="text-4xl block mb-3">🔍</span>
-            <h3 className="text-xl font-bold text-white mb-1">No services found</h3>
-            <p className="text-xs text-[#94a3b8] mb-4">
+            <h3 className="text-xl font-bold text-slate-900 mb-1">No services found</h3>
+            <p className="text-xs text-slate-500 mb-4">
               We couldn&apos;t find any service matching &quot;{searchQuery}&quot;.
             </p>
             <button
@@ -903,7 +702,7 @@ export default function ServicesClient() {
                 setSearchQuery("");
                 setActiveCategory("All");
               }}
-              className="px-4 py-2 rounded-xl bg-[#1E1638] hover:bg-[#281D4A] text-xs font-semibold text-white border border-[#a855f7]/30 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-white hover:bg-slate-50 text-xs font-bold text-slate-800 border border-slate-200 shadow-xs cursor-pointer"
             >
               Reset Filters
             </button>
@@ -935,17 +734,19 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setActiveModalService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-fadeIn overflow-y-auto"
         >
-          <div className="bg-[#120E22] rounded-[22px] sm:rounded-[28px] max-w-xl w-full p-4.5 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
-            <div className="flex items-center justify-between pb-4 border-b border-[#231A33] mb-4">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-amber-200/80 relative text-left max-h-[90vh] overflow-y-auto my-auto text-slate-900">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{activeModalService.icon3D}</span>
+                <span className="text-2xl p-2 rounded-xl bg-amber-50 border border-amber-200">
+                  {activeModalService.icon3D}
+                </span>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#c084fc] bg-[#1E1638] px-2.5 py-0.5 rounded-full border border-[#a855f7]/30">
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
                     {activeModalService.badge}
                   </span>
-                  <span className="text-xs text-[#94a3b8] block mt-0.5">
+                  <span className="text-xs text-slate-500 block mt-0.5 font-semibold">
                     {activeModalService.category}
                   </span>
                 </div>
@@ -953,25 +754,25 @@ export default function ServicesClient() {
 
               <button
                 onClick={() => setActiveModalService(null)}
-                className="w-8 h-8 rounded-full bg-[#18122B] hover:bg-[#281D4A] text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer border border-[#2B2144]"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <h3 className="text-2xl font-bold tracking-tight mb-2">
+            <h3 className="text-2xl font-bold tracking-tight mb-2 text-slate-950">
               {activeModalService.name}
             </h3>
-            <p className="text-xs text-[#ADADAD] leading-relaxed mb-5">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 font-normal">
               {activeModalService.tagline}
             </p>
 
-            <div className="bg-[#09080E] p-4 rounded-2xl border border-[#2B2144] mb-6 space-y-2 text-xs">
+            <div className="bg-[#fffdfa] p-4 rounded-2xl border border-amber-200/80 mb-6 space-y-2 text-xs">
               <div className="flex justify-between items-center">
-                <span className="text-[#94a3b8]">
+                <span className="text-slate-600">
                   {COUNTRIES_CONFIG[country].flag} {COUNTRIES_CONFIG[country].name} Pricing ({COUNTRIES_CONFIG[country].currency}):
                 </span>
-                <span className="font-bold text-white text-sm">
+                <span className="font-bold text-slate-950 text-sm">
                   {(() => {
                     const custom = activeModalService.countryPricing?.[country];
                     if (custom?.price) return `${custom.price} ${custom.suffix || ""}`;
@@ -983,44 +784,38 @@ export default function ServicesClient() {
                   })()}
                 </span>
               </div>
-              {activeModalService.countryPricing?.[country]?.inrEquivalent && (
-                <div className="flex justify-between items-center text-[11px] text-emerald-400">
-                  <span>Indian Reference:</span>
-                  <span className="font-semibold">{activeModalService.countryPricing[country].inrEquivalent}</span>
-                </div>
-              )}
               <div className="flex justify-between">
-                <span className="text-[#94a3b8]">Turnaround Time (TAT):</span>
-                <span className="font-semibold text-white">⏱ {activeModalService.tat}</span>
+                <span className="text-slate-600">Turnaround Time (TAT):</span>
+                <span className="font-semibold text-slate-900">⏱ {activeModalService.tat}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#94a3b8]">Escrow Security:</span>
-                <span className="font-semibold text-[#c084fc]">✓ 100% Milestone Based</span>
+                <span className="text-slate-600">Escrow Security:</span>
+                <span className="font-semibold text-amber-700">✓ 100% Milestone Based</span>
               </div>
             </div>
 
             <div className="mb-6">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#7D7D7D] mb-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
                 Comprehensive Deliverables:
               </h4>
               <ul className="space-y-2">
                 {activeModalService.deliverables.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs text-[#cbd5e1]">
-                    <span className="text-[#a855f7] font-bold shrink-0">✓</span>
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700">
+                    <span className="text-amber-600 font-bold shrink-0">✓</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-[#231A33]">
+            <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100">
               <a
                 href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media, I would like to get a quote for ${activeModalService.name}.`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 text-white font-semibold py-3 px-5 rounded-xl text-xs text-center cursor-pointer shadow-md"
+                className="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold py-3 px-5 rounded-full text-xs text-center cursor-pointer shadow-xs"
               >
                 Instant WhatsApp Quote 💬
               </a>
@@ -1030,7 +825,7 @@ export default function ServicesClient() {
                   setBookingService(activeModalService);
                   setActiveModalService(null);
                 }}
-                className="px-5 py-3 rounded-xl text-xs font-semibold text-white bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] transition-all cursor-pointer text-center"
+                className="px-5 py-3 rounded-full text-xs font-bold text-slate-800 bg-white hover:bg-slate-50 border border-slate-200 transition-all cursor-pointer text-center shadow-2xs"
               >
                 Book Strategy Call 📅
               </button>
@@ -1045,21 +840,21 @@ export default function ServicesClient() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setBookingService(null);
           }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-sm animate-fadeIn overflow-y-auto"
         >
-          <div className="bg-[#120E22] rounded-[22px] sm:rounded-[28px] max-w-lg w-full p-4.5 sm:p-8 shadow-2xl border border-[#2B2144] relative text-left max-h-[90vh] overflow-y-auto my-auto text-white">
-            <div className="flex items-center justify-between pb-3 border-b border-[#231A33] mb-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-amber-200/80 relative text-left max-h-[90vh] overflow-y-auto my-auto text-slate-900">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#c084fc]">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-700">
                   Book Strategy Discovery
                 </span>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-slate-950">
                   {bookingService.name}
                 </h3>
               </div>
               <button
                 onClick={() => setBookingService(null)}
-                className="w-8 h-8 rounded-full bg-[#18122B] hover:bg-[#281D4A] text-white flex items-center justify-center text-xs font-bold transition-all cursor-pointer border border-[#2B2144]"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs font-bold transition-all cursor-pointer"
               >
                 ✕
               </button>
@@ -1067,27 +862,27 @@ export default function ServicesClient() {
 
             {submitSuccess ? (
               <div className="py-8 text-center space-y-4">
-                <span className="w-14 h-14 mx-auto rounded-full bg-[#a855f7]/20 text-[#c084fc] border border-[#a855f7]/40 flex items-center justify-center text-2xl font-bold">
+                <span className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-bold">
                   ✓
                 </span>
-                <h4 className="text-xl font-bold text-white">Inquiry Received!</h4>
-                <p className="text-xs text-[#ADADAD] max-w-sm mx-auto leading-relaxed">
+                <h4 className="text-xl font-bold text-slate-950">Inquiry Received!</h4>
+                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
                   Thank you! Our growth team will review your requirements for{" "}
-                  <strong className="text-[#c084fc]">{bookingService.name}</strong> and reach out via email/WhatsApp within 4 hours.
+                  <strong className="text-amber-700">{bookingService.name}</strong> and reach out via email/WhatsApp within 4 hours.
                 </p>
                 <div className="pt-4">
                   <button
                     onClick={() => setBookingService(null)}
-                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white font-bold text-xs cursor-pointer shadow-md"
+                    className="px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-white font-bold text-xs cursor-pointer shadow-md"
                   >
                     Close Window
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleBookingSubmit} className="space-y-4">
+              <form onSubmit={handleBookingSubmit} className="space-y-4 text-xs">
                 <div>
-                  <label className="block text-[11px] font-semibold text-[#94a3b8] mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Your Name *
                   </label>
                   <input
@@ -1096,13 +891,13 @@ export default function ServicesClient() {
                     placeholder="e.g. John Doe"
                     value={bookingForm.name}
                     onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                    className="w-full bg-[#18122B] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#94a3b8] mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Business Email *
                     </label>
                     <input
@@ -1111,11 +906,11 @@ export default function ServicesClient() {
                       placeholder="john@company.com"
                       value={bookingForm.email}
                       onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
-                      className="w-full bg-[#18122B] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-[#94a3b8] mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Phone / WhatsApp *
                     </label>
                     <input
@@ -1124,13 +919,13 @@ export default function ServicesClient() {
                       placeholder="+1 (555) 000-0000"
                       value={bookingForm.phone}
                       onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
-                      className="w-full bg-[#18122B] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-[#94a3b8] mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Website URL or Project Link
                   </label>
                   <input
@@ -1138,12 +933,12 @@ export default function ServicesClient() {
                     placeholder="https://yourwebsite.com"
                     value={bookingForm.website}
                     onChange={(e) => setBookingForm({ ...bookingForm, website: e.target.value })}
-                    className="w-full bg-[#18122B] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-[#94a3b8] mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Scope Notes / Goals
                   </label>
                   <textarea
@@ -1151,7 +946,7 @@ export default function ServicesClient() {
                     placeholder="Briefly describe what you'd like to achieve with this service..."
                     value={bookingForm.notes}
                     onChange={(e) => setBookingForm({ ...bookingForm, notes: e.target.value })}
-                    className="w-full bg-[#18122B] border border-[#2B2144] focus:border-[#a855f7] rounded-xl p-3 text-xs text-white outline-none resize-none"
+                    className="w-full bg-slate-50 border border-slate-200 focus:border-amber-500 rounded-xl p-3 text-xs text-slate-900 outline-none resize-none"
                   />
                 </div>
 
@@ -1159,11 +954,11 @@ export default function ServicesClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 disabled:opacity-50 text-white font-bold py-3.5 rounded-xl text-xs transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold py-3.5 rounded-full text-xs shadow-md cursor-pointer"
                   >
                     {isSubmitting ? "Submitting Inquiry..." : "Confirm & Schedule Call →"}
                   </button>
-                  <p className="text-[10px] text-[#7D7D7D] text-center mt-2">
+                  <p className="text-xs text-slate-400 text-center mt-2">
                     🔒 Zero spam. We sign mutual NDAs upon request.
                   </p>
                 </div>
@@ -1173,18 +968,18 @@ export default function ServicesClient() {
         </div>
       )}
 
-      {/* Global Escrow & Settlement Banner (Matching Footer Luxury Indigo Theme) */}
-      <section className="relative py-16 px-6 md:px-12 z-10 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-r from-[#140F24] via-[#1B1433] to-[#140F24] rounded-[32px] p-8 md:p-12 border border-[#a855f7]/30 shadow-2xl text-white flex flex-col lg:flex-row items-center justify-between gap-8">
+      {/* Global Escrow & Settlement Banner */}
+      <section className="relative py-14 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-r from-[#fdfbf7] via-[#fffdfa] to-white rounded-3xl p-8 md:p-12 border border-amber-200/80 shadow-md text-slate-900 flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1E1638] text-[#c084fc] text-xs font-semibold mb-3 border border-[#a855f7]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a855f7] animate-ping" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold mb-3">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Multi-Currency Escrow &amp; Bank Settlement</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+            <h3 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight mb-2">
               Ready to Authorize a Service or Retainer?
             </h3>
-            <p className="text-xs sm:text-sm text-[#ADADAD] leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Our dedicated global client payment portal supports domestic settlements in INR (₹), USD ($), GBP (£), EUR (€), AUD (A$), and AED (د.إ) via Stripe, Bank Wire/SWIFT, Wise, UPI, and PayPal with zero foreign transaction fees.
             </p>
           </div>
@@ -1198,7 +993,7 @@ export default function ServicesClient() {
                 const el = document.getElementById("payment-portal");
                 if (el) el.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-7 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-purple-950/80 transition-all text-center whitespace-nowrap cursor-pointer hover:shadow-[0_0_25px_rgba(168,85,247,0.45)]"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-4 rounded-full text-xs sm:text-sm shadow-md shadow-amber-900/15 transition-all text-center whitespace-nowrap cursor-pointer hover:scale-105 active:scale-95"
             >
               <span>Open Payment Portal</span>
               <span>💳 ↓</span>
@@ -1208,68 +1003,32 @@ export default function ServicesClient() {
       </section>
 
       {/* =========================================================================
-          FULL IN-PAGE CLIENT PAYMENT PORTAL SECTION (100% on /services in full way)
+          FULL IN-PAGE CLIENT PAYMENT PORTAL SECTION (Fixes Issue 2: Streamlined service selector)
          ========================================================================= */}
       <section
         id="payment-portal"
         className="relative py-12 sm:py-20 px-4 sm:px-6 md:px-12 z-10 max-w-7xl mx-auto scroll-mt-24"
       >
-        <div className="bg-gradient-to-b from-[#130C28] via-[#0E091D] to-[#130C28] border border-[#a855f7]/40 rounded-[36px] p-6 sm:p-10 md:p-12 text-white shadow-2xl relative overflow-hidden">
+        <div className="bg-white border border-amber-200/80 rounded-[32px] p-6 sm:p-10 md:p-12 text-slate-900 shadow-xl shadow-amber-900/5 relative overflow-hidden">
           
-          {/* Ambient Lighting Orbs */}
-          <div
-            className="absolute -top-32 -right-32 w-80 h-80 rounded-full pointer-events-none blur-3xl opacity-35"
-            style={{ background: "radial-gradient(circle, #a855f7 0%, transparent 70%)" }}
-          />
-          <div
-            className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full pointer-events-none blur-3xl opacity-25"
-            style={{ background: "radial-gradient(circle, #22d3ee 0%, transparent 70%)" }}
-          />
-
-          {/* Section Master Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#231A33] relative z-10">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-100">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1e1438] text-[#c084fc] text-xs font-semibold border border-[#a855f7]/40 mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold border border-amber-200 mb-3">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Balaji Prime Media • Direct In-Page Escrow Settlement</span>
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
                 Client Payment &amp; Service Authorization
               </h2>
-              <p className="text-xs sm:text-sm text-[#94a3b8] mt-2 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-2xl leading-relaxed">
                 Authorize your deliverables right here on this page with instant domestic settlement in INR (₹) or cross-border payment in USD ($), GBP (£), and EUR (€).
               </p>
-            </div>
-
-            {/* Currency Switcher */}
-            <div className="inline-flex rounded-xl bg-[#18122B] p-1.5 border border-[#2B2144] shrink-0 self-start md:self-auto shadow-inner">
-              <button
-                type="button"
-                onClick={() => switchCurrency("INR")}
-                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                  currency === "INR"
-                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-950/80"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-              >
-                🇮🇳 ₹ INR
-              </button>
-              <button
-                type="button"
-                onClick={() => switchCurrency("USD")}
-                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
-                  currency === "USD"
-                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-950/80"
-                    : "text-[#94a3b8] hover:text-white"
-                }`}
-              >
-                🌐 $ USD
-              </button>
             </div>
           </div>
 
           {/* 4-Step Interactive Progress Tracker */}
-          <div className="py-6 border-b border-[#231A33]/80 relative z-10">
+          <div className="py-6 border-b border-slate-100">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { step: 1, title: "1. Select Service", desc: "Choose deliverable" },
@@ -1282,30 +1041,31 @@ export default function ServicesClient() {
                   onClick={() => {
                     if (s.step < portalStep) setPortalStep(s.step as any);
                   }}
-                  className={`p-3 rounded-2xl border transition-all text-left ${
+                  className={`p-3.5 rounded-2xl border transition-all text-left ${
                     portalStep === s.step
-                      ? "bg-[#21163e] border-[#a855f7] shadow-[0_0_15px_rgba(168,85,247,0.3)] ring-1 ring-[#c084fc]"
+                      ? "bg-amber-50/60 border-amber-500 shadow-sm ring-1 ring-amber-500/20"
                       : portalStep > s.step
-                      ? "bg-[#18122B]/70 border-[#2B2144] text-emerald-400 cursor-pointer hover:bg-[#20183b]"
-                      : "bg-[#140F24]/50 border-[#2B2144]/60 text-gray-400 opacity-60"
+                      ? "bg-emerald-50/60 border-emerald-300 text-emerald-800 cursor-pointer"
+                      : "bg-slate-50 border-slate-200 text-slate-400"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                      {portalStep > s.step && <span className="text-emerald-400">✓</span>}
+                    <span className="text-xs font-bold text-slate-950 flex items-center gap-1.5">
+                      {portalStep > s.step && <span className="text-emerald-600">✓</span>}
                       <span>{s.title}</span>
                     </span>
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                      className={`text-xs font-mono px-2 py-0.5 rounded-full ${
                         portalStep === s.step
-                          ? "bg-purple-600 text-white font-bold"
-                          : "bg-[#2B2144] text-gray-400"
+                          ? "bg-amber-500 text-white font-bold"
+                          : "bg-slate-200 text-slate-600"
                       }`}
                     >
                       Step 0{s.step}
                     </span>
                   </div>
-                  <p className="text-[10px] text-[#94a3b8] mt-0.5">{s.desc}</p>
+                  {/* Subtitle (Fixes Issue 8: Text size >= 12px) */}
+                  <p className="text-xs text-slate-500 mt-1">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -1313,171 +1073,113 @@ export default function ServicesClient() {
 
           {/* Form Error Banner */}
           {portalFormError && (
-            <div className="mt-6 p-4 rounded-2xl bg-red-950/60 border border-red-500/50 text-red-200 text-xs flex items-center gap-2.5 relative z-10 animate-shake">
+            <div className="mt-6 p-4 rounded-2xl bg-rose-50 border border-rose-300 text-rose-800 text-xs flex items-center gap-2.5">
               <span className="text-lg">⚠️</span>
-              <span>{portalFormError}</span>
+              <span className="font-semibold">{portalFormError}</span>
             </div>
           )}
 
           {/* Portal Content Area */}
-          <div className="pt-8 relative z-10">
+          <div className="pt-8">
 
-            {/* =========================================================================
-                STEP 1: "Konsi buy ki hai" (Full-Width Service Selection Grid)
-               ========================================================================= */}
+            {/* STEP 1: Streamlined Service Selection (Fixes Issue 2: No redundant 16-card duplicate grid!) */}
             {portalStep === 1 && (
-              <div className="space-y-6 animate-fadeIn">
+              <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
                 <div>
-                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-slate-950 flex items-center gap-2">
                     <span>1. Which service did you purchase or wish to authorize?</span>
                   </h3>
-                  <p className="text-xs text-[#94a3b8] mt-1">
-                    Click any service card below to select it for instant authorization, or choose custom invoice retainer:
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                    Select a service from the quick dropdown below, or click custom invoice scope:
                   </p>
                 </div>
 
-                {/* 12 Agency Services Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {masterServicesList.map((srv) => {
-                    const isSelected = !isCustomService && selectedPortalService.id === srv.id;
-                    const price = currency === "INR" ? srv.priceINR : srv.priceUSD;
-                    const suffix = currency === "INR" ? srv.pricingSuffixINR : srv.pricingSuffixUSD;
-
-                    return (
-                      <div
-                        key={srv.id}
-                        onClick={() => {
-                          setSelectedPortalService(srv);
+                {/* Streamlined Selection Box */}
+                <div className="p-6 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-2">
+                      Choose Service from Catalog:
+                    </label>
+                    <select
+                      value={isCustomService ? "custom" : selectedPortalService.id}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === "custom") {
+                          setIsCustomService(true);
+                        } else {
                           setIsCustomService(false);
-                          setPortalFormError(null);
-                        }}
-                        className={`p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between gap-4 text-left ${
-                          isSelected
-                            ? "bg-gradient-to-b from-[#241743] to-[#18112d] border-[#a855f7] shadow-[0_0_20px_rgba(168,85,247,0.35)] ring-2 ring-[#c084fc]"
-                            : "bg-[#140F24]/80 border-[#2B2144] hover:bg-[#1C1533] hover:border-[#a855f7]/50"
-                        }`}
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="flex items-center gap-3">
-                            <span className="text-3xl p-2 rounded-xl bg-[#1E1638] border border-[#2B2144]">
-                              {srv.icon3D}
-                            </span>
-                            <div>
-                              <h4 className="text-sm font-bold text-white leading-tight">{srv.name}</h4>
-                              <span className="text-[10px] text-[#c084fc] font-semibold block mt-0.5">
-                                {srv.category}
-                              </span>
-                            </div>
-                          </div>
-
-                          <span
-                            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                              isSelected
-                                ? "bg-gradient-to-r from-emerald-400 to-[#c084fc] text-black"
-                                : "border border-[#3d2f5a] text-transparent"
-                            }`}
-                          >
-                            ✓
-                          </span>
-                        </div>
-
-                        <p className="text-[11px] text-[#94a3b8] line-clamp-2 leading-relaxed">
-                          {srv.tagline}
-                        </p>
-
-                        <div className="pt-3 border-t border-[#231A33] flex items-center justify-between text-xs">
-                          <div>
-                            <span className="text-[10px] text-gray-400 block font-normal">Escrow Price</span>
-                            <span className="text-base font-black text-white">{price}</span>
-                            <span className="text-[10px] text-gray-400 ml-1">({suffix})</span>
-                          </div>
-
-                          <div className="text-right">
-                            <span className="text-[10px] text-gray-400 block font-normal">Turnaround</span>
-                            <span className="text-[11px] font-bold text-[#22d3ee]">⏱ {srv.tat}</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Custom Enterprise Retainer Card */}
-                <div
-                  onClick={() => {
-                    setIsCustomService(true);
-                    setPortalFormError(null);
-                  }}
-                  className={`p-6 rounded-2xl border transition-all cursor-pointer text-left ${
-                    isCustomService
-                      ? "bg-gradient-to-b from-[#241743] to-[#18112d] border-[#a855f7] shadow-[0_0_20px_rgba(168,85,247,0.35)] ring-2 ring-[#c084fc]"
-                      : "bg-[#140F24]/80 border-[#2B2144] hover:bg-[#1C1533] hover:border-[#a855f7]/50"
-                  }`}
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3.5">
-                      <span className="text-3xl p-2.5 rounded-xl bg-[#1E1638] border border-[#2B2144]">
-                        💼
-                      </span>
-                      <div>
-                        <h4 className="text-base font-bold text-white">
-                          Custom Invoiced Retainer or Specialized Scope
-                        </h4>
-                        <p className="text-xs text-[#94a3b8] mt-0.5">
-                          Authorize a custom enterprise contract, custom backlink package, or invoiced sprint
-                        </p>
-                      </div>
-                    </div>
-
-                    <span
-                      className={`px-4 py-1.5 rounded-full text-xs font-bold shrink-0 self-start sm:self-auto ${
-                        isCustomService
-                          ? "bg-purple-600 text-white shadow-lg shadow-purple-950/80"
-                          : "bg-[#1E1638] text-gray-300 border border-[#2B2144]"
-                      }`}
+                          const found = masterServicesList.find((s) => s.id === val);
+                          if (found) setSelectedPortalService(found);
+                        }
+                        setPortalFormError(null);
+                      }}
+                      className="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-xs font-semibold text-slate-900 focus:outline-none focus:border-amber-500 shadow-2xs cursor-pointer"
                     >
-                      {isCustomService ? "✓ Selected Custom Scope" : "Select Custom Scope"}
-                    </span>
+                      {masterServicesList.map((srv) => (
+                        <option key={srv.id} value={srv.id}>
+                          {srv.icon3D} {srv.name} — ({currency === "INR" ? srv.priceINR : srv.priceUSD} {srv.pricingSuffixUSD})
+                        </option>
+                      ))}
+                      <option value="custom">💼 Custom Invoiced Scope / Enterprise Retainer</option>
+                    </select>
                   </div>
 
-                  {isCustomService && (
-                    <div className="mt-5 pt-5 border-t border-[#231A33] grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Highlight of Currently Selected Service */}
+                  {!isCustomService ? (
+                    <div className="p-5 rounded-2xl bg-white border border-amber-200/70 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl p-2 rounded-xl bg-amber-50 border border-amber-200">
+                          {selectedPortalService.icon3D}
+                        </span>
+                        <div>
+                          <h4 className="text-base font-bold text-slate-950 leading-tight">
+                            {selectedPortalService.name}
+                          </h4>
+                          <span className="text-xs text-amber-700 font-semibold block mt-0.5">
+                            {selectedPortalService.category} • Turnaround: {selectedPortalService.tat}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="text-left sm:text-right">
+                        <span className="text-xs text-slate-500 block">Settlement Price</span>
+                        <span className="text-xl font-black text-slate-950">
+                          {currency === "INR" ? selectedPortalService.priceINR : selectedPortalService.priceUSD}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-5 rounded-2xl bg-white border border-amber-200/70 grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-[#c084fc] mb-1.5">
-                          Custom Service / Scope Title *
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          Custom Scope Title *
                         </label>
                         <input
                           type="text"
-                          placeholder="e.g. Dedicated Enterprise SEO & Link Building Retainer"
+                          placeholder="e.g. Dedicated Enterprise SEO Retainer"
                           value={customServiceName}
                           onChange={(e) => setCustomServiceName(e.target.value)}
-                          className="w-full bg-[#0e0a1a] border border-[#3d2f5a] focus:border-[#a855f7] rounded-xl px-4 py-3 text-xs text-white outline-none"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-amber-500"
                         />
                       </div>
-
                       <div>
-                        <label className="block text-xs font-semibold text-[#c084fc] mb-1.5">
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
                           Invoice Settlement Amount ({currency}) *
                         </label>
-                        <div className="relative">
-                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400 font-bold">
-                            {currency === "INR" ? "₹" : "$"}
-                          </span>
-                          <input
-                            type="text"
-                            placeholder="e.g. 75000 or 1200"
-                            value={customServiceAmount}
-                            onChange={(e) => setCustomServiceAmount(e.target.value)}
-                            className="w-full bg-[#0e0a1a] border border-[#3d2f5a] focus:border-[#a855f7] rounded-xl pl-9 pr-4 py-3 text-xs font-mono text-white outline-none"
-                          />
-                        </div>
+                        <input
+                          type="text"
+                          placeholder="e.g. 75000 or 1200"
+                          value={customServiceAmount}
+                          onChange={(e) => setCustomServiceAmount(e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-amber-500 font-mono"
+                        />
                       </div>
                     </div>
                   )}
                 </div>
 
                 {/* Step 1 Next Button */}
-                <div className="pt-4 flex justify-end">
+                <div className="pt-2 flex justify-end">
                   <button
                     type="button"
                     onClick={() => {
@@ -1490,7 +1192,7 @@ export default function ServicesClient() {
                       setPortalFormError(null);
                       setPortalStep(2);
                     }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-8 py-4 rounded-2xl text-xs sm:text-sm shadow-xl shadow-purple-950/80 transition-all cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 transition-all cursor-pointer"
                   >
                     <span>Proceed to Client &amp; Domain Details</span>
                     <span>→</span>
@@ -1499,22 +1201,20 @@ export default function ServicesClient() {
               </div>
             )}
 
-            {/* =========================================================================
-                STEP 2: Client & Domain Credentials (Full-Width Form)
-               ========================================================================= */}
+            {/* STEP 2: Client & Domain Credentials */}
             {portalStep === 2 && (
               <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
                 <div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-slate-950">
                     2. Client &amp; Website Domain Details
                   </h3>
-                  <p className="text-xs text-[#94a3b8] mt-1">
+                  <p className="text-xs text-slate-600 mt-1">
                     Authorize deliverables for{" "}
-                    <strong className="text-white">
+                    <strong className="text-slate-950">
                       {isCustomService ? customServiceName : selectedPortalService.name}
                     </strong>{" "}
                     (Settlement:{" "}
-                    <strong className="text-emerald-400">
+                    <strong className="text-amber-700">
                       {isCustomService
                         ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                         : currency === "INR"
@@ -1525,10 +1225,10 @@ export default function ServicesClient() {
                   </p>
                 </div>
 
-                <div className="bg-[#140F24]/90 border border-[#2B2144] rounded-2xl p-6 sm:p-8 space-y-4">
+                <div className="bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-[#c084fc] mb-1.5">
+                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
                         Client Full Name or Business Name *
                       </label>
                       <input
@@ -1537,12 +1237,12 @@ export default function ServicesClient() {
                         placeholder="e.g. John Doe / Global Corp Ltd"
                         value={portalClientName}
                         onChange={(e) => setPortalClientName(e.target.value)}
-                        className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-3 text-xs text-white outline-none"
+                        className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-[#c084fc] mb-1.5">
+                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
                         Work Email (for Invoice PDF &amp; Escrow Proof) *
                       </label>
                       <input
@@ -1551,13 +1251,13 @@ export default function ServicesClient() {
                         placeholder="john@company.com"
                         value={portalClientEmail}
                         onChange={(e) => setPortalClientEmail(e.target.value)}
-                        className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-3 text-xs text-white outline-none"
+                        className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#c084fc] mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Target Website / Domain URL *
                     </label>
                     <input
@@ -1566,15 +1266,15 @@ export default function ServicesClient() {
                       placeholder="https://yourbrand.com"
                       value={portalClientDomain}
                       onChange={(e) => setPortalClientDomain(e.target.value)}
-                      className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-3 text-xs text-white outline-none"
+                      className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none"
                     />
-                    <span className="text-[10px] text-[#94a3b8] mt-1 block">
+                    <span className="text-xs text-slate-500 mt-1 block">
                       The domain where SEO, guest posting, or web application deliverables will be deployed.
                     </span>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Special Requirements or Project Notes (Optional)
                     </label>
                     <textarea
@@ -1582,7 +1282,7 @@ export default function ServicesClient() {
                       placeholder="Target anchor texts, priority target countries, tech stack notes, or deadlines..."
                       value={portalClientNotes}
                       onChange={(e) => setPortalClientNotes(e.target.value)}
-                      className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-3 text-xs text-white outline-none resize-none"
+                      className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-3 text-xs text-slate-900 outline-none resize-none"
                     />
                   </div>
                 </div>
@@ -1592,9 +1292,9 @@ export default function ServicesClient() {
                   <button
                     type="button"
                     onClick={() => setPortalStep(1)}
-                    className="px-6 py-3.5 rounded-2xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-bold text-white transition-all cursor-pointer"
+                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 transition-all cursor-pointer shadow-xs"
                   >
-                    ← Back to Services
+                    ← Back to Service
                   </button>
 
                   <button
@@ -1607,7 +1307,7 @@ export default function ServicesClient() {
                       setPortalFormError(null);
                       setPortalStep(3);
                     }}
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-8 py-3.5 rounded-2xl text-xs sm:text-sm shadow-xl shadow-purple-950/80 transition-all cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 transition-all cursor-pointer"
                   >
                     <span>Proceed to Payment Rails</span>
                     <span>→</span>
@@ -1616,29 +1316,26 @@ export default function ServicesClient() {
               </div>
             )}
 
-            {/* =========================================================================
-                STEP 3: Payment Options & Instant Authorization (Full-Width View)
-               ========================================================================= */}
+            {/* STEP 3: Payment Options & Instant Authorization */}
             {portalStep === 3 && (
               <div className="space-y-6 animate-fadeIn max-w-4xl mx-auto">
-                
                 {/* Authorization Summary Banner */}
-                <div className="p-6 rounded-2xl bg-gradient-to-r from-[#20143d] via-[#1a1133] to-[#20143d] border border-[#a855f7]/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+                <div className="p-6 rounded-3xl bg-gradient-to-r from-amber-50 via-white to-amber-50 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
                   <div>
-                    <span className="text-[10px] uppercase tracking-wider text-[#c084fc] font-bold block mb-1">
+                    <span className="text-xs uppercase tracking-wider text-amber-700 font-bold block mb-1">
                       ✦ Final Authorization Summary
                     </span>
-                    <h4 className="text-lg font-black text-white">
+                    <h4 className="text-lg font-black text-slate-950">
                       {isCustomService ? customServiceName : selectedPortalService.name}
                     </h4>
-                    <p className="text-xs text-[#22d3ee] mt-0.5">
-                      Target Domain: <strong className="font-mono">{portalClientDomain}</strong> • Client: {portalClientName}
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Target Domain: <strong className="font-mono text-slate-900">{portalClientDomain}</strong> • Client: {portalClientName}
                     </p>
                   </div>
 
                   <div className="text-left sm:text-right">
-                    <span className="text-[10px] uppercase text-gray-400 font-bold block">Total Settlement</span>
-                    <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#c084fc]">
+                    <span className="text-xs uppercase text-slate-500 font-bold block">Total Settlement</span>
+                    <span className="text-2xl font-black text-amber-600">
                       {isCustomService
                         ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                         : currency === "INR"
@@ -1650,7 +1347,7 @@ export default function ServicesClient() {
 
                 {/* Payment Rails Selector */}
                 <div>
-                  <label className="block text-xs font-bold text-white mb-2.5">
+                  <label className="block text-xs font-bold text-slate-800 mb-2.5">
                     Select Your Payment Rail:
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -1667,60 +1364,58 @@ export default function ServicesClient() {
                         onClick={() => setPortalPaymentMethod(m.id as any)}
                         className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
                           portalPaymentMethod === m.id
-                            ? "bg-[#2b1b52] border-[#c084fc] shadow-lg shadow-purple-950/80 ring-2 ring-[#c084fc]"
-                            : "bg-[#140F24] border-[#2B2144] hover:bg-[#1E1638] text-gray-300"
+                            ? "bg-amber-50 border-amber-500 shadow-sm ring-2 ring-amber-500/20 text-slate-950 font-bold"
+                            : "bg-white border-slate-200 hover:bg-slate-50 text-slate-700"
                         }`}
                       >
-                        <p className="text-xs font-bold text-white leading-tight">{m.label}</p>
-                        <p className="text-[10px] text-[#94a3b8] leading-tight mt-1 truncate">{m.sub}</p>
+                        <p className="text-xs font-bold leading-tight">{m.label}</p>
+                        <p className="text-xs text-slate-500 leading-tight mt-1 truncate">{m.sub}</p>
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* Payment Rail Content Panel */}
-                <div className="p-6 rounded-2xl bg-[#140F24]/90 border border-[#2B2144]">
-                  
+                <div className="p-6 rounded-3xl bg-[#fffdfa] border border-amber-200/80 shadow-xs">
                   {/* 1. UPI / QR Code Rail */}
                   {portalPaymentMethod === "upi" && (
                     <div className="space-y-4">
                       <div className="flex flex-col sm:flex-row items-center gap-6">
-                        {/* High-Contrast QR Code */}
-                        <div className="w-32 h-32 bg-white p-2.5 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-xl border-4 border-purple-500/40">
-                          <div className="w-full h-full border-2 border-dashed border-gray-900 rounded-xl flex flex-col items-center justify-center text-center p-1">
+                        <div className="w-32 h-32 bg-white p-2.5 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-md border-2 border-amber-300">
+                          <div className="w-full h-full border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-center p-1">
                             <span className="text-2xl">📱</span>
-                            <span className="text-[10px] font-black text-black leading-tight">SCAN &amp; PAY</span>
-                            <span className="text-[8px] font-bold text-purple-700 font-mono">917690868932@ybl</span>
+                            <span className="text-xs font-black text-slate-950 leading-tight">SCAN &amp; PAY</span>
+                            <span className="text-xs font-bold text-amber-700 font-mono">917690868932@ybl</span>
                           </div>
                         </div>
 
-                        <div className="space-y-2 flex-1 w-full">
+                        <div className="space-y-2 flex-1 w-full text-xs">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-300 font-semibold">Official UPI ID:</span>
-                            <span className="text-[10px] text-emerald-400 font-bold">✓ Verified Merchant Escrow</span>
+                            <span className="text-slate-700 font-semibold">Official UPI ID:</span>
+                            <span className="text-xs text-emerald-700 font-bold">✓ Verified Merchant Escrow</span>
                           </div>
 
                           <div className="flex items-center gap-2">
-                            <div className="flex-1 bg-[#0e0a1a] border border-[#37285a] rounded-xl px-4 py-2.5 text-xs font-mono text-[#c084fc] font-bold truncate">
+                            <div className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-mono text-amber-700 font-bold truncate">
                               917690868932@ybl
                             </div>
                             <button
                               type="button"
                               onClick={() => copyToClipboard("917690868932@ybl", "UPI ID")}
-                              className="px-4 py-2.5 rounded-xl bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold transition-all cursor-pointer shrink-0"
+                              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white text-xs font-bold transition-all cursor-pointer shrink-0"
                             >
                               {copiedField === "UPI ID" ? "✓ Copied" : "Copy UPI"}
                             </button>
                           </div>
 
-                          <p className="text-[11px] text-[#94a3b8]">
-                            Beneficiary: <strong className="text-white">Balaji Prime Media</strong> • Supported: Google Pay, PhonePe, Paytm, BHIM, Cred.
+                          <p className="text-xs text-slate-500">
+                            Beneficiary: <strong className="text-slate-900">Balaji Prime Media</strong> • Supported: Google Pay, PhonePe, Paytm, BHIM, Cred.
                           </p>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
                           UPI Transaction ID / 12-Digit UTR Number (Optional if already sent)
                         </label>
                         <input
@@ -1728,7 +1423,7 @@ export default function ServicesClient() {
                           placeholder="e.g. 412389104821"
                           value={portalUtr}
                           onChange={(e) => setPortalUtr(e.target.value)}
-                          className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-2.5 text-xs text-white outline-none"
+                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none"
                         />
                       </div>
                     </div>
@@ -1736,175 +1431,167 @@ export default function ServicesClient() {
 
                   {/* 2. Stripe Card Rail */}
                   {portalPaymentMethod === "card" && (
-                    <div className="space-y-3.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-300 font-semibold">Stripe Global Multi-Currency Escrow</span>
-                        <span className="text-[11px] text-purple-300 flex items-center gap-1 font-semibold">
+                    <div className="space-y-3.5 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-800 font-bold">Stripe Global Multi-Currency Escrow</span>
+                        <span className="text-xs text-amber-700 flex items-center gap-1 font-semibold">
                           <span>🔒 256-Bit Bank Grade SSL</span>
                         </span>
                       </div>
 
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Cardholder Name</label>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">Cardholder Name</label>
                         <input
                           type="text"
                           value={portalClientName}
                           onChange={(e) => setPortalClientName(e.target.value)}
                           placeholder="Full Name as on card"
-                          className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-2.5 text-xs text-white outline-none"
+                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs text-slate-900 outline-none"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs text-gray-400 mb-1">Card Number</label>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">Card Number</label>
                         <input
                           type="text"
                           maxLength={19}
-                          placeholder="4242 •••• •••• 4242 (Visa, Mastercard, RuPay, Amex)"
+                          placeholder="4242 •••• •••• 4242 (Visa, Mastercard, Amex)"
                           value={portalCardNumber}
                           onChange={(e) => setPortalCardNumber(e.target.value)}
-                          className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-2.5 text-xs font-mono text-white outline-none"
+                          className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1">Expiry (MM/YY)</label>
+                          <label className="block text-xs font-bold text-slate-700 mb-1">Expiry (MM/YY)</label>
                           <input
                             type="text"
                             maxLength={5}
                             placeholder="MM/YY"
                             value={portalCardExpiry}
                             onChange={(e) => setPortalCardExpiry(e.target.value)}
-                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-2.5 text-xs font-mono text-white outline-none"
+                            className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1">CVC / CVV</label>
+                          <label className="block text-xs font-bold text-slate-700 mb-1">CVC / CVV</label>
                           <input
                             type="password"
                             maxLength={4}
                             placeholder="•••"
                             value={portalCardCvc}
                             onChange={(e) => setPortalCardCvc(e.target.value)}
-                            className="w-full bg-[#0e0a1a] border border-[#2B2144] focus:border-[#a855f7] rounded-xl px-4 py-2.5 text-xs font-mono text-white outline-none"
+                            className="w-full bg-white border border-slate-200 focus:border-amber-500 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-900 outline-none"
                           />
                         </div>
                       </div>
                     </div>
                   )}
 
-                  {/* 3. Direct Bank Wire / SWIFT Rail */}
+                  {/* 3. Bank Wire Rail */}
                   {portalPaymentMethod === "bank" && (
                     <div className="space-y-3 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-white">HDFC Bank Limited Coordinates</span>
-                        <span className="text-[10px] text-emerald-400 font-bold">Domestic &amp; SWIFT</span>
+                        <span className="font-bold text-slate-900">HDFC Bank Limited Coordinates</span>
+                        <span className="text-xs text-emerald-700 font-bold">Domestic &amp; SWIFT</span>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                        <div className="bg-[#0e0a1a] p-3 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] text-gray-400 block">Beneficiary</span>
-                            <strong className="text-white text-xs">Balaji Prime Media</strong>
+                            <span className="text-xs text-slate-500 block">Beneficiary</span>
+                            <strong className="text-slate-900 text-xs">Balaji Prime Media</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("Balaji Prime Media", "Beneficiary")}
-                            className="text-xs text-purple-400 hover:text-white"
+                            className="text-xs text-amber-700 font-bold hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-[#0e0a1a] p-3 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] text-gray-400 block">Account Number</span>
-                            <strong className="text-white font-mono text-xs">50200084920491</strong>
+                            <span className="text-xs text-slate-500 block">Account Number</span>
+                            <strong className="text-slate-900 font-mono text-xs">50200084920491</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("50200084920491", "Account Number")}
-                            className="text-xs text-purple-400 hover:text-white"
+                            className="text-xs text-amber-700 font-bold hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-[#0e0a1a] p-3 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] text-gray-400 block">IFSC Code (India)</span>
-                            <strong className="text-white font-mono text-xs">HDFC0001842</strong>
+                            <span className="text-xs text-slate-500 block">IFSC Code (India)</span>
+                            <strong className="text-slate-900 font-mono text-xs">HDFC0001842</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("HDFC0001842", "IFSC Code")}
-                            className="text-xs text-purple-400 hover:text-white"
+                            className="text-xs text-amber-700 font-bold hover:underline"
                           >
                             Copy
                           </button>
                         </div>
 
-                        <div className="bg-[#0e0a1a] p-3 rounded-xl border border-[#2B2144] flex items-center justify-between">
+                        <div className="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
                           <div>
-                            <span className="text-[10px] text-gray-400 block">SWIFT / BIC (International)</span>
-                            <strong className="text-white font-mono text-xs">HDFCINBB</strong>
+                            <span className="text-xs text-slate-500 block">SWIFT / BIC (International)</span>
+                            <strong className="text-slate-900 font-mono text-xs">HDFCINBB</strong>
                           </div>
                           <button
                             type="button"
                             onClick={() => copyToClipboard("HDFCINBB", "SWIFT Code")}
-                            className="text-xs text-purple-400 hover:text-white"
+                            className="text-xs text-amber-700 font-bold hover:underline"
                           >
                             Copy
                           </button>
                         </div>
                       </div>
-
-                      <p className="text-[11px] text-[#94a3b8] mt-1">
-                        After transferring via NEFT, RTGS, IMPS, or Wire, click the confirmation button below to record the audit log.
-                      </p>
                     </div>
                   )}
 
                   {/* 4. PayPal Rail */}
                   {portalPaymentMethod === "paypal" && (
-                    <div className="space-y-3 text-center py-4">
+                    <div className="space-y-3 text-center py-4 text-xs">
                       <span className="text-4xl block">🅿️</span>
-                      <h4 className="text-base font-bold text-white">PayPal Express Authorization</h4>
-                      <p className="text-xs text-[#94a3b8] max-w-sm mx-auto">
+                      <h4 className="text-base font-bold text-slate-950">PayPal Express Authorization</h4>
+                      <p className="text-xs text-slate-600 max-w-sm mx-auto">
                         Instant global payments with zero transaction fees for USD ($), GBP (£), EUR (€), and AUD (A$).
                       </p>
-                      <div className="inline-block px-4 py-1.5 bg-[#1e153a] border border-[#a855f7]/40 rounded-full text-xs text-[#c084fc]">
-                        Target Invoice Recipient: <strong className="text-white">payments@balajiprimemedia.in</strong>
+                      <div className="inline-block px-4 py-1.5 bg-amber-50 border border-amber-200 rounded-full text-xs text-amber-800 font-bold">
+                        Target Invoice: <strong className="text-slate-950">payments@balajiprimemedia.in</strong>
                       </div>
                     </div>
                   )}
 
                   {/* 5. Wise Rail */}
                   {portalPaymentMethod === "wise" && (
-                    <div className="space-y-3 text-left">
+                    <div className="space-y-3 text-left text-xs">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl">🌍</span>
                         <div>
-                          <h4 className="text-sm font-bold text-white">Wise Multi-Currency Wire</h4>
-                          <p className="text-xs text-[#94a3b8]">Zero exchange markup bank settlements worldwide</p>
+                          <h4 className="text-sm font-bold text-slate-950">Wise Multi-Currency Wire</h4>
+                          <p className="text-xs text-slate-600">Zero exchange markup bank settlements worldwide</p>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-300">
-                        Transfer directly to our domestic Indian HDFC account using Wise for guaranteed lowest FX fees and same-day ledger verification.
-                      </p>
-                      <div className="p-3 rounded-xl bg-[#0e0a1a] border border-[#2B2144] text-xs font-mono text-[#c084fc]">
+                      <div className="p-3.5 rounded-xl bg-white border border-slate-200 text-xs font-mono text-slate-800">
                         Recipient: Balaji Prime Media • Account: 50200084920491 • IFSC: HDFC0001842
                       </div>
                     </div>
                   )}
-
                 </div>
 
                 {/* Processing State */}
                 {portalProcessing && (
-                  <div className="p-5 rounded-2xl bg-purple-950/70 border border-purple-500/60 flex items-center justify-center gap-3 text-white text-xs sm:text-sm font-semibold animate-pulse">
-                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="p-5 rounded-2xl bg-amber-50 border border-amber-300 flex items-center justify-center gap-3 text-amber-900 text-xs font-semibold animate-pulse">
+                    <span className="w-5 h-5 border-2 border-amber-600 border-t-transparent rounded-full animate-spin" />
                     <span>Authorizing settlement with Balaji Prime Media Escrow Ledger...</span>
                   </div>
                 )}
@@ -1915,7 +1602,7 @@ export default function ServicesClient() {
                     type="button"
                     disabled={portalProcessing}
                     onClick={() => setPortalStep(2)}
-                    className="px-6 py-3.5 rounded-2xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-bold text-white transition-all cursor-pointer disabled:opacity-50"
+                    className="px-6 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 transition-all cursor-pointer shadow-xs disabled:opacity-50"
                   >
                     ← Back
                   </button>
@@ -1924,7 +1611,7 @@ export default function ServicesClient() {
                     type="button"
                     disabled={portalProcessing}
                     onClick={() => handlePortalPayment()}
-                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 via-[#6366f1] to-[#a855f7] hover:brightness-110 active:scale-[0.98] text-white font-bold px-8 py-4 rounded-2xl text-xs sm:text-sm transition-all shadow-xl shadow-purple-950/80 cursor-pointer disabled:opacity-50"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs shadow-md shadow-amber-900/15 cursor-pointer disabled:opacity-50"
                   >
                     <span>
                       {portalProcessing
@@ -1943,38 +1630,36 @@ export default function ServicesClient() {
               </div>
             )}
 
-            {/* =========================================================================
-                STEP 4: Success & Verified Escrow Receipt (Full-Width View)
-               ========================================================================= */}
+            {/* STEP 4: Success & Verified Escrow Receipt */}
             {portalStep === 4 && (
               <div className="space-y-6 text-center py-4 animate-fadeIn max-w-2xl mx-auto">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto text-4xl shadow-[0_0_40px_rgba(52,211,153,0.4)]">
+                <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 text-emerald-700 flex items-center justify-center mx-auto text-4xl shadow-md">
                   ✓
                 </div>
 
                 <div>
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
                     Settlement Completed &amp; Escrow Verified
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950">
                     Payment Authorization Confirmed!
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#94a3b8] mt-1.5 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
                     Your order has been recorded into the Balaji Prime Media core ledger. An authenticated tax receipt and delivery ticket has been dispatched to{" "}
-                    <strong className="text-white">{portalClientEmail || "your email"}</strong>.
+                    <strong className="text-slate-950">{portalClientEmail || "your email"}</strong>.
                   </p>
                 </div>
 
                 {/* Cryptographic Receipt Box */}
-                <div className="bg-[#140F24] border border-[#302150] rounded-3xl p-6 text-left space-y-3 text-xs shadow-xl">
-                  <div className="flex items-center justify-between pb-3 border-b border-[#231A33]">
-                    <span className="text-xs text-gray-400 font-medium">Transaction Reference ID:</span>
+                <div className="bg-[#fffdfa] border border-amber-200/80 rounded-3xl p-6 text-left space-y-3 text-xs shadow-sm">
+                  <div className="flex items-center justify-between pb-3 border-b border-amber-100">
+                    <span className="text-xs text-slate-500 font-medium">Transaction Reference ID:</span>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-[#22d3ee] text-sm">{portalTxnId}</span>
+                      <span className="font-mono font-bold text-slate-950 text-sm">{portalTxnId}</span>
                       <button
                         type="button"
                         onClick={() => copyToClipboard(portalTxnId, "Transaction ID")}
-                        className="text-xs text-purple-400 hover:text-white"
+                        className="text-xs text-amber-700 font-bold hover:underline"
                       >
                         {copiedField === "Transaction ID" ? "✓ Copied" : "Copy"}
                       </button>
@@ -1983,14 +1668,14 @@ export default function ServicesClient() {
 
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Service:</span>
-                      <strong className="text-white">
+                      <span className="text-xs text-slate-500 block">Service:</span>
+                      <strong className="text-slate-950">
                         {isCustomService ? customServiceName : selectedPortalService.name}
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Settled Amount:</span>
-                      <strong className="text-emerald-400 text-sm">
+                      <span className="text-xs text-slate-500 block">Settled Amount:</span>
+                      <strong className="text-amber-700 text-sm">
                         {isCustomService
                           ? `${currency === "INR" ? "₹" : "$"}${customServiceAmount}`
                           : currency === "INR"
@@ -1999,36 +1684,18 @@ export default function ServicesClient() {
                       </strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Target Domain:</span>
-                      <strong className="text-[#c084fc] font-mono">{portalClientDomain}</strong>
+                      <span className="text-xs text-slate-500 block">Target Domain:</span>
+                      <strong className="text-slate-950 font-mono">{portalClientDomain}</strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Settlement Rail:</span>
-                      <strong className="text-white">{portalPaymentMethod.toUpperCase()}</strong>
+                      <span className="text-xs text-slate-500 block">Settlement Rail:</span>
+                      <strong className="text-slate-950">{portalPaymentMethod.toUpperCase()}</strong>
                     </div>
                   </div>
                 </div>
 
-                {/* Onboarding SLA Box */}
-                <div className="p-4 rounded-2xl bg-[#1b1238] border border-[#a855f7]/30 text-left text-xs space-y-1">
-                  <p className="font-bold text-[#c084fc] flex items-center gap-2">
-                    <span>🚀 Next Steps &amp; Delivery SLA:</span>
-                  </p>
-                  <p className="text-xs text-[#94a3b8] leading-relaxed">
-                    A Senior Growth Partner will establish your dedicated communication channel (Slack / WhatsApp) within <strong className="text-white">2 business hours</strong> to begin deliverable execution.
-                  </p>
-                </div>
-
                 {/* Return / Reset Button */}
                 <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
-                  <button
-                    type="button"
-                    onClick={() => copyToClipboard(portalTxnId, "Transaction ID")}
-                    className="px-6 py-3.5 rounded-2xl bg-[#18122B] hover:bg-[#281D4A] border border-[#2B2144] text-xs font-semibold text-white transition-all cursor-pointer"
-                  >
-                    📋 Copy Transaction ID
-                  </button>
-
                   <button
                     type="button"
                     onClick={() => {
@@ -2036,7 +1703,7 @@ export default function ServicesClient() {
                       const el = document.getElementById("services-grid");
                       if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:brightness-110 text-white font-bold px-8 py-3.5 rounded-2xl text-xs transition-all shadow-lg shadow-purple-950/80 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-yellow-500 text-white font-bold px-8 py-3.5 rounded-full text-xs transition-all shadow-md shadow-amber-900/15 cursor-pointer"
                   >
                     <span>↺ Authorize Another Service / Return to Grid</span>
                   </button>
@@ -2048,6 +1715,7 @@ export default function ServicesClient() {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
