@@ -194,7 +194,7 @@ export default function Home() {
       />
 
       {/* Main Container - Modern Industrial Elegance */}
-      <div className="min-h-screen bg-[#07030d] text-white font-satoshi selection:bg-[#681fe4] selection:text-white antialiased overflow-x-hidden">
+      <div className="min-h-screen bg-[#07030d] text-white font-satoshi selection:bg-[#681fe4] selection:text-white antialiased overflow-x-hidden w-full max-w-full">
         
         {/* =========================================================================
             1. MODERN INDUSTRIAL FIXED NAVBAR (Same as Guest Posting)
