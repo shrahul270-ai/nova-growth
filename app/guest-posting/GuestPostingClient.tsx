@@ -132,9 +132,7 @@ export default function GuestPostingClient() {
   return (
     <div className="min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi antialiased">
       {/* Modern Industrial Fixed Navbar */}
-      <div className="relative z-40 bg-[#07030d]/90 backdrop-blur-md">
-        <Navbar activePage="guest-posting" />
-      </div>
+      <Navbar activePage="guest-posting" />
 
       {/* 1. On-Topic Industrial Hero Section */}
       <DesignProHero />
