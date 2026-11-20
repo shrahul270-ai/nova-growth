@@ -52,10 +52,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     }, 180);
   };
 
-  // Close mobile menu on resize to desktop (min-width: 1024px)
+  // Close mobile menu on resize to desktop (min-width: 1280px)
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 1280) {
         setMobileMenuOpen(false);
       }
     };
@@ -186,19 +186,19 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
         {/* Tier 2: Main Floating Navbar */}
         <div className="w-full px-3 sm:px-6 xl:px-8 py-2 sm:py-2.5">
-          <div className="max-w-[1360px] mx-auto flex items-center justify-between gap-2 lg:gap-3 xl:gap-6 w-full">
+          <div className="max-w-[1360px] mx-auto flex items-center justify-between gap-2 xl:gap-4 w-full">
             
             {/* Minimalist Logo (Two Overlapping Circles) */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 group shrink-0">
-              <div className="relative w-6 h-6 sm:w-7 sm:h-7 flex items-center shrink-0">
-                <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full border border-white/90 block" />
-                <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-white block -ml-2 sm:-ml-2.5" />
+            <Link href="/" className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 group shrink-0 min-w-0">
+              <div className="relative w-5 h-5 sm:w-6 sm:h-6 flex items-center shrink-0">
+                <span className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full border border-white/90 block" />
+                <span className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full bg-white block -ml-1.5 sm:-ml-2" />
               </div>
-              <div className="flex flex-col text-left">
-                <span className="font-bebas text-base sm:text-lg xl:text-xl tracking-[0.14em] xl:tracking-[0.2em] text-white leading-none group-hover:text-[#681fe4] transition-colors">
+              <div className="flex flex-col text-left min-w-0">
+                <span className="font-bebas text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-[0.06em] sm:tracking-[0.1em] xl:tracking-[0.16em] text-white leading-none group-hover:text-[#681fe4] transition-colors truncate">
                   BALAJI PRIME MEDIA
                 </span>
-                <span className="hidden xl:block text-[8px] sm:text-[9px] font-bebas tracking-[0.2em] xl:tracking-[0.24em] text-white/50 uppercase leading-none mt-0.5">
+                <span className="hidden 2xl:block text-[8px] font-bebas tracking-[0.2em] text-white/50 uppercase leading-none mt-0.5">
                   SEO &amp; GROWTH ARCHITECTURE
                 </span>
               </div>
@@ -207,7 +207,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             {/* Centered Desktop Navigation Links in Bebas Neue */}
             <nav
               ref={navContainerRef}
-              className="hidden lg:flex items-center gap-0.5 lg:gap-1 xl:gap-2 shrink-0"
+              className="hidden xl:flex items-center gap-0.5 xl:gap-1 2xl:gap-2 shrink-0"
               aria-label="Primary"
             >
               {/* 1. Home */}
@@ -215,7 +215,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 href="/"
                 prefetch={false}
                 onClick={() => setActiveDropdown(null)}
-                className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.1em] transition-all whitespace-nowrap uppercase ${
+                className={`relative px-1.5 xl:px-2 2xl:px-2.5 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[13px] 2xl:text-[14px] tracking-[0.04em] xl:tracking-[0.06em] 2xl:tracking-[0.08em] transition-all whitespace-nowrap uppercase ${
                   activePage === "home"
                     ? "text-[#681fe4] font-semibold"
                     : "text-white/85 hover:text-white hover:bg-white/5"
@@ -241,7 +241,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       href={link.href}
                       prefetch={false}
                       onClick={() => setActiveDropdown(null)}
-                      className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.1em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
+                      className={`relative px-1.5 xl:px-2 2xl:px-2.5 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[13px] 2xl:text-[14px] tracking-[0.04em] xl:tracking-[0.06em] 2xl:tracking-[0.08em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
                         isActive
                           ? "text-[#681fe4] font-semibold"
                           : isOpen
@@ -252,7 +252,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       <span>{link.name}</span>
                       {hasDropdown && (
                         <svg
-                          className={`w-2 h-2 lg:w-2.5 lg:h-2.5 transition-transform duration-200 ${
+                          className={`w-2 h-2 transition-transform duration-200 ${
                             isOpen ? "rotate-180 text-[#681fe4]" : "text-neutral-500 group-hover:text-white"
                           }`}
                           viewBox="0 0 10 6"
@@ -320,7 +320,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   setAuthModalMode("login");
                   setAuthModalOpen(true);
                 }}
-                className="inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+                className="hidden sm:inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>SIGN IN</span>
                 <span className="text-xs">→</span>
@@ -331,7 +331,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 type="button"
                 id="burger"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-9 h-9 rounded-[4px] border border-white/20 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors shrink-0 z-[110] ml-0.5 sm:ml-1"
+                className="xl:hidden w-8.5 h-8.5 sm:w-9 sm:h-9 rounded-[4px] border border-white/20 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors shrink-0 z-[110]"
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle navigation menu"
               >
@@ -348,7 +348,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
       {/* Full-Screen Mobile Navigation Drawer (Mounted outside header to escape backdrop-blur stacking context) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[100] bg-[#07030d] flex flex-col overflow-y-auto p-5 sm:p-8 pt-20 font-satoshi animate-in fade-in duration-200">
+        <div className="xl:hidden fixed inset-0 z-[100] bg-[#07030d] flex flex-col overflow-y-auto p-5 sm:p-8 pt-20 font-satoshi animate-in fade-in duration-200">
           {/* Top Bar inside Drawer with Brand & Close Button */}
           <div className="flex items-center justify-between pb-5 border-b border-white/10 shrink-0">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
