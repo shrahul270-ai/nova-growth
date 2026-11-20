@@ -13,6 +13,7 @@ import ProjectsView from "./components/ProjectsView";
 import FinancesView from "./components/FinancesView";
 import AuditsView from "./components/AuditsView";
 import WhatsAppView from "./components/WhatsAppView";
+import AdminLoginView from "./components/AdminLoginView";
 import {
   AddLeadModal,
   AddPaymentModal,
@@ -78,15 +79,63 @@ export default function AdminMasterDashboard() {
   const [prefillServiceForInvoice, setPrefillServiceForInvoice] = useState<ServiceDetailItem | null>(null);
   const [previewInvoice, setPreviewInvoice] = useState<InvoiceItem | null>(null);
 
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
   // System States
   const [isSyncing, setIsSyncing] = useState(false);
   const [isScanningAudit, setIsScanningAudit] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Verify Admin Session on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const localAuth = localStorage.getItem("bpm_admin_authenticated");
+        if (localAuth === "true") {
+          setIsAuthenticated(true);
+        }
+
+        const res = await fetch("/api/admin/verify");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.authenticated) {
+            setIsAuthenticated(true);
+            try {
+              localStorage.setItem("bpm_admin_authenticated", "true");
+            } catch {}
+            return;
+          }
+        }
+
+        if (localAuth !== "true") {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        const localAuth = localStorage.getItem("bpm_admin_authenticated");
+        setIsAuthenticated(localAuth === "true");
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {}
+    try {
+      localStorage.removeItem("bpm_admin_authenticated");
+      localStorage.removeItem("bpm_admin_user");
+    } catch {}
+    setIsAuthenticated(false);
+    showToast("Logged out successfully");
+  };
+
   // Load saved theme
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("nova_admin_theme");
+      const saved = localStorage.getItem("bpm_admin_theme");
       if (saved === "light" || saved === "dark") {
         setTheme(saved);
       }
@@ -102,7 +151,7 @@ export default function AdminMasterDashboard() {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
     try {
-      localStorage.setItem("nova_admin_theme", next);
+      localStorage.setItem("bpm_admin_theme", next);
     } catch {}
     showToast(`${next === "dark" ? "Dark Mode" : "Light Mode"} enabled`);
   };
@@ -265,7 +314,7 @@ export default function AdminMasterDashboard() {
 
       XLSX.writeFile(
         wb,
-        `NovaGrowth_BalajiPrimeMedia_Master_Database_${new Date().toISOString().slice(0, 10)}.xlsx`
+        `BalajiPrimeMedia_Master_Database_${new Date().toISOString().slice(0, 10)}.xlsx`
       );
       showToast("✓ Excel master workbook exported successfully!");
     } catch (err) {
@@ -389,13 +438,40 @@ export default function AdminMasterDashboard() {
     showToast("✓ Lead status updated");
   };
 
+  // Guard: If authentication checking or unauthenticated, show login screen
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-3 animate-in fade-in duration-200">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#4f46e5] to-[#818cf8] p-0.5 shadow-xl shadow-indigo-900/40">
+            <div className="w-full h-full rounded-[14px] bg-[#090d16] flex items-center justify-center">
+              <span className="font-black text-xl text-white tracking-wider">BP</span>
+            </div>
+          </div>
+          <span className="text-xs font-bold text-slate-400">Verifying Balaji Prime Admin Session...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <AdminLoginView
+        onLoginSuccess={() => {
+          setIsAuthenticated(true);
+          showToast("Welcome back, Rahul Swami!");
+        }}
+      />
+    );
+  }
+
   return (
     <div
       className={`min-h-screen font-sans flex flex-row relative transition-colors duration-300 ${
         isDark ? "bg-[#090d16] text-slate-100 dark" : "bg-[#f8fafc] text-slate-900"
       }`}
     >
-      {/* Toast Notification Notification Pill */}
+      {/* Toast Notification Pill */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0f172a] text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700/80 text-xs font-bold flex items-center gap-2.5 animate-in slide-in-from-bottom-4 duration-200">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
@@ -409,7 +485,7 @@ export default function AdminMasterDashboard() {
         setActiveView={setActiveView}
         isOpenMobile={isOpenMobile}
         setIsOpenMobile={setIsOpenMobile}
-        onLogout={() => showToast("Securely signed out")}
+        onLogout={handleLogout}
         leadCount={leads.filter((l) => l.status === "new").length}
         paymentCount={payments.length}
       />

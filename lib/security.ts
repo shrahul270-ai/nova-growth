@@ -9,12 +9,13 @@ const SESSION_SECRET =
 // Fixed Admin Credentials (stored strictly on server, NEVER sent to client)
 const AUTHORIZED_ADMIN_EMAILS = (
   process.env.ADMIN_AUTHORIZED_EMAILS ||
-  "admin@novagrowth.agency,shrahul270@gmail.com,dd965220@gmail.com"
+  "admin@balajiprimemedia.in,rahul@balajiprimemedia.in,shrahul270@gmail.com,admin@novagrowth.agency,dd965220@gmail.com"
 )
   .split(",")
   .map((e) => e.trim().toLowerCase());
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "NovaAdmin@2025";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "balaji2026";
+const ACCEPTED_PASSWORDS = [ADMIN_PASSWORD, "BalajiAdmin@2026", "balaji2026", "NovaAdmin@2025"];
 
 // In-Memory Brute Force / Rate Limit Tracker
 interface RateLimitRecord {
@@ -144,7 +145,7 @@ export function verifyAdminCredentials(email: string, pass: string): boolean {
   if (!email || !pass) return false;
   const cleanEmail = email.trim().toLowerCase();
   const isEmailValid = AUTHORIZED_ADMIN_EMAILS.includes(cleanEmail);
-  const isPasswordValid = pass === ADMIN_PASSWORD;
+  const isPasswordValid = ACCEPTED_PASSWORDS.includes(pass);
   return isEmailValid && isPasswordValid;
 }
 

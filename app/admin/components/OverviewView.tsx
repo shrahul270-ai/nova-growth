@@ -165,7 +165,7 @@ export default function OverviewView({
         <div>
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-[-0.02em]">
-              Welcome back, Rahul 👋
+              Welcome back, Rahul Swami 👋
             </h1>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -173,7 +173,7 @@ export default function OverviewView({
             </span>
           </div>
           <p className="text-[13px] text-slate-500 dark:text-slate-400 mt-1 font-medium">
-            Real-time command center for Nova Growth & Balaji Prime Media. All platform operations, leads, and finances centralized.
+            Real-time command center for Balaji Prime Media. All platform operations, leads, and finances centralized.
           </p>
         </div>
 

@@ -170,7 +170,7 @@ export default function AdminSidebar({
               {/* 40x40px rounded-xl box logo */}
               <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-[#4f46e5] to-[#3730a3] p-[2px] shadow-lg shadow-indigo-900/40 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <div className="w-full h-full rounded-[10px] bg-[#0f172a] flex items-center justify-center overflow-hidden">
-                  <span className="font-extrabold text-white text-base tracking-tight">NG</span>
+                  <span className="font-extrabold text-white text-base tracking-tight">BP</span>
                 </div>
                 {/* Live pulsing online dot */}
                 <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
@@ -183,14 +183,14 @@ export default function AdminSidebar({
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[15px] font-extrabold text-white tracking-tight">
-                    Nova Growth
+                    Balaji Prime
                   </span>
                   <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#4f46e5]/20 text-[#818cf8] border border-[#4f46e5]/40 uppercase">
                     Admin
                   </span>
                 </div>
                 <span className="text-[11px] text-slate-400 font-medium tracking-wide">
-                  Balaji Prime Media Command
+                  Executive Command Portal
                 </span>
               </div>
             </Link>

@@ -710,14 +710,14 @@ export function InvoicePreviewModal({
             <div>
               <div className="flex items-center gap-2">
                 <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white font-black flex items-center justify-center text-sm">
-                  NG
+                  BP
                 </div>
                 <div>
                   <h2 className="text-xl font-black tracking-tight text-slate-900">
-                    Nova Growth
+                    Balaji Prime Media
                   </h2>
                   <span className="text-xs font-bold text-slate-500">
-                    Balaji Prime Media Agency
+                    Enterprise Digital Services Agency
                   </span>
                 </div>
               </div>
@@ -811,7 +811,7 @@ export function InvoicePreviewModal({
 
           {/* Footer Notes */}
           <div className="pt-6 border-t border-slate-200 text-[11px] text-slate-500 text-center">
-            Thank you for partnering with Nova Growth / Balaji Prime Media Agency.
+            Thank you for partnering with Balaji Prime Media Agency.
           </div>
         </div>
       </div>

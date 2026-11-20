@@ -290,10 +290,10 @@ export default function AdminHeader({
           {/* Name & Role */}
           <div className="hidden sm:flex flex-col text-left">
             <span className="text-[13px] font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-              Rahul Sharma
+              Rahul Swami
             </span>
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              Super Admin
+              Super Admin • Balaji Prime
             </span>
           </div>
         </div>
