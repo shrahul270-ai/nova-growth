@@ -510,6 +510,7 @@ export default function AdminMasterDashboard() {
           }
           currencyRegion={currencyRegion}
           setCurrencyRegion={setCurrencyRegion}
+          onNavigateToWhatsApp={() => setActiveView("whatsapp")}
         />
 
         {/* Dynamic View Router with Soft Professional Padding */}
