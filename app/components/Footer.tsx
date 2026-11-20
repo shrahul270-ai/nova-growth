@@ -50,7 +50,7 @@ export default function Footer() {
       {/* =====================================================================
           TIER 1: Massive 'Let's Work Together' & Brand Identification
          ===================================================================== */}
-      <div className="max-w-[1320px] mx-auto px-6 sm:px-12 py-16 sm:py-20 border-b border-white/10">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 border-b border-white/10">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 text-left">
           <div>
             <div className="flex items-center gap-3.5 mb-6">
@@ -63,22 +63,24 @@ export default function Footer() {
               </span>
             </div>
 
-            <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-white/50 uppercase block mb-2">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/50 uppercase block mb-2">
               // INITIATE COMMERCIAL PARTNERSHIP
             </span>
             <a
               href={emailInquiryHref}
-              className="font-bebas text-3xl sm:text-5xl md:text-6xl tracking-[0.14em] text-[#681fe4] hover:text-white transition-colors block uppercase leading-none"
+              className="font-bebas text-2xl xs:text-3xl sm:text-5xl md:text-6xl tracking-[0.08em] sm:tracking-[0.14em] text-[#681fe4] hover:text-white transition-colors block uppercase leading-none break-words"
             >
               LET&apos;S WORK TOGETHER →
             </a>
-            <span className="text-neutral-400 text-xs sm:text-sm block mt-2 font-mono">
-              support@balajiprimemedia.in • Direct Client Inquiries (+91 76908 68932)
-            </span>
+            <div className="text-neutral-400 text-xs sm:text-sm mt-2 font-mono flex flex-wrap gap-x-2 gap-y-1">
+              <a href="mailto:support@balajiprimemedia.in" className="hover:text-white transition-colors">support@balajiprimemedia.in</a>
+              <span>•</span>
+              <a href="tel:+917690868932" className="hover:text-white transition-colors">Direct Client Inquiries (+91 76908 68932)</a>
+            </div>
           </div>
 
           {/* Social Channels in Sharp 4px Boxes */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
             {[
               { name: "WhatsApp", href: "https://wa.me/917690868932", label: "WA" },
               { name: "Telegram", href: "https://t.me/balajiprimemedia", label: "TG" },
@@ -90,7 +92,7 @@ export default function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
-                className="w-11 h-11 rounded-[4px] border border-white/10 hover:border-[#681fe4] hover:bg-[#681fe4] flex items-center justify-center font-bebas text-sm tracking-[0.12em] text-white transition-all cursor-pointer"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-[4px] border border-white/10 hover:border-[#681fe4] hover:bg-[#681fe4] flex items-center justify-center font-bebas text-xs sm:text-sm tracking-[0.12em] text-white transition-all cursor-pointer"
               >
                 {s.label}
               </a>
@@ -102,8 +104,8 @@ export default function Footer() {
       {/* =====================================================================
           TIER 2: 4-Column Grid with User's Exact NAVIGATION & SUPPORT & MORE
          ===================================================================== */}
-      <div className="max-w-[1320px] mx-auto px-6 sm:px-12 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-left">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 text-left">
           
           {/* Col 1: About & Location */}
           <div className="space-y-3">
@@ -386,7 +388,7 @@ export default function Footer() {
         </div>
 
         {/* BOTTOM ROW: PAYMENT ACCEPTED, LEGAL LINKS & COPYRIGHT */}
-        <div className="pt-12 mt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-bebas tracking-[0.18em] text-neutral-500">
+        <div className="pt-8 sm:pt-12 mt-8 sm:mt-12 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6 text-xs font-bebas tracking-[0.14em] sm:tracking-[0.18em] text-neutral-500">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-white/60">ACCEPTED INVOICE METHODS:</span>
             <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">STRIPE</span>
@@ -395,7 +397,7 @@ export default function Footer() {
             <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">UPI / ACH</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">
               PRIVACY POLICY
             </Link>
@@ -416,14 +418,14 @@ export default function Footer() {
             TIER 3: Giant Outlined Brand Wordmark ("balaji prime media")
             Chopskip-style hollow brand-violet outline footer element
            ===================================================================== */}
-        <div className="pt-10 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none">
+        <div className="pt-8 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none px-2">
           <span
             className="footer-mega-wordmark cursor-default"
             aria-label="balaji prime media"
             style={{
               fontFamily: "'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
               fontWeight: 800,
-              fontSize: "clamp(34px, 8.8vw, 155px)",
+              fontSize: "clamp(26px, 8.4vw, 155px)",
               lineHeight: 0.88,
               letterSpacing: "-0.04em",
               color: "transparent",
@@ -439,11 +441,11 @@ export default function Footer() {
         </div>
 
         {/* BOTTOM METADATA BAR */}
-        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-neutral-500">
+        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 text-[11px] font-mono text-neutral-500 text-center sm:text-left">
           <div>
             © 2026 BALAJI PRIME MEDIA. Made with ❤️ in Jaipur &amp; Global Operations.
           </div>
-          <div className="flex items-center gap-3 text-neutral-400">
+          <div className="flex items-center gap-2.5 sm:gap-3 text-neutral-400 flex-wrap justify-center sm:justify-end">
             <span className="flex items-center gap-1.5 text-neutral-300">
               <span className="w-1.5 h-1.5 rounded-full bg-[#b886ff] animate-pulse" />
               CLIENT INTAKE ACTIVE

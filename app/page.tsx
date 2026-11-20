@@ -78,7 +78,7 @@ export default function Home() {
       desc: "Re-engineered monolithic shop into a headless Next.js frontend with sub-0.8s load time and 1,800 SKU schema clusters.",
       image: "/images/projects/fashion-brand.jpg",
       span: "lg:col-span-2 lg:row-span-2",
-      height: "h-[420px] sm:h-[500px]",
+      height: "min-h-[380px] sm:min-h-[460px] lg:min-h-[500px]",
     },
     {
       id: "saas-pipeline",
@@ -89,7 +89,7 @@ export default function Home() {
       desc: "Programmatic search engine deployment with 450+ comparison pages outranking legacy US SaaS competitors.",
       image: "/images/projects/saas-analytics.jpg",
       span: "lg:col-span-1 lg:row-span-1",
-      height: "h-[240px]",
+      height: "min-h-[260px] sm:min-h-[280px]",
     },
     {
       id: "fitness-app",
@@ -100,7 +100,7 @@ export default function Home() {
       desc: "High-converting web-to-app conversion funnel with Apple/Google one-tap onboarding.",
       image: "/images/projects/fitness-app.jpg",
       span: "lg:col-span-1 lg:row-span-1",
-      height: "h-[240px]",
+      height: "min-h-[260px] sm:min-h-[280px]",
     },
     {
       id: "local-growth",
@@ -111,7 +111,7 @@ export default function Home() {
       desc: "Dominated 18 London boroughs with medical authority PR guest posts and localized citation clusters.",
       image: "/images/projects/local-growth.jpg",
       span: "lg:col-span-1 lg:row-span-1",
-      height: "h-[240px]",
+      height: "min-h-[260px] sm:min-h-[280px]",
     },
     {
       id: "dubai-real-estate",
@@ -122,7 +122,7 @@ export default function Home() {
       desc: "Multilingual Arabic-English property portal with sub-second page performance across the GCC.",
       image: "/images/projects/real-estate.jpg",
       span: "lg:col-span-1 lg:row-span-1",
-      height: "h-[240px]",
+      height: "min-h-[260px] sm:min-h-[280px]",
     },
   ];
 
@@ -249,29 +249,29 @@ export default function Home() {
           <div className="relative z-10 max-w-[1320px] mx-auto w-full text-left my-auto">
             
             {/* Small Tagline with Responsive Tracking */}
-            <div className="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6 max-w-full overflow-hidden">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 max-w-full">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#681fe4] rounded-[2px] shrink-0" />
-              <span className="font-bebas text-[11px] sm:text-xs md:text-sm tracking-[0.14em] sm:tracking-[0.24em] text-[#681fe4] uppercase bg-white/5 border border-white/10 px-3 py-1 rounded-[4px] backdrop-blur-sm break-words max-w-full">
+              <span className="font-bebas text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.24em] text-[#681fe4] uppercase bg-white/5 border border-white/10 px-2.5 sm:px-3 py-1 rounded-[4px] backdrop-blur-sm break-words max-w-full">
                 // ENTERPRISE SEARCH ARCHITECTURE &amp; EDITORIAL PR
               </span>
             </div>
 
-            {/* Massive Display Heading with Responsive Size & Tight Leading */}
-            <h1 className="text-[38px] sm:text-[64px] md:text-[92px] lg:text-[118px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.03em] sm:tracking-[0.05em] uppercase text-white max-w-5xl mb-6 sm:mb-7 drop-shadow-md break-words">
+            {/* Massive Display Heading with Responsive Clamp & Tight Leading */}
+            <h1 className="text-[32px] xs:text-[42px] sm:text-[64px] md:text-[88px] lg:text-[112px] xl:text-[118px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.05em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
               WE SCALE DIGITAL ASSETS INTO MARKET MONOPOLIES.
             </h1>
 
             {/* Premium Body Font ('Satoshi') with 2rem Leading */}
-            <p className="text-neutral-300 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl leading-[1.8rem] sm:leading-[2rem] font-normal mb-8 sm:mb-10">
+            <p className="text-neutral-300 text-xs sm:text-base md:text-lg lg:text-xl max-w-2xl leading-[1.6rem] sm:leading-[2rem] font-normal mb-7 sm:mb-10">
               Balaji Prime Media engineers compounding organic search revenue for North American and European enterprises through 30,000+ verified DR 50–90+ editorial placements, edge-rendered Next.js web applications, and semantic topical authority.
             </p>
 
             {/* Sharp 4px Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-12 sm:mb-16 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-10 sm:mb-16 w-full sm:w-auto">
               {/* Primary CTA: Sharp 4px radius, #681fe4 with matching shadow */}
               <a
                 href="#audit-tool"
-                className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base sm:text-lg tracking-[0.16em] sm:tracking-[0.18em] shadow-[0_10px_25px_rgba(104,31,228,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
+                className="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm sm:text-lg tracking-[0.12em] sm:tracking-[0.18em] shadow-[0_10px_25px_rgba(104,31,228,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center"
               >
                 <span>START FREE GROWTH AUDIT</span>
                 <span>→</span>
@@ -280,72 +280,72 @@ export default function Home() {
               {/* Secondary CTA: Sharp 4px radius, white/10 border */}
               <a
                 href="#work"
-                className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-transparent hover:bg-white/5 border border-white/20 text-white font-bebas text-base sm:text-lg tracking-[0.16em] sm:tracking-[0.18em] hover:border-white/40 transition-all cursor-pointer text-center"
+                className="inline-flex items-center justify-center gap-2 sm:gap-3 px-5 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-transparent hover:bg-white/5 border border-white/20 text-white font-bebas text-sm sm:text-lg tracking-[0.12em] sm:tracking-[0.18em] hover:border-white/40 transition-all cursor-pointer text-center"
               >
                 <span>EXPLORE CASE STUDIES</span>
               </a>
             </div>
 
             {/* Bottom Row: Trust Points + Bottom-Right White Box 'Next/Prev' Navigation */}
-            <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-end justify-between gap-6 sm:gap-8 w-full max-w-full">
+            <div className="pt-6 sm:pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-end justify-between gap-6 sm:gap-8 w-full max-w-full">
               
               {/* Trust Badges */}
-              <div className="w-full md:w-auto grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-10">
+              <div className="w-full md:w-auto grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 lg:gap-10">
                 <div>
-                  <span className="font-bebas text-2xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
+                  <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
                     30,000+
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-bebas tracking-[0.2em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
+                  <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
                     VERIFIED MEDIA PARTNERS
                   </span>
                 </div>
                 <div>
-                  <span className="font-bebas text-2xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
+                  <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
                     +340%
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-bebas tracking-[0.2em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
+                  <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
                     AVG. TRAFFIC INCREASE
                   </span>
                 </div>
                 <div>
-                  <span className="font-bebas text-2xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
+                  <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
                     &lt; 0.8S
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-bebas tracking-[0.2em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
+                  <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
                     SUB-SECOND TTFB
                   </span>
                 </div>
                 <div>
-                  <span className="font-bebas text-2xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
+                  <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
                     99.4%
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-bebas tracking-[0.2em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
+                  <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
                     CLIENT RETENTION RATE
                   </span>
                 </div>
               </div>
 
               {/* Spec Component: Bottom-Right White Box 'Next/Prev' Navigation with Internal Arrows */}
-              <div className="w-full md:w-auto bg-white text-[#07030d] p-3.5 sm:p-5 rounded-[4px] shadow-2xl flex items-center justify-between sm:justify-start gap-4 sm:gap-6 border border-white/20 shrink-0">
+              <div className="w-full md:w-auto bg-white text-[#07030d] p-3 sm:p-5 rounded-[4px] shadow-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between sm:justify-start gap-3 sm:gap-6 border border-white/20 shrink-0">
                 <div className="flex flex-col text-left">
-                  <span className="font-bebas text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.24em] text-neutral-500 uppercase leading-none">
+                  <span className="font-bebas text-[9px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.24em] text-neutral-500 uppercase leading-none">
                     VERIFIED CASE (0{heroSlideIdx + 1} / 0{heroSlides.length})
                   </span>
-                  <span className="font-bebas text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.12em] text-[#07030d] leading-tight mt-1 break-words">
+                  <span className="font-bebas text-sm sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-[#07030d] leading-tight mt-1 break-words">
                     {heroSlides[heroSlideIdx].title} • {heroSlides[heroSlideIdx].metric}
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-neutral-600 font-medium leading-none mt-0.5">
+                  <span className="text-[9px] sm:text-[11px] text-neutral-600 font-medium leading-none mt-0.5">
                     {heroSlides[heroSlideIdx].country}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 self-end xs:self-auto">
                   <button
                     type="button"
                     onClick={() =>
                       setHeroSlideIdx((prev) => (prev > 0 ? prev - 1 : heroSlides.length - 1))
                     }
-                    className="w-8 h-8 sm:w-10 sm:h-10 border border-neutral-300 hover:border-[#681fe4] hover:bg-[#681fe4] hover:text-white rounded-[4px] flex items-center justify-center transition-all cursor-pointer font-bold text-sm sm:text-base"
+                    className="w-8 h-8 sm:w-10 sm:h-10 border border-neutral-300 hover:border-[#681fe4] hover:bg-[#681fe4] hover:text-white rounded-[4px] flex items-center justify-center transition-all cursor-pointer font-bold text-xs sm:text-base"
                     aria-label="Previous case study"
                   >
                     ←
@@ -355,7 +355,7 @@ export default function Home() {
                     onClick={() =>
                       setHeroSlideIdx((prev) => (prev < heroSlides.length - 1 ? prev + 1 : 0))
                     }
-                    className="w-8 h-8 sm:w-10 sm:h-10 bg-[#07030d] hover:bg-[#681fe4] text-white rounded-[4px] flex items-center justify-center transition-all cursor-pointer font-bold text-sm sm:text-base shadow-xs"
+                    className="w-8 h-8 sm:w-10 sm:h-10 bg-[#07030d] hover:bg-[#681fe4] text-white rounded-[4px] flex items-center justify-center transition-all cursor-pointer font-bold text-xs sm:text-base shadow-xs"
                     aria-label="Next case study"
                   >
                     →
@@ -377,7 +377,7 @@ export default function Home() {
             - Bottom arrow icon
             - Subtle radial purple glow (rgba(104,31,228,.10))
            ========================================================================= */}
-        <section id="services" className="relative py-28 px-6 sm:px-12 bg-[#07030d] overflow-hidden border-b border-white/10">
+        <section id="services" className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 bg-[#07030d] overflow-hidden border-b border-white/10">
           
           {/* Subtle Radial Purple Glow Background */}
           <div
@@ -389,18 +389,18 @@ export default function Home() {
           <div className="relative z-10 max-w-[1320px] mx-auto">
             
             {/* Section Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 text-left">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6 text-left">
               <div>
-                <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+                <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
                   // CORE GROWTH DISCIPLINES
                 </span>
-                <h2 className="text-4xl sm:text-6xl font-bebas tracking-[0.06em] text-white uppercase leading-none">
+                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                   HIGH-IMPACT CAPABILITIES ARCHITECTURE
                 </h2>
               </div>
               <Link
                 href="/services"
-                className="font-bebas text-sm sm:text-base tracking-[0.18em] text-white hover:text-[#681fe4] inline-flex items-center gap-2 transition-colors border-b border-white/20 pb-1"
+                className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.14em] sm:tracking-[0.18em] text-white hover:text-[#681fe4] inline-flex items-center gap-2 transition-colors border-b border-white/20 pb-1 self-start md:self-auto"
               >
                 <span>VIEW COMPLETE SERVICES MATRIX</span>
                 <span>→</span>
@@ -408,24 +408,24 @@ export default function Home() {
             </div>
 
             {/* 4-Column Layout with 1px white/10 Vertical Borders */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-white/10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-white/10 md:border-l">
               
               {/* Column 01 */}
-              <div className="border-r border-b border-white/10 p-8 sm:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
+              <div className="border-r border-b border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
                 <div>
                   {/* 60px Violet Icon Box */}
-                  <div className="w-[60px] h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-5 sm:mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
                   </div>
                   {/* Serial Number in Tracking Text */}
-                  <span className="font-bebas text-sm tracking-[0.24em] text-white/40 block mb-3">
+                  <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
                     01 // DOMAIN AUTHORITY
                   </span>
-                  {/* Title in 32px Bebas Neue with <br> break */}
-                  <h3 className="font-bebas text-[28px] sm:text-[32px] tracking-[0.18em] text-white leading-tight mb-4 group-hover:text-[#681fe4] transition-colors">
-                    EDITORIAL GUEST POSTS &amp;<br />AUTHORITY BACKLINKS
+                  {/* Title in Responsive Bebas Neue */}
+                  <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
+                    EDITORIAL GUEST POSTS &amp;<br className="hidden sm:inline" /> AUTHORITY BACKLINKS
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                     Secure real contextual backlinks across 30,000+ verified DR 50–90+ publishers. 100% white-hat manual editorial outreach with zero PBNs.
@@ -442,18 +442,18 @@ export default function Home() {
               </div>
 
               {/* Column 02 */}
-              <div className="border-r border-b border-white/10 p-8 sm:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
+              <div className="border-r border-b border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
                 <div>
-                  <div className="w-[60px] h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-5 sm:mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
-                  <span className="font-bebas text-sm tracking-[0.24em] text-white/40 block mb-3">
+                  <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
                     02 // SEARCH ARCHITECTURE
                   </span>
-                  <h3 className="font-bebas text-[28px] sm:text-[32px] tracking-[0.18em] text-white leading-tight mb-4 group-hover:text-[#681fe4] transition-colors">
-                    ENTERPRISE TECHNICAL SEO &amp;<br />SEMANTIC CLUSTERING
+                  <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
+                    ENTERPRISE TECHNICAL SEO &amp;<br className="hidden sm:inline" /> SEMANTIC CLUSTERING
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                     Target high-intent commercial keywords. We eliminate crawl budget waste, architect JSON-LD schemas, and safeguard Google core update visibility.
@@ -469,18 +469,18 @@ export default function Home() {
               </div>
 
               {/* Column 03 */}
-              <div className="border-r border-b border-white/10 p-8 sm:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
+              <div className="border-r border-b border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
                 <div>
-                  <div className="w-[60px] h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-5 sm:mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                   </div>
-                  <span className="font-bebas text-sm tracking-[0.24em] text-white/40 block mb-3">
+                  <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
                     03 // EDGE COMPUTING
                   </span>
-                  <h3 className="font-bebas text-[28px] sm:text-[32px] tracking-[0.18em] text-white leading-tight mb-4 group-hover:text-[#681fe4] transition-colors">
-                    HEADLESS NEXT.JS WEB<br />ENGINEERING &amp; CWV
+                  <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
+                    HEADLESS NEXT.JS WEB<br className="hidden sm:inline" /> ENGINEERING &amp; CWV
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                     Sub-0.8s load times and 99/100 Core Web Vitals on Next.js App Router. Custom digital platforms engineered for conversion across US &amp; European markets.
@@ -496,18 +496,18 @@ export default function Home() {
               </div>
 
               {/* Column 04 */}
-              <div className="border-r border-b border-white/10 p-8 sm:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
+              <div className="border-r border-b border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between text-left group hover:bg-white/[0.02] transition-colors relative">
                 <div>
-                  <div className="w-[60px] h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] bg-[#681fe4] rounded-[4px] flex items-center justify-center text-white mb-5 sm:mb-6 shadow-lg shadow-[#681fe4]/30 group-hover:scale-105 transition-transform">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
                   </div>
-                  <span className="font-bebas text-sm tracking-[0.24em] text-white/40 block mb-3">
+                  <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
                     04 // REVENUE MULTIPLIER
                   </span>
-                  <h3 className="font-bebas text-[28px] sm:text-[32px] tracking-[0.18em] text-white leading-tight mb-4 group-hover:text-[#681fe4] transition-colors">
-                    CONVERSION RATE FUNNELS &amp;<br />REVENUE ARCHITECTURE
+                  <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
+                    CONVERSION RATE FUNNELS &amp;<br className="hidden sm:inline" /> REVENUE ARCHITECTURE
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                     Transform incoming organic visitors into qualified enterprise pipeline. A/B split checkout flows, behavioral heatmaps, and frictionless retention.
@@ -533,15 +533,15 @@ export default function Home() {
             - Percentage value inside a small black (#07030d) rectangle box at top right
             - Bar: 6px height, background #F5F5F5 (or white/10), progress fill #681fe4
            ========================================================================= */}
-        <section className="py-20 px-6 sm:px-12 bg-[#0c0617] border-b border-white/10">
+        <section className="py-14 sm:py-20 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-b border-white/10">
           <div className="max-w-[1320px] mx-auto text-left">
             
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center mb-8 sm:mb-12">
               <div className="lg:col-span-5">
-                <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+                <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
                   // PERFORMANCE METRICS &amp; SLA BENCHMARKS
                 </span>
-                <h3 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] text-white uppercase leading-none">
+                <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                   MEASURED EXECUTION STANDARDS
                 </h3>
               </div>
@@ -553,16 +553,16 @@ export default function Home() {
             </div>
 
             {/* 4 Progressive Skill Bars */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               
               {/* Skill Bar 01 */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bebas text-sm sm:text-base tracking-[0.18em] text-white uppercase">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
                     HIGH-DA (DR 50–90+) EDITORIAL OUTREACH ACCURACY
                   </span>
                   {/* Percentage in small black #07030d box */}
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-sm tracking-[0.12em] px-2.5 py-0.5 rounded-[2px] shadow-xs">
+                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
                     98%
                   </span>
                 </div>
@@ -574,11 +574,11 @@ export default function Home() {
 
               {/* Skill Bar 02 */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bebas text-sm sm:text-base tracking-[0.18em] text-white uppercase">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
                     NEXT.JS APP ROUTER CORE WEB VITALS (SUB-0.8S TTFB)
                   </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-sm tracking-[0.12em] px-2.5 py-0.5 rounded-[2px] shadow-xs">
+                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
                     99%
                   </span>
                 </div>
@@ -589,11 +589,11 @@ export default function Home() {
 
               {/* Skill Bar 03 */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bebas text-sm sm:text-base tracking-[0.18em] text-white uppercase">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
                     COMMERCIAL KEYWORDS TOP-10 GOOGLE SERP RETENTION
                   </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-sm tracking-[0.12em] px-2.5 py-0.5 rounded-[2px] shadow-xs">
+                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
                     94%
                   </span>
                 </div>
@@ -604,11 +604,11 @@ export default function Home() {
 
               {/* Skill Bar 04 */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="font-bebas text-sm sm:text-base tracking-[0.18em] text-white uppercase">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
                     TECHNICAL CRAWL HEALTH &amp; STRUCTURED SCHEMA FIDELITY
                   </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-sm tracking-[0.12em] px-2.5 py-0.5 rounded-[2px] shadow-xs">
+                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
                     97%
                   </span>
                 </div>
@@ -630,28 +630,28 @@ export default function Home() {
             - 1px borders (#EEEEEE) and large soft shadows (shadow-xl shadow-neutral-100)
             - Category filters (ALL, GUEST POSTING, WEB SYSTEMS, TECHNICAL SEO) in underlined 'Bebas Neue'
            ========================================================================= */}
-        <section id="work" className="py-28 px-6 sm:px-12 bg-white text-[#07030d] border-b border-neutral-200">
+        <section id="work" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 bg-white text-[#07030d] border-b border-neutral-200">
           <div className="max-w-[1320px] mx-auto text-left">
             
             {/* Header Block with Underlined Category Filters */}
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-16 gap-6">
               <div>
-                <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+                <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
                   // PROVEN ENTERPRISE RESULTS
                 </span>
-                <h2 className="text-4xl sm:text-6xl font-bebas tracking-[0.06em] text-[#07030d] uppercase leading-none">
+                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-[#07030d] uppercase leading-none">
                   SELECTED WORK SHOWCASE
                 </h2>
               </div>
 
               {/* Category Filters in Underlined 'Bebas Neue' Typography */}
-              <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-8 gap-y-2 pt-2">
+              <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-8 gap-y-2 pt-2">
                 {["ALL", "GUEST POSTING", "NEXT.JS WEB", "TECHNICAL SEO"].map((cat) => (
                   <button
                     key={cat}
                     type="button"
                     onClick={() => setWorkFilter(cat)}
-                    className={`font-bebas text-base sm:text-lg tracking-[0.18em] transition-all cursor-pointer pb-1 ${
+                    className={`font-bebas text-sm sm:text-lg tracking-[0.14em] sm:tracking-[0.18em] transition-all cursor-pointer pb-1 ${
                       workFilter === cat
                         ? "text-[#681fe4] border-b-2 border-[#681fe4]"
                         : "text-neutral-500 hover:text-[#07030d] border-b-2 border-transparent"
@@ -664,11 +664,11 @@ export default function Home() {
             </div>
 
             {/* Bento-Style Masonry Grid with 24px Gaps */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {filteredWork.map((item) => (
                 <div
                   key={item.id}
-                  className={`${item.span} ${item.height} relative rounded-[4px] border border-[#EEEEEE] overflow-hidden shadow-xl shadow-neutral-100 group flex flex-col justify-between p-6 sm:p-8 bg-[#07030d] text-white`}
+                  className={`${item.span} ${item.height} relative rounded-[4px] border border-[#EEEEEE] overflow-hidden shadow-xl shadow-neutral-100 group flex flex-col justify-between p-5 sm:p-7 lg:p-8 bg-[#07030d] text-white`}
                 >
                   {/* 100% Grayscale Image with Dark Ink Vignette */}
                   <img
@@ -679,26 +679,26 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-[#07030d]/60 to-[#07030d]/30 pointer-events-none" />
 
                   {/* Top: Category Tag + Metric */}
-                  <div className="relative z-10 flex items-start justify-between gap-3">
-                    <span className="font-bebas text-xs tracking-[0.24em] bg-white/10 text-white border border-white/20 px-3 py-1 rounded-[2px] backdrop-blur-md">
+                  <div className="relative z-10 flex items-start justify-between gap-2 sm:gap-3 flex-wrap">
+                    <span className="font-bebas text-[11px] sm:text-xs tracking-[0.18em] sm:tracking-[0.24em] bg-white/10 text-white border border-white/20 px-2.5 sm:px-3 py-1 rounded-[2px] backdrop-blur-md">
                       {item.category}
                     </span>
-                    <span className="font-bebas text-sm sm:text-base tracking-[0.12em] bg-[#681fe4] text-white px-3 py-1 rounded-[2px] shadow-xs">
+                    <span className="font-bebas text-xs sm:text-base tracking-[0.1em] sm:tracking-[0.12em] bg-[#681fe4] text-white px-2.5 sm:px-3 py-1 rounded-[2px] shadow-xs">
                       {item.metric}
                     </span>
                   </div>
 
                   {/* Bottom: Title, Description, and Link */}
                   <div className="relative z-10">
-                    <h3 className="font-bebas text-2xl sm:text-3xl tracking-[0.12em] text-white uppercase leading-tight mb-2">
+                    <h3 className="font-bebas text-xl sm:text-2xl lg:text-3xl tracking-[0.08em] sm:tracking-[0.12em] text-white uppercase leading-tight mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">
                       {item.desc}
                     </p>
                     <Link
                       href={`/projects/${item.id}`}
-                      className="font-bebas text-xs sm:text-sm tracking-[0.18em] text-[#681fe4] hover:text-white inline-flex items-center gap-1.5 transition-colors"
+                      className="font-bebas text-xs sm:text-sm tracking-[0.14em] sm:tracking-[0.18em] text-[#681fe4] hover:text-white inline-flex items-center gap-1.5 transition-colors"
                     >
                       <span>VIEW CASE BREAKDOWN</span>
                       <span>→</span>
@@ -709,10 +709,10 @@ export default function Home() {
             </div>
 
             {/* Bottom Archive Link */}
-            <div className="mt-12 text-center">
+            <div className="mt-8 sm:mt-12 text-center">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-[4px] bg-[#07030d] hover:bg-[#681fe4] text-white font-bebas text-base tracking-[0.18em] transition-all cursor-pointer shadow-lg"
+                className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-[#07030d] hover:bg-[#681fe4] text-white font-bebas text-sm sm:text-base tracking-[0.14em] sm:tracking-[0.18em] transition-all cursor-pointer shadow-lg w-full sm:w-auto text-center"
               >
                 <span>EXPLORE ALL 6 EXPANDED CASE STUDIES</span>
                 <span>→</span>
@@ -725,63 +725,63 @@ export default function Home() {
         {/* =========================================================================
             6. STATISTICS BAR
             - High-contrast #681fe4 background
-            - 4 columns separated by 10% white borders
+            - 2 columns on mobile/tablet, 4 columns on desktop
             - Circular badge with icon
-            - 48px numeric value in Bebas Neue
-            - Small sub-text descriptor with 0.24em tracking
+            - Responsive numeric value in Bebas Neue
+            - Small sub-text descriptor with tracking
            ========================================================================= */}
-        <section className="bg-[#681fe4] text-white py-16 px-6 sm:px-12 border-y border-white/20">
+        <section className="bg-[#681fe4] text-white py-12 sm:py-16 px-4 sm:px-8 lg:px-12 border-y border-white/20">
           <div className="max-w-[1320px] mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4">
               
               {/* Stat 01 */}
-              <div className="p-6 sm:p-8 border-b sm:border-b-0 sm:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-xl text-white mb-4 shadow-xs">
+              <div className="p-4 sm:p-6 lg:p-8 border-r border-b lg:border-b-0 border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
                   📰
                 </div>
-                <span className="font-bebas text-[48px] tracking-[0.06em] text-white leading-none block mb-1">
+                <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
                   30,000+
                 </span>
-                <span className="font-bebas text-xs tracking-[0.24em] text-white/80 uppercase">
+                <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
                   VERIFIED EDITORIAL PARTNERS
                 </span>
               </div>
 
               {/* Stat 02 */}
-              <div className="p-6 sm:p-8 border-b sm:border-b-0 lg:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-xl text-white mb-4 shadow-xs">
+              <div className="p-4 sm:p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
                   📈
                 </div>
-                <span className="font-bebas text-[48px] tracking-[0.06em] text-white leading-none block mb-1">
+                <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
                   +340%
                 </span>
-                <span className="font-bebas text-xs tracking-[0.24em] text-white/80 uppercase">
+                <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
                   AVERAGE ORGANIC REVENUE LIFT
                 </span>
               </div>
 
               {/* Stat 03 */}
-              <div className="p-6 sm:p-8 border-b sm:border-b-0 sm:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-xl text-white mb-4 shadow-xs">
+              <div className="p-4 sm:p-6 lg:p-8 border-r lg:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
                   💼
                 </div>
-                <span className="font-bebas text-[48px] tracking-[0.06em] text-white leading-none block mb-1">
+                <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
                   $18.5M+
                 </span>
-                <span className="font-bebas text-xs tracking-[0.24em] text-white/80 uppercase">
+                <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
                   CLIENT SALES PIPELINE GENERATED
                 </span>
               </div>
 
               {/* Stat 04 */}
-              <div className="p-6 sm:p-8 flex flex-col items-center sm:items-start text-center sm:text-left">
-                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center text-xl text-white mb-4 shadow-xs">
+              <div className="p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
                   ⚡
                 </div>
-                <span className="font-bebas text-[48px] tracking-[0.06em] text-white leading-none block mb-1">
+                <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
                   99.4%
                 </span>
-                <span className="font-bebas text-xs tracking-[0.24em] text-white/80 uppercase">
+                <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
                   CLIENT RETENTION RATE
                 </span>
               </div>
@@ -793,11 +793,11 @@ export default function Home() {
         {/* =========================================================================
             7. SPECIAL COMPONENT: DIAGONAL FEATURE BLOCK
             - Relative container with a banner
-            - 33% width right-side overlay with clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%) in #220090
+            - 33% width right-side overlay with clip-path in #220090
             - 45-degree rotated purple square partially peeking out from the top edge
            ========================================================================= */}
-        <section className="py-24 px-6 sm:px-12 bg-[#07030d] relative overflow-hidden">
-          <div className="max-w-[1320px] mx-auto relative rounded-[4px] border border-white/10 bg-[#0c0617] overflow-hidden p-8 sm:p-14 lg:p-16 text-left">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#07030d] relative overflow-hidden">
+          <div className="max-w-[1320px] mx-auto relative rounded-[4px] border border-white/10 bg-[#0c0617] overflow-hidden p-6 sm:p-10 lg:p-16 text-left">
             
             {/* 33% Width Right-Side Overlay in #220090 with clip-path: polygon(36% 0, 100% 0, 100% 100%, 0 100%) */}
             <div
@@ -812,27 +812,27 @@ export default function Home() {
             />
 
             <div className="relative z-10 max-w-2xl">
-              <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
+              <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
                 // EXECUTIVE ADVISORY &amp; DIRECT ACCOUNTABILITY
               </span>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.06em] text-white uppercase leading-[0.92] mb-6">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-[0.92] mb-5 sm:mb-6">
                 TIRED OF AGENCY FLUFF? WE DELIVER REAL COMMERCIAL REVENUE.
               </h2>
-              <p className="text-neutral-300 text-sm sm:text-base leading-relaxed mb-8 font-normal">
+              <p className="text-neutral-300 text-xs sm:text-base leading-relaxed mb-6 sm:mb-8 font-normal">
                 No junior account managers, no vanity impressions, and no algorithmic guesswork. You collaborate directly with senior technical architects who inspect your search codebase, negotiate high-DA editorial placements, and sprint weekly toward measurable revenue goals.
               </p>
               
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.18em] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm sm:text-base tracking-[0.12em] sm:tracking-[0.18em] shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer text-center"
                 >
                   <span>SCHEDULE STRATEGY CONSULTATION</span>
                   <span>→</span>
                 </Link>
                 <Link
                   href="/about-us"
-                  className="inline-flex items-center gap-2 px-6 py-4 rounded-[4px] border border-white/20 hover:border-white/40 text-white font-bebas text-base tracking-[0.18em] transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-[4px] border border-white/20 hover:border-white/40 text-white font-bebas text-sm sm:text-base tracking-[0.12em] sm:tracking-[0.18em] transition-all cursor-pointer text-center"
                 >
                   <span>ABOUT OUR FOUNDERS</span>
                 </Link>
@@ -847,21 +847,21 @@ export default function Home() {
             - High-converting interactive audit tool
             - #07030d ink background, 240px white gridline pattern, sharp 4px input fields
            ========================================================================= */}
-        <section id="audit-tool" className="py-24 px-6 sm:px-12 bg-[#0c0617] border-y border-white/10 relative">
+        <section id="audit-tool" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-y border-white/10 relative">
           <div className="max-w-4xl mx-auto text-center relative z-10">
             
-            <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
               // INSTANT DIAGNOSTIC ENGINE
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] text-white uppercase leading-none mb-4">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none mb-3 sm:mb-4">
               REQUEST YOUR 20-POINT SEO &amp; ARCHITECTURE AUDIT
             </h2>
-            <p className="text-neutral-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-10">
+            <p className="text-neutral-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-8 sm:mb-10">
               Enter your website URL. Our senior growth engineers will analyze your crawl budget, Core Web Vitals, competitor backlink intersects, and commercial keyword gaps — delivered within 24 hours.
             </p>
 
             {auditSuccess ? (
-              <div className="bg-[#681fe4]/20 border border-[#681fe4] p-6 rounded-[4px] text-white font-bebas text-lg tracking-[0.12em] animate-fadeIn">
+              <div className="bg-[#681fe4]/20 border border-[#681fe4] p-5 sm:p-6 rounded-[4px] text-white font-bebas text-base sm:text-lg tracking-[0.1em] sm:tracking-[0.12em] animate-fadeIn">
                 ✓ AUDIT REQUEST RECEIVED. CHECK YOUR INBOX WITHIN 24 HOURS FOR YOUR TAILORED ARCHITECTURE REPORT.
               </div>
             ) : (
@@ -877,7 +877,7 @@ export default function Home() {
                       required
                       value={auditUrl}
                       onChange={(e) => setAuditUrl(e.target.value)}
-                      className="w-full px-4 py-3.5 rounded-[4px] bg-white/5 border border-white/20 text-white placeholder-neutral-500 text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors"
+                      className="w-full px-4 py-3 sm:py-3.5 rounded-[4px] bg-white/5 border border-white/20 text-white placeholder-neutral-500 text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors"
                     />
                   </div>
                   <div>
@@ -890,7 +890,7 @@ export default function Home() {
                       required
                       value={auditEmail}
                       onChange={(e) => setAuditEmail(e.target.value)}
-                      className="w-full px-4 py-3.5 rounded-[4px] bg-white/5 border border-white/20 text-white placeholder-neutral-500 text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors"
+                      className="w-full px-4 py-3 sm:py-3.5 rounded-[4px] bg-white/5 border border-white/20 text-white placeholder-neutral-500 text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors"
                     />
                   </div>
                 </div>
@@ -902,7 +902,7 @@ export default function Home() {
                   <select
                     value={auditGoal}
                     onChange={(e) => setAuditGoal(e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-[4px] bg-[#07030d] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors cursor-pointer"
+                    className="w-full px-4 py-3 sm:py-3.5 rounded-[4px] bg-[#07030d] border border-white/20 text-white text-xs sm:text-sm focus:outline-none focus:border-[#681fe4] transition-colors cursor-pointer"
                   >
                     <option value="traffic">Double Organic Google Traffic &amp; Rankings</option>
                     <option value="leads">Increase B2B Inbound Consultation Bookings</option>
@@ -913,14 +913,14 @@ export default function Home() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-lg tracking-[0.18em] transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer mt-2"
+                  className="w-full py-3.5 sm:py-4 px-3 sm:px-6 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-sm sm:text-base lg:text-lg tracking-[0.1em] sm:tracking-[0.18em] transition-all shadow-[0_10px_25px_rgba(104,31,228,0.35)] cursor-pointer mt-2 text-center leading-tight"
                 >
                   GENERATE FREE 20-POINT AUDIT REPORT →
                 </button>
               </form>
             )}
 
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-xs font-bebas tracking-[0.18em] text-neutral-400">
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 text-[11px] sm:text-xs font-bebas tracking-[0.14em] sm:tracking-[0.18em] text-neutral-400">
               <span>✓ 100% FREE STRATEGY AUDIT</span>
               <span>✓ ZERO SALES PRESSURE</span>
               <span>✓ NDA PROTECTED DATA</span>
@@ -932,19 +932,19 @@ export default function Home() {
         {/* =========================================================================
             9. FREQUENTLY ASKED QUESTIONS (Bebas Neue Display Headings)
            ========================================================================= */}
-        <section className="py-24 px-6 sm:px-12 bg-[#07030d]">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#07030d]">
           <div className="max-w-4xl mx-auto text-left">
             
-            <div className="mb-14">
-              <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+            <div className="mb-10 sm:mb-14">
+              <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
                 // CLARITY &amp; ACCOUNTABILITY
               </span>
-              <h2 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] text-white uppercase leading-none">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                 FREQUENTLY ASKED QUESTIONS
               </h2>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
@@ -955,16 +955,16 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full text-left p-6 font-bebas text-lg sm:text-xl tracking-[0.12em] text-white flex items-center justify-between gap-4 cursor-pointer hover:text-[#681fe4] transition-colors"
+                      className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#681fe4] transition-colors"
                     >
-                      <span>{faq.q}</span>
-                      <span className="text-xl text-[#681fe4] shrink-0 font-mono">
+                      <span className="pr-2">{faq.q}</span>
+                      <span className="text-lg sm:text-xl text-[#681fe4] shrink-0 font-mono">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
 
                     {isOpen && (
-                      <div className="px-6 pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-4 font-normal">
+                      <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal">
                         {faq.a}
                       </div>
                     )}
