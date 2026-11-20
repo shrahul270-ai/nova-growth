@@ -52,10 +52,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     }, 180);
   };
 
-  // Close mobile menu on resize to desktop (min-width: 1024px)
+  // Close mobile menu on resize to desktop (min-width: 1280px)
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 1280) {
         setMobileMenuOpen(false);
       }
     };
@@ -207,7 +207,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             {/* Centered Desktop Navigation Links in Bebas Neue */}
             <nav
               ref={navContainerRef}
-              className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 shrink min-w-0"
+              className="hidden xl:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 shrink-0"
               aria-label="Primary"
             >
               {/* 1. Home */}
@@ -215,7 +215,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 href="/"
                 prefetch={false}
                 onClick={() => setActiveDropdown(null)}
-                className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.12em] transition-all whitespace-nowrap uppercase ${
+                className={`relative px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[14px] 2xl:text-[15px] tracking-[0.08em] xl:tracking-[0.12em] transition-all whitespace-nowrap uppercase ${
                   activePage === "home"
                     ? "text-[#681fe4] font-semibold"
                     : "text-white/85 hover:text-white hover:bg-white/5"
@@ -241,7 +241,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       href={link.href}
                       prefetch={false}
                       onClick={() => setActiveDropdown(null)}
-                      className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.12em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
+                      className={`relative px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[14px] 2xl:text-[15px] tracking-[0.08em] xl:tracking-[0.12em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
                         isActive
                           ? "text-[#681fe4] font-semibold"
                           : isOpen
@@ -326,12 +326,12 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 <span className="text-xs">→</span>
               </button>
 
-              {/* Burger Button for Mobile */}
+              {/* Burger Button for Mobile & Tablet */}
               <button
                 type="button"
                 id="burger"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-9 h-9 rounded-[4px] border border-white/20 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors shrink-0 z-50 ml-0.5 sm:ml-1"
+                className="xl:hidden w-9 h-9 rounded-[4px] border border-white/20 bg-white/5 hover:bg-white/10 flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors shrink-0 z-50 ml-0.5 sm:ml-1"
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle navigation menu"
               >
@@ -348,7 +348,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
       {/* Full-Screen Mobile Navigation Drawer (Mounted outside header to escape backdrop-blur stacking context) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[100] bg-[#07030d] flex flex-col overflow-y-auto p-6 font-satoshi animate-in fade-in duration-200">
+        <div className="xl:hidden fixed inset-0 z-[100] bg-[#07030d] flex flex-col overflow-y-auto p-6 font-satoshi animate-in fade-in duration-200">
           {/* Top Bar inside Drawer with Brand & Close Button */}
           <div className="flex items-center justify-between pb-5 border-b border-white/10 shrink-0">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
