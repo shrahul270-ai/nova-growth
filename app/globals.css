@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -741,6 +741,46 @@ body {
     text-stroke: 3.5px #c084fc;
     filter: drop-shadow(0 0 36px rgba(168, 85, 247, 0.85));
   }
+}
+
+/* Giant Hollow Brand Outline Wordmark (Chopskip-inspired, Brand Violet) */
+.footer-mega-wordmark {
+  font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  font-size: clamp(34px, 8.8vw, 155px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.8px #b886ff;
+  text-stroke: 1.8px #b886ff;
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.4));
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .footer-mega-wordmark {
+    -webkit-text-stroke: 2.2px #b886ff;
+    text-stroke: 2.2px #b886ff;
+    filter: drop-shadow(0 0 24px rgba(168, 85, 247, 0.55));
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-mega-wordmark {
+    -webkit-text-stroke: 2.8px #c084fc;
+    text-stroke: 2.8px #c084fc;
+    filter: drop-shadow(0 0 32px rgba(168, 85, 247, 0.65));
+  }
+}
+
+.footer-mega-wordmark:hover {
+  -webkit-text-stroke-color: #e9d5ff;
+  filter: drop-shadow(0 0 42px rgba(168, 85, 247, 0.95));
+  transform: scale(1.01);
 }
 
 /* UI Entrance Sequence Animations */

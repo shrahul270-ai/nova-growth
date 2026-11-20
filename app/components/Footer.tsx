@@ -412,6 +412,47 @@ export default function Footer() {
           © 2026 BALAJI PRIME MEDIA. ALL RIGHTS RESERVED. GLOBAL SEO &amp; DIGITAL GROWTH ARCHITECTURE.
         </div>
 
+        {/* =====================================================================
+            TIER 3: Giant Outlined Brand Wordmark ("balaji prime media")
+            Chopskip-style hollow brand-violet outline footer element
+           ===================================================================== */}
+        <div className="pt-10 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none">
+          <span
+            className="footer-mega-wordmark cursor-default"
+            aria-label="balaji prime media"
+            style={{
+              fontFamily: "'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(34px, 8.8vw, 155px)",
+              lineHeight: 0.88,
+              letterSpacing: "-0.04em",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+              WebkitTextStroke: "2.2px #b886ff",
+              filter: "drop-shadow(0 0 24px rgba(168, 85, 247, 0.55))",
+              display: "inline-block",
+              whiteSpace: "nowrap",
+            }}
+          >
+            balaji prime media
+          </span>
+        </div>
+
+        {/* BOTTOM METADATA BAR */}
+        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-neutral-500">
+          <div>
+            © 2026 BALAJI PRIME MEDIA. Made with ❤️ in Jaipur &amp; Global Operations.
+          </div>
+          <div className="flex items-center gap-3 text-neutral-400">
+            <span className="flex items-center gap-1.5 text-neutral-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#b886ff] animate-pulse" />
+              CLIENT INTAKE ACTIVE
+            </span>
+            <span>•</span>
+            <span className="text-neutral-500">GLOBAL SEO ARCHITECTURE</span>
+          </div>
+        </div>
+
       </div>
 
     </footer>
