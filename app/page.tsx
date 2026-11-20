@@ -533,7 +533,7 @@ export default function Home() {
             - Percentage value inside a small black (#07030d) rectangle box at top right
             - Bar: 6px height, background #F5F5F5 (or white/10), progress fill #681fe4
            ========================================================================= */}
-        <section className="py-14 sm:py-20 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-b border-white/10">
+        <section className="py-14 sm:py-20 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-b border-white/10 overflow-hidden">
           <div className="max-w-[1320px] mx-auto text-left">
             
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center mb-8 sm:mb-12">
@@ -630,7 +630,7 @@ export default function Home() {
             - 1px borders (#EEEEEE) and large soft shadows (shadow-xl shadow-neutral-100)
             - Category filters (ALL, GUEST POSTING, WEB SYSTEMS, TECHNICAL SEO) in underlined 'Bebas Neue'
            ========================================================================= */}
-        <section id="work" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 bg-white text-[#07030d] border-b border-neutral-200">
+        <section id="work" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 bg-white text-[#07030d] border-b border-neutral-200 overflow-hidden">
           <div className="max-w-[1320px] mx-auto text-left">
             
             {/* Header Block with Underlined Category Filters */}
@@ -730,7 +730,7 @@ export default function Home() {
             - Responsive numeric value in Bebas Neue
             - Small sub-text descriptor with tracking
            ========================================================================= */}
-        <section className="bg-[#681fe4] text-white py-12 sm:py-16 px-4 sm:px-8 lg:px-12 border-y border-white/20">
+        <section className="bg-[#681fe4] text-white py-12 sm:py-16 px-4 sm:px-8 lg:px-12 border-y border-white/20 overflow-hidden">
           <div className="max-w-[1320px] mx-auto">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               
@@ -847,7 +847,7 @@ export default function Home() {
             - High-converting interactive audit tool
             - #07030d ink background, 240px white gridline pattern, sharp 4px input fields
            ========================================================================= */}
-        <section id="audit-tool" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-y border-white/10 relative">
+        <section id="audit-tool" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-y border-white/10 relative overflow-hidden">
           <div className="max-w-4xl mx-auto text-center relative z-10">
             
             <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
@@ -932,7 +932,7 @@ export default function Home() {
         {/* =========================================================================
             9. FREQUENTLY ASKED QUESTIONS (Bebas Neue Display Headings)
            ========================================================================= */}
-        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#07030d]">
+        <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#07030d] overflow-hidden">
           <div className="max-w-4xl mx-auto text-left">
             
             <div className="mb-10 sm:mb-14">

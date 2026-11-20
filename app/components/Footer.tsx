@@ -416,28 +416,32 @@ export default function Footer() {
 
         {/* =====================================================================
             TIER 3: Giant Outlined Brand Wordmark ("balaji prime media")
-            Chopskip-style hollow brand-violet outline footer element
+            Chopskip-style hollow brand-violet outline footer element (100% fluid vector)
            ===================================================================== */}
-        <div className="pt-8 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none px-2">
-          <span
-            className="footer-mega-wordmark cursor-default"
+        <div className="pt-8 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none w-full max-w-[1320px] mx-auto px-2">
+          <svg
+            viewBox="0 0 1020 120"
+            className="w-full h-auto max-h-[140px] select-none pointer-events-none"
             aria-label="balaji prime media"
-            style={{
-              fontFamily: "'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(26px, 8.4vw, 155px)",
-              lineHeight: 0.88,
-              letterSpacing: "-0.04em",
-              color: "transparent",
-              WebkitTextFillColor: "transparent",
-              WebkitTextStroke: "2.2px #b886ff",
-              filter: "drop-shadow(0 0 24px rgba(168, 85, 247, 0.55))",
-              display: "inline-block",
-              whiteSpace: "nowrap",
-            }}
           >
-            balaji prime media
-          </span>
+            <text
+              x="50%"
+              y="78%"
+              textAnchor="middle"
+              fontFamily="'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+              fontWeight="800"
+              fontSize="102"
+              letterSpacing="-0.04em"
+              fill="none"
+              stroke="#b886ff"
+              strokeWidth="2.4"
+              style={{
+                filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.55))",
+              }}
+            >
+              balaji prime media
+            </text>
+          </svg>
         </div>
 
         {/* BOTTOM METADATA BAR */}

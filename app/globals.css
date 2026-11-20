@@ -2357,10 +2357,22 @@ html.light-theme .bg-\[\#A068FF\] span {
 /* =========================================================================
    UNIVERSAL MOBILE RESPONSIVENESS & OVERFLOW GUARDS
    ========================================================================= */
-html, body {
-  max-width: 100vw;
+html {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100%;
+  width: 100%;
   overflow-x: hidden;
   position: relative;
+}
+
+#__next, main, [data-nextjs-scroll-focus-boundary] {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Ensure all images and media are fluid */
