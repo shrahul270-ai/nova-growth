@@ -1,11 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import AuthModal from "./AuthModal";
 
 export default function AutoLoginPopup() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<"login" | "signup">("login");
+
+  // Disable completely on admin pages so admin dashboard is never blocked
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   useEffect(() => {
     if (typeof window === "undefined") return;

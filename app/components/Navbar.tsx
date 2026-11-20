@@ -312,8 +312,16 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
               })}
             </nav>
 
-            {/* Right Action: Sign In Button + Burger Menu */}
+            {/* Right Action: Admin + Sign In Button + Burger Menu */}
             <div className="flex items-center gap-1.5 sm:gap-2.5 xl:gap-3 shrink-0">
+              <Link
+                href="/admin"
+                className="inline-flex items-center gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#0f172a] hover:bg-[#1e293b] border border-indigo-500/50 hover:border-indigo-400 shadow-sm transition-all cursor-pointer whitespace-nowrap"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>ADMIN DASHBOARD</span>
+              </Link>
+
               <button
                 type="button"
                 onClick={() => {
@@ -370,6 +378,17 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
 
           {/* Menu Links */}
           <nav className="flex flex-col gap-1 py-4 text-left flex-1">
+            <Link
+              href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-bebas text-xl tracking-[0.16em] text-indigo-400 py-2.5 border-b border-indigo-500/30 flex items-center justify-between"
+            >
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                ⚡ ADMIN DASHBOARD
+              </span>
+              <span className="text-xs text-indigo-400">→</span>
+            </Link>
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
