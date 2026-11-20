@@ -52,10 +52,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
     }, 180);
   };
 
-  // Close mobile menu on resize to desktop (min-width: 1280px)
+  // Close mobile menu on resize to desktop (min-width: 1024px)
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1280) {
+      if (window.innerWidth >= 1024) {
         setMobileMenuOpen(false);
       }
     };
@@ -185,20 +185,20 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         </div>
 
         {/* Tier 2: Main Floating Navbar */}
-        <div className="w-full px-3 sm:px-6 xl:px-8 py-2.5">
-          <div className="max-w-[1360px] mx-auto flex items-center justify-between gap-2 xl:gap-6">
+        <div className="w-full px-3 sm:px-6 xl:px-8 py-2 sm:py-2.5">
+          <div className="max-w-[1360px] mx-auto flex items-center justify-between gap-2 lg:gap-3 xl:gap-6 w-full">
             
             {/* Minimalist Logo (Two Overlapping Circles) */}
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 group shrink-0">
               <div className="relative w-6 h-6 sm:w-7 sm:h-7 flex items-center shrink-0">
                 <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full border border-white/90 block" />
                 <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-white block -ml-2 sm:-ml-2.5" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="font-bebas text-base sm:text-lg tracking-[0.16em] xl:tracking-[0.2em] text-white leading-none group-hover:text-[#681fe4] transition-colors">
+                <span className="font-bebas text-base sm:text-lg xl:text-xl tracking-[0.14em] xl:tracking-[0.2em] text-white leading-none group-hover:text-[#681fe4] transition-colors">
                   BALAJI PRIME MEDIA
                 </span>
-                <span className="hidden xs:block text-[8px] sm:text-[9px] font-bebas tracking-[0.2em] xl:tracking-[0.24em] text-white/50 uppercase leading-none mt-0.5">
+                <span className="hidden xl:block text-[8px] sm:text-[9px] font-bebas tracking-[0.2em] xl:tracking-[0.24em] text-white/50 uppercase leading-none mt-0.5">
                   SEO &amp; GROWTH ARCHITECTURE
                 </span>
               </div>
@@ -207,7 +207,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             {/* Centered Desktop Navigation Links in Bebas Neue */}
             <nav
               ref={navContainerRef}
-              className="hidden lg:flex items-center gap-0.5 xl:gap-1.5"
+              className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 shrink min-w-0"
               aria-label="Primary"
             >
               {/* 1. Home */}
@@ -215,7 +215,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 href="/"
                 prefetch={false}
                 onClick={() => setActiveDropdown(null)}
-                className={`relative px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.08em] xl:tracking-[0.12em] transition-all whitespace-nowrap uppercase ${
+                className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.12em] transition-all whitespace-nowrap uppercase ${
                   activePage === "home"
                     ? "text-[#681fe4] font-semibold"
                     : "text-white/85 hover:text-white hover:bg-white/5"
@@ -241,7 +241,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       href={link.href}
                       prefetch={false}
                       onClick={() => setActiveDropdown(null)}
-                      className={`relative px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.08em] xl:tracking-[0.12em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
+                      className={`relative px-1.5 lg:px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-[4px] font-bebas text-xs lg:text-[13px] xl:text-[14px] 2xl:text-[15px] tracking-[0.04em] lg:tracking-[0.06em] xl:tracking-[0.12em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
                         isActive
                           ? "text-[#681fe4] font-semibold"
                           : isOpen
@@ -313,14 +313,14 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             </nav>
 
             {/* Right Action: Sign In Button + Burger Menu */}
-            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 xl:gap-3 shrink-0">
               <button
                 type="button"
                 onClick={() => {
                   setAuthModalMode("login");
                   setAuthModalOpen(true);
                 }}
-                className="inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-3 sm:px-4 rounded-[4px] font-bebas text-xs sm:text-sm tracking-[0.12em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>SIGN IN</span>
                 <span className="text-xs">→</span>
