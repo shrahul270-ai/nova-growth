@@ -129,10 +129,16 @@ export default function FAQPage() {
 
       {/* FAQ Accordion List */}
       <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-16">
-        <h2 className="font-bebas text-2xl sm:text-3xl text-white tracking-[0.16em] uppercase mb-8 text-center sm:text-left">
-          AGENCY SEARCH &amp; DEVELOPMENT FAQS
-        </h2>
-        <div className="space-y-3.5">
+        <div className="mb-10 sm:mb-14 text-center sm:text-left">
+          <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#38bdf8] uppercase block mb-2">
+            // AGENCY SEARCH &amp; DEVELOPMENT FAQS
+          </span>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
+            FREQUENTLY ASKED QUESTIONS
+          </h2>
+        </div>
+
+        <div className="space-y-3 sm:space-y-4">
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq) => {
               const isOpen = !!openIds[faq.id];
@@ -143,9 +149,9 @@ export default function FAQPage() {
                 >
                   <button
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
+                    className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
                   >
-                    <span className={`text-sm sm:text-base font-semibold tracking-tight transition-colors ${isOpen ? "text-[#38bdf8]" : "text-white"}`}>
+                    <span className={`pr-2 transition-colors ${isOpen ? "text-[#38bdf8]" : "text-white"}`}>
                       {faq.question}
                     </span>
                     <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
@@ -153,7 +159,7 @@ export default function FAQPage() {
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 font-normal">
+                    <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal font-satoshi">
                       {faq.answer}
                     </div>
                   )}

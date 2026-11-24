@@ -389,8 +389,8 @@ export default function GuestPostingClient() {
             </div>
           )}
 
-          {/* Accordion Rows */}
-          <div className="max-w-3xl mx-auto space-y-3.5 text-left font-satoshi">
+          {/* Accordion Rows matching Homepage FAQ Design */}
+          <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4 text-left">
             {filteredFaqs.map((faq) => {
               const isOpen = openFaq === faq.id;
               return (
@@ -401,11 +401,11 @@ export default function GuestPostingClient() {
                   <button
                     type="button"
                     onClick={() => toggleFaq(faq.id)}
-                    className="w-full min-h-[60px] px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer select-none hover:text-[#38bdf8] transition-colors"
+                    className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
                     aria-expanded={isOpen}
                   >
                     <span
-                      className={`font-semibold text-sm sm:text-base transition-colors leading-snug ${
+                      className={`pr-2 transition-colors ${
                         isOpen ? "text-[#38bdf8]" : "text-white"
                       }`}
                     >
@@ -419,8 +419,8 @@ export default function GuestPostingClient() {
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-0 border-t border-white/5 text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
-                      <p className="pt-3">{faq.a}</p>
+                    <div className="px-4 pb-4 sm:px-6 sm:pb-6 border-t border-white/5 text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal font-satoshi pt-3 sm:pt-4">
+                      {faq.a}
                     </div>
                   )}
                 </div>
