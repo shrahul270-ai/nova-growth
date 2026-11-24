@@ -477,7 +477,7 @@ export default function ScheduleConsultationModal({
                         <option value="All Services / Full Growth Plan">All Services / Full Growth Plan</option>
                         <option value="SEO Optimization (Global & Local)">SEO Optimization (Global & Local)</option>
                         <option value="Website Development (Next.js / Headless)">Website Development (Next.js / Headless)</option>
-                        <option value="Guest Posting & DR 50+ Backlinks">Guest Posting & DR 50+ Backlinks</option>
+                        <option value="Digital PR & Editorial Media Outreach">Digital PR &amp; Editorial Media Outreach</option>
                         <option value="Content Strategy & Copywriting">Content Strategy & Copywriting</option>
                         <option value="Email Marketing & Automation">Email Marketing & Automation</option>
                         <option value="Page Speed & Maintenance Fix">Page Speed & Maintenance Fix</option>

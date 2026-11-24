@@ -23,8 +23,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://balajiprimemedia.in"),
-  title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
-  description: "Balaji Prime Media is a premier SEO, Next.js web development, and editorial guest posting agency helping businesses scale organic rankings, authority, and revenue.",
+  title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+  description:
+    "Balaji Prime Media is a premier SEO & Next.js agency in Jaipur scaling organic search rankings, white-hat digital PR, and edge-rendered web platforms.",
   verification: {
     google: "eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU",
   },
@@ -45,8 +46,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
-    description: "Scale organic rankings, authoritative PR backlinks, and high-performance Next.js web applications with Balaji Prime Media.",
+    title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+    description:
+      "Scale organic rankings, authoritative digital PR, and high-performance Next.js web applications with Balaji Prime Media.",
     url: "https://balajiprimemedia.in",
     siteName: "Balaji Prime Media",
     locale: "en_US",
@@ -56,14 +58,15 @@ export const metadata: Metadata = {
         url: "/images/bpm-og-banner.png",
         width: 1200,
         height: 630,
-        alt: "Balaji Prime Media - SEO, Next.js Web Development & Guest Posting Agency",
+        alt: "Balaji Prime Media - SEO & Next.js Agency in Jaipur",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
-    description: "Scale organic rankings, authoritative PR backlinks, and high-performance Next.js web applications with Balaji Prime Media.",
+    title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+    description:
+      "Scale organic rankings, authoritative digital PR, and high-performance Next.js web applications with Balaji Prime Media.",
     images: ["/images/bpm-og-banner.png"],
   },
 };
@@ -72,11 +75,11 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
       "@id": "https://balajiprimemedia.in/#organization",
       name: "Balaji Prime Media",
       legalName: "Balaji Prime Media",
-      alternateName: ["BPM Digital Agency", "Balaji Prime Media Global"],
+      alternateName: ["BPM Digital Agency", "Balaji Prime Media Jaipur", "Balaji Prime Media Global"],
       url: "https://balajiprimemedia.in",
       logo: {
         "@type": "ImageObject",
@@ -87,17 +90,24 @@ const structuredData = {
       },
       image: "https://balajiprimemedia.in/images/bpm-og-banner.png",
       description:
-        "Global digital marketing, technical SEO, high-DA guest posting, and Next.js web development agency driving scalable organic revenue for US, UK, and overseas enterprises.",
+        "Premier technical SEO, Next.js web development, and white-hat digital PR agency in Jaipur driving organic revenue growth for international and domestic enterprises.",
       telephone: "+917690868932",
       email: "support@balajiprimemedia.in",
+      priceRange: "$$$",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Malviya Nagar",
+        streetAddress: "14/82, Malviya Nagar",
         addressLocality: "Jaipur",
         addressRegion: "Rajasthan",
         postalCode: "302017",
         addressCountry: "IN",
       },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 26.8533,
+        longitude: 75.8052,
+      },
+      hasMap: "https://maps.google.com/?q=14/82,+Malviya+Nagar,+Jaipur,+Rajasthan+302017",
       sameAs: [
         "https://www.linkedin.com/company/balajiprimemedia",
         "https://x.com/balajiprimemedia",
@@ -136,7 +146,7 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": "https://balajiprimemedia.in/#professionalservice",
-      name: "Balaji Prime Media - SEO, Guest Posting & Web Development Agency",
+      name: "Balaji Prime Media - SEO, Digital PR & Web Development Agency",
       url: "https://balajiprimemedia.in",
       telephone: "+917690868932",
       email: "support@balajiprimemedia.in",
@@ -144,7 +154,7 @@ const structuredData = {
       image: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Malviya Nagar",
+        streetAddress: "14/82, Malviya Nagar",
         addressLocality: "Jaipur",
         addressRegion: "Rajasthan",
         postalCode: "302017",
@@ -155,6 +165,7 @@ const structuredData = {
         latitude: 26.8533,
         longitude: 75.8052,
       },
+      hasMap: "https://maps.google.com/?q=14/82,+Malviya+Nagar,+Jaipur,+Rajasthan+302017",
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
@@ -196,8 +207,8 @@ const structuredData = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "High-DA Guest Posting & Backlinks",
-              description: "Manual white-hat outreach on vetted DR 50+ to DR 90+ authoritative publications.",
+              name: "Digital PR & Editorial Authority Outreach",
+              description: "Manual white-hat editorial outreach and brand features on vetted authoritative media.",
             },
           },
           {

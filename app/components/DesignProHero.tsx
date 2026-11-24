@@ -29,23 +29,23 @@ export default function DesignProHero() {
         {/* Top Trust Badge */}
         <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-[4px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.2em] text-white/90 mb-6 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
-          <span>VETTED DR 50–90+ PUBLICATIONS // LIVE 2026 INVENTORY</span>
+          <span>VETTED EDITORIAL MEDIA // HIGH-AUTHORITY DIGITAL PR NETWORK</span>
         </div>
 
         {/* Category Pill */}
         <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
-          EDITORIAL GUEST POSTING &amp; AUTHORITY BACKLINKS MARKETPLACE
+          WHITE-HAT DIGITAL PR &amp; EDITORIAL OUTREACH PLATFORM
         </span>
 
         {/* Primary Page Heading (H1) */}
         <h1 className="font-bebas text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-[0.16em] uppercase leading-[0.92] max-w-5xl mx-auto mb-6">
-          SCALE YOUR ORGANIC RANKINGS WITH{" "}
-          <span className="text-[#681fe4]">HIGH-AUTHORITY GUEST POSTS</span>.
+          ELEVATE BRAND AUTHORITY WITH{" "}
+          <span className="text-[#681fe4]">HIGH-IMPACT DIGITAL PR</span>.
         </h1>
 
         {/* Subtitle */}
         <p className="font-satoshi text-neutral-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 font-normal">
-          Secure permanent, contextual in-content backlinks on vetted DR 50–90+ media outlets. Verified Ahrefs organic traffic, zero PBNs, handwritten native articles, and guaranteed Google indexation.
+          Secure genuine editorial features, expert brand mentions, and thought-leadership articles on vetted high-trust media outlets. 100% manual outreach strictly adhering to Google Search Essentials.
         </p>
 
         {/* Dual Primary Call-to-Actions */}
@@ -55,7 +55,7 @@ export default function DesignProHero() {
             onClick={handleScroll}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 font-bebas text-sm sm:text-base tracking-[0.16em] px-8 py-4 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white shadow-[0_10px_25px_rgba(104,31,228,0.35)] transition-all cursor-pointer uppercase"
           >
-            <span>EXPLORE 40,000+ SITES INVENTORY</span>
+            <span>EXPLORE 850+ CURATED MEDIA SITES</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
@@ -73,32 +73,32 @@ export default function DesignProHero() {
           <div className="p-4 sm:p-5 rounded-[4px] bg-[#0c0818] border border-white/10 flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-[#681fe4] shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">100% Do-Follow</div>
-              <div className="text-xs text-neutral-400 mt-0.5">Contextual editorial links</div>
+              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Editorial Outreach</div>
+              <div className="text-xs text-neutral-400 mt-0.5">Manual journalist pitches</div>
             </div>
           </div>
 
           <div className="p-4 sm:p-5 rounded-[4px] bg-[#0c0818] border border-white/10 flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-[#681fe4] shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">DR 50–90+</div>
-              <div className="text-xs text-neutral-400 mt-0.5">Ahrefs verified authority</div>
+              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Verified Media</div>
+              <div className="text-xs text-neutral-400 mt-0.5">High authority publications</div>
             </div>
           </div>
 
           <div className="p-4 sm:p-5 rounded-[4px] bg-[#0c0818] border border-white/10 flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-[#681fe4] shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Real Traffic</div>
-              <div className="text-xs text-neutral-400 mt-0.5">Minimum 10k+ monthly visits</div>
+              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Real Audiences</div>
+              <div className="text-xs text-neutral-400 mt-0.5">Verified organic readership</div>
             </div>
           </div>
 
           <div className="p-4 sm:p-5 rounded-[4px] bg-[#0c0818] border border-white/10 flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-[#681fe4] shrink-0 mt-0.5" />
             <div>
-              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Lifetime Warranty</div>
-              <div className="text-xs text-neutral-400 mt-0.5">Free replacement guarantee</div>
+              <div className="text-sm font-bebas tracking-[0.14em] text-white uppercase">Google Compliant</div>
+              <div className="text-xs text-neutral-400 mt-0.5">Strict Search Essentials safety</div>
             </div>
           </div>
         </div>

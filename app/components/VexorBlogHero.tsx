@@ -43,16 +43,16 @@ export default function VexorBlogHero({}: VexorBlogHeroProps) {
 
           {/* Subcopy */}
           <p className="font-satoshi text-neutral-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-normal">
-            Actionable search engine optimization field manuals, international DR 50–90+ link engineering frameworks, and technical Core Web Vitals blueprints tested across 200+ partner brands.
+            Actionable search engine optimization field manuals, international digital PR frameworks, and technical Core Web Vitals blueprints tested across growing enterprise brands.
           </p>
 
           {/* Quick Metrics / Quality Proof Tags */}
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 text-xs font-mono text-neutral-400">
             <span className="flex items-center gap-2">
-              <span className="text-[#681fe4]">■</span> 200+ Growth Case Studies
+              <span className="text-[#681fe4]">■</span> Enterprise Growth Case Studies
             </span>
             <span className="flex items-center gap-2">
-              <span className="text-[#681fe4]">■</span> Verified DR 50–90+ Outreach
+              <span className="text-[#681fe4]">■</span> White-Hat Editorial Digital PR
             </span>
             <span className="flex items-center gap-2">
               <span className="text-[#681fe4]">■</span> Google Core Update Blueprints

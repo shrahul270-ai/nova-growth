@@ -82,8 +82,8 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       key: "guest-posting",
       dropdown: [
         { name: "Editorial PR & Guest Posting", href: "/guest-posting", desc: "Curated high-authority media outreach" },
-        { name: "Digital PR & Authority Backlinks", href: "/services/off-page-seo-digital-pr", desc: "White-hat editorial link acquisition" },
-        { name: "Verified Publisher Inventory", href: "/guest-posting#publishers", desc: "DR 50–90+ niche verified publications" },
+        { name: "Digital PR & Editorial Authority", href: "/services/backlink-building", desc: "White-hat editorial media placements" },
+        { name: "Verified Publisher Inventory", href: "/guest-posting#publishers", desc: "Vetted media & authoritative publications" },
         { name: "Instant Domain SEO Audit", href: "/audit", desc: "Check domain metrics & technical health" },
       ],
     },
@@ -94,11 +94,14 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       dropdown: [
         { name: "Search Engine Optimization (SEO)", href: "/services/seo-optimization", desc: "Technical on-page, semantic & organic search" },
         { name: "Next.js Web Architecture", href: "/services/website-development", desc: "Sub-second TTFB & edge-rendered applications" },
-        { name: "Flutter Mobile & Web Apps", href: "/services/flutter-app-dev", desc: "Cross-platform iOS, Android & web engineering" },
+        { name: "Digital PR & Editorial Outreach", href: "/services/backlink-building", desc: "Google Search Essentials compliant media PR" },
+        { name: "SEO Services USA (New)", href: "/seo-services-usa", desc: "Specialized enterprise SEO for American brands" },
+        { name: "Web Development UK (New)", href: "/web-development-uk", desc: "High-performance bespoke engineering for UK" },
+        { name: "Email Marketing & Retention", href: "/services/email-marketing", desc: "Automated retention & lifecycle funnels" },
+        { name: "Website Maintenance & SLA", href: "/services/website-maintenance", desc: "24/7 proactive security, backups & optimization" },
         { name: "Full Stack PHP Web Applications", href: "/services/full-stack-php-dev", desc: "Secure enterprise Laravel & API development" },
-        { name: "Editorial PR & Backlinks", href: "/services/off-page-seo-digital-pr", desc: "Google Search Essentials compliant links" },
+        { name: "Flutter Mobile & Web Apps", href: "/services/flutter-app-dev", desc: "Cross-platform iOS, Android & web engineering" },
         { name: "Content Strategy & Copywriting", href: "/services/content-writing", desc: "Conversion-focused search copy & thought leadership" },
-        { name: "View All 8 Core Services", href: "/services", desc: "Explore full transparent service catalog" },
       ],
     },
     {
@@ -108,6 +111,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       dropdown: [
         { name: "All Client Work & Sprints", href: "/projects", desc: "Case studies & engineering architectures" },
         { name: "E-Commerce Headless Store", href: "/projects/fashion-brand", desc: "Next.js headless catalog & sub-second speed" },
+        { name: "Fintech Platform Architecture", href: "/projects/fintech-app", desc: "Bank-grade security & edge-rendered UI" },
         { name: "SaaS Mobile App Architecture", href: "/projects/fitness-app", desc: "Cross-platform onboarding & app conversion" },
         { name: "B2B Programmatic Search", href: "/projects/saas-pipeline", desc: "High-intent comparison & bottom-funnel SEO" },
       ],
@@ -118,6 +122,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       key: "blog",
       dropdown: [
         { name: "All Growth Insights", href: "/blog", desc: "Actionable, field-tested engineering guides" },
+        { name: "Google Maps & Local SEO Guide", href: "/blog/google-maps-local-seo", desc: "Map pack dominance & local citation tactics" },
         { name: "Next.js vs WordPress Architecture", href: "/blog/nextjs-vs-wordpress", desc: "Technical comparison for enterprise scale" },
         { name: "E-Commerce SEO Scaling Guide", href: "/blog/ecommerce-seo-scaling", desc: "Organic revenue strategies for retail brands" },
         { name: "International Link Building PR", href: "/blog/international-link-building", desc: "Editorial PR across global markets" },

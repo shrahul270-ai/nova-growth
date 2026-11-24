@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "website-development": "2026-11-18",
     "content-writing": "2026-11-08",
     "email-marketing": "2026-11-06",
-    "off-page-seo-digital-pr": "2026-11-18",
+    "backlink-building": "2026-11-24",
     "website-maintenance": "2026-11-05",
   };
 

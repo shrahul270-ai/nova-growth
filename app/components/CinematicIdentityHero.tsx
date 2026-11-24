@@ -40,7 +40,7 @@ export default function CinematicIdentityHero() {
           {/* Quick Stats Pill */}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <div className="px-3.5 py-1.5 rounded-[2px] bg-[#0c0818] border border-white/10 text-xs font-mono text-neutral-300">
-              <span className="text-[#681fe4] font-bold">DR 50–90+</span> VERIFIED NETWORK
+              <span className="text-[#681fe4] font-bold">850+</span> VERIFIED MEDIA NETWORK
             </div>
             <div className="px-3.5 py-1.5 rounded-[2px] bg-[#0c0818] border border-white/10 text-xs font-mono text-neutral-300">
               <span className="text-[#681fe4] font-bold">7+ YEARS</span> SEARCH MASTERY

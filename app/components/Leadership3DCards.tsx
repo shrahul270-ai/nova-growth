@@ -29,7 +29,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Media Relations Lead",
     role: "Head of Editorial Outreach & Digital PR",
-    bio: "Publisher specialist managing direct relationships with 850+ vetted DR 50–90+ digital publications across Tier-1 US, UK, and global editorial networks.",
+    bio: "Publisher specialist managing direct relationships with 850+ vetted digital publications across Tier-1 US, UK, and global editorial networks.",
     avatarSrc: "/images/leadership/real-avatar-media.png",
     avatarAlt: "Media Relations Lead - Editorial Outreach & Digital PR",
   },

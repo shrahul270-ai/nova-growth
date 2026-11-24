@@ -124,6 +124,17 @@ export default function Home() {
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
+    {
+      id: "fintech-app",
+      title: "VENTUREPAY GLOBAL",
+      category: "NEXT.JS WEB",
+      categoryGroup: "NEXT.JS WEB",
+      metric: "FINTECH ARCHITECTURE",
+      desc: "Bank-grade edge-rendered cross-border financial dashboard with sub-0.6s time to interactive and zero vulnerability audit.",
+      image: "/images/projects/fintech-app.jpg",
+      span: "lg:col-span-1 lg:row-span-1",
+      height: "min-h-[260px] sm:min-h-[280px]",
+    },
   ];
 
   const filteredWork =
@@ -147,10 +158,10 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Balaji Prime Media - Global SEO & Digital Growth Agency",
+    name: "Balaji Prime Media - SEO, Digital PR & Web Development Agency",
     url: "https://balajiprimemedia.in",
     description:
-      "Modern industrial elegance: Scale organic search revenue with high-impact SEO, DR 50-90+ editorial guest posting, and sub-second Next.js web applications.",
+      "Modern industrial elegance: Scale organic search revenue with technical SEO, high-authority digital PR, and sub-second Next.js web applications.",
     areaServed: ["United States", "United Kingdom", "Canada", "Australia", "UAE"],
     priceRange: "$$$",
     telephone: "+917690868932",
@@ -168,15 +179,15 @@ export default function Home() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "HOW DOES BALAJI PRIME MEDIA DELIVER RESULTS FASTER THAN TRADITIONAL AGENCIES?",
+        name: "How does Balaji Prime Media deliver results faster than traditional agencies?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously through direct relationships with vetted editorial publishers.",
+          text: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting high-intent commercial keywords, and securing authoritative digital PR media coverage through direct relationships with vetted editorial publishers.",
         },
       },
       {
         "@type": "Question",
-        name: "DO YOU SPECIALIZE IN OVERSEAS MARKETS (US, UK, UAE, AUSTRALIA)?",
+        name: "Do you specialize in overseas markets (US, UK, UAE, Australia)?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Yes. Over 80% of our portfolio clients operate in the United States, United Kingdom, Canada, Australia, and UAE. Our team operates with flexible overlap across EST, GMT, and AEST time zones with weekly video reporting and live performance dashboards.",
@@ -184,23 +195,23 @@ export default function Home() {
       },
       {
         "@type": "Question",
-        name: "WHAT MAKES YOUR NEXT.JS WEB ENGINEERING DIFFERENT?",
+        name: "What makes your Next.js web engineering different?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We do not use bloated WordPress themes or slow page builders. Every digital asset we engineer is built on Next.js with clean TypeScript and Tailwind CSS, scoring 98+ on Google PageSpeed Insights and loading under 800 milliseconds worldwide.",
+          text: "We do not use bloated WordPress themes or slow page builders. Every digital asset we engineer is built on Next.js with clean TypeScript and Tailwind CSS, scoring 95+ on Google PageSpeed Insights and loading under 800 milliseconds worldwide.",
         },
       },
       {
         "@type": "Question",
-        name: "ARE YOUR GUEST POSTING & BACKLINK METHODS SAFE FROM GOOGLE PENALTIES?",
+        name: "How does your digital PR and outreach comply with Google Search Essentials?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "100% white-hat. We strictly reject PBNs, automated link schemes, and cheap directories. Every single placement is secured on authentic, indexed publications with verified organic traffic through manual editorial outreach.",
+          text: "We practice 100% white-hat digital PR and manual media outreach. We strictly reject PBNs, automated link schemes, and link farms. Every single feature and brand mention is secured through genuine relationships with authentic editors and journalists, adhering strictly to Google Search Essentials.",
         },
       },
       {
         "@type": "Question",
-        name: "WHAT ARE YOUR PAYMENT AND CONTRACT TERMS?",
+        name: "What are your payment and contract terms?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "We offer agile sprint agreements and monthly retainers with zero long-term lock-in traps. You can pay securely in USD, GBP, or EUR via Stripe, wire transfer, PayPal, or crypto through our client portal.",
@@ -212,23 +223,23 @@ export default function Home() {
   // FAQs
   const faqs = [
     {
-      q: "HOW DOES BALAJI PRIME MEDIA DELIVER RESULTS FASTER THAN TRADITIONAL AGENCIES?",
-      a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously through direct relationships with vetted editorial publishers.",
+      q: "How does Balaji Prime Media deliver results faster than traditional agencies?",
+      a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting high-intent commercial keywords, and securing authoritative digital PR media coverage through direct relationships with vetted editorial publishers.",
     },
     {
-      q: "DO YOU SPECIALIZE IN OVERSEAS MARKETS (US, UK, UAE, AUSTRALIA)?",
+      q: "Do you specialize in overseas markets (US, UK, UAE, Australia)?",
       a: "Yes. Over 80% of our portfolio clients operate in the United States, United Kingdom, Canada, Australia, and UAE. Our team operates with flexible overlap across EST, GMT, and AEST time zones with weekly video reporting and live performance dashboards.",
     },
     {
-      q: "WHAT MAKES YOUR NEXT.JS WEB ENGINEERING DIFFERENT?",
-      a: "We do not use bloated WordPress themes or slow page builders. Every digital asset we engineer is built on Next.js with clean TypeScript and Tailwind CSS, scoring 98+ on Google PageSpeed Insights and loading under 800 milliseconds worldwide.",
+      q: "What makes your Next.js web engineering different?",
+      a: "We do not use bloated WordPress themes or slow page builders. Every digital asset we engineer is built on Next.js with clean TypeScript and Tailwind CSS, scoring 95+ on Google PageSpeed Insights and loading under 800 milliseconds worldwide.",
     },
     {
-      q: "ARE YOUR GUEST POSTING & BACKLINK METHODS SAFE FROM GOOGLE PENALTIES?",
-      a: "100% white-hat. We strictly reject PBNs, automated link schemes, and cheap directories. Every single placement is secured on authentic, indexed publications with verified organic traffic through manual editorial outreach.",
+      q: "How does your digital PR and outreach comply with Google Search Essentials?",
+      a: "We practice 100% white-hat digital PR and manual media outreach. We strictly reject PBNs, automated link schemes, and link farms. Every single feature and brand mention is secured through genuine relationships with authentic editors and journalists, adhering strictly to Google Search Essentials.",
     },
     {
-      q: "WHAT ARE YOUR PAYMENT AND CONTRACT TERMS?",
+      q: "What are your payment and contract terms?",
       a: "We offer agile sprint agreements and monthly retainers with zero long-term lock-in traps. You can pay securely in USD, GBP, or EUR via Stripe, wire transfer, PayPal, or crypto through our client portal.",
     },
   ];
@@ -303,19 +314,19 @@ export default function Home() {
             {/* Small Tagline with Responsive Tracking */}
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 max-w-full">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#681fe4] rounded-[2px] shrink-0" />
-              <span className="font-bebas text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.24em] text-[#681fe4] uppercase bg-white/5 border border-white/10 px-2.5 sm:px-3 py-1 rounded-[4px] backdrop-blur-sm break-words max-w-full">
-                // ENTERPRISE SEARCH ARCHITECTURE &amp; EDITORIAL PR
+              <span className="font-bebas text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.2em] text-[#681fe4] uppercase bg-white/5 border border-white/10 px-2.5 sm:px-3 py-1 rounded-[4px] backdrop-blur-sm break-words max-w-full">
+                SEO &amp; Next.js Engineering • Jaipur &amp; Global Operations
               </span>
             </div>
 
             {/* Massive Display Heading with Responsive Clamp & Tight Leading */}
-            <h1 className="text-[30px] xs:text-[40px] sm:text-[60px] md:text-[80px] lg:text-[100px] xl:text-[108px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
-              SEO, Next.js Web Development &amp; Guest Posting Agency
+            <h1 className="text-[30px] xs:text-[40px] sm:text-[60px] md:text-[80px] lg:text-[98px] xl:text-[104px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
+              SEO &amp; Next.js Web Development Agency in Jaipur
             </h1>
 
             {/* Premium Body Font ('Satoshi') with 2rem Leading */}
             <p className="text-neutral-300 text-xs sm:text-base md:text-lg lg:text-xl max-w-2xl leading-[1.6rem] sm:leading-[2rem] font-normal mb-7 sm:mb-10">
-              Balaji Prime Media engineers compounding organic search performance through vetted editorial PR placements, edge-rendered Next.js web applications, and Google Search Essentials-compliant semantic topical authority.
+              Balaji Prime Media engineers compounding organic search performance through vetted editorial PR, edge-rendered Next.js web applications, and Google Search Essentials-compliant semantic topical authority.
             </p>
 
             {/* Sharp 4px Action Buttons */}
@@ -444,19 +455,32 @@ export default function Home() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6 text-left">
               <div>
                 <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                  // CORE GROWTH DISCIPLINES
+                  CORE GROWTH DISCIPLINES
                 </span>
                 <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                   HIGH-IMPACT CAPABILITIES ARCHITECTURE
                 </h2>
               </div>
-              <Link
-                href="/services"
-                className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.14em] sm:tracking-[0.18em] text-white hover:text-[#681fe4] inline-flex items-center gap-2 transition-colors border-b border-white/20 pb-1 self-start md:self-auto"
-              >
-                <span>VIEW COMPLETE SERVICES MATRIX</span>
-                <span>→</span>
-              </Link>
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 self-start md:self-auto">
+                <Link
+                  href="/seo-services-usa"
+                  className="font-bebas text-xs sm:text-sm tracking-[0.12em] text-[#681fe4] bg-[#681fe4]/10 hover:bg-[#681fe4]/20 border border-[#681fe4]/30 px-3 py-1.5 rounded-[4px] inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <span>🇺🇸 SEO SERVICES USA</span>
+                </Link>
+                <Link
+                  href="/web-development-uk"
+                  className="font-bebas text-xs sm:text-sm tracking-[0.12em] text-[#681fe4] bg-[#681fe4]/10 hover:bg-[#681fe4]/20 border border-[#681fe4]/30 px-3 py-1.5 rounded-[4px] inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <span>🇬🇧 WEB DEV UK</span>
+                </Link>
+                <Link
+                  href="/services"
+                  className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.14em] sm:tracking-[0.18em] text-white hover:text-[#681fe4] inline-flex items-center gap-2 transition-colors border-b border-white/20 pb-1"
+                >
+                  <span>SERVICES MATRIX →</span>
+                </Link>
+              </div>
             </div>
 
             {/* 4-Column Layout with 1px white/10 Vertical Borders */}
@@ -473,14 +497,14 @@ export default function Home() {
                   </div>
                   {/* Serial Number in Tracking Text */}
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    01 // DOMAIN AUTHORITY
+                    01 • DIGITAL PR &amp; MEDIA AUTHORITY
                   </span>
                   {/* Title in Responsive Bebas Neue */}
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
-                    EDITORIAL GUEST POSTS &amp;<br className="hidden sm:inline" /> AUTHORITY BACKLINKS
+                    EDITORIAL DIGITAL PR &amp;<br className="hidden sm:inline" /> AUTHORITY MEDIA FEATURES
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                    Secure real contextual backlinks across 30,000+ verified DR 50–90+ publishers. 100% white-hat manual editorial outreach with zero PBNs.
+                    Secure authentic brand features and editorial media coverage across 1,000+ curated high-trust publications. 100% white-hat editorial outreach strictly adhering to Google Search Essentials.
                   </p>
                 </div>
                 {/* Bottom Arrow */}
@@ -488,7 +512,7 @@ export default function Home() {
                   href="/guest-posting"
                   className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/60 group-hover:text-[#681fe4] transition-colors"
                 >
-                  <span>BROWSE INVENTORY</span>
+                  <span>EXPLORE EDITORIAL NETWORK</span>
                   <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
                 </Link>
               </div>
@@ -502,7 +526,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    02 // SEARCH ARCHITECTURE
+                    02 • SEARCH ARCHITECTURE
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
                     ENTERPRISE TECHNICAL SEO &amp;<br className="hidden sm:inline" /> SEMANTIC CLUSTERING
@@ -529,13 +553,13 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    03 // EDGE COMPUTING
+                    03 • EDGE COMPUTING
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
                     HEADLESS NEXT.JS WEB<br className="hidden sm:inline" /> ENGINEERING &amp; CWV
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                    Sub-0.8s load times and 99/100 Core Web Vitals on Next.js App Router. Custom digital platforms engineered for conversion across US &amp; European markets.
+                    Sub-0.8s load times and 95+ PageSpeed scores on Next.js App Router. Custom digital platforms engineered for conversion across US &amp; European markets.
                   </p>
                 </div>
                 <Link
@@ -556,7 +580,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    04 // REVENUE MULTIPLIER
+                    04 • REVENUE ARCHITECTURE
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
                     CONVERSION RATE FUNNELS &amp;<br className="hidden sm:inline" /> REVENUE ARCHITECTURE
@@ -591,7 +615,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center mb-8 sm:mb-12">
               <div className="lg:col-span-5">
                 <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                  // PERFORMANCE METRICS &amp; SLA BENCHMARKS
+                  PERFORMANCE METRICS &amp; SLA BENCHMARKS
                 </span>
                 <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                   MEASURED EXECUTION STANDARDS
@@ -611,7 +635,7 @@ export default function Home() {
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
-                    HIGH-DA (DR 50–90+) EDITORIAL OUTREACH ACCURACY
+                    HIGH-AUTHORITY EDITORIAL DIGITAL PR ACCURACY
                   </span>
                   {/* Percentage in small black #07030d box */}
                   <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
@@ -689,22 +713,25 @@ export default function Home() {
             <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-16 gap-6">
               <div>
                 <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                  // PROVEN ENTERPRISE RESULTS
+                  CLIENT ARCHITECTURES &amp; DELIVERABLES
                 </span>
                 <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-[#07030d] uppercase leading-none">
                   SELECTED WORK SHOWCASE
                 </h2>
+                <p className="text-xs sm:text-sm text-neutral-600 mt-2 max-w-xl font-satoshi font-normal">
+                  Real technical sprints and verified architectural deployments across US e-commerce, B2B SaaS, and international multi-location practices.
+                </p>
               </div>
 
               {/* Category Filters in Underlined 'Bebas Neue' Typography */}
               <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-8 gap-y-2 pt-2">
-                {["ALL", "GUEST POSTING", "NEXT.JS WEB", "TECHNICAL SEO"].map((cat) => (
+                {["ALL", "DIGITAL PR", "NEXT.JS WEB", "TECHNICAL SEO"].map((cat) => (
                   <button
                     key={cat}
                     type="button"
-                    onClick={() => setWorkFilter(cat)}
+                    onClick={() => setWorkFilter(cat === "DIGITAL PR" ? "GUEST POSTING" : cat)}
                     className={`font-bebas text-sm sm:text-lg tracking-[0.14em] sm:tracking-[0.18em] transition-all cursor-pointer pb-1 ${
-                      workFilter === cat
+                      (workFilter === cat || (cat === "DIGITAL PR" && workFilter === "GUEST POSTING"))
                         ? "text-[#681fe4] border-b-2 border-[#681fe4]"
                         : "text-neutral-500 hover:text-[#07030d] border-b-2 border-transparent"
                     }`}
@@ -792,10 +819,10 @@ export default function Home() {
                   📰
                 </div>
                 <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
-                  30,000+
+                  1,000+
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  VERIFIED EDITORIAL PARTNERS
+                  VETTED EDITORIAL MEDIA PARTNERS
                 </span>
               </div>
 
@@ -808,33 +835,33 @@ export default function Home() {
                   +340%
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  AVERAGE ORGANIC REVENUE LIFT
+                  ORGANIC SEARCH TRAFFIC LIFT (6-MO SPRINT)
                 </span>
               </div>
 
               {/* Stat 03 */}
               <div className="p-4 sm:p-6 lg:p-8 border-r lg:border-r border-white/10 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
-                  💼
+                  ⚡
                 </div>
                 <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
-                  $18.5M+
+                  &lt; 0.8S
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  CLIENT SALES PIPELINE GENERATED
+                  NEXT.JS EDGE LOAD TIME
                 </span>
               </div>
 
               {/* Stat 04 */}
               <div className="p-4 sm:p-6 lg:p-8 flex flex-col items-center sm:items-start text-center sm:text-left">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 flex items-center justify-center text-lg sm:text-xl text-white mb-3 sm:mb-4 shadow-xs">
-                  ⚡
+                  🎯
                 </div>
                 <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
-                  99.4%
+                  95+
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  CLIENT RETENTION RATE
+                  CORE WEB VITALS TARGET (LIGHTHOUSE)
                 </span>
               </div>
 
@@ -865,7 +892,7 @@ export default function Home() {
 
             <div className="relative z-10 max-w-2xl">
               <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
-                // EXECUTIVE ADVISORY &amp; DIRECT ACCOUNTABILITY
+                EXECUTIVE ADVISORY &amp; DIRECT ACCOUNTABILITY
               </span>
               <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-[0.92] mb-5 sm:mb-6">
                 TIRED OF AGENCY FLUFF? WE DELIVER REAL COMMERCIAL REVENUE.
@@ -903,7 +930,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center relative z-10">
             
             <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-              // INSTANT DIAGNOSTIC ENGINE
+              INSTANT DIAGNOSTIC ENGINE
             </span>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none mb-3 sm:mb-4">
               REQUEST YOUR 20-POINT SEO &amp; ARCHITECTURE AUDIT
@@ -958,7 +985,7 @@ export default function Home() {
                   >
                     <option value="traffic">Double Organic Google Traffic &amp; Rankings</option>
                     <option value="leads">Increase B2B Inbound Consultation Bookings</option>
-                    <option value="guest-posting">Acquire High-DR (50–90+) Editorial Backlinks</option>
+                    <option value="editorial-pr">Earn High-Authority Editorial PR &amp; Media Citations</option>
                     <option value="redesign">Rebuild Website on Next.js for Sub-0.8s Speed</option>
                   </select>
                 </div>
@@ -989,7 +1016,7 @@ export default function Home() {
             
             <div className="mb-10 sm:mb-14">
               <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#38bdf8] uppercase block mb-2">
-                // CLARITY &amp; ACCOUNTABILITY
+                CLARITY &amp; TRANSPARENCY
               </span>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
                 FREQUENTLY ASKED QUESTIONS
@@ -1008,6 +1035,7 @@ export default function Home() {
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
                       className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
+                      aria-expanded={isOpen}
                     >
                       <span className="pr-2">{faq.q}</span>
                       <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
@@ -1015,11 +1043,18 @@ export default function Home() {
                       </span>
                     </button>
 
-                    {isOpen && (
-                      <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal">
-                        {faq.a}
+                    {/* All FAQ answers remain in the HTML DOM for Googlebot crawlability */}
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal font-satoshi">
+                          {faq.a}
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}

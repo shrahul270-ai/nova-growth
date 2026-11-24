@@ -72,7 +72,7 @@ export default function OurPurpose3DSection() {
                     Vetted Media Outlets
                   </span>
                   <span className="text-[10px] font-mono text-[#681fe4] block">
-                    DR 50–90+ Publications
+                    High-Trust Global Media
                   </span>
                 </div>
               </div>

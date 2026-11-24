@@ -139,7 +139,7 @@ export default function LumenGuestPostingHero() {
               [ CORE_PUBLICATIONS ]
             </span>
             <p className="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[160px]">
-              Neural catalog indexing 850+ vetted DR 50–90+ media houses.
+              Curated catalog indexing 850+ vetted editorial media houses.
             </p>
           </div>
 
@@ -149,10 +149,10 @@ export default function LumenGuestPostingHero() {
             style={{ animationDelay: "1400ms" }}
           >
             <span className="font-manrope text-white text-[13px] leading-[15.6px] whitespace-nowrap font-medium">
-              [ CONTEXTUAL_EQUITY ]
+              [ EDITORIAL_AUTHORITY ]
             </span>
             <p className="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[160px]">
-              100% do-follow in-content links passing pure algorithmic trust.
+              High-value contextual citations adhering strictly to Google Search Essentials.
             </p>
           </div>
 
@@ -162,10 +162,10 @@ export default function LumenGuestPostingHero() {
             style={{ animationDelay: "1700ms" }}
           >
             <span className="font-manrope text-white text-[13px] leading-[15.6px] whitespace-nowrap font-medium">
-              [ INDEXATION_WARRANTY ]
+              [ MEDIA_REPUTATION ]
             </span>
             <p className="font-manrope text-white/50 text-[11px] leading-[14px] mt-[4px] max-w-[180px]">
-              Lifetime permanent placement backed by 12-month link warranty.
+              Permanent brand features across authentic digital publications.
             </p>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function LumenGuestPostingHero() {
 
               {/* Card Paragraph */}
               <p className="relative font-manrope text-white text-[13px] leading-[18px] mb-[18px]">
-                Navigate algorithmic search updates with verified DR 50–90+ publications that bring
+                Navigate algorithmic search updates with verified high-authority publications that bring
                 compounding organic authority to your brand.
               </p>
 

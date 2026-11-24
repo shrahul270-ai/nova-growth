@@ -18,38 +18,38 @@ const faqs: FaqItem[] = [
   {
     id: 1,
     category: "quality",
-    q: "Are these links permanent?",
-    a: "Yes. All placements are guaranteed for life. If any link drops, is altered, or loses Google indexation within 12 months, we replace it with an equal or higher DR publication completely free of charge.",
+    q: "Are these editorial features permanent?",
+    a: "Yes. All editorial features and brand mentions are published permanently on the host media publication. In the rare event of publisher restructuring or content archiving within 12 months, we facilitate an equivalent editorial feature at zero additional cost.",
   },
   {
     id: 2,
     category: "approval",
-    q: "Can I pre-approve the websites before publishing?",
-    a: "Absolutely. We provide a curated shortlist matching your exact topical niche, domain metrics, and target audience. We only draft native content and secure publication after your explicit written approval.",
+    q: "Can I pre-approve the media outlets before publishing?",
+    a: "Absolutely. We provide a curated shortlist of authentic media outlets matching your industry topical niche, readership demographics, and editorial standards. Content is drafted and pitched only after your explicit approval.",
   },
   {
     id: 3,
     category: "quality",
     q: "How do your outreach methods comply with Google's Link Spam Guidelines?",
-    a: "We practice 100% manual digital PR and white-hat editorial outreach. We strictly reject PBNs, automated syndication, and link farms. In full adherence to Google Search Essentials, we support appropriate rel='sponsored' or rel='nofollow' attributes for commercial sponsorships while securing genuine, contextual editorial references that deliver real referral traffic and brand authority.",
+    a: "We practice 100% manual white-hat digital PR and editorial outreach. We strictly reject PBNs, automated link networks, and link farms. In full adherence to Google Search Essentials, we prioritize genuine journalistic value, appropriate rel='sponsored' / rel='nofollow' attributes where required, and natural editorial citations that drive legitimate referral traffic and brand trust.",
   },
   {
     id: 4,
     category: "delivery",
-    q: "How fast do guest post links go live?",
-    a: "Most placements go live within 7 to 14 business days, depending on publication editorial calendars. You receive live URL confirmation and indexation tracking as soon as it goes live.",
+    q: "How long does the editorial publication process take?",
+    a: "Most editorial placements and features go live within 7 to 14 business days, depending on the respective publication's editorial review schedule.",
   },
   {
     id: 5,
     category: "approval",
-    q: "Can I choose my own anchor texts and target URLs?",
-    a: "Yes, you have complete editorial control over anchor texts, branded variations, and target landing pages to align with your exact topical SEO ranking strategy.",
+    q: "Can I review and suggest edits to the editorial content?",
+    a: "Yes, you have complete oversight of brand positioning, quotes, key talking points, and reference links to ensure total alignment with your brand narrative.",
   },
   {
     id: 6,
     category: "quality",
-    q: "What metrics do you guarantee for each publication?",
-    a: "We guarantee minimum Ahrefs DR 50–90+, verified organic search traffic of 10,000+ monthly visits, clean backlink profiles with zero PBNs, and strict zero-spam editorial standards.",
+    q: "What editorial quality benchmarks do you verify for each publication?",
+    a: "Every media partner is thoroughly vetted for genuine editorial standards, real human readership (minimum 10,000+ organic monthly visits), clean historical backlink profiles, and authoritative industry standing.",
   },
   {
     id: 7,
@@ -68,7 +68,7 @@ const faqs: FaqItem[] = [
 const categoryCards = [
   {
     key: "quality",
-    title: "Link Quality & Warranty",
+    title: "Media Quality & Standards",
     articles: "32 Articles",
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

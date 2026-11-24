@@ -1128,22 +1128,22 @@ export default function GuestPostMarketplace() {
             Live Marketplace Inventory
           </div>
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 tracking-tight flex items-center gap-3">
-            <span>40,000+ Verified Publisher Websites</span>
+            <span>1,500+ Verified Publisher Websites</span>
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl leading-relaxed">
-            Filter high-authority publications by Moz DA, Ahrefs DR, real organic traffic, niche, and country.
-            100% white-hat contextual placements with indexation warranty.
+            Filter high-authority media outlets by Moz DA, Ahrefs DR, real organic traffic, niche, and country.
+            100% white-hat editorial placements adhering to Google Search Essentials.
           </p>
         </div>
 
-        {/* Live inventory badge & 40,000+ Database Download Action */}
+        {/* Live inventory badge & 1,500+ Database Download Action */}
         <div className="flex items-center gap-3 flex-wrap self-start md:self-auto">
           {/* Download Complete Database Button */}
           <button
             type="button"
             onClick={handleDownloadDatabaseClick}
             className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-md shadow-emerald-700/20 cursor-pointer transition-all hover:scale-102 active:scale-98"
-            title="Download full 40,000+ guest post database in Excel (.xlsx / .csv)"
+            title="Download full 1,500+ guest post database in Excel (.xlsx / .csv)"
           >
             <span className="text-sm">📥</span>
             <span>Download Database (.xlsx)</span>
@@ -1154,7 +1154,7 @@ export default function GuestPostMarketplace() {
             <span className="font-extrabold text-amber-600">
               {isBuyerLoggedIn ? filteredSites.length : Math.min(filteredSites.length, 6)}
             </span>
-            <span className="text-slate-500">of 40,000+ Active Sites</span>
+            <span className="text-slate-500">of 1,500+ Active Sites</span>
           </div>
         </div>
       </div>
@@ -1167,7 +1167,7 @@ export default function GuestPostMarketplace() {
             <span className="font-bold text-slate-900">
               Buyer Account Active: <strong className="text-emerald-700 font-extrabold">{buyerUser?.email || "Buyer"}</strong>
             </span>
-            <span className="hidden md:inline text-slate-600">• Full 40,000+ Directory &amp; Direct Export Unlocked</span>
+            <span className="hidden md:inline text-slate-600">• Full 1,500+ Directory &amp; Direct Export Unlocked</span>
           </div>
           <div className="flex items-center gap-3">
             <Link
@@ -1202,7 +1202,7 @@ export default function GuestPostMarketplace() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search from 40,000+ websites by domain, niche or keyword..."
+              placeholder="Search from 1,500+ verified websites by domain, niche or keyword..."
               className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-500/20 transition-all font-medium"
             />
             {searchQuery && (
@@ -1599,10 +1599,10 @@ export default function GuestPostMarketplace() {
               🔒
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight mb-2">
-              Unlock All 40,000+ Authority Publications &amp; Excel Download
+              Unlock All 1,500+ Authority Publications &amp; Excel Download
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto mb-7 leading-relaxed">
-              Create a free Buyer account with your Email and WhatsApp number to unlock complete publication names, direct wholesale rates, and instant Excel database export.
+              Create a free Buyer account with your Email and WhatsApp number to unlock complete publication names, direct editorial rates, and instant Excel database export.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
               <button
@@ -1784,7 +1784,7 @@ export default function GuestPostMarketplace() {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Includes native 1,000+ word content drafting, do-follow in-content link injection, and permanent placement guarantee.
+              Includes native 1,000+ word editorial content drafting, journalist outreach review, and full Google Search Essentials policy compliance.
             </p>
 
             <div className="space-y-2.5 pt-1">
@@ -1828,7 +1828,7 @@ export default function GuestPostMarketplace() {
                     {authMode === "signup" ? "Create Free Buyer Account" : "Buyer Login"}
                   </h3>
                   <span className="text-xs text-amber-600 font-bold uppercase tracking-wider block">
-                    Unlock 40,000+ Database
+                    Unlock 1,500+ Database
                   </span>
                 </div>
               </div>
@@ -1875,7 +1875,7 @@ export default function GuestPostMarketplace() {
 
             <p className="text-xs text-slate-600 mb-4 leading-relaxed">
               {authMode === "signup"
-                ? "Register your email and mobile number to immediately unlock all 40,000+ publisher sites and download the complete Excel database."
+                ? "Register your email and mobile number to immediately unlock all 1,500+ publisher sites and download the complete Excel database."
                 : "Sign in with your email and password to access the full publisher directory and your buyer workspace."}
             </p>
 
@@ -1944,7 +1944,7 @@ export default function GuestPostMarketplace() {
             </form>
 
             <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 text-center">
-              <span>🔒 100% Privacy Guaranteed. Zero spam. Direct wholesale link pricing.</span>
+              <span>🔒 100% Privacy Guaranteed. Zero spam. Direct editorial media rates.</span>
             </div>
           </div>
         </div>

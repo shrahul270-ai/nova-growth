@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/services/off-page-seo-digital-pr",
+        destination: "/services/backlink-building",
+        permanent: true,
+      },
+      {
         source: "/:path*",
         has: [
           {
