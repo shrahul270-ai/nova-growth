@@ -151,24 +151,24 @@ export default function HeaderBackgroundAnimation({
       }
     }
 
-    // Pre-computed color bins for ultra-fast batched Canvas rendering
-    // Eliminates thousands of individual draw state calls down to ~12 batch fills
+    // Pre-computed color bins for ultra-fast batched Canvas rendering:
+    // Technical Cyber Sky Blue & Electric Cyan Spectrum (Live Across Entire Website)
     const colorBuckets = [
-      // 0 - 5: Warm Gold / Amber Spectrum (Deep to Peak)
-      "rgba(146, 64, 14, 0.38)",   // Deep warm amber shadow
-      "rgba(180, 83, 9, 0.58)",    // Warm bronze
-      "rgba(217, 119, 6, 0.78)",   // Brand amber
-      "rgba(245, 158, 11, 0.90)",  // Bright gold
-      "rgba(251, 191, 36, 0.96)",  // Luminous champagne
-      "rgba(254, 240, 138, 0.99)", // Gold peak crest glint
+      // 0 - 5: Deep Cyber Navy to Electric Azure Spectrum
+      "rgba(3, 105, 161, 0.40)",   // Deep sky shadow
+      "rgba(2, 132, 199, 0.58)",   // Deep azure
+      "rgba(14, 165, 233, 0.78)",  // Electric sky
+      "rgba(56, 189, 248, 0.90)",  // Bright cyber cyan
+      "rgba(125, 211, 252, 0.96)", // Luminous ice cyan
+      "rgba(224, 242, 254, 0.99)", // Sky peak crest glint
 
-      // 6 - 11: Glowing Cyan / Electric Blue Spectrum (Crest ridge in reference image)
-      "rgba(14, 116, 144, 0.48)",  // Deep cyan
-      "rgba(2, 132, 199, 0.70)",   // Electric sapphire
-      "rgba(14, 165, 233, 0.86)",  // Vibrant sky cyan
-      "rgba(56, 189, 248, 0.94)",  // Luminous cyan crest
-      "rgba(125, 211, 252, 0.98)", // Radiant frost cyan
-      "rgba(255, 255, 255, 1.0)",  // Pure brilliant diamond crest highlight
+      // 6 - 11: Glowing Neon Cyan / Electric Blue Spectrum
+      "rgba(8, 145, 178, 0.50)",   // Deep cyan
+      "rgba(6, 182, 212, 0.72)",   // Electric sapphire
+      "rgba(34, 211, 238, 0.88)",  // Vibrant cyber cyan
+      "rgba(0, 240, 255, 0.95)",   // Neon cyan crest
+      "rgba(165, 243, 252, 0.98)", // Radiant diamond cyan
+      "rgba(255, 255, 255, 1.0)",  // Pure diamond crest highlight
     ];
 
     const numBuckets = colorBuckets.length;

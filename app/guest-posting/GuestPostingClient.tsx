@@ -30,8 +30,8 @@ const faqs: FaqItem[] = [
   {
     id: 3,
     category: "quality",
-    q: "Are these backlinks 100% Do-Follow & Indexed?",
-    a: "Yes. Every placement is guaranteed 100% contextual Do-Follow, placed naturally inside native 1,000+ word editorial articles, and backed by our Google indexation warranty.",
+    q: "How do your outreach methods comply with Google's Link Spam Guidelines?",
+    a: "We practice 100% manual digital PR and white-hat editorial outreach. We strictly reject PBNs, automated syndication, and link farms. In full adherence to Google Search Essentials, we support appropriate rel='sponsored' or rel='nofollow' attributes for commercial sponsorships while securing genuine, contextual editorial references that deliver real referral traffic and brand authority.",
   },
   {
     id: 4,
@@ -142,7 +142,7 @@ export default function GuestPostingClient() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-[4px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.2em] text-[#681fe4] mb-4">
             <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
-            <span>CURATED WHITE-HAT EDITORIAL LINKS</span>
+            <span>WHITE-HAT EDITORIAL PR &amp; MEDIA OUTREACH</span>
           </div>
 
           <h2 className="font-bebas text-3xl sm:text-5xl md:text-6xl text-white tracking-[0.16em] uppercase leading-none mb-4">
@@ -152,7 +152,7 @@ export default function GuestPostingClient() {
             </span>
           </h2>
           <p className="font-satoshi text-neutral-300 text-sm sm:text-base max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-            Zero PBNs. Zero spam farms. Pure in-content editorial backlinks that drive topical authority, pass link juice, and survive every Google core update.
+            Zero PBNs. Zero automated link schemes. Contextual editorial placements aligned with Google Search Essentials and Link Spam Guidelines.
           </p>
 
           {/* Feature Pill Highlights */}

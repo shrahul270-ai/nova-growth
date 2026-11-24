@@ -68,7 +68,7 @@ export default function Footer() {
             </span>
             <a
               href={emailInquiryHref}
-              className="font-bebas text-2xl xs:text-3xl sm:text-5xl md:text-6xl tracking-[0.08em] sm:tracking-[0.14em] text-[#681fe4] hover:text-white transition-colors block uppercase leading-none break-words"
+              className="font-bebas text-2xl xs:text-3xl sm:text-5xl md:text-6xl tracking-[0.08em] sm:tracking-[0.14em] text-[#0ea5e9] hover:text-white transition-colors block uppercase leading-none break-words"
             >
               LET&apos;S WORK TOGETHER →
             </a>
@@ -84,15 +84,15 @@ export default function Footer() {
             {[
               { name: "WhatsApp", href: "https://wa.me/917690868932", label: "WA" },
               { name: "Telegram", href: "https://t.me/balajiprimemedia", label: "TG" },
-              { name: "LinkedIn", href: "https://linkedin.com", label: "LI" },
-              { name: "Twitter", href: "https://twitter.com", label: "X" },
+              { name: "LinkedIn", href: "https://www.linkedin.com/company/balajiprimemedia", label: "LI" },
+              { name: "Twitter", href: "https://x.com/balajiprimemedia", label: "X" },
             ].map((s) => (
               <a
                 key={s.name}
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-[4px] border border-white/10 hover:border-[#681fe4] hover:bg-[#681fe4] flex items-center justify-center font-bebas text-xs sm:text-sm tracking-[0.12em] text-white transition-all cursor-pointer"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-[4px] border border-white/10 hover:border-[#0ea5e9] hover:bg-[#0284c7] flex items-center justify-center font-bebas text-xs sm:text-sm tracking-[0.12em] text-white transition-all cursor-pointer"
               >
                 {s.label}
               </a>
@@ -109,7 +109,7 @@ export default function Footer() {
           
           {/* Col 1: About & Location */}
           <div className="space-y-3">
-            <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+            <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
               01 // AGENCY IDENTITY
             </span>
             <p className="text-neutral-400 text-xs leading-relaxed font-normal">
@@ -122,10 +122,10 @@ export default function Footer() {
               📍 Jaipur, India &amp; Global Operations
             </div>
             <div className="pt-2 text-xs text-neutral-300 flex items-center gap-2 font-mono">
-              <span className="text-[#681fe4]">✉️</span>
+              <span className="text-[#38bdf8]">✉️</span>
               <a
                 href="mailto:support@balajiprimemedia.in"
-                className="hover:text-[#681fe4] transition-colors"
+                className="hover:text-[#38bdf8] transition-colors"
               >
                 support@balajiprimemedia.in
               </a>
@@ -135,8 +135,8 @@ export default function Footer() {
           {/* Col 2: NAVIGATION (Website-consistent Modern Industrial Color Pattern) */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4]" />
-              <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+              <span className="w-2 h-2 rounded-[2px] bg-[#0ea5e9]" />
+              <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
                 02 // NAVIGATION
               </span>
             </div>
@@ -144,10 +144,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Home</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -155,15 +155,15 @@ export default function Footer() {
               <li>
                 <Link
                   href="/guest-posting"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>Guest Posting</span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#681fe4]/30 text-[#d8b4fe] border border-[#681fe4]/50 font-mono">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#0ea5e9]/20 text-[#7dd3fc] border border-[#0ea5e9]/40 font-mono">
                       DR 50+
                     </span>
                   </span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -171,10 +171,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/services"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Services</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -182,10 +182,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/projects"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Projects</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -193,10 +193,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/blog"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Blog</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -204,10 +204,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/about-us"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>About Us</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -215,10 +215,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact-us"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Contact Us</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -226,13 +226,13 @@ export default function Footer() {
               <li>
                 <Link
                   href="/pay"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>Payment</span>
                     <span>💳</span>
                   </span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -243,8 +243,8 @@ export default function Footer() {
           {/* Col 3: SUPPORT & MORE (Website-consistent Modern Industrial Color Pattern) */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#681fe4]" />
-              <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+              <span className="w-2 h-2 rounded-[2px] bg-[#0ea5e9]" />
+              <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
                 03 // SUPPORT &amp; MORE
               </span>
             </div>
@@ -252,10 +252,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/faq"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>FAQ</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -263,10 +263,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/feedback"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Feedback</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -274,7 +274,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/schedule-meeting"
-                  className="group flex items-center justify-between text-[#c4b5fd] hover:text-white font-medium transition-colors"
+                  className="group flex items-center justify-between text-[#7dd3fc] hover:text-white font-medium transition-colors"
                 >
                   <span>Schedule Meeting</span>
                   <span>🗓️</span>
@@ -283,10 +283,10 @@ export default function Footer() {
               <li>
                 <Link
                   href="/help-center"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span>Help Center</span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">
                     →
                   </span>
                 </Link>
@@ -294,13 +294,13 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:support@balajiprimemedia.in"
-                  className="group flex items-center justify-between hover:text-[#681fe4] transition-colors"
+                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
                 >
                   <span className="flex items-center gap-2">
                     <span>Direct Email</span>
                     <span className="text-xs">✉️</span>
                   </span>
-                  <span className="text-neutral-500 group-hover:text-[#681fe4] group-hover:translate-x-1 transition-all text-xs font-mono">
+                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs font-mono">
                     support@balajiprimemedia.in →
                   </span>
                 </a>
@@ -340,7 +340,7 @@ export default function Footer() {
 
           {/* Col 4: Newsletter Subscription Box */}
           <div className="space-y-4">
-            <span className="font-bebas text-sm tracking-[0.24em] text-[#681fe4] uppercase block">
+            <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
               04 // INTELLIGENCE BRIEF
             </span>
             <p className="text-neutral-400 text-xs leading-relaxed font-normal">
@@ -355,14 +355,14 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ENTER WORK EMAIL"
                   required
-                  className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/40 focus:border-[#681fe4] outline-none text-xs py-2 font-bebas tracking-[0.14em] transition-colors"
+                  className="w-full bg-transparent border-b border-white/20 text-white placeholder-white/40 focus:border-[#38bdf8] outline-none text-xs py-2 font-bebas tracking-[0.14em] transition-colors"
                 />
-                {/* Violet send icon */}
+                {/* Sky blue send icon */}
                 <button
                   type="submit"
                   disabled={loading}
                   aria-label="Subscribe to intelligence brief"
-                  className="w-10 h-10 bg-[#681fe4] hover:bg-[#5815cb] text-white rounded-[4px] flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer disabled:opacity-50"
+                  className="w-10 h-10 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-[4px] flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer disabled:opacity-50"
                 >
                   {loading ? (
                     <span className="text-xs">⋯</span>
@@ -374,7 +374,7 @@ export default function Footer() {
                 </button>
               </div>
               {subscribed ? (
-                <p className="text-xs font-bebas tracking-[0.12em] text-[#681fe4]">
+                <p className="text-xs font-bebas tracking-[0.12em] text-[#38bdf8]">
                   ✓ SUBSCRIBED TO INTELLIGENCE BRIEFING!
                 </p>
               ) : (
@@ -433,10 +433,10 @@ export default function Footer() {
               fontSize="102"
               letterSpacing="-0.04em"
               fill="none"
-              stroke="#b886ff"
+              stroke="#38bdf8"
               strokeWidth="2.4"
               style={{
-                filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.55))",
+                filter: "drop-shadow(0 0 25px rgba(56, 189, 248, 0.65))",
               }}
             >
               balaji prime media
@@ -451,7 +451,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2.5 sm:gap-3 text-neutral-400 flex-wrap justify-center sm:justify-end">
             <span className="flex items-center gap-1.5 text-neutral-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#b886ff] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
               CLIENT INTAKE ACTIVE
             </span>
             <span>•</span>

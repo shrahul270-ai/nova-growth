@@ -14,5 +14,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="dark bg-[#090d16] min-h-screen text-slate-100 selection:bg-indigo-600 selection:text-white antialiased">
+      {children}
+    </div>
+  );
 }

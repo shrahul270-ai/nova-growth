@@ -91,8 +91,8 @@ export function AddLeadModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-[#111827] w-full max-w-lg rounded-[36px] border border-slate-100 dark:border-slate-800 shadow-2xl p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-white dark:bg-[#0f172a] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 shadow-2xl p-5 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
@@ -122,7 +122,7 @@ export function AddLeadModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. David Laurent"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -135,7 +135,7 @@ export function AddLeadModal({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="client@company.com"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ export function AddLeadModal({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 (555) 019-2834"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -160,7 +160,7 @@ export function AddLeadModal({
               <select
                 value={country}
                 onChange={(e) => handleCountryChange(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="India">🇮🇳 India</option>
                 <option value="United States">🇺🇸 United States</option>
@@ -180,7 +180,7 @@ export function AddLeadModal({
             <select
               value={service}
               onChange={(e) => setService(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
             >
               {services.map((s) => (
                 <option key={s.id} value={s.name}>
@@ -200,7 +200,7 @@ export function AddLeadModal({
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
                 placeholder="e.g. $3,000 / ₹1,50,000"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -212,7 +212,7 @@ export function AddLeadModal({
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
                 placeholder="https://client-site.com"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ export function AddLeadModal({
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Specify client requirements, milestones..."
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
             />
           </div>
 
@@ -302,8 +302,8 @@ export function AddPaymentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-[#111827] w-full max-w-lg rounded-[36px] border border-slate-100 dark:border-slate-800 shadow-2xl p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-white dark:bg-[#0f172a] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 shadow-2xl p-5 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
@@ -333,7 +333,7 @@ export function AddPaymentModal({
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 placeholder="Client name"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -345,7 +345,7 @@ export function AddPaymentModal({
                 value={clientEmail}
                 onChange={(e) => setClientEmail(e.target.value)}
                 placeholder="billing@client.com"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -358,7 +358,7 @@ export function AddPaymentModal({
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value as any)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="USD">USD ($)</option>
                 <option value="INR">INR (₹)</option>
@@ -371,7 +371,7 @@ export function AddPaymentModal({
               <select
                 value={rail}
                 onChange={(e) => setRail(e.target.value as any)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="Stripe">Stripe</option>
                 <option value="UPI">UPI (Instant India)</option>
@@ -392,7 +392,7 @@ export function AddPaymentModal({
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -403,7 +403,7 @@ export function AddPaymentModal({
                 type="number"
                 value={paidAmount}
                 onChange={(e) => setPaidAmount(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -414,7 +414,7 @@ export function AddPaymentModal({
                 type="number"
                 value={pendingAmount}
                 onChange={(e) => setPendingAmount(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -427,7 +427,7 @@ export function AddPaymentModal({
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="Paid">Paid in Full</option>
                 <option value="Remaining">Milestone / Partial Paid (Balance Due)</option>
@@ -443,7 +443,7 @@ export function AddPaymentModal({
                 value={txnRef}
                 onChange={(e) => setTxnRef(e.target.value)}
                 placeholder="ch_stripe_xxx or UTR Ref"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none font-mono text-xs"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none font-mono text-xs"
               />
             </div>
           </div>
@@ -527,8 +527,8 @@ export function CreateInvoiceModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-[#111827] w-full max-w-lg rounded-[36px] border border-slate-100 dark:border-slate-800 shadow-2xl p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-white dark:bg-[#0f172a] w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 shadow-2xl p-5 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">
@@ -557,7 +557,7 @@ export function CreateInvoiceModal({
                 type="text"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -568,7 +568,7 @@ export function CreateInvoiceModal({
                 type="email"
                 value={clientEmail}
                 onChange={(e) => setClientEmail(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
           </div>
@@ -582,7 +582,7 @@ export function CreateInvoiceModal({
               type="text"
               value={serviceName}
               onChange={(e) => setServiceName(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
             />
           </div>
 
@@ -596,7 +596,7 @@ export function CreateInvoiceModal({
                 type="number"
                 value={rate}
                 onChange={(e) => setRate(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -608,7 +608,7 @@ export function CreateInvoiceModal({
                 value={taxPercent}
                 onChange={(e) => setTaxPercent(e.target.value)}
                 placeholder="0 or 18"
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               />
             </div>
             <div>
@@ -618,7 +618,7 @@ export function CreateInvoiceModal({
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value as any)}
-                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
               >
                 <option value="USD">USD ($)</option>
                 <option value="INR">INR (₹)</option>
@@ -634,7 +634,7 @@ export function CreateInvoiceModal({
               type="text"
               value={clientAddress}
               onChange={(e) => setClientAddress(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-900 dark:text-white border border-transparent focus:border-indigo-500 focus:outline-none"
+              className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/80 focus:border-indigo-500 focus:outline-none"
             />
           </div>
 

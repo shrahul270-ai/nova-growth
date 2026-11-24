@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-19T14:04:53.756Z",
+  "lastUpdated": "2026-11-24T10:11:18.405Z",
   "leads": [
     {
       "id": "lead_mvjbwqnl_py3zja",
@@ -268,6 +268,35 @@
     }
   ],
   "interactions": [
+    {
+      "type": "other_click",
+      "action": "other",
+      "title": "Copied UPI ID to clipboard",
+      "name": "",
+      "phone": "917690868932@ybl",
+      "email": "917690868932@ybl",
+      "details": "917690868932@ybl",
+      "clientIdentifier": "",
+      "sourcePage": "/contact-us",
+      "clientIp": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.7977.167 Safari/537.36 Antigravity/2.34.0",
+      "notes": "",
+      "country": "India",
+      "countryCode": "IN",
+      "countryFlag": "🇮🇳",
+      "city": "Jaipur",
+      "region": "Rajasthan",
+      "timezone": "Asia/Kolkata",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=India",
+      "locationSummary": "India 🇮🇳",
+      "id": "intr_mwujbgkd_l0r9v3",
+      "collection": "interactions",
+      "status": "new",
+      "createdAt": "2026-11-24T10:11:17.533Z",
+      "updatedAt": "2026-11-24T10:11:17.533Z",
+      "isDeleted": false,
+      "deletedAt": null
+    },
     {
       "type": "email_click",
       "action": "email",
@@ -1230,6 +1259,14 @@
   ],
   "payments": [],
   "activityLogs": [
+    {
+      "id": "log_mwujbgkd_4vcb2i",
+      "timestamp": "2026-11-24T10:11:17.533Z",
+      "action": "create",
+      "collection": "interactions",
+      "recordId": "intr_mwujbgkd_l0r9v3",
+      "summary": "Client interaction recorded: Copied UPI ID to clipboard (other)"
+    },
     {
       "id": "log_mwnmgi6z_ikmr92",
       "timestamp": "2026-11-19T14:04:48.539Z",

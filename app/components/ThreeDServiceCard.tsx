@@ -223,26 +223,38 @@ export default function ThreeDServiceCard({
           </div>
         </div>
 
-        {/* Dedicated Hub Pages */}
-        {service.id === "flutter-app-dev" && (
-          <Link
-            href="/services/flutter-app-dev"
-            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bebas text-xs tracking-[0.14em] transition-all uppercase"
-          >
-            <span>📱 OPEN DEDICATED FLUTTER HUB PAGE</span>
-            <span>→</span>
-          </Link>
-        )}
-
-        {service.id === "full-stack-php-dev" && (
-          <Link
-            href="/services/full-stack-php-dev"
-            className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[4px] bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bebas text-xs tracking-[0.14em] transition-all uppercase"
-          >
-            <span>🐘 OPEN DEDICATED PHP HUB PAGE</span>
-            <span>→</span>
-          </Link>
-        )}
+        {/* Dedicated Hub / Service Detail Link */}
+        {(() => {
+          const serviceSlugMap: Record<string, string> = {
+            "starter-business-web": "website-development",
+            "ecommerce-website-dev": "website-development",
+            "custom-web-application": "website-development",
+            "flutter-mobile-app": "flutter-app-dev",
+            "flutter-app-dev": "flutter-app-dev",
+            "fullstack-php-dev": "full-stack-php-dev",
+            "full-stack-php-dev": "full-stack-php-dev",
+            "full-funnel-seo": "seo-optimization",
+            "seo-optimization": "seo-optimization",
+            "monthly-link-building": "backlink-building",
+            "backlink-building": "backlink-building",
+            "content-strategy-writing": "content-writing",
+            "content-writing": "content-writing",
+            "email-revenue-automation": "email-marketing",
+            "email-marketing": "email-marketing",
+            "annual-site-maintenance": "website-maintenance",
+            "website-maintenance": "website-maintenance",
+          };
+          const targetSlug = serviceSlugMap[service.id] || "website-development";
+          return (
+            <Link
+              href={`/services/${targetSlug}`}
+              className="w-full mb-3 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[4px] bg-white/5 hover:bg-[#681fe4]/20 border border-white/15 hover:border-[#681fe4]/50 text-white font-bebas text-xs tracking-[0.14em] transition-all uppercase"
+            >
+              <span>VIEW FULL SERVICE SPECIFICATIONS &amp; SCOPE</span>
+              <span>→</span>
+            </Link>
+          );
+        })()}
 
         {/* Action CTAs */}
         <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2.5">

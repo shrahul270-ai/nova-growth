@@ -65,7 +65,7 @@ export default function ProjectsView({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-3xl bg-white dark:bg-[#111827] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-3.5 sm:p-4 rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
           <input
@@ -73,19 +73,19 @@ export default function ProjectsView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search project, client, domain..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-[13px] text-slate-900 dark:text-white placeholder-slate-400 border border-transparent focus:border-indigo-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-[13px] text-slate-900 dark:text-white placeholder-slate-400 border border-slate-200/60 dark:border-slate-700 focus:border-indigo-500 focus:outline-none"
           />
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto">
+        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
           {["all", "Active", "In Review", "Planning", "Completed"].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-xl text-[12px] font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-[12px] font-bold transition-all whitespace-nowrap ${
                 statusFilter === st
                   ? "bg-[#4f46e5] text-white"
-                  : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                  : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/60 dark:border-slate-700/60"
               }`}
             >
               {st === "all" ? "All Sprints" : st}
@@ -95,11 +95,11 @@ export default function ProjectsView({
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {filteredProjects.map((prj) => (
           <div
             key={prj.id}
-            className="bg-white dark:bg-[#111827] rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            className="bg-white dark:bg-[#0f172a] rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
           >
             <div>
               {/* Category and Status Badge */}

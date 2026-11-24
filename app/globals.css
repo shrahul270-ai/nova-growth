@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand-gray: #1A1A1A;
-  --color-violet-electric: #681fe4;
-  --color-violet-deep: #220090;
-  --color-ink-black: #07030d;
+  --color-violet-electric: #0ea5e9;
+  --color-violet-deep: #034870;
+  --color-ink-black: #020712;
 }
 
 .font-bebas {
@@ -62,15 +64,15 @@
   --bg-subtle: #fffdfa;
   --text-main: #0f172a;
   --text-muted: #64748b;
-  --brand-primary: #091427;
-  --brand-primary-hover: #0f213d;
-  --brand-navy: #091427;
-  --brand-gold: #d97706;
-  --brand-yellow: #f59e0b;
-  --brand-gold-hover: #b45309;
-  --brand-gold-glow: rgba(245, 158, 11, 0.25);
+  --brand-primary: #0284c7;
+  --brand-primary-hover: #0369a1;
+  --brand-navy: #020712;
+  --brand-gold: #38bdf8;
+  --brand-yellow: #7dd3fc;
+  --brand-gold-hover: #0ea5e9;
+  --brand-gold-glow: rgba(56, 189, 248, 0.35);
   --card-bg: #ffffff;
-  --card-border: rgba(245, 158, 11, 0.25);
+  --card-border: rgba(56, 189, 248, 0.25);
 }
 
 * {
@@ -2386,4 +2388,350 @@ h1, h2, h3, h4, h5, h6, p, span, a, pre, code {
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
+/* =========================================================================
+   GLOBAL TECHNICAL CYBER SKYBLUE THEME (LIVE ACROSS ENTIRE WEBSITE)
+   High-Tech Electric Sky Blue (#0ea5e9 / #38bdf8), Obsidian Slate & Cyan Glow
+   ========================================================================= */
+
+:root,
+html {
+  --color-violet-electric: #0ea5e9;
+  --color-violet-deep: #0284c7;
+  --color-ink-black: #020712;
+  --brand-primary: #0284c7;
+  --brand-primary-hover: #0369a1;
+  --brand-navy: #020712;
+  --brand-gold: #38bdf8;
+  --brand-yellow: #7dd3fc;
+  --brand-gold-hover: #0ea5e9;
+  --brand-gold-glow: rgba(56, 189, 248, 0.35);
+  --card-border: rgba(56, 189, 248, 0.25);
+}
+
+/* Global Selection & Scrollbar (Live Everywhere) */
+::selection,
+[class*="selection:bg-"]::selection,
+[class*="selection:bg-[#681fe4]"]::selection,
+[class*="selection:bg-purple-"]::selection {
+  background-color: #0ea5e9 !important;
+  color: #ffffff !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0ea5e9 !important;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #020712 !important;
+}
+
+/* 1. Primary Solid Violet / Purple Elements -> High-Tech Electric Sky Blue */
+.bg-\[\#681fe4\],
+[class*="bg-[#681fe4]"]:not([class*="bg-[#681fe4]/"]),
+.bg-\[\#5815cb\],
+[class*="bg-[#5815cb]"],
+.bg-\[\#A068FF\],
+[class*="bg-[#A068FF]"],
+.bg-\[\#7c3aed\],
+[class*="bg-[#7c3aed]"],
+.bg-\[\#7c4dff\],
+[class*="bg-[#7c4dff]"],
+.bg-\[\#8f66ff\],
+[class*="bg-[#8f66ff]"],
+.bg-\[\#b886ff\],
+[class*="bg-[#b886ff]"],
+.bg-\[\#a855f7\],
+[class*="bg-[#a855f7]"],
+.bg-\[\#9333ea\],
+[class*="bg-[#9333ea]"],
+.bg-\[\#4f46e5\],
+[class*="bg-[#4f46e5]"] {
+  background-color: #0284c7 !important;
+  background-image: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Semi-transparent violet accents -> Translucent sky blue glow */
+[class*="bg-[#681fe4]/"],
+[class*="bg-[#A068FF]/"],
+[class*="bg-[#7c3aed]/"],
+[class*="bg-[#7c4dff]/"],
+[class*="bg-[#8f66ff]/"],
+[class*="bg-purple-950/"],
+[class*="bg-purple-900/"],
+[class*="bg-purple-600/"] {
+  background-color: rgba(14, 165, 233, 0.18) !important;
+  background-image: none !important;
+}
+
+/* Deep navy / purple accents */
+.bg-\[\#220090\],
+[class*="bg-[#220090]"] {
+  background-color: #034870 !important;
+  background-image: linear-gradient(135deg, #034870 0%, #0284c7 100%) !important;
+}
+
+.bg-\[\#c084fc\],
+[class*="bg-[#c084fc]"],
+.bg-\[\#6366f1\],
+[class*="bg-[#6366f1]"] {
+  background-color: #38bdf8 !important;
+  color: #020712 !important;
+}
+
+/* 2. Interactive Hover States */
+[class*="hover:bg-[#681fe4]"]:hover,
+[class*="hover:bg-[#5815cb]"]:hover,
+[class*="hover:bg-[#7c4dff]"]:hover,
+[class*="hover:bg-purple-600"]:hover,
+[class*="hover:bg-purple-700"]:hover {
+  background-color: #0369a1 !important;
+  background-image: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.45) !important;
+}
+
+/* 3. Text Colors -> Vibrant Cyber Sky / Electric Cyan */
+.text-\[\#681fe4\],
+[class*="text-[#681fe4]"],
+.text-\[\#A068FF\],
+[class*="text-[#A068FF]"],
+.text-\[\#c084fc\],
+[class*="text-[#c084fc]"],
+.text-\[\#7c3aed\],
+[class*="text-[#7c3aed]"],
+.text-\[\#5815cb\],
+[class*="text-[#5815cb]"],
+.text-\[\#7c4dff\],
+[class*="text-[#7c4dff]"],
+.text-\[\#8f66ff\],
+[class*="text-[#8f66ff]"],
+.text-\[\#b886ff\],
+[class*="text-[#b886ff]"],
+.text-\[\#c4b5fd\],
+[class*="text-[#c4b5fd]"],
+.text-\[\#d8b4fe\],
+[class*="text-[#d8b4fe]"],
+[class*="text-purple-300"],
+[class*="text-purple-400"],
+[class*="text-purple-500"] {
+  color: #38bdf8 !important;
+}
+
+[class*="hover:text-[#681fe4]"]:hover,
+[class*="group-hover:text-[#681fe4]"]:is(:hover, .group:hover *),
+[class*="group-hover/item:text-[#681fe4]"]:is(:hover, .group\/item:hover *),
+[class*="hover:text-purple-400"]:hover,
+[class*="group-hover:text-purple-400"]:is(:hover, .group:hover *) {
+  color: #00f0ff !important;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.65) !important;
+}
+
+/* 4. Borders & Technical Outlines */
+.border-\[\#681fe4\],
+[class*="border-[#681fe4]"]:not([class*="border-[#681fe4]/"]),
+.border-\[\#A068FF\],
+[class*="border-[#A068FF]"],
+.border-\[\#7c4dff\],
+[class*="border-[#7c4dff]"],
+.border-\[\#8f66ff\],
+[class*="border-[#8f66ff]"] {
+  border-color: #0ea5e9 !important;
+}
+
+[class*="border-[#681fe4]/"],
+[class*="border-[#A068FF]/"],
+[class*="border-[#7c4dff]/"],
+[class*="border-[#8f66ff]/"],
+[class*="border-purple-500/"],
+[class*="border-purple-600/"] {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+[class*="hover:border-[#681fe4]"]:hover,
+[class*="group-hover:border-[#681fe4]"]:is(:hover, .group:hover *) {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.35) !important;
+}
+
+/* 5. Deep Cyber Midnight Backgrounds (Dark Tech Navy / Obsidian) */
+.bg-\[\#07030d\],
+[class*="bg-[#07030d]"] {
+  background-color: #020712 !important;
+}
+
+.bg-\[\#0c0818\],
+[class*="bg-[#0c0818]"] {
+  background-color: #040d1a !important;
+}
+
+.bg-\[\#0c0617\],
+[class*="bg-[#0c0617]"] {
+  background-color: #030a16 !important;
+}
+
+.bg-\[\#08041d\],
+[class*="bg-[#08041d]"],
+.bg-\[\#09041a\],
+[class*="bg-[#09041a]"] {
+  background-color: #030c1e !important;
+}
+
+.bg-\[\#130a38\],
+[class*="bg-[#130a38]"],
+.bg-\[\#0f092e\],
+[class*="bg-[#0f092e]"],
+.bg-\[\#12082b\],
+[class*="bg-[#12082b]"] {
+  background-color: #05152d !important;
+}
+
+.bg-\[\#0b0622\],
+[class*="bg-[#0b0622]"],
+.bg-\[\#0a0420\],
+[class*="bg-[#0a0420]"] {
+  background-color: #041022 !important;
+}
+
+.bg-\[\#080216\],
+[class*="bg-[#080216]"] {
+  background-color: #020814 !important;
+}
+
+/* 6. Gradients: Overlays, Vignettes & Transitions */
+[class*="from-[#07030d]"] {
+  --tw-gradient-from: #020712 var(--tw-gradient-from-position) !important;
+}
+[class*="via-[#07030d]"] {
+  --tw-gradient-via: #020712 var(--tw-gradient-via-position) !important;
+}
+[class*="to-[#07030d]"] {
+  --tw-gradient-to: #020712 var(--tw-gradient-to-position) !important;
+}
+
+[class*="from-[#681fe4]"],
+[class*="from-[#7c3aed]"],
+[class*="from-[#7c4dff]"] {
+  --tw-gradient-from: #0284c7 var(--tw-gradient-from-position) !important;
+}
+[class*="via-[#681fe4]"],
+[class*="via-[#A068FF]"],
+[class*="via-[#8f66ff]"] {
+  --tw-gradient-via: #0ea5e9 var(--tw-gradient-via-position) !important;
+}
+[class*="to-[#681fe4]"],
+[class*="to-[#6366f1]"],
+[class*="to-[#8f66ff]"] {
+  --tw-gradient-to: #38bdf8 var(--tw-gradient-to-position) !important;
+}
+[class*="to-[#220090]"] {
+  --tw-gradient-to: #034870 var(--tw-gradient-to-position) !important;
+}
+
+[class*="from-[#0f092e]"] {
+  --tw-gradient-from: #05152d var(--tw-gradient-from-position) !important;
+}
+[class*="to-[#09041f]"] {
+  --tw-gradient-to: #030c1e var(--tw-gradient-to-position) !important;
+}
+
+/* 7. Modern Industrial Geometry (Hero Diagonal Slice & Accents) */
+.clip-hero-accent {
+  background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%) !important;
+  box-shadow: 0 0 100px rgba(14, 165, 233, 0.55) !important;
+}
+
+.clip-diagonal-split {
+  background: linear-gradient(135deg, #034870 0%, #0284c7 100%) !important;
+}
+
+/* 8. Ambient Radial Glows & GPU Floating Ribbons */
+[style*="radial-gradient(circle, #681fe4"],
+[style*="radial-gradient(circle, rgb(104, 31, 228)"],
+[style*="radial-gradient(circle, #7c4dff"],
+[style*="radial-gradient(circle, rgba(104, 31, 228"],
+[style*="radial-gradient(ellipse_at_center,rgba(104,31,228"],
+[style*="radial-gradient(120% 80% at 50% 0%, rgba(124, 77, 255"] {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.38) 0%, rgba(2, 132, 199, 0.18) 55%, transparent 75%) !important;
+}
+
+.curved-ribbon-left {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.28) 0%, rgba(2, 132, 199, 0.12) 60%, transparent 80%) !important;
+}
+
+.curved-ribbon-right {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.16) 50%, transparent 75%) !important;
+}
+
+.curved-ribbon-mid-left {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.24) 0%, rgba(3, 105, 161, 0.12) 70%, transparent 85%) !important;
+}
+
+.curved-ribbon-bottom {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.15) 60%, transparent 80%) !important;
+}
+
+/* 9. Glowing Tech Shadows */
+[class*="shadow-[#681fe4]"],
+[class*="shadow-[0_10px_25px_rgba(104,31,228"],
+[class*="shadow-[0_10px_25px_rgba(104, 31, 228"],
+[class*="shadow-[0_10px_30px_rgba(104,31,228"],
+[class*="shadow-[0_10px_30px_rgba(104, 31, 228"] {
+  box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4), 0 0 15px rgba(56, 189, 248, 0.25) !important;
+}
+
+[class*="shadow-[0_8px_30px_rgba(160,104,255"],
+[class*="shadow-[0_8px_30px_rgba(160, 104, 255"] {
+  box-shadow: 0 8px 30px rgba(14, 165, 233, 0.55), 0 0 20px rgba(0, 240, 255, 0.35) !important;
+}
+
+[class*="shadow-[0_4px_25px_rgba(160,104,255"],
+[class*="shadow-[0_4px_25px_rgba(160, 104, 255"] {
+  box-shadow: 0 4px 25px rgba(14, 165, 233, 0.35) !important;
+}
+
+/* 10. High-Tech Grid & Telemetry Lines */
+.bg-grid-white-240 {
+  background-image: 
+    linear-gradient(to right, rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.08) 1px, transparent 1px) !important;
+  background-size: 240px 240px !important;
+}
+
+/* 11. Luxury / Brand Text Gradients -> Luminous Diamond Cyan */
+.text-gradient-emerald,
+.text-gradient-navy-gold,
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 45%, #0ea5e9 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* 12. Cards, Bento Items & Interactive Containers */
+.card-hover:hover {
+  border-color: rgba(56, 189, 248, 0.55) !important;
+  box-shadow: 0 12px 32px -4px rgba(14, 165, 233, 0.25), 0 0 16px rgba(56, 189, 248, 0.2) !important;
+}
+
+/* 13. High-Impact Statistics Bar */
+section.bg-\[\#681fe4\] {
+  background: linear-gradient(135deg, #035388 0%, #0284c7 45%, #0ea5e9 100%) !important;
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.3) !important;
+}
+
+/* 14. Form Inputs & Select Focus States */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.35) !important;
+}
+
+/* 15. Progress Skill Bars (Cyber Telemetry Glow) */
+.space-y-2\.5 .bg-\[\#681fe4\] {
+  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%) !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6) !important;
+}
+
+
 

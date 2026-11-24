@@ -83,29 +83,29 @@ export default function AdminHeader({
   const currentRegionObj = regions.find((r) => r.key === currencyRegion) || regions[0];
 
   return (
-    <header className="sticky top-0 z-30 h-20 bg-white dark:bg-[#0f172a] border-b border-[#f1f5f9] dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-colors duration-200">
-      {/* Left Side: Mobile Menu Button & 400px Search Bar */}
-      <div className="flex items-center gap-3 sm:gap-4 flex-1 max-w-[540px]">
+    <header className="sticky top-0 z-30 h-16 sm:h-20 bg-white dark:bg-[#0b0f19]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/90 px-3 sm:px-6 lg:px-8 flex items-center justify-between transition-colors duration-200">
+      {/* Left Side: Mobile Menu Button & Search Bar */}
+      <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-[540px]">
         {/* Menu Toggle Button */}
         <button
           onClick={onToggleMobileMenu}
-          className="lg:hidden p-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0"
+          className="lg:hidden p-2 sm:p-2.5 rounded-2xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/70 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0 active:scale-95"
           aria-label="Open navigation menu"
         >
           <Menu className="w-5 h-5" />
         </button>
 
-        {/* 400px Search Bar with #f8fafc background and rounded-2xl */}
-        <div className="relative w-full max-w-[400px]">
-          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+        {/* Search Bar */}
+        <div className="relative w-full max-w-[320px] sm:max-w-[400px]">
+          <div className="absolute inset-y-0 left-0 pl-3 sm:pl-3.5 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
             <Search className="w-4 h-4" />
           </div>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search leads, clients, services, invoices, publishers..."
-            className="w-full pl-10 pr-9 py-2.5 bg-[#f8fafc] dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 text-[13px] rounded-2xl border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all shadow-inner"
+            placeholder="Search leads, services, invoices..."
+            className="w-full pl-9 sm:pl-10 pr-8 py-2 sm:py-2.5 bg-slate-100 dark:bg-slate-850/90 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-[12px] sm:text-[13px] rounded-2xl border border-slate-200/80 dark:border-slate-700/80 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all shadow-inner"
           />
           {searchQuery && (
             <button
@@ -154,12 +154,12 @@ export default function AdminHeader({
           <div className="relative" ref={notifRef}>
             <button
               onClick={() => setShowNotifMenu(!showNotifMenu)}
-              className="relative p-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="relative p-2 sm:p-2.5 rounded-2xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
               aria-label="Notifications"
             >
               <Bell className="w-4 h-4" />
               {unreadCount > 0 && (
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#0f172a] animate-pulse" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#0f172a] animate-pulse" />
               )}
             </button>
 
@@ -221,17 +221,17 @@ export default function AdminHeader({
           <button
             onClick={onNavigateToWhatsApp}
             title="Inbound Messages & WhatsApp Hub"
-            className="relative p-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="relative p-2 sm:p-2.5 rounded-2xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             aria-label="Messages"
           >
             <MessageSquare className="w-4 h-4" />
-            <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#0f172a]" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#0f172a]" />
           </button>
 
           {/* Dark / Light Theme Toggle */}
           <button
             onClick={onToggleTheme}
-            className="p-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-2 sm:p-2.5 rounded-2xl text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             aria-label="Toggle theme"
             title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
@@ -247,7 +247,7 @@ export default function AdminHeader({
         <div className="relative" ref={regionRef}>
           <button
             onClick={() => setShowRegionMenu(!showRegionMenu)}
-            className="flex items-center gap-2 px-3 py-2 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all text-[12px] font-bold"
+            className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all text-[12px] font-bold"
           >
             <span className="text-base leading-none">{currentRegionObj.flag}</span>
             <span className="hidden sm:inline">{currentRegionObj.key}</span>
@@ -255,7 +255,7 @@ export default function AdminHeader({
           </button>
 
           {showRegionMenu && (
-            <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-[#111827] border border-slate-100 dark:border-slate-800 shadow-xl p-2 z-50">
+            <div className="absolute right-0 mt-2 w-48 rounded-2xl bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-xl p-2 z-50">
               {regions.map((reg) => (
                 <button
                   key={reg.key}

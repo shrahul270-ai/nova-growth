@@ -96,7 +96,7 @@ export default function LeadsView({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-3xl bg-white dark:bg-[#111827] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-3.5 sm:p-4 rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
         {/* Search */}
         <div className="relative w-full md:w-80">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -105,12 +105,12 @@ export default function LeadsView({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search name, email, phone, country..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-[13px] text-slate-900 dark:text-white placeholder-slate-400 border border-transparent focus:border-indigo-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800/90 rounded-xl text-[13px] text-slate-900 dark:text-white placeholder-slate-400 border border-slate-200/60 dark:border-slate-700 focus:border-indigo-500 focus:outline-none"
           />
         </div>
 
         {/* Status Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
+        <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none">
           {[
             { id: "all", label: "All", count: leads.length },
             { id: "new", label: "New", count: leads.filter((l) => l.status === "new").length },
@@ -124,7 +124,7 @@ export default function LeadsView({
               className={`px-3 py-1.5 rounded-xl text-[12px] font-bold whitespace-nowrap transition-all ${
                 statusFilter === tab.id
                   ? "bg-[#4f46e5] text-white shadow-sm"
-                  : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200/60 dark:border-slate-700/60"
               }`}
             >
               {tab.label} ({tab.count})
@@ -133,9 +133,128 @@ export default function LeadsView({
         </div>
       </div>
 
-      {/* Leads Table / Cards */}
-      <div className="bg-white dark:bg-[#111827] rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
+      {/* Leads Table / Responsive Cards */}
+      <div className="bg-white dark:bg-[#0f172a] rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
+        {/* Mobile View: High-contrast responsive cards for smartphones */}
+        <div className="block md:hidden divide-y divide-slate-100 dark:divide-slate-800">
+          {filteredLeads.map((lead) => (
+            <div
+              key={lead.id}
+              className="p-4 space-y-3 hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors"
+              onClick={() => setSelectedLead(lead)}
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 text-indigo-600 dark:text-indigo-400 font-extrabold flex items-center justify-center shrink-0 text-base border border-indigo-200/50 dark:border-indigo-800/60">
+                    {lead.countryFlag}
+                  </div>
+                  <div>
+                    <h4 className="font-extrabold text-slate-900 dark:text-white text-sm flex items-center gap-1.5">
+                      <span>{lead.name}</span>
+                      {lead.status === "new" && (
+                        <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                      )}
+                    </h4>
+                    <span className="text-[11px] text-slate-400">
+                      {lead.country} • {lead.createdAt?.slice(0, 10) || "Recent"}
+                    </span>
+                  </div>
+                </div>
+
+                <div onClick={(e) => e.stopPropagation()}>
+                  <select
+                    value={lead.status}
+                    onChange={(e) => onUpdateLeadStatus(lead.id, e.target.value as any)}
+                    className={`px-2.5 py-1 rounded-xl text-[10px] font-extrabold border focus:outline-none cursor-pointer ${
+                      lead.status === "new"
+                        ? "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/80 dark:text-indigo-300 dark:border-indigo-800"
+                        : lead.status === "contacted"
+                        ? "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/80 dark:text-amber-300 dark:border-amber-800"
+                        : lead.status === "converted"
+                        ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/80 dark:text-emerald-300 dark:border-emerald-800"
+                        : "bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400"
+                    }`}
+                  >
+                    <option value="new">New</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="converted">Converted</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Service requested */}
+              <div className="text-[12px]">
+                <span className="inline-block px-2.5 py-1 rounded-xl font-bold bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700">
+                  {lead.service}
+                </span>
+                {lead.website && (
+                  <a
+                    href={lead.website.startsWith("http") ? lead.website : `https://${lead.website}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-[11px] text-indigo-500 dark:text-indigo-400 hover:underline flex items-center gap-1 mt-1 font-medium"
+                  >
+                    <Globe className="w-3 h-3" />
+                    <span className="truncate max-w-[200px]">{lead.website.replace("https://", "")}</span>
+                  </a>
+                )}
+              </div>
+
+              {/* Budget & Timeline & Contact */}
+              <div className="grid grid-cols-2 gap-2 text-[11px] p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+                <div>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Budget</span>
+                  <span className="font-extrabold text-slate-900 dark:text-white">{lead.budget || "Custom Quote"}</span>
+                </div>
+                <div>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Timeline</span>
+                  <span className="font-bold text-amber-600 dark:text-amber-400">{lead.timeline || "Normal"}</span>
+                </div>
+                <div className="col-span-2 text-slate-400 pt-1 border-t border-slate-100 dark:border-slate-700/40 truncate">
+                  <span>{lead.email}</span> • <span>{lead.phone}</span>
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex items-center justify-between pt-1" onClick={(e) => e.stopPropagation()}>
+                <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+                  View Full Details →
+                </span>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
+                      `Hello ${lead.name}, thank you for contacting Balaji Prime Media regarding "${lead.service}". Would you like to schedule a quick sync?`
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={`mailto:${lead.email}?subject=${encodeURIComponent(
+                      `Proposal from Balaji Prime Media - ${lead.service}`
+                    )}`}
+                    className="p-2 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                  <button
+                    onClick={() => onOpenCreateInvoiceWithLead(lead)}
+                    className="p-2 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60"
+                  >
+                    <FileText className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop View: Full Data Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left text-[13px]">
             <thead className="bg-slate-50/70 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 text-[10px] uppercase font-extrabold tracking-wider text-slate-400">
               <tr>
@@ -284,11 +403,11 @@ export default function LeadsView({
 
       {/* Client Detail Modal */}
       {selectedLead && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-[#111827] w-full max-w-xl rounded-[36px] border border-slate-100 dark:border-slate-800 shadow-2xl p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+          <div className="bg-white dark:bg-[#0f172a] w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 shadow-2xl p-5 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-start justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-2xl flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/50 dark:border-indigo-800/60 text-2xl flex items-center justify-center">
                   {selectedLead.countryFlag}
                 </div>
                 <div>
@@ -310,10 +429,10 @@ export default function LeadsView({
             </div>
 
             <div className="space-y-4 my-6 text-[13px]">
-              <div className="grid grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700/60">
                 <div>
                   <span className="text-[10px] font-bold uppercase text-slate-400 block">Email</span>
-                  <a href={`mailto:${selectedLead.email}`} className="font-bold text-indigo-600 hover:underline">
+                  <a href={`mailto:${selectedLead.email}`} className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline break-all">
                     {selectedLead.email}
                   </a>
                 </div>
@@ -329,7 +448,7 @@ export default function LeadsView({
                 </div>
                 <div>
                   <span className="text-[10px] font-bold uppercase text-slate-400 block">Estimated Budget</span>
-                  <span className="font-bold text-emerald-600">{selectedLead.budget || "Custom Scope"}</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">{selectedLead.budget || "Custom Scope"}</span>
                 </div>
               </div>
 
@@ -337,17 +456,17 @@ export default function LeadsView({
                 <span className="text-[11px] font-bold uppercase text-slate-400 block mb-1">
                   Client Project Scope & Message:
                 </span>
-                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
                   {selectedLead.message}
                 </div>
               </div>
 
               {selectedLead.notes && (
                 <div>
-                  <span className="text-[11px] font-bold uppercase text-indigo-500 block mb-1">
+                  <span className="text-[11px] font-bold uppercase text-indigo-500 dark:text-indigo-400 block mb-1">
                     Internal Admin Notes:
                   </span>
-                  <div className="p-3 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 text-indigo-900 dark:text-indigo-200 text-xs">
+                  <div className="p-3 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 text-xs border border-indigo-100 dark:border-indigo-900/50">
                     {selectedLead.notes}
                   </div>
                 </div>
@@ -357,7 +476,7 @@ export default function LeadsView({
             <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
               <button
                 onClick={() => setSelectedLead(null)}
-                className="px-4 py-2 rounded-xl text-slate-500 font-bold text-xs"
+                className="px-4 py-2 rounded-xl text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-bold text-xs"
               >
                 Close
               </button>
@@ -367,7 +486,7 @@ export default function LeadsView({
                     onOpenCreateInvoiceWithLead(selectedLead);
                     setSelectedLead(null);
                   }}
-                  className="px-4 py-2.5 rounded-xl bg-[#4f46e5] text-white font-bold text-xs flex items-center gap-2 hover:bg-indigo-700"
+                  className="px-4 py-2.5 rounded-xl bg-[#4f46e5] text-white font-bold text-xs flex items-center gap-2 hover:bg-indigo-700 shadow-md"
                 >
                   <FileText className="w-4 h-4" />
                   <span>Invoice this Client</span>

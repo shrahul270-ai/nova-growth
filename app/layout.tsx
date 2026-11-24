@@ -18,13 +18,13 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#091427",
+  themeColor: "#020712",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://balajiprimemedia.in"),
-  title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
-  description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
+  title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
+  description: "Balaji Prime Media is a premier SEO, Next.js web development, and editorial guest posting agency helping businesses scale organic rankings, authority, and revenue.",
   verification: {
     google: "eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU",
   },
@@ -45,26 +45,26 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
-    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
+    title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
+    description: "Scale organic rankings, authoritative PR backlinks, and high-performance Next.js web applications with Balaji Prime Media.",
     url: "https://balajiprimemedia.in",
     siteName: "Balaji Prime Media",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/images/bpm-complete-logo.png",
-        width: 1015,
-        height: 377,
-        alt: "Balaji Prime Media Official Logo",
+        url: "/images/bpm-og-banner.png",
+        width: 1200,
+        height: 630,
+        alt: "Balaji Prime Media - SEO, Next.js Web Development & Guest Posting Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Balaji Prime Media | Global SEO & Digital Growth Agency",
-    description: "Scale your organic traffic, high-intent leads, and revenue with custom SEO, web development, content marketing, and link building by Balaji Prime Media.",
-    images: ["/images/bpm-complete-logo.png"],
+    title: "Balaji Prime Media | SEO, Next.js Web Development & Guest Posting Agency",
+    description: "Scale organic rankings, authoritative PR backlinks, and high-performance Next.js web applications with Balaji Prime Media.",
+    images: ["/images/bpm-og-banner.png"],
   },
 };
 
@@ -85,7 +85,7 @@ const structuredData = {
         height: 377,
         caption: "Balaji Prime Media Logo",
       },
-      image: "https://balajiprimemedia.in/images/bpm-complete-logo.png",
+      image: "https://balajiprimemedia.in/images/bpm-og-banner.png",
       description:
         "Global digital marketing, technical SEO, high-DA guest posting, and Next.js web development agency driving scalable organic revenue for US, UK, and overseas enterprises.",
       telephone: "+917690868932",
@@ -99,6 +99,9 @@ const structuredData = {
         addressCountry: "IN",
       },
       sameAs: [
+        "https://www.linkedin.com/company/balajiprimemedia",
+        "https://x.com/balajiprimemedia",
+        "https://github.com/shrahul270-ai/nova-growth",
         "https://wa.me/917690868932",
         "https://t.me/balajiprimemedia",
       ],
@@ -240,7 +243,7 @@ export default function RootLayout({
         <script async src="https://news.google.com/swg/js/v1/publisher.js" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");}catch(e){}})()`,
+            __html: `(function(){try{document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.classList.add("localhost-tech-theme");}catch(e){}})()`,
           }}
         />
       </head>

@@ -73,13 +73,13 @@ export default function AnimatedBackground() {
     window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Brand Palette: Amber Gold, Deep Royal Sapphire, Champagne Light
+    // High-Tech Cyber Sky Blue & Electric Cyan Palette (Live Across Entire Website)
     const colors = [
-      "rgba(217, 119, 6,",   // Brand Gold #d97706
-      "rgba(245, 158, 11,",  // Bright Amber #f59e0b
-      "rgba(29, 78, 216,",   // Sapphire Navy #1d4ed8
-      "rgba(37, 99, 235,",   // Bright Blue #2563eb
-      "rgba(251, 191, 36,",  // Champagne Gold #fbbf24
+      "rgba(14, 165, 233,",  // Sky 500 #0ea5e9
+      "rgba(56, 189, 248,",  // Sky 400 #38bdf8
+      "rgba(0, 240, 255,",   // Neon Cyber Cyan #00f0ff
+      "rgba(2, 132, 199,",   // Deep Sky 600 #0284c7
+      "rgba(125, 211, 252,", // Ice Cyan 300 #7dd3fc
     ];
 
     let particles: Particle[] = [];

@@ -34,6 +34,12 @@ const SUPABASE_TABLE_COLUMNS: Record<string, string[]> = {
   ],
   invoices: [
     "id", "invoiceNo", "date", "dueDate", "clientName", "clientEmail", "clientDomain", "clientAddress", "serviceName", "rate", "qty", "taxPercent", "currency", "status", "isDeleted", "createdAt", "updatedAt"
+  ],
+  admin_data: [
+    "id", "key", "category", "title", "description", "data", "author", "status", "metadata", "isDeleted", "deletedAt", "createdAt", "updatedAt"
+  ],
+  admin_users: [
+    "id", "email", "name", "role", "permissions", "status", "lastLoginAt", "clientIp", "metadata", "isDeleted", "deletedAt", "createdAt", "updatedAt"
   ]
 };
 
@@ -888,4 +894,162 @@ export function getDatabaseStats() {
     },
     recentActivities: db.activityLogs.slice(0, 30),
   };
+}
+
+// =========================================================================
+// 11. SUPABASE ADMIN DATA & SETTINGS MANAGEMENT
+// =========================================================================
+export interface AdminDataRecord {
+  id: string;
+  key: string;
+  category: string;
+  title?: string;
+  description?: string;
+  data: Record<string, any>;
+  author?: string;
+  status: "active" | "draft" | "archived";
+  metadata?: Record<string, any>;
+  isDeleted: boolean;
+  deletedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminUserRecord {
+  id: string;
+  email: string;
+  name?: string;
+  role: "superadmin" | "admin" | "editor" | "viewer";
+  permissions: string[];
+  status: "active" | "suspended" | "invited";
+  lastLoginAt?: string;
+  clientIp?: string;
+  metadata?: Record<string, any>;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Fetch a single admin_data record by unique key from Supabase
+ */
+export async function fetchAdminDataByKey(key: string): Promise<AdminDataRecord | null> {
+  if (!isSupabaseConfigured || !supabase) return null;
+  try {
+    const { data, error } = await supabase
+      .from("admin_data")
+      .select("*")
+      .eq("key", key)
+      .eq("isDeleted", false)
+      .maybeSingle();
+
+    if (error) {
+      console.warn(`[Supabase admin_data] Error fetching key "${key}":`, error.message);
+      return null;
+    }
+    return data as AdminDataRecord;
+  } catch (err) {
+    console.error(`[Supabase admin_data] Exception on key "${key}":`, err);
+    return null;
+  }
+}
+
+/**
+ * Fetch all admin_data records, optionally filtered by category
+ */
+export async function fetchAllAdminData(category?: string): Promise<AdminDataRecord[]> {
+  if (!isSupabaseConfigured || !supabase) return [];
+  try {
+    let query = supabase
+      .from("admin_data")
+      .select("*")
+      .eq("isDeleted", false)
+      .order("createdAt", { ascending: false });
+
+    if (category && category !== "all") {
+      query = query.eq("category", category);
+    }
+
+    const { data, error } = await query;
+    if (error) {
+      console.warn("[Supabase admin_data] Error fetching list:", error.message);
+      return [];
+    }
+    return (data || []) as AdminDataRecord[];
+  } catch (err) {
+    console.error("[Supabase admin_data] Exception fetching list:", err);
+    return [];
+  }
+}
+
+/**
+ * Upsert an admin_data record in Supabase
+ */
+export async function upsertAdminData(
+  payload: {
+    key: string;
+    data: Record<string, any>;
+    category?: string;
+    title?: string;
+    description?: string;
+    author?: string;
+    status?: "active" | "draft" | "archived";
+    metadata?: Record<string, any>;
+  }
+): Promise<AdminDataRecord | null> {
+  if (!isSupabaseConfigured || !supabase) return null;
+  try {
+    const now = new Date().toISOString();
+    const record = {
+      id: `data_${payload.key.replace(/[^a-zA-Z0-9_-]/g, "_")}`,
+      key: payload.key,
+      category: payload.category || "general",
+      title: payload.title || payload.key,
+      description: payload.description || "",
+      data: payload.data,
+      author: payload.author || "admin@balajiprimemedia.in",
+      status: payload.status || "active",
+      metadata: payload.metadata || {},
+      isDeleted: false,
+      updatedAt: now,
+    };
+
+    const sanitized = sanitizeForSupabase("admin_data", record);
+    const { data, error } = await supabase
+      .from("admin_data")
+      .upsert(sanitized, { onConflict: "key" })
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      console.error("[Supabase admin_data] Upsert error:", error.message);
+      return null;
+    }
+    return data as AdminDataRecord;
+  } catch (err) {
+    console.error("[Supabase admin_data] Upsert exception:", err);
+    return null;
+  }
+}
+
+/**
+ * Soft-delete or permanently delete an admin_data record
+ */
+export async function deleteAdminData(key: string, permanent = false): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
+  try {
+    if (permanent) {
+      const { error } = await supabase.from("admin_data").delete().eq("key", key);
+      return !error;
+    } else {
+      const { error } = await supabase
+        .from("admin_data")
+        .update({ isDeleted: true, deletedAt: new Date().toISOString() })
+        .eq("key", key);
+      return !error;
+    }
+  } catch (err) {
+    console.error(`[Supabase admin_data] Delete exception for key "${key}":`, err);
+    return false;
+  }
 }

@@ -88,7 +88,7 @@ export default function ServicesView({
           return (
             <div
               key={svc.id}
-              className="bg-white dark:bg-[#111827] rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 p-6 sm:p-7 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white dark:bg-[#0f172a] rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800 p-5 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Header Category & Badges */}

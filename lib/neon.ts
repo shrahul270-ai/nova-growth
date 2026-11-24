@@ -184,8 +184,46 @@ export async function initNeonTables(): Promise<boolean> {
         );
       `);
 
+      // 5. Admin Data Table
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS admin_data (
+          id VARCHAR(255) PRIMARY KEY,
+          key VARCHAR(255) UNIQUE NOT NULL,
+          category VARCHAR(100) DEFAULT 'general',
+          title VARCHAR(255),
+          description TEXT,
+          data JSONB NOT NULL DEFAULT '{}'::jsonb,
+          author VARCHAR(255) DEFAULT 'admin@balajiprimemedia.in',
+          status VARCHAR(50) DEFAULT 'active',
+          metadata JSONB DEFAULT '{}'::jsonb,
+          "isDeleted" BOOLEAN DEFAULT FALSE,
+          "deletedAt" TIMESTAMPTZ,
+          "createdAt" TIMESTAMPTZ DEFAULT NOW(),
+          "updatedAt" TIMESTAMPTZ DEFAULT NOW()
+        );
+      `);
+
+      // 6. Admin Users Table
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS admin_users (
+          id VARCHAR(255) PRIMARY KEY,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          name VARCHAR(255),
+          role VARCHAR(50) DEFAULT 'admin',
+          permissions JSONB DEFAULT '["all"]'::jsonb,
+          status VARCHAR(50) DEFAULT 'active',
+          "lastLoginAt" TIMESTAMPTZ,
+          "clientIp" VARCHAR(100),
+          metadata JSONB DEFAULT '{}'::jsonb,
+          "isDeleted" BOOLEAN DEFAULT FALSE,
+          "deletedAt" TIMESTAMPTZ,
+          "createdAt" TIMESTAMPTZ DEFAULT NOW(),
+          "updatedAt" TIMESTAMPTZ DEFAULT NOW()
+        );
+      `);
+
       tablesInitialized = true;
-      console.log("[Neon Postgres] ✓ All 4 database tables created and verified successfully!");
+      console.log("[Neon Postgres] ✓ All database tables created and verified successfully!");
       return true;
     } finally {
       client.release();

@@ -91,16 +91,16 @@ export default function AuditsView({
       </div>
 
       {/* Audits History Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         {audits.map((item) => (
           <div
             key={item.id}
-            className="p-6 rounded-[36px] bg-white dark:bg-[#111827] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm flex flex-col justify-between"
+            className="p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center font-extrabold text-xs">
+                  <div className="w-9 h-9 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/50 dark:border-indigo-800/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-extrabold text-xs">
                     🌐
                   </div>
                   <div>
@@ -121,7 +121,7 @@ export default function AuditsView({
 
               {/* 3 Metric Gauges */}
               <div className="grid grid-cols-3 gap-2 my-5 text-center">
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700/60">
                   <Gauge className="w-4 h-4 text-emerald-500 mx-auto mb-1" />
                   <span className="text-lg font-black text-slate-900 dark:text-white block">
                     {item.performanceScore}%
@@ -129,7 +129,7 @@ export default function AuditsView({
                   <span className="text-[10px] uppercase font-bold text-slate-400">Speed</span>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700/60">
                   <Zap className="w-4 h-4 text-indigo-500 mx-auto mb-1" />
                   <span className="text-lg font-black text-slate-900 dark:text-white block">
                     {item.seoScore}%
@@ -137,7 +137,7 @@ export default function AuditsView({
                   <span className="text-[10px] uppercase font-bold text-slate-400">On-Page SEO</span>
                 </div>
 
-                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-700/60">
                   <Smartphone className="w-4 h-4 text-amber-500 mx-auto mb-1" />
                   <span className="text-lg font-black text-slate-900 dark:text-white block">
                     {item.mobileScore}%

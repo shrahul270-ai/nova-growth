@@ -25,43 +25,43 @@ export default function Home() {
   const heroSlides = [
     {
       title: "LUXE FASHION US",
-      metric: "+340%",
-      descriptor: "ORGANIC REVENUE EXPANSION",
+      metric: "HEADLESS NEXT.JS",
+      descriptor: "E-COMMERCE CATALOG PERFORMANCE",
       country: "LOS ANGELES, USA",
       industry: "HEADLESS NEXT.JS COMMERCE",
     },
     {
       title: "SYNTHEX CLOUD",
-      metric: "RANK #1",
-      descriptor: "FOR 34 COMMERCIAL TERMS",
+      metric: "TOPICAL CLUSTERS",
+      descriptor: "SEMANTIC KEYWORD ARCHITECTURE",
       country: "LONDON, UNITED KINGDOM",
       industry: "ENTERPRISE B2B SAAS",
     },
     {
       title: "APEX DENTAL UK",
-      metric: "#1 PACK",
-      descriptor: "ACROSS 18 LONDON BOROUGHS",
+      metric: "LOCAL CITATIONS",
+      descriptor: "MULTI-LOCATION CLINIC SEARCH",
       country: "LONDON, UK",
       industry: "HIGH-TICKET LOCAL SEO",
     },
     {
       title: "CLOUDSYNC TECH",
-      metric: "+420%",
-      descriptor: "INBOUND DEMO PIPELINE LIFT",
+      metric: "PROGRAMMATIC SEO",
+      descriptor: "HIGH-INTENT COMPARISON ENGINE",
       country: "SAN FRANCISCO, USA",
       industry: "TECHNICAL PROGRAMMATIC SEO",
     },
     {
       title: "HORIZON LUXURY",
-      metric: "$18.5M",
-      descriptor: "VERIFIED SALES INQUIRIES",
+      metric: "MULTILINGUAL WEB",
+      descriptor: "CROSS-BORDER GCC PROPERTY PORTAL",
       country: "DUBAI, UAE",
       industry: "MULTILINGUAL REAL ESTATE",
     },
     {
       title: "VENTUREPAY GLOBAL",
-      metric: "100K+",
-      descriptor: "MONTHLY ACTIVE PLATFORM USERS",
+      metric: "FINTECH FRONTEND",
+      descriptor: "EDGE-RENDERED USER ARCHITECTURE",
       country: "TORONTO, CANADA",
       industry: "BANK-GRADE FINTECH PLATFORM",
     },
@@ -74,7 +74,7 @@ export default function Home() {
       title: "LUXE FASHION US",
       category: "NEXT.JS WEB",
       categoryGroup: "NEXT.JS WEB",
-      metric: "+340% ORGANIC REVENUE",
+      metric: "HEADLESS COMMERCE",
       desc: "Re-engineered monolithic shop into a headless Next.js frontend with sub-0.8s load time and 1,800 SKU schema clusters.",
       image: "/images/projects/fashion-brand.jpg",
       span: "lg:col-span-2 lg:row-span-2",
@@ -85,8 +85,8 @@ export default function Home() {
       title: "CLOUDSYNC TECH",
       category: "TECHNICAL SEO",
       categoryGroup: "TECHNICAL SEO",
-      metric: "+420% PIPELINE",
-      desc: "Programmatic search engine deployment with 450+ comparison pages outranking legacy US SaaS competitors.",
+      metric: "PROGRAMMATIC SEO",
+      desc: "Programmatic search engine deployment with structured comparison clusters outranking legacy SaaS competitors.",
       image: "/images/projects/saas-analytics.jpg",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
@@ -96,7 +96,7 @@ export default function Home() {
       title: "PULSEFIT PRO",
       category: "NEXT.JS WEB",
       categoryGroup: "NEXT.JS WEB",
-      metric: "50,000+ DOWNLOADS",
+      metric: "APP CONVERSION FUNNEL",
       desc: "High-converting web-to-app conversion funnel with Apple/Google one-tap onboarding.",
       image: "/images/projects/fitness-app.jpg",
       span: "lg:col-span-1 lg:row-span-1",
@@ -107,8 +107,8 @@ export default function Home() {
       title: "APEX DENTAL UK",
       category: "GUEST POSTING",
       categoryGroup: "GUEST POSTING",
-      metric: "#1 MAP PACK",
-      desc: "Dominated 18 London boroughs with medical authority PR guest posts and localized citation clusters.",
+      metric: "LOCAL PR OUTREACH",
+      desc: "Optimized 18 London practice locations with healthcare authority PR guest posts and localized citation clusters.",
       image: "/images/projects/local-growth.jpg",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
@@ -118,7 +118,7 @@ export default function Home() {
       title: "HORIZON LUXURY",
       category: "TECHNICAL SEO",
       categoryGroup: "TECHNICAL SEO",
-      metric: "$18.5M INQUIRIES",
+      metric: "MULTILINGUAL SEARCH",
       desc: "Multilingual Arabic-English property portal with sub-second page performance across the GCC.",
       image: "/images/projects/real-estate.jpg",
       span: "lg:col-span-1 lg:row-span-1",
@@ -161,11 +161,59 @@ export default function Home() {
     },
   };
 
+  // Structured FAQ JSON-LD for Google Rich Results
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "HOW DOES BALAJI PRIME MEDIA DELIVER RESULTS FASTER THAN TRADITIONAL AGENCIES?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously through direct relationships with vetted editorial publishers.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "DO YOU SPECIALIZE IN OVERSEAS MARKETS (US, UK, UAE, AUSTRALIA)?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Over 80% of our portfolio clients operate in the United States, United Kingdom, Canada, Australia, and UAE. Our team operates with flexible overlap across EST, GMT, and AEST time zones with weekly video reporting and live performance dashboards.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "WHAT MAKES YOUR NEXT.JS WEB ENGINEERING DIFFERENT?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "We do not use bloated WordPress themes or slow page builders. Every digital asset we engineer is built on Next.js with clean TypeScript and Tailwind CSS, scoring 98+ on Google PageSpeed Insights and loading under 800 milliseconds worldwide.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "ARE YOUR GUEST POSTING & BACKLINK METHODS SAFE FROM GOOGLE PENALTIES?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "100% white-hat. We strictly reject PBNs, automated link schemes, and cheap directories. Every single placement is secured on authentic, indexed publications with verified organic traffic through manual editorial outreach.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "WHAT ARE YOUR PAYMENT AND CONTRACT TERMS?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "We offer agile sprint agreements and monthly retainers with zero long-term lock-in traps. You can pay securely in USD, GBP, or EUR via Stripe, wire transfer, PayPal, or crypto through our client portal.",
+        },
+      },
+    ],
+  };
+
   // FAQs
   const faqs = [
     {
       q: "HOW DOES BALAJI PRIME MEDIA DELIVER RESULTS FASTER THAN TRADITIONAL AGENCIES?",
-      a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously through 30,000+ verified direct publisher relationships.",
+      a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting low-competition commercial keywords, and acquiring high-authority digital PR links simultaneously through direct relationships with vetted editorial publishers.",
     },
     {
       q: "DO YOU SPECIALIZE IN OVERSEAS MARKETS (US, UK, UAE, AUSTRALIA)?",
@@ -192,6 +240,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
 
       {/* Main Container - Modern Industrial Elegance */}
       <div className="min-h-screen bg-[#07030d] text-white font-satoshi selection:bg-[#681fe4] selection:text-white antialiased overflow-x-hidden w-full max-w-full">
@@ -217,7 +269,7 @@ export default function Home() {
           <div className="absolute inset-0 pointer-events-none z-0">
             <img
               src="/images/projects/fashion-brand.jpg"
-              alt="Balaji Prime Media Architecture"
+              alt="Balaji Prime Media performance analytics and organic search growth dashboard showing technical SEO benchmarks"
               className="w-full h-full object-cover filter grayscale contrast-125 opacity-15"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-[#07030d]/80 to-[#07030d]/60" />
@@ -257,13 +309,13 @@ export default function Home() {
             </div>
 
             {/* Massive Display Heading with Responsive Clamp & Tight Leading */}
-            <h1 className="text-[32px] xs:text-[42px] sm:text-[64px] md:text-[88px] lg:text-[112px] xl:text-[118px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.05em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
-              WE SCALE DIGITAL ASSETS INTO MARKET MONOPOLIES.
+            <h1 className="text-[30px] xs:text-[40px] sm:text-[60px] md:text-[80px] lg:text-[100px] xl:text-[108px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
+              SEO, Next.js Web Development &amp; Guest Posting Agency
             </h1>
 
             {/* Premium Body Font ('Satoshi') with 2rem Leading */}
             <p className="text-neutral-300 text-xs sm:text-base md:text-lg lg:text-xl max-w-2xl leading-[1.6rem] sm:leading-[2rem] font-normal mb-7 sm:mb-10">
-              Balaji Prime Media engineers compounding organic search revenue for North American and European enterprises through 30,000+ verified DR 50–90+ editorial placements, edge-rendered Next.js web applications, and semantic topical authority.
+              Balaji Prime Media engineers compounding organic search performance through vetted editorial PR placements, edge-rendered Next.js web applications, and Google Search Essentials-compliant semantic topical authority.
             </p>
 
             {/* Sharp 4px Action Buttons */}
@@ -293,34 +345,34 @@ export default function Home() {
               <div className="w-full md:w-auto grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 lg:gap-10">
                 <div>
                   <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
-                    30,000+
+                    1,000+
                   </span>
                   <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
-                    VERIFIED MEDIA PARTNERS
+                    VETTED EDITORIAL MEDIA
                   </span>
                 </div>
                 <div>
                   <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
-                    +340%
+                    &lt; 0.8S
                   </span>
                   <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
-                    AVG. TRAFFIC INCREASE
+                    SUB-SECOND NEXT.JS TTFB
                   </span>
                 </div>
                 <div>
                   <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-white block leading-none">
-                    &lt; 0.8S
+                    100%
                   </span>
                   <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
-                    SUB-SECOND TTFB
+                    WHITE-HAT MANUAL OUTREACH
                   </span>
                 </div>
                 <div>
                   <span className="font-bebas text-xl sm:text-3xl lg:text-4xl tracking-[0.06em] text-[#681fe4] block leading-none">
-                    99.4%
+                    24/7
                   </span>
                   <span className="text-[9px] sm:text-[11px] font-bebas tracking-[0.14em] sm:tracking-[0.24em] text-white/50 block mt-1 uppercase">
-                    CLIENT RETENTION RATE
+                    TECHNICAL CLIENT SUPPORT
                   </span>
                 </div>
               </div>
@@ -329,7 +381,7 @@ export default function Home() {
               <div className="w-full md:w-auto bg-white text-[#07030d] p-3 sm:p-5 rounded-[4px] shadow-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between sm:justify-start gap-3 sm:gap-6 border border-white/20 shrink-0">
                 <div className="flex flex-col text-left">
                   <span className="font-bebas text-[9px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.24em] text-neutral-500 uppercase leading-none">
-                    VERIFIED CASE (0{heroSlideIdx + 1} / 0{heroSlides.length})
+                    PROJECT ARCHITECTURE (0{heroSlideIdx + 1} / 0{heroSlides.length})
                   </span>
                   <span className="font-bebas text-sm sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-[#07030d] leading-tight mt-1 break-words">
                     {heroSlides[heroSlideIdx].title} • {heroSlides[heroSlideIdx].metric}

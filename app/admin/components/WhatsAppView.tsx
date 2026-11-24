@@ -76,7 +76,7 @@ export default function WhatsAppView({
       </div>
 
       {/* Quick Response Templates Row */}
-      <div className="p-6 rounded-[36px] bg-white dark:bg-[#111827] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm space-y-4">
+      <div className="p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-emerald-500" />
@@ -91,13 +91,13 @@ export default function WhatsAppView({
           {templates.map((tpl) => (
             <div
               key={tpl.id}
-              className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 flex flex-col justify-between"
+              className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 flex flex-col justify-between"
             >
               <div>
                 <span className="text-xs font-extrabold text-slate-900 dark:text-white block mb-1">
                   {tpl.title}
                 </span>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                <p className="text-[11px] text-slate-500 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {tpl.text}
                 </p>
               </div>
@@ -128,7 +128,7 @@ export default function WhatsAppView({
         {conversations.map((conv) => (
           <div
             key={conv.id}
-            className="p-6 rounded-[36px] bg-white dark:bg-[#111827] border border-[#f1f5f9] dark:border-slate-800/80 shadow-sm flex flex-col justify-between group hover:shadow-lg transition-all"
+            className="p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] bg-white dark:bg-[#0f172a] border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-lg transition-all"
           >
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">

@@ -6,15 +6,15 @@ import { servicesData } from "./services/servicesData";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://balajiprimemedia.in";
 
-  // Realistic modification dates for service pages
+  // Realistic modification dates for service pages based on last content revisions
   const serviceDateMap: Record<string, string> = {
     "flutter-app-dev": "2026-11-14",
     "full-stack-php-dev": "2026-11-14",
-    "seo-optimization": "2026-11-12",
-    "website-development": "2026-11-12",
+    "seo-optimization": "2026-11-18",
+    "website-development": "2026-11-18",
     "content-writing": "2026-11-08",
     "email-marketing": "2026-11-06",
-    "backlink-building": "2026-11-10",
+    "off-page-seo-digital-pr": "2026-11-18",
     "website-maintenance": "2026-11-05",
   };
 
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "dubai-real-estate": "2026-08-30",
   };
 
-  // Realistic publication/modification dates for blog posts
+  // Publication dates for verified editorial blog posts
   const blogDateMap: Record<string, string> = {
     "ecommerce-seo-scaling": "2026-10-24",
     "nextjs-vs-wordpress": "2026-09-28",
@@ -38,54 +38,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "ai-search-overviews": "2026-07-28",
   };
 
-  // Core Pages (Excluding internal/payment pages like /pay, /admin, /buyer-dashboard)
+  // High-Value Core Indexable Landing Pages (Excludes utility/internal pages: /audit, /feedback, /help-center, /schedule-meeting, /pay, /admin)
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date("2026-11-15"),
-      changeFrequency: "daily",
+      lastModified: new Date("2026-11-20"),
+      changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: new Date("2026-11-14"),
+      lastModified: new Date("2026-11-20"),
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/audit`,
-      lastModified: new Date("2026-11-12"),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/guest-posting`,
-      lastModified: new Date("2026-11-14"),
+      lastModified: new Date("2026-11-20"),
       changeFrequency: "weekly",
-      priority: 0.9,
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/projects`,
-      lastModified: new Date("2026-11-12"),
+      lastModified: new Date("2026-11-18"),
       changeFrequency: "weekly",
       priority: 0.85,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date("2026-11-10"),
-      changeFrequency: "daily",
+      lastModified: new Date("2026-10-24"),
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/seo-services-usa`,
-      lastModified: new Date("2026-11-08"),
-      changeFrequency: "weekly",
+      lastModified: new Date("2026-11-15"),
+      changeFrequency: "monthly",
       priority: 0.85,
     },
     {
       url: `${baseUrl}/web-development-uk`,
-      lastModified: new Date("2026-11-08"),
-      changeFrequency: "weekly",
+      lastModified: new Date("2026-11-15"),
+      changeFrequency: "monthly",
       priority: 0.85,
     },
     {
@@ -96,52 +90,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/contact-us`,
-      lastModified: new Date("2026-11-12"),
+      lastModified: new Date("2026-11-18"),
       changeFrequency: "monthly",
       priority: 0.85,
     },
     {
       url: `${baseUrl}/faq`,
-      lastModified: new Date("2026-11-14"),
-      changeFrequency: "weekly",
+      lastModified: new Date("2026-11-20"),
+      changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/help-center`,
-      lastModified: new Date("2026-11-13"),
-      changeFrequency: "monthly",
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/feedback`,
-      lastModified: new Date("2026-11-13"),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/schedule-meeting`,
-      lastModified: new Date("2026-11-06"),
-      changeFrequency: "weekly",
-      priority: 0.85,
     },
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date("2026-09-01"),
       changeFrequency: "yearly",
-      priority: 0.5,
+      priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
       lastModified: new Date("2026-09-01"),
       changeFrequency: "yearly",
-      priority: 0.5,
+      priority: 0.3,
     },
   ];
 
   // Dynamic Service Detail Pages (/services/...)
   const servicePages: MetadataRoute.Sitemap = servicesData.map((service) => ({
     url: `${baseUrl}/services/${service.id}`,
-    lastModified: new Date(serviceDateMap[service.id] || "2026-11-12"),
+    lastModified: new Date(serviceDateMap[service.id] || "2026-11-18"),
     changeFrequency: "weekly",
     priority: 0.9,
   }));

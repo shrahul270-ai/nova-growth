@@ -195,15 +195,15 @@ export default function OverviewView({
       </div>
 
       {/* 2. KPI Grid (5-column grid) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
         {/* KPI 1: Total Revenue */}
-        <div className="bg-white dark:bg-[#111827] p-6 rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
+        <div className="bg-white dark:bg-[#0f172a] p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800/90 shadow-sm dark:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/70 border border-transparent dark:border-indigo-800/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                 <DollarSign className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60">
                 <TrendingUp className="w-3 h-3" />
                 +18.4%
               </span>
@@ -211,7 +211,7 @@ export default function OverviewView({
             <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 select-none">
               TOTAL REVENUE
             </span>
-            <div className="text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
+            <div className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
               {currencyRegion === "INR" ? "₹94,50,000" : "$128,450"}
             </div>
             <span className="text-[11px] text-slate-400 font-medium">Accumulated Q4 Revenue</span>
@@ -227,7 +227,7 @@ export default function OverviewView({
             >
               <path
                 d={makeSparklinePath(sparklineRevenue, 220, 40)}
-                stroke="#4f46e5"
+                stroke="#6366f1"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -237,13 +237,13 @@ export default function OverviewView({
         </div>
 
         {/* KPI 2: Qualified Leads */}
-        <div className="bg-white dark:bg-[#111827] p-6 rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
+        <div className="bg-white dark:bg-[#0f172a] p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800/90 shadow-sm dark:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/70 border border-transparent dark:border-emerald-800/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                 <Users className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60">
                 <TrendingUp className="w-3 h-3" />
                 +24.1%
               </span>
@@ -251,7 +251,7 @@ export default function OverviewView({
             <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 select-none">
               QUALIFIED LEADS
             </span>
-            <div className="text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
+            <div className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
               1,248
             </div>
             <span className="text-[11px] text-slate-400 font-medium">Inbound inquiries & forms</span>
@@ -277,13 +277,13 @@ export default function OverviewView({
         </div>
 
         {/* KPI 3: Active Projects */}
-        <div className="bg-white dark:bg-[#111827] p-6 rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
+        <div className="bg-white dark:bg-[#0f172a] p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800/90 shadow-sm dark:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-transparent dark:border-amber-800/50 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                 <Briefcase className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
+              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/70 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/60">
                 <Activity className="w-3 h-3" />
                 38 Sprints
               </span>
@@ -291,7 +291,7 @@ export default function OverviewView({
             <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 select-none">
               ACTIVE PROJECTS
             </span>
-            <div className="text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
+            <div className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
               38 Active
             </div>
             <span className="text-[11px] text-slate-400 font-medium">98.5% on-time milestone delivery</span>
@@ -317,13 +317,13 @@ export default function OverviewView({
         </div>
 
         {/* KPI 4: Verified Publishers */}
-        <div className="bg-white dark:bg-[#111827] p-6 rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
+        <div className="bg-white dark:bg-[#0f172a] p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800/90 shadow-sm dark:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/70 border border-transparent dark:border-blue-800/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                 <Globe2 className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400">
+              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 dark:bg-blue-950/70 text-blue-600 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/60">
                 <TrendingUp className="w-3 h-3" />
                 +8.7%
               </span>
@@ -331,7 +331,7 @@ export default function OverviewView({
             <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 select-none">
               PUBLISHERS (40K)
             </span>
-            <div className="text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
+            <div className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
               40,850
             </div>
             <span className="text-[11px] text-slate-400 font-medium">Verified sites DA 50–95+</span>
@@ -357,13 +357,13 @@ export default function OverviewView({
         </div>
 
         {/* KPI 5: Conversion Rate */}
-        <div className="bg-white dark:bg-[#111827] p-6 rounded-[36px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
+        <div className="bg-white dark:bg-[#0f172a] p-5 sm:p-6 rounded-[28px] sm:rounded-[36px] border border-slate-200/80 dark:border-slate-800/90 shadow-sm dark:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/70 border border-transparent dark:border-rose-800/50 text-rose-600 dark:text-rose-400 flex items-center justify-center">
                 <Zap className="w-5 h-5" />
               </div>
-              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400">
+              <span className="inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 border border-rose-200/60 dark:border-rose-800/60">
                 <TrendingUp className="w-3 h-3" />
                 +5.2%
               </span>
@@ -371,7 +371,7 @@ export default function OverviewView({
             <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400 select-none">
               CONVERSION RATE
             </span>
-            <div className="text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
+            <div className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white mt-1 tracking-tight">
               76.8%
             </div>
             <span className="text-[11px] text-slate-400 font-medium">Avg SEO Health Score: 94/100</span>
@@ -402,7 +402,7 @@ export default function OverviewView({
         {/* Top Row: (6-col) line chart | (3-col) donut chart | (3-col) top-performing items */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* (6-col) Line Chart for Monthly Trends with Interactive Nodes */}
-          <div className="lg:col-span-6 bg-white dark:bg-[#111827] p-6 sm:p-8 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-6 bg-white dark:bg-[#0f172a] p-5 sm:p-8 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-6 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -422,7 +422,7 @@ export default function OverviewView({
                       onClick={() => setTimeframe(t)}
                       className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${
                         timeframe === t
-                          ? "bg-white dark:bg-[#111827] text-indigo-600 dark:text-indigo-400 shadow-sm"
+                          ? "bg-white dark:bg-[#0f172a] text-indigo-600 dark:text-indigo-400 shadow-sm"
                           : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
                       }`}
                     >
@@ -588,7 +588,7 @@ export default function OverviewView({
           </div>
 
           {/* (3-col) Interactive Donut Chart for Distribution with Custom Legend */}
-          <div className="lg:col-span-3 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-3 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -722,7 +722,7 @@ export default function OverviewView({
           </div>
 
           {/* (3-col) List of Top-Performing Items with Avatars and Star Ratings */}
-          <div className="lg:col-span-3 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-3 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -788,7 +788,7 @@ export default function OverviewView({
         {/* Bottom Row: (4-col) vertical timeline | (5-col) vertical bar chart for revenue | (3-col) status summary */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* (4-col) Vertical Timeline for Recent Activity */}
-          <div className="lg:col-span-4 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-4 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -808,7 +808,7 @@ export default function OverviewView({
                 {timeline.slice(0, 5).map((act) => (
                   <div key={act.id} className="relative group">
                     {/* Timeline Node Dot */}
-                    <div className="absolute -left-6 top-1 w-4 h-4 rounded-full bg-white dark:bg-[#111827] border-2 border-indigo-600 flex items-center justify-center group-hover:scale-125 transition-transform shadow-sm">
+                    <div className="absolute -left-6 top-1 w-4 h-4 rounded-full bg-white dark:bg-[#0f172a] border-2 border-indigo-600 flex items-center justify-center group-hover:scale-125 transition-transform shadow-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
                     </div>
 
@@ -848,7 +848,7 @@ export default function OverviewView({
           </div>
 
           {/* (5-col) Vertical Bar Chart for Revenue with Large Currency Total */}
-          <div className="lg:col-span-5 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-start justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -932,7 +932,7 @@ export default function OverviewView({
           </div>
 
           {/* (3-col) Status Summary with Centered Donut & Percentage Breakdown */}
-          <div className="lg:col-span-3 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+          <div className="lg:col-span-3 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div>
@@ -1128,7 +1128,7 @@ export default function OverviewView({
         </div>
 
         {/* Right (4-col): 'Actions Rapides' Grid (2x2) */}
-        <div className="lg:col-span-4 bg-white dark:bg-[#111827] p-6 sm:p-7 rounded-[40px] border border-[#f1f5f9] dark:border-slate-800/80 shadow-[0_4px_6px_-1px_rgb(0_0_0_/_0.05)] flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white dark:bg-[#0f172a] p-5 sm:p-7 rounded-[28px] sm:rounded-[40px] border border-slate-200/80 dark:border-slate-800 shadow-sm dark:shadow-xl flex flex-col justify-between">
           <div className="pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
             <div>
               <h3 className="text-base font-extrabold text-slate-900 dark:text-white tracking-tight">

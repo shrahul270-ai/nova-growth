@@ -809,6 +809,26 @@ export default function ServicesClient() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-white/10">
+              <Link
+                href={`/services/${(() => {
+                  const map: Record<string, string> = {
+                    "starter-business-web": "website-development",
+                    "ecommerce-website-dev": "website-development",
+                    "custom-web-application": "website-development",
+                    "flutter-mobile-app": "flutter-app-dev",
+                    "fullstack-php-dev": "full-stack-php-dev",
+                    "full-funnel-seo": "seo-optimization",
+                    "monthly-link-building": "backlink-building",
+                    "content-strategy-writing": "content-writing",
+                    "email-revenue-automation": "email-marketing",
+                    "annual-site-maintenance": "website-maintenance",
+                  };
+                  return map[activeModalService.id] || "website-development";
+                })()}`}
+                className="px-4 py-3 rounded-[4px] text-xs sm:text-sm font-bebas tracking-[0.14em] uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all text-center flex items-center justify-center gap-1.5"
+              >
+                <span>Full Scope Page →</span>
+              </Link>
               <a
                 href={`https://wa.me/917690868932?text=${encodeURIComponent(
                   `Hi Balaji Prime Media, I would like to get a quote for ${activeModalService.name}.`

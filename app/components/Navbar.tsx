@@ -81,10 +81,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       href: "/guest-posting",
       key: "guest-posting",
       dropdown: [
-        { name: "All Guest Post Inventory", href: "/guest-posting", desc: "Browse 30,000+ verified publishers" },
-        { name: "Tech & SaaS Authority", href: "/guest-posting", desc: "DR 60-90+ industry authority media" },
-        { name: "Editorial Outreach", href: "/guest-posting", desc: "Manual, white-hat journalist outreach" },
-        { name: "Instant Domain SEO Audit", href: "/audit", desc: "Check domain metrics & DA score" },
+        { name: "Editorial PR & Guest Posting", href: "/guest-posting", desc: "Curated high-authority media outreach" },
+        { name: "Digital PR & Authority Backlinks", href: "/services/off-page-seo-digital-pr", desc: "White-hat editorial link acquisition" },
+        { name: "Verified Publisher Inventory", href: "/guest-posting#publishers", desc: "DR 50–90+ niche verified publications" },
+        { name: "Instant Domain SEO Audit", href: "/audit", desc: "Check domain metrics & technical health" },
       ],
     },
     {
@@ -92,11 +92,13 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       href: "/services",
       key: "services",
       dropdown: [
-        { name: "Enterprise SEO Suite", href: "/services/seo-optimization", desc: "Technical, on-page & semantic SEO" },
-        { name: "Next.js Web Engineering", href: "/services/website-development", desc: "Sub-second TTFB & Core Web Vitals" },
-        { name: "US & Global SEO Growth", href: "/seo-services-usa", desc: "International market dominance" },
-        { name: "UK Web Development", href: "/web-development-uk", desc: "Bespoke high-converting Next.js systems" },
-        { name: "Free Instant Website Audit", href: "/audit", desc: "Analyze page speed, ranks & health" },
+        { name: "Search Engine Optimization (SEO)", href: "/services/seo-optimization", desc: "Technical on-page, semantic & organic search" },
+        { name: "Next.js Web Architecture", href: "/services/website-development", desc: "Sub-second TTFB & edge-rendered applications" },
+        { name: "Flutter Mobile & Web Apps", href: "/services/flutter-app-dev", desc: "Cross-platform iOS, Android & web engineering" },
+        { name: "Full Stack PHP Web Applications", href: "/services/full-stack-php-dev", desc: "Secure enterprise Laravel & API development" },
+        { name: "Editorial PR & Backlinks", href: "/services/off-page-seo-digital-pr", desc: "Google Search Essentials compliant links" },
+        { name: "Content Strategy & Copywriting", href: "/services/content-writing", desc: "Conversion-focused search copy & thought leadership" },
+        { name: "View All 8 Core Services", href: "/services", desc: "Explore full transparent service catalog" },
       ],
     },
     {
@@ -104,9 +106,10 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       href: "/projects",
       key: "projects",
       dropdown: [
-        { name: "All Case Studies & Work", href: "/projects", desc: "Verified commercial growth results" },
-        { name: "E-Commerce Fashion (+340%)", href: "/projects/fashion-brand", desc: "DTC organic revenue scaling" },
-        { name: "SaaS Fitness App Scaling", href: "/projects/fitness-app", desc: "High-intent organic acquisition" },
+        { name: "All Client Work & Sprints", href: "/projects", desc: "Case studies & engineering architectures" },
+        { name: "E-Commerce Headless Store", href: "/projects/fashion-brand", desc: "Next.js headless catalog & sub-second speed" },
+        { name: "SaaS Mobile App Architecture", href: "/projects/fitness-app", desc: "Cross-platform onboarding & app conversion" },
+        { name: "B2B Programmatic Search", href: "/projects/saas-pipeline", desc: "High-intent comparison & bottom-funnel SEO" },
       ],
     },
     {
@@ -114,11 +117,12 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
       href: "/blog",
       key: "blog",
       dropdown: [
-        { name: "All Growth Insights", href: "/blog", desc: "Read 200+ field-tested guides" },
-        { name: "International SEO", href: "/blog", desc: "Topical clustering & core updates" },
-        { name: "Next.js & Engineering", href: "/blog", desc: "Core Web Vitals & edge speed" },
-        { name: "Email Marketing & Flows", href: "/blog", desc: "Klaviyo retention & LTV growth" },
-        { name: "Google AI & SGE Search", href: "/blog", desc: "AI Overviews optimization" },
+        { name: "All Growth Insights", href: "/blog", desc: "Actionable, field-tested engineering guides" },
+        { name: "Next.js vs WordPress Architecture", href: "/blog/nextjs-vs-wordpress", desc: "Technical comparison for enterprise scale" },
+        { name: "E-Commerce SEO Scaling Guide", href: "/blog/ecommerce-seo-scaling", desc: "Organic revenue strategies for retail brands" },
+        { name: "International Link Building PR", href: "/blog/international-link-building", desc: "Editorial PR across global markets" },
+        { name: "Google AI Search Overviews", href: "/blog/ai-search-overviews", desc: "Optimizing for Gemini & SGE generative engines" },
+        { name: "Shopify Revenue Automation", href: "/blog/shopify-email-automation", desc: "High-converting lifecycle email sequences" },
       ],
     },
     {
@@ -155,8 +159,8 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto no-scrollbar py-0.5 shrink-0">
               <div className="inline-flex items-center gap-2 text-white">
                 <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#681fe4] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#681fe4]" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0ea5e9] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0ea5e9]" />
                 </span>
                 <span className="font-bebas text-xs tracking-[0.16em] sm:tracking-[0.18em] text-white">LIVE SUPPORT //</span>
                 <span className="text-neutral-400 text-[11px]">EST • GMT • AEST TIMING</span>
@@ -169,7 +173,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 href="tel:+917690868932"
                 className="hidden md:inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors font-mono"
               >
-                <span className="text-[#681fe4]">📞</span>
+                <span className="text-[#38bdf8]">📞</span>
                 <span>CALL: +91 76908 68932</span>
               </a>
               <span className="hidden md:inline-block text-white/20">|</span>
@@ -195,7 +199,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 <span className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 rounded-full bg-white block -ml-1.5 sm:-ml-2" />
               </div>
               <div className="flex flex-col text-left min-w-0">
-                <span className="font-bebas text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-[0.06em] sm:tracking-[0.1em] xl:tracking-[0.16em] text-white leading-none group-hover:text-[#681fe4] transition-colors truncate">
+                <span className="font-bebas text-sm sm:text-base xl:text-lg 2xl:text-xl tracking-[0.06em] sm:tracking-[0.1em] xl:tracking-[0.16em] text-white leading-none group-hover:text-[#38bdf8] transition-colors truncate">
                   BALAJI PRIME MEDIA
                 </span>
                 <span className="hidden 2xl:block text-[8px] font-bebas tracking-[0.2em] text-white/50 uppercase leading-none mt-0.5">
@@ -217,7 +221,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 onClick={() => setActiveDropdown(null)}
                 className={`relative px-1.5 xl:px-2 2xl:px-2.5 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[13px] 2xl:text-[14px] tracking-[0.04em] xl:tracking-[0.06em] 2xl:tracking-[0.08em] transition-all whitespace-nowrap uppercase ${
                   activePage === "home"
-                    ? "text-[#681fe4] font-semibold"
+                    ? "text-[#38bdf8] font-semibold"
                     : "text-white/85 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -243,9 +247,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       onClick={() => setActiveDropdown(null)}
                       className={`relative px-1.5 xl:px-2 2xl:px-2.5 py-1.5 rounded-[4px] font-bebas text-xs xl:text-[13px] 2xl:text-[14px] tracking-[0.04em] xl:tracking-[0.06em] 2xl:tracking-[0.08em] transition-all flex items-center gap-1 whitespace-nowrap uppercase ${
                         isActive
-                          ? "text-[#681fe4] font-semibold"
+                          ? "text-[#38bdf8] font-semibold"
                           : isOpen
-                          ? "text-[#681fe4] bg-white/5"
+                          ? "text-[#38bdf8] bg-white/5"
                           : "text-white/85 hover:text-white hover:bg-white/5"
                       }`}
                     >
@@ -253,7 +257,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       {hasDropdown && (
                         <svg
                           className={`w-2 h-2 transition-transform duration-200 ${
-                            isOpen ? "rotate-180 text-[#681fe4]" : "text-neutral-500 group-hover:text-white"
+                            isOpen ? "rotate-180 text-[#38bdf8]" : "text-neutral-500 group-hover:text-white"
                           }`}
                           viewBox="0 0 10 6"
                           fill="currentColor"
@@ -291,9 +295,9 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                               onClick={() => setActiveDropdown(null)}
                               className="flex flex-col px-3 py-2 rounded-[2px] text-left hover:bg-white/5 transition-colors group/item"
                             >
-                              <span className="font-bebas text-sm tracking-[0.14em] text-white group-hover/item:text-[#681fe4] transition-colors flex items-center justify-between">
+                              <span className="font-bebas text-sm tracking-[0.14em] text-white group-hover/item:text-[#38bdf8] transition-colors flex items-center justify-between">
                                 <span>{subItem.name}</span>
-                                <span className="text-neutral-500 group-hover/item:text-[#681fe4] text-xs transition-transform group-hover/item:translate-x-0.5">
+                                <span className="text-neutral-500 group-hover/item:text-[#38bdf8] text-xs transition-transform group-hover/item:translate-x-0.5">
                                   →
                                 </span>
                               </span>
@@ -320,7 +324,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   setAuthModalMode("login");
                   setAuthModalOpen(true);
                 }}
-                className="hidden sm:inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#681fe4] hover:bg-[#5815cb] shadow-sm hover:shadow-[#681fe4]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+                className="hidden sm:inline-flex items-center gap-1 sm:gap-1.5 py-1.5 sm:py-2 px-2.5 sm:px-3.5 xl:px-4 rounded-[4px] font-bebas text-xs sm:text-xs xl:text-sm tracking-[0.1em] sm:tracking-[0.14em] text-white bg-[#0284c7] hover:bg-[#0369a1] shadow-sm hover:shadow-[#0ea5e9]/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
               >
                 <span>SIGN IN</span>
                 <span className="text-xs">→</span>
@@ -361,7 +365,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-9 h-9 rounded-[4px] border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#681fe4] transition-colors font-mono text-sm cursor-pointer"
+              className="w-9 h-9 rounded-[4px] border border-white/20 bg-white/5 flex items-center justify-center text-white hover:text-[#38bdf8] transition-colors font-mono text-sm cursor-pointer"
               aria-label="Close menu"
             >
               ✕
@@ -373,7 +377,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="font-bebas text-xl tracking-[0.16em] text-white py-2.5 border-b border-white/10 hover:text-[#681fe4] flex items-center justify-between"
+              className="font-bebas text-xl tracking-[0.16em] text-white py-2.5 border-b border-white/10 hover:text-[#38bdf8] flex items-center justify-between"
             >
               <span>HOME</span>
               <span className="text-xs text-neutral-500">→</span>
@@ -384,7 +388,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   <Link
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="font-bebas text-xl tracking-[0.16em] text-white hover:text-[#681fe4] uppercase"
+                    className="font-bebas text-xl tracking-[0.16em] text-white hover:text-[#38bdf8] uppercase"
                   >
                     {link.name}
                   </Link>
@@ -394,7 +398,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                       onClick={() =>
                         setExpandedMobileKey(expandedMobileKey === link.key ? null : link.key)
                       }
-                      className="text-neutral-400 p-1.5 text-base font-mono hover:text-[#681fe4] cursor-pointer"
+                      className="text-neutral-400 p-1.5 text-base font-mono hover:text-[#38bdf8] cursor-pointer"
                       aria-label={`Toggle ${link.name} submenu`}
                     >
                       {expandedMobileKey === link.key ? "−" : "+"}
@@ -402,7 +406,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   )}
                 </div>
                 {expandedMobileKey === link.key && link.dropdown && (
-                  <div className="pl-3 pt-2 pb-1 space-y-2 border-l-2 border-[#681fe4]/40 ml-1.5 mt-1.5">
+                  <div className="pl-3 pt-2 pb-1 space-y-2 border-l-2 border-[#0ea5e9]/40 ml-1.5 mt-1.5">
                     {link.dropdown.map((sub) => (
                       <Link
                         key={sub.name}
@@ -428,7 +432,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                 setAuthModalMode("login");
                 setAuthModalOpen(true);
               }}
-              className="w-full py-3 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-base tracking-[0.16em] text-center shadow-lg transition-all cursor-pointer"
+              className="w-full py-3 rounded-[4px] bg-[#0284c7] hover:bg-[#0369a1] text-white font-bebas text-base tracking-[0.16em] text-center shadow-lg transition-all cursor-pointer"
             >
               SIGN IN →
             </button>

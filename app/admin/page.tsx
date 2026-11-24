@@ -47,8 +47,8 @@ import {
 } from "./mockData";
 
 export default function AdminMasterDashboard() {
-  // Theme State ("Soft Professional" theme: #f8fafc light background by default)
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  // Theme State (Executive Dark Theme #090d16 by default for maximum clarity on all screens)
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const isDark = theme === "dark";
 
   // Navigation View State
@@ -138,9 +138,26 @@ export default function AdminMasterDashboard() {
       const saved = localStorage.getItem("bpm_admin_theme");
       if (saved === "light" || saved === "dark") {
         setTheme(saved);
+      } else {
+        setTheme("dark");
       }
-    } catch {}
+    } catch {
+      setTheme("dark");
+    }
   }, []);
+
+  // Sync dark class on document root for high-contrast rendering
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light-theme");
+      } else {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light-theme");
+      }
+    }
+  }, [theme]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -490,8 +507,12 @@ export default function AdminMasterDashboard() {
         paymentCount={payments.length}
       />
 
-      {/* 2. Fluid Main Content Area with Light-Gray Workspace (#f8fafc) */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+      {/* 2. Fluid Main Content Area with Deep Dark Workspace */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden ${
+          isDark ? "bg-[#090d16]" : "bg-[#f8fafc]"
+        }`}
+      >
         {/* Sticky Header (80px, #ffffff) */}
         <AdminHeader
           onToggleMobileMenu={() => setIsOpenMobile(!isOpenMobile)}
