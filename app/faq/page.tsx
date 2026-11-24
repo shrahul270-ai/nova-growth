@@ -83,7 +83,7 @@ export default function FAQPage() {
   });
 
   return (
-    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#681fe4] selection:text-white font-satoshi bg-grid-white-240">
+    <div className="relative min-h-screen bg-[#07030d] text-white selection:bg-[#0284c7] selection:text-white font-satoshi bg-grid-white-240">
       {/* Top Navbar */}
       <div className="relative z-50 bg-[#07030d]/90 backdrop-blur-md">
         <Navbar />
@@ -91,13 +91,13 @@ export default function FAQPage() {
 
       {/* Hero Header */}
       <section className="relative z-10 pt-32 sm:pt-40 pb-16 max-w-5xl mx-auto px-4 sm:px-6 text-center border-b border-white/10">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[2px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.2em] uppercase text-[#681fe4] mb-4">
-          <HelpCircle className="w-3.5 h-3.5 text-[#681fe4]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[2px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.2em] uppercase text-[#38bdf8] mb-4">
+          <HelpCircle className="w-3.5 h-3.5 text-[#38bdf8]" />
           <span>KNOWLEDGE &amp; CLARITY // FAQ</span>
         </div>
 
         <h1 className="font-bebas text-4xl sm:text-6xl md:text-7xl tracking-[0.16em] uppercase text-white mb-4 leading-none">
-          FREQUENTLY ASKED <span className="text-[#681fe4]">QUESTIONS</span>
+          FREQUENTLY ASKED <span className="text-[#38bdf8]">QUESTIONS</span>
         </h1>
         <p className="font-satoshi text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed font-normal">
           Clear, direct answers about our white-hat search methodology, editorial outreach, Next.js engineering standards, pricing, and client reporting.
@@ -117,7 +117,7 @@ export default function FAQPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-[4px] text-xs font-bebas tracking-[0.14em] uppercase transition-all cursor-pointer ${
                 activeCategory === cat.id
-                  ? "bg-[#681fe4] text-white shadow-[0_4px_14px_rgba(104,31,228,0.35)]"
+                  ? "bg-[#0284c7] hover:bg-[#0369a1] text-white shadow-[0_4px_14px_rgba(14,165,233,0.35)] border border-[#38bdf8]/40"
                   : "bg-white/5 text-neutral-300 hover:text-white border border-white/10 hover:bg-white/10"
               }`}
             >
@@ -139,27 +139,17 @@ export default function FAQPage() {
               return (
                 <div
                   key={faq.id}
-                  className="bg-[#0c0818] border border-white/10 rounded-[4px] shadow-lg overflow-hidden transition-all duration-200"
+                  className="border border-white/10 rounded-[4px] bg-white/[0.02] overflow-hidden transition-all hover:border-[#38bdf8]/30"
                 >
                   <button
                     onClick={() => toggleItem(faq.id)}
-                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                    className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
                   >
-                    <span className="text-sm sm:text-base font-semibold text-white tracking-tight">
+                    <span className={`text-sm sm:text-base font-semibold tracking-tight transition-colors ${isOpen ? "text-[#38bdf8]" : "text-white"}`}>
                       {faq.question}
                     </span>
-                    <span
-                      className={`w-7 h-7 rounded-[2px] flex items-center justify-center shrink-0 border transition-all duration-300 ${
-                        isOpen
-                          ? "bg-[#681fe4] text-white border-[#681fe4] rotate-180"
-                          : "bg-white/5 text-neutral-400 border-white/10 hover:border-white/20 hover:text-white"
-                      }`}
-                    >
-                      {isOpen ? (
-                        <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
-                      ) : (
-                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                      )}
+                    <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
+                      {isOpen ? "−" : "+"}
                     </span>
                   </button>
                   {isOpen && (
@@ -171,13 +161,13 @@ export default function FAQPage() {
               );
             })
           ) : (
-            <div className="text-center py-12 bg-[#0c0818] rounded-[4px] border border-white/10">
+            <div className="text-center py-12 bg-white/[0.02] rounded-[4px] border border-white/10">
               <p className="text-sm text-neutral-400 font-satoshi">No questions in this category.</p>
               <button
                 onClick={() => {
                   setActiveCategory("all");
                 }}
-                className="mt-3 text-xs font-bebas tracking-[0.14em] uppercase text-[#681fe4] hover:underline cursor-pointer"
+                className="mt-3 text-xs font-bebas tracking-[0.14em] uppercase text-[#38bdf8] hover:underline cursor-pointer"
               >
                 View all questions
               </button>
@@ -186,9 +176,9 @@ export default function FAQPage() {
         </div>
 
         {/* Quick CTA Card */}
-        <div className="mt-14 bg-[#0c0818] rounded-[4px] p-6 sm:p-8 border border-white/10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="mt-14 bg-white/[0.02] rounded-[4px] p-6 sm:p-8 border border-white/10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
-            <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#681fe4] block mb-1">
+            <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#38bdf8] block mb-1">
               HAVE A SPECIFIC QUESTION?
             </span>
             <h3 className="font-bebas text-xl sm:text-2xl text-white tracking-[0.12em] uppercase">
@@ -203,7 +193,7 @@ export default function FAQPage() {
               href="https://wa.me/917690868932"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white text-xs font-bebas tracking-[0.16em] uppercase transition-all shadow-[0_4px_14px_rgba(104,31,228,0.3)] flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 rounded-[4px] bg-[#0284c7] hover:bg-[#0369a1] text-white text-xs font-bebas tracking-[0.16em] uppercase transition-all shadow-[0_4px_14px_rgba(14,165,233,0.3)] border border-[#38bdf8]/30 flex items-center gap-2 cursor-pointer"
             >
               <span>WHATSAPP DIRECT</span>
               <ArrowRight className="w-3.5 h-3.5" />

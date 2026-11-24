@@ -16,7 +16,7 @@ interface FaqAccordionProps {
   className?: string;
 }
 
-export default function FaqAccordion({ items, accentColor = "#c084fc", className = "" }: FaqAccordionProps) {
+export default function FaqAccordion({ items, accentColor = "#38bdf8", className = "" }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (idx: number) => {
@@ -24,7 +24,7 @@ export default function FaqAccordion({ items, accentColor = "#c084fc", className
   };
 
   return (
-    <div className={`space-y-3.5 ${className}`}>
+    <div className={`space-y-3 sm:space-y-4 ${className}`}>
       {items.map((item, idx) => {
         const question = item.q || item.question || "";
         const answer = item.a || item.answer || "";
@@ -33,40 +33,25 @@ export default function FaqAccordion({ items, accentColor = "#c084fc", className
         return (
           <div
             key={idx}
-            className={`rounded-2xl transition-all duration-300 border overflow-hidden backdrop-blur-xl ${
-              isOpen
-                ? "bg-[#120a2e]/90 border-purple-500/40 shadow-[0_8px_30px_rgba(168,85,247,0.15)]"
-                : "bg-white/[0.03] border-white/10 hover:border-white/25 hover:bg-white/[0.05]"
-            }`}
+            className="border border-white/10 rounded-[4px] bg-white/[0.02] overflow-hidden transition-all hover:border-[#38bdf8]/30"
           >
             <button
               type="button"
               onClick={() => toggle(idx)}
-              className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer select-none transition-colors"
+              className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
               aria-expanded={isOpen}
             >
               <span
-                className={`text-sm sm:text-base font-semibold leading-snug transition-colors ${
-                  isOpen ? "text-white" : "text-slate-200"
+                className={`pr-2 transition-colors ${
+                  isOpen ? "text-[#38bdf8]" : "text-white"
                 }`}
               >
                 {question}
               </span>
 
-              {/* + / - Icon with 360/90deg smooth rotate transition */}
-              <span
-                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 border transition-all duration-300 ${
-                  isOpen
-                    ? "bg-[#A068FF] text-white border-[#c084fc] rotate-180 shadow-[0_0_15px_rgba(160,104,255,0.4)]"
-                    : "bg-white/5 text-slate-300 border-white/15 hover:border-purple-400/50 hover:text-white"
-                }`}
-                aria-hidden="true"
-              >
-                {isOpen ? (
-                  <Minus className="w-4 h-4 stroke-[2.5]" />
-                ) : (
-                  <Plus className="w-4 h-4 stroke-[2.5]" />
-                )}
+              {/* + / − Indicator matching Homepage FAQ */}
+              <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
+                {isOpen ? "−" : "+"}
               </span>
             </button>
 
@@ -77,7 +62,7 @@ export default function FaqAccordion({ items, accentColor = "#c084fc", className
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-slate-300 font-[300] leading-relaxed border-t border-white/10">
+                <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 font-normal leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-satoshi">
                   {answer}
                 </div>
               </div>

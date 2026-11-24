@@ -348,8 +348,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {/* 7. FREQUENTLY ASKED QUESTIONS */}
       <section className="relative z-10 max-w-4xl mx-auto px-6 py-14 sm:py-20 border-t border-white/10">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-[#681fe4] font-bebas text-xs tracking-[0.2em] uppercase mb-2">
-            <HelpCircle className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-[#38bdf8] font-bebas text-xs tracking-[0.2em] uppercase mb-2">
+            <HelpCircle className="w-3.5 h-3.5 text-[#38bdf8]" />
             <span>// GOT QUESTIONS?</span>
           </div>
           <h2 className="font-bebas text-3xl sm:text-5xl tracking-[0.14em] text-white uppercase leading-none">

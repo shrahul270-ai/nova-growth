@@ -267,7 +267,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* FAQs if available */}
             {post.faqs && post.faqs.length > 0 && (
               <div className="mt-14">
-                <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#681fe4] block mb-2">
+                <span className="font-bebas text-xs tracking-[0.2em] uppercase text-[#38bdf8] block mb-2">
                   // INQUIRIES &amp; CLARIFICATIONS
                 </span>
                 <h3 className="font-bebas text-2xl sm:text-4xl tracking-[0.14em] text-white uppercase mb-6 leading-none">

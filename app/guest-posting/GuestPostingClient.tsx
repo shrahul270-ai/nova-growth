@@ -315,8 +315,8 @@ export default function GuestPostingClient() {
       <section className="relative py-20 sm:py-28 px-4 sm:px-6 md:px-12 bg-[#07030d] text-white overflow-hidden border-t border-white/10 bg-grid-white-240">
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           {/* Pill Tag */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-[4px] bg-white/5 border border-white/10 text-[#681fe4] text-xs font-bebas tracking-[0.2em] uppercase mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-[4px] bg-white/5 border border-white/10 text-[#38bdf8] text-xs font-bebas tracking-[0.2em] uppercase mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#38bdf8] animate-pulse" />
             <span>FAQ // QUICK ANSWERS</span>
           </div>
 
@@ -339,16 +339,16 @@ export default function GuestPostingClient() {
                   onClick={() => setSelectedCategory(isSelected ? null : card.key)}
                   className={`group relative flex items-center gap-4 p-4 rounded-[4px] border transition-all duration-300 cursor-pointer ${
                     isSelected
-                      ? "border-[#681fe4] bg-[#681fe4]/10 shadow-[0_0_20px_rgba(104,31,228,0.2)]"
-                      : "bg-[#0c0818] border-white/10 hover:border-white/25"
+                      ? "border-[#38bdf8] bg-[#0284c7]/15 shadow-[0_0_20px_rgba(14,165,233,0.25)]"
+                      : "bg-white/[0.02] border-white/10 hover:border-[#38bdf8]/40 hover:bg-white/[0.04]"
                   }`}
                 >
                   {/* Icon Box */}
                   <div
                     className={`w-11 h-11 rounded-[4px] flex items-center justify-center shrink-0 border transition-all ${
                       isSelected
-                        ? "bg-[#681fe4] border-[#681fe4] text-white"
-                        : "bg-white/5 border-white/10 text-[#681fe4]"
+                        ? "bg-[#0284c7] border-[#38bdf8] text-white"
+                        : "bg-white/5 border-white/10 text-[#38bdf8]"
                     }`}
                   >
                     {card.icon}
@@ -356,13 +356,13 @@ export default function GuestPostingClient() {
 
                   {/* Card Info */}
                   <div className="flex flex-col">
-                    <span className="font-bebas text-base sm:text-lg tracking-[0.14em] text-white group-hover:text-[#681fe4] transition-colors leading-tight uppercase">
+                    <span className="font-bebas text-base sm:text-lg tracking-[0.14em] text-white group-hover:text-[#38bdf8] transition-colors leading-tight uppercase">
                       {card.title}
                     </span>
                     <span className="text-xs text-neutral-400 font-normal mt-0.5 flex items-center gap-2">
                       <span>{card.articles}</span>
                       {isSelected && (
-                        <span className="text-[10px] text-white font-bebas tracking-[0.16em] uppercase bg-[#681fe4] px-2 py-0.5 rounded-[2px]">
+                        <span className="text-[10px] text-white font-bebas tracking-[0.16em] uppercase bg-[#0284c7] px-2 py-0.5 rounded-[2px]">
                           ACTIVE FILTER
                         </span>
                       )}
@@ -382,7 +382,7 @@ export default function GuestPostingClient() {
               <button
                 type="button"
                 onClick={() => setSelectedCategory(null)}
-                className="text-[#681fe4] hover:text-white underline cursor-pointer"
+                className="text-[#38bdf8] hover:text-white underline cursor-pointer"
               >
                 Clear Filter
               </button>
@@ -396,34 +396,24 @@ export default function GuestPostingClient() {
               return (
                 <div
                   key={faq.id}
-                  className={`rounded-[4px] transition-all duration-200 border overflow-hidden ${
-                    isOpen
-                      ? "bg-[#0c0818] border-[#681fe4]"
-                      : "bg-[#0c0818] border-white/10 hover:border-white/20"
-                  }`}
+                  className="border border-white/10 rounded-[4px] bg-white/[0.02] overflow-hidden transition-all hover:border-[#38bdf8]/30"
                 >
                   <button
                     type="button"
                     onClick={() => toggleFaq(faq.id)}
-                    className="w-full min-h-[60px] px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
+                    className="w-full min-h-[60px] px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer select-none hover:text-[#38bdf8] transition-colors"
                     aria-expanded={isOpen}
                   >
                     <span
                       className={`font-semibold text-sm sm:text-base transition-colors leading-snug ${
-                        isOpen ? "text-[#681fe4]" : "text-white"
+                        isOpen ? "text-[#38bdf8]" : "text-white"
                       }`}
                     >
                       {faq.q}
                     </span>
 
                     {/* Expand Indicator */}
-                    <span
-                      className={`w-7 h-7 rounded-[2px] flex items-center justify-center shrink-0 text-sm font-mono font-bold transition-all ${
-                        isOpen
-                          ? "bg-[#681fe4] text-white"
-                          : "bg-white/5 text-neutral-400"
-                      }`}
-                    >
+                    <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>

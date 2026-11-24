@@ -988,7 +988,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-left">
             
             <div className="mb-10 sm:mb-14">
-              <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+              <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#38bdf8] uppercase block mb-2">
                 // CLARITY &amp; ACCOUNTABILITY
               </span>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
@@ -1002,15 +1002,15 @@ export default function Home() {
                 return (
                   <div
                     key={idx}
-                    className="border border-white/10 rounded-[4px] bg-white/[0.02] overflow-hidden transition-all"
+                    className="border border-white/10 rounded-[4px] bg-white/[0.02] overflow-hidden transition-all hover:border-[#38bdf8]/30"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#681fe4] transition-colors"
+                      className="w-full text-left p-4 sm:p-6 font-bebas text-base sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-white flex items-center justify-between gap-3 sm:gap-4 cursor-pointer hover:text-[#38bdf8] transition-colors"
                     >
                       <span className="pr-2">{faq.q}</span>
-                      <span className="text-lg sm:text-xl text-[#681fe4] shrink-0 font-mono">
+                      <span className="text-lg sm:text-xl text-[#38bdf8] shrink-0 font-mono font-bold">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
