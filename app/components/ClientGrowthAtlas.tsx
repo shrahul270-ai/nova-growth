@@ -52,7 +52,7 @@ const CLIENT_CASES: ClientCase[] = [
     techStack: ["Next.js 15 SSR", "Tailwind CSS", "Headless CMS", "Google SERP Optimization"],
     metrics: [
       { value: "+663%", label: "Inbound Client Leads", sub: "Month 6 vs baseline", color: "text-emerald-400" },
-      { value: "99 / 100", label: "Mobile Speed Score", sub: "Core Web Vitals Pass", color: "text-cyan-400" },
+      { value: "99 / 100", label: "Lighthouse Mobile Score", sub: "Passed Core Web Vitals", color: "text-cyan-400" },
       { value: "184,000", label: "Monthly Organic Visits", sub: "+320% traffic surge", color: "text-purple-400" },
       { value: "82 Terms", label: "Google Top 3 Positions", sub: "High commercial intent", color: "text-amber-400" },
     ],

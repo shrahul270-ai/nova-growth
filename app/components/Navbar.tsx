@@ -84,7 +84,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         { name: "Editorial PR & Guest Posting", href: "/guest-posting", desc: "Curated high-authority media outreach" },
         { name: "Digital PR & Editorial Authority", href: "/services/backlink-building", desc: "White-hat editorial media placements" },
         { name: "Verified Publisher Inventory", href: "/guest-posting#publishers", desc: "Vetted media & authoritative publications" },
-        { name: "Instant Domain SEO Audit", href: "/audit", desc: "Check domain metrics & technical health" },
+        { name: "Free SEO Audit Tool (Instant)", href: "/audit", desc: "Run a 30-second automated technical health check" },
       ],
     },
     {
@@ -167,7 +167,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0ea5e9] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0ea5e9]" />
                 </span>
-                <span className="font-bebas text-xs tracking-[0.16em] sm:tracking-[0.18em] text-white">LIVE SUPPORT //</span>
+                <span className="font-bebas text-xs tracking-[0.16em] sm:tracking-[0.18em] text-white">LIVE SUPPORT •</span>
                 <span className="text-neutral-400 text-[11px]">EST • GMT • AEST TIMING</span>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
                   BALAJI PRIME MEDIA
                 </span>
                 <span className="hidden 2xl:block text-[8px] font-bebas tracking-[0.2em] text-white/50 uppercase leading-none mt-0.5">
-                  SEO &amp; GROWTH ARCHITECTURE
+                  SEO &amp; WEB DEVELOPMENT AGENCY
                 </span>
               </div>
             </Link>

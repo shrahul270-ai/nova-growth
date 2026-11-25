@@ -142,7 +142,7 @@ export default function ProjectsClient() {
           {/* Micro-badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-[4px] bg-white/5 border border-white/10 text-[#681fe4] text-xs font-bebas tracking-[0.24em] mb-6 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-[#681fe4] animate-pulse" />
-            <span>// VERIFIED COMMERCIAL CASE STUDIES &amp; OUTCOMES</span>
+            <span>Verified Commercial Case Studies &amp; Outcomes</span>
           </div>
 
           {/* Bebas Neue All-Caps Display H1 Heading */}
@@ -178,7 +178,7 @@ export default function ProjectsClient() {
         <div className="max-w-[1320px] mx-auto mb-14 text-left">
           <div className="mb-4 flex items-center justify-between">
             <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-white/60 uppercase">
-              // QUICK CLIENT SWITCHER (CLICK ANY CARD TO PREVIEW IN BROWSER)
+              Quick Client Switcher (Click Any Card To Preview)
             </span>
             <span className="font-mono text-xs text-neutral-500 hidden sm:inline">
               6 VERIFIED DEPLOYMENTS
@@ -307,7 +307,7 @@ export default function ProjectsClient() {
                 {/* Content Overlay */}
                 <div className="relative z-10 max-w-md text-white">
                   <span className="font-bebas text-xs tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                    // VERIFIED CASE STUDY // {activeProject.category}
+                    Verified Case Study • {activeProject.category}
                   </span>
                   
                   <h2 className="font-bebas text-3xl sm:text-4xl md:text-5xl tracking-[0.06em] leading-tight mb-4 text-white uppercase">
@@ -339,7 +339,7 @@ export default function ProjectsClient() {
               <div className="pt-8 sm:pt-10">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                   <h3 className="font-bebas text-sm sm:text-base tracking-[0.24em] text-white uppercase">
-                    // CORE METRICS &amp; PROVEN OUTCOMES
+                    Core Metrics &amp; Proven Outcomes
                   </h3>
                   <Link
                     href={`/projects/${activeProject.id}`}
@@ -417,7 +417,7 @@ export default function ProjectsClient() {
       >
         <div className="mb-12">
           <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-            // CLIENT ARCHIVE
+            Client Archive
           </span>
           <h2 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] text-white uppercase leading-none mb-3">
             ALL 6 CASE STUDIES &amp; COMMERCIAL RESULTS
@@ -579,7 +579,7 @@ export default function ProjectsClient() {
 
           <div className="relative z-10 max-w-2xl mx-auto">
             <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-              // COMPOUNDING GROWTH BLUEPRINT
+              Compounding Growth Blueprint
             </span>
             <h2 className="text-3xl sm:text-5xl font-bebas tracking-[0.06em] text-white uppercase leading-none mb-4">
               WANT TO SEE SIMILAR REVENUE EXPANSION FOR YOUR BRAND?

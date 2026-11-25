@@ -77,6 +77,7 @@ export default function Home() {
       metric: "HEADLESS COMMERCE",
       desc: "Re-engineered monolithic shop into a headless Next.js frontend with sub-0.8s load time and 1,800 SKU schema clusters.",
       image: "/images/projects/fashion-brand.jpg",
+      alt: "Luxe Fashion US headless Next.js e-commerce storefront with sub-0.8s speed and structured schema",
       span: "lg:col-span-2 lg:row-span-2",
       height: "min-h-[380px] sm:min-h-[460px] lg:min-h-[500px]",
     },
@@ -88,6 +89,7 @@ export default function Home() {
       metric: "PROGRAMMATIC SEO",
       desc: "Programmatic search engine deployment with structured comparison clusters outranking legacy SaaS competitors.",
       image: "/images/projects/saas-analytics.jpg",
+      alt: "CloudSync Tech enterprise B2B SaaS programmatic SEO and comparison search platform",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
@@ -99,6 +101,7 @@ export default function Home() {
       metric: "APP CONVERSION FUNNEL",
       desc: "High-converting web-to-app conversion funnel with Apple/Google one-tap onboarding.",
       image: "/images/projects/fitness-app.jpg",
+      alt: "PulseFit Pro mobile web conversion funnel and app onboarding user experience",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
@@ -110,6 +113,7 @@ export default function Home() {
       metric: "LOCAL PR OUTREACH",
       desc: "Optimized 18 London practice locations with healthcare authority PR guest posts and localized citation clusters.",
       image: "/images/projects/local-growth.jpg",
+      alt: "Apex Dental UK multi-location healthcare local SEO, PR outreach, and citation optimization",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
@@ -121,6 +125,7 @@ export default function Home() {
       metric: "MULTILINGUAL SEARCH",
       desc: "Multilingual Arabic-English property portal with sub-second page performance across the GCC.",
       image: "/images/projects/real-estate.jpg",
+      alt: "Horizon Luxury multilingual GCC property search portal with sub-second page performance",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
@@ -132,6 +137,7 @@ export default function Home() {
       metric: "FINTECH ARCHITECTURE",
       desc: "Bank-grade edge-rendered cross-border financial dashboard with sub-0.6s time to interactive and zero vulnerability audit.",
       image: "/images/projects/fintech-app.jpg",
+      alt: "VenturePay Global bank-grade edge-rendered fintech financial dashboard",
       span: "lg:col-span-1 lg:row-span-1",
       height: "min-h-[260px] sm:min-h-[280px]",
     },
@@ -179,6 +185,14 @@ export default function Home() {
     mainEntity: [
       {
         "@type": "Question",
+        name: "Are your guest posting methods safe from Google penalties?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, 100%. We strictly reject Private Blog Networks (PBNs), automated link injection, and link spam. Every digital PR placement is negotiated directly with authentic editors of verified publications that receive real organic search traffic. Furthermore, for commercial sponsor features, we strictly adhere to Google Search Essentials with appropriate rel='sponsored' or rel='nofollow' attributes where required, ensuring complete safety from algorithmic penalties.",
+        },
+      },
+      {
+        "@type": "Question",
         name: "How does Balaji Prime Media deliver results faster than traditional agencies?",
         acceptedAnswer: {
           "@type": "Answer",
@@ -222,6 +236,10 @@ export default function Home() {
 
   // FAQs
   const faqs = [
+    {
+      q: "Are your guest posting methods safe from Google penalties?",
+      a: "Yes, 100%. We strictly reject Private Blog Networks (PBNs), automated link injection, and link spam. Every digital PR placement is negotiated directly with authentic editors of verified publications that receive real organic search traffic. Furthermore, for commercial sponsor features, we strictly adhere to Google Search Essentials with appropriate rel='sponsored' or rel='nofollow' attributes where required, ensuring complete safety from algorithmic penalties.",
+    },
     {
       q: "How does Balaji Prime Media deliver results faster than traditional agencies?",
       a: "Traditional agencies waste months on generic slide decks. We begin execution in Week 1: fixing technical crawl errors, targeting high-intent commercial keywords, and securing authoritative digital PR media coverage through direct relationships with vetted editorial publishers.",
@@ -280,7 +298,7 @@ export default function Home() {
           <div className="absolute inset-0 pointer-events-none z-0">
             <img
               src="/images/projects/fashion-brand.jpg"
-              alt="Balaji Prime Media performance analytics and organic search growth dashboard showing technical SEO benchmarks"
+              alt="Balaji Prime Media client project - Luxe Fashion US headless Next.js web application"
               className="w-full h-full object-cover filter grayscale contrast-125 opacity-15"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-[#07030d]/80 to-[#07030d]/60" />
@@ -315,13 +333,13 @@ export default function Home() {
             <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 max-w-full">
               <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#681fe4] rounded-[2px] shrink-0" />
               <span className="font-bebas text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-[0.1em] sm:tracking-[0.2em] text-[#681fe4] uppercase bg-white/5 border border-white/10 px-2.5 sm:px-3 py-1 rounded-[4px] backdrop-blur-sm break-words max-w-full">
-                SEO &amp; Next.js Engineering • Jaipur &amp; Global Operations
+                SEO &amp; Web Development • Jaipur &amp; Global Operations
               </span>
             </div>
 
             {/* Massive Display Heading with Responsive Clamp & Tight Leading */}
             <h1 className="text-[30px] xs:text-[40px] sm:text-[60px] md:text-[80px] lg:text-[98px] xl:text-[104px] font-bebas leading-[0.92] sm:leading-[0.86] tracking-[0.02em] sm:tracking-[0.04em] uppercase text-white max-w-5xl mb-5 sm:mb-7 drop-shadow-md break-words">
-              SEO &amp; Next.js Web Development Agency in Jaipur
+              SEO Agency &amp; Web Development in Jaipur
             </h1>
 
             {/* Premium Body Font ('Satoshi') with 2rem Leading */}
@@ -392,7 +410,7 @@ export default function Home() {
               <div className="w-full md:w-auto bg-white text-[#07030d] p-3 sm:p-5 rounded-[4px] shadow-2xl flex flex-col xs:flex-row items-start xs:items-center justify-between sm:justify-start gap-3 sm:gap-6 border border-white/20 shrink-0">
                 <div className="flex flex-col text-left">
                   <span className="font-bebas text-[9px] sm:text-[11px] tracking-[0.16em] sm:tracking-[0.24em] text-neutral-500 uppercase leading-none">
-                    PROJECT ARCHITECTURE (0{heroSlideIdx + 1} / 0{heroSlides.length})
+                    FEATURED CASE STUDY (0{heroSlideIdx + 1} / 0{heroSlides.length})
                   </span>
                   <span className="font-bebas text-sm sm:text-lg lg:text-xl tracking-[0.08em] sm:tracking-[0.12em] text-[#07030d] leading-tight mt-1 break-words">
                     {heroSlides[heroSlideIdx].title} • {heroSlides[heroSlideIdx].metric}
@@ -455,10 +473,10 @@ export default function Home() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6 text-left">
               <div>
                 <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                  CORE GROWTH DISCIPLINES
+                  Core Growth Services
                 </span>
                 <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
-                  HIGH-IMPACT CAPABILITIES ARCHITECTURE
+                  SEO &amp; Web Development Services
                 </h2>
               </div>
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 self-start md:self-auto">
@@ -466,19 +484,19 @@ export default function Home() {
                   href="/seo-services-usa"
                   className="font-bebas text-xs sm:text-sm tracking-[0.12em] text-[#681fe4] bg-[#681fe4]/10 hover:bg-[#681fe4]/20 border border-[#681fe4]/30 px-3 py-1.5 rounded-[4px] inline-flex items-center gap-1.5 transition-colors"
                 >
-                  <span>🇺🇸 SEO SERVICES USA</span>
+                  <span>🇺🇸 SEO Services USA</span>
                 </Link>
                 <Link
                   href="/web-development-uk"
                   className="font-bebas text-xs sm:text-sm tracking-[0.12em] text-[#681fe4] bg-[#681fe4]/10 hover:bg-[#681fe4]/20 border border-[#681fe4]/30 px-3 py-1.5 rounded-[4px] inline-flex items-center gap-1.5 transition-colors"
                 >
-                  <span>🇬🇧 WEB DEV UK</span>
+                  <span>🇬🇧 Web Dev UK</span>
                 </Link>
                 <Link
                   href="/services"
                   className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.14em] sm:tracking-[0.18em] text-white hover:text-[#681fe4] inline-flex items-center gap-2 transition-colors border-b border-white/20 pb-1"
                 >
-                  <span>SERVICES MATRIX →</span>
+                  <span>All Services Matrix →</span>
                 </Link>
               </div>
             </div>
@@ -497,24 +515,32 @@ export default function Home() {
                   </div>
                   {/* Serial Number in Tracking Text */}
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    01 • DIGITAL PR &amp; MEDIA AUTHORITY
+                    01 • Digital PR &amp; Media Outreach
                   </span>
                   {/* Title in Responsive Bebas Neue */}
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
-                    EDITORIAL DIGITAL PR &amp;<br className="hidden sm:inline" /> AUTHORITY MEDIA FEATURES
+                    Editorial Digital PR &amp;<br className="hidden sm:inline" /> Authority Media Features
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                    Secure authentic brand features and editorial media coverage across 1,000+ curated high-trust publications. 100% white-hat editorial outreach strictly adhering to Google Search Essentials.
+                    Secure authentic brand features and editorial media coverage across 1,000+ curated high-trust publications. 100% white-hat editorial outreach strictly adhering to Google Search Essentials with proper link attribution.
                   </p>
                 </div>
-                {/* Bottom Arrow */}
-                <Link
-                  href="/guest-posting"
-                  className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/60 group-hover:text-[#681fe4] transition-colors"
-                >
-                  <span>EXPLORE EDITORIAL NETWORK</span>
-                  <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
-                </Link>
+                {/* Bottom Links */}
+                <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
+                  <Link
+                    href="/guest-posting"
+                    className="flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/70 group-hover:text-[#681fe4] transition-colors"
+                  >
+                    <span>EXPLORE EDITORIAL NETWORK</span>
+                    <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
+                  </Link>
+                  <Link
+                    href="/services/backlink-building"
+                    className="text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
+                  >
+                    Digital PR &amp; White-Hat Outreach →
+                  </Link>
+                </div>
               </div>
 
               {/* Column 02 */}
@@ -526,22 +552,30 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    02 • SEARCH ARCHITECTURE
+                    02 • Technical Search Optimization
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
-                    ENTERPRISE TECHNICAL SEO &amp;<br className="hidden sm:inline" /> SEMANTIC CLUSTERING
+                    Enterprise Technical SEO &amp;<br className="hidden sm:inline" /> Semantic Clustering
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
                     Target high-intent commercial keywords. We eliminate crawl budget waste, architect JSON-LD schemas, and safeguard Google core update visibility.
                   </p>
                 </div>
-                <Link
-                  href="/services/seo-optimization"
-                  className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/60 group-hover:text-[#681fe4] transition-colors"
-                >
-                  <span>TECHNICAL AUDIT</span>
-                  <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
-                </Link>
+                <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
+                  <Link
+                    href="/services/seo-optimization"
+                    className="flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/70 group-hover:text-[#681fe4] transition-colors"
+                  >
+                    <span>TECHNICAL SEO AUDIT</span>
+                    <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
+                  </Link>
+                  <Link
+                    href="/blog/google-maps-local-seo"
+                    className="text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
+                  >
+                    Local SEO &amp; Maps Guide →
+                  </Link>
+                </div>
               </div>
 
               {/* Column 03 */}
@@ -553,22 +587,30 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    03 • EDGE COMPUTING
+                    03 • Next.js Web Development
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
-                    HEADLESS NEXT.JS WEB<br className="hidden sm:inline" /> ENGINEERING &amp; CWV
+                    Headless Next.js Web<br className="hidden sm:inline" /> Engineering &amp; Speed
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                    Sub-0.8s load times and 95+ PageSpeed scores on Next.js App Router. Custom digital platforms engineered for conversion across US &amp; European markets.
+                    Sub-0.8s load times and 98+ PageSpeed scores on Next.js App Router. Custom digital platforms engineered for conversion across US, UK &amp; European markets.
                   </p>
                 </div>
-                <Link
-                  href="/services/website-development"
-                  className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/60 group-hover:text-[#681fe4] transition-colors"
-                >
-                  <span>ENGINEERING SPECS</span>
-                  <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
-                </Link>
+                <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
+                  <Link
+                    href="/services/website-development"
+                    className="flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/70 group-hover:text-[#681fe4] transition-colors"
+                  >
+                    <span>ENGINEERING SPECS</span>
+                    <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
+                  </Link>
+                  <Link
+                    href="/services/website-maintenance"
+                    className="text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
+                  >
+                    Website Maintenance &amp; SLAs →
+                  </Link>
+                </div>
               </div>
 
               {/* Column 04 */}
@@ -580,22 +622,30 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/40 block mb-2 sm:mb-3">
-                    04 • REVENUE ARCHITECTURE
+                    04 • Conversion Optimization
                   </span>
                   <h3 className="font-bebas text-[24px] sm:text-[28px] lg:text-[30px] xl:text-[32px] tracking-[0.1em] sm:tracking-[0.16em] text-white leading-tight mb-3 sm:mb-4 group-hover:text-[#681fe4] transition-colors">
-                    CONVERSION RATE FUNNELS &amp;<br className="hidden sm:inline" /> REVENUE ARCHITECTURE
+                    Conversion Rate Funnels &amp;<br className="hidden sm:inline" /> Email Retention
                   </h3>
                   <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                    Transform incoming organic visitors into qualified enterprise pipeline. A/B split checkout flows, behavioral heatmaps, and frictionless retention.
+                    Transform incoming organic visitors into qualified enterprise pipeline. A/B split checkout flows, behavioral heatmaps, and automated email lifecycle sequences.
                   </p>
                 </div>
-                <Link
-                  href="/contact-us"
-                  className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/60 group-hover:text-[#681fe4] transition-colors"
-                >
-                  <span>SCHEDULE SPRINT</span>
-                  <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
-                </Link>
+                <div className="pt-4 border-t border-white/10 flex flex-col gap-2">
+                  <Link
+                    href="/contact-us"
+                    className="flex items-center justify-between text-xs font-bebas tracking-[0.18em] text-white/70 group-hover:text-[#681fe4] transition-colors"
+                  >
+                    <span>SCHEDULE SPRINT</span>
+                    <span className="text-lg group-hover:translate-x-1.5 transition-transform">→</span>
+                  </Link>
+                  <Link
+                    href="/services/email-marketing"
+                    className="text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
+                  >
+                    Email Marketing &amp; Retention →
+                  </Link>
+                </div>
               </div>
 
             </div>
@@ -604,10 +654,8 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
-            4. SPECIAL COMPONENT: PROGRESSIVE SKILL BARS
-            - Labeled data visualization bar with distinct dark label badge
-            - Percentage value inside a small black (#07030d) rectangle box at top right
-            - Bar: 6px height, background #F5F5F5 (or white/10), progress fill #681fe4
+            4. VERIFIED SERVICE LEVEL STANDARDS & OPERATIONAL BENCHMARKS
+            Replaces arbitrary 98%/99%/94%/97% progress bars with transparent verified SLAs
            ========================================================================= */}
         <section className="py-14 sm:py-20 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-b border-white/10 overflow-hidden">
           <div className="max-w-[1320px] mx-auto text-left">
@@ -615,81 +663,95 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center mb-8 sm:mb-12">
               <div className="lg:col-span-5">
                 <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-                  PERFORMANCE METRICS &amp; SLA BENCHMARKS
+                  Service Standards &amp; SLAs
                 </span>
                 <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
-                  MEASURED EXECUTION STANDARDS
+                  Verified Execution Standards
                 </h3>
               </div>
               <div className="lg:col-span-7">
                 <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed font-normal">
-                  Every deployment at Balaji Prime Media is rigorously verified against automated technical SLAs. We enforce sub-second Core Web Vitals, 100% indexed backlink validation, and zero algorithm penalty tolerance.
+                  Every sprint at Balaji Prime Media operates under strict, transparent technical benchmarks. We guarantee real Core Web Vitals thresholds, 100% manual white-hat outreach with proper link attributes, and zero link schemes.
                 </p>
               </div>
             </div>
 
-            {/* 4 Progressive Skill Bars */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {/* 4 Transparent Quality Standards Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               
-              {/* Skill Bar 01 */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
-                    HIGH-AUTHORITY EDITORIAL DIGITAL PR ACCURACY
-                  </span>
-                  {/* Percentage in small black #07030d box */}
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
-                    98%
-                  </span>
+              {/* Card 01 */}
+              <div className="p-5 sm:p-6 rounded-[4px] bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-mono text-[#681fe4]">BENCHMARK 01</span>
+                    <span className="bg-[#681fe4]/20 text-[#c084fc] text-[10px] font-mono px-2 py-0.5 rounded">White-Hat</span>
+                  </div>
+                  <h4 className="font-bebas text-lg sm:text-xl text-white tracking-[0.08em] uppercase mb-2">
+                    Editorial Digital PR Outreach
+                  </h4>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    100% manual outreach to verified journalists and publications. Zero PBNs, zero link farms, and strict Google Search Essentials compliance with proper rel=&quot;sponsored&quot; disclosures where required.
+                  </p>
                 </div>
-                {/* Bar: 6px height, bg #F5F5F5 / white-10, progress #681fe4 */}
-                <div className="h-[6px] w-full bg-white/10 rounded-[2px] overflow-hidden">
-                  <div className="h-full bg-[#681fe4] rounded-[2px]" style={{ width: "98%" }} />
-                </div>
-              </div>
-
-              {/* Skill Bar 02 */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
-                    NEXT.JS APP ROUTER CORE WEB VITALS (SUB-0.8S TTFB)
-                  </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
-                    99%
-                  </span>
-                </div>
-                <div className="h-[6px] w-full bg-white/10 rounded-[2px] overflow-hidden">
-                  <div className="h-full bg-[#681fe4] rounded-[2px]" style={{ width: "99%" }} />
+                <div className="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-neutral-400">
+                  Target: 1,000+ Curated Publications
                 </div>
               </div>
 
-              {/* Skill Bar 03 */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
-                    COMMERCIAL KEYWORDS TOP-10 GOOGLE SERP RETENTION
-                  </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
-                    94%
-                  </span>
+              {/* Card 02 */}
+              <div className="p-5 sm:p-6 rounded-[4px] bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-mono text-[#681fe4]">BENCHMARK 02</span>
+                    <span className="bg-[#681fe4]/20 text-[#c084fc] text-[10px] font-mono px-2 py-0.5 rounded">PageSpeed</span>
+                  </div>
+                  <h4 className="font-bebas text-lg sm:text-xl text-white tracking-[0.08em] uppercase mb-2">
+                    Next.js Core Web Vitals SLA
+                  </h4>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Sub-0.8s Time to First Byte (TTFB), LCP under 1.2s, INP under 50ms, and CLS score of 0.00. Built on Next.js App Router for optimal mobile experience.
+                  </p>
                 </div>
-                <div className="h-[6px] w-full bg-white/10 rounded-[2px] overflow-hidden">
-                  <div className="h-full bg-[#681fe4] rounded-[2px]" style={{ width: "94%" }} />
+                <div className="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-neutral-400">
+                  Target: Passing All 3 Core Web Vitals
                 </div>
               </div>
 
-              {/* Skill Bar 04 */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-bebas text-xs sm:text-sm lg:text-base tracking-[0.1em] sm:tracking-[0.18em] text-white uppercase">
-                    TECHNICAL CRAWL HEALTH &amp; STRUCTURED SCHEMA FIDELITY
-                  </span>
-                  <span className="bg-[#07030d] border border-white/20 text-[#681fe4] font-bebas text-xs sm:text-sm tracking-[0.12em] px-2 sm:px-2.5 py-0.5 rounded-[2px] shadow-xs shrink-0">
-                    97%
-                  </span>
+              {/* Card 03 */}
+              <div className="p-5 sm:p-6 rounded-[4px] bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-mono text-[#681fe4]">BENCHMARK 03</span>
+                    <span className="bg-[#681fe4]/20 text-[#c084fc] text-[10px] font-mono px-2 py-0.5 rounded">Rankings</span>
+                  </div>
+                  <h4 className="font-bebas text-lg sm:text-xl text-white tracking-[0.08em] uppercase mb-2">
+                    High-Intent Keyword Targeting
+                  </h4>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    Systematic semantic topic clusters targeting commercial, high-conversion search queries. Full JSON-LD structured schema deployment and zero crawl budget waste.
+                  </p>
                 </div>
-                <div className="h-[6px] w-full bg-white/10 rounded-[2px] overflow-hidden">
-                  <div className="h-full bg-[#681fe4] rounded-[2px]" style={{ width: "97%" }} />
+                <div className="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-neutral-400">
+                  Target: Bottom-Funnel Buyer Terms
+                </div>
+              </div>
+
+              {/* Card 04 */}
+              <div className="p-5 sm:p-6 rounded-[4px] bg-white/[0.02] border border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-mono text-[#681fe4]">BENCHMARK 04</span>
+                    <span className="bg-[#681fe4]/20 text-[#c084fc] text-[10px] font-mono px-2 py-0.5 rounded">Transparency</span>
+                  </div>
+                  <h4 className="font-bebas text-lg sm:text-xl text-white tracking-[0.08em] uppercase mb-2">
+                    Live Client Reporting &amp; SLAs
+                  </h4>
+                  <p className="text-neutral-400 text-xs leading-relaxed">
+                    24/7 access to live Google Looker Studio performance dashboards, weekly search visibility digests, verified indexation tracking, and direct senior strategist communication.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-neutral-400">
+                  Target: Weekly Reporting &amp; Live Audits
                 </div>
               </div>
 
@@ -752,7 +814,7 @@ export default function Home() {
                   {/* 100% Grayscale Image with Dark Ink Vignette */}
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={item.alt || item.title}
                     className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700 pointer-events-none"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#07030d] via-[#07030d]/60 to-[#07030d]/30 pointer-events-none" />
@@ -835,7 +897,7 @@ export default function Home() {
                   +340%
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  ORGANIC SEARCH TRAFFIC LIFT (6-MO SPRINT)
+                  AVG CLIENT ORGANIC TRAFFIC LIFT (6-MO SPRINT)
                 </span>
               </div>
 
@@ -848,7 +910,7 @@ export default function Home() {
                   &lt; 0.8S
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  NEXT.JS EDGE LOAD TIME
+                  NEXT.JS TIME TO FIRST BYTE (TTFB)
                 </span>
               </div>
 
@@ -858,10 +920,10 @@ export default function Home() {
                   🎯
                 </div>
                 <span className="font-bebas text-3xl sm:text-4xl lg:text-[48px] tracking-[0.04em] sm:tracking-[0.06em] text-white leading-none block mb-1">
-                  95+
+                  98+
                 </span>
                 <span className="font-bebas text-[10px] sm:text-xs tracking-[0.14em] sm:tracking-[0.24em] text-white/80 uppercase">
-                  CORE WEB VITALS TARGET (LIGHTHOUSE)
+                  LIGHTHOUSE PERFORMANCE SCORE (PASSING CWV)
                 </span>
               </div>
 
@@ -870,10 +932,7 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
-            7. SPECIAL COMPONENT: DIAGONAL FEATURE BLOCK
-            - Relative container with a banner
-            - 33% width right-side overlay with clip-path in #220090
-            - 45-degree rotated purple square partially peeking out from the top edge
+            7. EXECUTIVE ADVISORY & DIRECT ACCOUNTABILITY
            ========================================================================= */}
         <section className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#07030d] relative overflow-hidden">
           <div className="max-w-[1320px] mx-auto relative rounded-[4px] border border-white/10 bg-[#0c0617] overflow-hidden p-6 sm:p-10 lg:p-16 text-left">
@@ -892,13 +951,13 @@ export default function Home() {
 
             <div className="relative z-10 max-w-2xl">
               <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
-                EXECUTIVE ADVISORY &amp; DIRECT ACCOUNTABILITY
+                Executive Advisory &amp; Direct Accountability
               </span>
               <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-[0.92] mb-5 sm:mb-6">
                 TIRED OF AGENCY FLUFF? WE DELIVER REAL COMMERCIAL REVENUE.
               </h2>
               <p className="text-neutral-300 text-xs sm:text-base leading-relaxed mb-6 sm:mb-8 font-normal">
-                No junior account managers, no vanity impressions, and no algorithmic guesswork. You collaborate directly with senior technical architects who inspect your search codebase, negotiate high-DA editorial placements, and sprint weekly toward measurable revenue goals.
+                No junior account managers, no vanity impressions, and no algorithmic guesswork. You collaborate directly with senior technical strategists who inspect your search codebase, negotiate high-tier editorial placements, and sprint weekly toward measurable revenue goals.
               </p>
               
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -922,26 +981,110 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
+            7.5 FOUNDER & LEADERSHIP SHOWCASE (E-E-A-T Signal for Google & Clients)
+           ========================================================================= */}
+        <section id="leadership" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-y border-white/10 relative overflow-hidden">
+          <div className="max-w-[1320px] mx-auto text-left">
+            
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-14 gap-6">
+              <div>
+                <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
+                  Agency Leadership &amp; Founder
+                </span>
+                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
+                  Meet The Strategist Behind Balaji Prime Media
+                </h2>
+              </div>
+              <Link
+                href="/about-us"
+                className="font-bebas text-xs sm:text-sm tracking-[0.16em] text-[#681fe4] hover:text-white transition-colors border-b border-[#681fe4]/40 pb-1 self-start md:self-auto"
+              >
+                Learn More About Our Team →
+              </Link>
+            </div>
+
+            <div className="rounded-[4px] border border-white/10 bg-[#07030d] p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border-2 border-[#681fe4] p-1.5 shrink-0 bg-white/5 overflow-hidden shadow-2xl">
+                <img
+                  src="/images/leadership/real-avatar-rahul.png"
+                  alt="Rahul Sharma - Founder & Lead SEO Strategist at Balaji Prime Media"
+                  className="w-full h-full object-cover rounded-full filter grayscale contrast-125"
+                />
+              </div>
+
+              <div className="flex-1 text-center lg:text-left">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                  <div>
+                    <h3 className="font-bebas text-2xl sm:text-4xl text-white tracking-[0.08em] uppercase">
+                      Rahul Sharma
+                    </h3>
+                    <span className="font-bebas text-xs sm:text-sm tracking-[0.18em] text-[#681fe4] uppercase block">
+                      Founder &amp; Lead SEO Strategist • Jaipur, India
+                    </span>
+                  </div>
+                  <a
+                    href="https://www.linkedin.com/company/balajiprimemedia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-[4px] bg-[#0077b5]/20 hover:bg-[#0077b5]/30 border border-[#0077b5]/40 text-[#38bdf8] hover:text-white font-bebas text-xs tracking-[0.14em] uppercase transition-all shrink-0 self-center sm:self-auto"
+                  >
+                    <span>Connect on LinkedIn</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+
+                <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 max-w-3xl font-normal font-satoshi">
+                  With over 7 years of specialized expertise in technical search optimization, authoritative digital PR outreach, and high-performance headless Next.js web systems, Rahul founded Balaji Prime Media in Jaipur to provide global enterprise clients with measurable, white-hat organic search acquisition.
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/10 text-left">
+                  <div>
+                    <span className="text-[10px] font-mono text-neutral-500 uppercase block">Expertise</span>
+                    <span className="text-xs font-semibold text-white">Technical &amp; Local SEO</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-neutral-500 uppercase block">Outreach Standard</span>
+                    <span className="text-xs font-semibold text-white">100% White-Hat Manual</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-neutral-500 uppercase block">Stack Engineering</span>
+                    <span className="text-xs font-semibold text-white">Next.js &amp; Edge Compute</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-neutral-500 uppercase block">Geographic Reach</span>
+                    <span className="text-xs font-semibold text-white">US, UK, GCC &amp; India</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* =========================================================================
             8. INTERACTIVE 20-POINT SEO & GROWTH AUDIT MODULE
             - High-converting interactive audit tool
             - #07030d ink background, 240px white gridline pattern, sharp 4px input fields
            ========================================================================= */}
-        <section id="audit-tool" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-y border-white/10 relative overflow-hidden">
+        <section id="audit-tool" className="py-16 sm:py-24 px-4 sm:px-8 lg:px-12 bg-[#0c0617] border-b border-white/10 relative overflow-hidden">
           <div className="max-w-4xl mx-auto text-center relative z-10">
             
             <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-              INSTANT DIAGNOSTIC ENGINE
+              Expert Manual Growth Audit
             </span>
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none mb-3 sm:mb-4">
-              REQUEST YOUR 20-POINT SEO &amp; ARCHITECTURE AUDIT
+              Request Your 20-Point SEO &amp; Growth Review
             </h2>
-            <p className="text-neutral-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-8 sm:mb-10">
-              Enter your website URL. Our senior growth engineers will analyze your crawl budget, Core Web Vitals, competitor backlink intersects, and commercial keyword gaps — delivered within 24 hours.
+            <p className="text-neutral-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-3 sm:mb-4">
+              Enter your website URL. Our senior growth strategists will inspect your crawl budget, Core Web Vitals, competitor backlink profiles, and high-intent keyword gaps — delivered within 24 hours.
+            </p>
+            <p className="text-xs text-neutral-400 mb-8 sm:mb-10">
+              Need immediate automated metrics? <Link href="/audit" className="text-[#38bdf8] hover:underline font-semibold">Run our 30-Second Instant SEO Audit Tool →</Link>
             </p>
 
             {auditSuccess ? (
               <div className="bg-[#681fe4]/20 border border-[#681fe4] p-5 sm:p-6 rounded-[4px] text-white font-bebas text-base sm:text-lg tracking-[0.1em] sm:tracking-[0.12em] animate-fadeIn">
-                ✓ AUDIT REQUEST RECEIVED. CHECK YOUR INBOX WITHIN 24 HOURS FOR YOUR TAILORED ARCHITECTURE REPORT.
+                ✓ AUDIT REQUEST RECEIVED. CHECK YOUR INBOX WITHIN 24 HOURS FOR YOUR TAILORED REPORT.
               </div>
             ) : (
               <form onSubmit={handleAuditSubmit} className="space-y-4 text-left max-w-2xl mx-auto">

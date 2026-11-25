@@ -15,6 +15,12 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
+    id: "faq-penalty-safe",
+    category: "guest-post",
+    question: "Are your guest posting methods safe from Google penalties?",
+    answer: "Yes, 100%. We strictly reject Private Blog Networks (PBNs), automated link injection, and link spam. Every digital PR placement is negotiated directly with authentic editors of verified publications that receive real organic search traffic. Furthermore, for commercial sponsor features, we strictly adhere to Google Search Essentials with appropriate rel='sponsored' or rel='nofollow' attributes where required, ensuring complete safety from algorithmic penalties.",
+  },
+  {
     id: "faq-1",
     category: "seo",
     question: "How long does it typically take to see measurable SEO results?",
@@ -93,7 +99,7 @@ export default function FAQPage() {
       <section className="relative z-10 pt-32 sm:pt-40 pb-16 max-w-5xl mx-auto px-4 sm:px-6 text-center border-b border-white/10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[2px] bg-white/5 border border-white/10 text-xs font-bebas tracking-[0.2em] uppercase text-[#38bdf8] mb-4">
           <HelpCircle className="w-3.5 h-3.5 text-[#38bdf8]" />
-          <span>KNOWLEDGE &amp; CLARITY // FAQ</span>
+          <span>Knowledge &amp; Clarity • FAQ</span>
         </div>
 
         <h1 className="font-bebas text-4xl sm:text-6xl md:text-7xl tracking-[0.16em] uppercase text-white mb-4 leading-none">
@@ -131,7 +137,7 @@ export default function FAQPage() {
       <section className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-16">
         <div className="mb-10 sm:mb-14 text-center sm:text-left">
           <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-[#38bdf8] uppercase block mb-2">
-            // AGENCY SEARCH &amp; DEVELOPMENT FAQS
+            Agency Search &amp; Development FAQs
           </span>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bebas tracking-[0.04em] sm:tracking-[0.06em] text-white uppercase leading-none">
             FREQUENTLY ASKED QUESTIONS
@@ -158,11 +164,18 @@ export default function FAQPage() {
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
-                  {isOpen && (
-                    <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal font-satoshi">
-                      {faq.answer}
+                  {/* All FAQ answers remain in the HTML DOM for Googlebot crawlability */}
+                  <div
+                    className={`grid transition-all duration-300 ease-in-out ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 pt-3 sm:pt-4 font-normal font-satoshi">
+                        {faq.answer}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })

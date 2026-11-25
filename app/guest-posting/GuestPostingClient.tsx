@@ -188,13 +188,13 @@ export default function GuestPostingClient() {
       <section className="py-20 sm:py-28 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-white/10">
         <div className="text-center mb-14 sm:mb-16">
           <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-2">
-            // PRICING TIERS
+            Pricing Tiers
           </span>
           <h3 className="font-bebas text-3xl sm:text-5xl md:text-6xl text-white tracking-[0.16em] uppercase">
-            TRANSPARENT LINK BUILDING TIERS
+            TRANSPARENT DIGITAL PR &amp; EDITORIAL TIERS
           </h3>
           <p className="font-satoshi text-neutral-300 text-sm sm:text-base mt-2 max-w-xl mx-auto leading-relaxed">
-            All tiers include professional content drafting, manual outreach, and lifetime placement guarantee.
+            All tiers include dedicated content research, manual journalist outreach, and permanent live placement guarantee adhering to Google Search Essentials.
           </p>
         </div>
 

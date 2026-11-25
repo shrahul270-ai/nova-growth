@@ -56,7 +56,7 @@ export const COVER_FLOW_SERVICES: CoverFlowItem[] = [
     statLeft: "99/100",
     statLeftLabel: "PageSpeed Score",
     statRight: "<1.1s",
-    statRightLabel: "Core Web Vitals",
+    statRightLabel: "LCP Load Time (CWV)",
     priceINR: "₹49,999",
     priceUSD: "$699",
     tat: "3–4 Weeks",

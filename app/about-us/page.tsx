@@ -56,7 +56,7 @@ export default function AboutUsPage() {
       <section className="relative py-16 sm:py-24 px-4 sm:px-6 md:px-12 z-10 text-center">
         <div className="max-w-4xl mx-auto bg-[#0c0818] p-8 sm:p-14 rounded-[4px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] text-white">
           <span className="font-bebas text-xs sm:text-sm tracking-[0.24em] text-[#681fe4] uppercase block mb-3">
-            // ACCELERATE YOUR GROWTH
+            Accelerate Your Growth
           </span>
           <h2 className="font-bebas text-3xl sm:text-5xl lg:text-6xl text-white mb-4 tracking-[0.16em] uppercase leading-tight">
             READY TO ACCELERATE YOUR BRAND?

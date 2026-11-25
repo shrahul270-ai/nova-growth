@@ -55,7 +55,7 @@ export default function Leadership3DCards() {
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center justify-center px-5 py-1.5 rounded-[2px] border border-white/10 bg-white/5 backdrop-blur-xl mb-4">
             <span className="text-xs font-bebas tracking-[0.24em] text-[#681fe4] uppercase">
-              LEADERSHIP // 04
+              Leadership Team
             </span>
           </div>
 
@@ -99,11 +99,18 @@ export default function Leadership3DCards() {
                 {member.bio}
               </p>
 
-              {/* Bottom Line Accent */}
-              <div 
-                className="w-16 h-[1px] bg-white/10 mt-6 mx-auto" 
-                aria-hidden="true" 
-              />
+              {/* LinkedIn / Profile Link */}
+              <div className="mt-4 pt-3 border-t border-white/10 w-full flex items-center justify-center">
+                <a
+                  href="https://www.linkedin.com/company/balajiprimemedia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-bebas tracking-[0.14em] text-[#38bdf8] hover:text-white uppercase transition-colors"
+                >
+                  <span>Connect on LinkedIn</span>
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
           ))}
         </div>

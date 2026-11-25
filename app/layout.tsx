@@ -23,9 +23,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://balajiprimemedia.in"),
-  title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+  title: "SEO Agency & Web Development Jaipur | Balaji Prime Media",
   description:
-    "Balaji Prime Media is a premier SEO & Next.js agency in Jaipur scaling organic search rankings, white-hat digital PR, and edge-rendered web platforms.",
+    "Balaji Prime Media is an SEO and Next.js web agency in Jaipur driving organic traffic, white-hat digital PR, and high-performance websites.",
   verification: {
     google: "eeg9kD9YKpMbiK9peLhAiYLzjjS7nDfw3sonfKdFrrU",
   },
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+    title: "SEO Agency & Web Development Jaipur | Balaji Prime Media",
     description:
-      "Scale organic rankings, authoritative digital PR, and high-performance Next.js web applications with Balaji Prime Media.",
+      "Scale organic search rankings, white-hat digital PR, and sub-second Next.js web applications with Balaji Prime Media.",
     url: "https://balajiprimemedia.in",
     siteName: "Balaji Prime Media",
     locale: "en_US",
@@ -58,15 +58,15 @@ export const metadata: Metadata = {
         url: "/images/bpm-og-banner.png",
         width: 1200,
         height: 630,
-        alt: "Balaji Prime Media - SEO & Next.js Agency in Jaipur",
+        alt: "Balaji Prime Media - SEO Agency & Web Development Jaipur",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEO & Next.js Agency in Jaipur | Balaji Prime Media",
+    title: "SEO Agency & Web Development Jaipur | Balaji Prime Media",
     description:
-      "Scale organic rankings, authoritative digital PR, and high-performance Next.js web applications with Balaji Prime Media.",
+      "Scale organic search rankings, white-hat digital PR, and sub-second Next.js web applications with Balaji Prime Media.",
     images: ["/images/bpm-og-banner.png"],
   },
 };

@@ -38,7 +38,7 @@ const DEFAULT_RIBBON_SERVICES: RibbonServiceItem[] = [
     statLeft: "99/100",
     statLeftLabel: "PageSpeed",
     statRight: "<1.1s",
-    statRightLabel: "Core Vitals",
+    statRightLabel: "LCP (CWV)",
     photoUrl: "/images/services/website-development.jpg",
     videoUrl: "https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev/aaaf/mossline-hero.mp4",
     aspect: 1.700,

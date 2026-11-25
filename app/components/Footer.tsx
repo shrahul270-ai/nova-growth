@@ -8,14 +8,6 @@ export default function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const emailInquiryHref =
-    "mailto:support@balajiprimemedia.in?subject=" +
-    encodeURIComponent("New Inquiry - Balaji Prime Media") +
-    "&body=" +
-    encodeURIComponent(
-      "Hello Balaji Prime Media,\n\nClient Details:\n• Full Name: \n• Business Email: \n• Phone / WhatsApp: \n• Website Domain: \n• Service Interested: \n• Estimated Budget: \n\nMessage / Requirements:\n"
-    );
-
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
@@ -29,9 +21,9 @@ export default function Footer() {
           type: "newsletter",
           email: email,
           name: "Newsletter Subscriber",
-          service: "Weekly SEO & Digital Growth Insights",
+          service: "Weekly SEO & Search Insights",
           sourceUrl: typeof window !== "undefined" ? window.location.pathname : "/",
-          message: "User subscribed to Balaji Prime Media newsletter via footer form.",
+          message: "User subscribed to newsletter via footer.",
         }),
       });
       setSubscribed(true);
@@ -45,398 +37,265 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#07030d] text-white font-satoshi z-10 overflow-hidden border-t border-white/10">
-      
-      {/* =====================================================================
-          TIER 1: Massive 'Let's Work Together' & Brand Identification
-         ===================================================================== */}
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 border-b border-white/10">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 text-left">
+    <footer className="bg-[#07030d] text-white font-satoshi border-t border-white/10 overflow-hidden">
+      {/* Main Footer Container */}
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 pt-12 sm:pt-16 pb-10">
+        
+        {/* Top Header Bar: Brand + Direct Consultation Call-to-Action */}
+        <div className="pb-10 sm:pb-12 border-b border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-3.5 mb-6">
-              <div className="relative w-8 h-8 flex items-center shrink-0">
-                <span className="w-6 h-6 rounded-full border border-white/90 block" />
-                <span className="w-6 h-6 rounded-full bg-white block -ml-3" />
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-2 group">
+              <div className="relative w-6 h-6 flex items-center shrink-0">
+                <span className="w-5 h-5 rounded-full border border-white/90 block" />
+                <span className="w-5 h-5 rounded-full bg-white block -ml-2.5" />
               </div>
-              <span className="font-bebas text-2xl tracking-[0.2em] text-white">
+              <span className="font-bebas text-2xl tracking-[0.16em] text-white group-hover:text-[#38bdf8] transition-colors">
                 BALAJI PRIME MEDIA
               </span>
-            </div>
-
-            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.24em] text-white/50 uppercase block mb-2">
-              // INITIATE COMMERCIAL PARTNERSHIP
-            </span>
-            <a
-              href={emailInquiryHref}
-              className="font-bebas text-2xl xs:text-3xl sm:text-5xl md:text-6xl tracking-[0.08em] sm:tracking-[0.14em] text-[#0ea5e9] hover:text-white transition-colors block uppercase leading-none break-words"
-            >
-              LET&apos;S WORK TOGETHER →
-            </a>
-            <div className="text-neutral-400 text-xs sm:text-sm mt-2 font-mono flex flex-wrap gap-x-2 gap-y-1">
-              <a href="mailto:support@balajiprimemedia.in" className="hover:text-white transition-colors">support@balajiprimemedia.in</a>
-              <span>•</span>
-              <a href="tel:+917690868932" className="hover:text-white transition-colors">Direct Client Inquiries (+91 76908 68932)</a>
-            </div>
+            </Link>
+            <p className="text-xs sm:text-sm text-neutral-400 max-w-lg leading-relaxed font-normal">
+              Premier SEO agency and Next.js web development company in Jaipur, engineering high-impact organic search growth and white-hat digital PR for global brands.
+            </p>
           </div>
 
-          {/* Social Channels in Sharp 4px Boxes */}
-          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
-            {[
-              { name: "WhatsApp", href: "https://wa.me/917690868932", label: "WA" },
-              { name: "Telegram", href: "https://t.me/balajiprimemedia", label: "TG" },
-              { name: "LinkedIn", href: "https://www.linkedin.com/company/balajiprimemedia", label: "LI" },
-              { name: "Twitter", href: "https://x.com/balajiprimemedia", label: "X" },
-            ].map((s) => (
-              <a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-[4px] border border-white/10 hover:border-[#0ea5e9] hover:bg-[#0284c7] flex items-center justify-center font-bebas text-xs sm:text-sm tracking-[0.12em] text-white transition-all cursor-pointer"
-              >
-                {s.label}
-              </a>
-            ))}
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/schedule-meeting"
+              className="px-5 py-2.5 rounded-[4px] bg-[#681fe4] hover:bg-[#5815cb] text-white font-bebas text-xs sm:text-sm tracking-[0.14em] uppercase transition-all shadow-[0_4px_14px_rgba(104,31,228,0.3)] inline-flex items-center gap-2"
+            >
+              <span>Schedule Strategy Call</span>
+              <span>→</span>
+            </Link>
+            <a
+              href="https://wa.me/917690868932"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-[4px] border border-white/20 hover:border-white/40 hover:bg-white/5 text-white font-bebas text-xs sm:text-sm tracking-[0.14em] uppercase transition-all inline-flex items-center gap-2"
+            >
+              <span>WhatsApp Direct</span>
+              <span>💬</span>
+            </a>
           </div>
         </div>
-      </div>
 
-      {/* =====================================================================
-          TIER 2: 4-Column Grid with Deep Internal Links & Local NAP Signals
-         ===================================================================== */}
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 text-left">
+        {/* 4-Column Navigation Grid - Matches Navbar & Site Architecture */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 py-10 sm:py-12 border-b border-white/10 text-left">
           
-          {/* Col 1: About, Complete Local NAP & Google Business Profile */}
+          {/* Column 1: Main Navigation (Navbar Pages) */}
           <div className="space-y-3.5">
-            <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
-              01 // AGENCY &amp; HEADQUARTERS
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] text-[#38bdf8] uppercase block">
+              Navigation
             </span>
-            <p className="text-neutral-400 text-xs leading-relaxed font-normal">
-              Balaji Prime Media is an engineering-first growth agency architecting organic search dominance for US, UK, and global brands through verified editorial media and high-speed Next.js systems.
-            </p>
-            
-            <div className="pt-2 space-y-2 text-xs border-t border-white/10">
-              <div className="text-neutral-300 flex items-start gap-2">
-                <span className="text-[#38bdf8] shrink-0 mt-0.5">📍</span>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Home</span>
+                  <span className="text-neutral-600 text-xs">01</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Services</span>
+                  <span className="text-neutral-600 text-xs">02</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/guest-posting" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Guest Posting &amp; Digital PR</span>
+                  <span className="text-neutral-600 text-xs">03</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/projects" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Projects &amp; Case Studies</span>
+                  <span className="text-neutral-600 text-xs">04</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Blog &amp; Search Insights</span>
+                  <span className="text-neutral-600 text-xs">05</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-us" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>About Us</span>
+                  <span className="text-neutral-600 text-xs">06</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact-us" className="hover:text-white transition-colors flex items-center justify-between">
+                  <span>Contact Us</span>
+                  <span className="text-neutral-600 text-xs">07</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Key Growth Services */}
+          <div className="space-y-3.5">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] text-[#38bdf8] uppercase block">
+              Core Services
+            </span>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300">
+              <li>
+                <Link href="/services/seo-optimization" className="hover:text-[#38bdf8] transition-colors block">
+                  Technical SEO Optimization
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/website-development" className="hover:text-[#38bdf8] transition-colors block">
+                  Next.js Web Development
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/backlink-building" className="hover:text-[#38bdf8] transition-colors block">
+                  Digital PR &amp; Media Outreach
+                </Link>
+              </li>
+              <li>
+                <Link href="/seo-services-usa" className="hover:text-[#38bdf8] transition-colors block">
+                  SEO Services USA
+                </Link>
+              </li>
+              <li>
+                <Link href="/web-development-uk" className="hover:text-[#38bdf8] transition-colors block">
+                  Web Development UK
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/email-marketing" className="hover:text-[#38bdf8] transition-colors block">
+                  Email Marketing &amp; Retention
+                </Link>
+              </li>
+              <li>
+                <Link href="/services/website-maintenance" className="hover:text-[#38bdf8] transition-colors block">
+                  Website Maintenance &amp; SLAs
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Resources & Tools from Navigation */}
+          <div className="space-y-3.5">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] text-[#38bdf8] uppercase block">
+              Resources &amp; Tools
+            </span>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300">
+              <li>
+                <Link href="/audit" className="hover:text-[#38bdf8] transition-colors flex items-center justify-between">
+                  <span>Free SEO Audit Tool</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#681fe4]/20 text-[#a855f7] font-mono">Instant</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/schedule-meeting" className="hover:text-[#38bdf8] transition-colors block">
+                  Schedule Strategy Meeting
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="hover:text-[#38bdf8] transition-colors block">
+                  Frequently Asked Questions
+                </Link>
+              </li>
+              <li>
+                <Link href="/help-center" className="hover:text-[#38bdf8] transition-colors block">
+                  Client Help Center
+                </Link>
+              </li>
+              <li>
+                <Link href="/feedback" className="hover:text-[#38bdf8] transition-colors block">
+                  Client Reviews &amp; Feedback
+                </Link>
+              </li>
+              <li>
+                <Link href="/pay" className="hover:text-[#38bdf8] transition-colors flex items-center justify-between">
+                  <span>Client Invoices &amp; Pay</span>
+                  <span className="text-xs">💳</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/sitemap.xml" target="_blank" className="hover:text-[#38bdf8] transition-colors flex items-center gap-1.5 text-neutral-400">
+                  <span>XML Sitemap</span>
+                  <span className="text-xs">↗</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Clean Location & Direct Contact */}
+          <div className="space-y-3.5">
+            <span className="font-bebas text-xs sm:text-sm tracking-[0.2em] text-[#38bdf8] uppercase block">
+              Headquarters
+            </span>
+            <div className="space-y-3 text-xs sm:text-sm text-neutral-300">
+              <div>
+                <span className="text-neutral-400 block text-xs">Office Location:</span>
+                <p className="text-white font-medium mt-0.5">
+                  Jaipur, Rajasthan 302017, India
+                </p>
+                <a
+                  href="https://maps.google.com/?q=14/82,+Malviya+Nagar,+Jaipur,+Rajasthan+302017"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#38bdf8] hover:underline text-xs inline-flex items-center gap-1 mt-1 font-mono"
+                >
+                  <span>View on Google Maps</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+              <div className="pt-2 border-t border-white/10 space-y-1.5">
                 <div>
-                  <strong className="text-white block font-medium">Headquarters Address:</strong>
-                  <span className="text-neutral-400 leading-snug block">14/82, Malviya Nagar, Jaipur, Rajasthan 302017, India</span>
-                  <a
-                    href="https://maps.google.com/?q=14/82,+Malviya+Nagar,+Jaipur,+Rajasthan+302017"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#38bdf8] hover:underline font-mono text-[11px] inline-block mt-1"
-                  >
-                    View on Google Maps →
+                  <span className="text-neutral-400 block text-xs">Direct Email:</span>
+                  <a href="mailto:support@balajiprimemedia.in" className="text-white hover:text-[#38bdf8] transition-colors font-mono text-xs">
+                    support@balajiprimemedia.in
+                  </a>
+                </div>
+                <div>
+                  <span className="text-neutral-400 block text-xs">Phone / WhatsApp:</span>
+                  <a href="tel:+917690868932" className="text-white hover:text-[#38bdf8] transition-colors font-mono text-xs">
+                    +91 76908 68932
                   </a>
                 </div>
               </div>
 
-              <div className="text-neutral-300 flex items-center gap-2 font-mono text-[11px]">
-                <span className="text-[#38bdf8]">📞</span>
-                <a href="tel:+917690868932" className="hover:text-white transition-colors">
-                  +91 76908 68932
-                </a>
-              </div>
-
-              <div className="text-neutral-300 flex items-center gap-2 font-mono text-[11px]">
-                <span className="text-[#38bdf8]">✉️</span>
-                <a href="mailto:support@balajiprimemedia.in" className="hover:text-white transition-colors">
-                  support@balajiprimemedia.in
-                </a>
-              </div>
-
-              <div className="pt-1 text-[11px] text-white/50 font-mono">
-                HOURS: MON–SAT 9:00 AM – 8:00 PM IST
-              </div>
-              <div className="text-[11px] text-[#38bdf8]/80 font-mono">
-                GLOBAL OPS // EST • GMT • AEST
+              {/* Social Channels in Clean Sharp Buttons */}
+              <div className="pt-3">
+                <span className="text-neutral-400 block text-xs mb-2">Connect With Us:</span>
+                <div className="flex items-center gap-2">
+                  {[
+                    { name: "LinkedIn", href: "https://www.linkedin.com/company/balajiprimemedia", label: "LI" },
+                    { name: "Twitter/X", href: "https://x.com/balajiprimemedia", label: "X" },
+                    { name: "Telegram", href: "https://t.me/balajiprimemedia", label: "TG" },
+                    { name: "WhatsApp", href: "https://wa.me/917690868932", label: "WA" },
+                  ].map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 rounded-[4px] border border-white/15 hover:border-[#38bdf8] hover:bg-[#38bdf8]/10 flex items-center justify-center font-bebas text-xs text-neutral-300 hover:text-white transition-all"
+                      title={s.name}
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Col 2: CORE GROWTH SERVICES (Includes previously orphaned /services/ URLs) */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#0ea5e9]" />
-              <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
-                02 // CORE SERVICES
-              </span>
-            </div>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-satoshi">
-              <li>
-                <Link
-                  href="/services/seo-optimization"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Technical SEO Optimization</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/website-development"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Next.js Web Engineering</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/backlink-building"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Digital PR &amp; Media Outreach</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/email-marketing"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>Email Marketing &amp; Retention</span>
-                    <span className="px-1.5 py-0.2 rounded text-[10px] bg-[#0ea5e9]/20 text-[#7dd3fc]">ROI</span>
-                  </span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/website-maintenance"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Website Maintenance &amp; SLA</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/full-stack-php-dev"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Full Stack PHP &amp; Laravel</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/flutter-app-dev"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Flutter Mobile &amp; Web Apps</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/content-writing"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Search Content Strategy</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="group flex items-center justify-between text-[#38bdf8] hover:text-white font-medium transition-colors pt-1"
-                >
-                  <span>View All Services Matrix →</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: REGIONAL HUBS & FEATURED PROJECTS (Fixes /seo-services-usa, /web-development-uk, /projects/fintech-app) */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#0ea5e9]" />
-              <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
-                03 // REGIONAL HUBS &amp; WORK
-              </span>
-            </div>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-satoshi">
-              <li>
-                <Link
-                  href="/seo-services-usa"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors font-medium text-white"
-                >
-                  <span className="flex items-center gap-1.5">
-                    <span>🇺🇸 SEO Services USA</span>
-                  </span>
-                  <span className="text-[#38bdf8] text-xs">Hub →</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/web-development-uk"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors font-medium text-white"
-                >
-                  <span className="flex items-center gap-1.5">
-                    <span>🇬🇧 Web Development UK</span>
-                  </span>
-                  <span className="text-[#38bdf8] text-xs">Hub →</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/guest-posting"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Editorial Media Outreach</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li className="pt-1 border-t border-white/10" />
-              <li>
-                <Link
-                  href="/projects/fintech-app"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Fintech Platform Architecture</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects/fashion-brand"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Luxe Fashion US Headless</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects/saas-pipeline"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>CloudSync B2B Search Engine</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects/local-growth"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Apex Dental UK Local Citations</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/projects"
-                  className="group flex items-center justify-between text-[#38bdf8] hover:text-white font-medium transition-colors pt-1"
-                >
-                  <span>View All Case Studies →</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: EDITORIAL INSIGHTS & SUPPORT (Fixes /blog/google-maps-local-seo) */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#0ea5e9]" />
-              <span className="font-bebas text-sm tracking-[0.24em] text-[#38bdf8] uppercase block">
-                04 // INSIGHTS &amp; SUPPORT
-              </span>
-            </div>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-300 font-satoshi">
-              <li>
-                <Link
-                  href="/blog/google-maps-local-seo"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Google Maps &amp; Local SEO</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog/nextjs-vs-wordpress"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Next.js vs WordPress Architecture</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog/ecommerce-seo-scaling"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>E-Commerce SEO Scaling</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/faq"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Frequently Asked Questions</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/schedule-meeting"
-                  className="group flex items-center justify-between text-[#7dd3fc] hover:text-white font-medium transition-colors"
-                >
-                  <span>Schedule Strategy Meeting</span>
-                  <span>🗓️</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about-us"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>About Our Founders</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact-us"
-                  className="group flex items-center justify-between hover:text-[#38bdf8] transition-colors"
-                >
-                  <span>Contact Our Team</span>
-                  <span className="text-neutral-500 group-hover:text-[#38bdf8] group-hover:translate-x-1 transition-all text-xs">→</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/sitemap.xml"
-                  target="_blank"
-                  className="flex items-center gap-1.5 text-neutral-400 hover:text-white transition-colors text-xs pt-1"
-                >
-                  <span>XML Sitemap</span>
-                  <span>🗺️</span>
-                </Link>
-              </li>
-            </ul>
           </div>
 
         </div>
 
-        {/* NEWSLETTER ROW: Clean, Modern Newsletter Bar */}
-        <div className="mt-10 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 bg-white/[0.02] p-6 rounded-[4px] border border-white/5">
-          <div className="text-left max-w-xl">
-            <span className="font-bebas text-xs tracking-[0.2em] text-[#38bdf8] uppercase block mb-1">
-              SEARCH INTELLIGENCE BRIEF
+        {/* Newsletter Subscription Bar */}
+        <div className="py-6 sm:py-8 border-b border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span className="font-bebas text-xs tracking-[0.18em] text-[#38bdf8] uppercase block">
+              Search Intelligence Newsletter
             </span>
-            <h4 className="font-bebas text-xl text-white tracking-[0.08em] uppercase">
-              CONFIDENTIAL MONTHLY ALGORITHMIC BRIEFING
-            </h4>
-            <p className="text-xs text-neutral-400 mt-1">
-              Zero spam. Direct advisory on Google core updates, technical Core Web Vitals changes, and organic search tactics.
+            <p className="text-xs text-neutral-400 mt-0.5">
+              Actionable briefings on Google core algorithm updates, technical SEO benchmarks, and digital PR.
             </p>
           </div>
           <form onSubmit={handleSubscribe} className="flex items-center gap-2 w-full md:w-auto min-w-[280px] sm:min-w-[340px]">
@@ -444,95 +303,37 @@ export default function Footer() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="ENTER WORK EMAIL"
+              placeholder="Enter work email"
               required
-              className="w-full bg-white/5 border border-white/20 rounded-[4px] px-3.5 py-2.5 text-white placeholder-white/40 focus:border-[#38bdf8] outline-none text-xs font-bebas tracking-[0.14em] transition-colors"
+              className="w-full bg-white/5 border border-white/20 rounded-[4px] px-3.5 py-2 text-white placeholder-neutral-500 focus:border-[#38bdf8] outline-none text-xs transition-colors"
             />
             <button
               type="submit"
               disabled={loading}
-              aria-label="Subscribe to intelligence brief"
-              className="px-5 py-2.5 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-[4px] font-bebas text-xs tracking-[0.14em] flex items-center justify-center shrink-0 transition-colors shadow-xs cursor-pointer disabled:opacity-50"
+              className="px-4 py-2 bg-[#681fe4] hover:bg-[#5815cb] text-white rounded-[4px] font-bebas text-xs tracking-[0.14em] uppercase transition-colors shrink-0 disabled:opacity-50"
             >
-              {loading ? "SENDING..." : "SUBSCRIBE"}
+              {loading ? "..." : subscribed ? "Subscribed!" : "Subscribe"}
             </button>
           </form>
         </div>
 
-        {/* BOTTOM ROW: PAYMENT ACCEPTED, LEGAL LINKS & COPYRIGHT */}
-        <div className="pt-8 sm:pt-12 mt-8 sm:mt-12 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6 text-xs font-bebas tracking-[0.14em] sm:tracking-[0.18em] text-neutral-500">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-white/60">ACCEPTED INVOICE METHODS:</span>
-            <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">STRIPE</span>
-            <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">PAYPAL</span>
-            <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">WISE / WIRE</span>
-            <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded-[2px] text-white/80">UPI / ACH</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+        {/* Bottom Bar: Legal Links & Copyright */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-satoshi">
+          <p>© 2026 Balaji Prime Media. All rights reserved.</p>
+          <div className="flex items-center gap-4 sm:gap-6">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">
-              PRIVACY POLICY
+              Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
-              TERMS OF SERVICE
+              Terms of Service
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-white transition-colors">
-              SITEMAP
+            <Link href="/sitemap.xml" target="_blank" className="hover:text-white transition-colors">
+              Sitemap
             </Link>
-          </div>
-        </div>
-
-        <div className="mt-4 text-center sm:text-left text-[11px] font-mono text-neutral-600">
-          © 2026 BALAJI PRIME MEDIA. ALL RIGHTS RESERVED. GLOBAL SEO &amp; DIGITAL GROWTH ARCHITECTURE.
-        </div>
-
-        {/* =====================================================================
-            TIER 3: Giant Outlined Brand Wordmark ("balaji prime media")
-            Chopskip-style hollow brand-violet outline footer element (100% fluid vector)
-           ===================================================================== */}
-        <div className="pt-8 sm:pt-14 pb-3 sm:pb-5 overflow-hidden flex items-center justify-center select-none w-full max-w-[1320px] mx-auto px-2">
-          <svg
-            viewBox="0 0 1020 120"
-            className="w-full h-auto max-h-[140px] select-none pointer-events-none"
-            aria-label="balaji prime media"
-          >
-            <text
-              x="50%"
-              y="78%"
-              textAnchor="middle"
-              fontFamily="'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
-              fontWeight="800"
-              fontSize="102"
-              letterSpacing="-0.04em"
-              fill="none"
-              stroke="#38bdf8"
-              strokeWidth="2.4"
-              style={{
-                filter: "drop-shadow(0 0 25px rgba(56, 189, 248, 0.65))",
-              }}
-            >
-              balaji prime media
-            </text>
-          </svg>
-        </div>
-
-        {/* BOTTOM METADATA BAR */}
-        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 text-[11px] font-mono text-neutral-500 text-center sm:text-left">
-          <div>
-            © 2026 BALAJI PRIME MEDIA. Made with ❤️ in Jaipur &amp; Global Operations.
-          </div>
-          <div className="flex items-center gap-2.5 sm:gap-3 text-neutral-400 flex-wrap justify-center sm:justify-end">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
-              CLIENT INTAKE ACTIVE
-            </span>
-            <span>•</span>
-            <span className="text-neutral-500">GLOBAL SEO ARCHITECTURE</span>
           </div>
         </div>
 
       </div>
-
     </footer>
   );
 }

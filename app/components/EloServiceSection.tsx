@@ -45,7 +45,7 @@ const ELO_SERVICES: EloServiceItem[] = [
     statLeftValue: "99/100",
     statLeftLabel: "PageSpeed Score",
     statRightValue: "<1.1s",
-    statRightLabel: "Core Web Vitals",
+    statRightLabel: "LCP Load Time (CWV)",
     photoUrl: "/images/services/website-development.jpg",
     photoAlt: "Website Development - Modern Web Developer Coding High-Speed Interface",
     gradient: "radial-gradient(130% 120% at 50% 0%, #162a56 0%, #070d20 100%)",
